@@ -21,7 +21,15 @@ export default function Home() {
         <Button my={5} onClick={handleClick}>
           {"Click me pls"}
         </Button>
-        {showText && <Text>{"Very tasty, thank you"}</Text>}
+
+        <Text
+          fontWeight="bold"
+          color="green.400"
+          opacity={showText ? 1 : 0}
+          transition="opacity 250ms ease-in-out"
+        >
+          {"Very tasty, thank you"}
+        </Text>
       </Box>
     </div>
   );
