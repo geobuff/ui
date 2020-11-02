@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import Head from "next/head";
-import styles from "../styles/Home.module.css";
 
 import { Button, Box, Heading, Text } from "@chakra-ui/core";
 
@@ -10,14 +9,14 @@ export default function Home() {
   const handleClick = () => setShowText(!showText);
 
   return (
-    <div className={styles.container}>
+    <>
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <Box width="100%" textAlign="center">
-        <Heading>{"Welcome to Scrub.NET"}</Heading>
+        <Heading mt={4}>{"Welcome to Scrub.NET"}</Heading>
         <Button my={5} onClick={handleClick}>
           {"Click me pls"}
         </Button>
@@ -31,6 +30,6 @@ export default function Home() {
           {"Very tasty, thank you"}
         </Text>
       </Box>
-    </div>
+    </>
   );
 }
