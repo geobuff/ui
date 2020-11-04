@@ -1,15 +1,19 @@
 import React, { useState } from "react";
 import Head from "next/head";
 
-import { Button, Box, Heading, Text } from "@chakra-ui/core";
+import { Button, Box, Heading } from "@chakra-ui/core";
 
 import World from "@svg-maps/world";
 import { SVGMap } from "react-svg-map";
 
 export default function Home() {
-  const [showText, setShowText] = useState(false);
+  const [answeredCountriesList, setAnsweredCountriesList] = useState([]);
 
-  const handleClick = () => setShowText(!showText);
+  const getLocationClassName = (location) => {
+    if (answeredCountriesList?.find((country) => country === location.name)) {
+      return `selected`;
+    }
+  };
 
   return (
     <>
@@ -20,18 +24,15 @@ export default function Home() {
 
       <Box width="100%" textAlign="center">
         <Heading mt={4}>{"Welcome to Scrub.NET"}</Heading>
-        <Button my={5} onClick={handleClick}>
+        <Button
+          my={5}
+          onClick={() =>
+            setAnsweredCountriesList([...answeredCountriesList, "Russia"])
+          }
+        >
           {"Click me pls"}
         </Button>
-        <Text
-          fontWeight="bold"
-          color="green.400"
-          opacity={showText ? 1 : 0}
-          transition="opacity 250ms ease-in-out"
-        >
-          {"Very tasty, thank you"}
-        </Text>
-        <SVGMap map={World} />;
+        <SVGMap map={World} locationClassName={getLocationClassName} />;
       </Box>
     </>
   );
