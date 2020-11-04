@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+svg * {
+  transition: all 125ms ease-out;
+}
+
+.selected {
+  fill: #4287f5;
+}
