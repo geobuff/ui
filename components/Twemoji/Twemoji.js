@@ -24,8 +24,16 @@ Twemoji.displatName = "Twemoji";
 
 Twemoji.propTypes = {
   emoji: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
+  height: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
+  width: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+  ]),
 };
 
 Twemoji.defaultProps = {

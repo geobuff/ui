@@ -13,14 +13,20 @@ const NavigationBar = () => {
     >
       <Flex alignItems="center" justifyContent="space-between">
         <Link href="/" _hover={{ textDecoration: "none" }}>
-          <Text ml={2} fontSize={36} fontWeight="bold">
-            <Twemoji emoji="🌏" height={10} width={10} pt={2} mr={2} />
+          <Text ml={2} fontSize={[22, 26, 26]} fontWeight="bold">
+            <Twemoji
+              emoji="🌏"
+              height={[6, 7, 7]}
+              width={[6, 7, 7]}
+              pt={["4px", "5px", "5px"]}
+              mr={2}
+            />
             {"Geobuff"}
           </Text>
         </Link>
 
         <Link href="/leaderboard" _hover={{ textDecoration: "none" }}>
-          <Twemoji emoji="🏆" height={8} width={8} pt="2px" />
+          <Twemoji emoji="🏆" height={[6, 7, 7]} width={[6, 7, 7]} pt="2px" />
         </Link>
       </Flex>
     </Box>
