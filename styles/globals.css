@@ -19,6 +19,32 @@ svg * {
   transition: all 125ms ease-out;
 }
 
+.countries-of-world {
+  fill: #cfcfcf;
+  margin: auto;
+  max-height: 500px;
+  margin: 16px;
+}
+
+.countries-of-world::before {
+  content: "";
+  width: 1px;
+  margin-left: -1px;
+  float: left;
+  height: 0;
+  padding-top: (9 / 16) * 100%;
+}
+.countries-of-world::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.highlight-on-hover:hover {
+  fill: #89a0b1;
+  transition: all 500ms ease-out;
+}
+
 .selected {
   fill: #4287f5;
 }
