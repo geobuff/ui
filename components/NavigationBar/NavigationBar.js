@@ -1,8 +1,13 @@
 import React from "react";
 import { Box, Flex, Link, Text } from "@chakra-ui/core";
 import Twemoji from "../Twemoji";
+import { useAuth } from "use-auth0-hooks";
+import { useRouter } from "next/router";
 
 const NavigationBar = () => {
+  const { pathname, query } = useRouter();
+  const { isAuthenticated, isLoading, login, logout } = useAuth();
+
   return (
     <Box
       m={0}
@@ -25,9 +30,22 @@ const NavigationBar = () => {
           </Text>
         </Link>
 
-        <Link href="/leaderboard" _hover={{ textDecoration: "none" }}>
-          <Twemoji emoji="🏆" height={[6, 7, 7]} width={[6, 7, 7]} pt="2px" />
-        </Link>
+        {!isLoading &&
+          (isAuthenticated ? (
+            <button
+              onClick={() => logout({ returnTo: "http://localhost:3000" })}
+            >
+              Log out
+            </button>
+          ) : (
+            <button
+              onClick={() =>
+                login({ appState: { returnTo: { pathname, query } } })
+              }
+            >
+              Log in
+            </button>
+          ))}
       </Flex>
     </Box>
   );
