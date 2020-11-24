@@ -3,7 +3,7 @@ import "../styles/globals.css";
 import PropTypes from "prop-types";
 import { ChakraProvider } from "@chakra-ui/core";
 import NavigationBar from "../components/NavigationBar";
-import { Auth0Provider } from "use-auth0-hooks";
+import { Auth0Provider } from "@auth0/auth0-react";
 
 function MyApp({ Component, pageProps }) {
   return (
