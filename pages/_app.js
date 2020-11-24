@@ -8,9 +8,9 @@ import { Auth0Provider } from "use-auth0-hooks";
 function MyApp({ Component, pageProps }) {
   return (
     <Auth0Provider
-      domain="geobuff.au.auth0.com"
-      clientId="jlTlLHPV62WJ8atB12xqY8fHhVD41CIB"
-      redirectUri="http://localhost:3000"
+      domain={process.env.NEXT_PUBLIC_AUTH0_DOMAIN}
+      clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENTID}
+      redirectUri={process.env.NEXT_PUBLIC_REDIRECT_URI}
     >
       <ChakraProvider>
         <NavigationBar />

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Flex, Link, Text } from "@chakra-ui/core";
+import { Box, Button, Flex, Link, Text } from "@chakra-ui/core";
 import Twemoji from "../Twemoji";
 import { useAuth } from "use-auth0-hooks";
 import { useRouter } from "next/router";
@@ -32,19 +32,21 @@ const NavigationBar = () => {
 
         {!isLoading &&
           (isAuthenticated ? (
-            <button
-              onClick={() => logout({ returnTo: "http://localhost:3000" })}
+            <Button
+              onClick={() =>
+                logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URI })
+              }
             >
               Log out
-            </button>
+            </Button>
           ) : (
-            <button
+            <Button
               onClick={() =>
                 login({ appState: { returnTo: { pathname, query } } })
               }
             >
               Log in
-            </button>
+            </Button>
           ))}
       </Flex>
     </Box>
