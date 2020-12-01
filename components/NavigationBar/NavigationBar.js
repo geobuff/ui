@@ -1,10 +1,45 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Button, Flex, Link, Text } from "@chakra-ui/core";
+import {
+  Menu,
+  MenuButton,
+  MenuList,
+  MenuItem,
+  MenuDivider,
+} from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import Twemoji from "../Twemoji";
 import { useAuth0 } from "@auth0/auth0-react";
+import { useRouter } from "next/router";
+import jwt_decode from "jwt-decode";
 
 const NavigationBar = () => {
-  const { isAuthenticated, isLoading, loginWithRedirect, logout } = useAuth0();
+  const {
+    isAuthenticated,
+    isLoading,
+    loginWithRedirect,
+    logout,
+    getAccessTokenSilently,
+  } = useAuth0();
+  const router = useRouter();
+
+  const [username, setUsername] = useState();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      (async () => {
+        try {
+          const token = await getAccessTokenSilently({
+            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
+          });
+          const decodedToken = jwt_decode(token);
+          setUsername(decodedToken["http://geobuff.com/username"]);
+        } catch (e) {
+          console.error(e);
+        }
+      })();
+    }
+  }, [isAuthenticated]);
 
   return (
     <Box
@@ -30,13 +65,24 @@ const NavigationBar = () => {
 
         {!isLoading &&
           (isAuthenticated ? (
-            <Button
-              onClick={() =>
-                logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URI })
-              }
-            >
-              Log out
-            </Button>
+            <Menu>
+              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
+                {username}
+              </MenuButton>
+              <MenuList>
+                <MenuItem onClick={() => router.push("/profile")}>
+                  Profile
+                </MenuItem>
+                <MenuDivider />
+                <MenuItem
+                  onClick={() =>
+                    logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URI })
+                  }
+                >
+                  Logout
+                </MenuItem>
+              </MenuList>
+            </Menu>
           ) : (
             <Button onClick={loginWithRedirect}>Log in</Button>
           ))}
