@@ -2,18 +2,15 @@ import React, { useEffect } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
 
 const Profile = () => {
-  const { getAccessTokenSilently } = useAuth0();
+  const { getAccessTokenSilently, user } = useAuth0();
 
   useEffect(() => {
     (async () => {
-      try {
-        const token = await getAccessTokenSilently({
-          audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-        });
-        console.log(token);
-      } catch (e) {
-        console.error(e);
-      }
+      const token = await getAccessTokenSilently({
+        audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
+      });
+      console.log(token);
+      console.log(user);
     })();
   }, [getAccessTokenSilently]);
 
