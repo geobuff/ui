@@ -2,16 +2,15 @@ import React, { useEffect, useState } from "react";
 import { Box, Button, Flex, Link, Text } from "@chakra-ui/core";
 import {
   Menu,
-  MenuButton,
   MenuList,
   MenuItem,
   MenuDivider,
+  MenuButton,
+  Image,
 } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import Twemoji from "../Twemoji";
 import { useAuth0 } from "@auth0/auth0-react";
 import { useRouter } from "next/router";
-import jwt_decode from "jwt-decode";
 
 const NavigationBar = () => {
   const {
@@ -19,25 +18,15 @@ const NavigationBar = () => {
     isLoading,
     loginWithRedirect,
     logout,
-    getAccessTokenSilently,
+    user,
   } = useAuth0();
   const router = useRouter();
 
-  const [username, setUsername] = useState();
+  const [thumbnail, setThumbnail] = useState();
 
   useEffect(() => {
     if (isAuthenticated) {
-      (async () => {
-        try {
-          const token = await getAccessTokenSilently({
-            audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-          });
-          const decodedToken = jwt_decode(token);
-          setUsername(decodedToken["http://geobuff.com/username"]);
-        } catch (e) {
-          console.error(e);
-        }
-      })();
+      setThumbnail(user.picture);
     }
   }, [isAuthenticated]);
 
@@ -66,8 +55,8 @@ const NavigationBar = () => {
         {!isLoading &&
           (isAuthenticated ? (
             <Menu>
-              <MenuButton as={Button} rightIcon={<ChevronDownIcon />}>
-                {username}
+              <MenuButton as={Button}>
+                <Image src={thumbnail} boxSize="2rem" borderRadius="full" />
               </MenuButton>
               <MenuList>
                 <MenuItem onClick={() => router.push("/profile")}>
