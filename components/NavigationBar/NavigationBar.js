@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Box, Button, Flex, Link, Text } from "@chakra-ui/core";
 import {
   Menu,
@@ -21,14 +21,6 @@ const NavigationBar = () => {
     user,
   } = useAuth0();
   const router = useRouter();
-
-  const [thumbnail, setThumbnail] = useState();
-
-  useEffect(() => {
-    if (isAuthenticated) {
-      setThumbnail(user.picture);
-    }
-  }, [isAuthenticated]);
 
   return (
     <Box
@@ -56,7 +48,13 @@ const NavigationBar = () => {
           (isAuthenticated ? (
             <Menu>
               <MenuButton as={Button}>
-                <Image src={thumbnail} boxSize="2rem" borderRadius="full" />
+                {user?.picture ? (
+                  <Image
+                    src={user.picture}
+                    boxSize="2rem"
+                    borderRadius="full"
+                  />
+                ) : null}
               </MenuButton>
               <MenuList>
                 <MenuItem onClick={() => router.push("/profile")}>
