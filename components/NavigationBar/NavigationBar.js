@@ -50,18 +50,14 @@ const NavigationBar = () => {
                 as={Button}
                 boxSize="2.5rem"
                 borderRadius="full"
-                backgroundImage={user?.picture ? `url(${user.picture})` : null}
+                backgroundImage={`url(${user?.picture})`}
                 backgroundSize="cover"
                 _hover={{
-                  backgroundImage: `${
-                    user?.picture ? `url(${user.picture})` : null
-                  }`,
+                  backgroundImage: `${`url(${user?.picture})`}`,
                   backgroundSize: "cover",
                 }}
                 _active={{
-                  backgroundImage: `${
-                    user?.picture ? `url(${user.picture})` : null
-                  }`,
+                  backgroundImage: `${`url(${user?.picture})`}`,
                   backgroundSize: "cover",
                 }}
               ></MenuButton>
