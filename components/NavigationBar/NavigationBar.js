@@ -6,7 +6,6 @@ import {
   MenuItem,
   MenuDivider,
   MenuButton,
-  Image,
 } from "@chakra-ui/react";
 import Twemoji from "../Twemoji";
 import { useAuth0 } from "@auth0/auth0-react";
@@ -47,15 +46,21 @@ const NavigationBar = () => {
         {!isLoading &&
           (isAuthenticated ? (
             <Menu>
-              <MenuButton as={Button}>
-                {user?.picture ? (
-                  <Image
-                    src={user.picture}
-                    boxSize="2rem"
-                    borderRadius="full"
-                  />
-                ) : null}
-              </MenuButton>
+              <MenuButton
+                as={Button}
+                boxSize="2.5rem"
+                borderRadius="full"
+                backgroundImage={`url(${user?.picture})`}
+                backgroundSize="cover"
+                _hover={{
+                  backgroundImage: `${`url(${user?.picture})`}`,
+                  backgroundSize: "cover",
+                }}
+                _active={{
+                  backgroundImage: `${`url(${user?.picture})`}`,
+                  backgroundSize: "cover",
+                }}
+              ></MenuButton>
               <MenuList>
                 <MenuItem onClick={() => router.push("/profile")}>
                   Profile
