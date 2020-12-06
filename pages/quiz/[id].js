@@ -2,7 +2,7 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import { Text } from "@chakra-ui/core";
-import CountriesOfTheWorldGame from "../../games/CountriesOfTheWorldGame";
+import CountriesOfTheWorldGame from "../../games/CountriesOfTheWorldGame/CountriesOfTheWorldGame";
 
 const Quiz = () => {
   const router = useRouter();
