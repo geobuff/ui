@@ -27,7 +27,7 @@ const CountriesOfTheWorldGame = () => {
   };
 
   return (
-    <Box width="100%" height="100vh" backgroundColor="#F5F5F5">
+    <Box width="100%" height="100vh" backgroundColor="#276F86">
       <Flex>
         {!shouldShowSheet && (
           <Box p={4} width="375px" height="100vh" backgroundColor="#FFF">
