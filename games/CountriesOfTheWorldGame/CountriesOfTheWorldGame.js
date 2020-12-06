@@ -15,8 +15,7 @@ const snapPoints = [600, 400, 200, 200];
 const initialSnap = snapPoints.length - 1;
 
 const CountriesOfTheWorldGame = () => {
-  // TODO: km - rename
-  const shouldShowSheet = useBreakpointValue({ base: true, lg: false });
+  const shouldDiaplyOnMobile = useBreakpointValue({ base: true, lg: false });
   const [isOpen, setIsOpen] = useState(true);
 
   // Because we want the modal to stay open, this forces the
@@ -29,8 +28,8 @@ const CountriesOfTheWorldGame = () => {
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       <Flex>
-        {!shouldShowSheet && (
-          <Box p={4} width="375px" height="100vh" backgroundColor="#FFF">
+        {!shouldDiaplyOnMobile && (
+          <Box p={4} width="400px" height="100vh" backgroundColor="#FFF">
             <Heading mt={2} size="md" textAlign="center">
               {"Countries of the World Quiz"}
             </Heading>
@@ -39,7 +38,7 @@ const CountriesOfTheWorldGame = () => {
         )}
 
         <Box width="100%">
-          <Box width="100%" pt={2} textAlign="center">
+          <Box pt={2} textAlign="center">
             <SVGMap
               map={World}
               className="countries-of-world"
@@ -47,7 +46,7 @@ const CountriesOfTheWorldGame = () => {
             />
           </Box>
 
-          {shouldShowSheet && (
+          {shouldDiaplyOnMobile && (
             <Box
               as={Sheet}
               isOpen={isOpen}
