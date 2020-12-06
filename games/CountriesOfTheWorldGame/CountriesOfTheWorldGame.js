@@ -11,6 +11,8 @@ import { SVGMap } from "react-svg-map";
 import World from "@svg-maps/world";
 import Sheet from "react-modal-sheet";
 
+import Sidebar from "../../components/Sidebar";
+
 const snapPoints = [600, 400, 200, 200];
 const initialSnap = snapPoints.length - 1;
 
@@ -28,14 +30,7 @@ const CountriesOfTheWorldGame = () => {
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       <Flex>
-        {!shouldDiaplyOnMobile && (
-          <Box p={4} width="400px" height="100vh" backgroundColor="#FFF">
-            <Heading mt={2} size="md" textAlign="center">
-              {"Countries of the World Quiz"}
-            </Heading>
-            <Divider my={5} />
-          </Box>
-        )}
+        {!shouldDiaplyOnMobile && <Sidebar heading="Countries of the World" />}
 
         <Box width="100%">
           <Box pt={2} textAlign="center">
@@ -59,10 +54,10 @@ const CountriesOfTheWorldGame = () => {
                 <Sheet.Header />
                 <Sheet.Content>
                   <Box m={5} textAlign="center">
-                    <Heading size="lg" mt={0} mb={6}>
+                    <Heading size="lg" pt={0}>
                       {"Countries of the World Quiz"}
                     </Heading>
-                    <Divider />
+                    <Divider my={5} />
                   </Box>
                 </Sheet.Content>
               </Sheet.Container>
