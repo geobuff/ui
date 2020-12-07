@@ -17,7 +17,7 @@ const snapPoints = [600, 400, 200, 200];
 const initialSnap = snapPoints.length - 1;
 
 const CountriesOfTheWorldGame = () => {
-  const shouldDiaplyOnMobile = useBreakpointValue({ base: true, lg: false });
+  const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
   const [isOpen, setIsOpen] = useState(true);
 
   // Because we want the modal to stay open, this forces the
@@ -30,7 +30,7 @@ const CountriesOfTheWorldGame = () => {
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       <Flex>
-        {!shouldDiaplyOnMobile && <Sidebar heading="Countries of the World" />}
+        {!shouldDisplayOnMobile && <Sidebar heading="Countries of the World" />}
 
         <Box width="100%">
           <Box pt={2} textAlign="center">
@@ -41,7 +41,7 @@ const CountriesOfTheWorldGame = () => {
             />
           </Box>
 
-          {shouldDiaplyOnMobile && (
+          {shouldDisplayOnMobile && (
             <Box
               as={Sheet}
               isOpen={isOpen}
