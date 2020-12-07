@@ -20,7 +20,7 @@ svg * {
 }
 
 .countries-of-world {
-  fill: #cfcfcf;
+  fill: #6dca94;
   margin: auto;
   max-height: 500px;
   margin: 16px;
@@ -41,10 +41,10 @@ svg * {
 }
 
 .highlight-on-hover:hover {
-  fill: #89a0b1;
+  fill: #27ae60;
   transition: all 500ms ease-out;
 }
 
 .selected {
-  fill: #4287f5;
+  fill: #27ae60;
 }
