@@ -17,6 +17,7 @@
     "@chakra-ui/react": "^1.0.1",
     "@emotion/react": "^11.1.1",
     "@svg-maps/world": "^1.0.1",
+    "country-code-emoji": "^1.0.0",
     "framer-motion": "^2.9.4",
     "jwt-decode": "^3.1.2",
     "next": "10.0.1",

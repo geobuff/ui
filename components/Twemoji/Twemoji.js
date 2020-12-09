@@ -20,7 +20,7 @@ const Twemoji = ({ emoji, height, width, ...props }) => (
   />
 );
 
-Twemoji.displatName = "Twemoji";
+Twemoji.displayName = "Twemoji";
 
 Twemoji.propTypes = {
   emoji: PropTypes.string,
