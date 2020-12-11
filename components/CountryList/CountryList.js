@@ -2,15 +2,20 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import CountryListItem from "../CountryListItem/CountryListItem";
+import { List } from "@chakra-ui/core";
 
 const CountryList = ({ countries }) => {
   if (!countries) {
     return null;
   }
 
-  return countries.map(({ code, name }) => (
-    <CountryListItem key={code} code={code} name={name} my={2} />
-  ));
+  return (
+    <List>
+      {countries.map(({ code, name }) => (
+        <CountryListItem key={code} code={code} name={name} my={2} />
+      ))}
+    </List>
+  );
 };
 
 CountryList.propTypes = {
