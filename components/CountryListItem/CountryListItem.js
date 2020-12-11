@@ -5,10 +5,10 @@ import flag from "country-code-emoji";
 
 import Twemoji from "../Twemoji";
 
-const CountryListItem = ({ code, name }) => {
+const CountryListItem = ({ code, name, ...props }) => {
   const isValidCountryCode = code && code.length === 2;
   return (
-    <ListItem listStyleType="none">
+    <ListItem listStyleType="none" {...props}>
       <Fade in>
         <Flex alignItems="center">
           {isValidCountryCode && <Twemoji emoji={flag(code)} />}
