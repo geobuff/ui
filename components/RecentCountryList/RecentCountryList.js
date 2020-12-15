@@ -1,33 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import CountryListItem from "../CountryListItem";
 import { List } from "@chakra-ui/core";
+import CountryListItem from "../CountryListItem";
 
-const CountryList = ({ countries }) => {
+const RecentCountryList = ({ countries, max }) => {
   if (!countries) {
     return null;
   }
-
   return (
     <List>
-      {countries.map(({ code, name }) => (
+      {countries.slice(0, max).map(({ code, name }) => (
         <CountryListItem key={code} code={code} name={name} my={2} />
       ))}
     </List>
   );
 };
 
-CountryList.propTypes = {
+RecentCountryList.propTypes = {
   countries: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
     })
   ),
+  max: PropTypes.number,
 };
-CountryList.defaultProps = {
+RecentCountryList.defaultProps = {
   countries: [],
+  max: 3,
 };
 
-export default CountryList;
+export default RecentCountryList;
