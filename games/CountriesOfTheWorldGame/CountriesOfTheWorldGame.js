@@ -12,6 +12,7 @@ import World from "@svg-maps/world";
 import Sheet from "react-modal-sheet";
 
 import Sidebar from "../../components/Sidebar";
+import CountryResultsList from "../.../../../components/CountryResultsList";
 
 const snapPoints = [600, 400, 200, 200];
 const initialSnap = snapPoints.length - 1;
@@ -30,7 +31,15 @@ const CountriesOfTheWorldGame = () => {
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       <Flex>
-        {!shouldDisplayOnMobile && <Sidebar heading="Countries of the World" />}
+        {!shouldDisplayOnMobile && (
+          <Box height="100%">
+            <Sidebar heading="Countries of the World Quiz">
+              <Box overflowY="scroll">
+                <CountryResultsList />
+              </Box>
+            </Sidebar>
+          </Box>
+        )}
 
         <Box width="100%">
           <Box pt={2} textAlign="center">
@@ -58,6 +67,9 @@ const CountriesOfTheWorldGame = () => {
                       {"Countries of the World Quiz"}
                     </Heading>
                     <Divider my={5} />
+                    <Box>
+                      <CountryResultsList />
+                    </Box>
                   </Box>
                 </Sheet.Content>
               </Sheet.Container>
