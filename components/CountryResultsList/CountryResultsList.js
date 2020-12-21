@@ -5,9 +5,11 @@ import CountryList from "../CountryList";
 
 import { allCountriesByContinent } from "../../helpers/countries";
 
+// Will likely lift the countries out of the this component
+// and pass them in as props, but this should work for now
 const CountryResultsList = () => {
   return (
-    <Box>
+    <Box textAlign="left">
       <Text fontSize="xl" my={3} fontWeight={700}>
         {"Results"}
       </Text>
@@ -26,4 +28,4 @@ const CountryResultsList = () => {
 CountryResultsList.propTypes = {};
 CountryResultsList.defaultProps = {};
 
-export default CountryResultsList;
+export default React.memo(CountryResultsList);
