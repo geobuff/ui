@@ -3,13 +3,14 @@ import PropTypes from "prop-types";
 
 import { Box, Divider, Heading } from "@chakra-ui/core";
 
-const Sidebar = ({ heading }) => (
+const Sidebar = ({ heading, children }) => (
   <Box
-    p={4}
     width="400px"
-    height="100vh"
+    maxHeight="100vh"
+    p={4}
     backgroundColor="#FFF"
     boxShadow="6px 4px 4px rgba(0,0,0,0.08)"
+    overflowY="scroll"
   >
     {!!heading && (
       <>
@@ -19,15 +20,18 @@ const Sidebar = ({ heading }) => (
         <Divider my={5} />
       </>
     )}
+    {children}
   </Box>
 );
 
 Sidebar.propTypes = {
   heading: PropTypes.string,
+  children: PropTypes.node,
 };
 
 Sidebar.defaultProps = {
   heading: "",
+  children: null,
 };
 
 export default Sidebar;
