@@ -2,13 +2,13 @@ const input = {
   parts: ["field", "addon"],
   baseStyle: {
     field: {
-      fontWeight: 600,
-      borderRadius: 25,
       backgroundColor: "#FFFFFF",
+      borderRadius: 25,
+      fontWeight: 600,
       _focus: {
         borderWidth: 2,
-        zIndex: 1,
         borderColor: "blue.500",
+        zIndex: 1,
       },
       _placeholder: {
         color: "gray.500",
