@@ -21,7 +21,7 @@ const input = {
         },
       },
       _invalid: {
-        borderColor: "red.200",
+        borderColor: "red.400",
         borderWidth: 2,
         color: "red.400",
         _placeholder: {
