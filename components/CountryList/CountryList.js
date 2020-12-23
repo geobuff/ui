@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import CountryListItem from "../CountryListItem/CountryListItem";
+import CountryListItem from "../CountryListItem";
 import { List } from "@chakra-ui/core";
 
 const CountryList = ({ countries }) => {
