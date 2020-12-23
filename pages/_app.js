@@ -5,6 +5,8 @@ import { ChakraProvider } from "@chakra-ui/core";
 import NavigationBar from "../components/NavigationBar";
 import { Auth0Provider } from "@auth0/auth0-react";
 
+import theme from "../styles/theme";
+
 function MyApp({ Component, pageProps }) {
   return (
     <Auth0Provider
@@ -12,7 +14,7 @@ function MyApp({ Component, pageProps }) {
       clientId={process.env.NEXT_PUBLIC_AUTH0_CLIENTID}
       redirectUri={process.env.NEXT_PUBLIC_REDIRECT_URI}
     >
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <NavigationBar />
         <Component {...pageProps} />
       </ChakraProvider>
