@@ -55,7 +55,7 @@ const CountriesOfTheWorldGame = () => {
         {!shouldDisplayOnMobile && (
           <Box height="100%">
             <Sidebar heading="Countries of the World Quiz">
-              <Box overflowY="scroll">
+              <Box>
                 <GameInputCard
                   countries={recentCountries}
                   score={69}
