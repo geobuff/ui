@@ -4,24 +4,9 @@ import { Box, Divider, Flex, Text, Input } from "@chakra-ui/core";
 
 import CountryList from "../CountryList";
 
-const countries = [
-  {
-    code: "NZ",
-    name: "New Zealand",
-  },
-  {
-    code: "BR",
-    name: "Brazil",
-  },
-  {
-    code: "US",
-    name: "United States of America",
-  },
-];
-
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
-const GameInputCard = ({ score, total }) => {
+const GameInputCard = ({ countries, score, total }) => {
   return (
     <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
       <Box mb={5}>
@@ -68,10 +53,17 @@ const GameInputCard = ({ score, total }) => {
 };
 
 GameInputCard.propTypes = {
+  countries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
   score: PropTypes.number,
   total: PropTypes.number,
 };
 GameInputCard.defaultProps = {
+  countries: [],
   score: 0,
   total: 0,
 };

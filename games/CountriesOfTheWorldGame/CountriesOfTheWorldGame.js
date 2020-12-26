@@ -19,6 +19,21 @@ import GameInputCard from "../../components/GameInputCard";
 const snapPoints = [600, 400, 200, 200];
 const initialSnap = snapPoints.length - 1;
 
+const recentCountries = [
+  {
+    code: "NZ",
+    name: "New Zealand",
+  },
+  {
+    code: "BR",
+    name: "Brasil",
+  },
+  {
+    code: "FR",
+    name: "France",
+  },
+];
+
 const CountriesOfTheWorldGame = () => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
   const [isOpen, setIsOpen] = useState(true);
@@ -41,7 +56,11 @@ const CountriesOfTheWorldGame = () => {
           <Box height="100%">
             <Sidebar heading="Countries of the World Quiz">
               <Box overflowY="scroll">
-                <GameInputCard />
+                <GameInputCard
+                  countries={recentCountries}
+                  score={69}
+                  total={193}
+                />
                 <CountryResultsList />
               </Box>
             </Sidebar>
