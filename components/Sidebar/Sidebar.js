@@ -5,7 +5,7 @@ import { Box, Divider, Heading } from "@chakra-ui/core";
 
 const Sidebar = ({ heading, children }) => (
   <Box
-    width="400px"
+    width="375px"
     maxHeight="100vh"
     p={4}
     backgroundColor="#FFF"
@@ -17,7 +17,7 @@ const Sidebar = ({ heading, children }) => (
         <Heading mt={2} size="md" textAlign="center">
           {heading}
         </Heading>
-        <Divider my={5} />
+        <Divider my={5} borderColor="#E3E1E1" borderWidth={1} />
       </>
     )}
     {children}

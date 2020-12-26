@@ -14,6 +14,7 @@ import Sheet from "react-modal-sheet";
 import Sidebar from "../../components/Sidebar";
 import CountryResultsList from "../.../../../components/CountryResultsList";
 import GameInputBanner from "../../components/GameInputBanner";
+import GameInputCard from "../../components/GameInputCard";
 
 const snapPoints = [600, 400, 200, 200];
 const initialSnap = snapPoints.length - 1;
@@ -40,6 +41,7 @@ const CountriesOfTheWorldGame = () => {
           <Box height="100%">
             <Sidebar heading="Countries of the World Quiz">
               <Box overflowY="scroll">
+                <GameInputCard />
                 <CountryResultsList />
               </Box>
             </Sidebar>
