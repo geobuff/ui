@@ -1,8 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Divider, Flex, Text, Input } from "@chakra-ui/core";
+import { Box, Divider, Text, Input } from "@chakra-ui/core";
 
 import CountryList from "../CountryList";
+import GameScoreInline from "../GameScoreInline";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
@@ -11,22 +12,7 @@ const GameInputCard = ({ countries, score, total }) => {
     <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
       <Box mb={5}>
         <Text fontWeight="bold">{"SCORE"}</Text>
-        <Flex alignItems="flex-end">
-          <Text
-            fontSize="56px"
-            fontWeight={800}
-            lineHeight="40px"
-            mr={1}
-            my={2}
-          >
-            {score}
-          </Text>
-          <Text
-            color="#768389"
-            fontSize="24px"
-            fontWeight="bold"
-          >{`/ ${total}`}</Text>
-        </Flex>
+        <GameScoreInline score={score} total={total} />
       </Box>
 
       {divider}
