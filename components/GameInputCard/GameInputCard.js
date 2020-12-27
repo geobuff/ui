@@ -44,7 +44,7 @@ GameInputCard.propTypes = {
     })
   ),
   score: PropTypes.number,
-  timeRemaining: PropTypes.instanceOf(Date),
+  timeRemaining: PropTypes.number,
   total: PropTypes.number,
 };
 GameInputCard.defaultProps = {

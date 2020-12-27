@@ -27,7 +27,7 @@ const GameInputCardTimer = ({ expiryTimestamp, onExpire }) => {
 };
 
 GameInputCardTimer.propTypes = {
-  expiryTimestamp: PropTypes.instanceOf(Date),
+  expiryTimestamp: PropTypes.number,
   onExpire: PropTypes.func,
 };
 GameInputCardTimer.defaultProps = {
