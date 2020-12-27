@@ -35,11 +35,10 @@ const recentCountries = [
 ];
 
 const CountriesOfTheWorldGame = () => {
-  const fifteenMinutes = new Date();
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
   const [isOpen, setIsOpen] = useState(true);
   const [timeRemaining] = useState(() =>
-    fifteenMinutes.setMinutes(fifteenMinutes.getMinutes() + 15)
+    new Date().setMinutes(new Date().getMinutes() + 15)
   );
 
   // Because we want the modal to stay open, this forces the
