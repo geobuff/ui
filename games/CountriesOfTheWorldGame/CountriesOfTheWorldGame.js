@@ -35,8 +35,12 @@ const recentCountries = [
 ];
 
 const CountriesOfTheWorldGame = () => {
+  const fifteenMinutes = new Date();
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
   const [isOpen, setIsOpen] = useState(true);
+  const [timeRemaining] = useState(() =>
+    fifteenMinutes.setMinutes(fifteenMinutes.getMinutes() + 15)
+  );
 
   // Because we want the modal to stay open, this forces the
   // modal to stay open even if it's forced closed by pesky users
@@ -57,6 +61,7 @@ const CountriesOfTheWorldGame = () => {
             <Sidebar heading="Countries of the World Quiz">
               <Box>
                 <GameInputCard
+                  timeRemaining={timeRemaining}
                   countries={recentCountries}
                   score={69}
                   total={193}
