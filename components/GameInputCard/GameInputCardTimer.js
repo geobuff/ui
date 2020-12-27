@@ -1,14 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Text } from "@chakra-ui/core";
-
 import { useTimer } from "react-timer-hook";
 
-const formatTimeLabel = (time) =>
-  time.toLocaleString("en-US", {
-    minimumIntegerDigits: 2,
-    useGrouping: false,
-  });
+import { Box, Text } from "@chakra-ui/core";
+
+import { toMinTwoDigits } from "../../helpers/format-text";
 
 const GameInputCardTimer = ({ expiryTimestamp, onExpire }) => {
   const { seconds, minutes } = useTimer({
@@ -20,7 +16,7 @@ const GameInputCardTimer = ({ expiryTimestamp, onExpire }) => {
     <Box>
       <Text fontWeight="bold">{"TIME REMAINING"}</Text>
       <Text fontWeight={800} fontSize="36px">
-        {`${formatTimeLabel(minutes)}:${formatTimeLabel(seconds)}`}
+        {`${toMinTwoDigits(minutes)}:${toMinTwoDigits(seconds)}`}
       </Text>
     </Box>
   );

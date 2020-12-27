@@ -52,7 +52,12 @@ const CountriesOfTheWorldGame = () => {
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       {shouldDisplayOnMobile && (
-        <GameInputBanner score={69} total={193} verb="countries" />
+        <GameInputBanner
+          expiryTimestamp={timeRemaining}
+          score={69}
+          total={193}
+          verb="countries"
+        />
       )}
 
       <Flex>
