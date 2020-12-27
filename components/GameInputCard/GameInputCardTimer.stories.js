@@ -6,12 +6,19 @@ export default {
   component: GameInputCardTimer,
 };
 
-const time = new Date();
-time.setSeconds(time.getSeconds() + 600); // 10 minutes timer
+const tenMinutesFromNow = new Date().setSeconds(new Date().getSeconds() + 600);
+const tenSecondsFromNow = new Date().setSeconds(new Date().getSeconds() + 10);
 
 const Template = (args) => <GameInputCardTimer {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  expiryTimestamp: null,
+  expiryTimestamp: tenMinutesFromNow,
+  onExpire: () => alert("Timers up!"),
+};
+
+export const TenSeconds = Template.bind({});
+TenSeconds.args = {
+  expiryTimestamp: tenSecondsFromNow,
+  onExpire: () => alert("Timers up!"),
 };
