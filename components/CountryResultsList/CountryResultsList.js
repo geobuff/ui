@@ -1,6 +1,6 @@
 import React from "react";
 // import PropTypes from "prop-types";
-import { Box, Text } from "@chakra-ui/core";
+import { Box, Divider, Text } from "@chakra-ui/core";
 import CountryList from "../CountryList";
 
 import { allCountriesByContinent } from "../../helpers/countries";
@@ -10,12 +10,15 @@ import { allCountriesByContinent } from "../../helpers/countries";
 const CountryResultsList = () => {
   return (
     <Box textAlign="left">
-      <Text fontSize="xl" my={3} fontWeight={700}>
+      <Divider my={4} />
+      <Text fontSize="xl" mt={2} fontWeight="bold">
         {"Results"}
       </Text>
+      <Divider my={3} />
+
       {Object.entries(allCountriesByContinent).map(([key, value], index) => (
-        <Box mt={6} key={index}>
-          <Text my={3} fontSize="lg" fontWeight={700}>
+        <Box mt={5} key={index}>
+          <Text fontWeight="bold" my={3} textTransform="uppercase">
             {key}
           </Text>
           <CountryList countries={value} />

@@ -4,6 +4,7 @@ import {
   Divider,
   Flex,
   Heading,
+  Text,
   useBreakpointValue,
 } from "@chakra-ui/core";
 
@@ -11,13 +12,14 @@ import { SVGMap } from "react-svg-map";
 import World from "@svg-maps/world";
 import Sheet from "react-modal-sheet";
 
-import Sidebar from "../../components/Sidebar";
+import CountryList from "../.../../../components/CountryList";
 import CountryResultsList from "../.../../../components/CountryResultsList";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
+import Sidebar from "../../components/Sidebar";
 
-const snapPoints = [600, 400, 200, 200];
-const initialSnap = snapPoints.length - 1;
+const snapPoints = [600, 400, 300, 100];
+const initialSnap = snapPoints.length - 2;
 
 const recentCountries = [
   {
@@ -97,11 +99,22 @@ const CountriesOfTheWorldGame = () => {
               <Sheet.Container>
                 <Sheet.Header />
                 <Sheet.Content>
-                  <Box m={5} textAlign="center">
-                    <Heading size="lg" pt={0}>
-                      {"Countries of the World Quiz"}
-                    </Heading>
-                    <Divider my={5} />
+                  <Box mx={5} my={0}>
+                    <Box>
+                      <Heading pt={0} size="md" textAlign="center">
+                        {"Countries of the World Quiz"}
+                      </Heading>
+
+                      <Divider my={4} />
+                    </Box>
+
+                    <Box mt={4} overflowY="scroll">
+                      <Text fontWeight="bold" mb={1}>
+                        {"RECENT"}
+                      </Text>
+                      <CountryList countries={recentCountries} />
+                    </Box>
+
                     <Box>
                       <CountryResultsList />
                     </Box>
