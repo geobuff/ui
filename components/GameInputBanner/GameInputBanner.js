@@ -1,8 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useTimer } from "react-timer-hook";
+
 import { Box, Flex, Input, Text } from "@chakra-ui/core";
 
-const GameInputBanner = ({ score, total, verb }) => {
+import { toMinTwoDigits } from "../../helpers/format-text";
+
+const GameInputBanner = ({ expiryTimestamp, onExpire, score, total, verb }) => {
+  const { seconds, minutes } = useTimer({
+    expiryTimestamp,
+    onExpire: onExpire,
+  });
+
   return (
     <Flex
       alignItems="center"
@@ -12,9 +21,8 @@ const GameInputBanner = ({ score, total, verb }) => {
       py={2}
     >
       <Box textAlign="center" mr={3}>
-        {/** TODO: suss out timer */}
         <Text lineHeight={1.15} color="white" fontSize="32px" fontWeight={700}>
-          {"4:20"}
+          {`${toMinTwoDigits(minutes)}:${toMinTwoDigits(seconds)}`}
         </Text>
         <Text
           color="white"
@@ -32,11 +40,15 @@ const GameInputBanner = ({ score, total, verb }) => {
 };
 
 GameInputBanner.propTypes = {
+  expiryTimestamp: PropTypes.number,
+  onExpire: PropTypes.func,
   score: PropTypes.number,
   total: PropTypes.number,
   verb: PropTypes.string,
 };
 GameInputBanner.defaultProps = {
+  expiryTimestamp: null,
+  onExpire: null,
   score: 0,
   total: 0,
   verb: "countries",

@@ -4,10 +4,11 @@ import { Box, Divider, Text, Input } from "@chakra-ui/core";
 
 import CountryList from "../CountryList";
 import GameInputCardScore from "./GameInputCardScore";
+import GameInputCardTimer from "./GameInputCardTimer";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
-const GameInputCard = ({ countries, score, total }) => {
+const GameInputCard = ({ countries, score, timeRemaining, total }) => {
   return (
     <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
       <Box mb={5}>
@@ -20,10 +21,7 @@ const GameInputCard = ({ countries, score, total }) => {
       {divider}
 
       <Box my={4}>
-        <Text fontWeight="bold">{"TIME REMAINING"}</Text>
-        <Text fontWeight={800} fontSize="36px">
-          {"04:20:69"}
-        </Text>
+        <GameInputCardTimer expiryTimestamp={timeRemaining} />
       </Box>
 
       {divider}
@@ -46,6 +44,7 @@ GameInputCard.propTypes = {
     })
   ),
   score: PropTypes.number,
+  timeRemaining: PropTypes.number,
   total: PropTypes.number,
 };
 GameInputCard.defaultProps = {
@@ -54,4 +53,4 @@ GameInputCard.defaultProps = {
   total: 0,
 };
 
-export default GameInputCard;
+export default React.memo(GameInputCard);
