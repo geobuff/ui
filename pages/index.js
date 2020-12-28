@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import Head from "next/head";
 
 import { Button, Box, Heading } from "@chakra-ui/core";
 
@@ -16,24 +15,17 @@ export default function Home() {
   };
 
   return (
-    <>
-      <Head>
-        <title>Create Next App</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
-      <Box width="100%" textAlign="center">
-        <Heading mt={4}>{"Welcome to Scrub.NET"}</Heading>
-        <Button
-          my={5}
-          onClick={() =>
-            setAnsweredCountriesList([...answeredCountriesList, "Russia"])
-          }
-        >
-          {"Click me pls"}
-        </Button>
-        <SVGMap map={World} locationClassName={getLocationClassName} />;
-      </Box>
-    </>
+    <Box width="100%" textAlign="center">
+      <Heading mt={4}>{"Welcome to Scrub.NET"}</Heading>
+      <Button
+        my={5}
+        onClick={() =>
+          setAnsweredCountriesList([...answeredCountriesList, "Russia"])
+        }
+      >
+        {"Click me pls"}
+      </Button>
+      <SVGMap map={World} locationClassName={getLocationClassName} />;
+    </Box>
   );
 }

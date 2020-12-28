@@ -14,6 +14,7 @@ export const allCountriesByContinent = Object.values(countryList.all).reduce(
       {
         code: country.iso2,
         name: country.name,
+        isHidden: true,
       },
     ],
   }),
