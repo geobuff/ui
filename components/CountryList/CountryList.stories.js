@@ -18,6 +18,7 @@ const countries = [
   {
     code: "CX",
     name: "Christmas Island",
+    isHidden: true,
   },
   {
     code: "CK",
@@ -30,6 +31,7 @@ const countries = [
   {
     code: "PR",
     name: "French Polynesia",
+    isHidden: true,
   },
   {
     code: "GU",

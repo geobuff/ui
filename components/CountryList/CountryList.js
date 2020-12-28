@@ -11,8 +11,8 @@ const CountryList = ({ countries }) => {
 
   return (
     <List>
-      {countries.map(({ code, name }) => (
-        <CountryListItem key={code} code={code} name={name} my={2} />
+      {countries.map((country) => (
+        <CountryListItem key={country.code} my={2} {...country} />
       ))}
     </List>
   );
