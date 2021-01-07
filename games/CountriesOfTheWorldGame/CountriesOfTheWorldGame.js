@@ -67,6 +67,7 @@ const CountriesOfTheWorldGame = () => {
             <Sidebar heading="Countries of the World Quiz">
               <Box>
                 <GameInputCard
+                  hasGameStarted={true}
                   timeRemaining={timeRemaining}
                   countries={recentCountries}
                   score={69}
