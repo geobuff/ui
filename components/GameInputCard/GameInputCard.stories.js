@@ -28,4 +28,5 @@ Default.args = {
   score: 69,
   total: 193,
   countries: recentCountries,
+  hasGameStarted: true,
 };
