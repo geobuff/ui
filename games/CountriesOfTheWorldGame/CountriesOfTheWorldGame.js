@@ -25,20 +25,35 @@ const recentCountries = [
   },
 ];
 
+const timeFifteenMinutes = () =>
+  new Date().setMinutes(new Date().getMinutes() + 15);
+
 const CountriesOfTheWorldGame = () => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
-  const [timeRemaining] = useState(() =>
-    new Date().setMinutes(new Date().getMinutes() + 15)
-  );
 
-  const hasGameStarted = true;
+  const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+
+  const [hasGameStarted, setHasGameStarted] = useState(false);
+
+  const [score, setScore] = useState(0);
+
+  const handleGameStart = () => {
+    setTimeRemaining(timeFifteenMinutes());
+    setHasGameStarted(true);
+    setScore(0);
+  };
+
+  const handleGameStop = () => {
+    setTimeRemaining(null);
+    setHasGameStarted(false);
+  };
 
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       {shouldDisplayOnMobile && (
         <GameInputBanner
           expiryTimestamp={timeRemaining}
-          score={69}
+          score={score}
           total={193}
           verb="countries"
         />
@@ -50,10 +65,12 @@ const CountriesOfTheWorldGame = () => {
             <Sidebar heading="Countries of the World Quiz">
               <Box>
                 <GameInputCard
-                  hasGameStarted={true}
+                  hasGameStarted={hasGameStarted}
                   timeRemaining={timeRemaining}
                   countries={recentCountries}
-                  score={69}
+                  onGameStart={handleGameStart}
+                  onGameStop={handleGameStop}
+                  score={score}
                   total={193}
                 />
                 <CountryResultsList />

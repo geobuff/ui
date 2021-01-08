@@ -6,29 +6,47 @@ import { Box, Text } from "@chakra-ui/core";
 
 import { toMinTwoDigits } from "../../helpers/format-text";
 
-const GameInputCardTimer = ({ expiryTimestamp, onExpire }) => {
+const Timer = ({ children }) => (
+  <Box>
+    <Text fontWeight="bold">{"TIME REMAINING"}</Text>
+    <Text fontWeight={800} fontSize="36px">
+      {children}
+    </Text>
+  </Box>
+);
+
+const GameInputCardTimer = ({ expiryTimestamp, hasGameStarted, onExpire }) => {
+  if (!hasGameStarted) {
+    return <Timer>{"15:00"}</Timer>;
+  }
+
   const { seconds, minutes } = useTimer({
     expiryTimestamp,
     onExpire: onExpire,
   });
 
   return (
-    <Box>
-      <Text fontWeight="bold">{"TIME REMAINING"}</Text>
-      <Text fontWeight={800} fontSize="36px">
-        {`${toMinTwoDigits(minutes)}:${toMinTwoDigits(seconds)}`}
-      </Text>
-    </Box>
+    <Timer>{`${toMinTwoDigits(minutes)}:${toMinTwoDigits(seconds)}`}</Timer>
   );
+};
+
+Timer.propTypes = {
+  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
+};
+
+Timer.defaultProps = {
+  children: "",
 };
 
 GameInputCardTimer.propTypes = {
   expiryTimestamp: PropTypes.number,
+  hasGameStarted: PropTypes.bool,
   onExpire: PropTypes.func,
 };
 GameInputCardTimer.defaultProps = {
   expiryTimestamp: null,
-  onExpire: null,
+  hasGameStarted: false,
+  onExpire: () => {},
 };
 
 export default GameInputCardTimer;

@@ -11,6 +11,8 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 const GameInputCard = ({
   countries,
   hasGameStarted,
+  onGameStart,
+  onGameStop,
   score,
   timeRemaining,
   total,
@@ -27,7 +29,10 @@ const GameInputCard = ({
       {divider}
 
       <Box my={4}>
-        <GameInputCardTimer expiryTimestamp={timeRemaining} />
+        <GameInputCardTimer
+          expiryTimestamp={timeRemaining}
+          hasGameStarted={hasGameStarted}
+        />
       </Box>
 
       {divider}
@@ -36,6 +41,7 @@ const GameInputCard = ({
         <Button
           colorScheme={hasGameStarted ? "red" : "green"}
           isFullWidth
+          onClick={hasGameStarted ? onGameStop : onGameStart}
           p={8}
           size="lg"
         >
@@ -65,15 +71,20 @@ GameInputCard.propTypes = {
     })
   ),
   hasGameStarted: PropTypes.bool,
+  onGameStart: PropTypes.func,
+  onGameStop: PropTypes.func,
   score: PropTypes.number,
   timeRemaining: PropTypes.number,
   total: PropTypes.number,
 };
 GameInputCard.defaultProps = {
   countries: [],
+  onGameStart: () => {},
+  onGameStop: () => {},
   hasGameStarted: false,
   score: 0,
   total: 0,
 };
 
+// TODO: should memo be moved to CountryList instead?
 export default React.memo(GameInputCard);
