@@ -1,25 +1,14 @@
 import React, { useState } from "react";
-import {
-  Box,
-  Divider,
-  Flex,
-  Heading,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/core";
+import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 
 import { SVGMap } from "react-svg-map";
 import World from "@svg-maps/world";
-import Sheet from "react-modal-sheet";
 
-import CountryList from "../.../../../components/CountryList";
 import CountryResultsList from "../.../../../components/CountryResultsList";
+import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
-
-const snapPoints = [600, 400, 300, 100];
-const initialSnap = snapPoints.length - 2;
 
 const recentCountries = [
   {
@@ -38,17 +27,11 @@ const recentCountries = [
 
 const CountriesOfTheWorldGame = () => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
-  const [isOpen, setIsOpen] = useState(true);
   const [timeRemaining] = useState(() =>
     new Date().setMinutes(new Date().getMinutes() + 15)
   );
 
-  // Because we want the modal to stay open, this forces the
-  // modal to stay open even if it's forced closed by pesky users
-  const handleClose = () => {
-    setIsOpen(false);
-    setIsOpen(true);
-  };
+  const hasGameStarted = true;
 
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
@@ -89,40 +72,10 @@ const CountriesOfTheWorldGame = () => {
           </Box>
 
           {shouldDisplayOnMobile && (
-            <Box
-              as={Sheet}
-              isOpen={isOpen}
-              onClose={handleClose}
-              snapPoints={snapPoints}
-              initialSnap={initialSnap}
-              mt={11}
-            >
-              <Sheet.Container>
-                <Sheet.Header />
-                <Sheet.Content>
-                  <Box mx={5} my={0}>
-                    <Box>
-                      <Heading pt={0} size="md" textAlign="center">
-                        {"Countries of the World Quiz"}
-                      </Heading>
-
-                      <Divider my={4} />
-                    </Box>
-
-                    <Box mt={4} overflowY="scroll">
-                      <Text fontWeight="bold" mb={1}>
-                        {"RECENT"}
-                      </Text>
-                      <CountryList countries={recentCountries} />
-                    </Box>
-
-                    <Box>
-                      <CountryResultsList />
-                    </Box>
-                  </Box>
-                </Sheet.Content>
-              </Sheet.Container>
-            </Box>
+            <GameBottomSheetModal
+              hasGameStarted={hasGameStarted}
+              recentCountries={recentCountries}
+            />
           )}
         </Box>
       </Flex>

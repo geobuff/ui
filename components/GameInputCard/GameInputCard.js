@@ -64,7 +64,7 @@ GameInputCard.propTypes = {
       code: PropTypes.string,
     })
   ),
-  hasGameStarted: PropTypes.number,
+  hasGameStarted: PropTypes.bool,
   score: PropTypes.number,
   timeRemaining: PropTypes.number,
   total: PropTypes.number,
