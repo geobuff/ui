@@ -17,6 +17,7 @@ const flagFallback = (
 const CountryListItem = ({ code, isHidden, name, ...props }) => {
   const isValidCountryCode = code && code.length === 2;
   const shouldFallback = !isValidCountryCode || isHidden;
+
   return (
     <ListItem listStyleType="none" {...props}>
       <Fade in>
