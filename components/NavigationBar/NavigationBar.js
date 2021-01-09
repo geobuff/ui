@@ -40,7 +40,7 @@ const NavigationBar = () => {
               pt={["4px", "5px", "5px"]}
               mr={2}
             />
-            {"Geobuff"}
+            {"GeoBuff"}
           </Text>
         </Link>
 
