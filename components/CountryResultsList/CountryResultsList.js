@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import { Box, Divider, Text } from "@chakra-ui/core";
 import CountryList from "../CountryList";
+import Loading from "../Loading";
 
 // Will likely lift the countries out of the this component
 // and pass them in as props, but this should work for now
@@ -26,7 +27,7 @@ const CountryResultsList = () => {
       </Text>
       <Divider my={3} />
       {loading ? (
-        <Box>Loading...</Box>
+        <Loading />
       ) : (
         <Box>
           {Object.entries(countriesByContinent).map(([key, value], index) => (
