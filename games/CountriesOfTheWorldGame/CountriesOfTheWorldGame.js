@@ -15,15 +15,15 @@ import { allCountries } from "../../helpers/countries";
 const recentCountries = [
   {
     code: "NZ",
-    name: "New Zealand",
+    svgName: "New Zealand",
   },
   {
     code: "BR",
-    name: "Brasil",
+    svgName: "Brasil",
   },
   {
     code: "FR",
-    name: "France",
+    svgName: "France",
   },
 ];
 
