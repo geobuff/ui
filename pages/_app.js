@@ -13,7 +13,7 @@ function MyApp({ Component, pageProps }) {
   return (
     <>
       <Head>
-        <title>Geobuff</title>
+        <title>GeoBuff</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 

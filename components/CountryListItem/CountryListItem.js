@@ -14,16 +14,17 @@ const flagFallback = (
   />
 );
 
-const CountryListItem = ({ code, isHidden, name, ...props }) => {
+const CountryListItem = ({ code, isHidden, svgName, ...props }) => {
   const isValidCountryCode = code && code.length === 2;
   const shouldFallback = !isValidCountryCode || isHidden;
+
   return (
     <ListItem listStyleType="none" {...props}>
       <Fade in>
         <Flex alignItems="center">
           {!shouldFallback ? <Twemoji emoji={flag(code)} /> : flagFallback}
           <Text ml={2} fontWeight="600" fontSize={14}>
-            {!isHidden ? name : "???"}
+            {!isHidden ? svgName : "???"}
           </Text>
         </Flex>
       </Fade>
@@ -34,7 +35,7 @@ const CountryListItem = ({ code, isHidden, name, ...props }) => {
 CountryListItem.propTypes = {
   code: PropTypes.string,
   isHidden: PropTypes.bool,
-  name: PropTypes.string,
+  svgName: PropTypes.string,
 };
 
 CountryListItem.defaultProps = {
