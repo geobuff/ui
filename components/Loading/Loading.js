@@ -4,7 +4,7 @@ import { Text } from "@chakra-ui/core";
 const Loading = () => {
   return (
     <>
-      <Text margin="20px" textAlign="center">
+      <Text m={5} textAlign="center">
         Loading...
       </Text>
     </>
