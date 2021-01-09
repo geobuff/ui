@@ -11,6 +11,7 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 const GameInputCard = ({
   countries,
   hasGameStarted,
+  onChange,
   onGameStart,
   onGameStop,
   score,
@@ -25,7 +26,12 @@ const GameInputCard = ({
       </Box>
 
       {divider}
-      <Input my={5} placeholder="Enter Country" />
+      <Input
+        isDisabled={!hasGameStarted}
+        onChange={onChange}
+        my={5}
+        placeholder="Enter Country"
+      />
       {divider}
 
       <Box my={4}>
@@ -71,6 +77,7 @@ GameInputCard.propTypes = {
     })
   ),
   hasGameStarted: PropTypes.bool,
+  onChange: PropTypes.func,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
   score: PropTypes.number,
@@ -79,6 +86,7 @@ GameInputCard.propTypes = {
 };
 GameInputCard.defaultProps = {
   countries: [],
+  onChange: () => {},
   onGameStart: () => {},
   onGameStop: () => {},
   hasGameStarted: false,

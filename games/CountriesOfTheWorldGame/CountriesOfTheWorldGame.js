@@ -10,6 +10,8 @@ import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 
+import { allCountries } from "../../helpers/countries";
+
 const recentCountries = [
   {
     code: "NZ",
@@ -31,11 +33,41 @@ const timeFifteenMinutes = () =>
 const CountriesOfTheWorldGame = () => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
+  const [countries, setCountries] = useState(() => allCountries);
+
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
 
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
   const [score, setScore] = useState(0);
+
+  console.log(countries, "countries");
+
+  const getLocationClassName = (location) => {
+    const checkedCountries = countries.filter((country) => country.checked);
+    // TODO: km - move out of here!!
+    setScore(checkedCountries.length);
+    if (checkedCountries?.find((country) => country.name === location.name)) {
+      return `selected`;
+    }
+  };
+
+  const handleChange = (event) => {
+    const { value } = event.currentTarget;
+
+    const updatedCountries = countries.map((country) => {
+      if (country.name === value) {
+        return {
+          ...country,
+          checked: true,
+        };
+      } else {
+        return country;
+      }
+    });
+
+    setCountries(updatedCountries);
+  };
 
   const handleGameStart = () => {
     setTimeRemaining(timeFifteenMinutes());
@@ -68,6 +100,7 @@ const CountriesOfTheWorldGame = () => {
                   hasGameStarted={hasGameStarted}
                   timeRemaining={timeRemaining}
                   countries={recentCountries}
+                  onChange={handleChange}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                   score={score}
@@ -84,7 +117,8 @@ const CountriesOfTheWorldGame = () => {
             <SVGMap
               map={World}
               className="countries-of-world"
-              locationClassName="highlight-on-hover"
+              // locationClassName="highlight-on-hover"
+              locationClassName={getLocationClassName}
             />
           </Box>
 
