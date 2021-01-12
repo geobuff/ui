@@ -4,7 +4,7 @@ import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 import { SVGMap } from "react-svg-map";
 import World from "@svg-maps/world";
 
-import CountryResultsList from "../.../../../components/CountryResultsList";
+import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
@@ -56,7 +56,7 @@ const CountriesOfTheWorldGame = () => {
                   score={69}
                   total={193}
                 />
-                <CountryResultsList />
+                <CountryResultsListContainer />
               </Box>
             </Sidebar>
           </Box>

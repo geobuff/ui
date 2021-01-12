@@ -6,7 +6,7 @@ import { Box, Button, Divider, Heading, Text } from "@chakra-ui/core";
 import Sheet from "react-modal-sheet";
 
 import CountryList from "../.../../../components/CountryList";
-import CountryResultsList from "../.../../../components/CountryResultsList";
+import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
@@ -65,7 +65,7 @@ const GameBottomSheetModal = ({ hasGameStarted, recentCountries }) => {
             </Box>
 
             <Box>
-              <CountryResultsList />
+              <CountryResultsListContainer />
             </Box>
           </Box>
         </Sheet.Content>
