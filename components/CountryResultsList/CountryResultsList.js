@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
-import { Box, Divider, Text } from "@chakra-ui/core";
+import { Box, Divider, Skeleton, Text } from "@chakra-ui/core";
 import CountryList from "../CountryList";
-import Loading from "../Loading";
 
 // Will likely lift the countries out of the this component
 // and pass them in as props, but this should work for now
 const CountryResultsList = () => {
   const [loading, setLoading] = useState(true);
-  const [countriesByContinent, setCountriesByContinent] = useState();
+  const [countriesByContinent, setCountriesByContinent] = useState({});
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/world/countries`)
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/countries`)
       .then((response) => response.json())
       .then((data) => {
         setCountriesByContinent(data);
@@ -26,9 +25,7 @@ const CountryResultsList = () => {
         {"Results"}
       </Text>
       <Divider my={3} />
-      {loading ? (
-        <Loading />
-      ) : (
+      <Skeleton isLoaded={!loading}>
         <Box>
           {Object.entries(countriesByContinent).map(([key, value], index) => (
             <Box mt={5} key={index}>
@@ -39,7 +36,7 @@ const CountryResultsList = () => {
             </Box>
           ))}
         </Box>
-      )}
+      </Skeleton>
     </Box>
   );
 };
