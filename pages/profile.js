@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import LoginRedirect from "../components/LoginRedirect";
 
 const Profile = () => {
   const { getAccessTokenSilently, user } = useAuth0();
@@ -19,5 +20,5 @@ const Profile = () => {
 
 export default withAuthenticationRequired(Profile, {
   // eslint-disable-next-line
-  onRedirecting: () => <div>Redirecting you to the login page...</div>,
+  onRedirecting: () => <LoginRedirect />,
 });
