@@ -58,9 +58,10 @@ const CountriesOfTheWorldGameContainer = () => {
 
   return (
     <CountriesOfTheWorldGame
-      onChange={handleChange}
       countries={allCountries}
+      countriesByContinent={countriesByContinent}
       isLoading={isPending}
+      onChange={handleChange}
     />
   );
 };

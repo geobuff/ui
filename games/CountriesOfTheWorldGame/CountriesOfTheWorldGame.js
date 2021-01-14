@@ -5,7 +5,7 @@ import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 import { SVGMap } from "react-svg-map";
 import World from "@svg-maps/world";
 
-import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
+import CountryResultsList from "../.../../../components/CountryResultsList";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
@@ -31,7 +31,11 @@ const recentCountries = [
 const timeFifteenMinutes = () =>
   new Date().setMinutes(new Date().getMinutes() + 15);
 
-const CountriesOfTheWorldGame = ({ countries, onChange }) => {
+const CountriesOfTheWorldGame = ({
+  countriesByContinent,
+  countries,
+  onChange,
+}) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
@@ -90,7 +94,9 @@ const CountriesOfTheWorldGame = ({ countries, onChange }) => {
                   score={score}
                   total={193}
                 />
-                <CountryResultsListContainer />
+                <CountryResultsList
+                  countriesByContinent={countriesByContinent}
+                />
               </Box>
             </Sidebar>
           </Box>
@@ -125,11 +131,13 @@ CountriesOfTheWorldGame.propTypes = {
       code: PropTypes.string,
     })
   ),
+  countriesByContinent: PropTypes.object,
   onChange: PropTypes.func,
 };
 
 CountriesOfTheWorldGame.defaultProps = {
   countries: [],
+  countriesByContinent: [],
   onChange: () => {},
 };
 

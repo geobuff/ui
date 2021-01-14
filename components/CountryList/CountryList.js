@@ -18,7 +18,12 @@ const CountryList = ({ countries }) => {
   return (
     <List>
       {countries.map((country) => (
-        <CountryListItem key={country.code} my={2} {...country} />
+        <CountryListItem
+          key={country.code}
+          my={2}
+          isHidden={!country.checked}
+          {...country}
+        />
       ))}
     </List>
   );
