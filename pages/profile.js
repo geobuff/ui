@@ -1,22 +1,9 @@
-import React, { useEffect } from "react";
-import { useAuth0, withAuthenticationRequired } from "@auth0/auth0-react";
+import React from "react";
+import { withAuthenticationRequired } from "@auth0/auth0-react";
+import UserProfile from "../components/UserProfile";
 import LoginRedirect from "../components/LoginRedirect";
 
-const Profile = () => {
-  const { getAccessTokenSilently, user } = useAuth0();
-
-  useEffect(() => {
-    (async () => {
-      const token = await getAccessTokenSilently({
-        audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-      });
-      console.log(token);
-      console.log(user);
-    })();
-  }, [getAccessTokenSilently]);
-
-  return <div>Profile works!</div>;
-};
+const Profile = () => <UserProfile />;
 
 export default withAuthenticationRequired(Profile, {
   // eslint-disable-next-line
