@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 
 import { SVGMap } from "react-svg-map";
@@ -10,7 +11,7 @@ import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 
-import { allCountries } from "../../helpers/countries";
+// import { allCountries } from "../../helpers/countries";
 
 const recentCountries = [
   {
@@ -30,10 +31,8 @@ const recentCountries = [
 const timeFifteenMinutes = () =>
   new Date().setMinutes(new Date().getMinutes() + 15);
 
-const CountriesOfTheWorldGame = () => {
+const CountriesOfTheWorldGame = ({ countries, onChange }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
-
-  const [countries, setCountries] = useState(() => allCountries);
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
 
@@ -41,32 +40,16 @@ const CountriesOfTheWorldGame = () => {
 
   const [score, setScore] = useState(0);
 
-  console.log(countries, "countries");
-
   const getLocationClassName = (location) => {
     const checkedCountries = countries.filter((country) => country.checked);
-    // TODO: km - move out of here!!
     setScore(checkedCountries.length);
-    if (checkedCountries?.find((country) => country.name === location.name)) {
+    if (
+      checkedCountries?.find(
+        (country) => country.name.toLowerCase() === location.name.toLowerCase()
+      )
+    ) {
       return `selected`;
     }
-  };
-
-  const handleChange = (event) => {
-    const { value } = event.currentTarget;
-
-    const updatedCountries = countries.map((country) => {
-      if (country.name === value) {
-        return {
-          ...country,
-          checked: true,
-        };
-      } else {
-        return country;
-      }
-    });
-
-    setCountries(updatedCountries);
   };
 
   const handleGameStart = () => {
@@ -100,7 +83,8 @@ const CountriesOfTheWorldGame = () => {
                   hasGameStarted={hasGameStarted}
                   timeRemaining={timeRemaining}
                   countries={recentCountries}
-                  onChange={handleChange}
+                  // TODO: km -consider rename onChange
+                  onChange={onChange}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                   score={score}
@@ -132,6 +116,21 @@ const CountriesOfTheWorldGame = () => {
       </Flex>
     </Box>
   );
+};
+
+CountriesOfTheWorldGame.propTypes = {
+  countries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
+  onChange: PropTypes.func,
+};
+
+CountriesOfTheWorldGame.defaultProps = {
+  countries: [],
+  onChange: () => {},
 };
 
 export default CountriesOfTheWorldGame;
