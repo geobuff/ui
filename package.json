@@ -28,6 +28,7 @@
     "react-svg-map": "^2.1.2",
     "react-timer-hook": "^2.0.7",
     "svg-maps": "^1.0.0-beta.1",
+    "swr": "^0.4.0",
     "twemoji": "^13.0.1"
   },
   "devDependencies": {
