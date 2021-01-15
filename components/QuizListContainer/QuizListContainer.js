@@ -5,9 +5,9 @@ import { fetcher } from "../../helpers/fetcher";
 import { Text } from "@chakra-ui/core";
 import QuizList from "../QuizList";
 
-const QuizListContainer = ({ search }) => {
+const QuizListContainer = ({ filter }) => {
   const { data } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/quizzes?search=${search}`,
+    `${process.env.NEXT_PUBLIC_API_URL}/quizzes?filter=${filter}`,
     fetcher
   );
 
@@ -19,10 +19,10 @@ const QuizListContainer = ({ search }) => {
 };
 
 QuizListContainer.propTypes = {
-  search: PropTypes.string,
+  filter: PropTypes.string,
 };
 QuizListContainer.defaultProps = {
-  search: "",
+  filter: "",
 };
 
 export default QuizListContainer;
