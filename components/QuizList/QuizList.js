@@ -1,12 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Flex, Text, Heading, Input, Link } from "@chakra-ui/core";
+import { Box, Flex, Text, Heading, Link } from "@chakra-ui/core";
 import flag from "country-code-emoji";
 import Twemoji from "../Twemoji";
 
 const QuizList = ({ quizzes }) => (
   <Box width="50%" ml="auto" mr="auto">
-    <Input mt={10} placeholder="Enter quiz name..." />
     {quizzes.map((quiz, index) => (
       <Box key={index}>
         {quiz.enabled ? (
