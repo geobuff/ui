@@ -94,5 +94,4 @@ GameInputCard.defaultProps = {
   total: 0,
 };
 
-// TODO: should memo be moved to CountryList instead?
-export default React.memo(GameInputCard);
+export default GameInputCard;

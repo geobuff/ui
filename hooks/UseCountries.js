@@ -1,7 +1,14 @@
 import { useEffect, useState } from "react";
+// import useSWR from "swr";
 
-// TODO: use Game Countries?
+// import { fetcher } from "../helpers/fetcher";
+
 const useCountries = () => {
+  // const { data } = useSWR(
+  //   `${process.env.NEXT_PUBLIC_API_URL}/countries`,
+  //   fetcher
+  // );
+
   const [isPending, setIsPending] = useState(true);
   const [countriesByContinent, setCountriesByContinent] = useState([]);
   const [allCountries, setAllCountries] = useState([]);
@@ -25,7 +32,6 @@ const useCountries = () => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/countries`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data, "OG:cunts by continent");
         setCountriesByContinent(data);
         setAllCountries(flattenCountries(data));
         setIsPending(false);

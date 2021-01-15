@@ -1,11 +1,14 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import { debounce } from "debounce";
 import PropTypes from "prop-types";
+
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 
 import { SVGMap } from "react-svg-map";
 import World from "@svg-maps/world";
 
-import CountryResultsList from "../.../../../components/CountryResultsList";
+// TODO: km - move to containers folder
+import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
@@ -31,35 +34,35 @@ const recentCountries = [
 const timeFifteenMinutes = () =>
   new Date().setMinutes(new Date().getMinutes() + 15);
 
-const CountriesOfTheWorldGame = ({
-  countriesByContinent,
-  countries,
-  onChange,
-}) => {
+const CountriesOfTheWorldGame = ({ checkedCountries, onChange, score }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
 
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
-  const [score, setScore] = useState(0);
-
   const getLocationClassName = (location) => {
-    const checkedCountries = countries.filter((country) => country.checked);
-    setScore(checkedCountries.length);
     if (
-      checkedCountries?.find(
-        (country) => country.name.toLowerCase() === location.name.toLowerCase()
-      )
+      checkedCountries.length
+        ? checkedCountries.find(
+            (country) =>
+              country.name.toLowerCase() === location.name.toLowerCase()
+          )
+        : false
     ) {
       return `selected`;
     }
   };
 
+  const handleChange = (event) => {
+    handleDebounceChange(event.target.value);
+  };
+
+  const handleDebounceChange = useCallback(debounce(onChange, 50), [onChange]);
+
   const handleGameStart = () => {
     setTimeRemaining(timeFifteenMinutes());
     setHasGameStarted(true);
-    setScore(0);
   };
 
   const handleGameStop = () => {
@@ -88,14 +91,14 @@ const CountriesOfTheWorldGame = ({
                   timeRemaining={timeRemaining}
                   countries={recentCountries}
                   // TODO: km -consider rename onChange
-                  onChange={onChange}
+                  onChange={handleChange}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                   score={score}
                   total={193}
                 />
-                <CountryResultsList
-                  countriesByContinent={countriesByContinent}
+                <CountryResultsListContainer
+                  checkedCountries={checkedCountries}
                 />
               </Box>
             </Sidebar>
@@ -107,8 +110,8 @@ const CountriesOfTheWorldGame = ({
             <SVGMap
               map={World}
               className="countries-of-world"
-              // locationClassName="highlight-on-hover"
               locationClassName={getLocationClassName}
+              // locationClassName="highlight-on-hover"
             />
           </Box>
 
@@ -125,6 +128,12 @@ const CountriesOfTheWorldGame = ({
 };
 
 CountriesOfTheWorldGame.propTypes = {
+  checkedCountries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
   countries: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -133,12 +142,15 @@ CountriesOfTheWorldGame.propTypes = {
   ),
   countriesByContinent: PropTypes.object,
   onChange: PropTypes.func,
+  score: PropTypes.number,
 };
 
 CountriesOfTheWorldGame.defaultProps = {
+  checkedCountries: [],
   countries: [],
   countriesByContinent: [],
   onChange: () => {},
+  score: 0,
 };
 
 export default CountriesOfTheWorldGame;

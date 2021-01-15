@@ -1,67 +1,35 @@
-import React from "react";
+import React, { useState } from "react";
+
 import CountriesOfTheWorldGame from "../../games/CountriesOfTheWorldGame";
 import useCountries from "../../hooks/UseCountries";
 
 const CountriesOfTheWorldGameContainer = () => {
-  const {
-    allCountries,
-    countriesByContinent,
-    isPending,
-    setAllCountries,
-    setCountriesByContinent,
-  } = useCountries();
+  const { allCountries, isPending } = useCountries();
 
-  //   const [score, setScore] = useState(0);
+  const [checkedCountries, setCheckedCountries] = useState([]);
 
-  const updateCountriesByContinentBySearch = (searchTerm) => {
-    let updatedCountries = {};
+  const [score, setScore] = useState(0);
 
-    Object.entries(countriesByContinent).forEach(([key, value]) => {
-      updatedCountries = {
-        ...updatedCountries,
-        [key]: value.map((country) => {
-          if (country.name.toLowerCase() === searchTerm.toLowerCase()) {
-            return {
-              ...country,
-              checked: true,
-            };
-          } else {
-            return country;
-          }
-        }),
-      };
-    });
-    return updatedCountries;
-  };
-
-  const handleChange = (event) => {
-    const { value } = event.currentTarget;
-
-    const updatedCountries = allCountries.map((country) => {
-      if (country.name.toLowerCase() === value.toLowerCase()) {
-        return {
-          ...country,
-          checked: true,
-        };
-      } else {
-        return country;
-      }
-    });
-
-    const updatedCountriesByContinent = updateCountriesByContinentBySearch(
-      value
+  const handleChange = (countryName) => {
+    const selectedCountry = allCountries.find(
+      (country) => country?.name.toLowerCase() === countryName.toLowerCase()
     );
 
-    setAllCountries(updatedCountries);
-    setCountriesByContinent(updatedCountriesByContinent);
+    if (selectedCountry) {
+      setCheckedCountries(() => [
+        ...checkedCountries,
+        { ...selectedCountry, checked: true },
+      ]);
+      setScore([...checkedCountries, selectedCountry].length);
+    }
   };
 
   return (
     <CountriesOfTheWorldGame
-      countries={allCountries}
-      countriesByContinent={countriesByContinent}
+      checkedCountries={checkedCountries}
       isLoading={isPending}
       onChange={handleChange}
+      score={score}
     />
   );
 };

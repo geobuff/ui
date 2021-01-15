@@ -1,21 +1,22 @@
 import React from "react";
-import useSWR from "swr";
+import useCountries from "../../hooks/UseCountries";
 
-import { fetcher } from "../../helpers/fetcher";
 import CountryResultsList from "../CountryResultsList/CountryResultsList";
 import CountryResultsListPlaceholder from "../CountryResultsListPlaceholder/CountryResultsListPlaceholder";
 
-const CountryResultsListContainer = () => {
-  const { data } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/countries`,
-    fetcher
-  );
+const CountryResultsListContainer = ({ checkedCountries }) => {
+  const { countriesByContinent, isPending } = useCountries();
 
-  if (!data) {
+  if (isPending) {
     return <CountryResultsListPlaceholder />;
   }
 
-  return <CountryResultsList countriesByContinent={data} />;
+  return (
+    <CountryResultsList
+      checkedCountries={checkedCountries}
+      countriesByContinent={countriesByContinent}
+    />
+  );
 };
 
 export default CountryResultsListContainer;
