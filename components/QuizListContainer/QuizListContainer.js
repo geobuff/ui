@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import useSWR from "swr";
 import { fetcher } from "../../helpers/fetcher";
-import { Text } from "@chakra-ui/core";
 import QuizList from "../QuizList";
 
 const QuizListContainer = ({ filter }) => {
@@ -12,7 +11,7 @@ const QuizListContainer = ({ filter }) => {
   );
 
   if (!data) {
-    return <Text>Loading quizzes...</Text>;
+    return null;
   }
 
   return <QuizList quizzes={data} />;
