@@ -14,27 +14,15 @@ import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 
-// import { allCountries } from "../../helpers/countries";
-
-const recentCountries = [
-  {
-    code: "NZ",
-    svgName: "New Zealand",
-  },
-  {
-    code: "BR",
-    svgName: "Brasil",
-  },
-  {
-    code: "FR",
-    svgName: "France",
-  },
-];
-
 const timeFifteenMinutes = () =>
   new Date().setMinutes(new Date().getMinutes() + 15);
 
-const CountriesOfTheWorldGame = ({ checkedCountries, onChange, score }) => {
+const CountriesOfTheWorldGame = ({
+  checkedCountries,
+  onChange,
+  recentCountries,
+  score,
+}) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
@@ -58,7 +46,7 @@ const CountriesOfTheWorldGame = ({ checkedCountries, onChange, score }) => {
     handleDebounceChange(event.target.value);
   };
 
-  const handleDebounceChange = useCallback(debounce(onChange, 50), [onChange]);
+  const handleDebounceChange = useCallback(debounce(onChange, 25), [onChange]);
 
   const handleGameStart = () => {
     setTimeRemaining(timeFifteenMinutes());
@@ -142,6 +130,12 @@ CountriesOfTheWorldGame.propTypes = {
   ),
   countriesByContinent: PropTypes.object,
   onChange: PropTypes.func,
+  recentCountries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
   score: PropTypes.number,
 };
 
@@ -150,6 +144,7 @@ CountriesOfTheWorldGame.defaultProps = {
   countries: [],
   countriesByContinent: [],
   onChange: () => {},
+  recentCountries: [],
   score: 0,
 };
 
