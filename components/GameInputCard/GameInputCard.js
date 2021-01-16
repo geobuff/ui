@@ -11,6 +11,9 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 const GameInputCard = ({
   countries,
   hasGameStarted,
+  onChange,
+  onGameStart,
+  onGameStop,
   score,
   timeRemaining,
   total,
@@ -23,11 +26,19 @@ const GameInputCard = ({
       </Box>
 
       {divider}
-      <Input my={5} placeholder="Enter Country" />
+      <Input
+        isDisabled={!hasGameStarted}
+        onChange={onChange}
+        my={5}
+        placeholder="Enter Country"
+      />
       {divider}
 
       <Box my={4}>
-        <GameInputCardTimer expiryTimestamp={timeRemaining} />
+        <GameInputCardTimer
+          expiryTimestamp={timeRemaining}
+          hasGameStarted={hasGameStarted}
+        />
       </Box>
 
       {divider}
@@ -36,6 +47,7 @@ const GameInputCard = ({
         <Button
           colorScheme={hasGameStarted ? "red" : "green"}
           isFullWidth
+          onClick={hasGameStarted ? onGameStop : onGameStart}
           p={8}
           size="lg"
         >
@@ -65,15 +77,21 @@ GameInputCard.propTypes = {
     })
   ),
   hasGameStarted: PropTypes.bool,
+  onChange: PropTypes.func,
+  onGameStart: PropTypes.func,
+  onGameStop: PropTypes.func,
   score: PropTypes.number,
   timeRemaining: PropTypes.number,
   total: PropTypes.number,
 };
 GameInputCard.defaultProps = {
   countries: [],
+  onChange: () => {},
+  onGameStart: () => {},
+  onGameStop: () => {},
   hasGameStarted: false,
   score: 0,
   total: 0,
 };
 
-export default React.memo(GameInputCard);
+export default GameInputCard;
