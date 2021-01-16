@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 
 import { SVGMap } from "react-svg-map";
-import World from "@svg-maps/world";
+import { Countries } from "@geobuff/maps";
 
 import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
@@ -65,7 +65,7 @@ const CountriesOfTheWorldGame = () => {
         <Box width="100%">
           <Box pt={2} textAlign="center">
             <SVGMap
-              map={World}
+              map={Countries}
               className="countries-of-world"
               locationClassName="highlight-on-hover"
             />

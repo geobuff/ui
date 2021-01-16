@@ -1,4 +1,4 @@
 // next.config.js
-const withTM = require("next-transpile-modules")(["@svg-maps/world"]); // pass the modules you would like to see transpiled
+const withTM = require("next-transpile-modules")([]); // pass the modules you would like to see transpiled
 
 module.exports = withTM();
