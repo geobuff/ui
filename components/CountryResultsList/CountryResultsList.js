@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Box, Divider, Text } from "@chakra-ui/core";
 
 import CountryList from "../CountryList";
-import mergeArrayByName from "../../helpers/array";
+import { mergeArrayByName } from "../../helpers/array";
 
 const CountryResultsList = ({ checkedCountries, countriesByContinent }) => {
   return (
