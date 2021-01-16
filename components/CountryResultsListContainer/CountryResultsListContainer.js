@@ -1,4 +1,5 @@
 import React from "react";
+import PropTypes from "prop-types";
 import useCountries from "../../hooks/UseCountries";
 
 import CountryResultsList from "../CountryResultsList/CountryResultsList";
@@ -17,6 +18,19 @@ const CountryResultsListContainer = ({ checkedCountries }) => {
       countriesByContinent={countriesByContinent}
     />
   );
+};
+
+CountryResultsListContainer.propTypes = {
+  checkedCountries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
+};
+
+CountryResultsListContainer.defaultProps = {
+  checkedCountries: [],
 };
 
 export default CountryResultsListContainer;
