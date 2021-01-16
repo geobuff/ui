@@ -7,7 +7,6 @@ import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 import { SVGMap } from "react-svg-map";
 import World from "@svg-maps/world";
 
-// TODO: km - move to containers folder
 import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
@@ -46,7 +45,7 @@ const CountriesOfTheWorldGame = ({
     handleDebounceChange(event.target.value);
   };
 
-  const handleDebounceChange = useCallback(debounce(onChange, 25), [onChange]);
+  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
   const handleGameStart = () => {
     setTimeRemaining(timeFifteenMinutes());
@@ -78,7 +77,6 @@ const CountriesOfTheWorldGame = ({
                   hasGameStarted={hasGameStarted}
                   timeRemaining={timeRemaining}
                   countries={recentCountries}
-                  // TODO: km -consider rename onChange
                   onChange={handleChange}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}

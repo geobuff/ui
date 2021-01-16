@@ -41,4 +41,4 @@ CountryResultsList.defaultProps = {
   checkedCountries: [],
 };
 
-export default CountryResultsList;
+export default React.memo(CountryResultsList);
