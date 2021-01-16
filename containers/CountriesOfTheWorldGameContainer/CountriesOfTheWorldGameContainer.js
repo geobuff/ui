@@ -8,7 +8,6 @@ const CountriesOfTheWorldGameContainer = () => {
 
   const [checkedCountries, setCheckedCountries] = useState([]);
   const [recentCountries, setRecentCountries] = useState([]);
-
   const [score, setScore] = useState(0);
 
   const findCountryByName = (collection, countryName) =>
@@ -19,7 +18,6 @@ const CountriesOfTheWorldGameContainer = () => {
   // TODO: add error text for duplicate countries
   const handleChange = (countryName) => {
     const matchedCountry = findCountryByName(allCountries, countryName);
-
     const isChecked = findCountryByName(checkedCountries, countryName);
 
     if (matchedCountry && !isChecked) {
