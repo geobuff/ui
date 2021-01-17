@@ -15,9 +15,9 @@ const input = {
         opacity: 1,
       },
       _disabled: {
-        backgroundColor: "gray.200",
+        backgroundColor: "#e6e6e6",
         _placeholder: {
-          color: "gray.300",
+          color: "#cccccc",
         },
       },
       _invalid: {

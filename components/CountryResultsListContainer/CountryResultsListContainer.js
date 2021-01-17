@@ -1,21 +1,36 @@
 import React from "react";
-import useSWR from "swr";
+import PropTypes from "prop-types";
+import useCountries from "../../hooks/UseCountries";
 
-import { fetcher } from "../../helpers/fetcher";
 import CountryResultsList from "../CountryResultsList/CountryResultsList";
 import CountryResultsListPlaceholder from "../CountryResultsListPlaceholder/CountryResultsListPlaceholder";
 
-const CountryResultsListContainer = () => {
-  const { data } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/countries`,
-    fetcher
-  );
+const CountryResultsListContainer = ({ checkedCountries }) => {
+  const { countriesByContinent, isPending } = useCountries();
 
-  if (!data) {
+  if (isPending) {
     return <CountryResultsListPlaceholder />;
   }
 
-  return <CountryResultsList countriesByContinent={data} />;
+  return (
+    <CountryResultsList
+      checkedCountries={checkedCountries}
+      countriesByContinent={countriesByContinent}
+    />
+  );
+};
+
+CountryResultsListContainer.propTypes = {
+  checkedCountries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
+};
+
+CountryResultsListContainer.defaultProps = {
+  checkedCountries: [],
 };
 
 export default CountryResultsListContainer;

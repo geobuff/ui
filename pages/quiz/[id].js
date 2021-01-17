@@ -1,7 +1,7 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import CountriesOfTheWorldGame from "../../games/CountriesOfTheWorldGame";
+import CountriesOfTheWorldGameContainer from "../../containers/CountriesOfTheWorldGameContainer";
 
 const Quiz = () => {
   const router = useRouter();
@@ -9,7 +9,7 @@ const Quiz = () => {
 
   switch (id) {
     case "countries-of-the-world":
-      return <CountriesOfTheWorldGame />;
+      return <CountriesOfTheWorldGameContainer />;
 
     default:
       return null;

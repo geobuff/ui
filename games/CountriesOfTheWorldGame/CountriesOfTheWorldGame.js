@@ -1,4 +1,7 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
+import { debounce } from "debounce";
+import PropTypes from "prop-types";
+
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 
 import { SVGMap } from "react-svg-map";
@@ -10,35 +13,56 @@ import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 
-const recentCountries = [
-  {
-    code: "NZ",
-    svgName: "New Zealand",
-  },
-  {
-    code: "BR",
-    svgName: "Brasil",
-  },
-  {
-    code: "FR",
-    svgName: "France",
-  },
-];
+const timeFifteenMinutes = () =>
+  new Date().setMinutes(new Date().getMinutes() + 15);
 
-const CountriesOfTheWorldGame = () => {
+const CountriesOfTheWorldGame = ({
+  checkedCountries,
+  onChange,
+  recentCountries,
+  score,
+}) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
-  const [timeRemaining] = useState(() =>
-    new Date().setMinutes(new Date().getMinutes() + 15)
-  );
 
-  const hasGameStarted = true;
+  const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+
+  const [hasGameStarted, setHasGameStarted] = useState(false);
+
+  const getLocationClassName = (location) => {
+    if (
+      checkedCountries.length
+        ? checkedCountries.find(
+            (country) =>
+              country.name.toLowerCase() === location.name.toLowerCase()
+          )
+        : false
+    ) {
+      return `selected`;
+    }
+  };
+
+  const handleChange = (event) => {
+    handleDebounceChange(event.target.value);
+  };
+
+  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
+
+  const handleGameStart = () => {
+    setTimeRemaining(timeFifteenMinutes());
+    setHasGameStarted(true);
+  };
+
+  const handleGameStop = () => {
+    setTimeRemaining(null);
+    setHasGameStarted(false);
+  };
 
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       {shouldDisplayOnMobile && (
         <GameInputBanner
           expiryTimestamp={timeRemaining}
-          score={69}
+          score={score}
           total={193}
           verb="countries"
         />
@@ -50,13 +74,18 @@ const CountriesOfTheWorldGame = () => {
             <Sidebar heading="Countries of the World Quiz">
               <Box>
                 <GameInputCard
-                  hasGameStarted={true}
+                  hasGameStarted={hasGameStarted}
                   timeRemaining={timeRemaining}
                   countries={recentCountries}
-                  score={69}
+                  onChange={handleChange}
+                  onGameStart={handleGameStart}
+                  onGameStop={handleGameStop}
+                  score={score}
                   total={193}
                 />
-                <CountryResultsListContainer />
+                <CountryResultsListContainer
+                  checkedCountries={checkedCountries}
+                />
               </Box>
             </Sidebar>
           </Box>
@@ -67,7 +96,8 @@ const CountriesOfTheWorldGame = () => {
             <SVGMap
               map={Countries}
               className="countries-of-world"
-              locationClassName="highlight-on-hover"
+              locationClassName={getLocationClassName}
+              // locationClassName="highlight-on-hover"
             />
           </Box>
 
@@ -81,6 +111,39 @@ const CountriesOfTheWorldGame = () => {
       </Flex>
     </Box>
   );
+};
+
+CountriesOfTheWorldGame.propTypes = {
+  checkedCountries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
+  countries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
+  countriesByContinent: PropTypes.object,
+  onChange: PropTypes.func,
+  recentCountries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
+  score: PropTypes.number,
+};
+
+CountriesOfTheWorldGame.defaultProps = {
+  checkedCountries: [],
+  countries: [],
+  countriesByContinent: [],
+  onChange: () => {},
+  recentCountries: [],
+  score: 0,
 };
 
 export default CountriesOfTheWorldGame;
