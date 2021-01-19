@@ -11,6 +11,7 @@ const UserProfileContainer = () => {
   const [token, setToken] = useState();
   const [username, setUsername] = useState();
   const [id, setId] = useState();
+  const [quizzes, setQuizzes] = useState();
 
   useEffect(() => {
     getAccessTokenSilently({
@@ -23,7 +24,12 @@ const UserProfileContainer = () => {
       fetcher(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`).then(
         (id) => {
           setId(id);
-          setLoading(false);
+          fetcher(`${process.env.NEXT_PUBLIC_API_URL}/quizzes`).then(
+            (quizzes) => {
+              setQuizzes(quizzes);
+              setLoading(false);
+            }
+          );
         }
       );
     });
@@ -34,7 +40,13 @@ const UserProfileContainer = () => {
   }
 
   return (
-    <UserProfile token={token} id={id} username={username} email={user.email} />
+    <UserProfile
+      token={token}
+      id={id}
+      username={username}
+      email={user.email}
+      quizzes={quizzes}
+    />
   );
 };
 
