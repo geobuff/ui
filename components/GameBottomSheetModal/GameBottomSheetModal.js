@@ -12,6 +12,7 @@ const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
 const GameBottomSheetModal = ({
+  checkedCountries,
   hasGameStarted,
   onGameStart,
   onGameStop,
@@ -41,9 +42,8 @@ const GameBottomSheetModal = ({
           <Box
             mx={5}
             my={0}
-            // TODO: Add padding based on current snapPoint
+            // TODO: Update padding based on current snapPoint
             pb="400px"
-            overflowY="scroll"
           >
             <Box>
               <Heading pt={0} size="md" textAlign="center">
@@ -77,7 +77,9 @@ const GameBottomSheetModal = ({
             </Box>
 
             <Box>
-              <CountryResultsListContainer />
+              <CountryResultsListContainer
+                checkedCountries={checkedCountries}
+              />
             </Box>
           </Box>
         </Sheet.Content>
@@ -87,6 +89,12 @@ const GameBottomSheetModal = ({
 };
 
 GameBottomSheetModal.propTypes = {
+  checkedCountries: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
   hasGameStarted: PropTypes.bool,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
@@ -99,6 +107,7 @@ GameBottomSheetModal.propTypes = {
 };
 
 GameBottomSheetModal.defaultProps = {
+  checkedCountries: [],
   hasGameStarted: false,
   onGameStart: () => {},
   onGameStop: () => {},

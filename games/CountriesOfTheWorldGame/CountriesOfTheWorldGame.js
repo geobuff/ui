@@ -106,6 +106,7 @@ const CountriesOfTheWorldGame = ({
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
+              checkedCountries={checkedCountries}
               hasGameStarted={hasGameStarted}
               recentCountries={recentCountries}
               onGameStart={handleGameStart}
