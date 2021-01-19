@@ -4,7 +4,7 @@ import { Box } from "@chakra-ui/core";
 
 const UserProfileLeaderboardEntries = ({ entries, quizzes }) => (
   <Box>
-    <table variant="simple">
+    <table>
       <thead>
         <tr>
           <th>Quiz</th>
