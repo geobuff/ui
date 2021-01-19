@@ -11,7 +11,12 @@ import CountryResultsListContainer from "../.../../../components/CountryResultsL
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
-const GameBottomSheetModal = ({ hasGameStarted, recentCountries }) => {
+const GameBottomSheetModal = ({
+  hasGameStarted,
+  onGameStart,
+  onGameStop,
+  recentCountries,
+}) => {
   const [isOpen, setIsOpen] = useState(true);
 
   // Because we want the modal to stay open, this forces the
@@ -28,12 +33,18 @@ const GameBottomSheetModal = ({ hasGameStarted, recentCountries }) => {
       onClose={handleClose}
       snapPoints={snapPoints}
       initialSnap={initialSnap}
-      mt={11}
+      mt="120px"
     >
       <Sheet.Container>
         <Sheet.Header />
         <Sheet.Content>
-          <Box mx={5} my={0}>
+          <Box
+            mx={5}
+            my={0}
+            // TODO: Add padding based on current snapPoint
+            pb="400px"
+            overflowY="scroll"
+          >
             <Box>
               <Heading pt={0} size="md" textAlign="center">
                 {"Countries of the World Quiz"}
@@ -45,6 +56,7 @@ const GameBottomSheetModal = ({ hasGameStarted, recentCountries }) => {
                 <Button
                   colorScheme={hasGameStarted ? "red" : "green"}
                   isFullWidth
+                  onClick={hasGameStarted ? onGameStop : onGameStart}
                   p={8}
                   size="md"
                 >
@@ -76,6 +88,8 @@ const GameBottomSheetModal = ({ hasGameStarted, recentCountries }) => {
 
 GameBottomSheetModal.propTypes = {
   hasGameStarted: PropTypes.bool,
+  onGameStart: PropTypes.func,
+  onGameStop: PropTypes.func,
   recentCountries: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -83,8 +97,11 @@ GameBottomSheetModal.propTypes = {
     })
   ),
 };
+
 GameBottomSheetModal.defaultProps = {
   hasGameStarted: false,
+  onGameStart: () => {},
+  onGameStop: () => {},
   recentCountries: [],
 };
 
