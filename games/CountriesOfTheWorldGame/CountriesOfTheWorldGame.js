@@ -65,6 +65,9 @@ const CountriesOfTheWorldGame = ({
           score={score}
           total={193}
           verb="countries"
+          hasGameStarted={hasGameStarted}
+          timeRemaining={timeRemaining}
+          onChange={handleChange}
         />
       )}
 
@@ -103,8 +106,11 @@ const CountriesOfTheWorldGame = ({
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
+              checkedCountries={checkedCountries}
               hasGameStarted={hasGameStarted}
               recentCountries={recentCountries}
+              onGameStart={handleGameStart}
+              onGameStop={handleGameStop}
             />
           )}
         </Box>
