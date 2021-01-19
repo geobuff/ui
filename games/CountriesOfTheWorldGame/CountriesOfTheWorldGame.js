@@ -65,6 +65,9 @@ const CountriesOfTheWorldGame = ({
           score={score}
           total={193}
           verb="countries"
+          hasGameStarted={hasGameStarted}
+          timeRemaining={timeRemaining}
+          onChange={handleChange}
         />
       )}
 
@@ -105,6 +108,8 @@ const CountriesOfTheWorldGame = ({
             <GameBottomSheetModal
               hasGameStarted={hasGameStarted}
               recentCountries={recentCountries}
+              onGameStart={handleGameStart}
+              onGameStop={handleGameStop}
             />
           )}
         </Box>
