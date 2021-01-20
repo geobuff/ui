@@ -18,7 +18,9 @@ const timeFifteenMinutes = () =>
 
 const CountriesOfTheWorldGame = ({
   checkedCountries,
+  inputValue,
   onChange,
+  onChangeInputValue,
   recentCountries,
   score,
 }) => {
@@ -42,6 +44,7 @@ const CountriesOfTheWorldGame = ({
   };
 
   const handleChange = (event) => {
+    onChangeInputValue(event.target.value);
     handleDebounceChange(event.target.value);
   };
 
@@ -80,6 +83,7 @@ const CountriesOfTheWorldGame = ({
                   hasGameStarted={hasGameStarted}
                   timeRemaining={timeRemaining}
                   countries={recentCountries}
+                  inputValue={inputValue}
                   onChange={handleChange}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
@@ -126,14 +130,9 @@ CountriesOfTheWorldGame.propTypes = {
       code: PropTypes.string,
     })
   ),
-  countries: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
-  countriesByContinent: PropTypes.object,
+  inputValue: PropTypes.string,
   onChange: PropTypes.func,
+  onChangeInputValue: PropTypes.func,
   recentCountries: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -145,9 +144,9 @@ CountriesOfTheWorldGame.propTypes = {
 
 CountriesOfTheWorldGame.defaultProps = {
   checkedCountries: [],
-  countries: [],
-  countriesByContinent: [],
+  inputValue: "",
   onChange: () => {},
+  onChangeInputValue: () => {},
   recentCountries: [],
   score: 0,
 };

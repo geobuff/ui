@@ -4,9 +4,10 @@ import CountriesOfTheWorldGame from "../../games/CountriesOfTheWorldGame";
 import useCountries from "../../hooks/UseCountries";
 
 const CountriesOfTheWorldGameContainer = () => {
-  const { allCountries, isPending } = useCountries();
+  const { allCountries } = useCountries();
 
   const [checkedCountries, setCheckedCountries] = useState([]);
+  const [inputValue, setInputValue] = useState("");
   const [recentCountries, setRecentCountries] = useState([]);
   const [score, setScore] = useState(0);
 
@@ -15,12 +16,17 @@ const CountriesOfTheWorldGameContainer = () => {
       (country) => country.name.toLowerCase() === countryName.toLowerCase()
     );
 
+  const handleChangeInputValue = (value) => {
+    setInputValue(value);
+  };
+
   // TODO: add error text for duplicate countries
   const handleChange = (countryName) => {
     const matchedCountry = findCountryByName(allCountries, countryName);
     const isChecked = findCountryByName(checkedCountries, countryName);
 
     if (matchedCountry && !isChecked) {
+      setInputValue("");
       const updatedCheckedCountries = [
         ...checkedCountries,
         { ...matchedCountry, checked: true },
@@ -42,8 +48,9 @@ const CountriesOfTheWorldGameContainer = () => {
   return (
     <CountriesOfTheWorldGame
       checkedCountries={checkedCountries}
-      isLoading={isPending}
+      inputValue={inputValue}
       onChange={handleChange}
+      onChangeInputValue={handleChangeInputValue}
       recentCountries={recentCountries}
       score={score}
     />
