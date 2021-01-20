@@ -65,12 +65,12 @@ const CountriesOfTheWorldGame = ({
       {shouldDisplayOnMobile && (
         <GameInputBanner
           expiryTimestamp={timeRemaining}
+          hasGameStarted={hasGameStarted}
+          inputValue={inputValue}
+          onChange={handleChange}
           score={score}
           total={193}
           verb="countries"
-          hasGameStarted={hasGameStarted}
-          timeRemaining={timeRemaining}
-          onChange={handleChange}
         />
       )}
 
