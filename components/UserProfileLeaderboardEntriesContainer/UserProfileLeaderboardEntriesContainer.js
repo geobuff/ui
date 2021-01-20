@@ -1,22 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useSWR from "swr";
 import { Text } from "@chakra-ui/core";
-import { fetcher } from "../../helpers/fetcher";
 import UserProfileLeaderboardEntries from "../UserProfileLeaderboardEntries";
+import useLeaderboardEntries from "../../hooks/UseLeaderboardEntries";
 
 const UserProfileLeaderboardEntriesContainer = ({ id, quizzes }) => {
-  const { data } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/countries/leaderboard/${id}`,
-    fetcher
-  );
+  const { entries, isPending } = useLeaderboardEntries(id);
 
-  if (!data) {
+  if (isPending) {
     return <Text>Loading leaderboard entries...</Text>;
   }
 
-  data.quizId = 1;
-  return <UserProfileLeaderboardEntries entries={[data]} quizzes={quizzes} />;
+  return <UserProfileLeaderboardEntries entries={entries} quizzes={quizzes} />;
 };
 
 UserProfileLeaderboardEntriesContainer.propTypes = {
