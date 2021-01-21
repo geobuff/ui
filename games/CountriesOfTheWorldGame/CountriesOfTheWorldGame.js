@@ -18,6 +18,8 @@ const timeFifteenMinutes = () =>
 
 const CountriesOfTheWorldGame = ({
   checkedCountries,
+  errorMessage,
+  hasError,
   inputValue,
   onChange,
   onChangeInputValue,
@@ -43,12 +45,12 @@ const CountriesOfTheWorldGame = ({
     }
   };
 
+  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
+
   const handleChange = (event) => {
     onChangeInputValue(event.target.value);
     handleDebounceChange(event.target.value);
   };
-
-  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
   const handleGameStart = () => {
     setTimeRemaining(timeFifteenMinutes());
@@ -80,14 +82,16 @@ const CountriesOfTheWorldGame = ({
             <Sidebar heading="Countries of the World Quiz">
               <Box>
                 <GameInputCard
-                  hasGameStarted={hasGameStarted}
-                  timeRemaining={timeRemaining}
                   countries={recentCountries}
+                  errorMessage={errorMessage}
+                  hasError={hasError}
+                  hasGameStarted={hasGameStarted}
                   inputValue={inputValue}
                   onChange={handleChange}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                   score={score}
+                  timeRemaining={timeRemaining}
                   total={193}
                 />
                 <CountryResultsListContainer
@@ -130,6 +134,8 @@ CountriesOfTheWorldGame.propTypes = {
       code: PropTypes.string,
     })
   ),
+  errorMessage: PropTypes.string,
+  hasError: PropTypes.bool,
   inputValue: PropTypes.string,
   onChange: PropTypes.func,
   onChangeInputValue: PropTypes.func,
@@ -144,6 +150,9 @@ CountriesOfTheWorldGame.propTypes = {
 
 CountriesOfTheWorldGame.defaultProps = {
   checkedCountries: [],
+  countries: [],
+  errorMessage: "",
+  hasError: false,
   inputValue: "",
   onChange: () => {},
   onChangeInputValue: () => {},

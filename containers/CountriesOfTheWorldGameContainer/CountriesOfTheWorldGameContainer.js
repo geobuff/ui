@@ -7,6 +7,8 @@ const CountriesOfTheWorldGameContainer = () => {
   const { allCountries } = useCountries();
 
   const [checkedCountries, setCheckedCountries] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [hasError, setHasError] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [recentCountries, setRecentCountries] = useState([]);
   const [score, setScore] = useState(0);
@@ -20,12 +22,24 @@ const CountriesOfTheWorldGameContainer = () => {
     setInputValue(value);
   };
 
-  // TODO: add error text for duplicate countries
   const handleChange = (countryName) => {
+    if (!countryName) {
+      setHasError(false);
+      setErrorMessage("");
+    }
+
     const matchedCountry = findCountryByName(allCountries, countryName);
     const isChecked = findCountryByName(checkedCountries, countryName);
 
+    if (matchedCountry && isChecked) {
+      console.log(matchedCountry, "matchedCountry");
+      setHasError(true);
+      setErrorMessage(`${matchedCountry.svgName} has already been answered!`);
+    }
+
     if (matchedCountry && !isChecked) {
+      setErrorMessage("");
+      setHasError(false);
       setInputValue("");
       const updatedCheckedCountries = [
         ...checkedCountries,
@@ -48,6 +62,8 @@ const CountriesOfTheWorldGameContainer = () => {
   return (
     <CountriesOfTheWorldGame
       checkedCountries={checkedCountries}
+      errorMessage={errorMessage}
+      hasError={hasError}
       inputValue={inputValue}
       onChange={handleChange}
       onChangeInputValue={handleChangeInputValue}
