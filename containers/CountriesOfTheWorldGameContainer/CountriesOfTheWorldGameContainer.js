@@ -65,8 +65,8 @@ const CountriesOfTheWorldGameContainer = () => {
       errorMessage={errorMessage}
       hasError={hasError}
       inputValue={inputValue}
-      onChangeInputValue={handleChangeInputValue}
       onChange={handleChange}
+      onChangeInputValue={handleChangeInputValue}
       recentCountries={recentCountries}
       score={score}
     />

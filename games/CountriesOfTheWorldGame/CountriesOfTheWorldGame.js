@@ -22,6 +22,7 @@ const CountriesOfTheWorldGame = ({
   hasError,
   inputValue,
   onChange,
+  onChangeInputValue,
   recentCountries,
   score,
 }) => {
@@ -47,6 +48,7 @@ const CountriesOfTheWorldGame = ({
   const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
   const handleChange = (event) => {
+    onChangeInputValue(event.target.value);
     handleDebounceChange(event.target.value);
   };
 
@@ -65,12 +67,12 @@ const CountriesOfTheWorldGame = ({
       {shouldDisplayOnMobile && (
         <GameInputBanner
           expiryTimestamp={timeRemaining}
+          hasGameStarted={hasGameStarted}
+          inputValue={inputValue}
+          onChange={handleChange}
           score={score}
           total={193}
           verb="countries"
-          hasGameStarted={hasGameStarted}
-          timeRemaining={timeRemaining}
-          onChange={handleChange}
         />
       )}
 
@@ -136,6 +138,7 @@ CountriesOfTheWorldGame.propTypes = {
   hasError: PropTypes.bool,
   inputValue: PropTypes.string,
   onChange: PropTypes.func,
+  onChangeInputValue: PropTypes.func,
   recentCountries: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -152,6 +155,7 @@ CountriesOfTheWorldGame.defaultProps = {
   hasError: false,
   inputValue: "",
   onChange: () => {},
+  onChangeInputValue: () => {},
   recentCountries: [],
   score: 0,
 };

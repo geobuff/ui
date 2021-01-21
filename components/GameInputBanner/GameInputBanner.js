@@ -8,6 +8,7 @@ import GameInputBannerTimer from "./GameInputBannerTimer";
 const GameInputBanner = ({
   expiryTimestamp,
   hasGameStarted,
+  inputValue,
   onChange,
   onExpire,
   score,
@@ -38,14 +39,19 @@ const GameInputBanner = ({
           {`${score} of ${total} ${verb}`}
         </Text>
       </Box>
-      <Input placeholder="Enter country" onChange={onChange} />
+      <Input
+        placeholder="Enter country"
+        onChange={onChange}
+        value={inputValue}
+      />
     </Flex>
   );
 };
 
 GameInputBanner.propTypes = {
-  hasGameStarted: PropTypes.bool,
   expiryTimestamp: PropTypes.number,
+  hasGameStarted: PropTypes.bool,
+  inputValue: PropTypes.string,
   onChange: PropTypes.func,
   onExpire: PropTypes.func,
   score: PropTypes.number,
@@ -53,8 +59,9 @@ GameInputBanner.propTypes = {
   verb: PropTypes.string,
 };
 GameInputBanner.defaultProps = {
-  hasGameStarted: false,
   expiryTimestamp: null,
+  hasGameStarted: false,
+  inputValue: "",
   onChange: () => {},
   onExpire: () => {},
   score: 0,
