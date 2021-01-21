@@ -18,6 +18,9 @@ const timeFifteenMinutes = () =>
 
 const CountriesOfTheWorldGame = ({
   checkedCountries,
+  errorMessage,
+  hasError,
+  inputValue,
   onChange,
   recentCountries,
   score,
@@ -41,11 +44,11 @@ const CountriesOfTheWorldGame = ({
     }
   };
 
+  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
+
   const handleChange = (event) => {
     handleDebounceChange(event.target.value);
   };
-
-  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
   const handleGameStart = () => {
     setTimeRemaining(timeFifteenMinutes());
@@ -77,13 +80,16 @@ const CountriesOfTheWorldGame = ({
             <Sidebar heading="Countries of the World Quiz">
               <Box>
                 <GameInputCard
-                  hasGameStarted={hasGameStarted}
-                  timeRemaining={timeRemaining}
                   countries={recentCountries}
+                  errorMessage={errorMessage}
+                  hasError={hasError}
+                  hasGameStarted={hasGameStarted}
+                  inputValue={inputValue}
                   onChange={handleChange}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                   score={score}
+                  timeRemaining={timeRemaining}
                   total={193}
                 />
                 <CountryResultsListContainer
@@ -126,13 +132,9 @@ CountriesOfTheWorldGame.propTypes = {
       code: PropTypes.string,
     })
   ),
-  countries: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
-  countriesByContinent: PropTypes.object,
+  errorMessage: PropTypes.string,
+  hasError: PropTypes.bool,
+  inputValue: PropTypes.string,
   onChange: PropTypes.func,
   recentCountries: PropTypes.arrayOf(
     PropTypes.shape({
@@ -146,7 +148,9 @@ CountriesOfTheWorldGame.propTypes = {
 CountriesOfTheWorldGame.defaultProps = {
   checkedCountries: [],
   countries: [],
-  countriesByContinent: [],
+  errorMessage: "",
+  hasError: false,
+  inputValue: "",
   onChange: () => {},
   recentCountries: [],
   score: 0,

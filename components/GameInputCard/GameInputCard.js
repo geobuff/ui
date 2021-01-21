@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Divider, Text, Input } from "@chakra-ui/core";
+import { Box, Button, Divider, Text, Input, Fade } from "@chakra-ui/core";
 
 import CountryList from "../CountryList";
 import GameInputCardScore from "./GameInputCardScore";
@@ -10,7 +10,10 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
 const GameInputCard = ({
   countries,
+  errorMessage,
   hasGameStarted,
+  hasError,
+  inputValue,
   onChange,
   onGameStart,
   onGameStop,
@@ -26,12 +29,29 @@ const GameInputCard = ({
       </Box>
 
       {divider}
-      <Input
-        isDisabled={!hasGameStarted}
-        onChange={onChange}
-        my={5}
-        placeholder="Enter Country"
-      />
+      <Box position="relative">
+        <Input
+          isInvalid={hasError}
+          isDisabled={!hasGameStarted}
+          onChange={onChange}
+          my={5}
+          placeholder="Enter Country"
+          value={inputValue}
+        />
+        <Fade in={!!errorMessage} unmountOnExit>
+          <Text
+            fontWeight={600}
+            color="red.500"
+            position="absolute"
+            top="60px"
+            bottom={0}
+            left={2}
+            fontSize="xs"
+          >
+            {errorMessage}
+          </Text>
+        </Fade>
+      </Box>
       {divider}
 
       <Box my={4}>
@@ -60,9 +80,7 @@ const GameInputCard = ({
       {divider}
 
       <Box mt={4}>
-        <Text fontWeight="bold" mb={1}>
-          {"RECENT"}
-        </Text>
+        <Text fontWeight="bold">{"RECENT"}</Text>
         <CountryList countries={countries} />
       </Box>
     </Box>
@@ -76,7 +94,10 @@ GameInputCard.propTypes = {
       code: PropTypes.string,
     })
   ),
+  errorMessage: PropTypes.string,
+  hasError: PropTypes.bool,
   hasGameStarted: PropTypes.bool,
+  inputValue: PropTypes.string,
   onChange: PropTypes.func,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
@@ -84,12 +105,16 @@ GameInputCard.propTypes = {
   timeRemaining: PropTypes.number,
   total: PropTypes.number,
 };
+
 GameInputCard.defaultProps = {
   countries: [],
+  errorMessage: "",
+  hasError: false,
+  hasGameStarted: false,
+  inputValue: "",
   onChange: () => {},
   onGameStart: () => {},
   onGameStop: () => {},
-  hasGameStarted: false,
   score: 0,
   total: 0,
 };

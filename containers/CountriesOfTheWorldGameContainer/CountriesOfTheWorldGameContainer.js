@@ -4,9 +4,12 @@ import CountriesOfTheWorldGame from "../../games/CountriesOfTheWorldGame";
 import useCountries from "../../hooks/UseCountries";
 
 const CountriesOfTheWorldGameContainer = () => {
-  const { allCountries, isPending } = useCountries();
+  const { allCountries } = useCountries();
 
   const [checkedCountries, setCheckedCountries] = useState([]);
+  const [errorMessage, setErrorMessage] = useState(false);
+  const [hasError, setHasError] = useState(false);
+  const [inputValue, setInputValue] = useState("");
   const [recentCountries, setRecentCountries] = useState([]);
   const [score, setScore] = useState(0);
 
@@ -15,12 +18,29 @@ const CountriesOfTheWorldGameContainer = () => {
       (country) => country.name.toLowerCase() === countryName.toLowerCase()
     );
 
-  // TODO: add error text for duplicate countries
+  const handleChangeInputValue = (value) => {
+    setInputValue(value);
+  };
+
   const handleChange = (countryName) => {
+    if (!countryName) {
+      setHasError(false);
+      setErrorMessage("");
+    }
+
     const matchedCountry = findCountryByName(allCountries, countryName);
     const isChecked = findCountryByName(checkedCountries, countryName);
 
+    if (matchedCountry && isChecked) {
+      console.log(matchedCountry, "matchedCountry");
+      setHasError(true);
+      setErrorMessage(`${matchedCountry.svgName} has already been answered!`);
+    }
+
     if (matchedCountry && !isChecked) {
+      setErrorMessage("");
+      setHasError(false);
+      setInputValue("");
       const updatedCheckedCountries = [
         ...checkedCountries,
         { ...matchedCountry, checked: true },
@@ -42,7 +62,10 @@ const CountriesOfTheWorldGameContainer = () => {
   return (
     <CountriesOfTheWorldGame
       checkedCountries={checkedCountries}
-      isLoading={isPending}
+      errorMessage={errorMessage}
+      hasError={hasError}
+      inputValue={inputValue}
+      onChangeInputValue={handleChangeInputValue}
       onChange={handleChange}
       recentCountries={recentCountries}
       score={score}
