@@ -24,7 +24,7 @@ const NavigationBar = () => {
   return (
     <Box
       m={0}
-      py={1}
+      py={2}
       px={5}
       backgroundColor="white"
       boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
