@@ -1,19 +1,25 @@
-import React, { useState } from "react";
-import { Box } from "@chakra-ui/core";
-import { DebounceInput } from "react-debounce-input";
+import React, { useState, useCallback } from "react";
+import { Box, Input } from "@chakra-ui/core";
+import { debounce } from "debounce";
 import QuizListContainer from "../components/QuizListContainer/QuizListContainer";
 
 const Home = () => {
   const [filter, setFilter] = useState();
 
+  const onChange = (value) => {
+    setFilter(value);
+  };
+
+  const handleChange = (event) => {
+    handleDebounceChange(event.target.value);
+  };
+
+  const handleDebounceChange = useCallback(debounce(onChange, 500), [onChange]);
+
   return (
     <Box width="100%">
       <Box width="50%" mx="auto" mt={10}>
-        <DebounceInput
-          onChange={(e) => setFilter(e.target.value)}
-          debounceTimeout={500}
-          placeholder="Enter quiz name..."
-        />
+        <Input onChange={handleChange} placeholder="Enter quiz name..." />
       </Box>
       <QuizListContainer filter={filter} />
     </Box>
