@@ -92,6 +92,7 @@ const CountriesOfTheWorldGame = ({
                   hasGameStarted={hasGameStarted}
                   inputValue={inputValue}
                   onChange={handleChange}
+                  onClearInput={onClearInput}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                   score={score}

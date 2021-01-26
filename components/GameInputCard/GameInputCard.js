@@ -1,6 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Divider, Text, Input, Fade } from "@chakra-ui/core";
+
+import {
+  Box,
+  Button,
+  Divider,
+  Text,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Fade,
+} from "@chakra-ui/core";
+
+import { CloseIcon } from "@chakra-ui/icons";
 
 import CountryList from "../CountryList";
 import GameInputCardScore from "./GameInputCardScore";
@@ -15,6 +28,7 @@ const GameInputCard = ({
   hasError,
   inputValue,
   onChange,
+  onClearInput,
   onGameStart,
   onGameStop,
   score,
@@ -29,28 +43,44 @@ const GameInputCard = ({
       </Box>
 
       {divider}
-      <Box position="relative">
-        <Input
-          isInvalid={hasError}
-          isDisabled={!hasGameStarted}
-          onChange={onChange}
-          my={5}
-          placeholder="Enter Country"
-          value={inputValue}
-        />
-        <Fade in={!!errorMessage} unmountOnExit>
-          <Text
-            fontWeight={600}
-            color="red.500"
-            position="absolute"
-            top="60px"
-            bottom={0}
-            left={2}
-            fontSize="xs"
-          >
-            {errorMessage}
-          </Text>
-        </Fade>
+      <Box>
+        <InputGroup position="relative">
+          <InputLeftElement />
+          <Input
+            isInvalid={hasError}
+            isDisabled={!hasGameStarted}
+            onChange={onChange}
+            my={5}
+            placeholder="Enter Country"
+            value={inputValue}
+          />
+          <Fade in={!!errorMessage} unmountOnExit>
+            <Text
+              fontWeight={600}
+              color="red.500"
+              position="absolute"
+              top="60px"
+              bottom={0}
+              left={2}
+              fontSize="xs"
+            >
+              {errorMessage}
+            </Text>
+          </Fade>
+          <InputRightElement>
+            <CloseIcon
+              position="absolute"
+              top="32px"
+              height={3}
+              width={3}
+              mr={1}
+              color={hasError ? "red.400" : "transparent"}
+              onClick={hasError ? onClearInput : null}
+              cursor={hasError ? "pointer" : "inherit"}
+              _hover={{ color: hasError ? "red.400" : "transparent" }}
+            />
+          </InputRightElement>
+        </InputGroup>
       </Box>
       {divider}
 
@@ -99,6 +129,7 @@ GameInputCard.propTypes = {
   hasGameStarted: PropTypes.bool,
   inputValue: PropTypes.string,
   onChange: PropTypes.func,
+  onClearInput: PropTypes.func,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
   score: PropTypes.number,
@@ -113,6 +144,7 @@ GameInputCard.defaultProps = {
   hasGameStarted: false,
   inputValue: "",
   onChange: () => {},
+  onClearInput: () => {},
   onGameStart: () => {},
   onGameStop: () => {},
   score: 0,
