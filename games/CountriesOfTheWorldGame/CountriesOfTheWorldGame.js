@@ -23,6 +23,7 @@ const CountriesOfTheWorldGame = ({
   inputValue,
   onChange,
   onChangeInputValue,
+  onClearInput,
   recentCountries,
   score,
 }) => {
@@ -72,6 +73,7 @@ const CountriesOfTheWorldGame = ({
           hasGameStarted={hasGameStarted}
           inputValue={inputValue}
           onChange={handleChange}
+          onClearInput={onClearInput}
           score={score}
           total={193}
           verb="countries"
@@ -141,6 +143,7 @@ CountriesOfTheWorldGame.propTypes = {
   inputValue: PropTypes.string,
   onChange: PropTypes.func,
   onChangeInputValue: PropTypes.func,
+  onClearInput: PropTypes.func,
   recentCountries: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -158,6 +161,7 @@ CountriesOfTheWorldGame.defaultProps = {
   inputValue: "",
   onChange: () => {},
   onChangeInputValue: () => {},
+  onClearInput: () => {},
   recentCountries: [],
   score: 0,
 };

@@ -1,7 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Box, Flex, Input, Text } from "@chakra-ui/core";
+import {
+  Box,
+  Flex,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Text,
+} from "@chakra-ui/core";
+
+import { CloseIcon } from "@chakra-ui/icons";
 
 import GameInputBannerTimer from "./GameInputBannerTimer";
 import GameInputBannerError from "./GameInputBannerError";
@@ -13,6 +23,7 @@ const GameInputBanner = ({
   hasGameStarted,
   inputValue,
   onChange,
+  onClearInput,
   onExpire,
   score,
   total,
@@ -44,13 +55,27 @@ const GameInputBanner = ({
             {`${score} of ${total} ${verb}`}
           </Text>
         </Box>
-        <Input
-          isDisabled={!hasGameStarted}
-          isInvalid={hasError}
-          placeholder="Enter country"
-          onChange={onChange}
-          value={inputValue}
-        />
+        <InputGroup>
+          <InputLeftElement />
+          <Input
+            isDisabled={!hasGameStarted}
+            isInvalid={hasError}
+            placeholder="Enter country"
+            onChange={onChange}
+            value={inputValue}
+          />
+          <InputRightElement>
+            <CloseIcon
+              height={3}
+              width={3}
+              mr={1}
+              color={hasError ? "red.400" : "transparent"}
+              onClick={hasError ? onClearInput : null}
+              cursor={hasError ? "pointer" : "inherit"}
+              _hover={{ color: hasError ? "red.400" : "transparent" }}
+            />
+          </InputRightElement>
+        </InputGroup>
       </Flex>
       <Box>
         <GameInputBannerError errorMessage={errorMessage} />
@@ -66,6 +91,7 @@ GameInputBanner.propTypes = {
   hasGameStarted: PropTypes.bool,
   inputValue: PropTypes.string,
   onChange: PropTypes.func,
+  onClearInput: PropTypes.func,
   onExpire: PropTypes.func,
   score: PropTypes.number,
   total: PropTypes.number,
@@ -78,6 +104,7 @@ GameInputBanner.defaultProps = {
   hasGameStarted: false,
   inputValue: "",
   onChange: () => {},
+  onClearInput: () => {},
   onExpire: () => {},
   score: 0,
   total: 0,

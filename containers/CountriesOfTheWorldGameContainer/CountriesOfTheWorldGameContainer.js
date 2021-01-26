@@ -59,6 +59,12 @@ const CountriesOfTheWorldGameContainer = () => {
     }
   };
 
+  const handleClearInput = () => {
+    setHasError(false);
+    setErrorMessage("");
+    setInputValue("");
+  };
+
   return (
     <CountriesOfTheWorldGame
       checkedCountries={checkedCountries}
@@ -67,6 +73,7 @@ const CountriesOfTheWorldGameContainer = () => {
       inputValue={inputValue}
       onChange={handleChange}
       onChangeInputValue={handleChangeInputValue}
+      onClearInput={handleClearInput}
       recentCountries={recentCountries}
       score={score}
     />
