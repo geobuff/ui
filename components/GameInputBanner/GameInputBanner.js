@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import {
   Box,
   Flex,
+  IconButton,
   Input,
   InputGroup,
   InputLeftElement,
@@ -65,15 +66,19 @@ const GameInputBanner = ({
             value={inputValue}
           />
           <InputRightElement>
-            <CloseIcon
-              height={3}
-              width={3}
-              mr={1}
-              color={hasError ? "red.400" : "transparent"}
-              onClick={hasError ? onClearInput : null}
-              cursor={hasError ? "pointer" : "inherit"}
-              _hover={{ color: hasError ? "red.400" : "transparent" }}
-            />
+            <IconButton
+              display={hasError ? "flex" : "none"}
+              mr={2}
+              maxHeight="26px"
+              minWidth="26px"
+              backgroundColor="transparent"
+              borderRadius={25}
+              onClick={onClearInput}
+              color="red.400"
+              _hover={{ backgroundColor: "gray.100" }}
+            >
+              <CloseIcon p={0} height={3} width={3} />
+            </IconButton>
           </InputRightElement>
         </InputGroup>
       </Flex>

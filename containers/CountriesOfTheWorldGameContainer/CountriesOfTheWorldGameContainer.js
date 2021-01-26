@@ -32,7 +32,6 @@ const CountriesOfTheWorldGameContainer = () => {
     const isChecked = findCountryByName(checkedCountries, countryName);
 
     if (matchedCountry && isChecked) {
-      console.log(matchedCountry, "matchedCountry");
       setHasError(true);
       setErrorMessage(`${matchedCountry.svgName} has already been answered!`);
     }
