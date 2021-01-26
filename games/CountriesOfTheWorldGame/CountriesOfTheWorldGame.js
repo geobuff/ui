@@ -66,7 +66,9 @@ const CountriesOfTheWorldGame = ({
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       {shouldDisplayOnMobile && (
         <GameInputBanner
+          errorMessage={errorMessage}
           expiryTimestamp={timeRemaining}
+          hasError={hasError}
           hasGameStarted={hasGameStarted}
           inputValue={inputValue}
           onChange={handleChange}
