@@ -18,6 +18,11 @@ const CountriesOfTheWorldGameContainer = () => {
       (country) => country.name.toLowerCase() === countryName.toLowerCase()
     );
 
+  const findCountriesByPrefixes = (collection, countryName) =>
+    collection.filter((country) =>
+      country.prefixes.includes(countryName.toLowerCase())
+    );
+
   const handleChangeInputValue = (value) => {
     setInputValue(value);
   };
@@ -28,11 +33,16 @@ const CountriesOfTheWorldGameContainer = () => {
       setErrorMessage("");
     }
 
-    const matchedCountry = findCountryByName(allCountries, countryName);
+    const matchedPrefixes = findCountriesByPrefixes(allCountries, countryName);
     const isChecked = findCountryByName(checkedCountries, countryName);
 
+    if (isChecked && matchedPrefixes.length > 0) {
+      return;
+    }
+
+    const matchedCountry = findCountryByName(allCountries, countryName);
+
     if (matchedCountry && isChecked) {
-      console.log(matchedCountry, "matchedCountry");
       setHasError(true);
       setErrorMessage(`${matchedCountry.svgName} has already been answered!`);
     }
