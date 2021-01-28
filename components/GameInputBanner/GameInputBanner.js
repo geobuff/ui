@@ -67,14 +67,14 @@ const GameInputBanner = ({
           />
           <InputRightElement>
             <IconButton
-              display={hasError ? "flex" : "none"}
-              mr={2}
-              maxHeight="26px"
-              minWidth="26px"
+              color="red.400"
               backgroundColor="transparent"
               borderRadius={25}
+              display={hasError ? "flex" : "none"}
               onClick={onClearInput}
-              color="red.400"
+              maxHeight="22px"
+              minWidth="22px"
+              mr={2}
               _hover={{ backgroundColor: "gray.100" }}
             >
               <CloseIcon p={0} height={3} width={3} />

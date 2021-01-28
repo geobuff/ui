@@ -72,10 +72,10 @@ const GameInputCard = ({
             <IconButton
               display={hasError ? "flex" : "none"}
               position="absolute"
-              top="25px"
+              top="27px"
               mr={2}
-              maxHeight="26px"
-              minWidth="26px"
+              maxHeight="22px"
+              minWidth="22px"
               backgroundColor="transparent"
               borderRadius={25}
               onClick={onClearInput}
