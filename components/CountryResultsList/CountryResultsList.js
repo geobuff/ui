@@ -5,7 +5,11 @@ import { Box, Divider, Text } from "@chakra-ui/core";
 import CountryList from "../CountryList";
 import { mergeArrayByName } from "../../helpers/array";
 
-const CountryResultsList = ({ checkedCountries, countriesByContinent }) => {
+const CountryResultsList = ({
+  checkedCountries,
+  countriesByContinent,
+  verb,
+}) => {
   return (
     <Box textAlign="left">
       <Divider my={4} />
@@ -21,6 +25,7 @@ const CountryResultsList = ({ checkedCountries, countriesByContinent }) => {
             </Text>
             <CountryList
               countries={mergeArrayByName(value, checkedCountries)}
+              verb={verb}
             />
           </Box>
         ))}
@@ -33,10 +38,12 @@ CountryResultsList.propTypes = {
   // TODO: Suss out propType for this shape
   countriesByContinent: PropTypes.object,
   checkedCountries: PropTypes.array,
+  verb: PropTypes.string,
 };
 CountryResultsList.defaultProps = {
   countriesByContinent: [],
   checkedCountries: [],
+  verb: "countries",
 };
 
 export default React.memo(CountryResultsList);

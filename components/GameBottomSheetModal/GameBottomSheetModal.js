@@ -7,16 +7,19 @@ import Sheet from "react-modal-sheet";
 
 import CountryList from "../.../../../components/CountryList";
 import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
+import CapitalResultsListContainer from "../.../../../components/CapitalResultsListContainer";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
 const GameBottomSheetModal = ({
+  title,
   checkedCountries,
   hasGameStarted,
   onGameStart,
   onGameStop,
   recentCountries,
+  verb,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -47,7 +50,7 @@ const GameBottomSheetModal = ({
           >
             <Box>
               <Heading pt={0} size="md" textAlign="center">
-                {"Countries of the World Quiz"}
+                {title}
               </Heading>
 
               <Divider my={4} />
@@ -73,13 +76,19 @@ const GameBottomSheetModal = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <CountryList countries={recentCountries} />
+              <CountryList countries={recentCountries} verb={verb} />
             </Box>
 
             <Box>
-              <CountryResultsListContainer
-                checkedCountries={checkedCountries}
-              />
+              {verb === "capitals" ? (
+                <CapitalResultsListContainer
+                  checkedCapitals={checkedCountries}
+                />
+              ) : (
+                <CountryResultsListContainer
+                  checkedCountries={checkedCountries}
+                />
+              )}
             </Box>
           </Box>
         </Sheet.Content>
@@ -89,6 +98,7 @@ const GameBottomSheetModal = ({
 };
 
 GameBottomSheetModal.propTypes = {
+  title: PropTypes.string,
   checkedCountries: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -104,6 +114,7 @@ GameBottomSheetModal.propTypes = {
       code: PropTypes.string,
     })
   ),
+  verb: PropTypes.string,
 };
 
 GameBottomSheetModal.defaultProps = {
@@ -112,6 +123,7 @@ GameBottomSheetModal.defaultProps = {
   onGameStart: () => {},
   onGameStop: () => {},
   recentCountries: [],
+  verb: "countries",
 };
 
 export default GameBottomSheetModal;

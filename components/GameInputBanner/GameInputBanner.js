@@ -61,7 +61,7 @@ const GameInputBanner = ({
           <Input
             isDisabled={!hasGameStarted}
             isInvalid={hasError}
-            placeholder="Enter country"
+            placeholder={`Enter ${verb}...`}
             onChange={onChange}
             value={inputValue}
           />
