@@ -30,6 +30,19 @@ const GameBottomSheetModal = ({
     setIsOpen(true);
   };
 
+  const getContainer = () => {
+    switch (verb) {
+      case "capitals":
+        return (
+          <CapitalResultsListContainer checkedCapitals={checkedCountries} />
+        );
+      default:
+        return (
+          <CountryResultsListContainer checkedCountries={checkedCountries} />
+        );
+    }
+  };
+
   return (
     <Box
       as={Sheet}
@@ -79,17 +92,7 @@ const GameBottomSheetModal = ({
               <CountryList countries={recentCountries} verb={verb} />
             </Box>
 
-            <Box>
-              {verb === "capitals" ? (
-                <CapitalResultsListContainer
-                  checkedCapitals={checkedCountries}
-                />
-              ) : (
-                <CountryResultsListContainer
-                  checkedCountries={checkedCountries}
-                />
-              )}
-            </Box>
+            <Box>{getContainer()}</Box>
           </Box>
         </Sheet.Content>
       </Sheet.Container>
