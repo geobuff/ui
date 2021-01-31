@@ -8,6 +8,7 @@ import Sheet from "react-modal-sheet";
 import CountryList from "../.../../../components/CountryList";
 import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
 import CapitalResultsListContainer from "../.../../../components/CapitalResultsListContainer";
+import StatesResultsListContainer from "../StatesResultsListContainer";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
@@ -36,6 +37,8 @@ const GameBottomSheetModal = ({
         return (
           <CapitalResultsListContainer checkedCapitals={checkedCountries} />
         );
+      case "states":
+        return <StatesResultsListContainer checkedStates={checkedCountries} />;
       default:
         return (
           <CountryResultsListContainer checkedCountries={checkedCountries} />

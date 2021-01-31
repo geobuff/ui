@@ -120,6 +120,7 @@ const USStatesGame = ({
               recentCountries={recentStates}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
+              verb="states"
             />
           )}
         </Box>
