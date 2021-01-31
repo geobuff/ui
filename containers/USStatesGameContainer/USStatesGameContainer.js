@@ -9,7 +9,7 @@ const USStatesGameContainer = () => {
   const [checkedStates, setCheckedStates] = useState([]);
   const [recentStates, setRecentStates] = useState([]);
   const [score, setScore] = useState(0);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
   const [hasError, setHasError] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
@@ -56,7 +56,7 @@ const USStatesGameContainer = () => {
         { ...matchedState, checked: true },
       ];
 
-      const updatedRecentCountries =
+      const updatedRecentStates =
         updatedCheckedStates.length > 3
           ? updatedCheckedStates.slice(
               Math.max([...checkedStates, matchedState].length - 3, 1)
@@ -64,7 +64,7 @@ const USStatesGameContainer = () => {
           : updatedCheckedStates;
 
       setScore(updatedCheckedStates.length);
-      setRecentStates(updatedRecentCountries.reverse());
+      setRecentStates(updatedRecentStates.reverse());
       setCheckedStates(updatedCheckedStates);
     }
   };
@@ -77,8 +77,8 @@ const USStatesGameContainer = () => {
 
   return (
     <USStatesGame
-      checkedCountries={checkedStates}
-      recentCountries={recentStates}
+      checkedStates={checkedStates}
+      recentStates={recentStates}
       score={score}
       errorMessage={errorMessage}
       hasError={hasError}

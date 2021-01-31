@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Divider, Text } from "@chakra-ui/core";
 
-import CountryList from "../CountryList";
+import StateList from "../StateList";
 import { mergeArrayByName } from "../../helpers/array";
 
 const StatesResultsList = ({ states, checkedStates }) => (
@@ -13,10 +13,7 @@ const StatesResultsList = ({ states, checkedStates }) => (
     </Text>
     <Divider my={3} />
     <Box>
-      <CountryList
-        countries={mergeArrayByName(states, checkedStates)}
-        verb="states"
-      />
+      <StateList states={mergeArrayByName(states, checkedStates)} />
     </Box>
   </Box>
 );

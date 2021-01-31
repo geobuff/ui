@@ -12,9 +12,7 @@ const StatesResultsListContainer = ({ checkedStates }) => {
     return <ResultsListPlaceholder noOfLines={51} />;
   }
 
-  return (
-    <StatesResultsList states={allStates} checkedCountries={checkedStates} />
-  );
+  return <StatesResultsList states={allStates} checkedStates={checkedStates} />;
 };
 
 StatesResultsListContainer.propTypes = {
