@@ -16,7 +16,6 @@ const StatesResultsListContainer = ({ checkedStates }) => {
 };
 
 StatesResultsListContainer.propTypes = {
-  states: PropTypes.array,
   checkedStates: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,

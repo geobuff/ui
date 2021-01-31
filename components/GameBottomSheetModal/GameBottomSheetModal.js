@@ -9,6 +9,7 @@ import CountryList from "../.../../../components/CountryList";
 import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
 import CapitalResultsListContainer from "../.../../../components/CapitalResultsListContainer";
 import StatesResultsListContainer from "../StatesResultsListContainer";
+import CountiesResultsListContainer from "../CountiesResultsListContainer";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
@@ -39,6 +40,10 @@ const GameBottomSheetModal = ({
         );
       case "states":
         return <StatesResultsListContainer checkedStates={checkedCountries} />;
+      case "counties":
+        return (
+          <CountiesResultsListContainer checkedCounties={checkedCountries} />
+        );
       default:
         return (
           <CountryResultsListContainer checkedCountries={checkedCountries} />
