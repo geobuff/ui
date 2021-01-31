@@ -19,7 +19,7 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  placeholder: "Enter Country",
+  placeholder: "Enter countries...",
   size: "md",
   disabled: false,
   isInvalid: false,

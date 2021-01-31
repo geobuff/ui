@@ -35,6 +35,7 @@ const GameInputCard = ({
   score,
   timeRemaining,
   total,
+  verb,
 }) => {
   return (
     <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
@@ -52,7 +53,7 @@ const GameInputCard = ({
             isDisabled={!hasGameStarted}
             onChange={onChange}
             my={5}
-            placeholder="Enter Country"
+            placeholder={`Enter ${verb}...`}
             value={inputValue}
           />
           <Fade in={!!errorMessage} unmountOnExit>
@@ -116,7 +117,7 @@ const GameInputCard = ({
 
       <Box mt={4}>
         <Text fontWeight="bold">{"RECENT"}</Text>
-        <CountryList countries={countries} />
+        <CountryList countries={countries} verb={verb} />
       </Box>
     </Box>
   );
@@ -140,6 +141,7 @@ GameInputCard.propTypes = {
   score: PropTypes.number,
   timeRemaining: PropTypes.number,
   total: PropTypes.number,
+  verb: PropTypes.string,
 };
 
 GameInputCard.defaultProps = {
@@ -154,6 +156,7 @@ GameInputCard.defaultProps = {
   onGameStop: () => {},
   score: 0,
   total: 0,
+  verb: "countries",
 };
 
 export default GameInputCard;

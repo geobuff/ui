@@ -5,9 +5,9 @@ import PropTypes from "prop-types";
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 
 import { SVGMap } from "react-svg-map";
-import { WorldCountries } from "@geobuff/maps";
+import { WorldCapitals } from "@geobuff/maps";
 
-import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
+import CapitalResultsListContainer from "../.../../../components/CapitalResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
@@ -16,29 +16,27 @@ import Sidebar from "../../components/Sidebar";
 const timeFifteenMinutes = () =>
   new Date().setMinutes(new Date().getMinutes() + 15);
 
-const CountriesOfTheWorldGame = ({
-  checkedCountries,
+const CapitalsOfTheWorldGame = ({
+  checkedCapitals,
   errorMessage,
   hasError,
   inputValue,
   onChange,
   onChangeInputValue,
   onClearInput,
-  recentCountries,
+  recentCapitals,
   score,
 }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
-
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
-
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
   const getLocationClassName = (location) => {
     if (
-      checkedCountries.length
-        ? checkedCountries.find(
-            (country) =>
-              country.name.toLowerCase() === location.name.toLowerCase()
+      checkedCapitals.length
+        ? checkedCapitals.find(
+            (capital) =>
+              capital.name.toLowerCase() === location.name.toLowerCase()
           )
         : false
     ) {
@@ -76,17 +74,17 @@ const CountriesOfTheWorldGame = ({
           onClearInput={onClearInput}
           score={score}
           total={197}
-          verb="countries"
+          verb="capitals"
         />
       )}
 
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading="Countries of the World Quiz">
+            <Sidebar heading="Capitals of the World Quiz">
               <Box>
                 <GameInputCard
-                  countries={recentCountries}
+                  countries={recentCapitals}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -98,9 +96,10 @@ const CountriesOfTheWorldGame = ({
                   score={score}
                   timeRemaining={timeRemaining}
                   total={197}
+                  verb="capitals"
                 />
-                <CountryResultsListContainer
-                  checkedCountries={checkedCountries}
+                <CapitalResultsListContainer
+                  checkedCapitals={checkedCapitals}
                 />
               </Box>
             </Sidebar>
@@ -110,21 +109,21 @@ const CountriesOfTheWorldGame = ({
         <Box width="100%">
           <Box pt={2} textAlign="center">
             <SVGMap
-              map={WorldCountries}
+              map={WorldCapitals}
               className="countries-of-world"
               locationClassName={getLocationClassName}
-              // locationClassName="highlight-on-hover"
             />
           </Box>
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              title="Countries of the World Quiz"
-              checkedCountries={checkedCountries}
+              title="Capitals of the World Quiz"
+              checkedCountries={checkedCapitals}
               hasGameStarted={hasGameStarted}
-              recentCountries={recentCountries}
+              recentCountries={recentCapitals}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
+              verb="capitals"
             />
           )}
         </Box>
@@ -133,8 +132,8 @@ const CountriesOfTheWorldGame = ({
   );
 };
 
-CountriesOfTheWorldGame.propTypes = {
-  checkedCountries: PropTypes.arrayOf(
+CapitalsOfTheWorldGame.propTypes = {
+  checkedCapitals: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
@@ -146,7 +145,7 @@ CountriesOfTheWorldGame.propTypes = {
   onChange: PropTypes.func,
   onChangeInputValue: PropTypes.func,
   onClearInput: PropTypes.func,
-  recentCountries: PropTypes.arrayOf(
+  recentCapitals: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
@@ -155,17 +154,16 @@ CountriesOfTheWorldGame.propTypes = {
   score: PropTypes.number,
 };
 
-CountriesOfTheWorldGame.defaultProps = {
-  checkedCountries: [],
-  countries: [],
+CapitalsOfTheWorldGame.defaultProps = {
+  checkedCapitals: [],
   errorMessage: "",
   hasError: false,
   inputValue: "",
   onChange: () => {},
   onChangeInputValue: () => {},
   onClearInput: () => {},
-  recentCountries: [],
+  recentCapitals: [],
   score: 0,
 };
 
-export default CountriesOfTheWorldGame;
+export default CapitalsOfTheWorldGame;

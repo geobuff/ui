@@ -5,40 +5,38 @@ import PropTypes from "prop-types";
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 
 import { SVGMap } from "react-svg-map";
-import { WorldCountries } from "@geobuff/maps";
+import { UKCounties } from "@geobuff/maps";
 
-import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
+import CountiesResultsListContainer from "../.../../../components/CountiesResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 
-const timeFifteenMinutes = () =>
-  new Date().setMinutes(new Date().getMinutes() + 15);
+const timeFiveMinutes = () =>
+  new Date().setMinutes(new Date().getMinutes() + 5);
 
-const CountriesOfTheWorldGame = ({
-  checkedCountries,
+const UKCountiesGame = ({
+  checkedCounties,
+  recentCounties,
+  score,
   errorMessage,
   hasError,
   inputValue,
   onChange,
   onChangeInputValue,
   onClearInput,
-  recentCountries,
-  score,
 }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
-
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
-
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
   const getLocationClassName = (location) => {
     if (
-      checkedCountries.length
-        ? checkedCountries.find(
-            (country) =>
-              country.name.toLowerCase() === location.name.toLowerCase()
+      checkedCounties.length
+        ? checkedCounties.find(
+            (county) =>
+              county.name.toLowerCase() === location.name.toLowerCase()
           )
         : false
     ) {
@@ -54,7 +52,7 @@ const CountriesOfTheWorldGame = ({
   };
 
   const handleGameStart = () => {
-    setTimeRemaining(timeFifteenMinutes());
+    setTimeRemaining(timeFiveMinutes());
     setHasGameStarted(true);
   };
 
@@ -75,18 +73,18 @@ const CountriesOfTheWorldGame = ({
           onChange={handleChange}
           onClearInput={onClearInput}
           score={score}
-          total={197}
-          verb="countries"
+          total={42}
+          verb="counties"
         />
       )}
 
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading="Countries of the World Quiz">
+            <Sidebar heading="UK Counties Quiz">
               <Box>
                 <GameInputCard
-                  countries={recentCountries}
+                  countries={recentCounties}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -97,10 +95,11 @@ const CountriesOfTheWorldGame = ({
                   onGameStop={handleGameStop}
                   score={score}
                   timeRemaining={timeRemaining}
-                  total={197}
+                  total={42}
+                  verb="counties"
                 />
-                <CountryResultsListContainer
-                  checkedCountries={checkedCountries}
+                <CountiesResultsListContainer
+                  checkedCounties={checkedCounties}
                 />
               </Box>
             </Sidebar>
@@ -110,21 +109,21 @@ const CountriesOfTheWorldGame = ({
         <Box width="100%">
           <Box pt={2} textAlign="center">
             <SVGMap
-              map={WorldCountries}
+              map={UKCounties}
               className="countries-of-world"
               locationClassName={getLocationClassName}
-              // locationClassName="highlight-on-hover"
             />
           </Box>
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              title="Countries of the World Quiz"
-              checkedCountries={checkedCountries}
+              title="UK Counties Quiz"
+              checkedCountries={checkedCounties}
+              recentCountries={recentCounties}
               hasGameStarted={hasGameStarted}
-              recentCountries={recentCountries}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
+              verb="counties"
             />
           )}
         </Box>
@@ -133,39 +132,38 @@ const CountriesOfTheWorldGame = ({
   );
 };
 
-CountriesOfTheWorldGame.propTypes = {
-  checkedCountries: PropTypes.arrayOf(
+UKCountiesGame.propTypes = {
+  checkedCounties: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
     })
   ),
-  errorMessage: PropTypes.string,
-  hasError: PropTypes.bool,
-  inputValue: PropTypes.string,
-  onChange: PropTypes.func,
-  onChangeInputValue: PropTypes.func,
-  onClearInput: PropTypes.func,
-  recentCountries: PropTypes.arrayOf(
+  recentCounties: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
     })
   ),
   score: PropTypes.number,
+  errorMessage: PropTypes.string,
+  hasError: PropTypes.bool,
+  inputValue: PropTypes.string,
+  onChange: PropTypes.func,
+  onChangeInputValue: PropTypes.func,
+  onClearInput: PropTypes.func,
 };
 
-CountriesOfTheWorldGame.defaultProps = {
-  checkedCountries: [],
-  countries: [],
+UKCountiesGame.defaultProps = {
+  checkedCounties: [],
+  recentCounties: [],
+  score: 0,
   errorMessage: "",
   hasError: false,
   inputValue: "",
   onChange: () => {},
   onChangeInputValue: () => {},
   onClearInput: () => {},
-  recentCountries: [],
-  score: 0,
 };
 
-export default CountriesOfTheWorldGame;
+export default UKCountiesGame;

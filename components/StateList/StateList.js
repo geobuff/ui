@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import CountryListItem from "../CountryListItem";
+import StateListItem from "../StateListItem";
 import { Box, List, Text } from "@chakra-ui/core";
 
-const CountryList = ({ countries, verb }) => {
-  if (!countries || countries.length === 0) {
+const StateList = ({ states, verb }) => {
+  if (!states || states.length === 0) {
     return (
       <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
         <Text textAlign="center" opacity={0.5} fontWeight={500}>
@@ -17,20 +17,20 @@ const CountryList = ({ countries, verb }) => {
 
   return (
     <List>
-      {countries.map((country) => (
-        <CountryListItem
-          key={country.code}
+      {states.map((state) => (
+        <StateListItem
+          key={state.code}
           my={2}
-          isHidden={!country.checked}
-          {...country}
+          isHidden={!state.checked}
+          {...state}
         />
       ))}
     </List>
   );
 };
 
-CountryList.propTypes = {
-  countries: PropTypes.arrayOf(
+StateList.propTypes = {
+  states: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
@@ -38,9 +38,9 @@ CountryList.propTypes = {
   ),
   verb: PropTypes.string,
 };
-CountryList.defaultProps = {
-  countries: [],
-  verb: "countries",
+StateList.defaultProps = {
+  states: [],
+  verb: "states",
 };
 
-export default CountryList;
+export default StateList;

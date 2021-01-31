@@ -5,40 +5,37 @@ import PropTypes from "prop-types";
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 
 import { SVGMap } from "react-svg-map";
-import { WorldCountries } from "@geobuff/maps";
+import { USStates } from "@geobuff/maps";
 
-import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
+import StatesResultsListContainer from "../.../../../components/StatesResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 
-const timeFifteenMinutes = () =>
-  new Date().setMinutes(new Date().getMinutes() + 15);
+const timeFiveMinutes = () =>
+  new Date().setMinutes(new Date().getMinutes() + 5);
 
-const CountriesOfTheWorldGame = ({
-  checkedCountries,
+const USStatesGame = ({
+  checkedStates,
+  recentStates,
+  score,
   errorMessage,
   hasError,
   inputValue,
   onChange,
   onChangeInputValue,
   onClearInput,
-  recentCountries,
-  score,
 }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
-
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
-
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
   const getLocationClassName = (location) => {
     if (
-      checkedCountries.length
-        ? checkedCountries.find(
-            (country) =>
-              country.name.toLowerCase() === location.name.toLowerCase()
+      checkedStates.length
+        ? checkedStates.find(
+            (state) => state.name.toLowerCase() === location.name.toLowerCase()
           )
         : false
     ) {
@@ -54,7 +51,7 @@ const CountriesOfTheWorldGame = ({
   };
 
   const handleGameStart = () => {
-    setTimeRemaining(timeFifteenMinutes());
+    setTimeRemaining(timeFiveMinutes());
     setHasGameStarted(true);
   };
 
@@ -75,18 +72,18 @@ const CountriesOfTheWorldGame = ({
           onChange={handleChange}
           onClearInput={onClearInput}
           score={score}
-          total={197}
-          verb="countries"
+          total={51}
+          verb="states"
         />
       )}
 
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading="Countries of the World Quiz">
+            <Sidebar heading="US States Quiz">
               <Box>
                 <GameInputCard
-                  countries={recentCountries}
+                  countries={recentStates}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -97,11 +94,10 @@ const CountriesOfTheWorldGame = ({
                   onGameStop={handleGameStop}
                   score={score}
                   timeRemaining={timeRemaining}
-                  total={197}
+                  total={51}
+                  verb="states"
                 />
-                <CountryResultsListContainer
-                  checkedCountries={checkedCountries}
-                />
+                <StatesResultsListContainer checkedStates={checkedStates} />
               </Box>
             </Sidebar>
           </Box>
@@ -110,21 +106,21 @@ const CountriesOfTheWorldGame = ({
         <Box width="100%">
           <Box pt={2} textAlign="center">
             <SVGMap
-              map={WorldCountries}
+              map={USStates}
               className="countries-of-world"
               locationClassName={getLocationClassName}
-              // locationClassName="highlight-on-hover"
             />
           </Box>
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              title="Countries of the World Quiz"
-              checkedCountries={checkedCountries}
+              title="US States Quiz"
+              checkedCountries={checkedStates}
               hasGameStarted={hasGameStarted}
-              recentCountries={recentCountries}
+              recentCountries={recentStates}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
+              verb="states"
             />
           )}
         </Box>
@@ -133,39 +129,38 @@ const CountriesOfTheWorldGame = ({
   );
 };
 
-CountriesOfTheWorldGame.propTypes = {
-  checkedCountries: PropTypes.arrayOf(
+USStatesGame.propTypes = {
+  checkedStates: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
     })
   ),
-  errorMessage: PropTypes.string,
-  hasError: PropTypes.bool,
-  inputValue: PropTypes.string,
-  onChange: PropTypes.func,
-  onChangeInputValue: PropTypes.func,
-  onClearInput: PropTypes.func,
-  recentCountries: PropTypes.arrayOf(
+  recentStates: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
     })
   ),
   score: PropTypes.number,
+  errorMessage: PropTypes.string,
+  hasError: PropTypes.bool,
+  inputValue: PropTypes.string,
+  onChange: PropTypes.func,
+  onChangeInputValue: PropTypes.func,
+  onClearInput: PropTypes.func,
 };
 
-CountriesOfTheWorldGame.defaultProps = {
-  checkedCountries: [],
-  countries: [],
+USStatesGame.defaultProps = {
+  checkedStates: [],
+  recentStates: [],
+  score: 0,
   errorMessage: "",
   hasError: false,
   inputValue: "",
   onChange: () => {},
   onChangeInputValue: () => {},
   onClearInput: () => {},
-  recentCountries: [],
-  score: 0,
 };
 
-export default CountriesOfTheWorldGame;
+export default USStatesGame;
