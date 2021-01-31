@@ -7,7 +7,7 @@ const CapitalsOfTheWorldGameContainer = () => {
   const { allCapitals } = useCapitals();
 
   const [checkedCapitals, setCheckedCapitals] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
   const [hasError, setHasError] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [recentCapitals, setRecentCapitals] = useState([]);

@@ -3,13 +3,13 @@ import PropTypes from "prop-types";
 import useCountries from "../../hooks/UseCountries";
 
 import CountryResultsList from "../CountryResultsList/CountryResultsList";
-import CountryResultsListPlaceholder from "../CountryResultsListPlaceholder/CountryResultsListPlaceholder";
+import ResultsListPlaceholder from "../ResultsListPlaceholder/ResultsListPlaceholder";
 
 const CountryResultsListContainer = ({ checkedCountries }) => {
   const { countriesByContinent, isPending } = useCountries();
 
   if (isPending) {
-    return <CountryResultsListPlaceholder />;
+    return <ResultsListPlaceholder noOfLines={197} />;
   }
 
   return (

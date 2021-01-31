@@ -8,6 +8,7 @@ import Sheet from "react-modal-sheet";
 import CountryList from "../.../../../components/CountryList";
 import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
 import CapitalResultsListContainer from "../.../../../components/CapitalResultsListContainer";
+import StatesResultsListContainer from "../StatesResultsListContainer";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
@@ -28,6 +29,21 @@ const GameBottomSheetModal = ({
   const handleClose = () => {
     setIsOpen(false);
     setIsOpen(true);
+  };
+
+  const getContainer = () => {
+    switch (verb) {
+      case "capitals":
+        return (
+          <CapitalResultsListContainer checkedCapitals={checkedCountries} />
+        );
+      case "states":
+        return <StatesResultsListContainer checkedStates={checkedCountries} />;
+      default:
+        return (
+          <CountryResultsListContainer checkedCountries={checkedCountries} />
+        );
+    }
   };
 
   return (
@@ -79,17 +95,7 @@ const GameBottomSheetModal = ({
               <CountryList countries={recentCountries} verb={verb} />
             </Box>
 
-            <Box>
-              {verb === "capitals" ? (
-                <CapitalResultsListContainer
-                  checkedCapitals={checkedCountries}
-                />
-              ) : (
-                <CountryResultsListContainer
-                  checkedCountries={checkedCountries}
-                />
-              )}
-            </Box>
+            <Box>{getContainer()}</Box>
           </Box>
         </Sheet.Content>
       </Sheet.Container>

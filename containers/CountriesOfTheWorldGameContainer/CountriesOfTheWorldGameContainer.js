@@ -7,7 +7,7 @@ const CountriesOfTheWorldGameContainer = () => {
   const { allCountries } = useCountries();
 
   const [checkedCountries, setCheckedCountries] = useState([]);
-  const [errorMessage, setErrorMessage] = useState(false);
+  const [errorMessage, setErrorMessage] = useState();
   const [hasError, setHasError] = useState(false);
   const [inputValue, setInputValue] = useState("");
   const [recentCountries, setRecentCountries] = useState([]);

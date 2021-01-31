@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 
 import CountriesOfTheWorldGameContainer from "../../containers/CountriesOfTheWorldGameContainer";
 import CapitalsOfTheWorldGameContainer from "../../containers/CapitalsOfTheWorldGameContainer";
+import USStatesGameContainer from "../../containers/USStatesGameContainer";
 
 const Quiz = () => {
   const router = useRouter();
@@ -13,6 +14,8 @@ const Quiz = () => {
       return <CountriesOfTheWorldGameContainer />;
     case "capitals-of-the-world":
       return <CapitalsOfTheWorldGameContainer />;
+    case "us-states":
+      return <USStatesGameContainer />;
     default:
       return null;
   }
