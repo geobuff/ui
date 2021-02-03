@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import StatesResultsList from "../../components/StatesResultsList/StatesResultsList";
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
 import useStates from "../../hooks/UseStates";
+import { Quizzes } from "../../helpers/quizzes";
+import { mergeArrayByName } from "../../helpers/array";
+import ResultsListWrapper from "../../components/ResultsListWrapper/ResultsListWrapper";
 
 const StatesResultsListContainer = ({ checkedStates }) => {
   const { allStates, isPending } = useStates();
@@ -12,7 +14,12 @@ const StatesResultsListContainer = ({ checkedStates }) => {
     return <ResultsListPlaceholder noOfLines={51} />;
   }
 
-  return <StatesResultsList states={allStates} checkedStates={checkedStates} />;
+  return (
+    <ResultsListWrapper
+      quiz={Quizzes.USStates}
+      results={mergeArrayByName(allStates, checkedStates)}
+    />
+  );
 };
 
 StatesResultsListContainer.propTypes = {

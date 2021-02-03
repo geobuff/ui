@@ -34,11 +34,11 @@ export const getTotal = (quiz) => {
 export const getTitle = (quiz) => {
   switch (quiz) {
     case Quizzes.CapitalsOfTheWorld:
-      return 197;
+      return "Capitals of the World Quiz";
     case Quizzes.USStates:
-      return 51;
+      return "US States Quiz";
     case Quizzes.UKCounties:
-      return 42;
+      return "UK Counties Quiz";
     default:
       return "Countries of the World Quiz";
   }
