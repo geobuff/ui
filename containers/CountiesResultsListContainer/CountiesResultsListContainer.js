@@ -1,9 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import StatesResultsList from "../../components/StatesResultsList/StatesResultsList";
+import ResultsListWrapper from "../../components/ResultsListWrapper/ResultsListWrapper";
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
 import useCounties from "../../hooks/UseCounties";
+import { Quizzes } from "../../helpers/quizzes";
+import { mergeArrayByName } from "../../helpers/array";
 
 const CountiesResultsListContainer = ({ checkedCounties }) => {
   const { allCounties, isPending } = useCounties();
@@ -13,7 +15,10 @@ const CountiesResultsListContainer = ({ checkedCounties }) => {
   }
 
   return (
-    <StatesResultsList states={allCounties} checkedStates={checkedCounties} />
+    <ResultsListWrapper
+      quiz={Quizzes.UKCounties}
+      results={mergeArrayByName(allCounties, checkedCounties)}
+    />
   );
 };
 
