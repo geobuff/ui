@@ -1,4 +1,5 @@
 import React from "react";
+import { Quizzes } from "../../helpers/quizzes";
 import ResultsList from "./ResultsList";
 
 export default {
@@ -9,57 +10,58 @@ export default {
 const results = [
   {
     code: "AS",
-    name: "American Samoa",
+    svgName: "American Samoa",
+    isHidden: false,
   },
   {
     code: "AU",
-    name: "Australia",
+    svgName: "Australia",
+    isHidden: false,
   },
   {
     code: "CX",
-    name: "Christmas Island",
+    svgName: "Christmas Island",
     isHidden: true,
   },
   {
     code: "CK",
-    name: "Cook Islands",
+    svgName: "Cook Islands",
+    isHidden: false,
   },
   {
     code: "FJ",
-    name: "Fiji",
+    svgName: "Fiji",
+    isHidden: false,
   },
   {
     code: "PR",
-    name: "French Polynesia",
+    svgName: "French Polynesia",
     isHidden: true,
   },
   {
-    code: "GU",
-    name: "Guam",
-  },
-  {
     code: "KI",
-    name: "Kiribati",
-  },
-  {
-    code: "MH",
-    name: "Marshall Islands",
+    svgName: "Kiribati",
+    isHidden: false,
   },
   {
     code: "FM",
-    name: "Micronesia",
+    svgName: "Micronesia",
+    isHidden: true,
   },
   {
     code: "NR",
-    name: "Nauru",
+    svgName: "Nauru",
+    isHidden: true,
   },
   {
     code: "NC",
-    name: "New Caledonia",
+    svgName: "New Caledonia",
+    isHidden: false,
   },
   {
     code: "NZ",
-    name: "New Zealand",
+    svgName: "New Zealand",
+    isHidden: false,
   },
 ];
 
@@ -67,5 +69,6 @@ const Template = (args) => <ResultsList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
+  quiz: Quizzes.CountriesOfTheWorld,
   results,
 };

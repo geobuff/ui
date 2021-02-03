@@ -58,11 +58,4 @@ ResultsListItem.propTypes = {
   svgName: PropTypes.string,
 };
 
-ResultsListItem.defaultProps = {
-  quiz: Quizzes.CountriesOfTheWorld,
-  code: "nz",
-  isHidden: false,
-  svgName: "New Zealand",
-};
-
 export default ResultsListItem;

@@ -1,4 +1,5 @@
 import React from "react";
+import { Quizzes } from "../../helpers/quizzes";
 import ResultsListItem from "./ResultsListItem";
 
 export default {
@@ -9,9 +10,14 @@ export default {
 const Template = (args) => <ResultsListItem {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {};
+Default.args = {
+  quiz: Quizzes.CountriesOfTheWorld,
+  code: "nz",
+  svgName: "New Zealand",
+};
 
 export const IsHidden = Template.bind({});
 IsHidden.args = {
+  quiz: Quizzes.CountriesOfTheWorld,
   isHidden: true,
 };
