@@ -7,6 +7,8 @@ export const Quizzes = Object.freeze({
 
 export const getVerb = (quiz) => {
   switch (quiz) {
+    case Quizzes.CountriesOfTheWorld:
+      return "countries";
     case Quizzes.CapitalsOfTheWorld:
       return "capitals";
     case Quizzes.USStates:
@@ -14,12 +16,14 @@ export const getVerb = (quiz) => {
     case Quizzes.UKCounties:
       return "counties";
     default:
-      return "countries";
+      throw Error("Invalid quiz option.");
   }
 };
 
 export const getTotal = (quiz) => {
   switch (quiz) {
+    case Quizzes.CountriesOfTheWorld:
+      return 197;
     case Quizzes.CapitalsOfTheWorld:
       return 197;
     case Quizzes.USStates:
@@ -27,12 +31,14 @@ export const getTotal = (quiz) => {
     case Quizzes.UKCounties:
       return 42;
     default:
-      return 197;
+      throw Error("Invalid quiz option.");
   }
 };
 
 export const getTitle = (quiz) => {
   switch (quiz) {
+    case Quizzes.CountriesOfTheWorld:
+      return "Countries of the World Quiz";
     case Quizzes.CapitalsOfTheWorld:
       return "Capitals of the World Quiz";
     case Quizzes.USStates:
@@ -40,6 +46,6 @@ export const getTitle = (quiz) => {
     case Quizzes.UKCounties:
       return "UK Counties Quiz";
     default:
-      return "Countries of the World Quiz";
+      throw Error("Invalid quiz option.");
   }
 };

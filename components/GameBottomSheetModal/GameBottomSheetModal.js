@@ -34,6 +34,8 @@ const GameBottomSheetModal = ({
 
   const getContainer = () => {
     switch (quiz) {
+      case Quizzes.CountriesOfTheWorld:
+        return <CountryResultsListContainer checkedCountries={checked} />;
       case Quizzes.CapitalsOfTheWorld:
         return <CapitalResultsListContainer checkedCapitals={checked} />;
       case Quizzes.USStates:
@@ -41,7 +43,7 @@ const GameBottomSheetModal = ({
       case Quizzes.UKCounties:
         return <CountiesResultsListContainer checkedCounties={checked} />;
       default:
-        return <CountryResultsListContainer checkedCountries={checked} />;
+        throw Error("Invalid quiz option.");
     }
   };
 
