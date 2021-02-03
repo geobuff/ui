@@ -1,12 +1,12 @@
 import React from "react";
-import CountryListItem from "./CountryListItem";
+import ResultsListItem from "./ResultsListItem";
 
 export default {
-  title: "UI/CountryListItem",
-  component: CountryListItem,
+  title: "UI/ResultsListItem",
+  component: ResultsListItem,
 };
 
-const Template = (args) => <CountryListItem {...args} />;
+const Template = (args) => <ResultsListItem {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {};

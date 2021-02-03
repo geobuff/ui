@@ -1,12 +1,12 @@
 import React from "react";
-import CountryList from "./CountryList";
+import ResultsList from "./ResultsList";
 
 export default {
-  title: "UI/CountryList",
-  component: CountryList,
+  title: "UI/ResultsList",
+  component: ResultsList,
 };
 
-const countries = [
+const results = [
   {
     code: "AS",
     name: "American Samoa",
@@ -63,9 +63,9 @@ const countries = [
   },
 ];
 
-const Template = (args) => <CountryList {...args} />;
+const Template = (args) => <ResultsList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  countries,
+  results,
 };

@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import useCountries from "../../hooks/UseCountries";
 
-import CountryResultsList from "../../components/CountryResultsList/CountryResultsList";
+import ResultsMap from "../../components/ResultsMap/ResultsMap";
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
+import { Quizzes } from "../../helpers/quizzes";
 
 const CountryResultsListContainer = ({ checkedCountries }) => {
   const { countriesByContinent, isPending } = useCountries();
@@ -13,9 +14,10 @@ const CountryResultsListContainer = ({ checkedCountries }) => {
   }
 
   return (
-    <CountryResultsList
-      checkedCountries={checkedCountries}
-      countriesByContinent={countriesByContinent}
+    <ResultsMap
+      quiz={Quizzes.CountriesOfTheWorld}
+      results={checkedCountries}
+      map={countriesByContinent}
     />
   );
 };

@@ -16,14 +16,18 @@ import {
 
 import { CloseIcon } from "@chakra-ui/icons";
 
-import CountryList from "../CountryList";
+import ResultsList from "../ResultsList";
 import GameInputCardScore from "./GameInputCardScore";
 import GameInputCardTimer from "./GameInputCardTimer";
+import { Quizzes, getVerb } from "../../helpers/quizzes";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
 const GameInputCard = ({
-  countries,
+  quiz,
+  recents,
+  score,
+  timeRemaining,
   errorMessage,
   hasGameStarted,
   hasError,
@@ -32,18 +36,13 @@ const GameInputCard = ({
   onClearInput,
   onGameStart,
   onGameStop,
-  score,
-  timeRemaining,
-  total,
-  verb,
 }) => {
   return (
     <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
       <Box mb={5}>
         <Text fontWeight="bold">{"SCORE"}</Text>
-        <GameInputCardScore score={score} total={total} />
+        <GameInputCardScore quiz={quiz} score={score} />
       </Box>
-
       {divider}
       <Box>
         <InputGroup position="relative">
@@ -53,7 +52,7 @@ const GameInputCard = ({
             isDisabled={!hasGameStarted}
             onChange={onChange}
             my={5}
-            placeholder={`Enter ${verb}...`}
+            placeholder={`Enter ${getVerb(quiz)}...`}
             value={inputValue}
           />
           <Fade in={!!errorMessage} unmountOnExit>
@@ -89,16 +88,13 @@ const GameInputCard = ({
         </InputGroup>
       </Box>
       {divider}
-
       <Box my={4}>
         <GameInputCardTimer
           expiryTimestamp={timeRemaining}
           hasGameStarted={hasGameStarted}
         />
       </Box>
-
       {divider}
-
       <Box my={4}>
         <Button
           colorScheme={hasGameStarted ? "red" : "green"}
@@ -112,24 +108,25 @@ const GameInputCard = ({
           </Text>
         </Button>
       </Box>
-
       {divider}
-
       <Box mt={4}>
         <Text fontWeight="bold">{"RECENT"}</Text>
-        <CountryList countries={countries} verb={verb} />
+        <ResultsList quiz={quiz} results={recents} />
       </Box>
     </Box>
   );
 };
 
 GameInputCard.propTypes = {
-  countries: PropTypes.arrayOf(
+  quiz: PropTypes.number,
+  recents: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
     })
   ),
+  score: PropTypes.number,
+  timeRemaining: PropTypes.number,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
   hasGameStarted: PropTypes.bool,
@@ -138,14 +135,13 @@ GameInputCard.propTypes = {
   onClearInput: PropTypes.func,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
-  score: PropTypes.number,
-  timeRemaining: PropTypes.number,
-  total: PropTypes.number,
-  verb: PropTypes.string,
 };
 
 GameInputCard.defaultProps = {
-  countries: [],
+  quiz: Quizzes.CountriesOfTheWorld,
+  recents: [],
+  score: 0,
+  timeRemaining: 0,
   errorMessage: "",
   hasError: false,
   hasGameStarted: false,
@@ -154,9 +150,6 @@ GameInputCard.defaultProps = {
   onClearInput: () => {},
   onGameStart: () => {},
   onGameStop: () => {},
-  score: 0,
-  total: 0,
-  verb: "countries",
 };
 
 export default GameInputCard;
