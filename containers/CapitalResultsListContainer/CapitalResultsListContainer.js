@@ -2,8 +2,9 @@ import React from "react";
 import PropTypes from "prop-types";
 import useCapitals from "../../hooks/UseCapitals";
 
-import CountryResultsList from "../../components/CountryResultsList/CountryResultsList";
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
+import ResultsMap from "../../components/ResultsMap/ResultsMap";
+import { Quizzes } from "../../helpers/quizzes";
 
 const CapitalResultsListContainer = ({ checkedCapitals }) => {
   const { capitalsByContinent, isPending } = useCapitals();
@@ -13,10 +14,10 @@ const CapitalResultsListContainer = ({ checkedCapitals }) => {
   }
 
   return (
-    <CountryResultsList
-      checkedCountries={checkedCapitals}
-      countriesByContinent={capitalsByContinent}
-      verb="capitals"
+    <ResultsMap
+      quiz={Quizzes.CapitalsOfTheWorld}
+      results={checkedCapitals}
+      map={capitalsByContinent}
     />
   );
 };

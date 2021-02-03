@@ -12,22 +12,24 @@ import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
+import { getTitle, Quizzes } from "../../helpers/quizzes";
 
 const timeFifteenMinutes = () =>
   new Date().setMinutes(new Date().getMinutes() + 15);
 
 const CapitalsOfTheWorldGame = ({
   checkedCapitals,
+  recentCapitals,
+  score,
   errorMessage,
   hasError,
   inputValue,
   onChange,
   onChangeInputValue,
   onClearInput,
-  recentCapitals,
-  score,
 }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
+
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
@@ -65,6 +67,8 @@ const CapitalsOfTheWorldGame = ({
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       {shouldDisplayOnMobile && (
         <GameInputBanner
+          quiz={Quizzes.CapitalsOfTheWorld}
+          score={score}
           errorMessage={errorMessage}
           expiryTimestamp={timeRemaining}
           hasError={hasError}
@@ -72,19 +76,19 @@ const CapitalsOfTheWorldGame = ({
           inputValue={inputValue}
           onChange={handleChange}
           onClearInput={onClearInput}
-          score={score}
-          total={197}
-          verb="capitals"
         />
       )}
 
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading="Capitals of the World Quiz">
+            <Sidebar heading={getTitle(Quizzes.CapitalsOfTheWorld)}>
               <Box>
                 <GameInputCard
-                  countries={recentCapitals}
+                  quiz={Quizzes.CapitalsOfTheWorld}
+                  recents={recentCapitals}
+                  score={score}
+                  timeRemaining={timeRemaining}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -93,10 +97,6 @@ const CapitalsOfTheWorldGame = ({
                   onClearInput={onClearInput}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
-                  score={score}
-                  timeRemaining={timeRemaining}
-                  total={197}
-                  verb="capitals"
                 />
                 <CapitalResultsListContainer
                   checkedCapitals={checkedCapitals}
@@ -110,20 +110,19 @@ const CapitalsOfTheWorldGame = ({
           <Box pt={2} textAlign="center">
             <SVGMap
               map={WorldCapitals}
-              className="countries-of-world"
+              className="quiz-map"
               locationClassName={getLocationClassName}
             />
           </Box>
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              title="Capitals of the World Quiz"
-              checkedCountries={checkedCapitals}
+              quiz={Quizzes.CapitalsOfTheWorld}
+              checked={checkedCapitals}
+              recents={recentCapitals}
               hasGameStarted={hasGameStarted}
-              recentCountries={recentCapitals}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
-              verb="capitals"
             />
           )}
         </Box>
@@ -139,12 +138,6 @@ CapitalsOfTheWorldGame.propTypes = {
       code: PropTypes.string,
     })
   ),
-  errorMessage: PropTypes.string,
-  hasError: PropTypes.bool,
-  inputValue: PropTypes.string,
-  onChange: PropTypes.func,
-  onChangeInputValue: PropTypes.func,
-  onClearInput: PropTypes.func,
   recentCapitals: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -152,18 +145,24 @@ CapitalsOfTheWorldGame.propTypes = {
     })
   ),
   score: PropTypes.number,
+  errorMessage: PropTypes.string,
+  hasError: PropTypes.bool,
+  inputValue: PropTypes.string,
+  onChange: PropTypes.func,
+  onChangeInputValue: PropTypes.func,
+  onClearInput: PropTypes.func,
 };
 
 CapitalsOfTheWorldGame.defaultProps = {
   checkedCapitals: [],
+  recentCapitals: [],
+  score: 0,
   errorMessage: "",
   hasError: false,
   inputValue: "",
   onChange: () => {},
   onChangeInputValue: () => {},
   onClearInput: () => {},
-  recentCapitals: [],
-  score: 0,
 };
 
 export default CapitalsOfTheWorldGame;
