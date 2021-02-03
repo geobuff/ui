@@ -1,4 +1,5 @@
 import React from "react";
+import { Quizzes } from "../../helpers/quizzes";
 import GameInputCard from "./GameInputCard";
 
 export default {
@@ -25,6 +26,7 @@ const Template = (args) => <GameInputCard {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
+  quiz: Quizzes.CountriesOfTheWorld,
   score: 69,
   total: 193,
   countries: recentCountries,

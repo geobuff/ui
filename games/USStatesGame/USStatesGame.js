@@ -1,20 +1,17 @@
 import React, { useCallback, useState } from "react";
 import { debounce } from "debounce";
 import PropTypes from "prop-types";
-
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
-
 import { SVGMap } from "react-svg-map";
 import { USStates } from "@geobuff/maps";
 
-import StatesResultsListContainer from "../.../../../components/StatesResultsListContainer";
+import StatesResultsListContainer from "../../containers/StatesResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
-
-const timeFiveMinutes = () =>
-  new Date().setMinutes(new Date().getMinutes() + 5);
+import { timeFiveMinutes } from "../../helpers/time";
+import { Quizzes, getTitle } from "../../helpers/quizzes";
 
 const USStatesGame = ({
   checkedStates,
@@ -28,6 +25,7 @@ const USStatesGame = ({
   onClearInput,
 }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
+
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
@@ -64,6 +62,8 @@ const USStatesGame = ({
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       {shouldDisplayOnMobile && (
         <GameInputBanner
+          quiz={Quizzes.USStates}
+          score={score}
           errorMessage={errorMessage}
           expiryTimestamp={timeRemaining}
           hasError={hasError}
@@ -71,19 +71,19 @@ const USStatesGame = ({
           inputValue={inputValue}
           onChange={handleChange}
           onClearInput={onClearInput}
-          score={score}
-          total={51}
-          verb="states"
         />
       )}
 
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading="US States Quiz">
+            <Sidebar heading={getTitle(Quizzes.USStates)}>
               <Box>
                 <GameInputCard
-                  countries={recentStates}
+                  quiz={Quizzes.USStates}
+                  recents={recentStates}
+                  score={score}
+                  timeRemaining={timeRemaining}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -92,10 +92,6 @@ const USStatesGame = ({
                   onClearInput={onClearInput}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
-                  score={score}
-                  timeRemaining={timeRemaining}
-                  total={51}
-                  verb="states"
                 />
                 <StatesResultsListContainer checkedStates={checkedStates} />
               </Box>
@@ -107,20 +103,20 @@ const USStatesGame = ({
           <Box pt={2} textAlign="center">
             <SVGMap
               map={USStates}
-              className="countries-of-world"
+              className="quiz-map"
               locationClassName={getLocationClassName}
             />
           </Box>
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              title="US States Quiz"
-              checkedCountries={checkedStates}
+              quiz={Quizzes.USStates}
+              checked={checkedStates}
+              recents={recentStates}
               hasGameStarted={hasGameStarted}
               recentCountries={recentStates}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
-              verb="states"
             />
           )}
         </Box>

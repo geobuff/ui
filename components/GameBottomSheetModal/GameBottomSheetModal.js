@@ -5,23 +5,23 @@ import { Box, Button, Divider, Heading, Text } from "@chakra-ui/core";
 
 import Sheet from "react-modal-sheet";
 
-import CountryList from "../.../../../components/CountryList";
-import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
-import CapitalResultsListContainer from "../.../../../components/CapitalResultsListContainer";
-import StatesResultsListContainer from "../StatesResultsListContainer";
-import CountiesResultsListContainer from "../CountiesResultsListContainer";
+import ResultsList from "../ResultsList";
+import CountryResultsListContainer from "../../containers/CountryResultsListContainer";
+import CapitalResultsListContainer from "../../containers/CapitalResultsListContainer";
+import StatesResultsListContainer from "../../containers/StatesResultsListContainer";
+import CountiesResultsListContainer from "../../containers/CountiesResultsListContainer";
+import { Quizzes, getTitle } from "../../helpers/quizzes";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
 const GameBottomSheetModal = ({
-  title,
-  checkedCountries,
+  quiz,
+  checked,
+  recents,
   hasGameStarted,
   onGameStart,
   onGameStop,
-  recentCountries,
-  verb,
 }) => {
   const [isOpen, setIsOpen] = useState(true);
 
@@ -33,21 +33,17 @@ const GameBottomSheetModal = ({
   };
 
   const getContainer = () => {
-    switch (verb) {
-      case "capitals":
-        return (
-          <CapitalResultsListContainer checkedCapitals={checkedCountries} />
-        );
-      case "states":
-        return <StatesResultsListContainer checkedStates={checkedCountries} />;
-      case "counties":
-        return (
-          <CountiesResultsListContainer checkedCounties={checkedCountries} />
-        );
+    switch (quiz) {
+      case Quizzes.CountriesOfTheWorld:
+        return <CountryResultsListContainer checkedCountries={checked} />;
+      case Quizzes.CapitalsOfTheWorld:
+        return <CapitalResultsListContainer checkedCapitals={checked} />;
+      case Quizzes.USStates:
+        return <StatesResultsListContainer checkedStates={checked} />;
+      case Quizzes.UKCounties:
+        return <CountiesResultsListContainer checkedCounties={checked} />;
       default:
-        return (
-          <CountryResultsListContainer checkedCountries={checkedCountries} />
-        );
+        throw Error("Invalid quiz option.");
     }
   };
 
@@ -71,7 +67,7 @@ const GameBottomSheetModal = ({
           >
             <Box>
               <Heading pt={0} size="md" textAlign="center">
-                {title}
+                {getTitle(quiz)}
               </Heading>
 
               <Divider my={4} />
@@ -97,7 +93,7 @@ const GameBottomSheetModal = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <CountryList countries={recentCountries} verb={verb} />
+              <ResultsList quiz={quiz} results={recents} />
             </Box>
 
             <Box>{getContainer()}</Box>
@@ -109,8 +105,14 @@ const GameBottomSheetModal = ({
 };
 
 GameBottomSheetModal.propTypes = {
-  title: PropTypes.string,
-  checkedCountries: PropTypes.arrayOf(
+  quiz: PropTypes.number,
+  checked: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+    })
+  ),
+  recents: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
@@ -119,22 +121,15 @@ GameBottomSheetModal.propTypes = {
   hasGameStarted: PropTypes.bool,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
-  recentCountries: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
-  verb: PropTypes.string,
 };
 
 GameBottomSheetModal.defaultProps = {
-  checkedCountries: [],
+  quiz: Quizzes.CountriesOfTheWorld,
+  checked: [],
+  recents: [],
   hasGameStarted: false,
   onGameStart: () => {},
   onGameStop: () => {},
-  recentCountries: [],
-  verb: "countries",
 };
 
 export default GameBottomSheetModal;

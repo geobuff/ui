@@ -1,6 +1,6 @@
 import React from "react";
 import { withAuthenticationRequired } from "@auth0/auth0-react";
-import UserProfileContainer from "../components/UserProfileContainer";
+import UserProfileContainer from "../containers/UserProfileContainer";
 import LoginRedirect from "../components/LoginRedirect";
 
 const Profile = () => <UserProfileContainer />;

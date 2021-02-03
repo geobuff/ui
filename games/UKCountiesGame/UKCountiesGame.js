@@ -1,20 +1,17 @@
 import React, { useCallback, useState } from "react";
 import { debounce } from "debounce";
 import PropTypes from "prop-types";
-
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
-
 import { SVGMap } from "react-svg-map";
 import { UKCounties } from "@geobuff/maps";
 
-import CountiesResultsListContainer from "../.../../../components/CountiesResultsListContainer";
+import CountiesResultsListContainer from "../../containers/CountiesResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
-
-const timeFiveMinutes = () =>
-  new Date().setMinutes(new Date().getMinutes() + 5);
+import { timeFiveMinutes } from "../../helpers/time";
+import { getTitle, Quizzes } from "../../helpers/quizzes";
 
 const UKCountiesGame = ({
   checkedCounties,
@@ -65,6 +62,8 @@ const UKCountiesGame = ({
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       {shouldDisplayOnMobile && (
         <GameInputBanner
+          quiz={Quizzes.UKCounties}
+          score={score}
           errorMessage={errorMessage}
           expiryTimestamp={timeRemaining}
           hasError={hasError}
@@ -72,19 +71,19 @@ const UKCountiesGame = ({
           inputValue={inputValue}
           onChange={handleChange}
           onClearInput={onClearInput}
-          score={score}
-          total={42}
-          verb="counties"
         />
       )}
 
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading="UK Counties Quiz">
+            <Sidebar heading={getTitle(Quizzes.UKCounties)}>
               <Box>
                 <GameInputCard
-                  countries={recentCounties}
+                  quiz={Quizzes.UKCounties}
+                  recents={recentCounties}
+                  score={score}
+                  timeRemaining={timeRemaining}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -93,10 +92,6 @@ const UKCountiesGame = ({
                   onClearInput={onClearInput}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
-                  score={score}
-                  timeRemaining={timeRemaining}
-                  total={42}
-                  verb="counties"
                 />
                 <CountiesResultsListContainer
                   checkedCounties={checkedCounties}
@@ -110,20 +105,19 @@ const UKCountiesGame = ({
           <Box pt={2} textAlign="center">
             <SVGMap
               map={UKCounties}
-              className="countries-of-world"
+              className="quiz-map"
               locationClassName={getLocationClassName}
             />
           </Box>
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              title="UK Counties Quiz"
-              checkedCountries={checkedCounties}
-              recentCountries={recentCounties}
+              quiz={Quizzes.UKCounties}
+              checked={checkedCounties}
+              recents={recentCounties}
               hasGameStarted={hasGameStarted}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
-              verb="counties"
             />
           )}
         </Box>

@@ -16,8 +16,11 @@ import { CloseIcon } from "@chakra-ui/icons";
 
 import GameInputBannerTimer from "./GameInputBannerTimer";
 import GameInputBannerError from "./GameInputBannerError";
+import { Quizzes, getTotal, getVerb } from "../../helpers/quizzes";
 
 const GameInputBanner = ({
+  quiz,
+  score,
   errorMessage,
   expiryTimestamp,
   hasError,
@@ -26,9 +29,6 @@ const GameInputBanner = ({
   onChange,
   onClearInput,
   onExpire,
-  score,
-  total,
-  verb,
 }) => {
   return (
     <>
@@ -53,7 +53,7 @@ const GameInputBanner = ({
             minWidth="125px"
             width="100%"
           >
-            {`${score} of ${total} ${verb}`}
+            {`${score} of ${getTotal(quiz)} ${getVerb(quiz)}`}
           </Text>
         </Box>
         <InputGroup>
@@ -61,7 +61,7 @@ const GameInputBanner = ({
           <Input
             isDisabled={!hasGameStarted}
             isInvalid={hasError}
-            placeholder={`Enter ${verb}...`}
+            placeholder={`Enter ${getVerb(quiz)}...`}
             onChange={onChange}
             value={inputValue}
           />
@@ -90,6 +90,8 @@ const GameInputBanner = ({
 };
 
 GameInputBanner.propTypes = {
+  quiz: PropTypes.number,
+  score: PropTypes.number,
   errorMessage: PropTypes.string,
   expiryTimestamp: PropTypes.number,
   hasError: PropTypes.bool,
@@ -98,11 +100,10 @@ GameInputBanner.propTypes = {
   onChange: PropTypes.func,
   onClearInput: PropTypes.func,
   onExpire: PropTypes.func,
-  score: PropTypes.number,
-  total: PropTypes.number,
-  verb: PropTypes.string,
 };
 GameInputBanner.defaultProps = {
+  quiz: Quizzes.CountriesOfTheWorld,
+  score: 0,
   errorMessage: "",
   expiryTimestamp: null,
   hasError: false,
@@ -111,9 +112,6 @@ GameInputBanner.defaultProps = {
   onChange: () => {},
   onClearInput: () => {},
   onExpire: () => {},
-  score: 0,
-  total: 0,
-  verb: "countries",
 };
 
 export default GameInputBanner;
