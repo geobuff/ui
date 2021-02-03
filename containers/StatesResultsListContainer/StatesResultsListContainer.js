@@ -1,8 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import StatesResultsList from "../StatesResultsList/StatesResultsList";
-import ResultsListPlaceholder from "../ResultsListPlaceholder/ResultsListPlaceholder";
+import StatesResultsList from "../../components/StatesResultsList/StatesResultsList";
+import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
 import useStates from "../../hooks/UseStates";
 
 const StatesResultsListContainer = ({ checkedStates }) => {

@@ -3,7 +3,7 @@ import { Text } from "@chakra-ui/core";
 import { useAuth0 } from "@auth0/auth0-react";
 import { fetcher } from "../../helpers/fetcher";
 import jwt_decode from "jwt-decode";
-import UserProfile from "../UserProfile/UserProfile";
+import UserProfile from "../../components/UserProfile/UserProfile";
 
 const UserProfileContainer = () => {
   const { getAccessTokenSilently, user } = useAuth0();

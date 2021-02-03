@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Text } from "@chakra-ui/core";
-import UserProfileLeaderboardEntries from "../UserProfileLeaderboardEntries";
+import UserProfileLeaderboardEntries from "../../components/UserProfileLeaderboardEntries";
 import useLeaderboardEntries from "../../hooks/UseLeaderboardEntries";
 
 const UserProfileLeaderboardEntriesContainer = ({ id, quizzes }) => {

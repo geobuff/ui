@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Divider } from "@chakra-ui/core";
 import UserProfileSummary from "../UserProfileSummary";
-import UserProfileScoresContainer from "../UserProfileScoresContainer/UserProfileScoresContainer";
-import UserProfileLeaderboardEntriesContainer from "../UserProfileLeaderboardEntriesContainer/UserProfileLeaderboardEntriesContainer";
+import UserProfileScoresContainer from "../../containers/UserProfileScoresContainer/UserProfileScoresContainer";
+import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer/UserProfileLeaderboardEntriesContainer";
 
 const UserProfile = ({ token, id, username, email, quizzes }) => (
   <Box m={5}>

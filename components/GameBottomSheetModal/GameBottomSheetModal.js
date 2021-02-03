@@ -6,10 +6,10 @@ import { Box, Button, Divider, Heading, Text } from "@chakra-ui/core";
 import Sheet from "react-modal-sheet";
 
 import CountryList from "../.../../../components/CountryList";
-import CountryResultsListContainer from "../.../../../components/CountryResultsListContainer";
-import CapitalResultsListContainer from "../.../../../components/CapitalResultsListContainer";
-import StatesResultsListContainer from "../StatesResultsListContainer";
-import CountiesResultsListContainer from "../CountiesResultsListContainer";
+import CountryResultsListContainer from "../../containers/CountryResultsListContainer";
+import CapitalResultsListContainer from "../../containers/CapitalResultsListContainer";
+import StatesResultsListContainer from "../../containers/StatesResultsListContainer";
+import CountiesResultsListContainer from "../../containers/CountiesResultsListContainer";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;

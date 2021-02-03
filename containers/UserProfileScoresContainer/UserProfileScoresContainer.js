@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import useSWR from "swr";
 import { Text } from "@chakra-ui/core";
 import { authFetcher } from "../../helpers/fetcher";
-import UserProfileScores from "../UserProfileScores";
+import UserProfileScores from "../../components/UserProfileScores";
 
 const UserProfileScoresContainer = ({ token, id }) => {
   const { data } = useSWR(

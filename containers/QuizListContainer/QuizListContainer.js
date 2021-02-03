@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import useSWR from "swr";
 import { fetcher } from "../../helpers/fetcher";
-import QuizList from "../QuizList";
+import QuizList from "../../components/QuizList";
 
 const QuizListContainer = ({ filter }) => {
   const { data } = useSWR(

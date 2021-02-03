@@ -2,8 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 import useCountries from "../../hooks/UseCountries";
 
-import CountryResultsList from "../CountryResultsList/CountryResultsList";
-import ResultsListPlaceholder from "../ResultsListPlaceholder/ResultsListPlaceholder";
+import CountryResultsList from "../../components/CountryResultsList/CountryResultsList";
+import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
 
 const CountryResultsListContainer = ({ checkedCountries }) => {
   const { countriesByContinent, isPending } = useCountries();

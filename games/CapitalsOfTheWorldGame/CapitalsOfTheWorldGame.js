@@ -7,7 +7,7 @@ import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
 import { SVGMap } from "react-svg-map";
 import { WorldCapitals } from "@geobuff/maps";
 
-import CapitalResultsListContainer from "../.../../../components/CapitalResultsListContainer";
+import CapitalResultsListContainer from "../../containers/CapitalResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
