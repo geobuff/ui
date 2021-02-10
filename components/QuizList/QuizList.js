@@ -1,16 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import {
-  Box,
-  Flex,
-  Text,
-  Heading,
-  Link,
-  Alert,
-  AlertIcon,
-} from "@chakra-ui/core";
-import flag from "country-code-emoji";
-import Twemoji from "../Twemoji";
+import { Box, Flex, Heading, Link, Alert, AlertIcon } from "@chakra-ui/core";
 
 const QuizList = ({ quizzes }) => (
   <Box width="50%" ml="auto" mr="auto">
@@ -28,10 +18,8 @@ const QuizList = ({ quizzes }) => (
                 href={`/quiz/${quiz.name.replaceAll(" ", "-").toLowerCase()}`}
               >
                 <Flex backgroundColor="#F0F0F0" borderRadius={12} p={5} my={5}>
-                  <Twemoji emoji={flag(quiz.code)} mr={8} />
                   <Box>
                     <Heading size="sm">{quiz.name}</Heading>
-                    <Text>{quiz.description}</Text>
                   </Box>
                 </Flex>
               </Link>
@@ -43,10 +31,8 @@ const QuizList = ({ quizzes }) => (
                 p={5}
                 my={5}
               >
-                <Twemoji emoji={flag(quiz.code)} mr={8} />
                 <Box>
                   <Heading size="sm">{quiz.name}</Heading>
-                  <Text>{quiz.description}</Text>
                 </Box>
               </Flex>
             )}
@@ -62,8 +48,6 @@ QuizList.propTypes = {
     PropTypes.shape({
       id: PropTypes.number,
       name: PropTypes.string,
-      description: PropTypes.string,
-      code: PropTypes.string,
       maxScore: PropTypes.number,
       enabled: PropTypes.bool,
     })
