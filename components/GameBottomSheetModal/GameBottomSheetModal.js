@@ -12,7 +12,7 @@ import StatesResultsListContainer from "../../containers/StatesResultsListContai
 import CountiesResultsListContainer from "../../containers/CountiesResultsListContainer";
 import { Quizzes, getTitle } from "../../helpers/quizzes";
 
-const snapPoints = [600, 400, 300, 100];
+const snapPoints = [650, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
 const GameBottomSheetModal = ({
