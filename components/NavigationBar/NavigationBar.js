@@ -43,42 +43,40 @@ const NavigationBar = () => {
             {"GeoBuff"}
           </Text>
         </Link>
-
-        {!isLoading &&
-          (isAuthenticated ? (
-            <Menu>
-              <MenuButton
-                as={Button}
-                boxSize="2.5rem"
-                borderRadius="full"
-                backgroundImage={`url(${user?.picture})`}
-                backgroundSize="cover"
-                _hover={{
-                  backgroundImage: `${`url(${user?.picture})`}`,
-                  backgroundSize: "cover",
-                }}
-                _active={{
-                  backgroundImage: `${`url(${user?.picture})`}`,
-                  backgroundSize: "cover",
-                }}
-              ></MenuButton>
-              <MenuList>
-                <MenuItem onClick={() => router.push("/profile")}>
-                  Profile
-                </MenuItem>
-                <MenuDivider />
-                <MenuItem
-                  onClick={() =>
-                    logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URI })
-                  }
-                >
-                  Logout
-                </MenuItem>
-              </MenuList>
-            </Menu>
-          ) : (
-            <Button onClick={loginWithRedirect}>Log in</Button>
-          ))}
+        {!isLoading && isAuthenticated ? (
+          <Menu>
+            <MenuButton
+              as={Button}
+              boxSize="2.5rem"
+              borderRadius="full"
+              backgroundImage={`url(${user?.picture})`}
+              backgroundSize="cover"
+              _hover={{
+                backgroundImage: `${`url(${user?.picture})`}`,
+                backgroundSize: "cover",
+              }}
+              _active={{
+                backgroundImage: `${`url(${user?.picture})`}`,
+                backgroundSize: "cover",
+              }}
+            ></MenuButton>
+            <MenuList>
+              <MenuItem onClick={() => router.push("/profile")}>
+                Profile
+              </MenuItem>
+              <MenuDivider />
+              <MenuItem
+                onClick={() =>
+                  logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URI })
+                }
+              >
+                Logout
+              </MenuItem>
+            </MenuList>
+          </Menu>
+        ) : (
+          <Button onClick={loginWithRedirect}>Log in</Button>
+        )}
       </Flex>
     </Box>
   );
