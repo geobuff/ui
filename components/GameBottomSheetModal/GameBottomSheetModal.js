@@ -55,11 +55,20 @@ const GameBottomSheetModal = ({
       snapPoints={snapPoints}
       initialSnap={initialSnap}
       mt="120px"
+      springConfig={{
+        stiffness: 600,
+        damping: 60,
+        mass: 0.2,
+        // stiffness: 300,
+        // damping: 30,
+        // mass: 0.2,
+      }}
     >
       <Sheet.Container>
         <Sheet.Header />
         <Sheet.Content>
           <Box
+            overflowY="scroll"
             mx={5}
             my={0}
             // TODO: Update padding based on current snapPoint
@@ -89,7 +98,7 @@ const GameBottomSheetModal = ({
 
             <Divider my={4} />
 
-            <Box mt={4} overflowY="scroll">
+            <Box mt={4}>
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
