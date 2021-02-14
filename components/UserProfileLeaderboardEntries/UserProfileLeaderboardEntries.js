@@ -18,7 +18,7 @@ const UserProfileLeaderboardEntries = ({ entries, quizzes }) => (
       </thead>
       <tbody>
         {entries.map((entry) => (
-          <tr key={entry.id}>
+          <tr key={entry.quizId}>
             <td>{quizzes.filter((x) => x.id === entry.quizId)[0].name}</td>
             <td>{entry.userId}</td>
             <td>{entry.countryCode}</td>
