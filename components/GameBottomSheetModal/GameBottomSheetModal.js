@@ -59,13 +59,10 @@ const GameBottomSheetModal = ({
         stiffness: 600,
         damping: 60,
         mass: 0.2,
-        // stiffness: 300,
-        // damping: 30,
-        // mass: 0.2,
       }}
     >
       <Sheet.Container>
-        <Sheet.Header />
+        <Box pt={1} height="54px" as={Sheet.Header} />
         <Sheet.Content>
           <Box
             overflowY="scroll"
