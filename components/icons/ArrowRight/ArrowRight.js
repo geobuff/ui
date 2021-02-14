@@ -1,7 +1,7 @@
 import React from "react";
 import { Icon } from "@chakra-ui/core";
 
-const ArrowLeft = (props) => (
+const ArrowRight = (props) => (
   <Icon {...props}>
     <path
       d="M19 12l-6-6m6 6l-6 6m6-6H5"
@@ -13,4 +13,4 @@ const ArrowLeft = (props) => (
   </Icon>
 );
 
-export default ArrowLeft;
+export default ArrowRight;
