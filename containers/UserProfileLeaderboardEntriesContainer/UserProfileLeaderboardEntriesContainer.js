@@ -11,6 +11,8 @@ const UserProfileLeaderboardEntriesContainer = ({ id, quizzes }) => {
     return <Text>Loading leaderboard entries...</Text>;
   }
 
+  entries[0].quizId = 1;
+  entries[1].quizId = 2;
   return <UserProfileLeaderboardEntries entries={entries} quizzes={quizzes} />;
 };
 
