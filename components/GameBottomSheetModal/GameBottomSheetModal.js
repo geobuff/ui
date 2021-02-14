@@ -12,7 +12,7 @@ import StatesResultsListContainer from "../../containers/StatesResultsListContai
 import CountiesResultsListContainer from "../../containers/CountiesResultsListContainer";
 import { Quizzes, getTitle } from "../../helpers/quizzes";
 
-const snapPoints = [650, 400, 300, 100];
+const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
 const GameBottomSheetModal = ({
@@ -55,16 +55,17 @@ const GameBottomSheetModal = ({
       snapPoints={snapPoints}
       initialSnap={initialSnap}
       mt="120px"
+      minHeight="92vh"
+      springConfig={{
+        stiffness: 600,
+        damping: 60,
+        mass: 0.2,
+      }}
     >
       <Sheet.Container>
-        <Sheet.Header />
+        <Box pt={1} height="54px" as={Sheet.Header} />
         <Sheet.Content>
-          <Box
-            mx={5}
-            my={0}
-            // TODO: Update padding based on current snapPoint
-            pb="400px"
-          >
+          <Box overflowY="scroll" mx={5} my={0} pb="100px">
             <Box>
               <Heading pt={0} size="md" textAlign="center">
                 {getTitle(quiz)}
@@ -89,7 +90,7 @@ const GameBottomSheetModal = ({
 
             <Divider my={4} />
 
-            <Box mt={4} overflowY="scroll">
+            <Box mt={4}>
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
