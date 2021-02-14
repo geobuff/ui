@@ -4,11 +4,27 @@ import PropTypes from "prop-types";
 
 const UserProfileScores = ({ scores }) => (
   <Box>
-    {scores.map((x) => {
-      <Text>
-        {x.id} {x.userId} {x.quizId} {x.score}
-      </Text>;
-    })}
+    <Text>Scores</Text>
+    <table>
+      <thead>
+        <tr>
+          <th>Id</th>
+          <th>User</th>
+          <th>Quiz</th>
+          <th>Score</th>
+        </tr>
+      </thead>
+      <tbody>
+        {scores.map((x) => (
+          <tr key={x.id}>
+            <td>{x.id}</td>
+            <td>{x.userId}</td>
+            <td>{x.quizId}</td>
+            <td>{x.score}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   </Box>
 );
 
