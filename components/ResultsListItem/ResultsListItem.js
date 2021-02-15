@@ -1,47 +1,34 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Fade, Flex, ListItem, Text } from "@chakra-ui/core";
+import { Fade, Flex, ListItem, Text } from "@chakra-ui/core";
 import flag from "country-code-emoji";
+import { getUKCountyFlagUrl, getUSStateFlagUrl } from "@geobuff/flags";
 
 import Twemoji from "../Twemoji";
 import { Quizzes } from "../../helpers/quizzes";
-
-const flagFallback = (
-  <Box
-    height="18px"
-    width="24.5px"
-    borderRadius={4}
-    backgroundColor="#364858"
-  />
-);
+import FlagFallback from "./FlagFallback";
+import CustomFlag from "./CustomFlag";
 
 const ResultsListItem = ({ quiz, code, isHidden, svgName, ...props }) => {
-  if (
-    quiz === Quizzes.CountriesOfTheWorld ||
-    quiz === Quizzes.CapitalsOfTheWorld
-  ) {
-    const isValidCountryCode = code && code.length === 2;
-    const shouldFallback = !isValidCountryCode || isHidden;
-
-    return (
-      <ListItem listStyleType="none" {...props}>
-        <Fade in>
-          <Flex alignItems="center">
-            {!shouldFallback ? <Twemoji emoji={flag(code)} /> : flagFallback}
-            <Text ml={2} fontWeight="600" fontSize={14}>
-              {!isHidden ? svgName : "???"}
-            </Text>
-          </Flex>
-        </Fade>
-      </ListItem>
-    );
-  }
+  const getFlagElement = () => {
+    switch (quiz) {
+      case Quizzes.CountriesOfTheWorld:
+      case Quizzes.CapitalsOfTheWorld:
+        return <Twemoji emoji={flag(code)} />;
+      case Quizzes.UKCounties:
+        return <CustomFlag url={getUKCountyFlagUrl(code)} />;
+      case Quizzes.USStates:
+        return <CustomFlag url={getUSStateFlagUrl(code)} />;
+      default:
+        throw Error("Invalid quiz value.");
+    }
+  };
 
   return (
     <ListItem listStyleType="none" {...props}>
       <Fade in>
         <Flex alignItems="center">
-          {flagFallback}
+          {!isHidden ? getFlagElement() : <FlagFallback />}
           <Text ml={2} fontWeight="600" fontSize={14}>
             {!isHidden ? svgName : "???"}
           </Text>
