@@ -8,19 +8,21 @@ const UserProfileScores = ({ scores }) => (
     <table>
       <thead>
         <tr>
-          <th>Id</th>
           <th>User</th>
           <th>Quiz</th>
           <th>Score</th>
+          <th>Time</th>
+          <th>Added</th>
         </tr>
       </thead>
       <tbody>
         {scores.map((x) => (
           <tr key={x.id}>
-            <td>{x.id}</td>
             <td>{x.userId}</td>
             <td>{x.quizId}</td>
             <td>{x.score}</td>
+            <td>{x.time}</td>
+            <td>{x.added}</td>
           </tr>
         ))}
       </tbody>
@@ -35,6 +37,8 @@ UserProfileScores.propTypes = {
       userId: PropTypes.number,
       quizId: PropTypes.number,
       score: PropTypes.number,
+      time: PropTypes.number,
+      added: PropTypes.time,
     })
   ),
 };
