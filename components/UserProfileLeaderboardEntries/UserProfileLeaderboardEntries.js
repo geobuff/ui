@@ -14,6 +14,7 @@ const UserProfileLeaderboardEntries = ({ entries, quizzes }) => (
           <th>Score</th>
           <th>Time</th>
           <th>Added</th>
+          <th>Ranking</th>
         </tr>
       </thead>
       <tbody>
@@ -25,6 +26,7 @@ const UserProfileLeaderboardEntries = ({ entries, quizzes }) => (
             <td>{entry.score}</td>
             <td>{entry.time}</td>
             <td>{entry.added}</td>
+            <td>{entry.ranking}</td>
           </tr>
         ))}
       </tbody>
@@ -42,6 +44,7 @@ UserProfileLeaderboardEntries.propTypes = {
       score: PropTypes.number,
       time: PropTypes.number,
       added: PropTypes.time,
+      ranking: PropTypes.number,
     })
   ),
   quizzes: PropTypes.arrayOf(
