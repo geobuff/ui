@@ -3,6 +3,8 @@ import { Box, Input } from "@chakra-ui/core";
 import { debounce } from "debounce";
 import QuizListContainer from "../containers/QuizListContainer/QuizListContainer";
 
+import GameOverModal from "../components/GameOverModal";
+
 const Home = () => {
   const [filter, setFilter] = useState();
 
@@ -22,6 +24,7 @@ const Home = () => {
         <Input onChange={handleChange} placeholder="Enter quiz name..." />
       </Box>
       <QuizListContainer filter={filter} />
+      <GameOverModal />
     </Box>
   );
 };
