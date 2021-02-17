@@ -12,11 +12,13 @@ import {
   ModalFooter,
   ModalOverlay,
   Text,
+  Tooltip,
 } from "@chakra-ui/core";
 
 import ArrowLeft from "../icons/ArrowLeft";
+import SolidQuestionMarkCircle from "../icons/SolidQuestionMarkCircle";
 
-const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
+const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
 const explainerText =
   "Feel free to close this modal to view the map and your results. Don’t worry, you’ll still be able to submit your score afterwards!";
@@ -26,7 +28,7 @@ const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
 
-      <ModalContent>
+      <ModalContent borderRadius="12px">
         <ModalBody padding={0}>
           <Button
             alignItems="center"
@@ -42,9 +44,20 @@ const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
             <Text fontWeight="bold" fontSize="14px">
               {"View map & results"}
             </Text>
+            <Tooltip padding={2} label={explainerText}>
+              <Text>
+                <SolidQuestionMarkCircle
+                  height={3}
+                  width={3}
+                  marginLeft={1}
+                  marginBottom="2px"
+                  color="gray.400"
+                />
+              </Text>
+            </Tooltip>
           </Button>
 
-          <Box padding={10}>
+          <Box paddingY={10} paddingX={10}>
             <Box textAlign="center">
               <Text fontSize="32px" fontWeight="black">
                 {"GAME OVER"}
@@ -99,14 +112,10 @@ const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
             </Flex>
 
             {divider}
-
-            <Text fontWeight="medium" fontSize="12px" color="#828282">
-              {explainerText}
-            </Text>
           </Box>
         </ModalBody>
 
-        <ModalFooter>
+        <ModalFooter marginBottom={1}>
           <Button colorScheme="green" onClick={onClose}>
             {"Submit"}
           </Button>
@@ -131,5 +140,5 @@ GameOverModal.defaultProps = {
   onClose: () => {},
   score: 0,
   total: 0,
-  time: "",
+  time: "N/A",
 };
