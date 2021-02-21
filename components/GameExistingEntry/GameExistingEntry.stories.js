@@ -10,9 +10,8 @@ const Template = (args) => <GameExistingEntry {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  //   quiz: Quizzes.CountriesOfTheWorld,
-  //   score: 69,
-  //   total: 193,
-  //   countries: recentCountries,
-  //   hasGameStarted: true,
+  rank: 22943,
+  time: "15:00",
+  score: 0,
+  username: "👑 KingKirb",
 };

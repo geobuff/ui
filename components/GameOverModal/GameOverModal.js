@@ -28,7 +28,14 @@ const explainerCloseModal =
 const explainerExistingEntry =
   "You have an existing entry for this quiz, by clicking submit you will update your existing entry. ";
 
-const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
+const GameOverModal = ({
+  existingEntry,
+  isOpen,
+  onClose,
+  score,
+  total,
+  time,
+}) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -118,15 +125,19 @@ const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
 
             {divider}
 
-            <Text color="#828282" fontSize="12px" fontWeight="bold">
-              {"Existing Entry"}
-            </Text>
-            <Box marginY={2}>
-              <GameExistingEntry />
-            </Box>
-            <Text color="#828282" fontSize="12px" fontWeight="medium">
-              {explainerExistingEntry}
-            </Text>
+            {existingEntry && (
+              <Box>
+                <Text color="#828282" fontSize="12px" fontWeight="bold">
+                  {"Existing Entry"}
+                </Text>
+                <Box marginY={2}>
+                  <GameExistingEntry {...existingEntry} />
+                </Box>
+                <Text color="#828282" fontSize="12px" fontWeight="medium">
+                  {explainerExistingEntry}
+                </Text>
+              </Box>
+            )}
           </Box>
         </ModalBody>
 
@@ -143,6 +154,13 @@ const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
 export default GameOverModal;
 
 GameOverModal.propTypes = {
+  existingEntry: PropTypes.shape({
+    rank: PropTypes.number,
+    score: PropTypes.number,
+    time: PropTypes.string,
+    username: PropTypes.string,
+    countryCode: PropTypes.string,
+  }),
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
   score: PropTypes.number,
@@ -151,6 +169,7 @@ GameOverModal.propTypes = {
 };
 
 GameOverModal.defaultProps = {
+  existingEntry: null,
   isOpen: false,
   onClose: () => {},
   score: 0,

@@ -1,10 +1,10 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 import { Box, Flex, Text } from "@chakra-ui/core";
 
 import Twemoji from "../Twemoji/Twemoji";
 
-const GameExistingEntry = () => {
+const GameExistingEntry = ({ rank, score, time, username }) => {
   return (
     <Flex
       borderRadius={12}
@@ -18,7 +18,7 @@ const GameExistingEntry = () => {
           {"RANK"}
         </Text>
         <Text fontSize="14px" fontWeight="bold">
-          {"22,204"}
+          {rank}
         </Text>
       </Box>
       <Box>
@@ -33,7 +33,7 @@ const GameExistingEntry = () => {
             marginRight={1}
             isTruncated
           >
-            {"KirbyScrub"}
+            {username}
           </Text>
           <Twemoji emoji="🇳🇿" height="18px" width="18px" />
         </Flex>
@@ -43,7 +43,7 @@ const GameExistingEntry = () => {
           {"TIME"}
         </Text>
         <Text fontSize="14px" fontWeight="bold">
-          {"15:00"}
+          {time}
         </Text>
       </Box>
       <Box>
@@ -51,14 +51,26 @@ const GameExistingEntry = () => {
           {"SCORE"}
         </Text>
         <Text fontSize="14px" fontWeight="bold">
-          {"103"}
+          {score}
         </Text>
       </Box>
     </Flex>
   );
 };
 
-GameExistingEntry.propTypes = {};
-GameExistingEntry.defaultProps = {};
+GameExistingEntry.propTypes = {
+  rank: PropTypes.number,
+  score: PropTypes.number,
+  time: PropTypes.string,
+  username: PropTypes.string,
+  countryCode: PropTypes.string,
+};
+GameExistingEntry.defaultProps = {
+  rank: 0,
+  score: 0,
+  time: "15:00",
+  username: "PhileasFogg",
+  country: "UK",
+};
 
 export default GameExistingEntry;
