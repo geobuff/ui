@@ -49,3 +49,14 @@ export const getTitle = (quiz) => {
       throw Error("Invalid quiz option.");
   }
 };
+
+export const getApiPath = (quiz) => {
+  switch (quiz) {
+    case Quizzes.CountriesOfTheWorld:
+      return "countries";
+    case Quizzes.CapitalsOfTheWorld:
+      return "capitals";
+    default:
+      throw Error("Invalid quiz option.");
+  }
+};
