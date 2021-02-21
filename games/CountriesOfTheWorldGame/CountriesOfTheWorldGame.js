@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { debounce } from "debounce";
-import { Box, Flex, useBreakpointValue } from "@chakra-ui/core";
+import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/core";
 import { SVGMap } from "react-svg-map";
 import { WorldCountries } from "@geobuff/maps";
 
@@ -10,6 +10,8 @@ import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
+import GameOverModal from "../../components/GameOverModal";
+
 import { Quizzes, getTitle } from "../../helpers/quizzes";
 import { timeFifteenMinutes } from "../../helpers/time";
 
@@ -28,6 +30,8 @@ const CountriesOfTheWorldGame = ({
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [hasGameStarted, setHasGameStarted] = useState(false);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const getLocationClassName = (location) => {
     if (
@@ -57,10 +61,26 @@ const CountriesOfTheWorldGame = ({
   const handleGameStop = () => {
     setTimeRemaining(null);
     setHasGameStarted(false);
+    onOpen();
   };
 
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
+      <GameOverModal
+        existingEntry={{
+          rank: 1,
+          score: 100,
+          time: 100,
+          countryCode: "US",
+          username: "scrub",
+        }}
+        isOpen={isOpen}
+        onClose={onClose}
+        score={100}
+        total={500}
+        time={400}
+      />
+
       {shouldDisplayOnMobile && (
         <GameInputBanner
           quiz={Quizzes.CountriesOfTheWorld}
