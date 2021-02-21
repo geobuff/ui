@@ -17,8 +17,9 @@ import {
 
 import GameExistingEntry from "../GameExistingEntry";
 
-import ArrowLeft from "../icons/ArrowLeft";
-import SolidQuestionMarkCircle from "../icons/SolidQuestionMarkCircle";
+import ArrowLeft from "../../icons/ArrowLeft";
+import SolidQuestionMarkCircle from "../../icons/SolidQuestionMarkCircle";
+import { secondsToMinutesString } from "../../helpers/time";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
@@ -28,14 +29,7 @@ const explainerCloseModal =
 const explainerExistingEntry =
   "You have an existing entry for this quiz, by clicking submit you will update your existing entry. ";
 
-const GameOverModal = ({
-  existingEntry,
-  isOpen,
-  onClose,
-  score,
-  total,
-  time,
-}) => {
+const GameOverModal = ({ existingEntry, total, isOpen, onClose }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
       <ModalOverlay />
@@ -95,7 +89,7 @@ const GameOverModal = ({
                     marginRight={1}
                     marginY={2}
                   >
-                    {score}
+                    {existingEntry.score}
                   </Text>
                   <Text
                     color="#768389"
@@ -118,7 +112,7 @@ const GameOverModal = ({
                   lineHeight="40px"
                   marginY={2}
                 >
-                  {time}
+                  {secondsToMinutesString(existingEntry.time)}
                 </Text>
               </Box>
             </Flex>
@@ -157,22 +151,18 @@ GameOverModal.propTypes = {
   existingEntry: PropTypes.shape({
     rank: PropTypes.number,
     score: PropTypes.number,
-    time: PropTypes.string,
+    time: PropTypes.number,
     username: PropTypes.string,
     countryCode: PropTypes.string,
   }),
+  total: PropTypes.number,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
-  score: PropTypes.number,
-  total: PropTypes.number,
-  time: PropTypes.string,
 };
 
 GameOverModal.defaultProps = {
   existingEntry: null,
+  total: 0,
   isOpen: false,
   onClose: () => {},
-  score: 0,
-  total: 0,
-  time: "N/A",
 };

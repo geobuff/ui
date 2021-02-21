@@ -5,6 +5,7 @@ import { Box, Flex, Text } from "@chakra-ui/core";
 import Twemoji from "../Twemoji/Twemoji";
 
 import { formatNumber } from "../../helpers/number";
+import { secondsToMinutesString } from "../../helpers/time";
 
 const GameExistingEntry = ({ rank, score, time, username }) => {
   return (
@@ -45,7 +46,7 @@ const GameExistingEntry = ({ rank, score, time, username }) => {
           {"TIME"}
         </Text>
         <Text fontSize="14px" fontWeight="bold">
-          {time}
+          {secondsToMinutesString(time)}
         </Text>
       </Box>
       <Box>
@@ -63,7 +64,7 @@ const GameExistingEntry = ({ rank, score, time, username }) => {
 GameExistingEntry.propTypes = {
   rank: PropTypes.number,
   score: PropTypes.number,
-  time: PropTypes.string,
+  time: PropTypes.number,
   username: PropTypes.string,
   countryCode: PropTypes.string,
 };
