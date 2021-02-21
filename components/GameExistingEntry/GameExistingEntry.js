@@ -7,10 +7,11 @@ import Twemoji from "../Twemoji/Twemoji";
 const GameExistingEntry = () => {
   return (
     <Flex
-      justifyContent="space-between"
       borderRadius={12}
       backgroundColor="#F0F0F0"
-      padding={3}
+      justifyContent="space-between"
+      paddingY={3}
+      paddingX={4}
     >
       <Box>
         <Text color="#768389" fontSize="8px" fontWeight="bold">

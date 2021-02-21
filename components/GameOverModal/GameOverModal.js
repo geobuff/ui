@@ -15,13 +15,18 @@ import {
   Tooltip,
 } from "@chakra-ui/core";
 
+import GameExistingEntry from "../GameExistingEntry";
+
 import ArrowLeft from "../icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../icons/SolidQuestionMarkCircle";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
-const explainerText =
+const explainerCloseModal =
   "Feel free to close this modal to view the map and your results. Don’t worry, you’ll still be able to submit your score afterwards!";
+
+const explainerExistingEntry =
+  "You have an existing entry for this quiz, by clicking submit you will update your existing entry. ";
 
 const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
   return (
@@ -44,14 +49,14 @@ const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
             <Text fontWeight="bold" fontSize="14px">
               {"View map & results"}
             </Text>
-            <Tooltip padding={2} label={explainerText}>
+            <Tooltip padding={2} label={explainerCloseModal}>
               <Text>
                 <SolidQuestionMarkCircle
                   height={3}
                   width={3}
                   marginLeft={1}
                   marginBottom="2px"
-                  color="gray.400"
+                  color="gray.600"
                 />
               </Text>
             </Tooltip>
@@ -112,6 +117,16 @@ const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
             </Flex>
 
             {divider}
+
+            <Text color="#828282" fontSize="12px" fontWeight="bold">
+              {"Existing Entry"}
+            </Text>
+            <Box marginY={2}>
+              <GameExistingEntry />
+            </Box>
+            <Text color="#828282" fontSize="12px" fontWeight="medium">
+              {explainerExistingEntry}
+            </Text>
           </Box>
         </ModalBody>
 
