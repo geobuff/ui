@@ -3,8 +3,9 @@ import PropTypes from "prop-types";
 import { Text } from "@chakra-ui/core";
 
 import LeaderboardTable from "../../components/LeaderboardTable";
+import { getApiPath } from "../../helpers/quizzes";
 
-const LeaderboardTableContainer = ({ filterParams }) => {
+const LeaderboardTableContainer = ({ quiz, filterParams }) => {
   const [entries, setEntries] = useState();
 
   useEffect(() => {
@@ -14,13 +15,13 @@ const LeaderboardTableContainer = ({ filterParams }) => {
     };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/countries/leaderboard/all`,
+      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard/all`,
       params
     )
       .then((response) => response.json())
       .then((data) => data.entries)
       .then((data) => setEntries(data));
-  }, []);
+  }, [filterParams]);
 
   if (!entries) {
     return <Text>Loading table...</Text>;
@@ -30,6 +31,7 @@ const LeaderboardTableContainer = ({ filterParams }) => {
 };
 
 LeaderboardTableContainer.propTypes = {
+  quiz: PropTypes.number,
   filterParams: PropTypes.shape({
     page: PropTypes.number,
     limit: PropTypes.number,
