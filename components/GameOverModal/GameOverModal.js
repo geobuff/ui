@@ -62,7 +62,7 @@ const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
             </Tooltip>
           </Button>
 
-          <Box paddingY={10} paddingX={10}>
+          <Box paddingY={10} paddingX={8}>
             <Box textAlign="center">
               <Text fontSize="32px" fontWeight="black">
                 {"GAME OVER"}
@@ -75,7 +75,7 @@ const GameOverModal = ({ isOpen, onClose, score, total, time }) => {
 
             {divider}
 
-            <Flex marginY={4} justifyContent="space-between">
+            <Flex marginY={4} marginX={2} justifyContent="space-between">
               <Box>
                 <Text fontSize="16px" fontWeight="bold">
                   {"SCORE"}
