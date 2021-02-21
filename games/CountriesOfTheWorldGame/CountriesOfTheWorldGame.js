@@ -66,7 +66,11 @@ const CountriesOfTheWorldGame = ({
 
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
-      <GameOverModalContainer isOpen={isOpen} onClose={onClose} />
+      <GameOverModalContainer
+        quiz={Quizzes.CountriesOfTheWorld}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
 
       {shouldDisplayOnMobile && (
         <GameInputBanner

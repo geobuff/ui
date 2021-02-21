@@ -20,6 +20,7 @@ import GameExistingEntry from "../GameExistingEntry";
 import ArrowLeft from "../../icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../icons/SolidQuestionMarkCircle";
 import { secondsToMinutesString } from "../../helpers/time";
+import { getTitle, getTotal } from "../../helpers/quizzes";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
@@ -29,40 +30,42 @@ const explainerCloseModal =
 const explainerExistingEntry =
   "You have an existing entry for this quiz, by clicking submit you will update your existing entry. ";
 
-const GameOverModal = ({ existingEntry, total, isOpen, onClose }) => {
-  return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
+const GameOverModal = ({ quiz, existingEntry, isOpen, onClose }) => (
+  <Modal isOpen={isOpen} onClose={onClose}>
+    <ModalOverlay />
 
-      <ModalContent borderRadius="12px">
-        <ModalBody padding={0}>
-          <Button
-            alignItems="center"
-            backgroundColor="transparent"
-            marginTop={2}
-            marginLeft={2}
-            _hover={{
-              textDecoration: "underline",
-              cursor: "pointer",
-            }}
-          >
-            <ArrowLeft height={5} width={5} marginRight={1} />
-            <Text fontWeight="bold" fontSize="14px">
-              {"View map & results"}
+    <ModalContent borderRadius="12px">
+      <ModalBody padding={0}>
+        <Button
+          alignItems="center"
+          backgroundColor="transparent"
+          marginTop={2}
+          marginLeft={2}
+          _hover={{
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+        >
+          <ArrowLeft height={5} width={5} marginRight={1} />
+          <Text fontWeight="bold" fontSize="14px">
+            {"View map & results"}
+          </Text>
+          <Tooltip padding={2} label={explainerCloseModal}>
+            <Text>
+              <SolidQuestionMarkCircle
+                height={3}
+                width={3}
+                marginLeft={1}
+                marginBottom="2px"
+                color="gray.600"
+              />
             </Text>
-            <Tooltip padding={2} label={explainerCloseModal}>
-              <Text>
-                <SolidQuestionMarkCircle
-                  height={3}
-                  width={3}
-                  marginLeft={1}
-                  marginBottom="2px"
-                  color="gray.600"
-                />
-              </Text>
-            </Tooltip>
-          </Button>
+          </Tooltip>
+        </Button>
 
+        {!existingEntry ? (
+          <Text>Please login to submit a score to the leaderboard.</Text>
+        ) : (
           <Box paddingY={10} paddingX={8}>
             <Box textAlign="center">
               <Text fontSize="32px" fontWeight="black">
@@ -70,7 +73,7 @@ const GameOverModal = ({ existingEntry, total, isOpen, onClose }) => {
               </Text>
 
               <Text color="#828282" fontSize="22px" fontWeight="bold">
-                {"Countries of the World Quiz"}
+                {getTitle(quiz)}
               </Text>
             </Box>
 
@@ -98,7 +101,7 @@ const GameOverModal = ({ existingEntry, total, isOpen, onClose }) => {
                     lineHeight="40px"
                     marginBottom={1}
                   >
-                    {`/ ${total}`}
+                    {`/ ${getTotal(quiz)}`}
                   </Text>
                 </Flex>
               </Box>
@@ -133,21 +136,22 @@ const GameOverModal = ({ existingEntry, total, isOpen, onClose }) => {
               </Box>
             )}
           </Box>
-        </ModalBody>
+        )}
+      </ModalBody>
 
-        <ModalFooter marginBottom={1}>
-          <Button colorScheme="green" onClick={onClose}>
-            {"Submit"}
-          </Button>
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
-  );
-};
+      <ModalFooter marginBottom={1}>
+        <Button colorScheme="green" onClick={onClose}>
+          {"Submit"}
+        </Button>
+      </ModalFooter>
+    </ModalContent>
+  </Modal>
+);
 
 export default GameOverModal;
 
 GameOverModal.propTypes = {
+  quiz: PropTypes.number,
   existingEntry: PropTypes.shape({
     rank: PropTypes.number,
     score: PropTypes.number,
@@ -155,14 +159,13 @@ GameOverModal.propTypes = {
     username: PropTypes.string,
     countryCode: PropTypes.string,
   }),
-  total: PropTypes.number,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
 };
 
 GameOverModal.defaultProps = {
+  quiz: 1,
   existingEntry: null,
-  total: 0,
   isOpen: false,
   onClose: () => {},
 };
