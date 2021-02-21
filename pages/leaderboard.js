@@ -28,6 +28,11 @@ const Leaderboard = () => {
     setFilterParams({ ...filterParams, user: e.target.value });
   };
 
+  const limitChange = (e) => {
+    const limit = parseInt(e.target.value);
+    setFilterParams({ ...filterParams, limit: limit });
+  };
+
   return (
     <Box m={5}>
       <Heading my={6}>Leaderboard</Heading>
@@ -56,15 +61,15 @@ const Leaderboard = () => {
         <Box p={5}>
           <LeaderboardTableContainer quiz={quiz} filterParams={filterParams} />
         </Box>
-        <Divider></Divider>
+        <Divider />
         <Flex p={5}>
-          <Select w="250px">
-            <option>10 Per Page</option>
-            <option>20 Per Page</option>
-            <option>50 Per Page</option>
+          <Select w="250px" onChange={limitChange}>
+            <option value={10}>10 Per Page</option>
+            <option value={20}>20 Per Page</option>
+            <option value={50}>50 Per Page</option>
           </Select>
           <Box ml="auto">
-            <Button>Previous</Button>
+            <Button mr={3}>Previous</Button>
             <Button>Next</Button>
           </Box>
         </Flex>
