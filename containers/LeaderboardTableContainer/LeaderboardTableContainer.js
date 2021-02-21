@@ -5,7 +5,7 @@ import { Text } from "@chakra-ui/core";
 import LeaderboardTable from "../../components/LeaderboardTable";
 import { getApiPath } from "../../helpers/quizzes";
 
-const LeaderboardTableContainer = ({ quiz, filterParams }) => {
+const LeaderboardTableContainer = ({ quiz, filterParams, setHasMore }) => {
   const [entries, setEntries] = useState();
 
   useEffect(() => {
@@ -19,15 +19,23 @@ const LeaderboardTableContainer = ({ quiz, filterParams }) => {
       params
     )
       .then((response) => response.json())
-      .then((data) => data.entries)
-      .then((data) => setEntries(data));
+      .then((data) => {
+        setHasMore(data.hasMore);
+        setEntries(data.entries);
+      });
   }, [filterParams]);
 
   if (!entries) {
     return <Text>Loading table...</Text>;
   }
 
-  return <LeaderboardTable entries={entries}></LeaderboardTable>;
+  return (
+    <LeaderboardTable
+      page={filterParams.page}
+      limit={filterParams.limit}
+      entries={entries}
+    />
+  );
 };
 
 LeaderboardTableContainer.propTypes = {
@@ -38,6 +46,7 @@ LeaderboardTableContainer.propTypes = {
     range: PropTypes.string,
     user: PropTypes.string,
   }),
+  setHasMore: PropTypes.func,
 };
 
 export default LeaderboardTableContainer;

@@ -15,6 +15,7 @@ import { Quizzes } from "../helpers/quizzes";
 const Leaderboard = () => {
   const [quiz, setQuiz] = useState(Quizzes.CountriesOfTheWorld);
   const [filterParams, setFilterParams] = useState({ page: 0, limit: 10 });
+  const [hasMore, setHasMore] = useState();
 
   const quizChange = (e) => {
     setQuiz(parseInt(e.target.value));
@@ -31,6 +32,14 @@ const Leaderboard = () => {
   const limitChange = (e) => {
     const limit = parseInt(e.target.value);
     setFilterParams({ ...filterParams, limit: limit });
+  };
+
+  const next = () => {
+    setFilterParams({ ...filterParams, page: filterParams.page + 1 });
+  };
+
+  const previous = () => {
+    setFilterParams({ ...filterParams, page: filterParams.page - 1 });
   };
 
   return (
@@ -59,7 +68,11 @@ const Leaderboard = () => {
       </Flex>
       <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
         <Box p={5}>
-          <LeaderboardTableContainer quiz={quiz} filterParams={filterParams} />
+          <LeaderboardTableContainer
+            quiz={quiz}
+            filterParams={filterParams}
+            setHasMore={setHasMore}
+          />
         </Box>
         <Divider />
         <Flex p={5}>
@@ -69,8 +82,16 @@ const Leaderboard = () => {
             <option value={50}>50 Per Page</option>
           </Select>
           <Box ml="auto">
-            <Button mr={3}>Previous</Button>
-            <Button>Next</Button>
+            <Button
+              disabled={filterParams.page === 0}
+              mr={3}
+              onClick={previous}
+            >
+              Previous
+            </Button>
+            <Button disabled={!hasMore} onClick={next}>
+              Next
+            </Button>
           </Box>
         </Flex>
       </Box>

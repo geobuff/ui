@@ -7,7 +7,7 @@ import Twemoji from "../Twemoji";
 import flag from "country-code-emoji";
 import { secondsToMinutesString } from "../../helpers/time";
 
-const LeaderboardTable = ({ entries }) => {
+const LeaderboardTable = ({ page, limit, entries }) => {
   if (entries.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
@@ -29,7 +29,7 @@ const LeaderboardTable = ({ entries }) => {
       <Tbody>
         {entries.map((entry, index) => (
           <Tr key={index}>
-            <Td>{index + 1}</Td>
+            <Td>{page * limit + index + 1}</Td>
             <Td>
               <Twemoji emoji={flag(entry.countryCode)} /> {entry.username}
             </Td>
@@ -43,6 +43,8 @@ const LeaderboardTable = ({ entries }) => {
 };
 
 LeaderboardTable.propTypes = {
+  page: PropTypes.number,
+  limit: PropTypes.number,
   entries: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
