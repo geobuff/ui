@@ -4,6 +4,8 @@ import { Box, Flex, Text } from "@chakra-ui/core";
 
 import Twemoji from "../Twemoji/Twemoji";
 
+import { formatNumber } from "../../helpers/number";
+
 const GameExistingEntry = ({ rank, score, time, username }) => {
   return (
     <Flex
@@ -18,7 +20,7 @@ const GameExistingEntry = ({ rank, score, time, username }) => {
           {"RANK"}
         </Text>
         <Text fontSize="14px" fontWeight="bold">
-          {rank}
+          {formatNumber(rank)}
         </Text>
       </Box>
       <Box>
