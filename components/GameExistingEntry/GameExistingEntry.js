@@ -5,8 +5,9 @@ import { Box, Flex, Text } from "@chakra-ui/core";
 import Twemoji from "../Twemoji/Twemoji";
 
 import { formatNumber } from "../../helpers/number";
+import { secondsToMinutesString } from "../../helpers/time";
 
-const GameExistingEntry = ({ rank, score, time, username }) => {
+const GameExistingEntry = ({ ranking, score, time, username }) => {
   return (
     <Flex
       borderRadius={12}
@@ -20,7 +21,7 @@ const GameExistingEntry = ({ rank, score, time, username }) => {
           {"RANK"}
         </Text>
         <Text fontSize="14px" fontWeight="bold">
-          {formatNumber(rank)}
+          {formatNumber(ranking)}
         </Text>
       </Box>
       <Box>
@@ -45,7 +46,7 @@ const GameExistingEntry = ({ rank, score, time, username }) => {
           {"TIME"}
         </Text>
         <Text fontSize="14px" fontWeight="bold">
-          {time}
+          {secondsToMinutesString(time)}
         </Text>
       </Box>
       <Box>
@@ -61,9 +62,9 @@ const GameExistingEntry = ({ rank, score, time, username }) => {
 };
 
 GameExistingEntry.propTypes = {
-  rank: PropTypes.number,
+  ranking: PropTypes.number,
   score: PropTypes.number,
-  time: PropTypes.string,
+  time: PropTypes.number,
   username: PropTypes.string,
   countryCode: PropTypes.string,
 };
