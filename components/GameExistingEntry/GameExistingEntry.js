@@ -2,8 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Flex, Text } from "@chakra-ui/core";
 
-import Twemoji from "../Twemoji/Twemoji";
-
 import { formatNumber } from "../../helpers/number";
 import { secondsToMinutesString } from "../../helpers/time";
 
@@ -38,7 +36,6 @@ const GameExistingEntry = ({ ranking, score, time, username }) => {
           >
             {username}
           </Text>
-          <Twemoji emoji="🇳🇿" height="18px" width="18px" />
         </Flex>
       </Box>
       <Box>
