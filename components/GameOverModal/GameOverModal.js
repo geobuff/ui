@@ -1,5 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
+import { useAuth0 } from "@auth0/auth0-react";
+import jwt_decode from "jwt-decode";
 
 import {
   Box,
@@ -21,6 +23,7 @@ import ArrowLeft from "../../icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../icons/SolidQuestionMarkCircle";
 import { secondsToMinutesString } from "../../helpers/time";
 import { getTitle, getTotal } from "../../helpers/quizzes";
+import { getApiPath } from "../../helpers/quizzes";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
@@ -30,42 +33,128 @@ const explainerCloseModal =
 const explainerExistingEntry =
   "You have an existing entry for this quiz, by clicking submit you will update your existing entry. ";
 
-const GameOverModal = ({ quiz, existingEntry, isOpen, onClose }) => (
-  <Modal isOpen={isOpen} onClose={onClose}>
-    <ModalOverlay />
+const GameOverModal = ({
+  quiz,
+  score,
+  time,
+  loggedIn,
+  existingEntry,
+  isOpen,
+  onClose,
+}) => {
+  const { getAccessTokenSilently } = useAuth0();
 
-    <ModalContent borderRadius="12px">
-      <ModalBody padding={0}>
-        <Button
-          alignItems="center"
-          backgroundColor="transparent"
-          marginTop={2}
-          marginLeft={2}
-          _hover={{
-            textDecoration: "underline",
-            cursor: "pointer",
-          }}
-        >
-          <ArrowLeft height={5} width={5} marginRight={1} />
-          <Text fontWeight="bold" fontSize="14px">
-            {"View map & results"}
-          </Text>
-          <Tooltip padding={2} label={explainerCloseModal}>
-            <Text>
-              <SolidQuestionMarkCircle
-                height={3}
-                width={3}
-                marginLeft={1}
-                marginBottom="2px"
-                color="gray.600"
-              />
+  const [submitting, setSubmitting] = useState(false);
+
+  const submitEntry = () => {
+    setSubmitting(true);
+    getAccessTokenSilently({
+      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
+    }).then((token) => {
+      if (existingEntry) {
+        updateEntry(token);
+      } else {
+        createEntry(token);
+      }
+    });
+  };
+
+  const createEntry = (token) => {
+    const decoded = jwt_decode(token);
+    const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`)
+      .then((response) => response.json())
+      .then((userId) => {
+        const entry = {
+          userId: userId,
+          countryCode: "US",
+          score: score,
+          time: 150,
+        };
+
+        const params = {
+          method: "POST",
+          body: JSON.stringify(entry),
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard`,
+          params
+        )
+          .then((response) => response.json())
+          .then(() => {
+            setSubmitting(false);
+            onClose();
+          });
+      });
+  };
+
+  const updateEntry = (token) => {
+    const entry = {
+      userId: existingEntry.userId,
+      countryCode: existingEntry.countryCode,
+      score: score,
+      time: 150,
+    };
+
+    const params = {
+      method: "PUT",
+      body: JSON.stringify(entry),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard/${
+        existingEntry.id
+      }`,
+      params
+    )
+      .then((response) => response.json())
+      .then(() => {
+        setSubmitting(false);
+        onClose();
+      });
+  };
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose}>
+      <ModalOverlay />
+
+      <ModalContent borderRadius="12px">
+        <ModalBody padding={0}>
+          <Button
+            alignItems="center"
+            backgroundColor="transparent"
+            marginTop={2}
+            marginLeft={2}
+            _hover={{
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+            onClick={onClose}
+          >
+            <ArrowLeft height={5} width={5} marginRight={1} />
+            <Text fontWeight="bold" fontSize="14px">
+              {"View map & results"}
             </Text>
-          </Tooltip>
-        </Button>
+            <Tooltip padding={2} label={explainerCloseModal}>
+              <Text>
+                <SolidQuestionMarkCircle
+                  height={3}
+                  width={3}
+                  marginLeft={1}
+                  marginBottom="2px"
+                  color="gray.600"
+                />
+              </Text>
+            </Tooltip>
+          </Button>
 
-        {!existingEntry ? (
-          <Text>Please login to submit a score to the leaderboard.</Text>
-        ) : (
           <Box paddingY={10} paddingX={8}>
             <Box textAlign="center">
               <Text fontSize="32px" fontWeight="black">
@@ -92,7 +181,7 @@ const GameOverModal = ({ quiz, existingEntry, isOpen, onClose }) => (
                     marginRight={1}
                     marginY={2}
                   >
-                    {existingEntry.score}
+                    {score}
                   </Text>
                   <Text
                     color="#768389"
@@ -115,14 +204,27 @@ const GameOverModal = ({ quiz, existingEntry, isOpen, onClose }) => (
                   lineHeight="40px"
                   marginY={2}
                 >
-                  {secondsToMinutesString(existingEntry.time)}
+                  {secondsToMinutesString(time)}
                 </Text>
               </Box>
             </Flex>
 
             {divider}
 
-            {existingEntry && (
+            {!loggedIn && (
+              <Box>
+                <Text
+                  color="#828282"
+                  fontSize="12px"
+                  fontWeight="medium"
+                  textAlign="center"
+                >
+                  {"You must login to submit a leaderboard entry."}
+                </Text>
+              </Box>
+            )}
+
+            {loggedIn && existingEntry && (
               <Box>
                 <Text color="#828282" fontSize="12px" fontWeight="bold">
                   {"Existing Entry"}
@@ -136,23 +238,32 @@ const GameOverModal = ({ quiz, existingEntry, isOpen, onClose }) => (
               </Box>
             )}
           </Box>
-        )}
-      </ModalBody>
+        </ModalBody>
 
-      <ModalFooter marginBottom={1}>
-        <Button colorScheme="green" onClick={onClose}>
-          {"Submit"}
-        </Button>
-      </ModalFooter>
-    </ModalContent>
-  </Modal>
-);
+        <ModalFooter marginBottom={1}>
+          <Button
+            colorScheme="green"
+            onClick={submitEntry}
+            disabled={!loggedIn || submitting}
+          >
+            {"Submit"}
+          </Button>
+        </ModalFooter>
+      </ModalContent>
+    </Modal>
+  );
+};
 
 export default GameOverModal;
 
 GameOverModal.propTypes = {
   quiz: PropTypes.number,
+  score: PropTypes.number,
+  time: PropTypes.number,
+  loggedIn: PropTypes.bool,
   existingEntry: PropTypes.shape({
+    id: PropTypes.number,
+    userId: PropTypes.number,
     rank: PropTypes.number,
     score: PropTypes.number,
     time: PropTypes.number,
@@ -165,6 +276,9 @@ GameOverModal.propTypes = {
 
 GameOverModal.defaultProps = {
   quiz: 1,
+  score: 0,
+  time: 100,
+  loggedIn: true,
   existingEntry: null,
   isOpen: false,
   onClose: () => {},

@@ -7,7 +7,7 @@ import GameOverModal from "../../components/GameOverModal";
 import { getApiPath } from "../../helpers/quizzes";
 import { fetcher } from "../../helpers/fetcher";
 
-const GameOverModalContainer = ({ quiz, isOpen, onClose }) => {
+const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [entry, setEntry] = useState();
   const [loading, setLoading] = useState(true);
@@ -29,10 +29,15 @@ const GameOverModalContainer = ({ quiz, isOpen, onClose }) => {
             `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(
               quiz
             )}/leaderboard/${userId}`
-          ).then((entry) => {
-            setEntry(entry);
-            setLoading(false);
-          });
+          )
+            .then((entry) => {
+              setEntry(entry);
+              setLoading(false);
+            })
+            .catch(() => {
+              // No existing leaderboard entry for user.
+              return;
+            });
         }
       );
     });
@@ -45,6 +50,9 @@ const GameOverModalContainer = ({ quiz, isOpen, onClose }) => {
   return (
     <GameOverModal
       quiz={quiz}
+      score={score}
+      time={time}
+      loggedIn={isAuthenticated}
       existingEntry={entry}
       isOpen={isOpen}
       onClose={onClose}
@@ -54,6 +62,8 @@ const GameOverModalContainer = ({ quiz, isOpen, onClose }) => {
 
 GameOverModalContainer.propTypes = {
   quiz: PropTypes.number,
+  score: PropTypes.number,
+  time: PropTypes.number,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
 };

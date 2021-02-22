@@ -29,6 +29,7 @@ const CountriesOfTheWorldGame = ({
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+  const [time, setTime] = useState();
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,6 +60,7 @@ const CountriesOfTheWorldGame = ({
   };
 
   const handleGameStop = () => {
+    setTime(timeRemaining);
     setTimeRemaining(null);
     setHasGameStarted(false);
     onOpen();
@@ -68,6 +70,8 @@ const CountriesOfTheWorldGame = ({
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       <GameOverModalContainer
         quiz={Quizzes.CountriesOfTheWorld}
+        score={score}
+        time={time}
         isOpen={isOpen}
         onClose={onClose}
       />
