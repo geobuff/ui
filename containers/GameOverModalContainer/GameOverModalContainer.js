@@ -11,6 +11,8 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [entry, setEntry] = useState();
   const [loading, setLoading] = useState(true);
+  const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -43,6 +45,89 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     });
   }, [getAccessTokenSilently]);
 
+  const submitEntry = (existingEntry) => {
+    setSubmitting(true);
+    getAccessTokenSilently({
+      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
+    }).then((token) => {
+      if (existingEntry) {
+        updateEntry(token, existingEntry);
+      } else {
+        createEntry(token);
+      }
+    });
+  };
+
+  const createEntry = (token) => {
+    const decoded = jwt_decode(token);
+    const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`)
+      .then((response) => response.json())
+      .then((userId) => {
+        const entry = {
+          userId: userId,
+          countryCode: "US",
+          score: score,
+          time: 150,
+        };
+
+        const params = {
+          method: "POST",
+          body: JSON.stringify(entry),
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        };
+
+        fetch(
+          `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard`,
+          params
+        )
+          .then((response) => response.json())
+          .then(() => {
+            setSubmitting(false);
+            onClose();
+          })
+          .catch((error) => {
+            setError(error.message);
+            setSubmitting(false);
+          });
+      });
+  };
+
+  const updateEntry = (token, existingEntry) => {
+    const entry = {
+      userId: existingEntry.userId,
+      countryCode: existingEntry.countryCode,
+      score: score,
+      time: 150,
+    };
+
+    const params = {
+      method: "PUT",
+      body: JSON.stringify(entry),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard/${
+        existingEntry.id
+      }`,
+      params
+    )
+      .then((response) => response.json())
+      .then(() => {
+        setSubmitting(false);
+        onClose();
+      })
+      .catch((error) => {
+        setError(error.message);
+        setSubmitting(false);
+      });
+  };
+
   if (loading) {
     return null;
   }
@@ -56,6 +141,9 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       existingEntry={entry}
       isOpen={isOpen}
       onClose={onClose}
+      submitEntry={submitEntry}
+      submitting={submitting}
+      error={error}
     />
   );
 };
