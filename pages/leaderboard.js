@@ -1,4 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+
 import {
   Box,
   Button,
@@ -13,9 +15,18 @@ import LeaderboardTableContainer from "../containers/LeaderboardTableContainer";
 import { Quizzes } from "../helpers/quizzes";
 
 const Leaderboard = () => {
+  const router = useRouter();
+  const { quizId } = router.query;
+
   const [quiz, setQuiz] = useState(Quizzes.CountriesOfTheWorld);
   const [filterParams, setFilterParams] = useState({ page: 0, limit: 10 });
   const [hasMore, setHasMore] = useState();
+
+  useEffect(() => {
+    if (quizId !== undefined) {
+      setQuiz(parseInt(quizId));
+    }
+  }, [quizId]);
 
   const quizChange = (e) => {
     setQuiz(parseInt(e.target.value));
@@ -46,7 +57,7 @@ const Leaderboard = () => {
     <Box m={5}>
       <Heading my={6}>Leaderboard</Heading>
       <Flex my={5}>
-        <Select w="250px" onChange={quizChange}>
+        <Select w="250px" onChange={quizChange} value={quiz}>
           <option value={Quizzes.CountriesOfTheWorld}>
             Countries of the World
           </option>
