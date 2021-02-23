@@ -9,6 +9,7 @@ import {
   Divider,
   Flex,
   Input,
+  Text,
 } from "@chakra-ui/core";
 
 import LeaderboardTableContainer from "../containers/LeaderboardTableContainer";
@@ -55,57 +56,80 @@ const Leaderboard = () => {
 
   return (
     <Box m={5}>
-      <Heading my={6}>Leaderboard</Heading>
-      <Flex my={5}>
-        <Select w="250px" onChange={quizChange} value={quiz}>
-          <option value={Quizzes.CountriesOfTheWorld}>
-            Countries of the World
-          </option>
-          <option value={Quizzes.CapitalsOfTheWorld}>
-            Capitals of the World
-          </option>
-        </Select>
-        <Select w="250px" ml={3} onChange={rangeChange}>
-          <option value={null}>All Time</option>
-          <option value="week">This Week</option>
-          <option value="day">Today</option>
-        </Select>
-        <Input
-          w="250px"
-          ml="auto"
-          placeholder="Enter username..."
-          onChange={userChange}
-        />
-      </Flex>
-      <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
-        <Box p={5}>
-          <LeaderboardTableContainer
-            quiz={quiz}
-            filterParams={filterParams}
-            setHasMore={setHasMore}
-          />
-        </Box>
-        <Divider />
-        <Flex p={5}>
-          <Select w="250px" onChange={limitChange}>
-            <option value={10}>10 Per Page</option>
-            <option value={20}>20 Per Page</option>
-            <option value={50}>50 Per Page</option>
-          </Select>
-          <Box ml="auto">
-            <Button
-              disabled={filterParams.page === 0}
-              mr={3}
-              onClick={previous}
+      <Heading>Leaderboard</Heading>
+      <Flex>
+        <Box w="70%">
+          <Flex my={5}>
+            <Select
+              w="250px"
+              background="#FFFFFF"
+              onChange={quizChange}
+              value={quiz}
             >
-              Previous
-            </Button>
-            <Button disabled={!hasMore} onClick={next}>
-              Next
-            </Button>
+              <option value={Quizzes.CountriesOfTheWorld}>
+                Countries of the World
+              </option>
+              <option value={Quizzes.CapitalsOfTheWorld}>
+                Capitals of the World
+              </option>
+            </Select>
+            <Select
+              w="200px"
+              background="#FFFFFF"
+              ml={3}
+              onChange={rangeChange}
+            >
+              <option value={null}>All Time</option>
+              <option value="week">This Week</option>
+              <option value="day">Today</option>
+            </Select>
+            <Input
+              w="250px"
+              ml="auto"
+              placeholder="Enter username..."
+              onChange={userChange}
+            />
+          </Flex>
+          <Box borderRadius={12} p={5} background="#FFFFFF">
+            <Box p={5}>
+              <LeaderboardTableContainer
+                quiz={quiz}
+                filterParams={filterParams}
+                setHasMore={setHasMore}
+              />
+            </Box>
+            <Divider borderWidth={2} />
+            <Flex p={5}>
+              <Select w="150px" background="#EDF2F7" onChange={limitChange}>
+                <option value={10}>10 Per Page</option>
+                <option value={20}>20 Per Page</option>
+                <option value={50}>50 Per Page</option>
+              </Select>
+              <Box ml="auto">
+                <Button
+                  disabled={filterParams.page === 0}
+                  mr={3}
+                  onClick={previous}
+                >
+                  Previous
+                </Button>
+                <Button disabled={!hasMore} onClick={next}>
+                  Next
+                </Button>
+              </Box>
+            </Flex>
           </Box>
-        </Flex>
-      </Box>
+        </Box>
+        <Box
+          backgroundColor="#C4C4C4"
+          borderRadius={12}
+          ml={12}
+          w="30%"
+          textAlign="center"
+        >
+          <Text color="#868686">TEMPLATE</Text>
+        </Box>
+      </Flex>
     </Box>
   );
 };
