@@ -18,7 +18,7 @@ import {
 
 import GameExistingEntry from "../GameExistingEntry";
 
-import ArrowLeft from "../../icons/ArrowLeft";
+import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
 import { secondsToMinutesString } from "../../helpers/time";
 import { getTitle, getTotal } from "../../helpers/quizzes";
