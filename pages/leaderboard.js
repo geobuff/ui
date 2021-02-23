@@ -31,19 +31,20 @@ const Leaderboard = () => {
 
   const quizChange = (e) => {
     setQuiz(parseInt(e.target.value));
+    setFilterParams({ ...filterParams, page: 0 });
   };
 
   const rangeChange = (e) => {
-    setFilterParams({ ...filterParams, range: e.target.value });
+    setFilterParams({ ...filterParams, range: e.target.value, page: 0 });
   };
 
   const userChange = (e) => {
-    setFilterParams({ ...filterParams, user: e.target.value });
+    setFilterParams({ ...filterParams, user: e.target.value, page: 0 });
   };
 
   const limitChange = (e) => {
     const limit = parseInt(e.target.value);
-    setFilterParams({ ...filterParams, limit: limit });
+    setFilterParams({ ...filterParams, limit: limit, page: 0 });
   };
 
   const next = () => {
@@ -76,7 +77,7 @@ const Leaderboard = () => {
             <Select
               w="200px"
               background="#FFFFFF"
-              ml={3}
+              mx={3}
               onChange={rangeChange}
             >
               <option value={null}>All Time</option>
