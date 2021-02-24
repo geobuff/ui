@@ -60,7 +60,12 @@ const Home = () => {
           left={0}
           right={0}
           bottom="21px"
-          maxWidth={{ base: "70%", md: "60%" }}
+          maxWidth={{
+            base: "85%",
+            sm: "80%",
+            md: "60%",
+            lg: "600px",
+          }}
         >
           <Input
             width="100%"
