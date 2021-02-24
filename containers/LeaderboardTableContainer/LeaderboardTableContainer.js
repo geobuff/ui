@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Text } from "@chakra-ui/core";
 
 import LeaderboardTable from "../../components/LeaderboardTable";
+import LeaderboardTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder";
 import { getApiPath } from "../../helpers/quizzes";
 
 const LeaderboardTableContainer = ({ quiz, filterParams, setHasMore }) => {
@@ -26,7 +26,7 @@ const LeaderboardTableContainer = ({ quiz, filterParams, setHasMore }) => {
   }, [filterParams]);
 
   if (!entries) {
-    return <Text>Loading table...</Text>;
+    return <LeaderboardTablePlaceholder noOfLines={filterParams.limit} />;
   }
 
   return (
