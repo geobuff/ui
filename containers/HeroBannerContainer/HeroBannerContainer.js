@@ -6,7 +6,6 @@ import HeroBanner from "../../components/HeroBanner";
 
 const HeroBannerContainer = () => {
   const [username, setUsername] = useState();
-
   const { getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
