@@ -1,7 +1,10 @@
 import React, { useState, useCallback } from "react";
-import { Box, Input } from "@chakra-ui/core";
 import { debounce } from "debounce";
-import QuizListContainer from "../containers/QuizListContainer/QuizListContainer";
+
+import { Box, Input, Flex } from "@chakra-ui/core";
+import QuizListContainer from "../containers/QuizListContainer";
+
+import HeroBannerContainer from "../containers/HeroBannerContainer";
 
 const Home = () => {
   const [filter, setFilter] = useState();
@@ -17,12 +20,32 @@ const Home = () => {
   const handleDebounceChange = useCallback(debounce(onChange, 500), [onChange]);
 
   return (
-    <Box width="100%">
-      <Box width="50%" mx="auto" mt={10}>
-        <Input onChange={handleChange} placeholder="Enter quiz name..." />
+    <Flex width="100%" mx="auto" position="relative">
+      <Box position="absolute" left="0" right="0" top="0">
+        <HeroBannerContainer />
+        <Box
+          mx="auto"
+          position="relative"
+          left={0}
+          right={0}
+          bottom="21px"
+          maxWidth={{
+            base: "85%",
+            sm: "80%",
+            md: "60%",
+            lg: "600px",
+          }}
+        >
+          <Input
+            width="100%"
+            size="lg"
+            onChange={handleChange}
+            placeholder="Enter quiz name..."
+          />
+        </Box>
+        <QuizListContainer filter={filter} />
       </Box>
-      <QuizListContainer filter={filter} />
-    </Box>
+    </Flex>
   );
 };
 
