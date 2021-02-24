@@ -26,7 +26,7 @@ const Home = () => {
   return (
     <Flex width="100%" mx="auto" position="relative">
       <Box position="absolute" left="0" right="0" top="0">
-        <HeroBannerContainer username="Kirb" />
+        <HeroBannerContainer />
         <Box
           mx="auto"
           position="relative"
