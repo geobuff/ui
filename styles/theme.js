@@ -7,6 +7,13 @@ const theme = extendTheme({
   components: {
     Input,
   },
+  styles: {
+    global: {
+      body: {
+        backgroundColor: "#F0F0F0",
+      },
+    },
+  },
 });
 
 export default theme;
