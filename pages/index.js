@@ -18,21 +18,28 @@ const Home = () => {
   const handleDebounceChange = useCallback(debounce(onChange, 500), [onChange]);
 
   return (
-    <>
-      <style global jsx>{`
-        body {
-          background-color: #f0f0f0;
-        }
-      `}</style>
-
-      <Flex width="100%" mx="auto" position="relative" alignItems="flex-start">
-        <Box position="absolute" left="0" right="0" top="0">
+    <Flex width="100%" mx="auto" position="relative" alignItems="flex-start">
+      <Box position="absolute" left="0" right="0" top="0">
+        <Box
+          background="linear-gradient(90deg, #44D581 0%, #27AE60 100%)"
+          width="100%"
+          height={{ base: "250px", md: "300px" }}
+        >
           <Box
-            width="100%"
-            height="35vh"
-            background="linear-gradient(90deg, #44D581 0%, #27AE60 100%)"
+            background="url(/world-map.svg)"
+            backgroundRepeat="no-repeat"
+            backgroundSize={{
+              base: "450px 250px",
+              md: "650px 350px",
+            }}
+            backgroundPosition={{
+              base: "right -175px top 10px",
+              sm: "right -150px top 10px",
+              md: "right -20px top -10px",
+            }}
+            height="100%"
           >
-            <Box padding={12}>
+            <Box padding={{ base: 3, sm: 6, md: 12 }}>
               <Text fontSize="48px" fontWeight="black" lineHeight="100%">
                 {"Welcome to"}
               </Text>
@@ -40,29 +47,26 @@ const Home = () => {
                 {"GeoBuff"}
               </Text>
             </Box>
-            {/* <Box position="absolute" right="20px" top="75px">
-              <Image height="300px" width="600px" src="/world-map.svg" />
-            </Box> */}
           </Box>
-          <Box
-            mx="auto"
-            position="relative"
-            left={0}
-            right={0}
-            bottom="21px"
-            maxWidth={{ base: "80%", md: "60%" }}
-          >
-            <Input
-              width="100%"
-              size="lg"
-              onChange={handleChange}
-              placeholder="Enter quiz name..."
-            />
-          </Box>
-          <QuizListContainer filter={filter} />
         </Box>
-      </Flex>
-    </>
+        <Box
+          mx="auto"
+          position="relative"
+          left={0}
+          right={0}
+          bottom="21px"
+          maxWidth={{ base: "70%", md: "60%" }}
+        >
+          <Input
+            width="100%"
+            size="lg"
+            onChange={handleChange}
+            placeholder="Enter quiz name..."
+          />
+        </Box>
+        <QuizListContainer filter={filter} />
+      </Box>
+    </Flex>
   );
 };
 
