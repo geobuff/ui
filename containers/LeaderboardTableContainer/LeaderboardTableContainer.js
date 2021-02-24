@@ -23,7 +23,7 @@ const LeaderboardTableContainer = ({ quiz, filterParams, setHasMore }) => {
         setHasMore(data.hasMore);
         setEntries(data.entries);
       });
-  }, [filterParams]);
+  }, [quiz, filterParams]);
 
   if (!entries) {
     return <LeaderboardTablePlaceholder noOfLines={filterParams.limit} />;
