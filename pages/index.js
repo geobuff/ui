@@ -23,18 +23,23 @@ const Home = () => {
         <Box
           background="linear-gradient(90deg, #44D581 0%, #27AE60 100%)"
           width="100%"
-          height={{ base: "250px", md: "300px" }}
+          height={{
+            base: "225px",
+            sm: "250px",
+            md: "300px",
+          }}
         >
           <Box
             background="url(/world-map.svg)"
             backgroundRepeat="no-repeat"
             backgroundSize={{
-              base: "450px 250px",
+              base: "400px 200px",
+              sm: "450px 250px",
               md: "650px 350px",
             }}
             backgroundPosition={{
-              base: "right -175px top 10px",
-              sm: "right -150px top 10px",
+              base: "right -175px top 20px",
+              sm: "right -170px top 20px",
               md: "right -20px top -10px",
             }}
             height="100%"
