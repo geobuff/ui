@@ -60,9 +60,12 @@ const NavigationBar = () => {
                 backgroundSize: "cover",
               }}
             ></MenuButton>
-            <MenuList>
+            <MenuList zIndex="1">
               <MenuItem onClick={() => router.push("/profile")}>
                 Profile
+              </MenuItem>
+              <MenuItem onClick={() => router.push("/leaderboard")}>
+                Leaderboard
               </MenuItem>
               <MenuDivider />
               <MenuItem
