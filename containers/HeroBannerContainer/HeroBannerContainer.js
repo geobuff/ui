@@ -6,17 +6,19 @@ import HeroBanner from "../../components/HeroBanner";
 
 const HeroBannerContainer = () => {
   const [username, setUsername] = useState();
-  const { getAccessTokenSilently } = useAuth0();
+  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
   useEffect(() => {
-    getAccessTokenSilently({
-      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-    }).then((token) => {
-      const decoded = jwt_decode(token);
-      const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
-      setUsername(username);
-    });
-  }, [getAccessTokenSilently]);
+    if (isAuthenticated) {
+      getAccessTokenSilently({
+        audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
+      }).then((token) => {
+        const decoded = jwt_decode(token);
+        const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
+        setUsername(username);
+      });
+    }
+  }, [isAuthenticated, getAccessTokenSilently]);
 
   return <HeroBanner username={username} />;
 };
