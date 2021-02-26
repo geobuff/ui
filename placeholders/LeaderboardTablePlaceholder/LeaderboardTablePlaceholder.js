@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Stack, Skeleton } from "@chakra-ui/core";
+import { Stack, Skeleton } from "@chakra-ui/react";
 
 const LeaderboardTablePlaceholder = ({ noOfLines }) => (
   <Stack>

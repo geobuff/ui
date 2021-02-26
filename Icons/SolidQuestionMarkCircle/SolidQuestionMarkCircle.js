@@ -1,5 +1,5 @@
 import React from "react";
-import { Icon } from "@chakra-ui/core";
+import { Icon } from "@chakra-ui/react";
 
 const SolidQuestionMarkCircle = (props) => (
   <Icon {...props}>

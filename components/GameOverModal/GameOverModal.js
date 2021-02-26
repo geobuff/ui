@@ -14,12 +14,12 @@ import {
   Text,
   Tooltip,
   Alert,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 
 import GameExistingEntry from "../GameExistingEntry";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
-import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
+import ArrowLeft from "../../icons/ArrowLeft";
+import SolidQuestionMarkCircle from "../../icons/SolidQuestionMarkCircle";
 import { secondsToMinutesString } from "../../helpers/time";
 import { getTitle, getTotal } from "../../helpers/quizzes";
 

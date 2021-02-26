@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import PropTypes from "prop-types";
 
-import { ChakraProvider } from "@chakra-ui/core";
+import { ChakraProvider } from "@chakra-ui/react";
 import { Auth0Provider } from "@auth0/auth0-react";
 
 import "../styles/globals.css";

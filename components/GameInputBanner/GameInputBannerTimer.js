@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useTimer } from "react-timer-hook";
 
-import { Text } from "@chakra-ui/core";
+import { Text } from "@chakra-ui/react";
 
 import { toMinTwoDigits } from "../../helpers/format-text";
 

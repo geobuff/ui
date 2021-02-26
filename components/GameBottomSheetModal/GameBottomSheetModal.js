@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { Box, Button, Divider, Heading, Text } from "@chakra-ui/core";
+import { Box, Button, Divider, Heading, Text } from "@chakra-ui/react";
 
 import Sheet from "react-modal-sheet";
 

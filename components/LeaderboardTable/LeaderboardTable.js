@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Alert, Divider } from "@chakra-ui/core";
+import { Alert } from "@chakra-ui/react";
 import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 
 import { secondsToMinutesString } from "../../helpers/time";
@@ -15,18 +15,13 @@ const LeaderboardTable = ({ page, limit, entries }) => {
   }
 
   return (
-    <Table w="100%">
+    <Table variant="striped" colorscheme="gray">
       <Thead>
         <Tr>
           <Th textAlign="left">RANK </Th>
           <Th textAlign="left">USERNAME</Th>
           <Th textAlign="left">TIME</Th>
           <Th textAlign="left">SCORE</Th>
-        </Tr>
-        <Tr>
-          <Th colspan="4">
-            <Divider my={3} borderWidth={2} />
-          </Th>
         </Tr>
       </Thead>
       <Tbody>

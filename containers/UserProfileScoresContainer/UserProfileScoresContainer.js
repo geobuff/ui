@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import useSWR from "swr";
-import { Text } from "@chakra-ui/core";
+import { Text } from "@chakra-ui/react";
 import { authFetcher } from "../../helpers/fetcher";
 import UserProfileScores from "../../components/UserProfileScores";
 

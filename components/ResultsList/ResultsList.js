@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 import ResultsListItem from "../ResultsListItem";
 import { Quizzes, getVerb } from "../../helpers/quizzes";
-import { Box, List, Text } from "@chakra-ui/core";
+import { Box, List, Text } from "@chakra-ui/react";
 
 const ResultsList = ({ quiz, results }) => {
   if (!results || results.length === 0) {

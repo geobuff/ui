@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Divider, Text } from "@chakra-ui/core";
+import { Box, Divider, Text } from "@chakra-ui/react";
 
 import ResultsList from "../ResultsList";
 import { mergeArrayByName } from "../../helpers/array";

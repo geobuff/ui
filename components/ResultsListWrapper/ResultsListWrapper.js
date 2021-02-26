@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Divider, Text } from "@chakra-ui/core";
+import { Box, Divider, Text } from "@chakra-ui/react";
 
 import ResultsList from "../../components/ResultsList/ResultsList";
 import { Quizzes } from "../../helpers/quizzes";

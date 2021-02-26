@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Text, SkeletonText, Divider } from "@chakra-ui/core";
+import { Box, Text, SkeletonText, Divider } from "@chakra-ui/react";
 
 const ResultsListPlaceholder = (noOfLines) => (
   <Box>

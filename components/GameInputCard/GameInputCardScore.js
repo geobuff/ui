@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Flex, Text } from "@chakra-ui/core";
+import { Flex, Text } from "@chakra-ui/react";
 import { Quizzes, getTotal } from "../../helpers/quizzes";
 
 const GameInputCardScore = ({ quiz, score }) => {

@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { useTimer } from "react-timer-hook";
 
-import { Box, Text } from "@chakra-ui/core";
+import { Box, Text } from "@chakra-ui/react";
 
 import { toMinTwoDigits } from "../../helpers/format-text";
 

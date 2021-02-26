@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Fade, Flex, ListItem, Text } from "@chakra-ui/core";
+import { Fade, Flex, ListItem, Text } from "@chakra-ui/react";
 import flag from "country-code-emoji";
 import { getUKCountyFlagUrl, getUSStateFlagUrl } from "@geobuff/flags";
 
