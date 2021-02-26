@@ -1,7 +1,7 @@
 import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { debounce } from "debounce";
-import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/core";
+import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
 import { WorldCountries } from "@geobuff/maps";
 

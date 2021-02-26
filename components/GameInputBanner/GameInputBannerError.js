@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Collapse, Text } from "@chakra-ui/core";
+import { Box, Collapse, Text } from "@chakra-ui/react";
 
 const GameInputBannerError = ({ errorMessage }) => {
   return (

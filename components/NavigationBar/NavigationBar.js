@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Button, Flex, Link, Text } from "@chakra-ui/core";
+import { Box, Button, Flex, Link, Text } from "@chakra-ui/react";
 import {
   Menu,
   MenuList,
@@ -60,7 +60,7 @@ const NavigationBar = () => {
                 backgroundSize: "cover",
               }}
             ></MenuButton>
-            <MenuList zIndex="1">
+            <MenuList>
               <MenuItem onClick={() => router.push("/profile")}>
                 Profile
               </MenuItem>

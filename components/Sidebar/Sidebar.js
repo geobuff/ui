@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Box, Divider, Heading } from "@chakra-ui/core";
+import { Box, Divider, Heading } from "@chakra-ui/react";
 
 const Sidebar = ({ heading, children }) => (
   <Box

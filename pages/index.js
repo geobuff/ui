@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { debounce } from "debounce";
 
-import { Box, Input, Flex } from "@chakra-ui/core";
+import { Box, Input, Flex } from "@chakra-ui/react";
 import QuizListContainer from "../containers/QuizListContainer";
 
 import HeroBannerContainer from "../containers/HeroBannerContainer";

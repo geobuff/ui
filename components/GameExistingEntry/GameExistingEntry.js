@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Flex, Text } from "@chakra-ui/core";
+import { Box, Flex, Text } from "@chakra-ui/react";
 
 import { formatNumber } from "../../helpers/number";
 import { secondsToMinutesString } from "../../helpers/time";

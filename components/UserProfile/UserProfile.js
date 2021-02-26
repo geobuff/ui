@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Divider } from "@chakra-ui/core";
+import { Box, Divider } from "@chakra-ui/react";
 import UserProfileSummary from "../UserProfileSummary";
 import UserProfileScoresContainer from "../../containers/UserProfileScoresContainer/UserProfileScoresContainer";
 import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer/UserProfileLeaderboardEntriesContainer";

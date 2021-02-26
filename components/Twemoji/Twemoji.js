@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import twemoji from "twemoji";
 
-import { Box } from "@chakra-ui/core";
+import { Box } from "@chakra-ui/react";
 
 const Twemoji = ({ emoji, height, width, ...props }) => (
   <Box

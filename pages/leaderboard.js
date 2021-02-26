@@ -6,11 +6,10 @@ import {
   Button,
   Heading,
   Select,
-  Divider,
   Flex,
   Input,
   Text,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 
 import LeaderboardTableContainer from "../containers/LeaderboardTableContainer";
 import { Quizzes } from "../helpers/quizzes";
@@ -56,8 +55,10 @@ const Leaderboard = () => {
   };
 
   return (
-    <Box m={5}>
-      <Heading>Leaderboard</Heading>
+    <Box m={6}>
+      <Heading mt={12} ml={3}>
+        Leaderboard
+      </Heading>
       <Flex>
         <Box w="70%">
           <Flex my={5}>
@@ -99,7 +100,6 @@ const Leaderboard = () => {
                 setHasMore={setHasMore}
               />
             </Box>
-            <Divider borderWidth={2} />
             <Flex p={5}>
               <Select w="150px" background="#EDF2F7" onChange={limitChange}>
                 <option value={10}>10 Per Page</option>

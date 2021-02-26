@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Text } from "@chakra-ui/core";
+import { Text } from "@chakra-ui/react";
 import UserProfileLeaderboardEntries from "../../components/UserProfileLeaderboardEntries";
 import useLeaderboardEntries from "../../hooks/UseLeaderboardEntries";
 

@@ -1,5 +1,5 @@
 import React from "react";
-import { Box, Input } from "@chakra-ui/core";
+import { Box, Input } from "@chakra-ui/react";
 
 export default {
   title: "UI/Input",

@@ -1,6 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Flex, Heading, Link, Alert, AlertIcon } from "@chakra-ui/core";
+import { Box, Flex, Heading, Link, Alert, AlertIcon } from "@chakra-ui/react";
 
 const QuizList = ({ quizzes }) => (
   <Box width="50%" ml="auto" mr="auto">

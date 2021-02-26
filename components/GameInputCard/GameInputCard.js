@@ -12,7 +12,7 @@ import {
   InputLeftElement,
   InputRightElement,
   Fade,
-} from "@chakra-ui/core";
+} from "@chakra-ui/react";
 
 import { CloseIcon } from "@chakra-ui/icons";
 
