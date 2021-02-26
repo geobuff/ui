@@ -60,7 +60,7 @@ const Leaderboard = () => {
         Leaderboard
       </Heading>
       <Flex>
-        <Box w="70%">
+        <Box w={{ lg: "70%" }} pr={6}>
           <Flex my={5}>
             <Select
               w="250px"
@@ -124,9 +124,9 @@ const Leaderboard = () => {
         <Box
           backgroundColor="#C4C4C4"
           borderRadius={12}
-          ml={12}
           w="30%"
           textAlign="center"
+          display={{ base: "none", lg: "inline" }}
         >
           <Text color="#868686">TEMPLATE</Text>
         </Box>
