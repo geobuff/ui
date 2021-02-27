@@ -14,6 +14,7 @@ import GameOverModalContainer from "../../containers/GameOverModalContainer/Game
 
 import { Quizzes, getTitle } from "../../helpers/quizzes";
 import { timeFifteenMinutes } from "../../helpers/time";
+import { useTimer } from "react-timer-hook";
 
 const CountriesOfTheWorldGame = ({
   checkedCountries,
@@ -29,7 +30,7 @@ const CountriesOfTheWorldGame = ({
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
-  const [time, setTime] = useState();
+  const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -47,6 +48,12 @@ const CountriesOfTheWorldGame = ({
     }
   };
 
+  const { seconds, minutes, restart, pause } = useTimer({
+    timeRemaining,
+  });
+
+  console.log({ seconds, minutes }, "timer");
+
   const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
   const handleChange = (event) => {
@@ -55,13 +62,15 @@ const CountriesOfTheWorldGame = ({
   };
 
   const handleGameStart = () => {
+    restart(timeFifteenMinutes());
     setTimeRemaining(timeFifteenMinutes());
     setHasGameStarted(true);
   };
 
   const handleGameStop = () => {
-    setTime(timeRemaining);
-    setTimeRemaining(null);
+    console.log(new Date(timeRemaining).getSeconds(), "timeRemaining");
+    pause();
+    setTime(900 - (seconds + minutes * 60));
     setHasGameStarted(false);
     onOpen();
   };
@@ -99,7 +108,7 @@ const CountriesOfTheWorldGame = ({
                   quiz={Quizzes.CountriesOfTheWorld}
                   recents={recentCountries}
                   score={score}
-                  timeRemaining={timeRemaining}
+                  timeRemaining={{ seconds, minutes }}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
