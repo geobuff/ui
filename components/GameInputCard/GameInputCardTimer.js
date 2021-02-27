@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useTimer } from "react-timer-hook";
 
 import { Box, Text } from "@chakra-ui/react";
 
@@ -15,18 +14,16 @@ const Timer = ({ children }) => (
   </Box>
 );
 
-const GameInputCardTimer = ({ expiryTimestamp, hasGameStarted, onExpire }) => {
+const GameInputCardTimer = ({ expiryTimestamp, hasGameStarted }) => {
+  // TODO: update this to not reset on game over
   if (!hasGameStarted) {
     return <Timer>{"15:00"}</Timer>;
   }
 
-  const { seconds, minutes } = useTimer({
-    expiryTimestamp,
-    onExpire: onExpire,
-  });
-
   return (
-    <Timer>{`${toMinTwoDigits(minutes)}:${toMinTwoDigits(seconds)}`}</Timer>
+    <Timer>{`${toMinTwoDigits(expiryTimestamp.minutes)}:${toMinTwoDigits(
+      expiryTimestamp.seconds
+    )}`}</Timer>
   );
 };
 
@@ -41,12 +38,10 @@ Timer.defaultProps = {
 GameInputCardTimer.propTypes = {
   expiryTimestamp: PropTypes.number,
   hasGameStarted: PropTypes.bool,
-  onExpire: PropTypes.func,
 };
 GameInputCardTimer.defaultProps = {
   expiryTimestamp: null,
   hasGameStarted: false,
-  onExpire: () => {},
 };
 
 export default GameInputCardTimer;
