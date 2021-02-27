@@ -52,8 +52,6 @@ const CountriesOfTheWorldGame = ({
     timeRemaining,
   });
 
-  console.log({ seconds, minutes }, "timer");
-
   const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
   const handleChange = (event) => {
@@ -68,8 +66,8 @@ const CountriesOfTheWorldGame = ({
   };
 
   const handleGameStop = () => {
-    console.log(new Date(timeRemaining).getSeconds(), "timeRemaining");
     pause();
+    // TODO: Update 900 to be a quiz constant
     setTime(900 - (seconds + minutes * 60));
     setHasGameStarted(false);
     onOpen();
@@ -90,7 +88,7 @@ const CountriesOfTheWorldGame = ({
           quiz={Quizzes.CountriesOfTheWorld}
           score={score}
           errorMessage={errorMessage}
-          expiryTimestamp={timeRemaining}
+          expiryTimestamp={{ seconds, minutes }}
           hasError={hasError}
           hasGameStarted={hasGameStarted}
           inputValue={inputValue}
