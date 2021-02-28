@@ -1,19 +1,19 @@
 import React, { useCallback, useState } from "react";
 import { debounce } from "debounce";
 import PropTypes from "prop-types";
-import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
 import { WorldCapitals } from "@geobuff/maps";
+import { useTimer } from "react-timer-hook";
 
 import CapitalResultsListContainer from "../../containers/CapitalResultsListContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
+import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import { getTitle, Quizzes } from "../../helpers/quizzes";
-
-const timeFifteenMinutes = () =>
-  new Date().setMinutes(new Date().getMinutes() + 15);
+import { timeFifteenMinutes } from "../../helpers/time";
 
 const CapitalsOfTheWorldGame = ({
   checkedCapitals,
@@ -29,7 +29,16 @@ const CapitalsOfTheWorldGame = ({
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+  const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const { seconds, minutes, restart, pause } = useTimer({
+    timeRemaining,
+  });
+
+  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
   const getLocationClassName = (location) => {
     if (
@@ -44,31 +53,41 @@ const CapitalsOfTheWorldGame = ({
     }
   };
 
-  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
-
   const handleChange = (event) => {
     onChangeInputValue(event.target.value);
     handleDebounceChange(event.target.value);
   };
 
   const handleGameStart = () => {
+    restart(timeFifteenMinutes());
     setTimeRemaining(timeFifteenMinutes());
     setHasGameStarted(true);
   };
 
   const handleGameStop = () => {
-    setTimeRemaining(null);
+    pause();
+    // TODO: Update 900 to be a quiz constant
+    setTime(900 - (seconds + minutes * 60));
     setHasGameStarted(false);
+    onOpen();
   };
 
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
+      <GameOverModalContainer
+        quiz={Quizzes.CapitalsOfTheWorld}
+        score={score}
+        time={time}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
+
       {shouldDisplayOnMobile && (
         <GameInputBanner
           quiz={Quizzes.CapitalsOfTheWorld}
           score={score}
           errorMessage={errorMessage}
-          expiryTimestamp={timeRemaining}
+          expiryTimestamp={{ seconds, minutes }}
           hasError={hasError}
           hasGameStarted={hasGameStarted}
           inputValue={inputValue}
@@ -86,7 +105,7 @@ const CapitalsOfTheWorldGame = ({
                   quiz={Quizzes.CapitalsOfTheWorld}
                   recents={recentCapitals}
                   score={score}
-                  timeRemaining={timeRemaining}
+                  timeRemaining={{ seconds, minutes }}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}

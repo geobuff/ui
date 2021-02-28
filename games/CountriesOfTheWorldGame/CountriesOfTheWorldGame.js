@@ -35,6 +35,12 @@ const CountriesOfTheWorldGame = ({
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
+  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
+
+  const { seconds, minutes, restart, pause } = useTimer({
+    timeRemaining,
+  });
+
   const getLocationClassName = (location) => {
     if (
       checkedCountries.length
@@ -47,12 +53,6 @@ const CountriesOfTheWorldGame = ({
       return `selected`;
     }
   };
-
-  const { seconds, minutes, restart, pause } = useTimer({
-    timeRemaining,
-  });
-
-  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
   const handleChange = (event) => {
     onChangeInputValue(event.target.value);
