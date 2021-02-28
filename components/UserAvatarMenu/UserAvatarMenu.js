@@ -26,6 +26,9 @@ const UserAvatarMenu = () => {
     user,
   } = useAuth0();
 
+  // Was getting some SSR errors if we render the
+  // placeholder using Auth0's isLoading prop
+  // so fallback to our own state
   useEffect(() => {
     setIsUserLoading(isLoading);
   }, [isLoading]);
