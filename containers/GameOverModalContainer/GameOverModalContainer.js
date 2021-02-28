@@ -11,18 +11,11 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [entry, setEntry] = useState();
   const [loading, setLoading] = useState(true);
-  const [scoreOnly, setScoreOnly] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!isAuthenticated) {
-      setLoading(false);
-      return;
-    }
-
-    if (isScoreOnly(quiz)) {
-      setScoreOnly(true);
+    if (!isAuthenticated || isScoreOnly(quiz)) {
       setLoading(false);
       return;
     }
@@ -52,7 +45,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     });
   }, [getAccessTokenSilently]);
 
-  const submitEntry = (existingEntry) => {
+  const handleSubmitEntry = (existingEntry) => {
     setSubmitting(true);
     getAccessTokenSilently({
       audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
@@ -145,11 +138,10 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       score={score}
       time={time}
       loggedIn={isAuthenticated}
-      scoreOnly={scoreOnly}
       existingEntry={entry}
       isOpen={isOpen}
       onClose={onClose}
-      submitEntry={submitEntry}
+      onSubmit={!isScoreOnly(quiz) && handleSubmitEntry}
       submitting={submitting}
       error={error}
     />
