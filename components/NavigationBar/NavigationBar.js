@@ -1,26 +1,10 @@
 import React from "react";
-import { Box, Button, Flex, Link, Text } from "@chakra-ui/react";
-import {
-  Menu,
-  MenuList,
-  MenuItem,
-  MenuDivider,
-  MenuButton,
-} from "@chakra-ui/react";
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
+
 import Twemoji from "../Twemoji";
-import { useAuth0 } from "@auth0/auth0-react";
-import { useRouter } from "next/router";
+import UserAvatarMenu from "../UserAvatarMenu";
 
 const NavigationBar = () => {
-  const {
-    isAuthenticated,
-    isLoading,
-    loginWithRedirect,
-    logout,
-    user,
-  } = useAuth0();
-  const router = useRouter();
-
   return (
     <Box
       m={0}
@@ -43,43 +27,7 @@ const NavigationBar = () => {
             {"GeoBuff"}
           </Text>
         </Link>
-        {!isLoading && isAuthenticated ? (
-          <Menu>
-            <MenuButton
-              as={Button}
-              boxSize="2.5rem"
-              borderRadius="full"
-              backgroundImage={`url(${user?.picture})`}
-              backgroundSize="cover"
-              _hover={{
-                backgroundImage: `${`url(${user?.picture})`}`,
-                backgroundSize: "cover",
-              }}
-              _active={{
-                backgroundImage: `${`url(${user?.picture})`}`,
-                backgroundSize: "cover",
-              }}
-            ></MenuButton>
-            <MenuList>
-              <MenuItem onClick={() => router.push("/profile")}>
-                Profile
-              </MenuItem>
-              <MenuItem onClick={() => router.push("/leaderboard")}>
-                Leaderboard
-              </MenuItem>
-              <MenuDivider />
-              <MenuItem
-                onClick={() =>
-                  logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URI })
-                }
-              >
-                Logout
-              </MenuItem>
-            </MenuList>
-          </Menu>
-        ) : (
-          <Button onClick={loginWithRedirect}>Log in</Button>
-        )}
+        <UserAvatarMenu />
       </Flex>
     </Box>
   );
