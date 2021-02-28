@@ -36,6 +36,7 @@ const GameOverModal = ({
   score,
   time,
   loggedIn,
+  scoreOnly,
   existingEntry,
   isOpen,
   onClose,
@@ -140,30 +141,34 @@ const GameOverModal = ({
 
           {divider}
 
-          {!loggedIn && (
+          {!scoreOnly && (
             <Box>
-              <Text
-                color="#828282"
-                fontSize="12px"
-                fontWeight="medium"
-                textAlign="center"
-              >
-                {"You must login to submit a leaderboard entry."}
-              </Text>
-            </Box>
-          )}
+              {!loggedIn && (
+                <Box>
+                  <Text
+                    color="#828282"
+                    fontSize="12px"
+                    fontWeight="medium"
+                    textAlign="center"
+                  >
+                    {"You must login to submit a leaderboard entry."}
+                  </Text>
+                </Box>
+              )}
 
-          {loggedIn && existingEntry && (
-            <Box>
-              <Text color="#828282" fontSize="12px" fontWeight="bold">
-                {"Existing Entry"}
-              </Text>
-              <Box marginY={2}>
-                <GameExistingEntry {...existingEntry} />
-              </Box>
-              <Text color="#828282" fontSize="12px" fontWeight="medium">
-                {explainerExistingEntry}
-              </Text>
+              {loggedIn && existingEntry && (
+                <Box>
+                  <Text color="#828282" fontSize="12px" fontWeight="bold">
+                    {"Existing Entry"}
+                  </Text>
+                  <Box marginY={2}>
+                    <GameExistingEntry {...existingEntry} />
+                  </Box>
+                  <Text color="#828282" fontSize="12px" fontWeight="medium">
+                    {explainerExistingEntry}
+                  </Text>
+                </Box>
+              )}
             </Box>
           )}
         </Box>
@@ -174,6 +179,7 @@ const GameOverModal = ({
           colorScheme="green"
           onClick={() => submitEntry(existingEntry)}
           disabled={!loggedIn || submitting}
+          hidden={scoreOnly}
         >
           {"Submit"}
         </Button>
@@ -189,6 +195,7 @@ GameOverModal.propTypes = {
   score: PropTypes.number,
   time: PropTypes.number,
   loggedIn: PropTypes.bool,
+  scoreOnly: PropTypes.bool,
   existingEntry: PropTypes.shape({
     id: PropTypes.number,
     userId: PropTypes.number,

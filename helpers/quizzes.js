@@ -60,3 +60,13 @@ export const getApiPath = (quiz) => {
       throw Error("Invalid quiz option.");
   }
 };
+
+export const isScoreOnly = (quiz) => {
+  switch (quiz) {
+    case Quizzes.UKCounties:
+    case Quizzes.USStates:
+      return true;
+    default:
+      return false;
+  }
+};
