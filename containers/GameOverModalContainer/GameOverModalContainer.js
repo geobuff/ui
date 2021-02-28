@@ -15,7 +15,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!isAuthenticated || isScoreOnly(quiz)) {
+    if (isScoreOnly(quiz) || !isAuthenticated) {
       setLoading(false);
       return;
     }
