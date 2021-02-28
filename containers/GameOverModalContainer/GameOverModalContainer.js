@@ -68,7 +68,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
           userId: userId,
           countryCode: "US",
           score: score,
-          time: 150,
+          time: time,
         };
 
         const params = {
@@ -100,7 +100,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       userId: existingEntry.userId,
       countryCode: existingEntry.countryCode,
       score: score,
-      time: 150,
+      time: time,
     };
 
     const params = {
