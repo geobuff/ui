@@ -4,7 +4,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 
 import GameOverModal from "../../components/GameOverModal";
-import { getApiPath } from "../../helpers/quizzes";
+import { getApiPath, isScoreOnly } from "../../helpers/quizzes";
 import { fetcher } from "../../helpers/fetcher";
 
 const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
@@ -15,7 +15,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (isScoreOnly(quiz) || !isAuthenticated) {
       setLoading(false);
       return;
     }
@@ -45,7 +45,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     });
   }, [getAccessTokenSilently]);
 
-  const submitEntry = (existingEntry) => {
+  const handleSubmitEntry = (existingEntry) => {
     setSubmitting(true);
     getAccessTokenSilently({
       audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
@@ -141,7 +141,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       existingEntry={entry}
       isOpen={isOpen}
       onClose={onClose}
-      submitEntry={submitEntry}
+      onSubmit={!isScoreOnly(quiz) && handleSubmitEntry}
       submitting={submitting}
       error={error}
     />

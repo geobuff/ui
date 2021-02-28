@@ -1,11 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { debounce } from "debounce";
 import PropTypes from "prop-types";
-import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
 import { USStates } from "@geobuff/maps";
+import { useTimer } from "react-timer-hook";
 
 import StatesResultsListContainer from "../../containers/StatesResultsListContainer";
+import GameOverModalContainer from "../../containers/GameOverModalContainer/GameOverModalContainer";
 import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
@@ -27,7 +29,16 @@ const USStatesGame = ({
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+  const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
+
+  const { seconds, minutes, restart, pause } = useTimer({
+    timeRemaining,
+  });
 
   const getLocationClassName = (location) => {
     if (
@@ -41,31 +52,41 @@ const USStatesGame = ({
     }
   };
 
-  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
-
   const handleChange = (event) => {
     onChangeInputValue(event.target.value);
     handleDebounceChange(event.target.value);
   };
 
   const handleGameStart = () => {
+    restart(timeFiveMinutes());
     setTimeRemaining(timeFiveMinutes());
     setHasGameStarted(true);
   };
 
   const handleGameStop = () => {
-    setTimeRemaining(null);
+    pause();
+    // TODO: Update 300 to be a quiz constant
+    setTime(300 - (seconds + minutes * 60));
     setHasGameStarted(false);
+    onOpen();
   };
 
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
+      <GameOverModalContainer
+        quiz={Quizzes.USStates}
+        score={score}
+        time={time}
+        isOpen={isOpen}
+        onClose={onClose}
+      />
+
       {shouldDisplayOnMobile && (
         <GameInputBanner
           quiz={Quizzes.USStates}
           score={score}
           errorMessage={errorMessage}
-          expiryTimestamp={timeRemaining}
+          expiryTimestamp={{ seconds, minutes }}
           hasError={hasError}
           hasGameStarted={hasGameStarted}
           inputValue={inputValue}
@@ -83,7 +104,7 @@ const USStatesGame = ({
                   quiz={Quizzes.USStates}
                   recents={recentStates}
                   score={score}
-                  timeRemaining={timeRemaining}
+                  timeRemaining={{ seconds, minutes }}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
