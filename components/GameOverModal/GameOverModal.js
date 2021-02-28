@@ -141,34 +141,30 @@ const GameOverModal = ({
 
           {divider}
 
-          {!scoreOnly && (
+          {!scoreOnly && !loggedIn && (
             <Box>
-              {!loggedIn && (
-                <Box>
-                  <Text
-                    color="#828282"
-                    fontSize="12px"
-                    fontWeight="medium"
-                    textAlign="center"
-                  >
-                    {"You must login to submit a leaderboard entry."}
-                  </Text>
-                </Box>
-              )}
+              <Text
+                color="#828282"
+                fontSize="12px"
+                fontWeight="medium"
+                textAlign="center"
+              >
+                {"You must login to submit a leaderboard entry."}
+              </Text>
+            </Box>
+          )}
 
-              {loggedIn && existingEntry && (
-                <Box>
-                  <Text color="#828282" fontSize="12px" fontWeight="bold">
-                    {"Existing Entry"}
-                  </Text>
-                  <Box marginY={2}>
-                    <GameExistingEntry {...existingEntry} />
-                  </Box>
-                  <Text color="#828282" fontSize="12px" fontWeight="medium">
-                    {explainerExistingEntry}
-                  </Text>
-                </Box>
-              )}
+          {!scoreOnly && loggedIn && existingEntry && (
+            <Box>
+              <Text color="#828282" fontSize="12px" fontWeight="bold">
+                {"Existing Entry"}
+              </Text>
+              <Box marginY={2}>
+                <GameExistingEntry {...existingEntry} />
+              </Box>
+              <Text color="#828282" fontSize="12px" fontWeight="medium">
+                {explainerExistingEntry}
+              </Text>
             </Box>
           )}
         </Box>
