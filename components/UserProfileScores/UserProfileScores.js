@@ -1,5 +1,6 @@
 import React from "react";
 import {
+  Alert,
   Box,
   Heading,
   Table,
@@ -17,26 +18,32 @@ const UserProfileScores = ({ scores }) => (
     <Heading size="md" textAlign="center" m={6}>
       Scores
     </Heading>
-    <Table variant="striped" colorScheme="gray" my={6}>
-      <Thead>
-        <Tr>
-          <Th>Quiz</Th>
-          <Th>Score</Th>
-          <Th>Time</Th>
-          <Th>Added</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        {scores.map((x) => (
-          <Tr key={x.id}>
-            <Td>{x.quizName}</Td>
-            <Td>{x.score}</Td>
-            <Td>{x.time}</Td>
-            <Td>{moment(x.added).format("DD-MM-YYYY")}</Td>
-          </Tr>
-        ))}
-      </Tbody>
-    </Table>
+    <Box my={6}>
+      {scores.length === 0 ? (
+        <Alert>No scores to display.</Alert>
+      ) : (
+        <Table variant="striped" colorScheme="gray">
+          <Thead>
+            <Tr>
+              <Th>Quiz</Th>
+              <Th>Score</Th>
+              <Th>Time</Th>
+              <Th>Added</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {scores.map((x) => (
+              <Tr key={x.id}>
+                <Td>{x.quizName}</Td>
+                <Td>{x.score}</Td>
+                <Td>{x.time}</Td>
+                <Td>{moment(x.added).format("DD-MM-YYYY")}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      )}
+    </Box>
   </Box>
 );
 1;
