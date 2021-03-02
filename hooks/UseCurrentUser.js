@@ -10,7 +10,18 @@ const useCurrentUser = () => {
     getAccessTokenSilently,
   } = useAuth0();
 
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState(() => {
+    if (typeof window !== "undefined") {
+      return {
+        email: window.localStorage.getItem("geobuff.email"),
+        picture: window.localStorage.getItem("geobuff.picture"),
+        username: window.localStorage.getItem("geobuff.username"),
+      };
+    } else {
+      return null;
+    }
+  });
+
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

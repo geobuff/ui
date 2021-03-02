@@ -19,33 +19,21 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 const UserAvatarMenu = () => {
   const [isUserLoading, setIsUserLoading] = useState(true);
 
-  const {
-    isAuthenticated,
-    // isLoading,
-    loginWithRedirect,
-    logout,
-    // user,
-  } = useAuth0();
+  const { loginWithRedirect, logout } = useAuth0();
+  const { user } = useCurrentUser();
+  const router = useRouter();
 
-  const { user, isLoading } = useCurrentUser();
-
-  console.log(user, "user:avatarMenu");
-  console.log(isLoading, "isLoading:avatarMenu");
-
-  // Was getting some SSR errors if we render the
-  // placeholder using Auth0's isLoading prop
-  // so fallback to our own state
+  // Don't need to wait for Auth0 user if
+  // we can retrieve user from localStorage
   useEffect(() => {
     user && setIsUserLoading(false);
   }, [user]);
-
-  const router = useRouter();
 
   if (isUserLoading) {
     return <SkeletonCircle height="36px" width="36px" />;
   }
 
-  if (user && isAuthenticated) {
+  if (user) {
     return (
       <Menu>
         <MenuButton
