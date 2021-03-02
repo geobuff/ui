@@ -14,6 +14,7 @@ import Sidebar from "../../components/Sidebar";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import { getTitle, Quizzes } from "../../helpers/quizzes";
 import { timeFifteenMinutes } from "../../helpers/time";
+import MapTooltip from "../../components/MapTooltip";
 
 const CapitalsOfTheWorldGame = ({
   checkedCapitals,
@@ -31,6 +32,8 @@ const CapitalsOfTheWorldGame = ({
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [tooltipText, setTooltipText] = useState();
+  const [tooltipStyle, setTooltipStyle] = useState();
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -70,6 +73,28 @@ const CapitalsOfTheWorldGame = ({
     setTime(900 - (seconds + minutes * 60));
     setHasGameStarted(false);
     onOpen();
+  };
+
+  const mouseOver = (event) => {
+    if (hasGameStarted) return;
+    setTooltipText(event.target.getAttribute("name"));
+  };
+
+  const mouseMove = (event) => {
+    if (hasGameStarted || !tooltipText) return;
+    setTooltipStyle({
+      display: "block",
+      top: event.clientY + 10,
+      left: event.clientX - 100,
+    });
+  };
+
+  const mouseOut = () => {
+    if (hasGameStarted) return;
+    setTooltipText(null);
+    setTooltipStyle({
+      display: "none",
+    });
   };
 
   return (
@@ -129,8 +154,13 @@ const CapitalsOfTheWorldGame = ({
               map={WorldCapitals}
               className="quiz-map"
               locationClassName={getLocationClassName}
+              onLocationMouseOver={mouseOver}
+              onLocationMouseMove={mouseMove}
+              onLocationMouseOut={mouseOut}
             />
           </Box>
+
+          <MapTooltip value={tooltipText} style={tooltipStyle}></MapTooltip>
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
