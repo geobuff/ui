@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { DateTime } from "luxon";
+
 import {
   Box,
   Heading,
@@ -11,7 +13,8 @@ import {
   Td,
   Alert,
 } from "@chakra-ui/react";
-import { DateTime } from "luxon";
+
+import { secondsToMinutesString } from "../../helpers/time";
 
 const UserProfileLeaderboardEntries = ({ entries }) => (
   <Box>
@@ -38,7 +41,7 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
                 <Td>{entry.quizName}</Td>
                 <Td>{entry.ranking}</Td>
                 <Td>{entry.score}</Td>
-                <Td>{entry.time}</Td>
+                <Td>{secondsToMinutesString(entry.time)}</Td>
                 <Td>{DateTime.fromISO(entry.added).toISODate()}</Td>
               </Tr>
             ))}
