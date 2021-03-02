@@ -26,6 +26,7 @@ const USStatesGame = ({
   onChange,
   onChangeInputValue,
   onClearInput,
+  resetGame,
 }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
@@ -34,6 +35,7 @@ const USStatesGame = ({
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [tooltipText, setTooltipText] = useState();
   const [tooltipStyle, setTooltipStyle] = useState();
+  const [gameStartText, setGameStartText] = useState("START");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -61,6 +63,7 @@ const USStatesGame = ({
   };
 
   const handleGameStart = () => {
+    resetGame();
     restart(timeFiveMinutes());
     setTimeRemaining(timeFiveMinutes());
     setHasGameStarted(true);
@@ -72,6 +75,9 @@ const USStatesGame = ({
     setTime(300 - (seconds + minutes * 60));
     setHasGameStarted(false);
     onOpen();
+    if (gameStartText === "START") {
+      setGameStartText("RETRY");
+    }
   };
 
   const mouseOver = (event) => {
@@ -130,6 +136,7 @@ const USStatesGame = ({
                   recents={recentStates}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
+                  gameStartText={gameStartText}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -165,7 +172,7 @@ const USStatesGame = ({
               checked={checkedStates}
               recents={recentStates}
               hasGameStarted={hasGameStarted}
-              recentCountries={recentStates}
+              gameStartText={gameStartText}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
             />
@@ -196,6 +203,7 @@ USStatesGame.propTypes = {
   onChange: PropTypes.func,
   onChangeInputValue: PropTypes.func,
   onClearInput: PropTypes.func,
+  resetGame: PropTypes.func,
 };
 
 USStatesGame.defaultProps = {
@@ -208,6 +216,7 @@ USStatesGame.defaultProps = {
   onChange: () => {},
   onChangeInputValue: () => {},
   onClearInput: () => {},
+  resetGame: () => {},
 };
 
 export default USStatesGame;

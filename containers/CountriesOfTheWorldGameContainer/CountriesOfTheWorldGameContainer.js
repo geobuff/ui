@@ -75,6 +75,12 @@ const CountriesOfTheWorldGameContainer = () => {
     setInputValue("");
   };
 
+  const resetGame = () => {
+    setCheckedCountries([]);
+    setRecentCountries([]);
+    setScore(0);
+  };
+
   return (
     <CountriesOfTheWorldGame
       checkedCountries={checkedCountries}
@@ -86,6 +92,7 @@ const CountriesOfTheWorldGameContainer = () => {
       onClearInput={handleClearInput}
       recentCountries={recentCountries}
       score={score}
+      resetGame={resetGame}
     />
   );
 };

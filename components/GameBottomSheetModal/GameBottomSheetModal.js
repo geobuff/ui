@@ -20,6 +20,7 @@ const GameBottomSheetModal = ({
   checked,
   recents,
   hasGameStarted,
+  gameStartText,
   onGameStart,
   onGameStop,
 }) => {
@@ -82,7 +83,7 @@ const GameBottomSheetModal = ({
                   size="md"
                 >
                   <Text fontWeight="700" fontSize="22px">
-                    {hasGameStarted ? "GIVE UP" : "START"}
+                    {hasGameStarted ? "GIVE UP" : gameStartText}
                   </Text>
                 </Button>
               </Box>
@@ -120,6 +121,7 @@ GameBottomSheetModal.propTypes = {
     })
   ),
   hasGameStarted: PropTypes.bool,
+  gameStartText: PropTypes.string,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
 };
@@ -129,6 +131,7 @@ GameBottomSheetModal.defaultProps = {
   checked: [],
   recents: [],
   hasGameStarted: false,
+  gameStartText: "START",
   onGameStart: () => {},
   onGameStop: () => {},
 };

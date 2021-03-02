@@ -75,6 +75,12 @@ const UKCountiesGameContainer = () => {
     setInputValue("");
   };
 
+  const resetGame = () => {
+    setCheckedCounties([]);
+    setRecentCounties([]);
+    setScore(0);
+  };
+
   return (
     <UKCountiesGame
       checkedCounties={checkedCounties}
@@ -86,6 +92,7 @@ const UKCountiesGameContainer = () => {
       onChange={handleChange}
       onChangeInputValue={handleChangeInputValue}
       onClearInput={handleClearInput}
+      resetGame={resetGame}
     />
   );
 };
