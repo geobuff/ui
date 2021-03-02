@@ -9,24 +9,20 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
       <thead>
         <tr>
           <th>Quiz</th>
-          <th>UserId</th>
-          <th>Country Code</th>
+          <th>Ranking</th>
           <th>Score</th>
           <th>Time</th>
           <th>Added</th>
-          <th>Ranking</th>
         </tr>
       </thead>
       <tbody>
         {entries.map((entry) => (
           <tr key={entry.quizId}>
             <td>{entry.quizName}</td>
-            <td>{entry.userId}</td>
-            <td>{entry.countryCode}</td>
+            <td>{entry.ranking}</td>
             <td>{entry.score}</td>
             <td>{entry.time}</td>
             <td>{entry.added}</td>
-            <td>{entry.ranking}</td>
           </tr>
         ))}
       </tbody>

@@ -8,7 +8,6 @@ const UserProfileScores = ({ scores }) => (
     <table>
       <thead>
         <tr>
-          <th>User</th>
           <th>Quiz</th>
           <th>Score</th>
           <th>Time</th>
@@ -18,8 +17,7 @@ const UserProfileScores = ({ scores }) => (
       <tbody>
         {scores.map((x) => (
           <tr key={x.id}>
-            <td>{x.userId}</td>
-            <td>{x.quizId}</td>
+            <td>{x.quizName}</td>
             <td>{x.score}</td>
             <td>{x.time}</td>
             <td>{x.added}</td>
@@ -29,13 +27,14 @@ const UserProfileScores = ({ scores }) => (
     </table>
   </Box>
 );
-
+1;
 UserProfileScores.propTypes = {
   scores: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       userId: PropTypes.number,
       quizId: PropTypes.number,
+      quizName: PropTypes.string,
       score: PropTypes.number,
       time: PropTypes.number,
       added: PropTypes.time,
