@@ -157,7 +157,7 @@ const USStatesGame = ({
             />
           </Box>
 
-          <MapTooltip value={tooltipText} style={tooltipStyle}></MapTooltip>
+          <MapTooltip value={tooltipText} style={tooltipStyle} />
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
