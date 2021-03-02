@@ -5,7 +5,6 @@ import jwt_decode from "jwt-decode";
 
 import GameOverModal from "../../components/GameOverModal";
 import { getApiPath, isScoreOnly } from "../../helpers/quizzes";
-import { fetcher } from "../../helpers/fetcher";
 
 const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -15,7 +14,12 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (isScoreOnly(quiz) || !isAuthenticated) {
+    if (!isOpen) {
+      setLoading(true);
+      return;
+    }
+
+    if (!isAuthenticated) {
       setLoading(false);
       return;
     }
@@ -25,25 +29,101 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     }).then((token) => {
       const decoded = jwt_decode(token);
       const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
-      fetcher(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`).then(
-        (userId) => {
-          fetcher(
-            `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(
-              quiz
-            )}/leaderboard/${userId}`
-          )
-            .then((entry) => {
-              setEntry(entry);
-              setLoading(false);
-            })
-            .catch(() => {
-              // No existing leaderboard entry for user.
-              return;
-            });
-        }
-      );
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`)
+        .then((response) => response.json())
+        .then((userId) => {
+          handleScore(token, userId);
+          if (isScoreOnly(quiz)) {
+            setLoading(false);
+            return;
+          }
+
+          getLeaderboardEntry(userId);
+        });
     });
-  }, [getAccessTokenSilently]);
+  }, [isOpen, getAccessTokenSilently]);
+
+  const handleScore = (token, userId) => {
+    const params = {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/scores/${userId}/${quiz}`,
+      params
+    ).then((response) => {
+      if (response.status === 404) {
+        createScore(token, userId);
+      } else {
+        response.json().then((existing) => {
+          if (
+            score > existing.score ||
+            (score === existing.score && time < existing.time)
+          ) {
+            updateScore(token, existing);
+          }
+        });
+      }
+    });
+  };
+
+  const createScore = (token, userId) => {
+    const result = {
+      userId: userId,
+      quizId: quiz,
+      score: score,
+      time: time,
+    };
+
+    const params = {
+      method: "POST",
+      body: JSON.stringify(result),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores`, params);
+  };
+
+  const updateScore = (token, existing) => {
+    const update = {
+      userId: existing.userId,
+      quizId: quiz,
+      score: score,
+      time: time,
+    };
+
+    const params = {
+      method: "PUT",
+      body: JSON.stringify(update),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores/${existing.id}`, params);
+  };
+
+  const getLeaderboardEntry = (userId) => {
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(
+        quiz
+      )}/leaderboard/${userId}`
+    ).then((response) => {
+      if (response.status !== 200) {
+        setLoading(false);
+        return;
+      }
+
+      response.json().then((entry) => {
+        setEntry(entry);
+        setLoading(false);
+      });
+    });
+  };
 
   const handleSubmitEntry = (existingEntry) => {
     setSubmitting(true);
