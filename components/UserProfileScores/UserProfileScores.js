@@ -11,7 +11,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import PropTypes from "prop-types";
-import moment from "moment";
+import { DateTime } from "luxon";
 
 const UserProfileScores = ({ scores }) => (
   <Box>
@@ -37,7 +37,7 @@ const UserProfileScores = ({ scores }) => (
                 <Td>{x.quizName}</Td>
                 <Td>{x.score}</Td>
                 <Td>{x.time}</Td>
-                <Td>{moment(x.added).format("DD-MM-YYYY")}</Td>
+                <Td>{DateTime.fromISO(x.added).toISODate()}</Td>
               </Tr>
             ))}
           </Tbody>

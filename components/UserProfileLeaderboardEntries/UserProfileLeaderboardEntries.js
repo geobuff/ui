@@ -11,7 +11,7 @@ import {
   Td,
   Alert,
 } from "@chakra-ui/react";
-import moment from "moment";
+import { DateTime } from "luxon";
 
 const UserProfileLeaderboardEntries = ({ entries }) => (
   <Box>
@@ -39,7 +39,7 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
                 <Td>{entry.ranking}</Td>
                 <Td>{entry.score}</Td>
                 <Td>{entry.time}</Td>
-                <Td>{moment(entry.added).format("DD-MM-YYYY")}</Td>
+                <Td>{DateTime.fromISO(entry.added).toISODate()}</Td>
               </Tr>
             ))}
           </Tbody>
