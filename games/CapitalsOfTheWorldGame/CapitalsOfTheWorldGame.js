@@ -25,12 +25,14 @@ const CapitalsOfTheWorldGame = ({
   onChange,
   onChangeInputValue,
   onClearInput,
+  resetGame,
 }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [gameStartText, setGameStartText] = useState("START");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -59,6 +61,7 @@ const CapitalsOfTheWorldGame = ({
   };
 
   const handleGameStart = () => {
+    resetGame();
     restart(timeFifteenMinutes());
     setTimeRemaining(timeFifteenMinutes());
     setHasGameStarted(true);
@@ -70,6 +73,9 @@ const CapitalsOfTheWorldGame = ({
     setTime(900 - (seconds + minutes * 60));
     setHasGameStarted(false);
     onOpen();
+    if (gameStartText === "START") {
+      setGameStartText("RETRY");
+    }
   };
 
   return (
@@ -106,6 +112,7 @@ const CapitalsOfTheWorldGame = ({
                   recents={recentCapitals}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
+                  gameStartText={gameStartText}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -138,6 +145,7 @@ const CapitalsOfTheWorldGame = ({
               checked={checkedCapitals}
               recents={recentCapitals}
               hasGameStarted={hasGameStarted}
+              gameStartText={gameStartText}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
             />
@@ -168,6 +176,7 @@ CapitalsOfTheWorldGame.propTypes = {
   onChange: PropTypes.func,
   onChangeInputValue: PropTypes.func,
   onClearInput: PropTypes.func,
+  resetGame: PropTypes.func,
 };
 
 CapitalsOfTheWorldGame.defaultProps = {
@@ -180,6 +189,7 @@ CapitalsOfTheWorldGame.defaultProps = {
   onChange: () => {},
   onChangeInputValue: () => {},
   onClearInput: () => {},
+  resetGame: () => {},
 };
 
 export default CapitalsOfTheWorldGame;

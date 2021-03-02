@@ -75,6 +75,12 @@ const USStatesGameContainer = () => {
     setInputValue("");
   };
 
+  const resetGame = () => {
+    setCheckedStates([]);
+    setRecentStates([]);
+    setScore(0);
+  };
+
   return (
     <USStatesGame
       checkedStates={checkedStates}
@@ -86,6 +92,7 @@ const USStatesGameContainer = () => {
       onChange={handleChange}
       onChangeInputValue={handleChangeInputValue}
       onClearInput={handleClearInput}
+      resetGame={resetGame}
     />
   );
 };

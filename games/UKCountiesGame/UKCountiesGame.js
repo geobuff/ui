@@ -25,11 +25,13 @@ const UKCountiesGame = ({
   onChange,
   onChangeInputValue,
   onClearInput,
+  resetGame,
 }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [gameStartText, setGameStartText] = useState("START");
 
   const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
@@ -58,6 +60,7 @@ const UKCountiesGame = ({
   };
 
   const handleGameStart = () => {
+    resetGame();
     restart(timeFiveMinutes());
     setTimeRemaining(timeFiveMinutes());
     setHasGameStarted(true);
@@ -69,6 +72,9 @@ const UKCountiesGame = ({
     setTime(300 - (seconds + minutes * 60));
     setHasGameStarted(false);
     onOpen();
+    if (gameStartText === "START") {
+      setGameStartText("RETRY");
+    }
   };
 
   return (
@@ -105,6 +111,7 @@ const UKCountiesGame = ({
                   recents={recentCounties}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
+                  gameStartText={gameStartText}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -137,6 +144,7 @@ const UKCountiesGame = ({
               checked={checkedCounties}
               recents={recentCounties}
               hasGameStarted={hasGameStarted}
+              gameStartText={gameStartText}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
             />
@@ -167,6 +175,7 @@ UKCountiesGame.propTypes = {
   onChange: PropTypes.func,
   onChangeInputValue: PropTypes.func,
   onClearInput: PropTypes.func,
+  resetGame: PropTypes.func,
 };
 
 UKCountiesGame.defaultProps = {
@@ -179,6 +188,7 @@ UKCountiesGame.defaultProps = {
   onChange: () => {},
   onChangeInputValue: () => {},
   onClearInput: () => {},
+  resetGame: () => {},
 };
 
 export default UKCountiesGame;

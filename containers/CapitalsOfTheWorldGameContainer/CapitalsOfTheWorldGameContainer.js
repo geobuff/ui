@@ -75,6 +75,12 @@ const CapitalsOfTheWorldGameContainer = () => {
     setInputValue("");
   };
 
+  const resetGame = () => {
+    setCheckedCapitals([]);
+    setRecentCapitals([]);
+    setScore(0);
+  };
+
   return (
     <CapitalsOfTheWorldGame
       checkedCapitals={checkedCapitals}
@@ -86,6 +92,7 @@ const CapitalsOfTheWorldGameContainer = () => {
       onClearInput={handleClearInput}
       recentCapitals={recentCapitals}
       score={score}
+      resetGame={resetGame}
     />
   );
 };
