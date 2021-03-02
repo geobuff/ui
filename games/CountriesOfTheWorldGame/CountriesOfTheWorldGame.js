@@ -26,12 +26,14 @@ const CountriesOfTheWorldGame = ({
   onChange,
   onChangeInputValue,
   onClearInput,
+  resetGame,
 }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [gameStartText, setGameStartText] = useState("START");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -60,6 +62,7 @@ const CountriesOfTheWorldGame = ({
   };
 
   const handleGameStart = () => {
+    resetGame();
     restart(timeFifteenMinutes());
     setTimeRemaining(timeFifteenMinutes());
     setHasGameStarted(true);
@@ -71,6 +74,9 @@ const CountriesOfTheWorldGame = ({
     setTime(900 - (seconds + minutes * 60));
     setHasGameStarted(false);
     onOpen();
+    if (gameStartText === "START") {
+      setGameStartText("RETRY");
+    }
   };
 
   return (
@@ -107,6 +113,7 @@ const CountriesOfTheWorldGame = ({
                   recents={recentCountries}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
+                  gameStartText={gameStartText}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -139,6 +146,7 @@ const CountriesOfTheWorldGame = ({
               checked={checkedCountries}
               recents={recentCountries}
               hasGameStarted={hasGameStarted}
+              gameStartText={gameStartText}
               onGameStart={handleGameStart}
               onGameStop={handleGameStop}
             />
@@ -169,6 +177,7 @@ CountriesOfTheWorldGame.propTypes = {
   onChange: PropTypes.func,
   onChangeInputValue: PropTypes.func,
   onClearInput: PropTypes.func,
+  resetGame: PropTypes.func,
 };
 
 CountriesOfTheWorldGame.defaultProps = {
@@ -181,6 +190,7 @@ CountriesOfTheWorldGame.defaultProps = {
   onChange: () => {},
   onChangeInputValue: () => {},
   onClearInput: () => {},
+  resetGame: () => {},
 };
 
 export default CountriesOfTheWorldGame;
