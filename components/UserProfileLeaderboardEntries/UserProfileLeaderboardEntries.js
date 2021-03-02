@@ -1,36 +1,51 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Table,
+  Tbody,
+  Thead,
+  Tr,
+  Th,
+  Td,
+  Alert,
+} from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
-const UserProfileLeaderboardEntries = ({ entries, quizzes }) => (
+const UserProfileLeaderboardEntries = ({ entries }) => (
   <Box>
-    <Text>Leaderboard Entries</Text>
-    <table>
-      <thead>
-        <tr>
-          <th>Quiz</th>
-          <th>UserId</th>
-          <th>Country Code</th>
-          <th>Score</th>
-          <th>Time</th>
-          <th>Added</th>
-          <th>Ranking</th>
-        </tr>
-      </thead>
-      <tbody>
-        {entries.map((entry) => (
-          <tr key={entry.quizId}>
-            <td>{quizzes.filter((x) => x.id === entry.quizId)[0].name}</td>
-            <td>{entry.userId}</td>
-            <td>{entry.countryCode}</td>
-            <td>{entry.score}</td>
-            <td>{entry.time}</td>
-            <td>{entry.added}</td>
-            <td>{entry.ranking}</td>
-          </tr>
-        ))}
-      </tbody>
-    </table>
+    <Heading size="md" textAlign="center" m={6}>
+      Leaderboard Entries
+    </Heading>
+    <Box my={6}>
+      {entries.length === 0 ? (
+        <Alert>No entries to display.</Alert>
+      ) : (
+        <Table variant="striped" colorScheme="gray">
+          <Thead>
+            <Tr>
+              <Th>Quiz</Th>
+              <Th>Ranking</Th>
+              <Th>Score</Th>
+              <Th>Time</Th>
+              <Th>Added</Th>
+            </Tr>
+          </Thead>
+          <Tbody>
+            {entries.map((entry) => (
+              <Tr key={entry.quizId}>
+                <Td>{entry.quizName}</Td>
+                <Td>{entry.ranking}</Td>
+                <Td>{entry.score}</Td>
+                <Td>{entry.time}</Td>
+                <Td>{DateTime.fromISO(entry.added).toISODate()}</Td>
+              </Tr>
+            ))}
+          </Tbody>
+        </Table>
+      )}
+    </Box>
   </Box>
 );
 
@@ -40,21 +55,12 @@ UserProfileLeaderboardEntries.propTypes = {
       id: PropTypes.number,
       userId: PropTypes.number,
       quizId: PropTypes.number,
+      quizName: PropTypes.string,
       countryCode: PropTypes.string,
       score: PropTypes.number,
       time: PropTypes.number,
       added: PropTypes.time,
       ranking: PropTypes.number,
-    })
-  ),
-  quizzes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      description: PropTypes.string,
-      code: PropTypes.string,
-      maxScore: PropTypes.number,
-      enabled: PropTypes.bool,
     })
   ),
 };

@@ -1,21 +1,28 @@
-import useSWR from "swr";
-import { fetcher } from "../helpers/fetcher";
+import { useEffect, useState } from "react";
 
 const useLeaderboardEntries = (id) => {
-  const { data: countriesEntry } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/countries/leaderboard/${id}`,
-    fetcher
-  );
+  const [entries, setEntries] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const { data: capitalsEntry } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/capitals/leaderboard/${id}`,
-    fetcher
-  );
+  useEffect(() => {
+    Promise.all([
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/countries/leaderboard/${id}`),
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/capitals/leaderboard/${id}`),
+    ])
+      .then((response) =>
+        Promise.all(
+          response.filter((x) => x.status === 200).map((x) => x.json())
+        )
+      )
+      .then((data) => {
+        setEntries(data);
+        setLoading(false);
+      });
+  }, []);
 
   return {
-    entries:
-      countriesEntry && capitalsEntry ? [countriesEntry, capitalsEntry] : [],
-    isPending: !countriesEntry || !capitalsEntry,
+    entries: entries,
+    isPending: loading,
   };
 };
 

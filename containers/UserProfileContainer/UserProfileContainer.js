@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { Text } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
-import { fetcher } from "../../helpers/fetcher";
 import jwt_decode from "jwt-decode";
+
 import UserProfile from "../../components/UserProfile/UserProfile";
 
 const UserProfileContainer = () => {
@@ -11,7 +11,6 @@ const UserProfileContainer = () => {
   const [token, setToken] = useState();
   const [username, setUsername] = useState();
   const [id, setId] = useState();
-  const [quizzes, setQuizzes] = useState();
 
   useEffect(() => {
     getAccessTokenSilently({
@@ -21,17 +20,12 @@ const UserProfileContainer = () => {
       const decoded = jwt_decode(token);
       const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
       setUsername(username);
-      fetcher(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`).then(
-        (id) => {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`)
+        .then((response) => response.json())
+        .then((id) => {
           setId(id);
-          fetcher(`${process.env.NEXT_PUBLIC_API_URL}/quizzes`).then(
-            (quizzes) => {
-              setQuizzes(quizzes);
-              setLoading(false);
-            }
-          );
-        }
-      );
+          setLoading(false);
+        });
     });
   }, [getAccessTokenSilently]);
 
@@ -41,11 +35,11 @@ const UserProfileContainer = () => {
 
   return (
     <UserProfile
+      imageUrl={user?.picture}
       token={token}
       id={id}
       username={username}
       email={user.email}
-      quizzes={quizzes}
     />
   );
 };
