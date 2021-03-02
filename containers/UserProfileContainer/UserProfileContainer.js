@@ -34,7 +34,13 @@ const UserProfileContainer = () => {
   }
 
   return (
-    <UserProfile token={token} id={id} username={username} email={user.email} />
+    <UserProfile
+      imageUrl={user?.picture}
+      token={token}
+      id={id}
+      username={username}
+      email={user.email}
+    />
   );
 };
 

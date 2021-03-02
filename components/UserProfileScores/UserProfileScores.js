@@ -1,30 +1,42 @@
 import React from "react";
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Table,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
 import PropTypes from "prop-types";
+import moment from "moment";
 
 const UserProfileScores = ({ scores }) => (
   <Box>
-    <Text>Scores</Text>
-    <table>
-      <thead>
-        <tr>
-          <th>Quiz</th>
-          <th>Score</th>
-          <th>Time</th>
-          <th>Added</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Heading size="md" textAlign="center" m={6}>
+      Scores
+    </Heading>
+    <Table variant="striped" colorScheme="gray" my={6}>
+      <Thead>
+        <Tr>
+          <Th>Quiz</Th>
+          <Th>Score</Th>
+          <Th>Time</Th>
+          <Th>Added</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
         {scores.map((x) => (
-          <tr key={x.id}>
-            <td>{x.quizName}</td>
-            <td>{x.score}</td>
-            <td>{x.time}</td>
-            <td>{x.added}</td>
-          </tr>
+          <Tr key={x.id}>
+            <Td>{x.quizName}</Td>
+            <Td>{x.score}</Td>
+            <Td>{x.time}</Td>
+            <Td>{moment(x.added).format("DD-MM-YYYY")}</Td>
+          </Tr>
         ))}
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
   </Box>
 );
 1;

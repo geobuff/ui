@@ -1,32 +1,44 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Heading,
+  Table,
+  Tbody,
+  Thead,
+  Tr,
+  Th,
+  Td,
+} from "@chakra-ui/react";
+import moment from "moment";
 
 const UserProfileLeaderboardEntries = ({ entries }) => (
   <Box>
-    <Text>Leaderboard Entries</Text>
-    <table>
-      <thead>
-        <tr>
-          <th>Quiz</th>
-          <th>Ranking</th>
-          <th>Score</th>
-          <th>Time</th>
-          <th>Added</th>
-        </tr>
-      </thead>
-      <tbody>
+    <Heading size="md" textAlign="center" m={6}>
+      Leaderboard Entries
+    </Heading>
+    <Table variant="striped" colorScheme="gray" my={6}>
+      <Thead>
+        <Tr>
+          <Th>Quiz</Th>
+          <Th>Ranking</Th>
+          <Th>Score</Th>
+          <Th>Time</Th>
+          <Th>Added</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
         {entries.map((entry) => (
-          <tr key={entry.quizId}>
-            <td>{entry.quizName}</td>
-            <td>{entry.ranking}</td>
-            <td>{entry.score}</td>
-            <td>{entry.time}</td>
-            <td>{entry.added}</td>
-          </tr>
+          <Tr key={entry.quizId}>
+            <Td>{entry.quizName}</Td>
+            <Td>{entry.ranking}</Td>
+            <Td>{entry.score}</Td>
+            <Td>{entry.time}</Td>
+            <Td>{moment(entry.added).format("DD-MM-YYYY")}</Td>
+          </Tr>
         ))}
-      </tbody>
-    </table>
+      </Tbody>
+    </Table>
   </Box>
 );
 
