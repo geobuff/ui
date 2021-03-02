@@ -14,6 +14,7 @@ import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 import { timeFiveMinutes } from "../../helpers/time";
 import { getTitle, Quizzes } from "../../helpers/quizzes";
+import MapTooltip from "../../components/MapTooltip";
 
 const UKCountiesGame = ({
   checkedCounties,
@@ -31,6 +32,8 @@ const UKCountiesGame = ({
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [tooltipText, setTooltipText] = useState();
+  const [tooltipStyle, setTooltipStyle] = useState();
   const [gameStartText, setGameStartText] = useState("START");
 
   const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
@@ -75,6 +78,28 @@ const UKCountiesGame = ({
     if (gameStartText === "START") {
       setGameStartText("RETRY");
     }
+  };
+
+  const mouseOver = (event) => {
+    if (hasGameStarted) return;
+    setTooltipText(event.target.getAttribute("name"));
+  };
+
+  const mouseMove = (event) => {
+    if (hasGameStarted || !tooltipText) return;
+    setTooltipStyle({
+      display: "block",
+      top: event.clientY + 10,
+      left: event.clientX - 100,
+    });
+  };
+
+  const mouseOut = () => {
+    if (hasGameStarted) return;
+    setTooltipText(null);
+    setTooltipStyle({
+      display: "none",
+    });
   };
 
   return (
@@ -135,8 +160,13 @@ const UKCountiesGame = ({
               map={UKCounties}
               className="quiz-map"
               locationClassName={getLocationClassName}
+              onLocationMouseOver={mouseOver}
+              onLocationMouseMove={mouseMove}
+              onLocationMouseOut={mouseOut}
             />
           </Box>
+
+          <MapTooltip value={tooltipText} style={tooltipStyle} />
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
