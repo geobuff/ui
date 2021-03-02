@@ -14,24 +14,30 @@ import {
 } from "@chakra-ui/react";
 
 import UserAvatar from "../UserAvatar";
+import useCurrentUser from "../../hooks/UseCurrentUser";
 
 const UserAvatarMenu = () => {
   const [isUserLoading, setIsUserLoading] = useState(true);
 
   const {
     isAuthenticated,
-    isLoading,
+    // isLoading,
     loginWithRedirect,
     logout,
-    user,
+    // user,
   } = useAuth0();
+
+  const { user, isLoading } = useCurrentUser();
+
+  console.log(user, "user:avatarMenu");
+  console.log(isLoading, "isLoading:avatarMenu");
 
   // Was getting some SSR errors if we render the
   // placeholder using Auth0's isLoading prop
   // so fallback to our own state
   useEffect(() => {
-    setIsUserLoading(isLoading);
-  }, [isLoading]);
+    user && setIsUserLoading(false);
+  }, [user]);
 
   const router = useRouter();
 
@@ -55,7 +61,7 @@ const UserAvatarMenu = () => {
             height="36px"
             width="36px"
             imageUrl={user?.picture}
-            alt={`${user.name}'s profile image`}
+            alt={`${user?.username}'s profile image`}
           />
         </MenuButton>
 
