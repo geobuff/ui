@@ -54,7 +54,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       `${process.env.NEXT_PUBLIC_API_URL}/scores/${userId}/${quiz}`,
       params
     ).then((response) => {
-      if (response.status === 404) {
+      if (response.status === 204) {
         createScore(token, userId);
       } else {
         response.json().then((existing) => {
