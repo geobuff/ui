@@ -6,12 +6,19 @@ import jwt_decode from "jwt-decode";
 import GameOverModal from "../../components/GameOverModal";
 import { getApiPath, isScoreOnly } from "../../helpers/quizzes";
 
-const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
+const GameOverModalContainer = ({
+  quiz,
+  score,
+  time,
+  isOpen,
+  onClose,
+  setScoreSubmitted,
+  setLeaderboardEntrySubmitted,
+}) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const [entry, setEntry] = useState();
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!isOpen) {
@@ -85,7 +92,11 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       },
     };
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores`, params);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores`, params)
+      .then((response) => response.json())
+      .then(() => {
+        setScoreSubmitted(true);
+      });
   };
 
   const updateScore = (token, existing) => {
@@ -104,7 +115,11 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       },
     };
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores/${existing.id}`, params);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores/${existing.id}`, params)
+      .then((response) => response.json())
+      .then(() => {
+        setScoreSubmitted(true);
+      });
   };
 
   const getLeaderboardEntry = (userId) => {
@@ -167,10 +182,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
           .then(() => {
             setSubmitting(false);
             onClose();
-          })
-          .catch((error) => {
-            setError(error.message);
-            setSubmitting(false);
+            setLeaderboardEntrySubmitted(true);
           });
       });
   };
@@ -201,10 +213,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       .then(() => {
         setSubmitting(false);
         onClose();
-      })
-      .catch((error) => {
-        setError(error.message);
-        setSubmitting(false);
+        setLeaderboardEntrySubmitted(true);
       });
   };
 
@@ -223,7 +232,6 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       onClose={onClose}
       onSubmit={!isScoreOnly(quiz) && handleSubmitEntry}
       submitting={submitting}
-      error={error}
     />
   );
 };
@@ -234,6 +242,8 @@ GameOverModalContainer.propTypes = {
   time: PropTypes.number,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
+  setScoreSubmitted: PropTypes.func,
+  setLeaderboardEntrySubmitted: PropTypes.func,
 };
 
 export default GameOverModalContainer;

@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { debounce } from "debounce";
 import PropTypes from "prop-types";
 import {
@@ -7,6 +7,7 @@ import {
   useBreakpointValue,
   useDisclosure,
   Tooltip,
+  useToast,
 } from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
 import { UKCounties } from "@geobuff/maps";
@@ -35,7 +36,9 @@ const UKCountiesGame = ({
   onClearInput,
   resetGame,
 }) => {
+  const toast = useToast();
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
+
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
@@ -44,6 +47,7 @@ const UKCountiesGame = ({
   const [tooltipTop, setTooltipTop] = useState(0);
   const [tooltipLeft, setTooltipLeft] = useState(0);
   const [gameStartText, setGameStartText] = useState("START");
+  const [scoreSubmitted, setScoreSubmitted] = useState(false);
 
   const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
 
@@ -52,6 +56,19 @@ const UKCountiesGame = ({
   const { seconds, minutes, restart, pause } = useTimer({
     timeRemaining,
   });
+
+  useEffect(() => {
+    if (scoreSubmitted) {
+      toast({
+        title: "Score Submitted",
+        description: "We've updated your high score for you.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      setScoreSubmitted(false);
+    }
+  }, [scoreSubmitted]);
 
   const getLocationClassName = (location) => {
     if (
@@ -115,6 +132,7 @@ const UKCountiesGame = ({
         time={time}
         isOpen={isOpen}
         onClose={onClose}
+        setScoreSubmitted={setScoreSubmitted}
       />
 
       {shouldDisplayOnMobile && (

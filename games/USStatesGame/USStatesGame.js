@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import { debounce } from "debounce";
 import PropTypes from "prop-types";
 import {
@@ -7,6 +7,7 @@ import {
   useBreakpointValue,
   useDisclosure,
   Tooltip,
+  useToast,
 } from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
 import { USStates } from "@geobuff/maps";
@@ -35,6 +36,7 @@ const USStatesGame = ({
   onClearInput,
   resetGame,
 }) => {
+  const toast = useToast();
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
@@ -45,6 +47,7 @@ const USStatesGame = ({
   const [tooltipTop, setTooltipTop] = useState(0);
   const [tooltipLeft, setTooltipLeft] = useState(0);
   const [gameStartText, setGameStartText] = useState("START");
+  const [scoreSubmitted, setScoreSubmitted] = useState(false);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -53,6 +56,19 @@ const USStatesGame = ({
   const { seconds, minutes, restart, pause } = useTimer({
     timeRemaining,
   });
+
+  useEffect(() => {
+    if (scoreSubmitted) {
+      toast({
+        title: "Score Submitted",
+        description: "We've updated your high score for you.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      setScoreSubmitted(false);
+    }
+  }, [scoreSubmitted]);
 
   const getLocationClassName = (location) => {
     if (
@@ -115,6 +131,7 @@ const USStatesGame = ({
         time={time}
         isOpen={isOpen}
         onClose={onClose}
+        setScoreSubmitted={setScoreSubmitted}
       />
 
       {shouldDisplayOnMobile && (
