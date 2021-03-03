@@ -35,18 +35,14 @@ const GameOverModalContainer = ({
       audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
     }).then((token) => {
       const decoded = jwt_decode(token);
-      const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`)
-        .then((response) => response.json())
-        .then((userId) => {
-          handleScore(token, userId);
-          if (isScoreOnly(quiz)) {
-            setLoading(false);
-            return;
-          }
+      const userId = decoded[process.env.NEXT_PUBLIC_AUTH0_USERID_KEY];
+      handleScore(token, userId);
+      if (isScoreOnly(quiz)) {
+        setLoading(false);
+        return;
+      }
 
-          getLeaderboardEntry(userId);
-        });
+      getLeaderboardEntry(userId);
     });
   }, [isOpen, getAccessTokenSilently]);
 
@@ -155,35 +151,30 @@ const GameOverModalContainer = ({
 
   const createEntry = (token) => {
     const decoded = jwt_decode(token);
-    const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`)
+    const entry = {
+      userId: decoded[process.env.NEXT_PUBLIC_AUTH0_USERID_KEY],
+      countryCode: "US",
+      score: score,
+      time: time,
+    };
+
+    const params = {
+      method: "POST",
+      body: JSON.stringify(entry),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard`,
+      params
+    )
       .then((response) => response.json())
-      .then((userId) => {
-        const entry = {
-          userId: userId,
-          countryCode: "US",
-          score: score,
-          time: time,
-        };
-
-        const params = {
-          method: "POST",
-          body: JSON.stringify(entry),
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard`,
-          params
-        )
-          .then((response) => response.json())
-          .then(() => {
-            setSubmitting(false);
-            onClose();
-            setLeaderboardEntrySubmitted(true);
-          });
+      .then(() => {
+        setSubmitting(false);
+        onClose();
+        setLeaderboardEntrySubmitted(true);
       });
   };
 
