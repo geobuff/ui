@@ -2,12 +2,16 @@ import React, { useState, useCallback } from "react";
 import { debounce } from "debounce";
 
 import { Box, Input, Flex } from "@chakra-ui/react";
+
+import HeroBanner from "../components/HeroBanner";
 import QuizListContainer from "../containers/QuizListContainer";
 
-import HeroBannerContainer from "../containers/HeroBannerContainer";
+import useCurrentUser from "../hooks/UseCurrentUser";
 
 const Home = () => {
   const [filter, setFilter] = useState();
+
+  const { user } = useCurrentUser();
 
   const onChange = (value) => {
     setFilter(value);
@@ -22,7 +26,7 @@ const Home = () => {
   return (
     <Flex width="100%" mx="auto" position="relative">
       <Box position="absolute" left="0" right="0" top="0">
-        <HeroBannerContainer />
+        <HeroBanner username={user?.username} />
         <Box
           mx="auto"
           position="relative"
