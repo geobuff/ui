@@ -17,6 +17,7 @@ import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 import GameOverModalContainer from "../../containers/GameOverModalContainer/GameOverModalContainer";
+import MapInteractionCSS from "../../components/MapInteractionCSS";
 
 import { Quizzes, getTitle } from "../../helpers/quizzes";
 import { timeFifteenMinutes } from "../../helpers/time";
@@ -160,7 +161,7 @@ const CountriesOfTheWorldGame = ({
         )}
 
         <Box width="100%">
-          <Box pt={2} textAlign="center">
+          <Box pt={2} textAlign="center" height="100%">
             <Tooltip
               label={tooltipText}
               position="absolute"
@@ -168,14 +169,27 @@ const CountriesOfTheWorldGame = ({
               left={tooltipLeft}
               isOpen={tooltipOpen}
             >
-              <SVGMap
-                map={WorldCountries}
-                className="quiz-map"
-                locationClassName={getLocationClassName}
-                onLocationMouseOver={mouseOver}
-                onLocationMouseMove={mouseMove}
-                onLocationMouseOut={mouseOut}
-              />
+              {shouldDisplayOnMobile ? (
+                <SVGMap
+                  map={WorldCountries}
+                  className="quiz-map"
+                  locationClassName={getLocationClassName}
+                  onLocationMouseOver={mouseOver}
+                  onLocationMouseMove={mouseMove}
+                  onLocationMouseOut={mouseOut}
+                />
+              ) : (
+                <MapInteractionCSS>
+                  <SVGMap
+                    map={WorldCountries}
+                    className="quiz-map"
+                    locationClassName={getLocationClassName}
+                    onLocationMouseOver={mouseOver}
+                    onLocationMouseMove={mouseMove}
+                    onLocationMouseOut={mouseOut}
+                  />
+                </MapInteractionCSS>
+              )}
             </Tooltip>
           </Box>
 
