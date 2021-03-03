@@ -1,7 +1,13 @@
 import React, { useCallback, useState } from "react";
 import { debounce } from "debounce";
 import PropTypes from "prop-types";
-import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  useBreakpointValue,
+  useDisclosure,
+  Tooltip,
+} from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
 import { WorldCapitals } from "@geobuff/maps";
 import { useTimer } from "react-timer-hook";
@@ -14,7 +20,6 @@ import Sidebar from "../../components/Sidebar";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import { getTitle, Quizzes } from "../../helpers/quizzes";
 import { timeFifteenMinutes } from "../../helpers/time";
-import MapTooltip from "../../components/MapTooltip";
 
 const CapitalsOfTheWorldGame = ({
   checkedCapitals,
@@ -34,7 +39,9 @@ const CapitalsOfTheWorldGame = ({
   const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [tooltipText, setTooltipText] = useState();
-  const [tooltipStyle, setTooltipStyle] = useState();
+  const [tooltipOpen, setTooltipOpen] = useState(false);
+  const [tooltipTop, setTooltipTop] = useState(0);
+  const [tooltipLeft, setTooltipLeft] = useState(0);
   const [gameStartText, setGameStartText] = useState("START");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -88,19 +95,15 @@ const CapitalsOfTheWorldGame = ({
 
   const mouseMove = (event) => {
     if (hasGameStarted || !tooltipText) return;
-    setTooltipStyle({
-      display: "block",
-      top: event.clientY + 10,
-      left: event.clientX - 100,
-    });
+    setTooltipOpen(true);
+    setTooltipTop(event.clientY + 10);
+    setTooltipLeft(event.clientX - 100);
   };
 
   const mouseOut = () => {
     if (hasGameStarted) return;
     setTooltipText(null);
-    setTooltipStyle({
-      display: "none",
-    });
+    setTooltipOpen(false);
   };
 
   return (
@@ -157,17 +160,23 @@ const CapitalsOfTheWorldGame = ({
 
         <Box width="100%">
           <Box pt={2} textAlign="center">
-            <SVGMap
-              map={WorldCapitals}
-              className="quiz-map"
-              locationClassName={getLocationClassName}
-              onLocationMouseOver={mouseOver}
-              onLocationMouseMove={mouseMove}
-              onLocationMouseOut={mouseOut}
-            />
+            <Tooltip
+              label={tooltipText}
+              position="absolute"
+              top={tooltipTop}
+              left={tooltipLeft}
+              isOpen={tooltipOpen}
+            >
+              <SVGMap
+                map={WorldCapitals}
+                className="quiz-map"
+                locationClassName={getLocationClassName}
+                onLocationMouseOver={mouseOver}
+                onLocationMouseMove={mouseMove}
+                onLocationMouseOut={mouseOut}
+              />
+            </Tooltip>
           </Box>
-
-          <MapTooltip value={tooltipText} style={tooltipStyle} />
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
