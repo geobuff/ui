@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { debounce } from "debounce";
 import {
@@ -7,6 +7,7 @@ import {
   useBreakpointValue,
   useDisclosure,
   Tooltip,
+  useToast,
 } from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
 import { WorldCountries } from "@geobuff/maps";
@@ -35,6 +36,7 @@ const CountriesOfTheWorldGame = ({
   onClearInput,
   resetGame,
 }) => {
+  const toast = useToast();
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
@@ -45,6 +47,10 @@ const CountriesOfTheWorldGame = ({
   const [tooltipTop, setTooltipTop] = useState(0);
   const [tooltipLeft, setTooltipLeft] = useState(0);
   const [gameStartText, setGameStartText] = useState("START");
+  const [scoreSubmitted, setScoreSubmitted] = useState(false);
+  const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
+    false
+  );
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -53,6 +59,32 @@ const CountriesOfTheWorldGame = ({
   const { seconds, minutes, restart, pause } = useTimer({
     timeRemaining,
   });
+
+  useEffect(() => {
+    if (scoreSubmitted) {
+      toast({
+        title: "Score Submitted",
+        description: "We've updated your high score for you.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      setScoreSubmitted(false);
+    }
+  }, [scoreSubmitted]);
+
+  useEffect(() => {
+    if (leaderboardEntrySubmitted) {
+      toast({
+        title: "Leaderboard Entry Submitted",
+        description: "Your leaderboard entry was submitted successfully.",
+        status: "success",
+        duration: 9000,
+        isClosable: true,
+      });
+      setLeaderboardEntrySubmitted(false);
+    }
+  }, [leaderboardEntrySubmitted]);
 
   const getLocationClassName = (location) => {
     if (
@@ -116,6 +148,8 @@ const CountriesOfTheWorldGame = ({
         time={time}
         isOpen={isOpen}
         onClose={onClose}
+        setScoreSubmitted={setScoreSubmitted}
+        setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
       />
 
       {shouldDisplayOnMobile && (

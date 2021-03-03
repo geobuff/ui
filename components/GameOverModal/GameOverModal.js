@@ -13,7 +13,6 @@ import {
   ModalOverlay,
   Text,
   Tooltip,
-  Alert,
 } from "@chakra-ui/react";
 
 import GameExistingEntry from "../GameExistingEntry";
@@ -41,7 +40,6 @@ const GameOverModal = ({
   onClose,
   onSubmit,
   submitting,
-  error,
 }) => {
   const shouldShowExistingEntry = onSubmit && loggedIn && existingEntry;
 
@@ -78,14 +76,6 @@ const GameOverModal = ({
               </Text>
             </Tooltip>
           </Button>
-
-          {error && (
-            <Box mx={5}>
-              <Alert status="error" borderRadius={6}>
-                {error}
-              </Alert>
-            </Box>
-          )}
 
           <Box paddingY={10} paddingX={8}>
             <Box textAlign="center">
@@ -208,7 +198,6 @@ GameOverModal.propTypes = {
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   submitting: PropTypes.bool,
-  error: PropTypes.string,
 };
 
 GameOverModal.defaultProps = {
@@ -221,5 +210,4 @@ GameOverModal.defaultProps = {
   onClose: () => {},
   onSubmit: () => {},
   submitting: false,
-  error: null,
 };
