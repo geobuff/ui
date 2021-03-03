@@ -169,7 +169,7 @@ const CountriesOfTheWorldGame = ({
               left={tooltipLeft}
               isOpen={tooltipOpen}
             >
-              {shouldDisplayOnMobile ? (
+              <MapInteractionCSS>
                 <SVGMap
                   map={WorldCountries}
                   className="quiz-map"
@@ -178,18 +178,7 @@ const CountriesOfTheWorldGame = ({
                   onLocationMouseMove={mouseMove}
                   onLocationMouseOut={mouseOut}
                 />
-              ) : (
-                <MapInteractionCSS>
-                  <SVGMap
-                    map={WorldCountries}
-                    className="quiz-map"
-                    locationClassName={getLocationClassName}
-                    onLocationMouseOver={mouseOver}
-                    onLocationMouseMove={mouseMove}
-                    onLocationMouseOut={mouseOut}
-                  />
-                </MapInteractionCSS>
-              )}
+              </MapInteractionCSS>
             </Tooltip>
           </Box>
 

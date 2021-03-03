@@ -18,6 +18,8 @@ import GameBottomSheetModal from "../../components/GameBottomSheetModal";
 import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
+import MapInteractionCSS from "../../components/MapInteractionCSS";
+
 import { timeFiveMinutes } from "../../helpers/time";
 import { getTitle, Quizzes } from "../../helpers/quizzes";
 
@@ -158,7 +160,7 @@ const UKCountiesGame = ({
         )}
 
         <Box width="100%">
-          <Box pt={2} textAlign="center">
+          <Box pt={2} textAlign="center" height="100%">
             <Tooltip
               label={tooltipText}
               position="absolute"
@@ -166,14 +168,16 @@ const UKCountiesGame = ({
               left={tooltipLeft}
               isOpen={tooltipOpen}
             >
-              <SVGMap
-                map={UKCounties}
-                className="quiz-map"
-                locationClassName={getLocationClassName}
-                onLocationMouseOver={mouseOver}
-                onLocationMouseMove={mouseMove}
-                onLocationMouseOut={mouseOut}
-              />
+              <MapInteractionCSS>
+                <SVGMap
+                  map={UKCounties}
+                  className="quiz-map"
+                  locationClassName={getLocationClassName}
+                  onLocationMouseOver={mouseOver}
+                  onLocationMouseMove={mouseMove}
+                  onLocationMouseOut={mouseOut}
+                />
+              </MapInteractionCSS>
             </Tooltip>
           </Box>
 
