@@ -6,8 +6,9 @@ import { Box, Divider, Heading } from "@chakra-ui/react";
 const Sidebar = ({ heading, children }) => (
   <Box
     width="375px"
-    maxHeight="100vh"
-    p={4}
+    maxHeight="93vh"
+    padding={4}
+    paddingBottom="75px"
     backgroundColor="#FFF"
     boxShadow="6px 4px 4px rgba(0,0,0,0.08)"
     overflowY="scroll"

@@ -18,6 +18,7 @@ import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 import GameOverModalContainer from "../../containers/GameOverModalContainer/GameOverModalContainer";
 import MapInteractionCSS from "../../components/MapInteractionCSS";
+import MainView from "../../components/MainView";
 
 import { Quizzes, getTitle } from "../../helpers/quizzes";
 import { timeFifteenMinutes } from "../../helpers/time";
@@ -109,7 +110,7 @@ const CountriesOfTheWorldGame = ({
   };
 
   return (
-    <Box width="100%" height="100vh" backgroundColor="#276F86">
+    <MainView>
       <GameOverModalContainer
         quiz={Quizzes.CountriesOfTheWorld}
         score={score}
@@ -160,8 +161,8 @@ const CountriesOfTheWorldGame = ({
           </Box>
         )}
 
-        <Box width="100%">
-          <Box pt={2} textAlign="center" height="100%">
+        <Box width="100%" minHeight="83vh">
+          <Box textAlign="center" height="100%">
             <Tooltip
               label={tooltipText}
               position="absolute"
@@ -195,7 +196,7 @@ const CountriesOfTheWorldGame = ({
           )}
         </Box>
       </Flex>
-    </Box>
+    </MainView>
   );
 };
 
