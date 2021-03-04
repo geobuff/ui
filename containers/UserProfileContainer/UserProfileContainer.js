@@ -9,8 +9,8 @@ const UserProfileContainer = () => {
   const { getAccessTokenSilently, user } = useAuth0();
   const [loading, setLoading] = useState(true);
   const [token, setToken] = useState();
-  const [username, setUsername] = useState();
   const [id, setId] = useState();
+  const [username, setUsername] = useState();
 
   useEffect(() => {
     getAccessTokenSilently({
@@ -18,14 +18,9 @@ const UserProfileContainer = () => {
     }).then((token) => {
       setToken(token);
       const decoded = jwt_decode(token);
-      const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
-      setUsername(username);
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`)
-        .then((response) => response.json())
-        .then((id) => {
-          setId(id);
-          setLoading(false);
-        });
+      setId(decoded[process.env.NEXT_PUBLIC_AUTH0_USERID_KEY]);
+      setUsername(decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY]);
+      setLoading(false);
     });
   }, [getAccessTokenSilently]);
 
