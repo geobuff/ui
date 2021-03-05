@@ -29,7 +29,7 @@ const UserProfileSummary = ({ imageUrl, username, email }) => (
         <Spacer />
         <Text fontWeight="bold">2</Text>
       </Flex>
-      <Progress value={69} />
+      <Progress hasStripe value={69} colorScheme="green" />
     </Box>
     <FormControl my={6}>
       <FormLabel>Username</FormLabel>
