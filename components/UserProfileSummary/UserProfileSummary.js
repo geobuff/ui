@@ -7,6 +7,10 @@ import {
   Input,
   Divider,
   Image,
+  Progress,
+  Flex,
+  Text,
+  Spacer,
 } from "@chakra-ui/react";
 
 const UserProfileSummary = ({ imageUrl, username, email }) => (
@@ -19,6 +23,14 @@ const UserProfileSummary = ({ imageUrl, username, email }) => (
       borderRadius={12}
     ></Image>
     <Divider />
+    <Box mt={6} mb={9}>
+      <Flex mb={3}>
+        <Text fontWeight="bold">1</Text>
+        <Spacer />
+        <Text fontWeight="bold">2</Text>
+      </Flex>
+      <Progress value={69} />
+    </Box>
     <FormControl my={6}>
       <FormLabel>Username</FormLabel>
       <Input variant="filled" value={username} readOnly />
