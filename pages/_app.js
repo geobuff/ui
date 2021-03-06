@@ -1,6 +1,5 @@
 import React from "react";
 import Head from "next/head";
-import dynamic from "next/dynamic";
 import PropTypes from "prop-types";
 
 import { ChakraProvider } from "@chakra-ui/react";
@@ -9,11 +8,7 @@ import { Auth0Provider } from "@auth0/auth0-react";
 import "../styles/globals.css";
 import theme from "../styles/theme";
 
-const NavigationBarNoSSR = dynamic(
-  () => import("../components/NavigationBar"),
-  { ssr: false }
-);
-
+import NavigationBar from "../components/NavigationBar";
 function MyApp({ Component, pageProps }) {
   return (
     <>
@@ -28,7 +23,7 @@ function MyApp({ Component, pageProps }) {
         redirectUri={process.env.NEXT_PUBLIC_REDIRECT_URI}
       >
         <ChakraProvider theme={theme}>
-          <NavigationBarNoSSR />
+          <NavigationBar />
           <Component {...pageProps} />
         </ChakraProvider>
       </Auth0Provider>
