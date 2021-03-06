@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Box, Divider } from "@chakra-ui/react";
-import UserProfileSummary from "../UserProfileSummary";
 import UserProfileScoresContainer from "../../containers/UserProfileScoresContainer/UserProfileScoresContainer";
 import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer/UserProfileLeaderboardEntriesContainer";
+import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer/UserProfileSummaryContainer";
 
-const UserProfile = ({ imageUrl, token, id, username, email }) => (
+const UserProfile = ({ user }) => (
   <Box m={5}>
     <Box
       borderRadius={12}
@@ -14,25 +14,24 @@ const UserProfile = ({ imageUrl, token, id, username, email }) => (
       w={{ base: "100%", lg: "50%" }}
       mx="auto"
     >
-      <UserProfileSummary
-        imageUrl={imageUrl}
-        username={username}
-        email={email}
-      />
+      <UserProfileSummaryContainer user={user} />
       <Divider my={3} />
-      <UserProfileLeaderboardEntriesContainer id={id} />
+      <UserProfileLeaderboardEntriesContainer userId={user.id} />
       <Divider my={3} />
-      <UserProfileScoresContainer token={token} id={id} />
+      <UserProfileScoresContainer userId={user.id} />
     </Box>
   </Box>
 );
 
 UserProfile.propTypes = {
-  imageUrl: PropTypes.string,
-  token: PropTypes.string,
-  id: PropTypes.number,
-  username: PropTypes.string,
-  email: PropTypes.string,
+  user: PropTypes.shape({
+    id: PropTypes.number,
+    username: PropTypes.string,
+    countryCode: PropTypes.string,
+    xp: PropTypes.number,
+    email: PropTypes.string,
+    picture: PropTypes.string,
+  }),
 };
 
 export default UserProfile;
