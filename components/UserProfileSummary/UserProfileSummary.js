@@ -63,7 +63,7 @@ const UserProfileSummary = ({
           <Spacer />
           <Text fontWeight="bold">2</Text>
         </Flex>
-        <Progress hasStripe value={69} colorScheme="green" />
+        <Progress hasStripe size="lg" value={69} colorScheme="green" />
       </Box>
       <FormControl my={6}>
         <FormLabel>Username</FormLabel>
@@ -79,8 +79,10 @@ const UserProfileSummary = ({
           <Select
             value={countryCode}
             onChange={(e) => setCountryCode(e.target.value)}
-            placeholder="Please select a country..."
           >
+            <option value="" disabled>
+              Please select a country...
+            </option>
             {countries.map((x) => (
               <option key={x.code} value={x.code}>
                 {x.svgName}
@@ -91,7 +93,7 @@ const UserProfileSummary = ({
         <Box mt="auto">
           <Button
             mx={6}
-            disabled={countryCode && countryCode === user.countryCode}
+            disabled={!countryCode || countryCode === user.countryCode}
             onClick={() => submitCountry(countryCode)}
           >
             {countryAction}
