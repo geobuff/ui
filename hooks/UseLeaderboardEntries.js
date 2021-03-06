@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 
-const useLeaderboardEntries = (id) => {
+const useLeaderboardEntries = (userId) => {
   const [entries, setEntries] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     Promise.all([
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/countries/leaderboard/${id}`),
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/capitals/leaderboard/${id}`),
+      fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/countries/leaderboard/${userId}`
+      ),
+      fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/capitals/leaderboard/${userId}`
+      ),
     ])
       .then((response) =>
         Promise.all(
