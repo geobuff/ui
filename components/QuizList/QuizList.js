@@ -1,43 +1,40 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Flex, Heading, Link, Alert, AlertIcon } from "@chakra-ui/react";
+import {
+  AspectRatio,
+  Box,
+  Alert,
+  AlertIcon,
+  SimpleGrid,
+} from "@chakra-ui/react";
+import GameCard from "../GameCard/GameCard";
 
 const QuizList = ({ quizzes }) => (
-  <Box width="50%" ml="auto" mr="auto">
+  <Box
+    width={{ base: "95%", sm: "80%", md: "60%" }}
+    marginTop="32px"
+    marginLeft="auto"
+    marginRight="auto"
+  >
     {quizzes.length === 0 ? (
       <Alert status="info" borderRadius={12} p={5} mt={5}>
         <AlertIcon />
-        No quizzes to display.
+        {"No quizzes to display."}
       </Alert>
     ) : (
       <>
-        {quizzes.map((quiz, index) => (
-          <Box key={index}>
-            {quiz.enabled ? (
-              <Link
-                href={`/quiz/${quiz.name.replaceAll(" ", "-").toLowerCase()}`}
-              >
-                <Flex backgroundColor="#F0F0F0" borderRadius={12} p={5} my={5}>
-                  <Box>
-                    <Heading size="sm">{quiz.name}</Heading>
-                  </Box>
-                </Flex>
-              </Link>
-            ) : (
-              <Flex
-                backgroundColor="#F0F0F0"
-                opacity={0.5}
-                borderRadius={12}
-                p={5}
-                my={5}
-              >
-                <Box>
-                  <Heading size="sm">{quiz.name}</Heading>
-                </Box>
-              </Flex>
-            )}
-          </Box>
-        ))}
+        <SimpleGrid
+          justifyContent="center"
+          minChildWidth={{ base: "145px", sm: "175px", md: "200px" }}
+          spacing={{ base: "16px", md: "24px" }}
+          marginBottom="72px"
+        >
+          {quizzes.map((quiz) => (
+            <AspectRatio key={quiz.id} maxW="275px" ratio={6 / 7}>
+              <GameCard quiz={quiz.id} />
+            </AspectRatio>
+          ))}
+        </SimpleGrid>
       </>
     )}
   </Box>
