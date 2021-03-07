@@ -9,7 +9,8 @@ import {
   AlertIcon,
   SimpleGrid,
 } from "@chakra-ui/react";
-import GameCard from "../GameCard/GameCard";
+
+import GameCard from "../GameCard";
 
 const QuizList = ({ quizzes }) => (
   <Box
@@ -45,7 +46,7 @@ const QuizList = ({ quizzes }) => (
                 minHeight="200px"
                 maxHeight="250px"
                 ratio={18 / 16}
-                transition="all 150ms ease-out;"
+                transition="all 150ms ease-out"
                 _hover={{ transform: "scale(1.030)" }}
               >
                 <GameCard quiz={quiz.id} />

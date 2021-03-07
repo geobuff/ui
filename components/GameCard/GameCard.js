@@ -13,6 +13,7 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 const GameCard = ({ quiz }) => {
   return (
     <Flex
+      role="group"
       direction="column"
       aria-label={`game card for ${getTitle(quiz)}`}
       backgroundColor="white"
@@ -30,6 +31,11 @@ const GameCard = ({ quiz }) => {
           borderTopLeftRadius={12}
           borderTopRightRadius={12}
           objectFit="cover"
+          transition="all 150ms ease-out"
+          _groupHover={{
+            maxHeight: { base: "80px", md: "88px" },
+            minHeight: { base: "80px", md: "88px" },
+          }}
         />
 
         <Box paddingTop="12px" paddingX="12px">
@@ -38,6 +44,7 @@ const GameCard = ({ quiz }) => {
             fontSize="18px"
             marginBottom="16px"
             noOfLines={3}
+            _groupHover={{ textDecoration: "underline" }}
           >
             {getTitle(quiz)}
           </Text>
