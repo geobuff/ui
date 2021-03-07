@@ -1,5 +1,4 @@
 import React from "react";
-import { Quizzes } from "../../helpers/quizzes";
 import GameBottomSheetModal from "./GameBottomSheetModal";
 
 export default {
@@ -26,7 +25,7 @@ const Template = (args) => <GameBottomSheetModal {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
   recentCountries,
   hasGameStarted: true,
 };

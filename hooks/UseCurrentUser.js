@@ -13,10 +13,10 @@ const useCurrentUser = () => {
   const [user, setUser] = useState(() => {
     if (typeof window !== "undefined") {
       return {
-        id: window.localStorage.getItem("geobuff.id"),
+        id: parseInt(window.localStorage.getItem("geobuff.id")),
         username: window.localStorage.getItem("geobuff.username"),
         countryCode: window.localStorage.getItem("geobuff.countryCode"),
-        xp: window.localStorage.getItem("geobuff.xp"),
+        xp: parseInt(window.localStorage.getItem("geobuff.xp")),
         email: window.localStorage.getItem("geobuff.email"),
         picture: window.localStorage.getItem("geobuff.picture"),
         updatedAt: window.localStorage.getItem("geobuff.updatedAt"),

@@ -20,7 +20,6 @@ import GameExistingEntry from "../GameExistingEntry";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
 import { secondsToMinutesString } from "../../helpers/time";
-import { getTitle, getTotal } from "../../helpers/quizzes";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
@@ -95,7 +94,7 @@ const GameOverModal = ({
               </Text>
 
               <Text color="#828282" fontSize="22px" fontWeight="bold">
-                {getTitle(quiz)}
+                {quiz.name}
               </Text>
             </Box>
 
@@ -123,7 +122,7 @@ const GameOverModal = ({
                     lineHeight="40px"
                     marginBottom={1}
                   >
-                    {`/ ${getTotal(quiz)}`}
+                    {`/ ${quiz.maxScore}`}
                   </Text>
                 </Flex>
               </Box>
@@ -231,7 +230,16 @@ const GameOverModal = ({
 export default GameOverModal;
 
 GameOverModal.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   score: PropTypes.number,
   time: PropTypes.number,
   loggedIn: PropTypes.bool,
@@ -251,7 +259,7 @@ GameOverModal.propTypes = {
 };
 
 GameOverModal.defaultProps = {
-  quiz: 1,
+  quiz: {},
   score: 0,
   time: 100,
   loggedIn: true,

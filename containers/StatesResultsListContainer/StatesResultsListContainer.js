@@ -3,26 +3,35 @@ import PropTypes from "prop-types";
 
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
 import useStates from "../../hooks/UseStates";
-import { Quizzes } from "../../helpers/quizzes";
 import { mergeArrayByName } from "../../helpers/array";
 import ResultsListWrapper from "../../components/ResultsListWrapper/ResultsListWrapper";
 
-const StatesResultsListContainer = ({ checkedStates }) => {
+const StatesResultsListContainer = ({ quiz, checkedStates }) => {
   const { allStates, isPending } = useStates();
 
   if (isPending) {
-    return <ResultsListPlaceholder noOfLines={51} />;
+    return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;
   }
 
   return (
     <ResultsListWrapper
-      quiz={Quizzes.USStates}
+      quiz={quiz}
       results={mergeArrayByName(allStates, checkedStates)}
     />
   );
 };
 
 StatesResultsListContainer.propTypes = {
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   checkedStates: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -32,6 +41,7 @@ StatesResultsListContainer.propTypes = {
 };
 
 StatesResultsListContainer.defaultProps = {
+  quiz: {},
   checkedStates: [],
 };
 

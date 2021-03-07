@@ -1,20 +1,16 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useSWR from "swr";
-import { fetcher } from "../../helpers/fetcher";
 import QuizList from "../../components/QuizList";
+import useQuizzes from "../../hooks/UseQuizzes";
 
 const QuizListContainer = ({ filter }) => {
-  const { data } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/quizzes?filter=${filter}`,
-    fetcher
-  );
+  const { quizzes, loading } = useQuizzes(filter);
 
-  if (!data) {
+  if (loading) {
     return null;
   }
 
-  return <QuizList quizzes={data} />;
+  return <QuizList quizzes={quizzes} />;
 };
 
 QuizListContainer.propTypes = {

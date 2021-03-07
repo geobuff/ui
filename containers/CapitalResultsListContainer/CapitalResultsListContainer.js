@@ -4,18 +4,17 @@ import useCapitals from "../../hooks/UseCapitals";
 
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
 import ResultsMap from "../../components/ResultsMap/ResultsMap";
-import { Quizzes } from "../../helpers/quizzes";
 
-const CapitalResultsListContainer = ({ checkedCapitals }) => {
+const CapitalResultsListContainer = ({ quiz, checkedCapitals }) => {
   const { capitalsByContinent, isPending } = useCapitals();
 
   if (isPending) {
-    return <ResultsListPlaceholder noOfLines={197} />;
+    return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;
   }
 
   return (
     <ResultsMap
-      quiz={Quizzes.CapitalsOfTheWorld}
+      quiz={quiz}
       results={checkedCapitals}
       map={capitalsByContinent}
     />
@@ -23,6 +22,16 @@ const CapitalResultsListContainer = ({ checkedCapitals }) => {
 };
 
 CapitalResultsListContainer.propTypes = {
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   checkedCapitals: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -32,6 +41,7 @@ CapitalResultsListContainer.propTypes = {
 };
 
 CapitalResultsListContainer.defaultProps = {
+  quiz: {},
   checkedCapitals: [],
 };
 

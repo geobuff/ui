@@ -10,7 +10,7 @@ import CountryResultsListContainer from "../../containers/CountryResultsListCont
 import CapitalResultsListContainer from "../../containers/CapitalResultsListContainer";
 import StatesResultsListContainer from "../../containers/StatesResultsListContainer";
 import CountiesResultsListContainer from "../../containers/CountiesResultsListContainer";
-import { Quizzes, getTitle } from "../../helpers/quizzes";
+import { Quizzes } from "../../helpers/quizzes";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
@@ -34,7 +34,7 @@ const GameBottomSheetModal = ({
   };
 
   const getContainer = () => {
-    switch (quiz) {
+    switch (quiz.id) {
       case Quizzes.CountriesOfTheWorld:
         return <CountryResultsListContainer checkedCountries={checked} />;
       case Quizzes.CapitalsOfTheWorld:
@@ -69,7 +69,7 @@ const GameBottomSheetModal = ({
           <Box overflowY="scroll" mx={5} my={0} pb="100px">
             <Box>
               <Heading pt={0} size="md" textAlign="center">
-                {getTitle(quiz)}
+                {quiz.name}
               </Heading>
 
               <Divider my={4} />
@@ -107,7 +107,17 @@ const GameBottomSheetModal = ({
 };
 
 GameBottomSheetModal.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
+  title: PropTypes.string,
   checked: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -127,7 +137,7 @@ GameBottomSheetModal.propTypes = {
 };
 
 GameBottomSheetModal.defaultProps = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
   checked: [],
   recents: [],
   hasGameStarted: false,

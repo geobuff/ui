@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ResultsListItem from "../ResultsListItem";
-import { Quizzes, getVerb } from "../../helpers/quizzes";
 import { Box, List, Text } from "@chakra-ui/react";
 
 const ResultsList = ({ quiz, results }) => {
@@ -10,7 +9,7 @@ const ResultsList = ({ quiz, results }) => {
     return (
       <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
         <Text textAlign="center" opacity={0.5} fontWeight={500}>
-          No {getVerb(quiz)} to display
+          No {quiz.verb} to display
         </Text>
       </Box>
     );
@@ -20,7 +19,7 @@ const ResultsList = ({ quiz, results }) => {
     <List>
       {results.map((result) => (
         <ResultsListItem
-          quiz={quiz}
+          quizId={quiz.id}
           key={result.code}
           my={2}
           isHidden={!result.checked}
@@ -32,7 +31,16 @@ const ResultsList = ({ quiz, results }) => {
 };
 
 ResultsList.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   results: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -41,7 +49,7 @@ ResultsList.propTypes = {
   ),
 };
 ResultsList.defaultProps = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
   results: [],
 };
 

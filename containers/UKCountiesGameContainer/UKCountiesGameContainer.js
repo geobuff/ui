@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import UKCountiesGame from "../../games/UKCountiesGame";
 import useCounties from "../../hooks/UseCounties";
+import useQuiz from "../../hooks/UseQuiz";
 
-const UKCountiesGameContainer = () => {
-  const { allCounties } = useCounties();
+const UKCountiesGameContainer = ({ id }) => {
+  const { allCounties, loadingCounties } = useCounties();
+  const { quiz, loadingQuiz } = useQuiz(id);
 
   const [checkedCounties, setCheckedCounties] = useState([]);
   const [recentCounties, setRecentCounties] = useState([]);
@@ -81,8 +84,13 @@ const UKCountiesGameContainer = () => {
     setScore(0);
   };
 
+  if (loadingCounties || loadingQuiz) {
+    return null;
+  }
+
   return (
     <UKCountiesGame
+      quiz={quiz}
       checkedCounties={checkedCounties}
       recentCounties={recentCounties}
       score={score}
@@ -95,6 +103,10 @@ const UKCountiesGameContainer = () => {
       resetGame={resetGame}
     />
   );
+};
+
+UKCountiesGameContainer.propTypes = {
+  id: PropTypes.number,
 };
 
 export default UKCountiesGameContainer;

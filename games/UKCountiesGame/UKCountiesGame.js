@@ -1,6 +1,7 @@
 import React, { useCallback, useState, useEffect } from "react";
 import { debounce } from "debounce";
 import PropTypes from "prop-types";
+
 import {
   Box,
   Flex,
@@ -10,6 +11,7 @@ import {
   useToast,
 } from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
+
 import { UKCounties } from "@geobuff/maps";
 import { useTimer } from "react-timer-hook";
 
@@ -20,11 +22,10 @@ import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 import MapInteractionCSS from "../../components/MapInteractionCSS";
-
 import { timeFiveMinutes } from "../../helpers/time";
-import { getTitle, Quizzes } from "../../helpers/quizzes";
 
 const UKCountiesGame = ({
+  quiz,
   checkedCounties,
   recentCounties,
   score,
@@ -127,7 +128,7 @@ const UKCountiesGame = ({
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       <GameOverModalContainer
-        quiz={Quizzes.UKCounties}
+        quiz={quiz}
         score={score}
         time={time}
         isOpen={isOpen}
@@ -137,7 +138,7 @@ const UKCountiesGame = ({
 
       {shouldDisplayOnMobile && (
         <GameInputBanner
-          quiz={Quizzes.UKCounties}
+          quiz={quiz.id}
           score={score}
           errorMessage={errorMessage}
           expiryTimestamp={{ seconds, minutes }}
@@ -152,10 +153,10 @@ const UKCountiesGame = ({
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading={getTitle(Quizzes.UKCounties)}>
+            <Sidebar heading={quiz.name}>
               <Box>
                 <GameInputCard
-                  quiz={Quizzes.UKCounties}
+                  quiz={quiz}
                   recents={recentCounties}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
@@ -170,6 +171,7 @@ const UKCountiesGame = ({
                   onGameStop={handleGameStop}
                 />
                 <CountiesResultsListContainer
+                  quiz={quiz}
                   checkedCounties={checkedCounties}
                 />
               </Box>
@@ -201,7 +203,7 @@ const UKCountiesGame = ({
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              quiz={Quizzes.UKCounties}
+              quiz={quiz}
               checked={checkedCounties}
               recents={recentCounties}
               hasGameStarted={hasGameStarted}
@@ -217,6 +219,16 @@ const UKCountiesGame = ({
 };
 
 UKCountiesGame.propTypes = {
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   checkedCounties: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -240,6 +252,7 @@ UKCountiesGame.propTypes = {
 };
 
 UKCountiesGame.defaultProps = {
+  quiz: {},
   checkedCounties: [],
   recentCounties: [],
   score: 0,

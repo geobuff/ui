@@ -9,6 +9,7 @@ import {
   Tooltip,
   useToast,
 } from "@chakra-ui/react";
+
 import { SVGMap } from "react-svg-map";
 import { USStates } from "@geobuff/maps";
 import { useTimer } from "react-timer-hook";
@@ -20,11 +21,10 @@ import GameInputBanner from "../../components/GameInputBanner";
 import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 import MapInteractionCSS from "../../components/MapInteractionCSS";
-
 import { timeFiveMinutes } from "../../helpers/time";
-import { Quizzes, getTitle } from "../../helpers/quizzes";
 
 const USStatesGame = ({
+  quiz,
   checkedStates,
   recentStates,
   score,
@@ -126,7 +126,7 @@ const USStatesGame = ({
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       <GameOverModalContainer
-        quiz={Quizzes.USStates}
+        quiz={quiz}
         score={score}
         time={time}
         isOpen={isOpen}
@@ -136,7 +136,7 @@ const USStatesGame = ({
 
       {shouldDisplayOnMobile && (
         <GameInputBanner
-          quiz={Quizzes.USStates}
+          quiz={quiz.id}
           score={score}
           errorMessage={errorMessage}
           expiryTimestamp={{ seconds, minutes }}
@@ -151,10 +151,10 @@ const USStatesGame = ({
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading={getTitle(Quizzes.USStates)}>
+            <Sidebar heading={quiz.name}>
               <Box>
                 <GameInputCard
-                  quiz={Quizzes.USStates}
+                  quiz={quiz}
                   recents={recentStates}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
@@ -168,7 +168,10 @@ const USStatesGame = ({
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                 />
-                <StatesResultsListContainer checkedStates={checkedStates} />
+                <StatesResultsListContainer
+                  quiz={quiz}
+                  checkedStates={checkedStates}
+                />
               </Box>
             </Sidebar>
           </Box>
@@ -198,7 +201,7 @@ const USStatesGame = ({
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              quiz={Quizzes.USStates}
+              quiz={quiz}
               checked={checkedStates}
               recents={recentStates}
               hasGameStarted={hasGameStarted}
@@ -214,6 +217,16 @@ const USStatesGame = ({
 };
 
 USStatesGame.propTypes = {
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   checkedStates: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -237,6 +250,7 @@ USStatesGame.propTypes = {
 };
 
 USStatesGame.defaultProps = {
+  quiz: {},
   checkedStates: [],
   recentStates: [],
   score: 0,

@@ -4,7 +4,6 @@ import { Box, Divider, Text } from "@chakra-ui/react";
 
 import ResultsList from "../ResultsList";
 import { mergeArrayByName } from "../../helpers/array";
-import { Quizzes } from "../../helpers/quizzes";
 
 const ResultsMap = ({ quiz, results, map }) => (
   <Box textAlign="left">
@@ -27,13 +26,21 @@ const ResultsMap = ({ quiz, results, map }) => (
 );
 
 ResultsMap.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   results: PropTypes.array,
-  // TODO: Suss out propType for this shape
   map: PropTypes.object,
 };
 ResultsMap.defaultProps = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
   results: [],
   map: {},
 };

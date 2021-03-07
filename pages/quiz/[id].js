@@ -5,6 +5,7 @@ import CountriesOfTheWorldGameContainer from "../../containers/CountriesOfTheWor
 import CapitalsOfTheWorldGameContainer from "../../containers/CapitalsOfTheWorldGameContainer";
 import USStatesGameContainer from "../../containers/USStatesGameContainer";
 import UKCountiesGameContainer from "../../containers/UKCountiesGameContainer";
+import { Quizzes } from "../../helpers/quizzes";
 
 const Quiz = () => {
   const router = useRouter();
@@ -12,13 +13,17 @@ const Quiz = () => {
 
   switch (id) {
     case "countries-of-the-world":
-      return <CountriesOfTheWorldGameContainer />;
+      return (
+        <CountriesOfTheWorldGameContainer id={Quizzes.CountriesOfTheWorld} />
+      );
     case "capitals-of-the-world":
-      return <CapitalsOfTheWorldGameContainer />;
+      return (
+        <CapitalsOfTheWorldGameContainer id={Quizzes.CapitalsOfTheWorld} />
+      );
     case "us-states":
-      return <USStatesGameContainer />;
+      return <USStatesGameContainer id={Quizzes.USStates} />;
     case "uk-counties":
-      return <UKCountiesGameContainer />;
+      return <UKCountiesGameContainer id={Quizzes.UKCounties} />;
     default:
       return null;
   }

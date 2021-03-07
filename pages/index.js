@@ -10,18 +10,17 @@ import useCurrentUser from "../hooks/UseCurrentUser";
 
 const Home = () => {
   const [filter, setFilter] = useState();
-
   const { user } = useCurrentUser();
 
   const onChange = (value) => {
     setFilter(value);
   };
 
+  const handleDebounceChange = useCallback(debounce(onChange, 500), [onChange]);
+
   const handleChange = (event) => {
     handleDebounceChange(event.target.value);
   };
-
-  const handleDebounceChange = useCallback(debounce(onChange, 500), [onChange]);
 
   return (
     <Flex width="100%" mx="auto" position="relative">

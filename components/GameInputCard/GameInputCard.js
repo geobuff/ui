@@ -19,7 +19,6 @@ import { CloseIcon } from "@chakra-ui/icons";
 import ResultsList from "../ResultsList";
 import GameInputCardScore from "./GameInputCardScore";
 import GameInputCardTimer from "./GameInputCardTimer";
-import { Quizzes, getVerb } from "../../helpers/quizzes";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
@@ -53,7 +52,7 @@ const GameInputCard = ({
             isDisabled={!hasGameStarted}
             onChange={onChange}
             my={5}
-            placeholder={`Enter ${getVerb(quiz)}...`}
+            placeholder={`Enter ${quiz.verb}...`}
             value={inputValue}
           />
           <Fade in={!!errorMessage} unmountOnExit>
@@ -119,7 +118,16 @@ const GameInputCard = ({
 };
 
 GameInputCard.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   recents: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -140,7 +148,7 @@ GameInputCard.propTypes = {
 };
 
 GameInputCard.defaultProps = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
   recents: [],
   score: 0,
   timeRemaining: 0,

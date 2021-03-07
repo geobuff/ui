@@ -20,11 +20,10 @@ import GameInputCard from "../../components/GameInputCard";
 import Sidebar from "../../components/Sidebar";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import MapInteractionCSS from "../../components/MapInteractionCSS";
-
-import { getTitle, Quizzes } from "../../helpers/quizzes";
 import { timeFifteenMinutes } from "../../helpers/time";
 
 const CapitalsOfTheWorldGame = ({
+  quiz,
   checkedCapitals,
   recentCapitals,
   score,
@@ -143,7 +142,7 @@ const CapitalsOfTheWorldGame = ({
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       <GameOverModalContainer
-        quiz={Quizzes.CapitalsOfTheWorld}
+        quiz={quiz}
         score={score}
         time={time}
         isOpen={isOpen}
@@ -154,7 +153,7 @@ const CapitalsOfTheWorldGame = ({
 
       {shouldDisplayOnMobile && (
         <GameInputBanner
-          quiz={Quizzes.CapitalsOfTheWorld}
+          quiz={quiz.id}
           score={score}
           errorMessage={errorMessage}
           expiryTimestamp={{ seconds, minutes }}
@@ -169,10 +168,10 @@ const CapitalsOfTheWorldGame = ({
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading={getTitle(Quizzes.CapitalsOfTheWorld)}>
+            <Sidebar heading={quiz.name}>
               <Box>
                 <GameInputCard
-                  quiz={Quizzes.CapitalsOfTheWorld}
+                  quiz={quiz}
                   recents={recentCapitals}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
@@ -187,6 +186,7 @@ const CapitalsOfTheWorldGame = ({
                   onGameStop={handleGameStop}
                 />
                 <CapitalResultsListContainer
+                  quiz={quiz}
                   checkedCapitals={checkedCapitals}
                 />
               </Box>
@@ -218,7 +218,7 @@ const CapitalsOfTheWorldGame = ({
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              quiz={Quizzes.CapitalsOfTheWorld}
+              quiz={quiz}
               checked={checkedCapitals}
               recents={recentCapitals}
               hasGameStarted={hasGameStarted}
@@ -234,6 +234,16 @@ const CapitalsOfTheWorldGame = ({
 };
 
 CapitalsOfTheWorldGame.propTypes = {
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   checkedCapitals: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -257,6 +267,7 @@ CapitalsOfTheWorldGame.propTypes = {
 };
 
 CapitalsOfTheWorldGame.defaultProps = {
+  quiz: {},
   checkedCapitals: [],
   recentCapitals: [],
   score: 0,

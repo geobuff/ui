@@ -49,6 +49,10 @@ QuizList.propTypes = {
       id: PropTypes.number,
       name: PropTypes.string,
       maxScore: PropTypes.number,
+      imageUrl: PropTypes.string,
+      verb: PropTypes.string,
+      apiPath: PropTypes.string,
+      hasLeaderboard: PropTypes.bool,
       enabled: PropTypes.bool,
     })
   ),
