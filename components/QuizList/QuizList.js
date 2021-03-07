@@ -10,11 +10,11 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import GameCard from "../GameCard";
+import QuizCard from "../QuizCard";
 
 const QuizList = ({ quizzes }) => (
   <Box
-    width={{ base: "95%", sm: "80%", md: "60%" }}
+    width={{ base: "95%", sm: "80%", md: "65%" }}
     maxWidth="1200px"
     marginTop="32px"
     marginLeft="auto"
@@ -44,12 +44,12 @@ const QuizList = ({ quizzes }) => (
               <AspectRatio
                 maxW="260px"
                 minHeight="200px"
-                maxHeight="250px"
-                ratio={18 / 16}
+                maxHeight="220px"
+                ratio={3 / 2}
                 transition="all 150ms ease-out"
                 _hover={{ transform: "scale(1.030)" }}
               >
-                <GameCard quiz={quiz.id} />
+                <QuizCard quiz={quiz.id} />
               </AspectRatio>
             </Link>
           ))}

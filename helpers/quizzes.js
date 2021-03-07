@@ -61,6 +61,21 @@ export const getApiPath = (quiz) => {
   }
 };
 
+export const getImageUrl = (quiz) => {
+  switch (quiz) {
+    case Quizzes.CountriesOfTheWorld:
+      return "/world-map-header.svg";
+    case Quizzes.CapitalsOfTheWorld:
+      return "/world-map-header.svg";
+    case Quizzes.USStates:
+      return "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1fa-1f1f8.svg";
+    case Quizzes.UKCounties:
+      return "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1ec-1f1e7.svg";
+    default:
+      throw Error("Invalid quiz option.");
+  }
+};
+
 export const isScoreOnly = (quiz) => {
   switch (quiz) {
     case Quizzes.UKCounties:

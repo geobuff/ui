@@ -4,18 +4,24 @@ import PropTypes from "prop-types";
 import { Box, Divider, Flex, Text, Image } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
-// import twemoji from "twemoji";
 
-import { getTitle, getTotal, getVerb } from "../../helpers/quizzes";
+import {
+  getImageUrl,
+  getTitle,
+  getTotal,
+  getVerb,
+} from "../../helpers/quizzes";
+
+const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
-const GameCard = ({ quiz }) => {
+const QuizCard = ({ quiz }) => {
   return (
     <Flex
+      aria-label={`game card for ${getTitle(quiz)}`}
       role="group"
       direction="column"
-      aria-label={`game card for ${getTitle(quiz)}`}
       backgroundColor="white"
       borderRadius={12}
       width="100%"
@@ -23,10 +29,10 @@ const GameCard = ({ quiz }) => {
     >
       <Box position="absolute" top={0} left={0} right={0} bottom={0}>
         <Image
-          src="https://twemoji.maxcdn.com/v/13.0.1/svg/1f1fa-1f1f8.svg"
-          maxHeight={{ base: "75px", md: "85px" }}
-          minHeight={{ base: "75px", md: "85px" }}
-          backgroundColor="red"
+          src={getImageUrl(quiz)}
+          maxHeight={{ base: "75px", md: "90px" }}
+          minHeight={{ base: "75px", md: "90px" }}
+          backgroundColor="#E3E1E1"
           width="100%"
           borderTopLeftRadius={12}
           borderTopRightRadius={12}
@@ -63,8 +69,8 @@ const GameCard = ({ quiz }) => {
             <Flex alignItems="center">
               <Twemoji
                 emoji="⏱"
-                height={{ base: "10px", sm: "10px", md: "12px" }}
-                width={{ base: "10px", sm: "10px", md: "12px" }}
+                height={twemojiResponsiveStyles}
+                width={twemojiResponsiveStyles}
               />
               <Text
                 fontSize={{ base: "9px", sm: "9px", md: "11px" }}
@@ -77,8 +83,8 @@ const GameCard = ({ quiz }) => {
             <Flex alignItems="center">
               <Twemoji
                 emoji="❓"
-                height={{ base: "10px", sm: "10px", md: "12px" }}
-                width={{ base: "10px", sm: "10px", md: "12px" }}
+                height={twemojiResponsiveStyles}
+                width={twemojiResponsiveStyles}
               />
               <Text
                 fontSize={{ base: "9px", sm: "9px", md: "11px" }}
@@ -95,11 +101,11 @@ const GameCard = ({ quiz }) => {
   );
 };
 
-GameCard.propTypes = {
+QuizCard.propTypes = {
   quiz: PropTypes.number,
 };
-GameCard.defaultProps = {
+QuizCard.defaultProps = {
   quiz: 1,
 };
 
-export default GameCard;
+export default QuizCard;

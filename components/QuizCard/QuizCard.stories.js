@@ -1,18 +1,18 @@
 import React from "react";
-import GameCard from "./GameCard";
+import QuizCard from "./QuizCard";
 
 import { Box } from "@chakra-ui/react";
 
 import { Quizzes } from "../../helpers/quizzes";
 
 export default {
-  title: "UI/GameCard",
-  component: GameCard,
+  title: "UI/QuizCard",
+  component: QuizCard,
 };
 
 const Template = (args) => (
   <Box maxWidth="210px">
-    <GameCard {...args} />
+    <QuizCard {...args} />
   </Box>
 );
 
