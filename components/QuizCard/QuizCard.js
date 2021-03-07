@@ -1,9 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Box, Divider, Flex, Text, Image } from "@chakra-ui/react";
+import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
+import Image from "../Image";
 
 import {
   getImageUrl,
