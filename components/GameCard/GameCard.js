@@ -17,57 +17,72 @@ const GameCard = ({ quiz }) => {
       aria-label={`game card for ${getTitle(quiz)}`}
       backgroundColor="white"
       borderRadius={12}
-      //   minHeight="220px"
-      //   maxHeight="220px"
       width="100%"
       boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
     >
-      <Image
-        src="https://twemoji.maxcdn.com/v/13.0.1/svg/1f1fa-1f1f8.svg"
-        maxHeight="90px"
-        minHeight="90px"
-        backgroundColor="red"
-        width="100%"
-        borderTopLeftRadius={12}
-        borderTopRightRadius={12}
-        objectFit="cover"
-      />
-      <Box paddingTop="12px" paddingX="12px">
-        <Text
-          fontWeight="bold"
-          fontSize="18px"
-          marginBottom="16px"
-          minHeight="50px"
-          maxHeight="50px"
-          noOfLines={3}
-        >
-          {getTitle(quiz)}
-        </Text>
+      <Box position="absolute" top={0} left={0} right={0} bottom={0}>
+        <Image
+          src="https://twemoji.maxcdn.com/v/13.0.1/svg/1f1fa-1f1f8.svg"
+          maxHeight={{ base: "75px", md: "85px" }}
+          minHeight={{ base: "75px", md: "85px" }}
+          backgroundColor="red"
+          width="100%"
+          borderTopLeftRadius={12}
+          borderTopRightRadius={12}
+          objectFit="cover"
+        />
 
-        <Flex direction="column" justifyContent="flex-end" height="100%">
+        <Box paddingTop="12px" paddingX="12px">
+          <Text
+            fontWeight="bold"
+            fontSize="18px"
+            marginBottom="16px"
+            noOfLines={3}
+          >
+            {getTitle(quiz)}
+          </Text>
+        </Box>
+
+        <Box position="absolute" bottom={0} left={0} right={0}>
           {divider}
 
           <Flex
             justifyContent="space-between"
             alignItems="center"
-            marginTop="7px"
-            marginBottom="6px"
-            marginX="4px"
+            marginTop="8px"
+            marginBottom="8px"
+            marginX="12px"
           >
-            <Flex>
-              <Twemoji emoji="⏱" height="12px" width="12px" />
-              <Text fontSize="10px" fontWeight="bold" marginLeft={2}>
-                {"15:00 minutes"}
+            <Flex alignItems="center">
+              <Twemoji
+                emoji="⏱"
+                height={{ base: "10px", sm: "10px", md: "12px" }}
+                width={{ base: "10px", sm: "10px", md: "12px" }}
+              />
+              <Text
+                fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+                fontWeight="bold"
+                marginLeft="2.5px"
+              >
+                {"15:00 mins"}
               </Text>
             </Flex>
-            <Flex>
-              <Twemoji emoji="❓" height="12px" width="12px" />
-              <Text fontSize="10px" fontWeight="bold" marginLeft={2}>
+            <Flex alignItems="center">
+              <Twemoji
+                emoji="❓"
+                height={{ base: "10px", sm: "10px", md: "12px" }}
+                width={{ base: "10px", sm: "10px", md: "12px" }}
+              />
+              <Text
+                fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+                fontWeight="bold"
+                marginLeft="2.5px"
+              >
                 {`${getTotal(quiz)} ${getVerb(quiz)}`}
               </Text>
             </Flex>
           </Flex>
-        </Flex>
+        </Box>
       </Box>
     </Flex>
   );
