@@ -35,6 +35,21 @@ export const getTotal = (quiz) => {
   }
 };
 
+export const getTime = (quiz) => {
+  switch (quiz) {
+    case Quizzes.CountriesOfTheWorld:
+      return 900;
+    case Quizzes.CapitalsOfTheWorld:
+      return 900;
+    case Quizzes.USStates:
+      return 300;
+    case Quizzes.UKCounties:
+      return 300;
+    default:
+      return 900;
+  }
+};
+
 export const getTitle = (quiz) => {
   switch (quiz) {
     case Quizzes.CountriesOfTheWorld:

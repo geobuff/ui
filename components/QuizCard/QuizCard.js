@@ -8,10 +8,12 @@ import Image from "../Image";
 
 import {
   getImageUrl,
+  getTime,
   getTitle,
   getTotal,
   getVerb,
 } from "../../helpers/quizzes";
+import { secondsToMinutesString } from "../../helpers/time";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
@@ -78,7 +80,7 @@ const QuizCard = ({ quiz }) => {
                 fontWeight="bold"
                 marginLeft="2.5px"
               >
-                {"15:00 mins"}
+                {`${secondsToMinutesString(getTime(quiz))} mins`}
               </Text>
             </Flex>
             <Flex alignItems="center">
