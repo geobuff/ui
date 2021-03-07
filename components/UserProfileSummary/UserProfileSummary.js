@@ -17,6 +17,8 @@ import {
   useToast,
 } from "@chakra-ui/react";
 
+import { getLevel, getLevelCompletion } from "../../helpers/gamification";
+
 const UserProfileSummary = ({
   user,
   countries,
@@ -25,6 +27,7 @@ const UserProfileSummary = ({
   setUpdated,
 }) => {
   const toast = useToast();
+  const level = getLevel(user.xp);
   const [countryCode, setCountryCode] = useState(user.countryCode);
   const [countryAction, setCountryAction] = useState(
     user.countryCode ? "UPDATE" : "SAVE"
@@ -59,11 +62,16 @@ const UserProfileSummary = ({
       <Divider />
       <Box mt={6} mb={9}>
         <Flex mb={3}>
-          <Text fontWeight="bold">1</Text>
+          <Text fontWeight="bold">{level}</Text>
           <Spacer />
-          <Text fontWeight="bold">2</Text>
+          <Text fontWeight="bold">{level + 1}</Text>
         </Flex>
-        <Progress hasStripe value={69} colorScheme="green" />
+        <Progress
+          hasStripe
+          size="lg"
+          value={getLevelCompletion(user.xp)}
+          colorScheme="green"
+        />
       </Box>
       <FormControl my={6}>
         <FormLabel>Username</FormLabel>
@@ -79,8 +87,10 @@ const UserProfileSummary = ({
           <Select
             value={countryCode}
             onChange={(e) => setCountryCode(e.target.value)}
-            placeholder="Please select a country..."
           >
+            <option value="" disabled>
+              Please select a country...
+            </option>
             {countries.map((x) => (
               <option key={x.code} value={x.code}>
                 {x.svgName}
@@ -91,7 +101,7 @@ const UserProfileSummary = ({
         <Box mt="auto">
           <Button
             mx={6}
-            disabled={countryCode && countryCode === user.countryCode}
+            disabled={!countryCode || countryCode === user.countryCode}
             onClick={() => submitCountry(countryCode)}
           >
             {countryAction}

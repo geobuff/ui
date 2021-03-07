@@ -3,6 +3,8 @@ import PropTypes from "prop-types";
 import { Alert } from "@chakra-ui/react";
 import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 
+import Twemoji from "../Twemoji";
+import flag from "country-code-emoji";
 import { secondsToMinutesString } from "../../helpers/time";
 
 const LeaderboardTable = ({ page, limit, entries }) => {
@@ -28,7 +30,10 @@ const LeaderboardTable = ({ page, limit, entries }) => {
         {entries.map((entry, index) => (
           <Tr key={index}>
             <Td>{page * limit + index + 1}</Td>
-            <Td>{entry.username}</Td>
+            <Td>
+              {entry.countryCode && <Twemoji emoji={flag(entry.countryCode)} />}{" "}
+              {entry.username}
+            </Td>
             <Td>{secondsToMinutesString(entry.time)}</Td>
             <Td>{entry.score}</Td>
           </Tr>
