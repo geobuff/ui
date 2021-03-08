@@ -5,7 +5,6 @@ import { useToast } from "@chakra-ui/react";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import GameOverModal from "../../components/GameOverModal";
-import { getApiPath, isScoreOnly } from "../../helpers/quizzes";
 import { getLevel } from "../../helpers/gamification";
 
 const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
@@ -34,7 +33,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     }).then((token) => {
       increaseXP(token, 10);
       handleScore(token);
-      if (isScoreOnly(quiz)) {
+      if (!quiz.hasLeaderboard) {
         setLoading(false);
       } else {
         getLeaderboardEntry(user.id);
@@ -89,7 +88,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/scores/${user.id}/${quiz}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/scores/${user.id}/${quiz.id}`,
       params
     ).then((response) => {
       if (response.status === 204) {
@@ -110,7 +109,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const createScore = (token) => {
     const result = {
       userId: user.id,
-      quizId: quiz,
+      quizId: quiz.id,
       score: score,
       time: time,
     };
@@ -133,7 +132,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const updateScore = (token, existing) => {
     const update = {
       userId: existing.userId,
-      quizId: quiz,
+      quizId: quiz.id,
       score: score,
       time: time,
     };
@@ -165,9 +164,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
 
   const getLeaderboardEntry = () => {
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard/${
-        user.id
-      }`
+      `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard/${user.id}`
     ).then((response) => {
       if (response.status !== 200) {
         setLoading(false);
@@ -211,7 +208,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard`,
+      `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard`,
       params
     )
       .then((response) => response.json())
@@ -239,9 +236,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard/${
-        existingEntry.id
-      }`,
+      `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard/${existingEntry.id}`,
       params
     )
       .then((response) => response.json())
@@ -275,14 +270,24 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       existingEntry={entry}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={!isScoreOnly(quiz) && handleSubmitEntry}
+      onSubmit={quiz.hasLeaderboard && handleSubmitEntry}
       submitting={submitting}
     />
   );
 };
 
 GameOverModalContainer.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   score: PropTypes.number,
   time: PropTypes.number,
   isOpen: PropTypes.bool,

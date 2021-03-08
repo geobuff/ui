@@ -9,9 +9,9 @@ import { Quizzes } from "../../helpers/quizzes";
 import FlagFallback from "./FlagFallback";
 import CustomFlag from "./CustomFlag";
 
-const ResultsListItem = ({ quiz, code, isHidden, svgName, ...props }) => {
+const ResultsListItem = ({ quizId, code, isHidden, svgName, ...props }) => {
   const getFlagElement = () => {
-    switch (quiz) {
+    switch (quizId) {
       case Quizzes.CountriesOfTheWorld:
       case Quizzes.CapitalsOfTheWorld:
         return <Twemoji emoji={flag(code)} />;
@@ -20,7 +20,7 @@ const ResultsListItem = ({ quiz, code, isHidden, svgName, ...props }) => {
       case Quizzes.USStates:
         return <CustomFlag url={getUSStateFlagUrl(code)} />;
       default:
-        throw Error("Invalid quiz value.");
+        throw Error("Invalid quizId value.");
     }
   };
 
@@ -39,7 +39,7 @@ const ResultsListItem = ({ quiz, code, isHidden, svgName, ...props }) => {
 };
 
 ResultsListItem.propTypes = {
-  quiz: PropTypes.number,
+  quizId: PropTypes.number,
   code: PropTypes.string,
   isHidden: PropTypes.bool,
   svgName: PropTypes.string,

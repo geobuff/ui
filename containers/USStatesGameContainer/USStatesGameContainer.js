@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import USStatesGame from "../../games/USStatesGame";
 import useStates from "../../hooks/UseStates";
+import useQuiz from "../../hooks/UseQuiz";
 
-const USStatesGameContainer = () => {
-  const { allStates } = useStates();
+const USStatesGameContainer = ({ id }) => {
+  const { allStates, loadingStates } = useStates();
+  const { quiz, loadingQuiz } = useQuiz(id);
 
   const [checkedStates, setCheckedStates] = useState([]);
   const [recentStates, setRecentStates] = useState([]);
@@ -81,8 +84,13 @@ const USStatesGameContainer = () => {
     setScore(0);
   };
 
+  if (loadingStates || loadingQuiz) {
+    return null;
+  }
+
   return (
     <USStatesGame
+      quiz={quiz}
       checkedStates={checkedStates}
       recentStates={recentStates}
       score={score}
@@ -95,6 +103,10 @@ const USStatesGameContainer = () => {
       resetGame={resetGame}
     />
   );
+};
+
+USStatesGameContainer.propTypes = {
+  id: PropTypes.number,
 };
 
 export default USStatesGameContainer;

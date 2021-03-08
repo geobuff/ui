@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import CountriesOfTheWorldGame from "../../games/CountriesOfTheWorldGame";
 import useCountries from "../../hooks/UseCountries";
+import useQuiz from "../../hooks/UseQuiz";
 
-const CountriesOfTheWorldGameContainer = () => {
-  const { allCountries } = useCountries();
+const CountriesOfTheWorldGameContainer = ({ id }) => {
+  const { allCountries, loadingCountries } = useCountries();
+  const { quiz, loadingQuiz } = useQuiz(id);
 
   const [checkedCountries, setCheckedCountries] = useState([]);
   const [errorMessage, setErrorMessage] = useState();
@@ -81,8 +84,13 @@ const CountriesOfTheWorldGameContainer = () => {
     setScore(0);
   };
 
+  if (loadingCountries || loadingQuiz) {
+    return null;
+  }
+
   return (
     <CountriesOfTheWorldGame
+      quiz={quiz}
       checkedCountries={checkedCountries}
       errorMessage={errorMessage}
       hasError={hasError}
@@ -95,6 +103,10 @@ const CountriesOfTheWorldGameContainer = () => {
       resetGame={resetGame}
     />
   );
+};
+
+CountriesOfTheWorldGameContainer.propTypes = {
+  id: PropTypes.number,
 };
 
 export default CountriesOfTheWorldGameContainer;

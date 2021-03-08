@@ -1,10 +1,13 @@
 import React, { useState } from "react";
+import PropTypes from "prop-types";
 
 import CapitalsOfTheWorldGame from "../../games/CapitalsOfTheWorldGame";
 import useCapitals from "../../hooks/UseCapitals";
+import useQuiz from "../../hooks/UseQuiz";
 
-const CapitalsOfTheWorldGameContainer = () => {
-  const { allCapitals } = useCapitals();
+const CapitalsOfTheWorldGameContainer = ({ id }) => {
+  const { allCapitals, loadingCapitals } = useCapitals();
+  const { quiz, loadingQuiz } = useQuiz(id);
 
   const [checkedCapitals, setCheckedCapitals] = useState([]);
   const [errorMessage, setErrorMessage] = useState();
@@ -81,8 +84,13 @@ const CapitalsOfTheWorldGameContainer = () => {
     setScore(0);
   };
 
+  if (loadingCapitals || loadingQuiz) {
+    return null;
+  }
+
   return (
     <CapitalsOfTheWorldGame
+      quiz={quiz}
       checkedCapitals={checkedCapitals}
       errorMessage={errorMessage}
       hasError={hasError}
@@ -95,6 +103,10 @@ const CapitalsOfTheWorldGameContainer = () => {
       resetGame={resetGame}
     />
   );
+};
+
+CapitalsOfTheWorldGameContainer.propTypes = {
+  id: PropTypes.number,
 };
 
 export default CapitalsOfTheWorldGameContainer;

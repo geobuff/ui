@@ -19,11 +19,11 @@ import Sidebar from "../../components/Sidebar";
 import GameOverModalContainer from "../../containers/GameOverModalContainer/GameOverModalContainer";
 import MapInteractionCSS from "../../components/MapInteractionCSS";
 
-import { Quizzes, getTitle } from "../../helpers/quizzes";
 import { timeFifteenMinutes } from "../../helpers/time";
 import { useTimer } from "react-timer-hook";
 
 const CountriesOfTheWorldGame = ({
+  quiz,
   checkedCountries,
   recentCountries,
   score,
@@ -111,7 +111,7 @@ const CountriesOfTheWorldGame = ({
   return (
     <Box width="100%" height="100vh" backgroundColor="#276F86">
       <GameOverModalContainer
-        quiz={Quizzes.CountriesOfTheWorld}
+        quiz={quiz}
         score={score}
         time={time}
         isOpen={isOpen}
@@ -120,7 +120,7 @@ const CountriesOfTheWorldGame = ({
 
       {shouldDisplayOnMobile && (
         <GameInputBanner
-          quiz={Quizzes.CountriesOfTheWorld}
+          quiz={quiz.id}
           score={score}
           errorMessage={errorMessage}
           expiryTimestamp={{ seconds, minutes }}
@@ -135,10 +135,10 @@ const CountriesOfTheWorldGame = ({
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box height="100%">
-            <Sidebar heading={getTitle(Quizzes.CountriesOfTheWorld)}>
+            <Sidebar heading={quiz.name}>
               <Box>
                 <GameInputCard
-                  quiz={Quizzes.CountriesOfTheWorld}
+                  quiz={quiz}
                   recents={recentCountries}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
@@ -153,6 +153,7 @@ const CountriesOfTheWorldGame = ({
                   onGameStop={handleGameStop}
                 />
                 <CountryResultsListContainer
+                  quiz={quiz}
                   checkedCountries={checkedCountries}
                 />
               </Box>
@@ -184,7 +185,7 @@ const CountriesOfTheWorldGame = ({
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
-              quiz={Quizzes.CountriesOfTheWorld}
+              quiz={quiz}
               checked={checkedCountries}
               recents={recentCountries}
               hasGameStarted={hasGameStarted}
@@ -200,6 +201,17 @@ const CountriesOfTheWorldGame = ({
 };
 
 CountriesOfTheWorldGame.propTypes = {
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   checkedCountries: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -223,6 +235,7 @@ CountriesOfTheWorldGame.propTypes = {
 };
 
 CountriesOfTheWorldGame.defaultProps = {
+  quiz: {},
   checkedCountries: [],
   recentCountries: [],
   score: 0,

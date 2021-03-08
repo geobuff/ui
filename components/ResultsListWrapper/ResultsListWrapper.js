@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import { Box, Divider, Text } from "@chakra-ui/react";
 
 import ResultsList from "../../components/ResultsList/ResultsList";
-import { Quizzes } from "../../helpers/quizzes";
 
 const ResultsListWrapper = ({ quiz, results }) => (
   <Box textAlign="left">
@@ -19,11 +18,21 @@ const ResultsListWrapper = ({ quiz, results }) => (
 );
 
 ResultsListWrapper.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   results: PropTypes.array,
 };
 ResultsListWrapper.defaultProps = {
-  quiz: Quizzes.USStates,
+  quiz: {},
   results: [],
 };
 
