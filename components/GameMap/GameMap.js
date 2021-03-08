@@ -12,19 +12,19 @@ const GameMap = ({ showTooltip, map, onLocationClassName }) => {
   const [tooltipLeft, setTooltipLeft] = useState(0);
 
   const mouseOver = (event) => {
-    if (showTooltip) return;
+    if (!showTooltip) return;
     setTooltipText(event.target.getAttribute("name"));
   };
 
   const mouseMove = (event) => {
-    if (showTooltip || !tooltipText) return;
+    if (!showTooltip || !tooltipText) return;
     setTooltipOpen(true);
     setTooltipTop(event.clientY + 10);
     setTooltipLeft(event.clientX - 100);
   };
 
   const mouseOut = () => {
-    if (showTooltip) return;
+    if (!showTooltip) return;
     setTooltipText(null);
     setTooltipOpen(false);
   };

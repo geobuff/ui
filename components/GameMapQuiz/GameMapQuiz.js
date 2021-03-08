@@ -2,14 +2,7 @@ import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { debounce } from "debounce";
 
-import {
-  Box,
-  Flex,
-  useBreakpointValue,
-  useDisclosure,
-  Tooltip,
-} from "@chakra-ui/react";
-import { SVGMap } from "react-svg-map";
+import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 
 import CountryResultsListContainer from "../../containers/CountryResultsListContainer";
 import GameBottomSheetModal from "../GameBottomSheetModal";
@@ -18,7 +11,6 @@ import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
 
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
-import MapInteractionCSS from "../MapInteractionCSS";
 
 import { timeFifteenMinutes } from "../../helpers/time";
 import { useTimer } from "react-timer-hook";
@@ -44,11 +36,6 @@ const GameMapQuiz = ({
   const [time, setTime] = useState(0);
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
-  const [tooltipText, setTooltipText] = useState();
-  const [tooltipOpen, setTooltipOpen] = useState(false);
-  const [tooltipTop, setTooltipTop] = useState(0);
-  const [tooltipLeft, setTooltipLeft] = useState(0);
-
   const [gameStartText, setGameStartText] = useState("START");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -59,7 +46,7 @@ const GameMapQuiz = ({
     timeRemaining,
   });
 
-  const getLocationClassName = (location) => {
+  const handleLocationClassName = (location) => {
     if (
       checkedCountries.length
         ? checkedCountries.find(
@@ -93,24 +80,6 @@ const GameMapQuiz = ({
     if (gameStartText === "START") {
       setGameStartText("RETRY");
     }
-  };
-
-  const mouseOver = (event) => {
-    if (hasGameStarted) return;
-    setTooltipText(event.target.getAttribute("name"));
-  };
-
-  const mouseMove = (event) => {
-    if (hasGameStarted || !tooltipText) return;
-    setTooltipOpen(true);
-    setTooltipTop(event.clientY + 10);
-    setTooltipLeft(event.clientX - 100);
-  };
-
-  const mouseOut = () => {
-    if (hasGameStarted) return;
-    setTooltipText(null);
-    setTooltipOpen(false);
   };
 
   return (
@@ -169,7 +138,7 @@ const GameMapQuiz = ({
         <GameMap
           map={map}
           showTooltip={!hasGameStarted}
-          onLocationClassName={getLocationClassName}
+          onLocationClassName={handleLocationClassName}
         />
 
         {shouldDisplayOnMobile && (
@@ -220,6 +189,7 @@ GameMapQuiz.propTypes = {
   onChangeInputValue: PropTypes.func,
   onClearInput: PropTypes.func,
   resetGame: PropTypes.func,
+  map: PropTypes.any,
 };
 
 GameMapQuiz.defaultProps = {
@@ -234,6 +204,7 @@ GameMapQuiz.defaultProps = {
   onChangeInputValue: () => {},
   onClearInput: () => {},
   resetGame: () => {},
+  map: null,
 };
 
 export default GameMapQuiz;

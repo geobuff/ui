@@ -3,30 +3,36 @@ import PropTypes from "prop-types";
 
 import GameMapQuiz from "../../components/GameMapQuiz";
 
-import useCountries from "../../hooks/UseCountries";
 import useQuiz from "../../hooks/UseQuiz";
 import { getMapById } from "../../helpers/quizzes";
+import { flattenCountries } from "../../helpers/game";
 
 const GameMapQuizContainer = ({ id }) => {
-  const { allCountries, loadingCountries } = useCountries();
+  const { quiz, loading: loadingQuiz, data } = useQuiz(id);
 
-  const { quiz, loadingQuiz } = useQuiz(id);
+  const submissions = flattenCountries(data);
 
-  const [checkedCountries, setCheckedCountries] = useState([]);
-  const [errorMessage, setErrorMessage] = useState();
+  const [checkedSubmissions, setCheckedSubmissions] = useState([]);
+
+  const [recentSubmissions, setRecentSubmissions] = useState([]);
+
+  const [errorMessage, setErrorMessage] = useState("");
+
   const [hasError, setHasError] = useState(false);
+
   const [inputValue, setInputValue] = useState("");
-  const [recentCountries, setRecentCountries] = useState([]);
+
   const [score, setScore] = useState(0);
 
-  const findCountryByName = (collection, countryName) =>
+  const findSubmissionByName = (collection, submissionName) =>
     collection?.find(
-      (country) => country.name.toLowerCase() === countryName.toLowerCase()
+      (submission) =>
+        submission.name.toLowerCase() === submissionName.toLowerCase()
     );
 
-  const findCountriesByPrefixes = (collection, countryName) =>
-    collection.filter((country) =>
-      country.prefixes.includes(countryName.toLowerCase())
+  const findSubmissionsByPrefixes = (collection, submissionName) =>
+    collection.filter((submission) =>
+      submission.prefixes.includes(submissionName.toLowerCase())
     );
 
   const handleChangeInputValue = (value) => {
@@ -39,39 +45,42 @@ const GameMapQuizContainer = ({ id }) => {
       setErrorMessage("");
     }
 
-    const matchedPrefixes = findCountriesByPrefixes(allCountries, countryName);
-    const isChecked = findCountryByName(checkedCountries, countryName);
+    const matchedPrefixes = findSubmissionsByPrefixes(submissions, countryName);
+    const isChecked = findSubmissionByName(checkedSubmissions, countryName);
 
     if (isChecked && matchedPrefixes.length > 0) {
       return;
     }
 
-    const matchedCountry = findCountryByName(allCountries, countryName);
+    const matchedSubmission = findSubmissionByName(submissions, countryName);
 
-    if (matchedCountry && isChecked) {
+    if (matchedSubmission && isChecked) {
       setHasError(true);
-      setErrorMessage(`${matchedCountry.svgName} has already been answered!`);
+      setErrorMessage(
+        `${matchedSubmission.svgName} has already been answered!`
+      );
     }
 
-    if (matchedCountry && !isChecked) {
+    if (matchedSubmission && !isChecked) {
       setErrorMessage("");
       setHasError(false);
       setInputValue("");
+
       const updatedCheckedCountries = [
-        ...checkedCountries,
-        { ...matchedCountry, checked: true },
+        ...checkedSubmissions,
+        { ...matchedSubmission, checked: true },
       ];
 
       const updatedRecentCountries =
         updatedCheckedCountries.length > 3
           ? updatedCheckedCountries.slice(
-              Math.max([...checkedCountries, matchedCountry].length - 3, 1)
+              Math.max([...checkedSubmissions, matchedSubmission].length - 3, 1)
             )
           : updatedCheckedCountries;
 
       setScore(updatedCheckedCountries.length);
-      setRecentCountries(updatedRecentCountries.reverse());
-      setCheckedCountries(updatedCheckedCountries);
+      setRecentSubmissions(updatedRecentCountries.reverse());
+      setCheckedSubmissions(updatedCheckedCountries);
     }
   };
 
@@ -82,12 +91,12 @@ const GameMapQuizContainer = ({ id }) => {
   };
 
   const resetGame = () => {
-    setCheckedCountries([]);
-    setRecentCountries([]);
+    setCheckedSubmissions([]);
+    setRecentSubmissions([]);
     setScore(0);
   };
 
-  if (loadingCountries || loadingQuiz) {
+  if (loadingQuiz) {
     return null;
   }
 
@@ -95,14 +104,14 @@ const GameMapQuizContainer = ({ id }) => {
     <GameMapQuiz
       quiz={quiz}
       map={getMapById(id)}
-      checkedCountries={checkedCountries}
+      checkedCountries={checkedSubmissions}
       errorMessage={errorMessage}
       hasError={hasError}
       inputValue={inputValue}
       onChange={handleChange}
       onChangeInputValue={handleChangeInputValue}
       onClearInput={handleClearInput}
-      recentCountries={recentCountries}
+      recentCountries={recentSubmissions}
       score={score}
       resetGame={resetGame}
     />

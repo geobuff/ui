@@ -20,7 +20,7 @@ const ResultsListItem = ({ quizId, code, isHidden, svgName, ...props }) => {
       case Quizzes.USStates:
         return <CustomFlag url={getUSStateFlagUrl(code)} />;
       default:
-        throw Error("Invalid quizId value.");
+        return null;
     }
   };
 
