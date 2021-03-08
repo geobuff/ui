@@ -28,11 +28,13 @@ Twemoji.propTypes = {
     PropTypes.string,
     PropTypes.number,
     PropTypes.array,
+    PropTypes.object,
   ]),
   width: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
     PropTypes.array,
+    PropTypes.object,
   ]),
 };
 

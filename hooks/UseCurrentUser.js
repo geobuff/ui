@@ -10,23 +10,27 @@ const useCurrentUser = () => {
     getAccessTokenSilently,
   } = useAuth0();
 
+  const [isLoading, setIsLoading] = useState(true);
+
   const [user, setUser] = useState(() => {
-    if (typeof window !== "undefined") {
-      return {
-        id: parseInt(window.localStorage.getItem("geobuff.id")),
-        username: window.localStorage.getItem("geobuff.username"),
-        countryCode: window.localStorage.getItem("geobuff.countryCode"),
-        xp: parseInt(window.localStorage.getItem("geobuff.xp")),
-        email: window.localStorage.getItem("geobuff.email"),
-        picture: window.localStorage.getItem("geobuff.picture"),
-        updatedAt: window.localStorage.getItem("geobuff.updatedAt"),
-      };
-    } else {
+    if (typeof window === "undefined") {
       return null;
     }
-  });
 
-  const [isLoading, setIsLoading] = useState(true);
+    if (!window.localStorage.getItem("geobuff.id")) {
+      return null;
+    }
+
+    return {
+      id: parseInt(window.localStorage.getItem("geobuff.id")),
+      username: window.localStorage.getItem("geobuff.username"),
+      countryCode: window.localStorage.getItem("geobuff.countryCode"),
+      xp: parseInt(window.localStorage.getItem("geobuff.xp")),
+      email: window.localStorage.getItem("geobuff.email"),
+      picture: window.localStorage.getItem("geobuff.picture"),
+      updatedAt: window.localStorage.getItem("geobuff.updatedAt"),
+    };
+  });
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -75,9 +79,17 @@ const useCurrentUser = () => {
     });
   };
 
+  const clearUser = () => {
+    if (typeof window !== "undefined") {
+      window.localStorage.clear();
+    }
+    setUser(null);
+  };
+
   return {
     isLoading,
     user,
+    clearUser,
   };
 };
 
