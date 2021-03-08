@@ -53,8 +53,8 @@ const Home = () => {
               <Search
                 marginTop="8px"
                 marginLeft="14px"
-                height="26px"
-                width="26px"
+                height="24px"
+                width="24px"
                 color="gray.500"
               />
             </InputLeftElement>
