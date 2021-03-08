@@ -3,27 +3,30 @@ import PropTypes from "prop-types";
 
 import LeaderboardTable from "../../components/LeaderboardTable";
 import LeaderboardTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder";
-import { getApiPath } from "../../helpers/quizzes";
+import useQuiz from "../../hooks/UseQuiz";
 
-const LeaderboardTableContainer = ({ quiz, filterParams, setHasMore }) => {
+const LeaderboardTableContainer = ({ quizId, filterParams, setHasMore }) => {
+  const { quiz, loading } = useQuiz(quizId);
   const [entries, setEntries] = useState();
 
   useEffect(() => {
-    const params = {
-      method: "POST",
-      body: JSON.stringify(filterParams),
-    };
+    if (!loading) {
+      const params = {
+        method: "POST",
+        body: JSON.stringify(filterParams),
+      };
 
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard/all`,
-      params
-    )
-      .then((response) => response.json())
-      .then((data) => {
-        setHasMore(data.hasMore);
-        setEntries(data.entries);
-      });
-  }, [quiz, filterParams]);
+      fetch(
+        `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard/all`,
+        params
+      )
+        .then((response) => response.json())
+        .then((data) => {
+          setHasMore(data.hasMore);
+          setEntries(data.entries);
+        });
+    }
+  }, [quizId, loading, filterParams]);
 
   if (!entries) {
     return <LeaderboardTablePlaceholder noOfLines={filterParams.limit} />;
@@ -39,7 +42,7 @@ const LeaderboardTableContainer = ({ quiz, filterParams, setHasMore }) => {
 };
 
 LeaderboardTableContainer.propTypes = {
-  quiz: PropTypes.number,
+  quizId: PropTypes.number,
   filterParams: PropTypes.shape({
     page: PropTypes.number,
     limit: PropTypes.number,

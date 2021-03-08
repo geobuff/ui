@@ -95,7 +95,7 @@ const Leaderboard = () => {
           <Box borderRadius={12} p={5} background="#FFFFFF">
             <Box p={5}>
               <LeaderboardTableContainer
-                quiz={quiz}
+                quizId={quiz}
                 filterParams={filterParams}
                 setHasMore={setHasMore}
               />
