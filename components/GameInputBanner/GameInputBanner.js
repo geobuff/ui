@@ -93,6 +93,7 @@ GameInputBanner.propTypes = {
     id: PropTypes.number,
     name: PropTypes.string,
     maxScore: PropTypes.number,
+    time: PropTypes.number,
     imageUrl: PropTypes.string,
     verb: PropTypes.string,
     apiPath: PropTypes.string,
