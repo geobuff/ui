@@ -19,15 +19,26 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 const UserAvatarMenu = () => {
   const [isUserLoading, setIsUserLoading] = useState(true);
 
-  const { loginWithRedirect, logout } = useAuth0();
-  const { user } = useCurrentUser();
+  const { loginWithRedirect, logout, isLoading } = useAuth0();
+  const { user, clearUser } = useCurrentUser();
   const router = useRouter();
+
+  const logoutUser = () => {
+    logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URI });
+    clearUser();
+  };
 
   // Don't need to wait for Auth0 user if
   // we can retrieve user from localStorage
   useEffect(() => {
-    user && setIsUserLoading(false);
-  }, [user]);
+    if (user) {
+      setIsUserLoading(false);
+    }
+
+    if (!isLoading && !user) {
+      setIsUserLoading(false);
+    }
+  }, [user, isLoading]);
 
   if (isUserLoading) {
     return <SkeletonCircle height="36px" width="36px" />;
@@ -63,13 +74,7 @@ const UserAvatarMenu = () => {
           </MenuItem>
 
           <MenuDivider />
-          <MenuItem
-            onClick={() =>
-              logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URI })
-            }
-          >
-            {"Logout"}
-          </MenuItem>
+          <MenuItem onClick={logoutUser}>{"Logout"}</MenuItem>
         </MenuList>
       </Menu>
     );
