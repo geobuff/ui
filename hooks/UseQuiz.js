@@ -3,14 +3,14 @@ import { useEffect, useState } from "react";
 const useQuiz = (id) => {
   const [quiz, setQuiz] = useState([]);
   const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes/${id}`)
       .then((response) => response.json())
       .then((quiz) => {
         setQuiz(quiz);
-        setLoading(false);
+        setIsLoading(false);
       });
   }, []);
 
@@ -26,7 +26,7 @@ const useQuiz = (id) => {
 
   return {
     quiz: quiz,
-    loading: loading,
+    isLoading: isLoading,
     data: data,
   };
 };

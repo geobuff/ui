@@ -19,39 +19,67 @@ import GameMap from "../GameMap/GameMap";
 const GameMapQuiz = ({
   quiz,
   map,
-  checkedCountries,
-  recentCountries,
-  score,
-  errorMessage,
-  hasError,
-  inputValue,
-  onChange,
-  onChangeInputValue,
+  submissions,
+  // checkedSubmissions,
+  // recentSubmissions,
+  // score,
+  // errorMessage,
+  // hasError,
+  // inputValue,
+  // onChange,
+  // onChangeInputValue,
   onClearInput,
   resetGame,
 }) => {
-  const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
+  const [checkedSubmissions, setCheckedSubmissions] = useState([]);
 
-  const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
-  const [time, setTime] = useState(0);
+  const [recentSubmissions, setRecentSubmissions] = useState([]);
+
+  const [errorMessage, setErrorMessage] = useState("");
+
+  const [hasError, setHasError] = useState(false);
+
+  const [score, setScore] = useState(0);
+
+  const [inputValue, setInputValue] = useState("");
+
   const [hasGameStarted, setHasGameStarted] = useState(false);
 
+  const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+
+  const [time, setTime] = useState(0);
+
+  // TODO: km - Remove state
   const [gameStartText, setGameStartText] = useState("START");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const handleDebounceChange = useCallback(debounce(onChange, 30), [onChange]);
+  const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const { seconds, minutes, restart, pause } = useTimer({
     timeRemaining,
   });
 
+  // const handleDebounceChange = useCallback(debounce(handleChange, 30), [
+  //   handleChange,
+  // ]);
+
+  const findSubmissionByName = (collection, submissionName) =>
+    collection?.find(
+      (submission) =>
+        submission.name.toLowerCase() === submissionName.toLowerCase()
+    );
+
+  const findSubmissionsByPrefixes = (collection, submissionName) =>
+    collection.filter((submission) =>
+      submission.prefixes.includes(submissionName.toLowerCase())
+    );
+
   const handleLocationClassName = (location) => {
     if (
-      checkedCountries.length
-        ? checkedCountries.find(
-            (country) =>
-              country.name.toLowerCase() === location.name.toLowerCase()
+      checkedSubmissions.length
+        ? checkedSubmissions.find(
+            (submission) =>
+              submission.name.toLowerCase() === location.name.toLowerCase()
           )
         : false
     ) {
@@ -60,8 +88,54 @@ const GameMapQuiz = ({
   };
 
   const handleChange = (event) => {
-    onChangeInputValue(event.target.value);
-    handleDebounceChange(event.target.value);
+    const countryName = event.currentTarget.value;
+
+    setInputValue(countryName);
+
+    if (!countryName) {
+      setHasError(false);
+      setErrorMessage("");
+    }
+
+    console.log(countryName, "countryName");
+
+    const matchedPrefixes = findSubmissionsByPrefixes(submissions, countryName);
+    const isChecked = findSubmissionByName(checkedSubmissions, countryName);
+
+    if (isChecked && matchedPrefixes.length > 0) {
+      return;
+    }
+
+    const matchedSubmission = findSubmissionByName(submissions, countryName);
+
+    if (matchedSubmission && isChecked) {
+      setHasError(true);
+      setErrorMessage(
+        `${matchedSubmission.svgName} has already been answered!`
+      );
+    }
+
+    if (matchedSubmission && !isChecked) {
+      setErrorMessage("");
+      setHasError(false);
+      setInputValue("");
+
+      const updatedCheckedCountries = [
+        ...checkedSubmissions,
+        { ...matchedSubmission, checked: true },
+      ];
+
+      const updatedRecentCountries =
+        updatedCheckedCountries.length > 3
+          ? updatedCheckedCountries.slice(
+              Math.max([...checkedSubmissions, matchedSubmission].length - 3, 1)
+            )
+          : updatedCheckedCountries;
+
+      setScore(updatedCheckedCountries.length);
+      setRecentSubmissions(updatedRecentCountries.reverse());
+      setCheckedSubmissions(updatedCheckedCountries);
+    }
   };
 
   const handleGameStart = () => {
@@ -113,7 +187,7 @@ const GameMapQuiz = ({
               <Box>
                 <GameInputCard
                   quiz={quiz}
-                  recents={recentCountries}
+                  recents={recentSubmissions}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
                   gameStartText={gameStartText}
@@ -128,7 +202,7 @@ const GameMapQuiz = ({
                 />
                 <CountryResultsListContainer
                   quiz={quiz}
-                  checkedCountries={checkedCountries}
+                  checkedCountries={checkedSubmissions}
                 />
               </Box>
             </Sidebar>
@@ -144,8 +218,8 @@ const GameMapQuiz = ({
         {shouldDisplayOnMobile && (
           <GameBottomSheetModal
             quiz={quiz}
-            checked={checkedCountries}
-            recents={recentCountries}
+            checked={checkedSubmissions}
+            recents={recentSubmissions}
             hasGameStarted={hasGameStarted}
             gameStartText={gameStartText}
             onGameStart={handleGameStart}
@@ -158,6 +232,8 @@ const GameMapQuiz = ({
 };
 
 GameMapQuiz.propTypes = {
+  // TODO: proptypes
+  submissions: PropTypes.any,
   quiz: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
@@ -169,13 +245,13 @@ GameMapQuiz.propTypes = {
     hasLeaderboard: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
-  checkedCountries: PropTypes.arrayOf(
+  checkedSubmissions: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
     })
   ),
-  recentCountries: PropTypes.arrayOf(
+  recentSubmissions: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
@@ -193,9 +269,10 @@ GameMapQuiz.propTypes = {
 };
 
 GameMapQuiz.defaultProps = {
+  submissions: [],
   quiz: {},
-  checkedCountries: [],
-  recentCountries: [],
+  checkedSubmissions: [],
+  recentSubmissions: [],
   score: 0,
   errorMessage: "",
   hasError: false,
