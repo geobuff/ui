@@ -49,7 +49,7 @@ const QuizList = ({ quizzes }) => (
                 transition="all 150ms ease-out"
                 _hover={{ transform: "scale(1.030)" }}
               >
-                <QuizCard quiz={quiz.id} />
+                <QuizCard quiz={quiz} />
               </AspectRatio>
             </Link>
           ))}
@@ -65,6 +65,7 @@ QuizList.propTypes = {
       id: PropTypes.number,
       name: PropTypes.string,
       maxScore: PropTypes.number,
+      time: PropTypes.number,
       imageUrl: PropTypes.string,
       verb: PropTypes.string,
       apiPath: PropTypes.string,
