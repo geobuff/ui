@@ -138,7 +138,7 @@ const UKCountiesGame = ({
 
       {shouldDisplayOnMobile && (
         <GameInputBanner
-          quiz={quiz.id}
+          quiz={quiz}
           score={score}
           errorMessage={errorMessage}
           expiryTimestamp={{ seconds, minutes }}

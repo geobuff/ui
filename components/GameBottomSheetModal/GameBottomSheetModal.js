@@ -44,7 +44,7 @@ const GameBottomSheetModal = ({
       case Quizzes.UKCounties:
         return <CountiesResultsListContainer checkedCounties={checked} />;
       default:
-        throw Error("Invalid quiz option.");
+        return null;
     }
   };
 
