@@ -52,7 +52,7 @@ const Home = () => {
             <InputLeftElement pointerEvents="none">
               <Search
                 marginTop="8px"
-                marginLeft="12px"
+                marginLeft="14px"
                 height="26px"
                 width="26px"
                 color="gray.500"
