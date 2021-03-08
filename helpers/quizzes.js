@@ -35,6 +35,21 @@ export const getTotal = (quiz) => {
   }
 };
 
+export const getTime = (quiz) => {
+  switch (quiz) {
+    case Quizzes.CountriesOfTheWorld:
+      return 900;
+    case Quizzes.CapitalsOfTheWorld:
+      return 900;
+    case Quizzes.USStates:
+      return 300;
+    case Quizzes.UKCounties:
+      return 300;
+    default:
+      return 900;
+  }
+};
+
 export const getTitle = (quiz) => {
   switch (quiz) {
     case Quizzes.CountriesOfTheWorld:
@@ -56,6 +71,21 @@ export const getApiPath = (quiz) => {
       return "countries";
     case Quizzes.CapitalsOfTheWorld:
       return "capitals";
+    default:
+      throw Error("Invalid quiz option.");
+  }
+};
+
+export const getImageUrl = (quiz) => {
+  switch (quiz) {
+    case Quizzes.CountriesOfTheWorld:
+      return "/world-map-header.svg";
+    case Quizzes.CapitalsOfTheWorld:
+      return "/world-map-header.svg";
+    case Quizzes.USStates:
+      return "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1fa-1f1f8.svg";
+    case Quizzes.UKCounties:
+      return "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1ec-1f1e7.svg";
     default:
       throw Error("Invalid quiz option.");
   }
