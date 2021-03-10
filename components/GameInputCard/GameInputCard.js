@@ -9,7 +9,6 @@ import {
   IconButton,
   Input,
   InputGroup,
-  InputLeftElement,
   InputRightElement,
   Fade,
 } from "@chakra-ui/react";
@@ -46,7 +45,6 @@ const GameInputCard = ({
       {divider}
       <Box>
         <InputGroup position="relative">
-          <InputLeftElement />
           <Input
             isInvalid={hasError}
             isDisabled={!hasGameStarted}
