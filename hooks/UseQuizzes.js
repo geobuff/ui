@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 
-const useQuizzes = (filter) => {
-  const [quizzes, setQuizzes] = useState();
+const useQuizzes = (filter = "") => {
+  const [quizzes, setQuizzes] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
