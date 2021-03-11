@@ -2,7 +2,13 @@ import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
 import { debounce } from "debounce";
 
-import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  useBreakpointValue,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import CountryResultsListContainer from "../../containers/CountryResultsListContainer";
 import GameBottomSheetModal from "../GameBottomSheetModal";
@@ -10,27 +16,17 @@ import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
 
+import ResultsListWrapper from "../ResultsListWrapper";
+
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 
 import { timeFifteenMinutes } from "../../helpers/time";
 import { useTimer } from "react-timer-hook";
 import GameMap from "../GameMap/GameMap";
 
-const GameMapQuiz = ({
-  quiz,
-  map,
-  submissions,
-  // checkedSubmissions,
-  // recentSubmissions,
-  // score,
-  // errorMessage,
-  // hasError,
-  // inputValue,
-  // onChange,
-  // onChangeInputValue,
-  onClearInput,
-  resetGame,
-}) => {
+import { mergeArrayByName } from "../../helpers/array";
+
+const GameMapQuiz = ({ quiz, map, submissions, onClearInput, resetGame }) => {
   const [checkedSubmissions, setCheckedSubmissions] = useState([]);
 
   const [recentSubmissions, setRecentSubmissions] = useState([]);
@@ -97,8 +93,6 @@ const GameMapQuiz = ({
       setErrorMessage("");
     }
 
-    console.log(countryName, "countryName");
-
     const matchedPrefixes = findSubmissionsByPrefixes(submissions, countryName);
     const isChecked = findSubmissionByName(checkedSubmissions, countryName);
 
@@ -120,21 +114,21 @@ const GameMapQuiz = ({
       setHasError(false);
       setInputValue("");
 
-      const updatedCheckedCountries = [
+      const updatedCheckedSubmissions = [
         ...checkedSubmissions,
         { ...matchedSubmission, checked: true },
       ];
 
-      const updatedRecentCountries =
-        updatedCheckedCountries.length > 3
-          ? updatedCheckedCountries.slice(
+      const updatedRecentSubmissions =
+        updatedCheckedSubmissions.length > 3
+          ? updatedCheckedSubmissions.slice(
               Math.max([...checkedSubmissions, matchedSubmission].length - 3, 1)
             )
-          : updatedCheckedCountries;
+          : updatedCheckedSubmissions;
 
-      setScore(updatedCheckedCountries.length);
-      setRecentSubmissions(updatedRecentCountries.reverse());
-      setCheckedSubmissions(updatedCheckedCountries);
+      setScore(updatedCheckedSubmissions.length);
+      setRecentSubmissions(updatedRecentSubmissions.reverse());
+      setCheckedSubmissions(updatedCheckedSubmissions);
     }
   };
 
@@ -200,9 +194,9 @@ const GameMapQuiz = ({
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                 />
-                <CountryResultsListContainer
+                <ResultsListWrapper
                   quiz={quiz}
-                  checkedCountries={checkedSubmissions}
+                  results={mergeArrayByName(submissions, checkedSubmissions)}
                 />
               </Box>
             </Sidebar>

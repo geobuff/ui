@@ -10,16 +10,17 @@ const useQuiz = (id) => {
       .then((response) => response.json())
       .then((quiz) => {
         setQuiz(quiz);
-        setIsLoading(false);
       });
   }, []);
 
   useEffect(() => {
     if (quiz.apiPath) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}`)
+      setIsLoading(true);
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/mappings/${quiz.apiPath}`)
         .then((response) => response.json())
         .then((data) => {
           setData(data);
+          setIsLoading(false);
         });
     }
   }, [quiz.apiPath]);

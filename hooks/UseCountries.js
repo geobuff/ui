@@ -3,7 +3,7 @@ import { fetcher } from "../helpers/fetcher";
 
 const useCountries = () => {
   const { data } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/countries`,
+    `${process.env.NEXT_PUBLIC_API_URL}/mappings/countries`,
     fetcher
   );
 

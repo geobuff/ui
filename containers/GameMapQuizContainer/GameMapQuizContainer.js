@@ -5,19 +5,21 @@ import GameMapQuiz from "../../components/GameMapQuiz";
 
 import useQuiz from "../../hooks/UseQuiz";
 import { getMapById } from "../../helpers/quizzes";
-import { flattenCountries } from "../../helpers/game";
 
 const GameMapQuizContainer = ({ id }) => {
-  const { quiz, loading: loadingQuiz, data } = useQuiz(id);
+  const { quiz, isLoading, data: submissions } = useQuiz(id);
 
-  const submissions = flattenCountries(data);
-
-  if (loadingQuiz) {
+  if (isLoading) {
     return null;
   }
 
   return (
-    <GameMapQuiz quiz={quiz} map={getMapById(id)} submissions={submissions} />
+    <GameMapQuiz
+      isLoading={isLoading}
+      quiz={quiz}
+      map={getMapById(id)}
+      submissions={submissions}
+    />
   );
 };
 
