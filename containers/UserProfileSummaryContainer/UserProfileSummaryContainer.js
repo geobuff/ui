@@ -3,13 +3,15 @@ import PropTypes from "prop-types";
 import { Text } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 
-import useCountries from "../../hooks/UseCountries";
+import useMapping from "../../hooks/UseMapping";
 import UserProfileSummary from "../../components/UserProfileSummary";
+import { Quizzes } from "../../helpers/quizzes";
 
 const UserProfileSummaryContainer = ({ user }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { data: countries, loading } = useMapping(Quizzes.CountriesOfTheWorld);
+
   const [token, setToken] = useState();
-  const { allCountries, isPending } = useCountries();
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
@@ -41,14 +43,14 @@ const UserProfileSummaryContainer = ({ user }) => {
       });
   };
 
-  if (isPending) {
+  if (loading) {
     return <Text>Loading summary...</Text>;
   }
 
   return (
     <UserProfileSummary
       user={user}
-      countries={allCountries}
+      countries={countries}
       submitCountry={submitCountry}
       updated={updated}
       setUpdated={setUpdated}

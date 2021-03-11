@@ -2,21 +2,21 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
-import useStates from "../../hooks/UseStates";
 import { mergeArrayByName } from "../../helpers/array";
 import ResultsListWrapper from "../../components/ResultsListWrapper/ResultsListWrapper";
+import useMapping from "../../hooks/UseMapping";
 
 const StatesResultsListContainer = ({ quiz, checkedStates }) => {
-  const { allStates, isPending } = useStates();
+  const { data: states, loading } = useMapping(quiz.id);
 
-  if (isPending) {
+  if (loading) {
     return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;
   }
 
   return (
     <ResultsListWrapper
-      quiz={quiz}
-      results={mergeArrayByName(allStates, checkedStates)}
+      quizId={quiz.id}
+      results={mergeArrayByName(states, checkedStates)}
     />
   );
 };

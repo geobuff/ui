@@ -8,16 +8,11 @@ import {
   Input,
   Divider,
   Image,
-  Progress,
   Flex,
-  Text,
-  Spacer,
   Select,
   Button,
   useToast,
 } from "@chakra-ui/react";
-
-import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 
 const UserProfileSummary = ({
   user,
@@ -27,7 +22,6 @@ const UserProfileSummary = ({
   setUpdated,
 }) => {
   const toast = useToast();
-  const level = getLevel(user.xp);
   const [countryCode, setCountryCode] = useState(user.countryCode);
   const [countryAction, setCountryAction] = useState(
     user.countryCode ? "UPDATE" : "SAVE"
@@ -51,7 +45,7 @@ const UserProfileSummary = ({
   }, [updated]);
 
   return (
-    <Box>
+    <Box mb={6}>
       <Image
         src={user.picture}
         alt="Auth0 profile"
@@ -60,19 +54,6 @@ const UserProfileSummary = ({
         borderRadius={12}
       ></Image>
       <Divider />
-      <Box mt={6} mb={9}>
-        <Flex mb={3}>
-          <Text fontWeight="bold">{level}</Text>
-          <Spacer />
-          <Text fontWeight="bold">{level + 1}</Text>
-        </Flex>
-        <Progress
-          hasStripe
-          size="lg"
-          value={getLevelCompletion(user.xp)}
-          colorScheme="green"
-        />
-      </Box>
       <FormControl my={6}>
         <FormLabel>Username</FormLabel>
         <Input variant="filled" value={user.username} readOnly />
@@ -130,6 +111,14 @@ UserProfileSummary.propTypes = {
   submitCountry: PropTypes.func,
   updated: PropTypes.bool,
   setUpdated: PropTypes.func,
+};
+
+UserProfileSummary.defaultProps = {
+  user: {},
+  countries: [],
+  submitCountry: () => {},
+  updated: false,
+  setUpdated: () => {},
 };
 
 export default UserProfileSummary;

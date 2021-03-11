@@ -3,20 +3,20 @@ import PropTypes from "prop-types";
 
 import ResultsListWrapper from "../../components/ResultsListWrapper/ResultsListWrapper";
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
-import useCounties from "../../hooks/UseCounties";
+import useMapping from "../../hooks/UseMapping";
 import { mergeArrayByName } from "../../helpers/array";
 
 const CountiesResultsListContainer = ({ quiz, checkedCounties }) => {
-  const { allCounties, isPending } = useCounties();
+  const { data: counties, loading } = useMapping(quiz.id);
 
-  if (isPending) {
+  if (loading) {
     return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;
   }
 
   return (
     <ResultsListWrapper
-      quiz={quiz}
-      results={mergeArrayByName(allCounties, checkedCounties)}
+      quizId={quiz.id}
+      results={mergeArrayByName(counties, checkedCounties)}
     />
   );
 };

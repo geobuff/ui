@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import CapitalsOfTheWorldGame from "../../games/CapitalsOfTheWorldGame";
-import useCapitals from "../../hooks/UseCapitals";
 import useQuiz from "../../hooks/UseQuiz";
+import useMapping from "../../hooks/UseMapping";
 
 const CapitalsOfTheWorldGameContainer = ({ id }) => {
-  const { allCapitals, loadingCapitals } = useCapitals();
+  const { data: allCapitals, loadingCapitals } = useMapping(id);
   const { quiz, loadingQuiz } = useQuiz(id);
 
   const [checkedCapitals, setCheckedCapitals] = useState([]);

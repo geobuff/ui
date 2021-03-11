@@ -95,7 +95,7 @@ const GameBottomSheetModal = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <ResultsList quiz={quiz} results={recents} />
+              <ResultsList quizId={quiz.id} results={recents} />
             </Box>
 
             <Box>{getContainer()}</Box>

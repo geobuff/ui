@@ -5,13 +5,15 @@ const useQuiz = (id) => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes/${id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        setQuiz(data);
-        setLoading(false);
-      });
-  }, []);
+    if (id) {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes/${id}`)
+        .then((response) => response.json())
+        .then((data) => {
+          setQuiz(data);
+          setLoading(false);
+        });
+    }
+  }, [id]);
 
   return {
     quiz: quiz,

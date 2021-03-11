@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import UKCountiesGame from "../../games/UKCountiesGame";
-import useCounties from "../../hooks/UseCounties";
 import useQuiz from "../../hooks/UseQuiz";
+import useMapping from "../../hooks/UseMapping";
 
 const UKCountiesGameContainer = ({ id }) => {
-  const { allCounties, loadingCounties } = useCounties();
+  const { data: allCounties, loadingCounties } = useMapping(id);
   const { quiz, loadingQuiz } = useQuiz(id);
 
   const [checkedCounties, setCheckedCounties] = useState([]);

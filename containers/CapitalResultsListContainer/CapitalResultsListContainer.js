@@ -1,22 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useCapitals from "../../hooks/UseCapitals";
 
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
 import ResultsMap from "../../components/ResultsMap/ResultsMap";
+import useMapping from "../../hooks/UseMapping";
+import { groupMapping } from "../../helpers/mapping";
 
 const CapitalResultsListContainer = ({ quiz, checkedCapitals }) => {
-  const { capitalsByContinent, isPending } = useCapitals();
+  const { data: capitals, loading } = useMapping(quiz.id);
 
-  if (isPending) {
+  if (loading) {
     return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;
   }
 
   return (
     <ResultsMap
-      quiz={quiz}
+      quizId={quiz.id}
       results={checkedCapitals}
-      map={capitalsByContinent}
+      map={groupMapping(capitals)}
     />
   );
 };

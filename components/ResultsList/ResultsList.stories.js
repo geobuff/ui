@@ -69,6 +69,6 @@ const Template = (args) => <ResultsList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quizId: Quizzes.CountriesOfTheWorld,
   results,
 };

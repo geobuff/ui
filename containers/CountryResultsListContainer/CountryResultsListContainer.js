@@ -1,22 +1,23 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useCountries from "../../hooks/UseCountries";
+import useMapping from "../../hooks/UseMapping";
 
 import ResultsMap from "../../components/ResultsMap/ResultsMap";
 import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/ResultsListPlaceholder";
+import { groupMapping } from "../../helpers/mapping";
 
 const CountryResultsListContainer = ({ quiz, checkedCountries }) => {
-  const { countriesByContinent, isPending } = useCountries();
+  const { data: countries, loading } = useMapping(quiz.id);
 
-  if (isPending) {
+  if (loading) {
     return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;
   }
 
   return (
     <ResultsMap
-      quiz={quiz}
+      quizId={quiz.id}
       results={checkedCountries}
-      map={countriesByContinent}
+      map={groupMapping(countries)}
     />
   );
 };

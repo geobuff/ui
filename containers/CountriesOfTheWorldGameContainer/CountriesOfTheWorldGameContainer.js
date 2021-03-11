@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import PropTypes from "prop-types";
 
 import CountriesOfTheWorldGame from "../../games/CountriesOfTheWorldGame";
-import useCountries from "../../hooks/UseCountries";
 import useQuiz from "../../hooks/UseQuiz";
+import useMapping from "../../hooks/UseMapping";
 
 const CountriesOfTheWorldGameContainer = ({ id }) => {
-  const { allCountries, loadingCountries } = useCountries();
+  const { data: allCountries, loadingCountries } = useMapping(id);
   const { quiz, loadingQuiz } = useQuiz(id);
 
   const [checkedCountries, setCheckedCountries] = useState([]);
