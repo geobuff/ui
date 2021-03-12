@@ -9,7 +9,9 @@ import { Quizzes } from "../../helpers/quizzes";
 
 const UserProfileSummaryContainer = ({ user }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const { data: countries, loading } = useMapping(Quizzes.CountriesOfTheWorld);
+  const { mapping: countries, loading } = useMapping(
+    Quizzes.CountriesOfTheWorld
+  );
 
   const [token, setToken] = useState();
   const [updated, setUpdated] = useState(false);

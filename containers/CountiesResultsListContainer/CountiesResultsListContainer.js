@@ -7,7 +7,7 @@ import useMapping from "../../hooks/UseMapping";
 import { mergeArrayByName } from "../../helpers/array";
 
 const CountiesResultsListContainer = ({ quiz, checkedCounties }) => {
-  const { data: counties, loading } = useMapping(quiz.id);
+  const { mapping: counties, loading } = useMapping(quiz.id);
 
   if (loading) {
     return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;

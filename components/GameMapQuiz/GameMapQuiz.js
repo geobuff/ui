@@ -1,55 +1,38 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
 import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
+import { useTimer } from "react-timer-hook";
 
 import GameBottomSheetModal from "../GameBottomSheetModal";
 import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
-
 import ResultsListWrapper from "../ResultsListWrapper";
-
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
-
-import { timeFifteenMinutes } from "../../helpers/time";
-import { useTimer } from "react-timer-hook";
 import GameMap from "../GameMap/GameMap";
 
+import { timeFifteenMinutes } from "../../helpers/time";
 import { mergeArrayByName } from "../../helpers/array";
 
-const GameMapQuiz = ({ quiz, map, submissions, onClearInput, resetGame }) => {
+const GameMapQuiz = ({ quiz, map, submissions }) => {
   const [checkedSubmissions, setCheckedSubmissions] = useState([]);
-
   const [recentSubmissions, setRecentSubmissions] = useState([]);
-
   const [errorMessage, setErrorMessage] = useState("");
-
   const [hasError, setHasError] = useState(false);
-
   const [score, setScore] = useState(0);
-
   const [inputValue, setInputValue] = useState("");
-
   const [hasGameStarted, setHasGameStarted] = useState(false);
-
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
-
   const [time, setTime] = useState(0);
-
-  // TODO: km - Remove state
   const [gameStartText, setGameStartText] = useState("START");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
+
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const { seconds, minutes, restart, pause } = useTimer({
     timeRemaining,
   });
-
-  // const handleDebounceChange = useCallback(debounce(handleChange, 30), [
-  //   handleChange,
-  // ]);
 
   const findSubmissionByName = (collection, submissionName) =>
     collection?.find(
@@ -76,23 +59,22 @@ const GameMapQuiz = ({ quiz, map, submissions, onClearInput, resetGame }) => {
   };
 
   const handleChange = (event) => {
-    const countryName = event.currentTarget.value;
+    const submission = event.currentTarget.value;
+    setInputValue(submission);
 
-    setInputValue(countryName);
-
-    if (!countryName) {
+    if (!submission) {
       setHasError(false);
       setErrorMessage("");
     }
 
-    const matchedPrefixes = findSubmissionsByPrefixes(submissions, countryName);
-    const isChecked = findSubmissionByName(checkedSubmissions, countryName);
+    const matchedPrefixes = findSubmissionsByPrefixes(submissions, submission);
+    const isChecked = findSubmissionByName(checkedSubmissions, submission);
 
     if (isChecked && matchedPrefixes.length > 0) {
       return;
     }
 
-    const matchedSubmission = findSubmissionByName(submissions, countryName);
+    const matchedSubmission = findSubmissionByName(submissions, submission);
 
     if (matchedSubmission && isChecked) {
       setHasError(true);
@@ -122,6 +104,18 @@ const GameMapQuiz = ({ quiz, map, submissions, onClearInput, resetGame }) => {
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
     }
+  };
+
+  const onClearInput = () => {
+    setHasError(false);
+    setErrorMessage("");
+    setInputValue("");
+  };
+
+  const resetGame = () => {
+    setCheckedSubmissions([]);
+    setRecentSubmissions([]);
+    setScore(0);
   };
 
   const handleGameStart = () => {
@@ -218,8 +212,6 @@ const GameMapQuiz = ({ quiz, map, submissions, onClearInput, resetGame }) => {
 };
 
 GameMapQuiz.propTypes = {
-  // TODO: proptypes
-  submissions: PropTypes.any,
   quiz: PropTypes.shape({
     id: PropTypes.number,
     name: PropTypes.string,
@@ -231,43 +223,14 @@ GameMapQuiz.propTypes = {
     hasLeaderboard: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
-  checkedSubmissions: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
-  recentSubmissions: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
-  score: PropTypes.number,
-  errorMessage: PropTypes.string,
-  hasError: PropTypes.bool,
-  inputValue: PropTypes.string,
-  onChange: PropTypes.func,
-  onChangeInputValue: PropTypes.func,
-  onClearInput: PropTypes.func,
-  resetGame: PropTypes.func,
   map: PropTypes.any,
+  submissions: PropTypes.any,
 };
 
 GameMapQuiz.defaultProps = {
-  submissions: [],
   quiz: {},
-  checkedSubmissions: [],
-  recentSubmissions: [],
-  score: 0,
-  errorMessage: "",
-  hasError: false,
-  inputValue: "",
-  onChange: () => {},
-  onChangeInputValue: () => {},
-  onClearInput: () => {},
-  resetGame: () => {},
-  map: null,
+  map: {},
+  submissions: [],
 };
 
 export default GameMapQuiz;

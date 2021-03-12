@@ -1,4 +1,9 @@
-import { WorldCountries, USStates, UKCounties } from "@geobuff/maps";
+import {
+  WorldCountries,
+  WorldCapitals,
+  USStates,
+  UKCounties,
+} from "@geobuff/maps";
 
 export const Quizzes = Object.freeze({
   CountriesOfTheWorld: 1,
@@ -25,8 +30,9 @@ export const getIdByRoute = (route) => {
 export const getMapById = (id) => {
   switch (id) {
     case Quizzes.CountriesOfTheWorld:
-    case Quizzes.CapitalsOfTheWorld:
       return WorldCountries;
+    case Quizzes.CapitalsOfTheWorld:
+      return WorldCapitals;
     case Quizzes.USStates:
       return USStates;
     case Quizzes.UKCounties:

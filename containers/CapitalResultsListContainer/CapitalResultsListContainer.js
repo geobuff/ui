@@ -7,7 +7,7 @@ import useMapping from "../../hooks/UseMapping";
 import { groupMapping } from "../../helpers/mapping";
 
 const CapitalResultsListContainer = ({ quiz, checkedCapitals }) => {
-  const { data: capitals, loading } = useMapping(quiz.id);
+  const { mapping: capitals, loading } = useMapping(quiz.id);
 
   if (loading) {
     return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;

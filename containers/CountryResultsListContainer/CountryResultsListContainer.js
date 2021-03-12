@@ -7,7 +7,7 @@ import ResultsListPlaceholder from "../../placeholders/ResultsListPlaceholder/Re
 import { groupMapping } from "../../helpers/mapping";
 
 const CountryResultsListContainer = ({ quiz, checkedCountries }) => {
-  const { data: countries, loading } = useMapping(quiz.id);
+  const { mapping: countries, loading } = useMapping(quiz.id);
 
   if (loading) {
     return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;

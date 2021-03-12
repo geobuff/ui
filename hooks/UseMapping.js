@@ -10,7 +10,7 @@ const useMapping = (quizId) => {
   );
 
   return {
-    data: data ?? [],
+    mapping: data ?? [],
     loading: !data,
   };
 };

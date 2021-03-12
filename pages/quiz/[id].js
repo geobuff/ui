@@ -16,7 +16,7 @@ const Quiz = () => {
     case "capitals-of-the-world":
     case "us-states":
     case "uk-counties":
-      return <GameMapQuizContainer id={quizId} />;
+      return <GameMapQuizContainer quizId={quizId} />;
     default:
       return null;
   }

@@ -7,7 +7,7 @@ import ResultsListWrapper from "../../components/ResultsListWrapper/ResultsListW
 import useMapping from "../../hooks/UseMapping";
 
 const StatesResultsListContainer = ({ quiz, checkedStates }) => {
-  const { data: states, loading } = useMapping(quiz.id);
+  const { mapping: states, loading } = useMapping(quiz.id);
 
   if (loading) {
     return <ResultsListPlaceholder noOfLines={quiz.maxScore} />;
