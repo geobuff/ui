@@ -282,7 +282,7 @@ GameOverModalContainer.propTypes = {
     name: PropTypes.string,
     maxScore: PropTypes.number,
     time: PropTypes.number,
-    mavSVG: PropTypes.string,
+    mapSVG: PropTypes.string,
     imageUrl: PropTypes.string,
     verb: PropTypes.string,
     apiPath: PropTypes.string,

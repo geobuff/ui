@@ -16,7 +16,7 @@ import { timeFifteenMinutes } from "../../helpers/time";
 import { groupMapping } from "../../helpers/mapping";
 import { mergeArrayByName } from "../../helpers/array";
 
-const GameMapQuiz = ({ quiz, map, submissions }) => {
+const GameMapQuiz = ({ quiz, mapping, map }) => {
   const [checkedSubmissions, setCheckedSubmissions] = useState([]);
   const [recentSubmissions, setRecentSubmissions] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -69,14 +69,14 @@ const GameMapQuiz = ({ quiz, map, submissions }) => {
       setErrorMessage("");
     }
 
-    const matchedPrefixes = findSubmissionsByPrefixes(submissions, submission);
+    const matchedPrefixes = findSubmissionsByPrefixes(mapping, submission);
     const isChecked = findSubmissionByName(checkedSubmissions, submission);
 
     if (isChecked && matchedPrefixes.length > 0) {
       return;
     }
 
-    const matchedSubmission = findSubmissionByName(submissions, submission);
+    const matchedSubmission = findSubmissionByName(mapping, submission);
 
     if (matchedSubmission && isChecked) {
       setHasError(true);
@@ -186,12 +186,12 @@ const GameMapQuiz = ({ quiz, map, submissions }) => {
                   <ResultsMap
                     quizId={quiz.id}
                     results={checkedSubmissions}
-                    map={groupMapping(submissions)}
+                    map={groupMapping(mapping)}
                   />
                 ) : (
                   <ResultsListWrapper
                     quiz={quiz}
-                    results={mergeArrayByName(submissions, checkedSubmissions)}
+                    results={mergeArrayByName(mapping, checkedSubmissions)}
                   />
                 )}
               </Box>
@@ -208,7 +208,7 @@ const GameMapQuiz = ({ quiz, map, submissions }) => {
         {shouldDisplayOnMobile && (
           <GameBottomSheetModal
             quiz={quiz}
-            submissions={submissions}
+            mapping={mapping}
             checked={checkedSubmissions}
             recents={recentSubmissions}
             hasGameStarted={hasGameStarted}
@@ -228,7 +228,7 @@ GameMapQuiz.propTypes = {
     name: PropTypes.string,
     maxScore: PropTypes.number,
     time: PropTypes.number,
-    mavSVG: PropTypes.string,
+    mapSVG: PropTypes.string,
     imageUrl: PropTypes.string,
     verb: PropTypes.string,
     apiPath: PropTypes.string,
@@ -237,14 +237,23 @@ GameMapQuiz.propTypes = {
     hasGrouping: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
-  map: PropTypes.any,
-  submissions: PropTypes.any,
+  mapping: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+      svgName: PropTypes.string,
+      alternativeNames: PropTypes.arrayOf(PropTypes.string),
+      prefixes: PropTypes.arrayOf(PropTypes.string),
+      group: PropTypes.string,
+    })
+  ),
+  map: PropTypes.object,
 };
 
 GameMapQuiz.defaultProps = {
   quiz: {},
-  map: {},
   submissions: [],
+  map: {},
 };
 
 export default GameMapQuiz;

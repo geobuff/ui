@@ -15,7 +15,7 @@ const initialSnap = snapPoints.length - 2;
 
 const GameBottomSheetModal = ({
   quiz,
-  submissions,
+  mapping,
   checked,
   recents,
   hasGameStarted,
@@ -87,12 +87,12 @@ const GameBottomSheetModal = ({
                 <ResultsMap
                   quizId={quiz.id}
                   results={checked}
-                  map={groupMapping(submissions)}
+                  map={groupMapping(mapping)}
                 />
               ) : (
                 <ResultsListWrapper
                   quiz={quiz}
-                  results={mergeArrayByName(submissions, checked)}
+                  results={mergeArrayByName(mapping, checked)}
                 />
               )}
             </Box>
@@ -109,7 +109,7 @@ GameBottomSheetModal.propTypes = {
     name: PropTypes.string,
     maxScore: PropTypes.number,
     time: PropTypes.number,
-    mavSVG: PropTypes.string,
+    mapSVG: PropTypes.string,
     imageUrl: PropTypes.string,
     verb: PropTypes.string,
     apiPath: PropTypes.string,
@@ -118,8 +118,16 @@ GameBottomSheetModal.propTypes = {
     hasGrouping: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
-  submissions: PropTypes.any,
-  title: PropTypes.string,
+  mapping: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+      svgName: PropTypes.string,
+      alternativeNames: PropTypes.arrayOf(PropTypes.string),
+      prefixes: PropTypes.arrayOf(PropTypes.string),
+      group: PropTypes.string,
+    })
+  ),
   checked: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -140,7 +148,7 @@ GameBottomSheetModal.propTypes = {
 
 GameBottomSheetModal.defaultProps = {
   quiz: {},
-  submissions: [],
+  mapping: [],
   checked: [],
   recents: [],
   hasGameStarted: false,

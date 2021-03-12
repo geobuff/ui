@@ -15,9 +15,7 @@ const GameMapQuizContainer = ({ quizId }) => {
     return null;
   }
 
-  return (
-    <GameMapQuiz quiz={quiz} map={getMapById(quizId)} submissions={mapping} />
-  );
+  return <GameMapQuiz quiz={quiz} mapping={mapping} map={getMapById(quizId)} />;
 };
 
 GameMapQuizContainer.propTypes = {
