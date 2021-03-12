@@ -5,7 +5,7 @@ import { Box, Divider, Text } from "@chakra-ui/react";
 import ResultsList from "../ResultsList";
 import { mergeArrayByName } from "../../helpers/array";
 
-const ResultsMap = ({ quiz, results, map }) => (
+const ResultsMap = ({ quizId, results, map }) => (
   <Box textAlign="left">
     <Divider my={4} />
     <Text fontSize="xl" mt={2} fontWeight="bold">
@@ -18,7 +18,10 @@ const ResultsMap = ({ quiz, results, map }) => (
           <Text fontWeight="bold" my={3} textTransform="uppercase">
             {key}
           </Text>
-          <ResultsList quiz={quiz} results={mergeArrayByName(value, results)} />
+          <ResultsList
+            quizId={quizId}
+            results={mergeArrayByName(value, results)}
+          />
         </Box>
       ))}
     </Box>
@@ -26,22 +29,12 @@ const ResultsMap = ({ quiz, results, map }) => (
 );
 
 ResultsMap.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
+  quizId: PropTypes.number,
   results: PropTypes.array,
   map: PropTypes.object,
 };
 ResultsMap.defaultProps = {
-  quiz: {},
+  quiz: 1,
   results: [],
   map: {},
 };

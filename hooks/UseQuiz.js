@@ -1,34 +1,23 @@
 import { useEffect, useState } from "react";
 
 const useQuiz = (id) => {
-  const [quiz, setQuiz] = useState([]);
-  const [data, setData] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [quiz, setQuiz] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes/${id}`)
-      .then((response) => response.json())
-      .then((quiz) => {
-        setQuiz(quiz);
-      });
-  }, []);
-
-  useEffect(() => {
-    if (quiz.apiPath) {
-      setIsLoading(true);
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/mappings/${quiz.apiPath}`)
+    if (id) {
+      fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes/${id}`)
         .then((response) => response.json())
         .then((data) => {
-          setData(data);
-          setIsLoading(false);
+          setQuiz(data);
+          setLoading(false);
         });
     }
-  }, [quiz.apiPath]);
+  }, [id]);
 
   return {
     quiz: quiz,
-    isLoading: isLoading,
-    data: data,
+    loading: loading,
   };
 };
 

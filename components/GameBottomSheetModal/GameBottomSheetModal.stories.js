@@ -26,6 +26,7 @@ const Template = (args) => <GameBottomSheetModal {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   quiz: {},
+  submissions: [],
   recentCountries,
   hasGameStarted: true,
 };

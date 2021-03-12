@@ -2,29 +2,24 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import GameMapQuiz from "../../components/GameMapQuiz";
-
 import useQuiz from "../../hooks/UseQuiz";
+import useMapping from "../../hooks/UseMapping";
+
 import { getMapById } from "../../helpers/quizzes";
 
-const GameMapQuizContainer = ({ id }) => {
-  const { quiz, isLoading, data: submissions } = useQuiz(id);
+const GameMapQuizContainer = ({ quizId }) => {
+  const { quiz, loading: quizLoading } = useQuiz(quizId);
+  const { mapping, loading: mappingLoading } = useMapping(quizId);
 
-  if (isLoading) {
+  if (quizLoading || mappingLoading) {
     return null;
   }
 
-  return (
-    <GameMapQuiz
-      isLoading={isLoading}
-      quiz={quiz}
-      map={getMapById(id)}
-      submissions={submissions}
-    />
-  );
+  return <GameMapQuiz quiz={quiz} mapping={mapping} map={getMapById(quizId)} />;
 };
 
 GameMapQuizContainer.propTypes = {
-  id: PropTypes.number,
+  quizId: PropTypes.number,
 };
 
 export default GameMapQuizContainer;

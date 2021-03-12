@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
 import { Box, Button, Divider, Heading, Text } from "@chakra-ui/react";
-
 import Sheet from "react-modal-sheet";
 
 import ResultsList from "../ResultsList";
-import CountryResultsListContainer from "../../containers/CountryResultsListContainer";
-import CapitalResultsListContainer from "../../containers/CapitalResultsListContainer";
-import StatesResultsListContainer from "../../containers/StatesResultsListContainer";
-import CountiesResultsListContainer from "../../containers/CountiesResultsListContainer";
-import { Quizzes } from "../../helpers/quizzes";
+import ResultsMap from "../ResultsMap";
+import ResultsListWrapper from "../ResultsListWrapper";
+
+import { mergeArrayByName } from "../../helpers/array";
+import { groupMapping } from "../../helpers/mapping";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
 const GameBottomSheetModal = ({
   quiz,
+  mapping,
   checked,
   recents,
   hasGameStarted,
@@ -31,21 +30,6 @@ const GameBottomSheetModal = ({
   const handleClose = () => {
     setIsOpen(false);
     setIsOpen(true);
-  };
-
-  const getContainer = () => {
-    switch (quiz.id) {
-      case Quizzes.CountriesOfTheWorld:
-        return <CountryResultsListContainer checkedCountries={checked} />;
-      case Quizzes.CapitalsOfTheWorld:
-        return <CapitalResultsListContainer checkedCapitals={checked} />;
-      case Quizzes.USStates:
-        return <StatesResultsListContainer checkedStates={checked} />;
-      case Quizzes.UKCounties:
-        return <CountiesResultsListContainer checkedCounties={checked} />;
-      default:
-        return null;
-    }
   };
 
   return (
@@ -98,7 +82,20 @@ const GameBottomSheetModal = ({
               <ResultsList quiz={quiz} results={recents} />
             </Box>
 
-            <Box>{getContainer()}</Box>
+            <Box>
+              {quiz.hasGrouping ? (
+                <ResultsMap
+                  quizId={quiz.id}
+                  results={checked}
+                  map={groupMapping(mapping)}
+                />
+              ) : (
+                <ResultsListWrapper
+                  quiz={quiz}
+                  results={mergeArrayByName(mapping, checked)}
+                />
+              )}
+            </Box>
           </Box>
         </Sheet.Content>
       </Sheet.Container>
@@ -112,13 +109,25 @@ GameBottomSheetModal.propTypes = {
     name: PropTypes.string,
     maxScore: PropTypes.number,
     time: PropTypes.number,
+    mapSVG: PropTypes.string,
     imageUrl: PropTypes.string,
     verb: PropTypes.string,
     apiPath: PropTypes.string,
+    route: PropTypes.string,
     hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
-  title: PropTypes.string,
+  mapping: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+      svgName: PropTypes.string,
+      alternativeNames: PropTypes.arrayOf(PropTypes.string),
+      prefixes: PropTypes.arrayOf(PropTypes.string),
+      group: PropTypes.string,
+    })
+  ),
   checked: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -139,6 +148,7 @@ GameBottomSheetModal.propTypes = {
 
 GameBottomSheetModal.defaultProps = {
   quiz: {},
+  mapping: [],
   checked: [],
   recents: [],
   hasGameStarted: false,

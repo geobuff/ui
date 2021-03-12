@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ResultsListItem from "../ResultsListItem";
-import { Box, List, Text } from "@chakra-ui/react";
+import { Box, Text, List } from "@chakra-ui/react";
 
 const ResultsList = ({ quiz, results }) => {
   if (!results || results.length === 0) {
@@ -36,10 +36,13 @@ ResultsList.propTypes = {
     name: PropTypes.string,
     maxScore: PropTypes.number,
     time: PropTypes.number,
+    mapSVG: PropTypes.string,
     imageUrl: PropTypes.string,
     verb: PropTypes.string,
     apiPath: PropTypes.string,
+    route: PropTypes.string,
     hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
   results: PropTypes.arrayOf(
