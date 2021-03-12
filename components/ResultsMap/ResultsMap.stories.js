@@ -1,5 +1,4 @@
 import React from "react";
-import { Quizzes } from "../../helpers/quizzes";
 import ResultsMap from "./ResultsMap";
 
 export default {
@@ -71,7 +70,7 @@ const Template = (args) => <ResultsMap {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  quizId: Quizzes.CountriesOfTheWorld,
+  quizId: 1,
   results,
   map,
 };

@@ -3,8 +3,6 @@ import QuizCard from "./QuizCard";
 
 import { Box } from "@chakra-ui/react";
 
-import { Quizzes } from "../../helpers/quizzes";
-
 export default {
   title: "UI/QuizCard",
   component: QuizCard,
@@ -18,5 +16,5 @@ const Template = (args) => (
 
 export const Default = Template.bind({});
 Default.args = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
 };

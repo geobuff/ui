@@ -8,9 +8,12 @@ import useQuiz from "../../hooks/UseQuiz";
 const LeaderboardTableContainer = ({ quizId, filterParams, setHasMore }) => {
   const { quiz, loading } = useQuiz(quizId);
   const [entries, setEntries] = useState();
+  const [loadingEntries, setLoadingEntries] = useState(true);
 
   useEffect(() => {
     if (!loading) {
+      setLoadingEntries(true);
+
       const params = {
         method: "POST",
         body: JSON.stringify(filterParams),
@@ -24,11 +27,12 @@ const LeaderboardTableContainer = ({ quizId, filterParams, setHasMore }) => {
         .then((data) => {
           setHasMore(data.hasMore);
           setEntries(data.entries);
+          setLoadingEntries(false);
         });
     }
   }, [quizId, loading, filterParams]);
 
-  if (!entries) {
+  if (loadingEntries) {
     return <LeaderboardTablePlaceholder noOfLines={filterParams.limit} />;
   }
 
