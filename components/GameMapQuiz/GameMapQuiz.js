@@ -7,11 +7,13 @@ import GameBottomSheetModal from "../GameBottomSheetModal";
 import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
+import ResultsMap from "../ResultsMap";
 import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameMap from "../GameMap/GameMap";
 
 import { timeFifteenMinutes } from "../../helpers/time";
+import { groupMapping } from "../../helpers/mapping";
 import { mergeArrayByName } from "../../helpers/array";
 
 const GameMapQuiz = ({ quiz, map, submissions }) => {
@@ -180,10 +182,18 @@ const GameMapQuiz = ({ quiz, map, submissions }) => {
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                 />
-                <ResultsListWrapper
-                  quiz={quiz}
-                  results={mergeArrayByName(submissions, checkedSubmissions)}
-                />
+                {quiz.hasGrouping ? (
+                  <ResultsMap
+                    quizId={quiz.id}
+                    results={checkedSubmissions}
+                    map={groupMapping(submissions)}
+                  />
+                ) : (
+                  <ResultsListWrapper
+                    quiz={quiz}
+                    results={mergeArrayByName(submissions, checkedSubmissions)}
+                  />
+                )}
               </Box>
             </Sidebar>
           </Box>
@@ -198,6 +208,7 @@ const GameMapQuiz = ({ quiz, map, submissions }) => {
         {shouldDisplayOnMobile && (
           <GameBottomSheetModal
             quiz={quiz}
+            submissions={submissions}
             checked={checkedSubmissions}
             recents={recentSubmissions}
             hasGameStarted={hasGameStarted}
@@ -217,10 +228,13 @@ GameMapQuiz.propTypes = {
     name: PropTypes.string,
     maxScore: PropTypes.number,
     time: PropTypes.number,
+    mavSVG: PropTypes.string,
     imageUrl: PropTypes.string,
     verb: PropTypes.string,
     apiPath: PropTypes.string,
+    route: PropTypes.string,
     hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
   map: PropTypes.any,

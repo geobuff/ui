@@ -36,10 +36,13 @@ ResultsList.propTypes = {
     name: PropTypes.string,
     maxScore: PropTypes.number,
     time: PropTypes.number,
+    mavSVG: PropTypes.string,
     imageUrl: PropTypes.string,
     verb: PropTypes.string,
     apiPath: PropTypes.string,
+    route: PropTypes.string,
     hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
   results: PropTypes.arrayOf(
