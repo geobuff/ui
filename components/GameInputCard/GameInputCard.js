@@ -109,7 +109,7 @@ const GameInputCard = ({
       {divider}
       <Box mt={4}>
         <Text fontWeight="bold">{"RECENT"}</Text>
-        <ResultsList quizId={quiz.id} results={recents} />
+        <ResultsList quiz={quiz} results={recents} />
       </Box>
     </Box>
   );

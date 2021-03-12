@@ -4,7 +4,7 @@ import { Box, Divider, Text } from "@chakra-ui/react";
 
 import ResultsList from "../../components/ResultsList/ResultsList";
 
-const ResultsListWrapper = ({ quizId, results }) => (
+const ResultsListWrapper = ({ quiz, results }) => (
   <Box textAlign="left">
     <Divider my={4} />
     <Text fontSize="xl" mt={2} fontWeight="bold">
@@ -12,17 +12,27 @@ const ResultsListWrapper = ({ quizId, results }) => (
     </Text>
     <Divider my={3} />
     <Box>
-      <ResultsList quizId={quizId} results={results} />
+      <ResultsList quiz={quiz} results={results} />
     </Box>
   </Box>
 );
 
 ResultsListWrapper.propTypes = {
-  quizId: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   results: PropTypes.array,
 };
 ResultsListWrapper.defaultProps = {
-  quizId: 1,
+  quiz: {},
   results: [],
 };
 

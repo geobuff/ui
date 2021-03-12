@@ -1,5 +1,4 @@
 import React from "react";
-import { Quizzes } from "../../helpers/quizzes";
 import ResultsList from "./ResultsList";
 
 export default {
@@ -69,6 +68,6 @@ const Template = (args) => <ResultsList {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  quizId: Quizzes.CountriesOfTheWorld,
+  quiz: {},
   results,
 };

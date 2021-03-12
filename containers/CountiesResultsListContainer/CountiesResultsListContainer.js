@@ -15,7 +15,7 @@ const CountiesResultsListContainer = ({ quiz, checkedCounties }) => {
 
   return (
     <ResultsListWrapper
-      quizId={quiz.id}
+      quiz={quiz}
       results={mergeArrayByName(counties, checkedCounties)}
     />
   );
