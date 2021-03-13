@@ -19,7 +19,6 @@ const ResultsList = ({ quiz, results }) => {
     <List>
       {results.map((result) => (
         <ResultsListItem
-          quizId={quiz.id}
           key={result.code}
           my={2}
           isHidden={!result.checked}

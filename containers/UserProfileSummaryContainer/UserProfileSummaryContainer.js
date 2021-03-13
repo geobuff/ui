@@ -5,13 +5,12 @@ import { useAuth0 } from "@auth0/auth0-react";
 
 import useMapping from "../../hooks/UseMapping";
 import UserProfileSummary from "../../components/UserProfileSummary";
-import { Quizzes } from "../../helpers/quizzes";
 
-const UserProfileSummaryContainer = ({ user }) => {
+const UserProfileSummaryContainer = ({ user, quizzes }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-  const { mapping: countries, loading } = useMapping(
-    Quizzes.CountriesOfTheWorld
-  );
+
+  const quizId = quizzes.filter((x) => x.apiPath === "countries")[0].id;
+  const { mapping: countries, loading } = useMapping(quizId);
 
   const [token, setToken] = useState();
   const [updated, setUpdated] = useState(false);
@@ -62,6 +61,22 @@ const UserProfileSummaryContainer = ({ user }) => {
 
 UserProfileSummaryContainer.propTypes = {
   user: PropTypes.object,
+  quizzes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      maxScore: PropTypes.number,
+      time: PropTypes.number,
+      mapSVG: PropTypes.string,
+      imageUrl: PropTypes.string,
+      verb: PropTypes.string,
+      apiPath: PropTypes.string,
+      route: PropTypes.string,
+      hasLeaderboard: PropTypes.bool,
+      hasGrouping: PropTypes.bool,
+      enabled: PropTypes.bool,
+    })
+  ),
 };
 
 export default UserProfileSummaryContainer;
