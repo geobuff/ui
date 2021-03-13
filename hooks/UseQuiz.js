@@ -1,23 +1,15 @@
-import { useEffect, useState } from "react";
+import useSWR from "swr";
+import { fetcher } from "../helpers/fetcher";
 
 const useQuiz = (id) => {
-  const [quiz, setQuiz] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-  useEffect(() => {
-    if (id) {
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes/${id}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setQuiz(data);
-          setLoading(false);
-        });
-    }
-  }, [id]);
+  const { data, error } = useSWR(`${baseUrl}/quizzes/${id}`, fetcher);
 
   return {
-    quiz: quiz,
-    loading: loading,
+    quiz: data || [],
+    isLoading: !data,
+    error: error,
   };
 };
 
