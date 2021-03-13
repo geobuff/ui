@@ -79,7 +79,11 @@ const GameBottomSheetModal = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <ResultsList quiz={quiz} results={recents} />
+              <ResultsList
+                quizId={quiz.id}
+                verb={quiz.verb}
+                results={recents}
+              />
             </Box>
 
             <Box>
@@ -88,11 +92,13 @@ const GameBottomSheetModal = ({
                   quizId={quiz.id}
                   results={checked}
                   map={groupMapping(mapping)}
+                  verb={quiz.verb}
                 />
               ) : (
                 <ResultsListWrapper
-                  quiz={quiz}
+                  quizId={quiz.id}
                   results={mergeArrayByName(mapping, checked)}
+                  verb={quiz.verb}
                 />
               )}
             </Box>
