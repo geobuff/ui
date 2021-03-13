@@ -6,12 +6,13 @@ import LeaderboardTablePlaceholder from "../../placeholders/LeaderboardTablePlac
 import useQuiz from "../../hooks/UseQuiz";
 
 const LeaderboardTableContainer = ({ quizId, filterParams, setHasMore }) => {
-  const { quiz, loading } = useQuiz(quizId);
+  const { quiz, isLoading } = useQuiz(quizId);
+
   const [entries, setEntries] = useState();
   const [loadingEntries, setLoadingEntries] = useState(true);
 
   useEffect(() => {
-    if (!loading) {
+    if (!isLoading) {
       setLoadingEntries(true);
 
       const params = {
@@ -30,7 +31,7 @@ const LeaderboardTableContainer = ({ quizId, filterParams, setHasMore }) => {
           setLoadingEntries(false);
         });
     }
-  }, [quizId, loading, filterParams]);
+  }, [quizId, isLoading, filterParams]);
 
   if (loadingEntries) {
     return <LeaderboardTablePlaceholder noOfLines={filterParams.limit} />;

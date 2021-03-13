@@ -4,9 +4,9 @@ import QuizList from "../../components/QuizList";
 import useQuizzes from "../../hooks/UseQuizzes";
 
 const QuizListContainer = ({ filter }) => {
-  const { quizzes, loading } = useQuizzes(filter);
+  const { quizzes, isLoading } = useQuizzes(filter);
 
-  if (loading) {
+  if (isLoading) {
     return null;
   }
 

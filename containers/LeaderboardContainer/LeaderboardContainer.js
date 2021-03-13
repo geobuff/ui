@@ -5,9 +5,9 @@ import useQuizzes from "../../hooks/UseQuizzes";
 import Leaderboard from "../../components/Leaderboard";
 
 const LeaderboardContainer = ({ quizId }) => {
-  const { quizzes, loading } = useQuizzes();
+  const { quizzes, isLoading } = useQuizzes();
 
-  if (loading) {
+  if (isLoading) {
     return null;
   }
 

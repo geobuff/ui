@@ -4,14 +4,20 @@ import { fetcher } from "../helpers/fetcher";
 
 const useMapping = (quizId) => {
   const { quiz } = useQuiz(quizId);
+
+  const shouldFetch = !!quiz && quiz.apiPath;
+
   const { data } = useSWR(
-    () => `${process.env.NEXT_PUBLIC_API_URL}/mappings/${quiz.apiPath}`,
+    () =>
+      shouldFetch
+        ? `${process.env.NEXT_PUBLIC_API_URL}/mappings/${quiz.apiPath}`
+        : null,
     fetcher
   );
 
   return {
-    mapping: data ?? [],
-    loading: !data,
+    mapping: data || [],
+    isLoading: !data,
   };
 };
 

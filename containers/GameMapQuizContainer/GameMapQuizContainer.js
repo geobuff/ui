@@ -7,10 +7,12 @@ import useQuiz from "../../hooks/UseQuiz";
 import useMapping from "../../hooks/UseMapping";
 
 const GameMapQuizContainer = ({ quizId }) => {
-  const { quiz, loading: quizLoading } = useQuiz(quizId);
-  const { mapping, loading: mappingLoading } = useMapping(quizId);
+  const { quiz, isLoading: isLoadingQuiz } = useQuiz(quizId);
+  const { mapping, isLoading: isLoadingMapping } = useMapping(quizId);
 
-  if (quizLoading || mappingLoading) {
+  console.log();
+
+  if (isLoadingQuiz || isLoadingMapping) {
     return null;
   }
 
