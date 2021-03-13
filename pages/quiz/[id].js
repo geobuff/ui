@@ -1,25 +1,24 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+import useQuizzes from "../../hooks/UseQuizzes";
 import GameMapQuizContainer from "../../containers/GameMapQuizContainer";
 
-import { getIdByRoute } from "../../helpers/quizzes";
-
 const Quiz = () => {
+  const { quizzes, loading } = useQuizzes();
   const router = useRouter();
   const { id } = router.query;
 
-  const quizId = getIdByRoute(id);
-
-  switch (id) {
-    case "countries-of-the-world":
-    case "capitals-of-the-world":
-    case "us-states":
-    case "uk-counties":
-      return <GameMapQuizContainer quizId={quizId} />;
-    default:
-      return null;
+  if (loading) {
+    return null;
   }
+
+  const filter = quizzes.filter((x) => x.route === id);
+  if (filter.length === 0) {
+    return null;
+  }
+
+  return <GameMapQuizContainer quizId={filter[0].id} />;
 };
 
 export default Quiz;

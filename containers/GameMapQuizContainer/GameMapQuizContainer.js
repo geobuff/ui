@@ -1,11 +1,10 @@
 import React from "react";
 import PropTypes from "prop-types";
+import * as Maps from "@geobuff/maps";
 
 import GameMapQuiz from "../../components/GameMapQuiz";
 import useQuiz from "../../hooks/UseQuiz";
 import useMapping from "../../hooks/UseMapping";
-
-import { getMapById } from "../../helpers/quizzes";
 
 const GameMapQuizContainer = ({ quizId }) => {
   const { quiz, loading: quizLoading } = useQuiz(quizId);
@@ -15,7 +14,7 @@ const GameMapQuizContainer = ({ quizId }) => {
     return null;
   }
 
-  return <GameMapQuiz quiz={quiz} mapping={mapping} map={getMapById(quizId)} />;
+  return <GameMapQuiz quiz={quiz} mapping={mapping} map={Maps[quiz.mapSVG]} />;
 };
 
 GameMapQuizContainer.propTypes = {

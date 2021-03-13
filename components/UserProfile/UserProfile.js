@@ -8,7 +8,7 @@ import UserProfileAchievementsContainer from "../../containers/UserProfileAchiev
 
 const divider = <Divider my={3} />;
 
-const UserProfile = ({ user }) => (
+const UserProfile = ({ user, quizzes }) => (
   <Box m={5}>
     <Box
       borderRadius={12}
@@ -17,7 +17,7 @@ const UserProfile = ({ user }) => (
       w={{ base: "100%", lg: "50%" }}
       mx="auto"
     >
-      <UserProfileSummaryContainer user={user} />
+      <UserProfileSummaryContainer user={user} quizzes={quizzes} />
       {divider}
       <UserProfileAchievementsContainer user={user} />
       {divider}
@@ -37,6 +37,22 @@ UserProfile.propTypes = {
     email: PropTypes.string,
     picture: PropTypes.string,
   }),
+  quizzes: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      maxScore: PropTypes.number,
+      time: PropTypes.number,
+      mapSVG: PropTypes.string,
+      imageUrl: PropTypes.string,
+      verb: PropTypes.string,
+      apiPath: PropTypes.string,
+      route: PropTypes.string,
+      hasLeaderboard: PropTypes.bool,
+      hasGrouping: PropTypes.bool,
+      enabled: PropTypes.bool,
+    })
+  ),
 };
 
 export default UserProfile;
