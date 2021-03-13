@@ -88,6 +88,7 @@ const GameInputCard = ({
       {divider}
       <Box my={4}>
         <GameInputCardTimer
+          totalSeconds={quiz.time}
           expiryTimestamp={timeRemaining}
           hasGameStarted={hasGameStarted}
         />

@@ -42,6 +42,7 @@ const GameInputBanner = ({
           <GameInputBannerTimer
             expiryTimestamp={expiryTimestamp}
             hasGameStarted={hasGameStarted}
+            totalSeconds={quiz.time}
             onExpire={onExpire}
           />
           <Text
