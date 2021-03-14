@@ -16,7 +16,7 @@
     "@chakra-ui/react": "^1.3.3",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
-    "@geobuff/flags": "^1.3.0",
+    "@geobuff/flags": "^1.4.0",
     "@geobuff/maps": "^1.16.0",
     "country-code-emoji": "^1.0.0",
     "debounce": "^1.2.0",
