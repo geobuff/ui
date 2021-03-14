@@ -11,11 +11,11 @@ import {
   Td,
 } from "@chakra-ui/react";
 
-const UserProfileLeaderboardEntriesPlaceholder = () => (
+const UserProfileScoresPlaceholder = () => (
   <Box>
     <Skeleton>
       <Heading size="md" m={6}>
-        Leaderboard Entries
+        Scores
       </Heading>
     </Skeleton>
     <Box my={6}>
@@ -37,4 +37,4 @@ const UserProfileLeaderboardEntriesPlaceholder = () => (
   </Box>
 );
 
-export default UserProfileLeaderboardEntriesPlaceholder;
+export default UserProfileScoresPlaceholder;
