@@ -1,13 +1,24 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Stack, Skeleton } from "@chakra-ui/react";
+import { Skeleton, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 
 const LeaderboardTablePlaceholder = ({ noOfLines }) => (
-  <Stack>
-    {[...Array(noOfLines)].map((_, i) => (
-      <Skeleton key={i} height="20px" />
-    ))}
-  </Stack>
+  <Skeleton>
+    <Table>
+      <Thead>
+        <Tr>
+          <Th>HEADER</Th>
+        </Tr>
+      </Thead>
+      <Tbody>
+        {[...Array(noOfLines)].map((_, i) => (
+          <Tr key={i}>
+            <Td>ENTRY</Td>
+          </Tr>
+        ))}
+      </Tbody>
+    </Table>
+  </Skeleton>
 );
 
 LeaderboardTablePlaceholder.propTypes = {
