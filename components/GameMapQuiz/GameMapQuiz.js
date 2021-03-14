@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { debounce } from "throttle-debounce";
+
 import PropTypes from "prop-types";
 import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import { useTimer } from "react-timer-hook";
@@ -61,8 +63,14 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   };
 
   const handleChange = (event) => {
-    const submission = event.currentTarget.value;
-    setInputValue(submission);
+    setInputValue(event.target.value);
+    handleChangeDebounced(event);
+  };
+
+  const handleChangeDebounced = debounce(30, (event) => checkSubmission(event));
+
+  const checkSubmission = (event) => {
+    const submission = event.target.value;
 
     if (!submission) {
       setHasError(false);
@@ -185,12 +193,14 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                 {quiz.hasGrouping ? (
                   <ResultsMap
                     quizId={quiz.id}
+                    verb={quiz.verb}
                     results={checkedSubmissions}
                     map={groupMapping(mapping)}
                   />
                 ) : (
                   <ResultsListWrapper
-                    quiz={quiz}
+                    quizId={quiz.id}
+                    verb={quiz.verb}
                     results={mergeArrayByName(mapping, checkedSubmissions)}
                   />
                 )}
