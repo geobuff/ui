@@ -12,3 +12,15 @@ export const flattenCountries = (countriesByContinent) => {
 
   return flattenedCountries;
 };
+
+export const findSubmissionByNames = (collection, submissionName) =>
+  collection?.find(
+    ({ name, alternativeNames }) =>
+      name.toLowerCase() === submissionName.toLowerCase() ||
+      alternativeNames.includes(submissionName.toLowerCase())
+  );
+
+export const findSubmissionsByPrefixes = (collection, submissionName) =>
+  collection.filter((submission) =>
+    submission.prefixes.includes(submissionName.toLowerCase())
+  );

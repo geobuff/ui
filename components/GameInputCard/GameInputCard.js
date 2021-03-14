@@ -138,7 +138,10 @@ GameInputCard.propTypes = {
     })
   ),
   score: PropTypes.number,
-  timeRemaining: PropTypes.number,
+  timeRemaining: PropTypes.shape({
+    minute: PropTypes.number,
+    seconds: PropTypes.number,
+  }),
   gameStartText: PropTypes.string,
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,

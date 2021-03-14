@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { debounce } from "throttle-debounce";
+
 import PropTypes from "prop-types";
 import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import { useTimer } from "react-timer-hook";
@@ -16,6 +18,10 @@ import { groupMapping } from "../../helpers/mapping";
 import { mergeArrayByName } from "../../helpers/array";
 
 import { DateTime } from "luxon";
+import {
+  findSubmissionByNames,
+  findSubmissionsByPrefixes,
+} from "../../helpers/game";
 
 const GameMapQuiz = ({ quiz, mapping, map }) => {
   const [checkedSubmissions, setCheckedSubmissions] = useState([]);
@@ -39,17 +45,6 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
   const quizDateTime = () => DateTime.now().plus({ seconds: quiz.time });
 
-  const findSubmissionByName = (collection, submissionName) =>
-    collection?.find(
-      (submission) =>
-        submission.name.toLowerCase() === submissionName.toLowerCase()
-    );
-
-  const findSubmissionsByPrefixes = (collection, submissionName) =>
-    collection.filter((submission) =>
-      submission.prefixes.includes(submissionName.toLowerCase())
-    );
-
   const handleLocationClassName = (location) => {
     if (
       checkedSubmissions.length
@@ -64,8 +59,14 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   };
 
   const handleChange = (event) => {
-    const submission = event.currentTarget.value;
-    setInputValue(submission);
+    setInputValue(event.target.value);
+    handleChangeDebounced(event);
+  };
+
+  const handleChangeDebounced = debounce(30, (event) => checkSubmission(event));
+
+  const checkSubmission = (event) => {
+    const submission = event.target.value;
 
     if (!submission) {
       setHasError(false);
@@ -73,13 +74,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
     }
 
     const matchedPrefixes = findSubmissionsByPrefixes(mapping, submission);
-    const isChecked = findSubmissionByName(checkedSubmissions, submission);
+    const isChecked = findSubmissionByNames(checkedSubmissions, submission);
 
     if (isChecked && matchedPrefixes.length > 0) {
       return;
     }
 
-    const matchedSubmission = findSubmissionByName(mapping, submission);
+    const matchedSubmission = findSubmissionByNames(mapping, submission);
 
     if (matchedSubmission && isChecked) {
       setHasError(true);
@@ -188,12 +189,14 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                 {quiz.hasGrouping ? (
                   <ResultsMap
                     quizId={quiz.id}
+                    verb={quiz.verb}
                     results={checkedSubmissions}
                     map={groupMapping(mapping)}
                   />
                 ) : (
                   <ResultsListWrapper
-                    quiz={quiz}
+                    quizId={quiz.id}
+                    verb={quiz.verb}
                     results={mergeArrayByName(mapping, checkedSubmissions)}
                   />
                 )}
