@@ -18,6 +18,11 @@ import { timeFifteenMinutes } from "../../helpers/time";
 import { groupMapping } from "../../helpers/mapping";
 import { mergeArrayByName } from "../../helpers/array";
 
+import {
+  findSubmissionByNames,
+  findSubmissionsByPrefixes,
+} from "../../helpers/game";
+
 const GameMapQuiz = ({ quiz, mapping, map }) => {
   const [checkedSubmissions, setCheckedSubmissions] = useState([]);
   const [recentSubmissions, setRecentSubmissions] = useState([]);
@@ -37,17 +42,6 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   const { seconds, minutes, restart, pause } = useTimer({
     timeRemaining,
   });
-
-  const findSubmissionByName = (collection, submissionName) =>
-    collection?.find(
-      (submission) =>
-        submission.name.toLowerCase() === submissionName.toLowerCase()
-    );
-
-  const findSubmissionsByPrefixes = (collection, submissionName) =>
-    collection.filter((submission) =>
-      submission.prefixes.includes(submissionName.toLowerCase())
-    );
 
   const handleLocationClassName = (location) => {
     if (
@@ -78,13 +72,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
     }
 
     const matchedPrefixes = findSubmissionsByPrefixes(mapping, submission);
-    const isChecked = findSubmissionByName(checkedSubmissions, submission);
+    const isChecked = findSubmissionByNames(checkedSubmissions, submission);
 
     if (isChecked && matchedPrefixes.length > 0) {
       return;
     }
 
-    const matchedSubmission = findSubmissionByName(mapping, submission);
+    const matchedSubmission = findSubmissionByNames(mapping, submission);
 
     if (matchedSubmission && isChecked) {
       setHasError(true);
