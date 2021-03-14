@@ -1,5 +1,4 @@
 import React from "react";
-import { Text } from "@chakra-ui/react";
 
 import UserProfile from "../../components/UserProfile";
 import useCurrentUser from "../../hooks/UseCurrentUser";
@@ -10,7 +9,7 @@ const UserProfileContainer = () => {
   const { quizzes, loading: isLoadingQuizzes } = useQuizzes();
 
   if (isLoadingUser || isLoadingQuizzes) {
-    return <Text>Loading...</Text>;
+    return null;
   }
 
   return <UserProfile user={user} quizzes={quizzes} />;

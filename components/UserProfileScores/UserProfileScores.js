@@ -49,7 +49,7 @@ const UserProfileScores = ({ scores }) => (
     </Box>
   </Box>
 );
-1;
+
 UserProfileScores.propTypes = {
   scores: PropTypes.arrayOf(
     PropTypes.shape({

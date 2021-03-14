@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { Text } from "@chakra-ui/react";
 import { useAuth0 } from "@auth0/auth0-react";
 
 import useMapping from "../../hooks/UseMapping";
 import UserProfileSummary from "../../components/UserProfileSummary";
+import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
 
 const UserProfileSummaryContainer = ({ user, quizzes }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -45,7 +45,7 @@ const UserProfileSummaryContainer = ({ user, quizzes }) => {
   };
 
   if (loading) {
-    return <Text>Loading summary...</Text>;
+    return <UserProfileSummaryPlaceholder />;
   }
 
   return (
