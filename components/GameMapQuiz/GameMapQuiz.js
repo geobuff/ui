@@ -14,10 +14,10 @@ import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameMap from "../GameMap/GameMap";
 
-import { timeFifteenMinutes } from "../../helpers/time";
 import { groupMapping } from "../../helpers/mapping";
 import { mergeArrayByName } from "../../helpers/array";
 
+import { DateTime } from "luxon";
 import {
   findSubmissionByNames,
   findSubmissionsByPrefixes,
@@ -42,6 +42,8 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   const { seconds, minutes, restart, pause } = useTimer({
     timeRemaining,
   });
+
+  const quizDateTime = () => DateTime.now().plus({ seconds: quiz.time });
 
   const handleLocationClassName = (location) => {
     if (
@@ -124,15 +126,15 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
   const handleGameStart = () => {
     resetGame();
-    restart(timeFifteenMinutes());
-    setTimeRemaining(timeFifteenMinutes());
+
+    restart(quizDateTime());
+    setTimeRemaining(quizDateTime());
     setHasGameStarted(true);
   };
 
   const handleGameStop = () => {
     pause();
-    // TODO: Update 900 to be a quiz constant
-    setTime(900 - (seconds + minutes * 60));
+    setTime(quiz.time - (seconds + minutes * 60));
     setHasGameStarted(false);
     onOpen();
     if (gameStartText === "START") {
