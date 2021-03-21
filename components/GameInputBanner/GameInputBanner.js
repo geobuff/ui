@@ -27,7 +27,6 @@ const GameInputBanner = ({
   inputValue,
   onChange,
   onClearInput,
-  onExpire,
 }) => {
   return (
     <>
@@ -45,7 +44,6 @@ const GameInputBanner = ({
             hasGameStarted={hasGameStarted}
             hasGameStopped={hasGameStopped}
             totalSeconds={quiz.time}
-            onExpire={onExpire}
           />
           <Text
             color="white"
@@ -113,7 +111,6 @@ GameInputBanner.propTypes = {
   inputValue: PropTypes.string,
   onChange: PropTypes.func,
   onClearInput: PropTypes.func,
-  onExpire: PropTypes.func,
 };
 GameInputBanner.defaultProps = {
   quiz: {},
@@ -126,7 +123,6 @@ GameInputBanner.defaultProps = {
   inputValue: "",
   onChange: () => {},
   onClearInput: () => {},
-  onExpire: () => {},
 };
 
 export default GameInputBanner;
