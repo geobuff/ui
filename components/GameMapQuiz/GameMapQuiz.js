@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { debounce } from "throttle-debounce";
 
 import PropTypes from "prop-types";
@@ -31,6 +31,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   const [score, setScore] = useState(0);
   const [inputValue, setInputValue] = useState("");
   const [hasGameStarted, setHasGameStarted] = useState(false);
+  const [hasGameStopped, setHasGameStopped] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [time, setTime] = useState(0);
   const [gameStartText, setGameStartText] = useState("START");
@@ -39,11 +40,29 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
+  const handleExpire = (seconds, minutes) => {
+    setTime(quiz.time - (seconds + minutes * 60));
+    setHasGameStarted(false);
+    setHasGameStopped(true);
+    onOpen();
+    if (gameStartText === "START") {
+      setGameStartText("RETRY");
+    }
+  };
+
   const { seconds, minutes, restart, pause } = useTimer({
     timeRemaining,
+    onExpire: () => {
+      pause();
+      handleExpire(seconds, minutes);
+    },
   });
 
   const quizDateTime = () => DateTime.now().plus({ seconds: quiz.time });
+
+  useEffect(() => {
+    restart(quizDateTime());
+  }, [timeRemaining]);
 
   const handleLocationClassName = (location) => {
     if (
@@ -118,24 +137,24 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
     setInputValue("");
   };
 
-  const resetGame = () => {
+  const handleGameStart = () => {
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
     setScore(0);
-  };
 
-  const handleGameStart = () => {
-    resetGame();
+    setTimeRemaining(quizDateTime());
 
     restart(quizDateTime());
-    setTimeRemaining(quizDateTime());
+
     setHasGameStarted(true);
+    setHasGameStopped(false);
   };
 
   const handleGameStop = () => {
     pause();
     setTime(quiz.time - (seconds + minutes * 60));
     setHasGameStarted(false);
+    setHasGameStopped(true);
     onOpen();
     if (gameStartText === "START") {
       setGameStartText("RETRY");
@@ -160,6 +179,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           expiryTimestamp={{ seconds, minutes }}
           hasError={hasError}
           hasGameStarted={hasGameStarted}
+          hasGameStopped={hasGameStopped}
           inputValue={inputValue}
           onChange={handleChange}
           onClearInput={onClearInput}
@@ -180,6 +200,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
+                  hasGameStopped={hasGameStopped}
                   inputValue={inputValue}
                   onChange={handleChange}
                   onClearInput={onClearInput}

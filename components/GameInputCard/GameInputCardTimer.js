@@ -19,7 +19,18 @@ const GameInputCardTimer = ({
   totalSeconds,
   expiryTimestamp,
   hasGameStarted,
+  hasGameStopped,
 }) => {
+  if (hasGameStopped) {
+    return (
+      <Timer>
+        {`${toMinTwoDigits(expiryTimestamp.minutes)}:${toMinTwoDigits(
+          expiryTimestamp.seconds
+        )}`}
+      </Timer>
+    );
+  }
+
   if (!hasGameStarted) {
     return <Timer>{secondsToMinutesString(totalSeconds)}</Timer>;
   }
@@ -43,11 +54,13 @@ GameInputCardTimer.propTypes = {
   totalSeconds: PropTypes.number,
   expiryTimestamp: PropTypes.number,
   hasGameStarted: PropTypes.bool,
+  hasGameStopped: PropTypes.bool,
 };
 GameInputCardTimer.defaultProps = {
   totalSeconds: 900,
   expiryTimestamp: null,
   hasGameStarted: false,
+  hasGameStopped: false,
 };
 
 export default GameInputCardTimer;

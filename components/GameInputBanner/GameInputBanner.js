@@ -23,6 +23,7 @@ const GameInputBanner = ({
   expiryTimestamp,
   hasError,
   hasGameStarted,
+  hasGameStopped,
   inputValue,
   onChange,
   onClearInput,
@@ -42,6 +43,7 @@ const GameInputBanner = ({
           <GameInputBannerTimer
             expiryTimestamp={expiryTimestamp}
             hasGameStarted={hasGameStarted}
+            hasGameStopped={hasGameStopped}
             totalSeconds={quiz.time}
             onExpire={onExpire}
           />
@@ -107,6 +109,7 @@ GameInputBanner.propTypes = {
   expiryTimestamp: PropTypes.number,
   hasError: PropTypes.bool,
   hasGameStarted: PropTypes.bool,
+  hasGameStopped: PropTypes.bool,
   inputValue: PropTypes.string,
   onChange: PropTypes.func,
   onClearInput: PropTypes.func,
@@ -119,6 +122,7 @@ GameInputBanner.defaultProps = {
   expiryTimestamp: null,
   hasError: false,
   hasGameStarted: false,
+  hasGameStopped: false,
   inputValue: "",
   onChange: () => {},
   onClearInput: () => {},
