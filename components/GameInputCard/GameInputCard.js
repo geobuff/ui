@@ -29,6 +29,7 @@ const GameInputCard = ({
   gameStartText,
   errorMessage,
   hasGameStarted,
+  hasGameStopped,
   hasError,
   inputValue,
   onChange,
@@ -91,6 +92,7 @@ const GameInputCard = ({
           totalSeconds={quiz.time}
           expiryTimestamp={timeRemaining}
           hasGameStarted={hasGameStarted}
+          hasGameStopped={hasGameStopped}
         />
       </Box>
       {divider}
@@ -146,6 +148,7 @@ GameInputCard.propTypes = {
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
   hasGameStarted: PropTypes.bool,
+  hasGameStopped: PropTypes.bool,
   inputValue: PropTypes.string,
   onChange: PropTypes.func,
   onClearInput: PropTypes.func,
@@ -162,6 +165,7 @@ GameInputCard.defaultProps = {
   errorMessage: "",
   hasError: false,
   hasGameStarted: false,
+  hasGameStopped: false,
   inputValue: "",
   onChange: () => {},
   onClearInput: () => {},

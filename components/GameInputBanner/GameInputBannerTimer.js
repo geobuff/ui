@@ -15,16 +15,29 @@ const Timer = ({ children }) => (
 const GameInputBannerTimer = ({
   expiryTimestamp,
   hasGameStarted,
+  hasGameStopped,
   totalSeconds,
 }) => {
+  if (hasGameStopped) {
+    return (
+      <Timer>
+        {`${toMinTwoDigits(expiryTimestamp.minutes)}:${toMinTwoDigits(
+          expiryTimestamp.seconds
+        )}`}
+      </Timer>
+    );
+  }
+
   if (!hasGameStarted) {
     return <Timer>{secondsToMinutesString(totalSeconds)}</Timer>;
   }
 
   return (
-    <Timer>{`${toMinTwoDigits(expiryTimestamp.minutes)}:${toMinTwoDigits(
-      expiryTimestamp.seconds
-    )}`}</Timer>
+    <Timer>
+      {`${toMinTwoDigits(expiryTimestamp.minutes)}:${toMinTwoDigits(
+        expiryTimestamp.seconds
+      )}`}
+    </Timer>
   );
 };
 
@@ -39,11 +52,13 @@ Timer.defaultProps = {
 GameInputBannerTimer.propTypes = {
   expiryTimestamp: PropTypes.number,
   hasGameStarted: PropTypes.bool,
+  hasGameStopped: PropTypes.bool,
   totalSeconds: PropTypes.number,
 };
 GameInputBannerTimer.defaultProps = {
   expiryTimestamp: null,
   hasGameStarted: false,
+  hasGameStopped: false,
   totalSeconds: 900,
 };
 
