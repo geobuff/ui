@@ -7,7 +7,6 @@ const Sidebar = ({ heading, children }) => (
   <Box
     width="375px"
     maxHeight="93vh"
-    // minHeight="100%"
     padding={4}
     paddingBottom="75px"
     backgroundColor="#FFF"
