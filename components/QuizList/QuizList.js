@@ -17,6 +17,7 @@ const QuizList = ({ quizzes }) => (
     width={{ base: "95%", sm: "80%", md: "65%" }}
     maxWidth="1200px"
     marginTop="32px"
+    paddingBottom="32px"
     marginLeft="auto"
     marginRight="auto"
     _hover={{
@@ -32,7 +33,6 @@ const QuizList = ({ quizzes }) => (
       <>
         <SimpleGrid
           justifyContent="center"
-          marginBottom="72px"
           minChildWidth={{ base: "140px", sm: "185px", md: "200px" }}
           spacing={{ base: "16px", md: "24px" }}
         >

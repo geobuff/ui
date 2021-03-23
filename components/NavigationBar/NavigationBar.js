@@ -18,6 +18,10 @@ const NavigationBar = () => {
       backgroundColor="white"
       boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
       position="relative"
+      top={0}
+      left={0}
+      width="100%"
+      zIndex={1}
     >
       <Flex alignItems="center" justifyContent="space-between">
         <Link href="/" _hover={{ textDecoration: "none" }}>

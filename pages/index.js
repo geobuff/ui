@@ -1,15 +1,11 @@
 import React, { useState, useCallback } from "react";
 import { debounce } from "debounce";
 
-import {
-  Box,
-  Input,
-  InputGroup,
-  InputLeftElement,
-  Flex,
-} from "@chakra-ui/react";
+import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 
+import MainView from "../components/MainView";
 import HeroBanner from "../components/HeroBanner";
+
 import QuizListContainer from "../containers/QuizListContainer";
 
 import Search from "../Icons/Search";
@@ -31,44 +27,42 @@ const Home = () => {
   };
 
   return (
-    <Flex width="100%" mx="auto" position="relative">
-      <Box position="absolute" left="0" right="0" top="0">
-        <HeroBanner username={user?.username} />
-        <Box
-          mx="auto"
-          position="relative"
-          left={0}
-          right={0}
-          bottom="21px"
-          maxWidth={{
-            base: "85%",
-            sm: "80%",
-            md: "60%",
-            lg: "600px",
-          }}
-        >
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <Search
-                marginTop="8px"
-                marginLeft="14px"
-                height="24px"
-                width="24px"
-                color="gray.500"
-              />
-            </InputLeftElement>
-            <Input
-              paddingLeft="44px"
-              width="100%"
-              size="lg"
-              onChange={handleChange}
-              placeholder="Enter quiz name..."
+    <MainView>
+      <HeroBanner username={user?.username} />
+      <Box
+        mx="auto"
+        position="relative"
+        left={0}
+        right={0}
+        bottom="21px"
+        maxWidth={{
+          base: "85%",
+          sm: "80%",
+          md: "60%",
+          lg: "600px",
+        }}
+      >
+        <InputGroup>
+          <InputLeftElement pointerEvents="none">
+            <Search
+              marginTop="8px"
+              marginLeft="14px"
+              height="24px"
+              width="24px"
+              color="gray.500"
             />
-          </InputGroup>
-        </Box>
-        <QuizListContainer filter={filter} />
+          </InputLeftElement>
+          <Input
+            paddingLeft="44px"
+            width="100%"
+            size="lg"
+            onChange={handleChange}
+            placeholder="Enter quiz name..."
+          />
+        </InputGroup>
       </Box>
-    </Flex>
+      <QuizListContainer filter={filter} />
+    </MainView>
   );
 };
 
