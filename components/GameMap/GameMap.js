@@ -31,7 +31,7 @@ const GameMap = ({ showTooltip, map, onLocationClassName }) => {
 
   return (
     <Box width="100%">
-      <Box pt={2} textAlign="center" height="100%">
+      <Box textAlign="center" height="100%">
         <Tooltip
           label={tooltipText}
           position="absolute"
