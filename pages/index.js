@@ -27,8 +27,6 @@ const Home = () => {
   };
 
   return (
-    // <Flex width="100%" mx="auto" position="relative">
-    //   <Box position="absolute" left="0" right="0" top="0">
     <MainView>
       <HeroBanner username={user?.username} />
       <Box
