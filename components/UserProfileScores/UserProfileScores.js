@@ -23,7 +23,7 @@ const UserProfileScores = ({ scores }) => (
     </Heading>
     <Box my={6}>
       {scores.length === 0 ? (
-        <Alert>No scores to display.</Alert>
+        <Alert borderRadius={6}>No scores to display.</Alert>
       ) : (
         <Table variant="striped" colorScheme="gray">
           <Thead>
@@ -49,7 +49,7 @@ const UserProfileScores = ({ scores }) => (
     </Box>
   </Box>
 );
-1;
+
 UserProfileScores.propTypes = {
   scores: PropTypes.arrayOf(
     PropTypes.shape({

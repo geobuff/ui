@@ -1,26 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useSWR from "swr";
-import { Text } from "@chakra-ui/react";
-import { authFetcher } from "../../helpers/fetcher";
+
 import UserProfileScores from "../../components/UserProfileScores";
+import useScores from "../../hooks/UseScores";
+import UserProfileScoresPlaceholder from "../../placeholders/UserProfileScoresPlaceholder";
 
-const UserProfileScoresContainer = ({ token, id }) => {
-  const { data } = useSWR(
-    [`${process.env.NEXT_PUBLIC_API_URL}/scores/${id}`, token],
-    authFetcher
-  );
+const UserProfileScoresContainer = ({ userId }) => {
+  const { scores, isLoading } = useScores(userId);
 
-  if (!data) {
-    return <Text>Loading scores...</Text>;
+  if (isLoading) {
+    return <UserProfileScoresPlaceholder />;
   }
 
-  return <UserProfileScores scores={data} />;
+  return <UserProfileScores scores={scores} />;
 };
 
 UserProfileScoresContainer.propTypes = {
-  token: PropTypes.string,
-  id: PropTypes.number,
+  userId: PropTypes.number,
 };
 
 export default UserProfileScoresContainer;

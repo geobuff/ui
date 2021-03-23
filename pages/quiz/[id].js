@@ -1,27 +1,24 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import CountriesOfTheWorldGameContainer from "../../containers/CountriesOfTheWorldGameContainer";
-import CapitalsOfTheWorldGameContainer from "../../containers/CapitalsOfTheWorldGameContainer";
-import USStatesGameContainer from "../../containers/USStatesGameContainer";
-import UKCountiesGameContainer from "../../containers/UKCountiesGameContainer";
+import useQuizzes from "../../hooks/UseQuizzes";
+import GameMapQuizContainer from "../../containers/GameMapQuizContainer";
 
 const Quiz = () => {
+  const { quizzes, loading } = useQuizzes();
   const router = useRouter();
   const { id } = router.query;
 
-  switch (id) {
-    case "countries-of-the-world":
-      return <CountriesOfTheWorldGameContainer />;
-    case "capitals-of-the-world":
-      return <CapitalsOfTheWorldGameContainer />;
-    case "us-states":
-      return <USStatesGameContainer />;
-    case "uk-counties":
-      return <UKCountiesGameContainer />;
-    default:
-      return null;
+  if (loading) {
+    return null;
   }
+
+  const filter = quizzes.filter((x) => x.route === id);
+  if (filter.length === 0) {
+    return null;
+  }
+
+  return <GameMapQuizContainer quizId={filter[0].id} />;
 };
 
 export default Quiz;

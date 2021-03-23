@@ -3,9 +3,8 @@ import PropTypes from "prop-types";
 import { Box, Divider, Text } from "@chakra-ui/react";
 
 import ResultsList from "../../components/ResultsList/ResultsList";
-import { Quizzes } from "../../helpers/quizzes";
 
-const ResultsListWrapper = ({ quiz, results }) => (
+const ResultsListWrapper = ({ quizId, results, verb }) => (
   <Box textAlign="left">
     <Divider my={4} />
     <Text fontSize="xl" mt={2} fontWeight="bold">
@@ -13,18 +12,20 @@ const ResultsListWrapper = ({ quiz, results }) => (
     </Text>
     <Divider my={3} />
     <Box>
-      <ResultsList quiz={quiz} results={results} />
+      <ResultsList quizId={quizId} results={results} verb={verb} />
     </Box>
   </Box>
 );
 
 ResultsListWrapper.propTypes = {
-  quiz: PropTypes.number,
+  quizId: PropTypes.number,
   results: PropTypes.array,
+  verb: PropTypes.string,
 };
 ResultsListWrapper.defaultProps = {
-  quiz: Quizzes.USStates,
+  quizId: {},
   results: [],
+  verb: "data",
 };
 
 export default ResultsListWrapper;

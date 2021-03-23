@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Box, Text } from "@chakra-ui/react";
 
 import { toMinTwoDigits } from "../../helpers/format-text";
+import { secondsToMinutesString } from "../../helpers/time";
 
 const Timer = ({ children }) => (
   <Box>
@@ -14,10 +15,24 @@ const Timer = ({ children }) => (
   </Box>
 );
 
-const GameInputCardTimer = ({ expiryTimestamp, hasGameStarted }) => {
-  // TODO: update this to not reset on game over
+const GameInputCardTimer = ({
+  totalSeconds,
+  expiryTimestamp,
+  hasGameStarted,
+  hasGameStopped,
+}) => {
+  if (hasGameStopped) {
+    return (
+      <Timer>
+        {`${toMinTwoDigits(expiryTimestamp.minutes)}:${toMinTwoDigits(
+          expiryTimestamp.seconds
+        )}`}
+      </Timer>
+    );
+  }
+
   if (!hasGameStarted) {
-    return <Timer>{"15:00"}</Timer>;
+    return <Timer>{secondsToMinutesString(totalSeconds)}</Timer>;
   }
 
   return (
@@ -36,12 +51,16 @@ Timer.defaultProps = {
 };
 
 GameInputCardTimer.propTypes = {
+  totalSeconds: PropTypes.number,
   expiryTimestamp: PropTypes.number,
   hasGameStarted: PropTypes.bool,
+  hasGameStopped: PropTypes.bool,
 };
 GameInputCardTimer.defaultProps = {
+  totalSeconds: 900,
   expiryTimestamp: null,
   hasGameStarted: false,
+  hasGameStopped: false,
 };
 
 export default GameInputCardTimer;

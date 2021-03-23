@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Flex, Text } from "@chakra-ui/react";
-import { Quizzes, getTotal } from "../../helpers/quizzes";
 
 const GameInputCardScore = ({ quiz, score }) => {
   return (
@@ -10,18 +9,31 @@ const GameInputCardScore = ({ quiz, score }) => {
         {score}
       </Text>
       <Text color="#768389" fontSize="24px" fontWeight="bold">
-        {`/ ${getTotal(quiz)}`}
+        {`/ ${quiz.maxScore}`}
       </Text>
     </Flex>
   );
 };
 
 GameInputCardScore.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    mapSVG: PropTypes.string,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    route: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   score: PropTypes.number,
 };
 GameInputCardScore.defaultProps = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
   score: 0,
 };
 

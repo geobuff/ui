@@ -1,21 +1,22 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Text } from "@chakra-ui/react";
+
 import UserProfileLeaderboardEntries from "../../components/UserProfileLeaderboardEntries";
 import useLeaderboardEntries from "../../hooks/UseLeaderboardEntries";
+import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";
 
-const UserProfileLeaderboardEntriesContainer = ({ id }) => {
-  const { entries, isPending } = useLeaderboardEntries(id);
+const UserProfileLeaderboardEntriesContainer = ({ userId }) => {
+  const { entries, isPending } = useLeaderboardEntries(userId);
 
   if (isPending) {
-    return <Text>Loading leaderboard entries...</Text>;
+    return <UserProfileLeaderboardEntriesPlaceholder />;
   }
 
   return <UserProfileLeaderboardEntries entries={entries} />;
 };
 
 UserProfileLeaderboardEntriesContainer.propTypes = {
-  id: PropTypes.number,
+  userId: PropTypes.number,
 };
 
 export default UserProfileLeaderboardEntriesContainer;

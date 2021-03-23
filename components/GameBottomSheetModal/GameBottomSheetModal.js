@@ -1,22 +1,21 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-
 import { Box, Button, Divider, Heading, Text } from "@chakra-ui/react";
-
 import Sheet from "react-modal-sheet";
 
 import ResultsList from "../ResultsList";
-import CountryResultsListContainer from "../../containers/CountryResultsListContainer";
-import CapitalResultsListContainer from "../../containers/CapitalResultsListContainer";
-import StatesResultsListContainer from "../../containers/StatesResultsListContainer";
-import CountiesResultsListContainer from "../../containers/CountiesResultsListContainer";
-import { Quizzes, getTitle } from "../../helpers/quizzes";
+import ResultsMap from "../ResultsMap";
+import ResultsListWrapper from "../ResultsListWrapper";
+
+import { mergeArrayByName } from "../../helpers/array";
+import { groupMapping } from "../../helpers/mapping";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
 const GameBottomSheetModal = ({
   quiz,
+  mapping,
   checked,
   recents,
   hasGameStarted,
@@ -31,21 +30,6 @@ const GameBottomSheetModal = ({
   const handleClose = () => {
     setIsOpen(false);
     setIsOpen(true);
-  };
-
-  const getContainer = () => {
-    switch (quiz) {
-      case Quizzes.CountriesOfTheWorld:
-        return <CountryResultsListContainer checkedCountries={checked} />;
-      case Quizzes.CapitalsOfTheWorld:
-        return <CapitalResultsListContainer checkedCapitals={checked} />;
-      case Quizzes.USStates:
-        return <StatesResultsListContainer checkedStates={checked} />;
-      case Quizzes.UKCounties:
-        return <CountiesResultsListContainer checkedCounties={checked} />;
-      default:
-        throw Error("Invalid quiz option.");
-    }
   };
 
   return (
@@ -69,7 +53,7 @@ const GameBottomSheetModal = ({
           <Box overflowY="scroll" mx={5} my={0} pb="100px">
             <Box>
               <Heading pt={0} size="md" textAlign="center">
-                {getTitle(quiz)}
+                {quiz.name}
               </Heading>
 
               <Divider my={4} />
@@ -95,10 +79,29 @@ const GameBottomSheetModal = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <ResultsList quiz={quiz} results={recents} />
+              <ResultsList
+                quizId={quiz.id}
+                verb={quiz.verb}
+                results={recents}
+              />
             </Box>
 
-            <Box>{getContainer()}</Box>
+            <Box>
+              {quiz.hasGrouping ? (
+                <ResultsMap
+                  quizId={quiz.id}
+                  results={checked}
+                  map={groupMapping(mapping)}
+                  verb={quiz.verb}
+                />
+              ) : (
+                <ResultsListWrapper
+                  quizId={quiz.id}
+                  results={mergeArrayByName(mapping, checked)}
+                  verb={quiz.verb}
+                />
+              )}
+            </Box>
           </Box>
         </Sheet.Content>
       </Sheet.Container>
@@ -107,7 +110,30 @@ const GameBottomSheetModal = ({
 };
 
 GameBottomSheetModal.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    mapSVG: PropTypes.string,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    route: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
+  mapping: PropTypes.arrayOf(
+    PropTypes.shape({
+      name: PropTypes.string,
+      code: PropTypes.string,
+      svgName: PropTypes.string,
+      alternativeNames: PropTypes.arrayOf(PropTypes.string),
+      prefixes: PropTypes.arrayOf(PropTypes.string),
+      group: PropTypes.string,
+    })
+  ),
   checked: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
@@ -127,7 +153,8 @@ GameBottomSheetModal.propTypes = {
 };
 
 GameBottomSheetModal.defaultProps = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
+  mapping: [],
   checked: [],
   recents: [],
   hasGameStarted: false,

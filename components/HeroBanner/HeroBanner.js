@@ -1,51 +1,63 @@
 import React from "react";
-import PropTypes from "prop-types";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, Fade, Flex, Text } from "@chakra-ui/react";
 
-const HeroBanner = ({ username }) => {
+const subHeaderText =
+  "Create an account and compete with players from all over the globe!";
+
+const HeroBanner = () => {
   return (
     <Box
-      background="linear-gradient(90deg, #44D581 0%, #27AE60 100%)"
+      role="banner"
+      background="linear-gradient(90deg, #27AE60 0%, #219250 100%)"
+      height={["260px", "300px", "420px"]}
       width="100%"
-      height={{
-        base: "225px",
-        sm: "250px",
-        md: "300px",
-      }}
     >
       <Box
         height="100%"
-        background="url(/world-map.svg)"
+        background={"url(/world-map.svg)"}
         backgroundRepeat="no-repeat"
-        backgroundSize={{
-          base: "400px 200px",
-          sm: "450px 250px",
-          md: "650px 350px",
-        }}
-        backgroundPosition={{
-          base: "right -175px top 20px",
-          sm: "right -170px top 20px",
-          md: "right -20px top -10px",
-        }}
+        backgroundSize={{ base: "600px 300px", md: "1200px 475px" }}
+        backgroundPosition="center top 2px"
       >
-        <Box padding={{ base: 3, sm: 6, md: 12 }}>
-          <Text fontSize="48px" fontWeight="black" lineHeight="100%">
-            {username ? "Welcome back," : "Welcome to"}
-          </Text>
-          <Text fontSize="48px" fontWeight="black">
-            {username || "GeoBuff"}
-          </Text>
-        </Box>
+        <Flex
+          direction="column"
+          padding={[3, 6, 12]}
+          height="100%"
+          justifyContent="center"
+          alignItems="center"
+          textAlign="center"
+        >
+          <Fade in>
+            <Text
+              color="white"
+              fontSize={["42px", "42px", "56px"]}
+              fontWeight="black"
+              lineHeight={{ base: "1.1", md: "1" }}
+            >
+              {"Get Your Geo Flex On"}
+            </Text>
+
+            <Box
+              marginY={5}
+              marginX="auto"
+              maxWidth={{ sm: "400px", md: "450px" }}
+            >
+              <Text
+                color="white"
+                fontSize={["18px", "18px", "24px"]}
+                fontWeight="medium"
+              >
+                {subHeaderText}
+              </Text>
+            </Box>
+          </Fade>
+        </Flex>
       </Box>
     </Box>
   );
 };
 
-HeroBanner.propTypes = {
-  username: PropTypes.string,
-};
-HeroBanner.defaultProps = {
-  username: "",
-};
+HeroBanner.propTypes = {};
+HeroBanner.defaultProps = {};
 
 export default HeroBanner;

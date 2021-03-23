@@ -1,5 +1,4 @@
 import React from "react";
-import { Quizzes } from "../../helpers/quizzes";
 import GameInputBanner from "./GameInputBanner";
 
 export default {
@@ -11,7 +10,7 @@ const Template = (args) => <GameInputBanner {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
   score: 69,
   total: 193,
   verb: "countries",

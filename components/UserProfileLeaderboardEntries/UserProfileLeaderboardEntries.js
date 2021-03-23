@@ -23,7 +23,7 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
     </Heading>
     <Box my={6}>
       {entries.length === 0 ? (
-        <Alert>No entries to display.</Alert>
+        <Alert borderRadius={6}>No entries to display.</Alert>
       ) : (
         <Table variant="striped" colorScheme="gray">
           <Thead>

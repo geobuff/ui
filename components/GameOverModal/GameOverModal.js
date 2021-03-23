@@ -13,7 +13,6 @@ import {
   ModalOverlay,
   Text,
   Tooltip,
-  Alert,
 } from "@chakra-ui/react";
 
 import GameExistingEntry from "../GameExistingEntry";
@@ -21,15 +20,21 @@ import GameExistingEntry from "../GameExistingEntry";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
 import { secondsToMinutesString } from "../../helpers/time";
-import { getTitle, getTotal } from "../../helpers/quizzes";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
 const explainerCloseModal =
   "Feel free to close this modal to view the map and your results. Don’t worry, you’ll still be able to submit your score afterwards!";
-
+const explainerScoreQuizNotLoggedIn =
+  "You must login to update your high score.";
+const explainerScoreQuizLoggedIn =
+  "If this score is greater than your existing score, we will update it behind the scenes.";
+const explainerLeaderboardQuizNotLoggedIn =
+  "You must login to submit a leaderboard entry.";
+const explainerNoExistingEntry =
+  "No existing entry for this quiz. By clicking submit you will create a new leaderboard entry.";
 const explainerExistingEntry =
-  "You have an existing entry for this quiz, by clicking submit you will update your existing entry. ";
+  "You have an existing entry for this quiz. By clicking submit you will update your existing entry.";
 
 const GameOverModal = ({
   quiz,
@@ -41,8 +46,11 @@ const GameOverModal = ({
   onClose,
   onSubmit,
   submitting,
-  error,
 }) => {
+  const scoreQuizNotLoggedIn = !onSubmit && !loggedIn;
+  const scoreQuizLoggedIn = !onSubmit && loggedIn;
+  const leaderboardQuizNotLoggedIn = onSubmit && !loggedIn;
+  const noExistingEntry = onSubmit && loggedIn && !existingEntry;
   const shouldShowExistingEntry = onSubmit && loggedIn && existingEntry;
 
   return (
@@ -79,14 +87,6 @@ const GameOverModal = ({
             </Tooltip>
           </Button>
 
-          {error && (
-            <Box mx={5}>
-              <Alert status="error" borderRadius={6}>
-                {error}
-              </Alert>
-            </Box>
-          )}
-
           <Box paddingY={10} paddingX={8}>
             <Box textAlign="center">
               <Text fontSize="32px" fontWeight="black">
@@ -94,7 +94,7 @@ const GameOverModal = ({
               </Text>
 
               <Text color="#828282" fontSize="22px" fontWeight="bold">
-                {getTitle(quiz)}
+                {quiz.name}
               </Text>
             </Box>
 
@@ -122,7 +122,7 @@ const GameOverModal = ({
                     lineHeight="40px"
                     marginBottom={1}
                   >
-                    {`/ ${getTotal(quiz)}`}
+                    {`/ ${quiz.maxScore}`}
                   </Text>
                 </Flex>
               </Box>
@@ -143,7 +143,7 @@ const GameOverModal = ({
 
             {divider}
 
-            {onSubmit && !loggedIn && (
+            {scoreQuizNotLoggedIn && (
               <Box>
                 <Text
                   color="#828282"
@@ -151,7 +151,46 @@ const GameOverModal = ({
                   fontWeight="medium"
                   textAlign="center"
                 >
-                  {"You must login to submit a leaderboard entry."}
+                  {explainerScoreQuizNotLoggedIn}
+                </Text>
+              </Box>
+            )}
+
+            {leaderboardQuizNotLoggedIn && (
+              <Box>
+                <Text
+                  color="#828282"
+                  fontSize="12px"
+                  fontWeight="medium"
+                  textAlign="center"
+                >
+                  {explainerLeaderboardQuizNotLoggedIn}
+                </Text>
+              </Box>
+            )}
+
+            {scoreQuizLoggedIn && (
+              <Box>
+                <Text
+                  color="#828282"
+                  fontSize="12px"
+                  fontWeight="medium"
+                  textAlign="center"
+                >
+                  {explainerScoreQuizLoggedIn}
+                </Text>
+              </Box>
+            )}
+
+            {noExistingEntry && (
+              <Box>
+                <Text
+                  color="#828282"
+                  fontSize="12px"
+                  fontWeight="medium"
+                  textAlign="center"
+                >
+                  {explainerNoExistingEntry}
                 </Text>
               </Box>
             )}
@@ -191,7 +230,20 @@ const GameOverModal = ({
 export default GameOverModal;
 
 GameOverModal.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    mapSVG: PropTypes.string,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    route: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   score: PropTypes.number,
   time: PropTypes.number,
   loggedIn: PropTypes.bool,
@@ -208,11 +260,10 @@ GameOverModal.propTypes = {
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
   submitting: PropTypes.bool,
-  error: PropTypes.string,
 };
 
 GameOverModal.defaultProps = {
-  quiz: 1,
+  quiz: {},
   score: 0,
   time: 100,
   loggedIn: true,
@@ -221,5 +272,4 @@ GameOverModal.defaultProps = {
   onClose: () => {},
   onSubmit: () => {},
   submitting: false,
-  error: null,
 };

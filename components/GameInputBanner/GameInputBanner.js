@@ -7,7 +7,6 @@ import {
   IconButton,
   Input,
   InputGroup,
-  InputLeftElement,
   InputRightElement,
   Text,
 } from "@chakra-ui/react";
@@ -16,7 +15,6 @@ import { CloseIcon } from "@chakra-ui/icons";
 
 import GameInputBannerTimer from "./GameInputBannerTimer";
 import GameInputBannerError from "./GameInputBannerError";
-import { Quizzes, getTotal, getVerb } from "../../helpers/quizzes";
 
 const GameInputBanner = ({
   quiz,
@@ -25,10 +23,10 @@ const GameInputBanner = ({
   expiryTimestamp,
   hasError,
   hasGameStarted,
+  hasGameStopped,
   inputValue,
   onChange,
   onClearInput,
-  onExpire,
 }) => {
   return (
     <>
@@ -44,7 +42,8 @@ const GameInputBanner = ({
           <GameInputBannerTimer
             expiryTimestamp={expiryTimestamp}
             hasGameStarted={hasGameStarted}
-            onExpire={onExpire}
+            hasGameStopped={hasGameStopped}
+            totalSeconds={quiz.time}
           />
           <Text
             color="white"
@@ -53,15 +52,14 @@ const GameInputBanner = ({
             minWidth="125px"
             width="100%"
           >
-            {`${score} of ${getTotal(quiz)} ${getVerb(quiz)}`}
+            {`${score} of ${quiz.maxScore} ${quiz.verb}`}
           </Text>
         </Box>
         <InputGroup>
-          <InputLeftElement />
           <Input
             isDisabled={!hasGameStarted}
             isInvalid={hasError}
-            placeholder={`Enter ${getVerb(quiz)}...`}
+            placeholder={`Enter ${quiz.verb}...`}
             onChange={onChange}
             value={inputValue}
           />
@@ -90,28 +88,41 @@ const GameInputBanner = ({
 };
 
 GameInputBanner.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    mapSVG: PropTypes.string,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    route: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   score: PropTypes.number,
   errorMessage: PropTypes.string,
   expiryTimestamp: PropTypes.number,
   hasError: PropTypes.bool,
   hasGameStarted: PropTypes.bool,
+  hasGameStopped: PropTypes.bool,
   inputValue: PropTypes.string,
   onChange: PropTypes.func,
   onClearInput: PropTypes.func,
-  onExpire: PropTypes.func,
 };
 GameInputBanner.defaultProps = {
-  quiz: Quizzes.CountriesOfTheWorld,
+  quiz: {},
   score: 0,
   errorMessage: "",
   expiryTimestamp: null,
   hasError: false,
   hasGameStarted: false,
+  hasGameStopped: false,
   inputValue: "",
   onChange: () => {},
   onClearInput: () => {},
-  onExpire: () => {},
 };
 
 export default GameInputBanner;

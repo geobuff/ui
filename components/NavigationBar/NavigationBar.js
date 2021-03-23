@@ -1,8 +1,13 @@
 import React from "react";
+import dynamic from "next/dynamic";
+
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
-import UserAvatarMenu from "../UserAvatarMenu";
+
+const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
+  ssr: false,
+});
 
 const NavigationBar = () => {
   return (
@@ -31,7 +36,7 @@ const NavigationBar = () => {
             {"GeoBuff"}
           </Text>
         </Link>
-        <UserAvatarMenu />
+        <UserAvatarMenuNoSSR />
       </Flex>
     </Box>
   );

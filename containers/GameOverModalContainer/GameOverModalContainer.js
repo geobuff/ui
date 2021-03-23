@@ -1,17 +1,21 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useAuth0 } from "@auth0/auth0-react";
-import jwt_decode from "jwt-decode";
+import { useToast } from "@chakra-ui/react";
 
+import useCurrentUser from "../../hooks/UseCurrentUser";
 import GameOverModal from "../../components/GameOverModal";
-import { getApiPath, isScoreOnly } from "../../helpers/quizzes";
+import { getLevel } from "../../helpers/gamification";
 
 const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
+  const toast = useToast();
+
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
+  const { user } = useCurrentUser();
+
   const [entry, setEntry] = useState();
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (!isOpen) {
@@ -27,23 +31,56 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     getAccessTokenSilently({
       audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
     }).then((token) => {
-      const decoded = jwt_decode(token);
-      const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`)
-        .then((response) => response.json())
-        .then((userId) => {
-          handleScore(token, userId);
-          if (isScoreOnly(quiz)) {
-            setLoading(false);
-            return;
-          }
-
-          getLeaderboardEntry(userId);
-        });
+      increaseXP(token, 10);
+      handleScore(token);
+      if (!quiz.hasLeaderboard) {
+        setLoading(false);
+      } else {
+        getLeaderboardEntry(user.id);
+      }
     });
   }, [isOpen, getAccessTokenSilently]);
 
-  const handleScore = (token, userId) => {
+  const increaseXP = (token, increase) => {
+    const update = {
+      id: user.id,
+      username: user.username,
+      countryCode: user.countryCode,
+      xp: user.xp + increase,
+    };
+
+    const params = {
+      method: "PUT",
+      body: JSON.stringify(update),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}`, params)
+      .then((response) => response.json())
+      .then(() => {
+        toast({
+          description: `+${increase} XP`,
+          status: "info",
+          duration: 9000,
+          isClosable: true,
+        });
+
+        const newLevel = getLevel(update.xp);
+        if (newLevel > getLevel(user.xp)) {
+          toast({
+            title: "Congratulations!",
+            description: `You've reached level ${newLevel}.`,
+            status: "info",
+            duration: 9000,
+            isClosable: true,
+          });
+        }
+      });
+  };
+
+  const handleScore = (token) => {
     const params = {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -51,11 +88,11 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/scores/${userId}/${quiz}`,
+      `${process.env.NEXT_PUBLIC_API_URL}/scores/${user.id}/${quiz.id}`,
       params
     ).then((response) => {
       if (response.status === 204) {
-        createScore(token, userId);
+        createScore(token, user.id);
       } else {
         response.json().then((existing) => {
           if (
@@ -69,10 +106,10 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     });
   };
 
-  const createScore = (token, userId) => {
+  const createScore = (token) => {
     const result = {
-      userId: userId,
-      quizId: quiz,
+      userId: user.id,
+      quizId: quiz.id,
       score: score,
       time: time,
     };
@@ -85,13 +122,17 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       },
     };
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores`, params);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores`, params)
+      .then((response) => response.json())
+      .then(() => {
+        scoreSubmitted();
+      });
   };
 
   const updateScore = (token, existing) => {
     const update = {
       userId: existing.userId,
-      quizId: quiz,
+      quizId: quiz.id,
       score: score,
       time: time,
     };
@@ -104,14 +145,26 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       },
     };
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores/${existing.id}`, params);
+    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores/${existing.id}`, params)
+      .then((response) => response.json())
+      .then(() => {
+        scoreSubmitted();
+      });
   };
 
-  const getLeaderboardEntry = (userId) => {
+  const scoreSubmitted = () => {
+    toast({
+      title: "Score Submitted",
+      description: "We've updated your high score for you.",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
+  };
+
+  const getLeaderboardEntry = () => {
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(
-        quiz
-      )}/leaderboard/${userId}`
+      `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard/${user.id}`
     ).then((response) => {
       if (response.status !== 200) {
         setLoading(false);
@@ -139,39 +192,30 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   };
 
   const createEntry = (token) => {
-    const decoded = jwt_decode(token);
-    const username = decoded[process.env.NEXT_PUBLIC_AUTH0_USERNAME_KEY];
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/id/${username}`)
+    const entry = {
+      userId: user.id,
+      countryCode: "US",
+      score: score,
+      time: time,
+    };
+
+    const params = {
+      method: "POST",
+      body: JSON.stringify(entry),
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    };
+
+    fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard`,
+      params
+    )
       .then((response) => response.json())
-      .then((userId) => {
-        const entry = {
-          userId: userId,
-          countryCode: "US",
-          score: score,
-          time: time,
-        };
-
-        const params = {
-          method: "POST",
-          body: JSON.stringify(entry),
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        };
-
-        fetch(
-          `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard`,
-          params
-        )
-          .then((response) => response.json())
-          .then(() => {
-            setSubmitting(false);
-            onClose();
-          })
-          .catch((error) => {
-            setError(error.message);
-            setSubmitting(false);
-          });
+      .then(() => {
+        setSubmitting(false);
+        onClose();
+        entrySubmitted();
       });
   };
 
@@ -192,20 +236,25 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     };
 
     fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${getApiPath(quiz)}/leaderboard/${
-        existingEntry.id
-      }`,
+      `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard/${existingEntry.id}`,
       params
     )
       .then((response) => response.json())
       .then(() => {
         setSubmitting(false);
         onClose();
-      })
-      .catch((error) => {
-        setError(error.message);
-        setSubmitting(false);
+        entrySubmitted();
       });
+  };
+
+  const entrySubmitted = () => {
+    toast({
+      title: "Leaderboard Entry Submitted",
+      description: "Your leaderboard entry was submitted successfully.",
+      status: "success",
+      duration: 9000,
+      isClosable: true,
+    });
   };
 
   if (loading) {
@@ -221,19 +270,33 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       existingEntry={entry}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={!isScoreOnly(quiz) && handleSubmitEntry}
+      onSubmit={quiz.hasLeaderboard && handleSubmitEntry}
       submitting={submitting}
-      error={error}
     />
   );
 };
 
 GameOverModalContainer.propTypes = {
-  quiz: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    mapSVG: PropTypes.string,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    route: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   score: PropTypes.number,
   time: PropTypes.number,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
+  setScoreSubmitted: PropTypes.func,
+  setLeaderboardEntrySubmitted: PropTypes.func,
 };
 
 export default GameOverModalContainer;

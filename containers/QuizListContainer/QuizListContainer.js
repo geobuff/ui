@@ -1,20 +1,18 @@
 import React from "react";
 import PropTypes from "prop-types";
-import useSWR from "swr";
-import { fetcher } from "../../helpers/fetcher";
+
 import QuizList from "../../components/QuizList";
+import useQuizzes from "../../hooks/UseQuizzes";
+import QuizListPlaceholder from "../../placeholders/QuizListPlaceholder/QuizListPlaceholder";
 
 const QuizListContainer = ({ filter }) => {
-  const { data } = useSWR(
-    `${process.env.NEXT_PUBLIC_API_URL}/quizzes?filter=${filter}`,
-    fetcher
-  );
+  const { quizzes, isLoading } = useQuizzes(filter);
 
-  if (!data) {
-    return null;
+  if (isLoading) {
+    return <QuizListPlaceholder noOfTiles={8} />;
   }
 
-  return <QuizList quizzes={data} />;
+  return <QuizList quizzes={quizzes} />;
 };
 
 QuizListContainer.propTypes = {
