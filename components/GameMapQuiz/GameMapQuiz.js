@@ -162,7 +162,12 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   };
 
   return (
-    <Box width="100%" height="100vh" backgroundColor="#276F86">
+    <Box
+      width="100%"
+      minHeight="100%"
+      backgroundColor="#276F86"
+      position="fixed"
+    >
       <GameOverModalContainer
         quiz={quiz}
         score={score}
