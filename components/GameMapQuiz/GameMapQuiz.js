@@ -77,6 +77,30 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
     }
   };
 
+  const handleGameStart = () => {
+    setCheckedSubmissions([]);
+    setRecentSubmissions([]);
+    setScore(0);
+
+    setTimeRemaining(quizDateTime());
+
+    restart(quizDateTime());
+
+    setHasGameStarted(true);
+    setHasGameStopped(false);
+  };
+
+  const handleGameStop = () => {
+    pause();
+    setTime(quiz.time - (seconds + minutes * 60));
+    setHasGameStarted(false);
+    setHasGameStopped(true);
+    onOpen();
+    if (gameStartText === "START") {
+      setGameStartText("RETRY");
+    }
+  };
+
   const handleChange = (event) => {
     setInputValue(event.target.value);
     handleChangeDebounced(event);
@@ -125,6 +149,10 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
             )
           : updatedCheckedSubmissions;
 
+      if (updatedCheckedSubmissions.length === mapping.length) {
+        handleGameStop();
+      }
+
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
@@ -135,30 +163,6 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
     setHasError(false);
     setErrorMessage("");
     setInputValue("");
-  };
-
-  const handleGameStart = () => {
-    setCheckedSubmissions([]);
-    setRecentSubmissions([]);
-    setScore(0);
-
-    setTimeRemaining(quizDateTime());
-
-    restart(quizDateTime());
-
-    setHasGameStarted(true);
-    setHasGameStopped(false);
-  };
-
-  const handleGameStop = () => {
-    pause();
-    setTime(quiz.time - (seconds + minutes * 60));
-    setHasGameStarted(false);
-    setHasGameStopped(true);
-    onOpen();
-    if (gameStartText === "START") {
-      setGameStartText("RETRY");
-    }
   };
 
   return (
