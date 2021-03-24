@@ -24,7 +24,6 @@ const MapInteractionCSS = (props) => (
         >
           <div
             style={{
-              display: "inline-block",
               transform: transform,
               transformOrigin: "0 0",
               height: "100%",
