@@ -8,10 +8,7 @@ const useMapping = (quizId) => {
   const shouldFetch = !!quiz && quiz.apiPath;
 
   const { data } = useSWR(
-    () =>
-      shouldFetch
-        ? `${process.env.NEXT_PUBLIC_API_URL}/mappings/${quiz.apiPath}`
-        : null,
+    () => (shouldFetch ? `/mappings/${quiz.apiPath}` : null),
     fetcher
   );
 

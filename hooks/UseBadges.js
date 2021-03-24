@@ -2,7 +2,7 @@ import useSWR from "swr";
 import { fetcher } from "../helpers/fetcher";
 
 const useBadges = () => {
-  const { data } = useSWR(`${process.env.NEXT_PUBLIC_API_URL}/badges`, fetcher);
+  const { data } = useSWR(`/badges`, fetcher);
 
   return {
     badges: data ?? [],
