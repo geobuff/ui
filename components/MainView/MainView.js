@@ -12,10 +12,10 @@ const MainView = ({ children, ...props }) => (
 );
 
 MainView.propTypes = {
-  children: PropTypes.func,
+  children: PropTypes.array,
 };
 MainView.defaultProps = {
-  children: () => {},
+  children: [],
 };
 
 export default MainView;
