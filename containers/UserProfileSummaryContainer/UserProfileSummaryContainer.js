@@ -5,6 +5,7 @@ import { useAuth0 } from "@auth0/auth0-react";
 import useMapping from "../../hooks/UseMapping";
 import UserProfileSummary from "../../components/UserProfileSummary";
 import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
+import axiosClient from "../../axios/axiosClient";
 
 const UserProfileSummaryContainer = ({ user, quizzes }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
@@ -12,14 +13,18 @@ const UserProfileSummaryContainer = ({ user, quizzes }) => {
   const quizId = quizzes.filter((x) => x.apiPath === "countries")[0].id;
   const { mapping: countries, loading } = useMapping(quizId);
 
-  const [token, setToken] = useState();
+  const [config, setConfig] = useState(null);
   const [updated, setUpdated] = useState(false);
 
   useEffect(() => {
     getAccessTokenSilently({
       audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
     }).then((token) => {
-      setToken(token);
+      setConfig({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
     });
   }, [isAuthenticated]);
 
@@ -29,19 +34,9 @@ const UserProfileSummaryContainer = ({ user, quizzes }) => {
       countryCode: code,
     };
 
-    const params = {
-      method: "PUT",
-      body: JSON.stringify(update),
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}`, params)
-      .then((response) => response.json())
-      .then(() => {
-        setUpdated(true);
-      });
+    axiosClient.put(`/users/${user.id}`, update, config).then(() => {
+      setUpdated(true);
+    });
   };
 
   if (loading) {
