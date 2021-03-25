@@ -3,6 +3,8 @@ import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 import jwt_decode from "jwt-decode";
 
+import axiosClient from "../axios/axiosClient";
+
 const useCurrentUser = () => {
   const {
     user: auth0User,
@@ -52,30 +54,27 @@ const useCurrentUser = () => {
       const decoded = jwt_decode(token);
       const id = decoded[process.env.NEXT_PUBLIC_AUTH0_USERID_KEY];
 
-      const params = {
-        method: "GET",
+      const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
 
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`, params)
-        .then((response) => response.json())
-        .then((data) => {
-          const updatedUser = {
-            id: id,
-            username: data.username,
-            countryCode: data.countryCode,
-            xp: data.xp,
-            picture: auth0User?.picture,
-            email: auth0User?.email,
-            updatedAt: auth0User?.updated_at,
-          };
+      axiosClient.get(`/users/${id}`, config).then((response) => {
+        const updatedUser = {
+          id: id,
+          username: response.data.username,
+          countryCode: response.data.countryCode,
+          xp: response.data.xp,
+          picture: auth0User?.picture,
+          email: auth0User?.email,
+          updatedAt: auth0User?.updated_at,
+        };
 
-          setUser(updatedUser);
-          updateLocalStorage(updatedUser);
-          setIsLoading(false);
-        });
+        setUser(updatedUser);
+        updateLocalStorage(updatedUser);
+        setIsLoading(false);
+      });
     });
   };
 

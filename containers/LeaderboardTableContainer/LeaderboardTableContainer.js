@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import LeaderboardTable from "../../components/LeaderboardTable";
 import LeaderboardTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder";
 import useQuiz from "../../hooks/UseQuiz";
+import axiosClient from "../../axios/axiosClient";
 
 const LeaderboardTableContainer = ({ quizId, filterParams, setHasMore }) => {
   const { quiz, isLoading } = useQuiz(quizId);
@@ -15,19 +16,11 @@ const LeaderboardTableContainer = ({ quizId, filterParams, setHasMore }) => {
     if (!isLoading) {
       setLoadingEntries(true);
 
-      const params = {
-        method: "POST",
-        body: JSON.stringify(filterParams),
-      };
-
-      fetch(
-        `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard/all`,
-        params
-      )
-        .then((response) => response.json())
-        .then((data) => {
-          setHasMore(data.hasMore);
-          setEntries(data.entries);
+      axiosClient
+        .post(`/${quiz.apiPath}/leaderboard/all`, filterParams)
+        .then((response) => {
+          setHasMore(response.data.hasMore);
+          setEntries(response.data.entries);
           setLoadingEntries(false);
         });
     }

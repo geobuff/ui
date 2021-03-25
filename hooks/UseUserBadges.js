@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import axiosClient from "../axios/axiosClient";
+
 const useUserBadges = (userId) => {
   const { getAccessTokenSilently } = useAuth0();
 
@@ -11,18 +13,16 @@ const useUserBadges = (userId) => {
     getAccessTokenSilently({
       audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
     }).then((token) => {
-      const params = {
+      const config = {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       };
 
-      fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/badges/${userId}`, params)
-        .then((response) => response.json())
-        .then((data) => {
-          setUserBadges(data);
-          setLoading(false);
-        });
+      axiosClient.get(`/users/badges/${userId}`, config).then((response) => {
+        setUserBadges(response.data);
+        setLoading(false);
+      });
     });
   }, []);
 

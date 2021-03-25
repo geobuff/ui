@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { useAuth0 } from "@auth0/auth0-react";
 
+import axiosClient from "../axios/axiosClient";
+
 const useScores = (userId) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
@@ -12,19 +14,16 @@ const useScores = (userId) => {
       getAccessTokenSilently({
         audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
       }).then((token) => {
-        const params = {
-          method: "GET",
+        const config = {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         };
 
-        fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores/${userId}`, params)
-          .then((response) => response.json())
-          .then((data) => {
-            setScores(data);
-            setLoading(false);
-          });
+        axiosClient.get(`/scores/${userId}`, config).then((response) => {
+          setScores(response.data);
+          setLoading(false);
+        });
       });
     }
   }, [isAuthenticated]);

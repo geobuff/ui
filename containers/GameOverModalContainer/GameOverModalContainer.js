@@ -6,6 +6,7 @@ import { useToast } from "@chakra-ui/react";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import GameOverModal from "../../components/GameOverModal";
 import { getLevel } from "../../helpers/gamification";
+import axiosClient from "../../axios/axiosClient";
 
 const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const toast = useToast();
@@ -13,6 +14,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { user } = useCurrentUser();
 
+  const [config, setConfig] = useState(null);
   const [entry, setEntry] = useState();
   const [loading, setLoading] = useState(true);
   const [submitting, setSubmitting] = useState(false);
@@ -31,8 +33,14 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     getAccessTokenSilently({
       audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
     }).then((token) => {
-      increaseXP(token, 10);
-      handleScore(token);
+      setConfig({
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      increaseXP(10);
+      handleScore();
       if (!quiz.hasLeaderboard) {
         setLoading(false);
       } else {
@@ -41,7 +49,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     });
   }, [isOpen, getAccessTokenSilently]);
 
-  const increaseXP = (token, increase) => {
+  const increaseXP = (increase) => {
     const update = {
       id: user.id,
       username: user.username,
@@ -49,64 +57,41 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       xp: user.xp + increase,
     };
 
-    const params = {
-      method: "PUT",
-      body: JSON.stringify(update),
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
+    axiosClient.put(`/users/${user.id}`, update, config).then(() => {
+      toast({
+        description: `+${increase} XP`,
+        status: "info",
+        duration: 9000,
+        isClosable: true,
+      });
 
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${user.id}`, params)
-      .then((response) => response.json())
-      .then(() => {
+      const newLevel = getLevel(update.xp);
+      if (newLevel > getLevel(user.xp)) {
         toast({
-          description: `+${increase} XP`,
+          title: "Congratulations!",
+          description: `You've reached level ${newLevel}.`,
           status: "info",
           duration: 9000,
           isClosable: true,
-        });
-
-        const newLevel = getLevel(update.xp);
-        if (newLevel > getLevel(user.xp)) {
-          toast({
-            title: "Congratulations!",
-            description: `You've reached level ${newLevel}.`,
-            status: "info",
-            duration: 9000,
-            isClosable: true,
-          });
-        }
-      });
-  };
-
-  const handleScore = (token) => {
-    const params = {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/scores/${user.id}/${quiz.id}`,
-      params
-    ).then((response) => {
-      if (response.status === 204) {
-        createScore(token, user.id);
-      } else {
-        response.json().then((existing) => {
-          if (
-            score > existing.score ||
-            (score === existing.score && time < existing.time)
-          ) {
-            updateScore(token, existing);
-          }
         });
       }
     });
   };
 
-  const createScore = (token) => {
+  const handleScore = () => {
+    axiosClient.get(`/scores/${user.id}/${quiz.id}`).then((response) => {
+      if (response.status === 204) {
+        createScore(user.id);
+      } else if (
+        score > response.data.score ||
+        (score === response.data.score && time < response.data.time)
+      ) {
+        updateScore(response.data);
+      }
+    });
+  };
+
+  const createScore = () => {
     const result = {
       userId: user.id,
       quizId: quiz.id,
@@ -114,22 +99,12 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       time: time,
     };
 
-    const params = {
-      method: "POST",
-      body: JSON.stringify(result),
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores`, params)
-      .then((response) => response.json())
-      .then(() => {
-        scoreSubmitted();
-      });
+    axiosClient.post(`/scores`, result, config).then(() => {
+      scoreSubmitted();
+    });
   };
 
-  const updateScore = (token, existing) => {
+  const updateScore = (existing) => {
     const update = {
       userId: existing.userId,
       quizId: quiz.id,
@@ -137,19 +112,9 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       time: time,
     };
 
-    const params = {
-      method: "PUT",
-      body: JSON.stringify(update),
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    fetch(`${process.env.NEXT_PUBLIC_API_URL}/scores/${existing.id}`, params)
-      .then((response) => response.json())
-      .then(() => {
-        scoreSubmitted();
-      });
+    axiosClient.put(`/scores/${existing.id}`, update, config).then(() => {
+      scoreSubmitted();
+    });
   };
 
   const scoreSubmitted = () => {
@@ -163,19 +128,17 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   };
 
   const getLeaderboardEntry = () => {
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard/${user.id}`
-    ).then((response) => {
-      if (response.status !== 200) {
-        setLoading(false);
-        return;
-      }
+    axiosClient
+      .get(`/${quiz.apiPath}/leaderboard/${user.id}`)
+      .then((response) => {
+        if (response.status !== 200) {
+          setLoading(false);
+          return;
+        }
 
-      response.json().then((entry) => {
-        setEntry(entry);
+        setEntry(response.data);
         setLoading(false);
       });
-    });
   };
 
   const handleSubmitEntry = (existingEntry) => {
@@ -191,7 +154,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     });
   };
 
-  const createEntry = (token) => {
+  const createEntry = () => {
     const entry = {
       userId: user.id,
       countryCode: "US",
@@ -199,27 +162,14 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       time: time,
     };
 
-    const params = {
-      method: "POST",
-      body: JSON.stringify(entry),
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard`,
-      params
-    )
-      .then((response) => response.json())
-      .then(() => {
-        setSubmitting(false);
-        onClose();
-        entrySubmitted();
-      });
+    axiosClient.post(`/${quiz.apiPath}/leaderboard`, entry, config).then(() => {
+      setSubmitting(false);
+      onClose();
+      entrySubmitted();
+    });
   };
 
-  const updateEntry = (token, existingEntry) => {
+  const updateEntry = (existingEntry) => {
     const entry = {
       userId: existingEntry.userId,
       countryCode: existingEntry.countryCode,
@@ -227,19 +177,8 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       time: time,
     };
 
-    const params = {
-      method: "PUT",
-      body: JSON.stringify(entry),
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    };
-
-    fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/${quiz.apiPath}/leaderboard/${existingEntry.id}`,
-      params
-    )
-      .then((response) => response.json())
+    axiosClient
+      .put(`/${quiz.apiPath}/leaderboard/${existingEntry.id}`, entry, config)
       .then(() => {
         setSubmitting(false);
         onClose();
