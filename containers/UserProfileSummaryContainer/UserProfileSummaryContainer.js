@@ -10,7 +10,7 @@ import axiosClient from "../../axios/axiosClient";
 const UserProfileSummaryContainer = ({ user, quizzes }) => {
   const { isAuthenticated, getAccessTokenSilently } = useAuth0();
 
-  const quizId = quizzes.filter((x) => x.apiPath === "countries")[0].id;
+  const quizId = quizzes.filter((x) => x.apiPath === "world-countries")[0].id;
   const { mapping: countries, loading } = useMapping(quizId);
 
   const [config, setConfig] = useState(null);
