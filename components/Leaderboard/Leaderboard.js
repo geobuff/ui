@@ -1,17 +1,10 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import {
-  Box,
-  Button,
-  Heading,
-  Select,
-  Flex,
-  Input,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Button, Heading, Select, Flex, Input } from "@chakra-ui/react";
 
 import LeaderboardTableContainer from "../../containers/LeaderboardTableContainer";
+import MainView from "../MainView";
 
 const Leaderboard = ({ quizId, quizzes }) => {
   const [quiz, setQuiz] = useState(quizId === 0 ? quizzes[0].id : quizId);
@@ -45,15 +38,19 @@ const Leaderboard = ({ quizId, quizzes }) => {
   };
 
   return (
-    <Box m={6}>
-      <Heading mt={12} ml={3}>
-        Leaderboard
-      </Heading>
-      <Flex>
-        <Box w={{ lg: "70%" }} pr={6}>
+    <MainView>
+      <Flex
+        direction="column"
+        maxWidth={{ base: "100%", md: "70%" }}
+        marginX={{ base: 2, md: "auto" }}
+      >
+        <Heading mt={12} ml={3}>
+          Leaderboard
+        </Heading>
+        <Box>
           <Flex my={5}>
             <Select
-              w="250px"
+              width="250px"
               background="#FFFFFF"
               onChange={quizChange}
               value={quiz}
@@ -110,17 +107,8 @@ const Leaderboard = ({ quizId, quizzes }) => {
             </Flex>
           </Box>
         </Box>
-        <Box
-          backgroundColor="#C4C4C4"
-          borderRadius={12}
-          w="30%"
-          textAlign="center"
-          display={{ base: "none", lg: "inline" }}
-        >
-          <Text color="#868686">TEMPLATE</Text>
-        </Box>
       </Flex>
-    </Box>
+    </MainView>
   );
 };
 
