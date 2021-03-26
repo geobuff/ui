@@ -1,7 +1,8 @@
 import React from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
-import { Box, Flex, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
 
@@ -24,18 +25,29 @@ const NavigationBar = () => {
       zIndex={1}
     >
       <Flex alignItems="center" justifyContent="space-between">
-        <Link href="/" _hover={{ textDecoration: "none" }}>
-          <Text ml={2} fontSize={[22, 26, 26]} fontWeight="bold">
-            <Twemoji
-              emoji="🌏"
-              height={[6, 7, 7]}
-              width={[6, 7, 7]}
-              pt={["4px", "5px", "5px"]}
-              mr={2}
-            />
-            {"GeoBuff"}
-          </Text>
-        </Link>
+        <Flex alignItems="center">
+          <Link href="/">
+            <ChakraLink _hover={{ textDecoration: "none" }}>
+              <Text ml={2} fontSize={[22, 26, 26]} fontWeight="bold">
+                <Twemoji
+                  emoji="🌏"
+                  height={[6, 7, 7]}
+                  width={[6, 7, 7]}
+                  pt={["4px", "5px", "5px"]}
+                  mr={2}
+                />
+                {"GeoBuff"}
+              </Text>
+            </ChakraLink>
+          </Link>
+          <Link href="/mission">
+            <ChakraLink marginLeft={4}>
+              <Text ml={2} color="gray.600" fontSize="14px" fontWeight="bold">
+                {"Mission"}
+              </Text>
+            </ChakraLink>
+          </Link>
+        </Flex>
         <UserAvatarMenuNoSSR />
       </Flex>
     </Box>
