@@ -20,6 +20,20 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
+    if (isAuthenticated) {
+      getAccessTokenSilently({
+        audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
+      }).then((token) => {
+        setConfig({
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+      });
+    }
+  }, [isAuthenticated, getAccessTokenSilently]);
+
+  useEffect(() => {
     if (!isOpen) {
       setLoading(true);
       return;
@@ -30,24 +44,14 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       return;
     }
 
-    getAccessTokenSilently({
-      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-    }).then((token) => {
-      setConfig({
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
-
-      increaseXP(10);
-      handleScore();
-      if (!quiz.hasLeaderboard) {
-        setLoading(false);
-      } else {
-        getLeaderboardEntry(user.id);
-      }
-    });
-  }, [isOpen, getAccessTokenSilently]);
+    increaseXP(10);
+    handleScore();
+    if (!quiz.hasLeaderboard) {
+      setLoading(false);
+    } else {
+      getLeaderboardEntry(user.id);
+    }
+  }, [isOpen, isAuthenticated, getAccessTokenSilently]);
 
   const increaseXP = (increase) => {
     const update = {
@@ -59,6 +63,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
 
     axiosClient.put(`/users/${user.id}`, update, config).then(() => {
       toast({
+        position: "bottom-right",
         description: `+${increase} XP`,
         status: "info",
         duration: 9000,
@@ -68,6 +73,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       const newLevel = getLevel(update.xp);
       if (newLevel > getLevel(user.xp)) {
         toast({
+          position: "bottom-right",
           title: "Congratulations!",
           description: `You've reached level ${newLevel}.`,
           status: "info",
@@ -79,16 +85,18 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   };
 
   const handleScore = () => {
-    axiosClient.get(`/scores/${user.id}/${quiz.id}`).then((response) => {
-      if (response.status === 204) {
-        createScore(user.id);
-      } else if (
-        score > response.data.score ||
-        (score === response.data.score && time < response.data.time)
-      ) {
-        updateScore(response.data);
-      }
-    });
+    axiosClient
+      .get(`/scores/${user.id}/${quiz.id}`, config)
+      .then((response) => {
+        if (response.status === 204) {
+          createScore(user.id);
+        } else if (
+          score > response.data.score ||
+          (score === response.data.score && time < response.data.time)
+        ) {
+          updateScore(response.data);
+        }
+      });
   };
 
   const createScore = () => {
@@ -119,6 +127,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
 
   const scoreSubmitted = () => {
     toast({
+      position: "bottom-right",
       title: "Score Submitted",
       description: "We've updated your high score for you.",
       status: "success",
@@ -143,15 +152,11 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
 
   const handleSubmitEntry = (existingEntry) => {
     setSubmitting(true);
-    getAccessTokenSilently({
-      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-    }).then((token) => {
-      if (existingEntry) {
-        updateEntry(token, existingEntry);
-      } else {
-        createEntry(token);
-      }
-    });
+    if (existingEntry) {
+      updateEntry(existingEntry);
+    } else {
+      createEntry();
+    }
   };
 
   const createEntry = () => {
@@ -188,6 +193,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
 
   const entrySubmitted = () => {
     toast({
+      position: "bottom-right",
       title: "Leaderboard Entry Submitted",
       description: "Your leaderboard entry was submitted successfully.",
       status: "success",
