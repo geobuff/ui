@@ -218,15 +218,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                 />
                 {quiz.hasGrouping ? (
                   <ResultsMap
-                    quizId={quiz.id}
-                    verb={quiz.verb}
+                    quiz={quiz}
                     results={checkedSubmissions}
                     map={groupMapping(mapping)}
                   />
                 ) : (
                   <ResultsListWrapper
-                    quizId={quiz.id}
-                    verb={quiz.verb}
+                    quiz={quiz}
                     results={mergeArrayByName(mapping, checkedSubmissions)}
                   />
                 )}
@@ -271,6 +269,7 @@ GameMapQuiz.propTypes = {
     route: PropTypes.string,
     hasLeaderboard: PropTypes.bool,
     hasGrouping: PropTypes.bool,
+    hasFlags: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
   mapping: PropTypes.arrayOf(

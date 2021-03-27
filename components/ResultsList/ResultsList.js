@@ -4,12 +4,12 @@ import PropTypes from "prop-types";
 import ResultsListItem from "../ResultsListItem";
 import { Box, Text, List } from "@chakra-ui/react";
 
-const ResultsList = ({ quizId, results, verb }) => {
+const ResultsList = ({ quiz, results }) => {
   if (!results || results.length === 0) {
     return (
       <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
         <Text textAlign="center" opacity={0.5} fontWeight={500}>
-          {`No ${verb} to display`}
+          {`No ${quiz.verb} to display`}
         </Text>
       </Box>
     );
@@ -20,10 +20,11 @@ const ResultsList = ({ quizId, results, verb }) => {
       {results.map((result) => (
         <ResultsListItem
           key={result.code}
-          quizId={quizId}
+          quizId={quiz.id}
           code={result.code}
           svgName={result.svgName}
           isHidden={!result.checked}
+          hasFlag={quiz.hasFlags}
           my={2}
         />
       ))}
@@ -32,19 +33,31 @@ const ResultsList = ({ quizId, results, verb }) => {
 };
 
 ResultsList.propTypes = {
-  quizId: PropTypes.string,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    mapSVG: PropTypes.string,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    route: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
+    hasFlags: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   results: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
     })
   ),
-  verb: PropTypes.string,
 };
 ResultsList.defaultProps = {
-  quizId: 1,
+  quiz: {},
   results: [],
-  verb: "data",
 };
 
 export default ResultsList;

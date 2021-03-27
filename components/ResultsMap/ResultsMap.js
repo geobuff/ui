@@ -5,7 +5,7 @@ import { Box, Divider, Text } from "@chakra-ui/react";
 import ResultsList from "../ResultsList";
 import { mergeArrayByName } from "../../helpers/array";
 
-const ResultsMap = ({ quizId, results, map, verb }) => {
+const ResultsMap = ({ quiz, results, map }) => {
   return (
     <Box textAlign="left">
       <Divider my={4} />
@@ -20,9 +20,8 @@ const ResultsMap = ({ quizId, results, map, verb }) => {
               {key}
             </Text>
             <ResultsList
-              quizId={quizId}
+              quiz={quiz}
               results={mergeArrayByName(value, results)}
-              verb={verb}
             />
           </Box>
         ))}
@@ -32,16 +31,28 @@ const ResultsMap = ({ quizId, results, map, verb }) => {
 };
 
 ResultsMap.propTypes = {
-  quizId: PropTypes.number,
+  quiz: PropTypes.shape({
+    id: PropTypes.number,
+    name: PropTypes.string,
+    maxScore: PropTypes.number,
+    time: PropTypes.number,
+    mapSVG: PropTypes.string,
+    imageUrl: PropTypes.string,
+    verb: PropTypes.string,
+    apiPath: PropTypes.string,
+    route: PropTypes.string,
+    hasLeaderboard: PropTypes.bool,
+    hasGrouping: PropTypes.bool,
+    hasFlags: PropTypes.bool,
+    enabled: PropTypes.bool,
+  }),
   results: PropTypes.array,
   map: PropTypes.object,
-  verb: PropTypes.string,
 };
 ResultsMap.defaultProps = {
-  quizId: 1,
+  quiz: {},
   results: [],
   map: {},
-  verb: "data",
 };
 
 export default React.memo(ResultsMap);

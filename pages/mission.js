@@ -30,8 +30,8 @@ const Mission = () => (
           <List>
             <ListItem mb={6}>
               <ListIcon as={SunIcon} color="green.500" />
-              Build a platform that helps people learrean the names of all of
-              the crazy, amazing places in this world.
+              Build a platform that helps people learn the names of all of the
+              crazy, amazing places in this world.
             </ListItem>
             <ListItem>
               <ListIcon as={UnlockIcon} color="green.500" />
@@ -52,6 +52,20 @@ const Mission = () => (
             </ListItem>
           </List>
         </Box>
+        <Box mb={6}>
+          <Text>
+            GeoBuff was initially a single{" "}
+            <Link
+              href="https://github.com/ashmidgley/countries-of-the-world"
+              color="teal.500"
+            >
+              knock-off
+            </Link>{" "}
+            map quiz that was started to keep Ash sane during lockdown. Since
+            then we&apos;ve added a couple more features but maintained the same
+            hack-and-slash approach to writing code in Go and JavaScript.
+          </Text>
+        </Box>
         <Alert
           status="warning"
           borderLeftWidth="4px"
@@ -66,21 +80,6 @@ const Mission = () => (
             </Text>
           </Box>
         </Alert>
-        <Box mb={6}>
-          <Text>
-            GeoBuff was initially a{" "}
-            <Link
-              href="https://github.com/ashmidgley/countries-of-the-world"
-              color="teal.500"
-            >
-              knock-off
-            </Link>{" "}
-            Countries of the World map quiz that was started to keep Ash sane
-            during lockdown. Since then we&apos;ve added a couple more features
-            but maintained the same hack-and-slash approach to writing code in
-            Go and JavaScript.
-          </Text>
-        </Box>
       </Box>
       <Divider />
       <Box>
