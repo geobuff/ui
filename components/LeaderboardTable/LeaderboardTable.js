@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Alert } from "@chakra-ui/react";
-import { Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
+import { Box, Flex, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
 import flag from "country-code-emoji";
@@ -31,8 +31,14 @@ const LeaderboardTable = ({ page, limit, entries }) => {
           <Tr key={index}>
             <Td>{page * limit + index + 1}</Td>
             <Td>
-              {entry.countryCode && <Twemoji emoji={flag(entry.countryCode)} />}{" "}
-              {entry.username}
+              <Flex alignItems="center">
+                <Box marginRight={2} marginTop="5.5px">
+                  {entry.countryCode && (
+                    <Twemoji emoji={flag(entry.countryCode)} />
+                  )}{" "}
+                </Box>
+                {entry.username}
+              </Flex>
             </Td>
             <Td>{secondsToMinutesString(entry.time)}</Td>
             <Td>{entry.score}</Td>

@@ -52,7 +52,10 @@ Timer.defaultProps = {
 
 GameInputCardTimer.propTypes = {
   totalSeconds: PropTypes.number,
-  expiryTimestamp: PropTypes.number,
+  expiryTimestamp: PropTypes.shape({
+    minutes: PropTypes.number,
+    seconds: PropTypes.number,
+  }),
   hasGameStarted: PropTypes.bool,
   hasGameStopped: PropTypes.bool,
 };

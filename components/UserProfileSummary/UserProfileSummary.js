@@ -30,6 +30,7 @@ const UserProfileSummary = ({
   useEffect(() => {
     if (updated) {
       toast({
+        position: "bottom-right",
         title: "User Updated",
         description: "Country code successfully updated.",
         status: "success",

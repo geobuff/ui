@@ -105,7 +105,10 @@ GameInputBanner.propTypes = {
   }),
   score: PropTypes.number,
   errorMessage: PropTypes.string,
-  expiryTimestamp: PropTypes.number,
+  expiryTimestamp: PropTypes.shape({
+    minutes: PropTypes.number,
+    seconds: PropTypes.number,
+  }),
   hasError: PropTypes.bool,
   hasGameStarted: PropTypes.bool,
   hasGameStopped: PropTypes.bool,
