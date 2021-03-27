@@ -70,6 +70,8 @@ const QuizCard = ({ quiz }) => (
               fontSize={{ base: "9px", sm: "9px", md: "11px" }}
               fontWeight="bold"
               marginLeft="2.5px"
+              isTruncated
+              minWidth="50%"
             >
               {`${secondsToMinutesString(quiz.time)} mins`}
             </Text>
@@ -84,6 +86,9 @@ const QuizCard = ({ quiz }) => (
               fontSize={{ base: "9px", sm: "9px", md: "11px" }}
               fontWeight="bold"
               marginLeft="2.5px"
+              minWidth="50%"
+              maxWidth={{ base: "65px", md: "85px" }}
+              isTruncated
             >
               {`${quiz.maxScore} ${quiz.verb}`}
             </Text>
