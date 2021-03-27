@@ -20,7 +20,6 @@ const ResultsList = ({ quiz, results }) => {
       {results.map((result) => (
         <ResultsListItem
           key={result.code}
-          quizId={quiz.id}
           code={result.code}
           svgName={result.svgName}
           isHidden={!result.checked}

@@ -19,6 +19,7 @@ const CustomFlag = ({ url }) => {
         borderRadius={4}
         height="18px"
         width="24.5px"
+        objectFit="cover"
         onLoad={() => setHasLoaded(true)}
       />
       <Skeleton

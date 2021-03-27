@@ -12,10 +12,14 @@ const MainView = ({ children, ...props }) => (
 );
 
 MainView.propTypes = {
-  children: PropTypes.array,
+  children: PropTypes.oneOfType([
+    PropTypes.array,
+    PropTypes.object,
+    PropTypes.func,
+  ]),
 };
 MainView.defaultProps = {
-  children: [],
+  children: null,
 };
 
 export default MainView;
