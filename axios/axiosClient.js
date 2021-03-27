@@ -6,7 +6,6 @@ const axiosClient = axios.create({
 
 axiosClient.interceptors.request.use(async (config) => {
   config.headers = {
-    "Access-Control-Allow-Origin": "*",
     ...config.headers,
   };
 

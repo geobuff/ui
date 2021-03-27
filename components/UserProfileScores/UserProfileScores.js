@@ -1,20 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { DateTime } from "luxon";
 
-import {
-  Alert,
-  Box,
-  Heading,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-} from "@chakra-ui/react";
+import { Alert, Box, Flex, Heading, Text, SimpleGrid } from "@chakra-ui/react";
 
-import { secondsToMinutesString } from "../../helpers/time";
+import Image from "../Image";
 
 const UserProfileScores = ({ scores }) => (
   <Box>
@@ -25,26 +14,32 @@ const UserProfileScores = ({ scores }) => (
       {scores.length === 0 ? (
         <Alert borderRadius={6}>No scores to display.</Alert>
       ) : (
-        <Table variant="striped" colorScheme="gray">
-          <Thead>
-            <Tr>
-              <Th>Quiz</Th>
-              <Th>Score</Th>
-              <Th>Time</Th>
-              <Th>Added</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {scores.map((x) => (
-              <Tr key={x.id}>
-                <Td>{x.quizName}</Td>
-                <Td>{x.score}</Td>
-                <Td>{secondsToMinutesString(x.time)}</Td>
-                <Td>{DateTime.fromISO(x.added).toISODate()}</Td>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
+        <SimpleGrid minChildWidth="100px" spacing="16px">
+          {scores.map((score) => (
+            <Flex
+              key={score.id}
+              direction="column"
+              alignItems="center"
+              textAlign="center"
+            >
+              <Image
+                height="56px"
+                width="56px"
+                objectFit="cover"
+                borderRadius={50}
+                src={score.quizImageUrl}
+              />
+              <Text
+                marginY={2}
+                maxWidth="75px"
+                fontSize="12px"
+                fontWeight="bold"
+              >
+                {score.quizName}
+              </Text>
+            </Flex>
+          ))}
+        </SimpleGrid>
       )}
     </Box>
   </Box>
@@ -57,6 +52,8 @@ UserProfileScores.propTypes = {
       userId: PropTypes.number,
       quizId: PropTypes.number,
       quizName: PropTypes.string,
+      quizImageUrl: PropTypes.string,
+      quizMaxScore: PropTypes.number,
       score: PropTypes.number,
       time: PropTypes.number,
       added: PropTypes.time,
