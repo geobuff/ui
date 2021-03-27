@@ -70,7 +70,7 @@ const Template = (args) => <ResultsMap {...args} />;
 
 export const Default = Template.bind({});
 Default.args = {
-  quizId: 1,
+  quiz: {},
   results,
   map,
 };

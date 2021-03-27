@@ -28,6 +28,7 @@ GameInputCardScore.propTypes = {
     route: PropTypes.string,
     hasLeaderboard: PropTypes.bool,
     hasGrouping: PropTypes.bool,
+    hasFlags: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
   score: PropTypes.number,

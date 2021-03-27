@@ -79,26 +79,20 @@ const GameBottomSheetModal = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <ResultsList
-                quizId={quiz.id}
-                verb={quiz.verb}
-                results={recents}
-              />
+              <ResultsList quiz={quiz} results={recents} />
             </Box>
 
             <Box>
               {quiz.hasGrouping ? (
                 <ResultsMap
-                  quizId={quiz.id}
+                  quiz={quiz}
                   results={checked}
                   map={groupMapping(mapping)}
-                  verb={quiz.verb}
                 />
               ) : (
                 <ResultsListWrapper
-                  quizId={quiz.id}
+                  quiz={quiz}
                   results={mergeArrayByName(mapping, checked)}
-                  verb={quiz.verb}
                 />
               )}
             </Box>
@@ -122,6 +116,7 @@ GameBottomSheetModal.propTypes = {
     route: PropTypes.string,
     hasLeaderboard: PropTypes.bool,
     hasGrouping: PropTypes.bool,
+    hasFlags: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
   mapping: PropTypes.arrayOf(

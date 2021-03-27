@@ -6,12 +6,20 @@ import { getFlagUrl } from "@geobuff/flags";
 import FlagFallback from "./FlagFallback";
 import CustomFlag from "./CustomFlag";
 
-const ResultsListItem = ({ code, isHidden, svgName, ...props }) => {
+const ResultsListItem = ({ code, isHidden, svgName, hasFlag, ...props }) => {
   return (
     <ListItem listStyleType="none" {...props}>
       <Fade in>
         <Flex alignItems="center">
-          {!isHidden ? <CustomFlag url={getFlagUrl(code)} /> : <FlagFallback />}
+          {hasFlag && (
+            <>
+              {!isHidden ? (
+                <CustomFlag url={getFlagUrl(code)} />
+              ) : (
+                <FlagFallback />
+              )}
+            </>
+          )}
           <Text ml={2} fontWeight="600" fontSize={14}>
             {!isHidden ? svgName : "???"}
           </Text>
@@ -25,6 +33,7 @@ ResultsListItem.propTypes = {
   code: PropTypes.string,
   isHidden: PropTypes.bool,
   svgName: PropTypes.string,
+  hasFlag: PropTypes.bool,
 };
 
 export default ResultsListItem;

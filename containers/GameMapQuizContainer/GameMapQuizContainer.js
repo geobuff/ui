@@ -10,8 +10,6 @@ const GameMapQuizContainer = ({ quizId }) => {
   const { quiz, isLoading: isLoadingQuiz } = useQuiz(quizId);
   const { mapping, isLoading: isLoadingMapping } = useMapping(quizId);
 
-  console.log();
-
   if (isLoadingQuiz || isLoadingMapping) {
     return null;
   }
