@@ -42,7 +42,7 @@ const UserProfileAchievements = ({ user, badges, userBadges }) => {
       <Heading size="md" textAlign="center" m={6}>
         Achievements
       </Heading>
-      <Box my={6}>
+      <Box mt={6} mb={12}>
         <Flex mb={3}>
           <Text fontWeight="bold">{level}</Text>
           <Spacer />
