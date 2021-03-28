@@ -15,7 +15,7 @@ import { SunIcon, UnlockIcon } from "@chakra-ui/icons";
 
 import TeamMemberCard from "../components/TeamMemberCard/TeamMemberCard";
 
-const Mission = () => (
+const OurMission = () => (
   <Box m={5}>
     <Box
       borderRadius={12}
@@ -110,4 +110,4 @@ const Mission = () => (
   </Box>
 );
 
-export default Mission;
+export default OurMission;

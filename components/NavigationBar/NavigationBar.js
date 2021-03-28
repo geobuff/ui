@@ -40,13 +40,6 @@ const NavigationBar = () => {
               </Text>
             </ChakraLink>
           </Link>
-          <Link href="/mission">
-            <ChakraLink marginLeft={4}>
-              <Text ml={2} color="gray.600" fontSize="14px" fontWeight="bold">
-                {"Mission"}
-              </Text>
-            </ChakraLink>
-          </Link>
         </Flex>
         <UserAvatarMenuNoSSR />
       </Flex>
