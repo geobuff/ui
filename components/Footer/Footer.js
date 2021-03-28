@@ -11,16 +11,22 @@ const Footer = () => {
       justifyContent="center"
       marginY={5}
     >
-      <Flex paddingY={5} paddingX={8}>
+      <Flex paddingY={5} paddingX={{ base: 3, md: 8 }}>
         <Link href="/our-mission">
           <ChakraLink marginLeft={4}>
-            <Text ml={2} color="gray.600" fontSize="14px" fontWeight="bold">
+            <Text
+              color="gray.600"
+              fontSize={{ base: "11px", md: "14px" }}
+              fontWeight="bold"
+            >
               {"Our Mission"}
             </Text>
           </ChakraLink>
         </Link>
         <Spacer />
-        <Text color="gray.500">{"© 2021 GeoBuff. All rights reserved."}</Text>
+        <Text color="gray.500" fontSize={{ base: "11px", md: "14px" }}>
+          {"© 2021 GeoBuff. All rights reserved."}
+        </Text>
       </Flex>
     </Flex>
   );
