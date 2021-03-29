@@ -6,12 +6,14 @@ import { getFlagUrl } from "@geobuff/flags";
 import FlagFallback from "./FlagFallback";
 import CustomFlag from "./CustomFlag";
 
+import Twemoji from "../Twemoji";
+
 const ResultsListItem = ({ code, isHidden, svgName, hasFlag, ...props }) => {
   return (
     <ListItem listStyleType="none" {...props}>
       <Fade in>
         <Flex alignItems="center">
-          {hasFlag && (
+          {hasFlag ? (
             <>
               {!isHidden ? (
                 <CustomFlag url={getFlagUrl(code)} />
@@ -19,6 +21,12 @@ const ResultsListItem = ({ code, isHidden, svgName, hasFlag, ...props }) => {
                 <FlagFallback />
               )}
             </>
+          ) : (
+            <Twemoji
+              emoji={isHidden ? "🔲" : "✅"}
+              height="18px"
+              width="18px"
+            />
           )}
           <Text ml={2} fontWeight="600" fontSize={14}>
             {!isHidden ? svgName : "???"}
