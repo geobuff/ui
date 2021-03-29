@@ -8,8 +8,8 @@ import {
   Text,
   Spacer,
   Progress,
-  Center,
   Heading,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
@@ -55,7 +55,12 @@ const UserProfileAchievements = ({ user, badges, userBadges }) => {
           colorScheme="green"
         />
       </Box>
-      <Center mb={6}>
+      <SimpleGrid
+        mb={6}
+        justifyContent="center"
+        minChildWidth="75px"
+        spacingY={8}
+      >
         {badges.map((badge) => (
           <Tooltip key={badge.id} label={getLabel(badge)}>
             <Image
@@ -66,7 +71,7 @@ const UserProfileAchievements = ({ user, badges, userBadges }) => {
             />
           </Tooltip>
         ))}
-      </Center>
+      </SimpleGrid>
     </Box>
   );
 };

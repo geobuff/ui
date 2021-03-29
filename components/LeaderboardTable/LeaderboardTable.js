@@ -17,35 +17,37 @@ const LeaderboardTable = ({ page, limit, entries }) => {
   }
 
   return (
-    <Table variant="striped" colorscheme="gray">
-      <Thead>
-        <Tr>
-          <Th textAlign="left">RANK </Th>
-          <Th textAlign="left">USERNAME</Th>
-          <Th textAlign="left">TIME</Th>
-          <Th textAlign="left">SCORE</Th>
-        </Tr>
-      </Thead>
-      <Tbody>
-        {entries.map((entry, index) => (
-          <Tr key={index}>
-            <Td>{page * limit + index + 1}</Td>
-            <Td>
-              <Flex alignItems="center">
-                <Box marginRight={2} marginTop="5.5px">
-                  {entry.countryCode && (
-                    <Twemoji emoji={flag(entry.countryCode)} />
-                  )}{" "}
-                </Box>
-                {entry.username}
-              </Flex>
-            </Td>
-            <Td>{secondsToMinutesString(entry.time)}</Td>
-            <Td>{entry.score}</Td>
+    <Box overflow="auto">
+      <Table variant="striped" colorscheme="gray">
+        <Thead>
+          <Tr>
+            <Th textAlign="left">RANK </Th>
+            <Th textAlign="left">USERNAME</Th>
+            <Th textAlign="left">TIME</Th>
+            <Th textAlign="left">SCORE</Th>
           </Tr>
-        ))}
-      </Tbody>
-    </Table>
+        </Thead>
+        <Tbody>
+          {entries.map((entry, index) => (
+            <Tr key={index}>
+              <Td>{page * limit + index + 1}</Td>
+              <Td>
+                <Flex alignItems="center">
+                  <Box marginRight={2} marginTop="5.5px">
+                    {entry.countryCode && (
+                      <Twemoji emoji={flag(entry.countryCode)} />
+                    )}{" "}
+                  </Box>
+                  {entry.username}
+                </Flex>
+              </Td>
+              <Td>{secondsToMinutesString(entry.time)}</Td>
+              <Td>{entry.score}</Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    </Box>
   );
 };
 

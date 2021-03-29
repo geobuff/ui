@@ -25,28 +25,30 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
       {entries.length === 0 ? (
         <Alert borderRadius={6}>No entries to display.</Alert>
       ) : (
-        <Table variant="striped" colorScheme="gray">
-          <Thead>
-            <Tr>
-              <Th>Quiz</Th>
-              <Th>Ranking</Th>
-              <Th>Score</Th>
-              <Th>Time</Th>
-              <Th>Added</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {entries.map((entry) => (
-              <Tr key={entry.quizId}>
-                <Td>{entry.quizName}</Td>
-                <Td>{entry.ranking}</Td>
-                <Td>{entry.score}</Td>
-                <Td>{secondsToMinutesString(entry.time)}</Td>
-                <Td>{DateTime.fromISO(entry.added).toISODate()}</Td>
+        <Box overflow="auto">
+          <Table variant="striped" colorScheme="gray">
+            <Thead>
+              <Tr>
+                <Th>Quiz</Th>
+                <Th>Ranking</Th>
+                <Th>Score</Th>
+                <Th>Time</Th>
+                <Th>Added</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {entries.map((entry) => (
+                <Tr key={entry.quizId}>
+                  <Td>{entry.quizName}</Td>
+                  <Td>{entry.ranking}</Td>
+                  <Td>{entry.score}</Td>
+                  <Td>{secondsToMinutesString(entry.time)}</Td>
+                  <Td>{DateTime.fromISO(entry.added).toISODate()}</Td>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
       )}
     </Box>
   </Box>
