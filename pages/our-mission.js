@@ -94,12 +94,14 @@ const OurMission = () => (
         >
           <TeamMemberCard
             title="Ash Midgley"
+            position="Founder"
             location="Wellington, New Zealand"
             imageUrl="/ash.jpg"
             link="https://github.com/ashmidgley"
           />
           <TeamMemberCard
             title="Kirby McKenzie"
+            position="Founder"
             location="Melbourne, Australia"
             imageUrl="/kirby.jpeg"
             link="https://github.com/KirbyMcKenzie"
