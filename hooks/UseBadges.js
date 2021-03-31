@@ -6,7 +6,7 @@ const useBadges = () => {
 
   return {
     badges: data ?? [],
-    loading: !data,
+    isLoading: !data,
   };
 };
 

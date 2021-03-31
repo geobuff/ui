@@ -13,26 +13,22 @@ import {
 } from "@chakra-ui/react";
 
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
+import { isBadgeComplete, getProgress } from "../../helpers/badge";
 
-const UserProfileAchievements = ({ user, badges, userBadges }) => {
+const UserProfileAchievements = ({ user, badges, scores, entriesCount }) => {
   const level = getLevel(user.xp);
 
-  const getOpacity = (badge) => {
-    const filter = userBadges.filter((x) => x.badgeId === badge.id);
-    if (filter.length === 0) {
-      return "0.25";
-    }
-    return filter[0].progress === badge.total ? "1" : "0.25";
-  };
-
   const getLabel = (badge) => {
-    const filter = userBadges.filter((x) => x.badgeId === badge.id);
-    const progress = filter.length === 0 ? 0 : filter[0].progress;
     return (
       <Box>
         <Heading size="md">{badge.name}</Heading>
         <Text my={2}>{badge.description}</Text>
-        <Text mb={2}>{`Progress: ${progress}/${badge.total}`}</Text>
+        <Text mb={2}>{`Progress: ${getProgress(
+          badge,
+          user,
+          scores,
+          entriesCount
+        )}/${badge.total}`}</Text>
       </Box>
     );
   };
@@ -67,7 +63,11 @@ const UserProfileAchievements = ({ user, badges, userBadges }) => {
               src={badge.icon}
               height="50px"
               mx={3}
-              opacity={getOpacity(badge)}
+              opacity={
+                isBadgeComplete(badge, user, scores, entriesCount)
+                  ? "1"
+                  : "0.25"
+              }
             />
           </Tooltip>
         ))}
@@ -94,14 +94,21 @@ UserProfileAchievements.propTypes = {
       total: PropTypes.number,
     })
   ),
-  userBadges: PropTypes.arrayOf(
+  scores: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       userId: PropTypes.number,
-      badgeId: PropTypes.number,
-      progress: PropTypes.number,
+      quizId: PropTypes.number,
+      badgeGroup: PropTypes.number,
+      quizName: PropTypes.string,
+      quizImageUrl: PropTypes.string,
+      quizMaxScore: PropTypes.number,
+      score: PropTypes.number,
+      time: PropTypes.number,
+      added: PropTypes.time,
     })
   ),
+  entriesCount: PropTypes.number,
 };
 
 export default UserProfileAchievements;

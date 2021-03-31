@@ -18,7 +18,7 @@ const useLeaderboardEntries = (userId) => {
 
   return {
     entries: entries,
-    isPending: loading,
+    isLoading: loading,
   };
 };
 

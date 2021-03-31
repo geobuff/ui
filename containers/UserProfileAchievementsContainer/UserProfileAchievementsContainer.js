@@ -3,14 +3,16 @@ import PropTypes from "prop-types";
 
 import UserProfileAchievements from "../../components/UserProfileAchievements";
 import useBadges from "../../hooks/UseBadges";
-import useUserBadges from "../../hooks/UseUserBadges";
+import useScores from "../../hooks/UseScores";
+import useLeaderboardEntries from "../../hooks/UseLeaderboardEntries";
 import UserProfileAchievementsPlaceholder from "../../placeholders/UserProfileAchievementsPlaceholder";
 
 const UserProfileAchievementsContainer = ({ user }) => {
-  const { badges, badgesLoading } = useBadges();
-  const { userBadges, userBadgesLoading } = useUserBadges(user.id);
+  const { badges, isLoading: badgesLoading } = useBadges();
+  const { scores, isLoading: scoresLoading } = useScores(user.id);
+  const { entries, isLoading: entriesLoading } = useLeaderboardEntries(user.id);
 
-  if (badgesLoading || userBadgesLoading) {
+  if (badgesLoading || scoresLoading || entriesLoading) {
     return <UserProfileAchievementsPlaceholder />;
   }
 
@@ -18,7 +20,8 @@ const UserProfileAchievementsContainer = ({ user }) => {
     <UserProfileAchievements
       user={user}
       badges={badges}
-      userBadges={userBadges}
+      scores={scores}
+      entriesCount={entries.length}
     />
   );
 };

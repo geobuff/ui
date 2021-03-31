@@ -78,6 +78,7 @@ UserProfileScores.propTypes = {
       id: PropTypes.number,
       userId: PropTypes.number,
       quizId: PropTypes.number,
+      badgeGroup: PropTypes.number,
       quizName: PropTypes.string,
       quizImageUrl: PropTypes.string,
       quizMaxScore: PropTypes.number,
