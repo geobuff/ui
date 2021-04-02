@@ -197,7 +197,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
       <Flex>
         {!shouldDisplayOnMobile && (
-          <Box height="100%">
+          <Box minHeight="100%">
             <Sidebar heading={quiz.name}>
               <Box>
                 <GameInputCard

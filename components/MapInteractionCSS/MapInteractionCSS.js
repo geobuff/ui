@@ -2,39 +2,43 @@ import React from "react";
 import PropTypes from "prop-types";
 import { MapInteraction } from "react-map-interaction";
 
-const MapInteractionCSS = (props) => (
-  <MapInteraction {...props}>
-    {({ translation, scale }) => {
-      const transform = `translate(${translation.x}px, ${translation.y}px) scale(${scale})`;
+import { Box } from "@chakra-ui/react";
 
-      return (
-        <div
-          style={{
-            height: "100%",
-            width: "100%",
-            position: "relative",
-            overflow: "hidden",
-            touchAction: "none",
-            msTouchAction: "none",
-            cursor: "all-scroll",
-            WebkitUserSelect: "none",
-            MozUserSelect: "none",
-            msUserSelect: "none",
-          }}
-        >
+const MapInteractionCSS = (props) => (
+  <Box position="relative" top={0} left="375px" bottom={0} right={0}>
+    <MapInteraction {...props}>
+      {({ translation, scale }) => {
+        const transform = `translate(${translation.x}px, ${translation.y}px) scale(${scale})`;
+
+        return (
           <div
             style={{
-              transform: transform,
-              transformOrigin: "0 0",
               height: "100%",
+              width: "100%",
+              position: "relative",
+              overflow: "hidden",
+              touchAction: "none",
+              msTouchAction: "none",
+              cursor: "all-scroll",
+              WebkitUserSelect: "none",
+              MozUserSelect: "none",
+              msUserSelect: "none",
             }}
           >
-            {props.children}
+            <div
+              style={{
+                transform: transform,
+                transformOrigin: "0 0",
+                height: "100%",
+              }}
+            >
+              {props.children}
+            </div>
           </div>
-        </div>
-      );
-    }}
-  </MapInteraction>
+        );
+      }}
+    </MapInteraction>
+  </Box>
 );
 
 MapInteractionCSS.propTypes = {
