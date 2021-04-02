@@ -5,7 +5,7 @@ import { MapInteraction } from "react-map-interaction";
 import { Box } from "@chakra-ui/react";
 
 const MapInteractionCSS = (props) => (
-  <Box position="relative" top={0} left="375px" bottom={0} right={0}>
+  <Box position="absolute" top={0} left="375px" bottom={0} right={0}>
     <MapInteraction {...props}>
       {({ translation, scale }) => {
         const transform = `translate(${translation.x}px, ${translation.y}px) scale(${scale})`;
