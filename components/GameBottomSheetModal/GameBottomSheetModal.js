@@ -40,6 +40,7 @@ const GameBottomSheetModal = ({
       snapPoints={snapPoints}
       initialSnap={initialSnap}
       mt="120px"
+      top="100% !important"
       minHeight="92vh"
       springConfig={{
         stiffness: 600,
@@ -47,7 +48,7 @@ const GameBottomSheetModal = ({
         mass: 0.2,
       }}
     >
-      <Sheet.Container>
+      <Sheet.Container style={{ position: "fixed" }}>
         <Box pt={1} height="54px" as={Sheet.Header} />
         <Sheet.Content>
           <Box overflowY="scroll" mx={5} my={0} pb="100px">
