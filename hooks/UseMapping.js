@@ -13,7 +13,14 @@ const useMapping = (quizId) => {
   );
 
   return {
-    mapping: data || [],
+    mapping:
+      data?.map((mapping) => ({
+        ...mapping,
+        alternativeNames: mapping.alternativeNames.map((altName) =>
+          altName.toLowerCase()
+        ),
+        prefixes: mapping.prefixes.map((prefix) => prefix.toLowerCase()),
+      })) || [],
     isLoading: !data,
   };
 };
