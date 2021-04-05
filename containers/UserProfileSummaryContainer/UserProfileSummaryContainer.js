@@ -46,7 +46,7 @@ const UserProfileSummaryContainer = ({ user, quizzes }) => {
   return (
     <UserProfileSummary
       user={user}
-      countries={countries}
+      countries={countries.sort((a, b) => a.svgName.localeCompare(b.svgName))}
       submitCountry={submitCountry}
       updated={updated}
       setUpdated={setUpdated}
