@@ -11,6 +11,7 @@ import {
   MenuItem,
   MenuDivider,
   MenuButton,
+  Skeleton,
   SkeletonCircle,
   Text,
 } from "@chakra-ui/react";
@@ -45,7 +46,28 @@ const UserAvatarMenu = () => {
   }, [user, isLoading]);
 
   if (isUserLoading) {
-    return <SkeletonCircle height="36px" width="36px" />;
+    return (
+      <Flex
+        alignItems="center"
+        backgroundColor="#F3F3F3"
+        border="1px solid transparent"
+        borderRadius={12}
+        paddingY={{ base: 1.5, md: 2 }}
+        paddingX={{ base: 1.5, md: 3 }}
+        margin={0}
+      >
+        <SkeletonCircle
+          height={{ base: "22px", md: "26px" }}
+          width={{ base: "22px", md: "26px" }}
+        />
+        <Skeleton
+          marginLeft={1.5}
+          marginRight={0.5}
+          height={{ base: "16px", md: "18px" }}
+          width={{ base: "80px", md: "100px" }}
+        />
+      </Flex>
+    );
   }
 
   if (user) {
@@ -58,7 +80,6 @@ const UserAvatarMenu = () => {
           paddingY={{ base: 1.5, md: 2 }}
           paddingX={{ base: 1.5, md: 3 }}
           margin={0}
-          height={{ base: "34px", md: "42px" }}
           _hover={{
             backgroundColor: "#e6e6e6",
           }}
