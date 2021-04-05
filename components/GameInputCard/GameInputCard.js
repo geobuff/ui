@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -37,6 +37,13 @@ const GameInputCard = ({
   onGameStart,
   onGameStop,
 }) => {
+  const inputRef = useRef("");
+
+  const handleClearInput = () => {
+    onClearInput();
+    inputRef.current.focus();
+  };
+
   return (
     <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
       <Box mb={5}>
@@ -47,6 +54,7 @@ const GameInputCard = ({
       <Box>
         <InputGroup position="relative">
           <Input
+            ref={inputRef}
             isInvalid={hasError}
             isDisabled={!hasGameStarted}
             onChange={onChange}
@@ -77,7 +85,7 @@ const GameInputCard = ({
                 minWidth="22px"
                 backgroundColor="transparent"
                 borderRadius={25}
-                onClick={onClearInput}
+                onClick={handleClearInput}
                 color={hasError ? "red.500" : "#a6a6a6"}
                 fontWeight="bold"
                 _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}

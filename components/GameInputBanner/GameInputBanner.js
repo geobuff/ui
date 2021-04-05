@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useRef } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -29,6 +29,13 @@ const GameInputBanner = ({
   onChange,
   onClearInput,
 }) => {
+  const inputRef = useRef("");
+
+  const handleClearInput = () => {
+    onClearInput();
+    inputRef.current.focus();
+  };
+
   return (
     <>
       <Flex
@@ -58,6 +65,7 @@ const GameInputBanner = ({
         </Box>
         <InputGroup>
           <Input
+            ref={inputRef}
             isDisabled={!hasGameStarted}
             isInvalid={hasError}
             placeholder={`Enter ${quiz.verb}...`}
@@ -67,15 +75,13 @@ const GameInputBanner = ({
           <InputRightElement>
             <Fade in={inputValue?.length > 0} out={inputValue?.length}>
               <IconButton
-                // position="absolute"
-                // top="27px"
                 right={3}
                 maxHeight="22px"
                 minWidth="22px"
                 marginBottom="2px"
                 backgroundColor="transparent"
                 borderRadius={25}
-                onClick={onClearInput}
+                onClick={handleClearInput}
                 color={hasError ? "red.500" : "#a6a6a6"}
                 fontWeight="bold"
                 _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
