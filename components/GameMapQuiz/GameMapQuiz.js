@@ -246,6 +246,8 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
             checked={checkedSubmissions}
             recents={recentSubmissions}
             hasGameStarted={hasGameStarted}
+            hasGameStopped={hasGameStopped}
+            isOpen={!hasGameStopped || !isOpen}
             gameStartText={gameStartText}
             onGameStart={handleGameStart}
             onGameStop={handleGameStop}
