@@ -13,7 +13,7 @@ import {
   Fade,
 } from "@chakra-ui/react";
 
-import { CloseIcon } from "@chakra-ui/icons";
+import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 
 import ResultsList from "../ResultsList";
 import GameInputCardScore from "./GameInputCardScore";
@@ -68,21 +68,23 @@ const GameInputCard = ({
             </Text>
           </Fade>
           <InputRightElement>
-            <IconButton
-              display={hasError ? "flex" : "none"}
-              position="absolute"
-              top="27px"
-              mr={2}
-              maxHeight="22px"
-              minWidth="22px"
-              backgroundColor="transparent"
-              borderRadius={25}
-              onClick={onClearInput}
-              color="red.400"
-              _hover={{ backgroundColor: "gray.100" }}
-            >
-              <CloseIcon p={0} height={3} width={3} />
-            </IconButton>
+            <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+              <IconButton
+                position="absolute"
+                top="27px"
+                right={3}
+                maxHeight="22px"
+                minWidth="22px"
+                backgroundColor="transparent"
+                borderRadius={25}
+                onClick={onClearInput}
+                color={hasError ? "red.500" : "#a6a6a6"}
+                fontWeight="bold"
+                _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+              >
+                <SolidCloseCircle height={5} width={5} padding={0} />
+              </IconButton>
+            </Fade>
           </InputRightElement>
         </InputGroup>
       </Box>
