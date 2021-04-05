@@ -5,16 +5,20 @@ import { useRouter } from "next/router";
 
 import {
   Button,
+  Flex,
   Menu,
   MenuList,
   MenuItem,
   MenuDivider,
   MenuButton,
   SkeletonCircle,
+  Text,
 } from "@chakra-ui/react";
 
 import UserAvatar from "../UserAvatar";
 import useCurrentUser from "../../hooks/UseCurrentUser";
+
+import SolidChevronDown from "../../Icons/SolidChevronDown";
 
 const UserAvatarMenu = () => {
   const [isUserLoading, setIsUserLoading] = useState(true);
@@ -48,20 +52,48 @@ const UserAvatarMenu = () => {
     return (
       <Menu>
         <MenuButton
-          as={Button}
-          backgroundColor="transparent"
-          borderRadius={50}
-          padding={0}
+          backgroundColor="#F3F3F3"
+          border="1px solid transparent"
+          borderRadius={12}
+          paddingY={{ base: 1.5, md: 2 }}
+          paddingX={{ base: 1.5, md: 3 }}
           margin={0}
-          height="36px"
-          minWidth="36px"
+          height={{ base: "34px", md: "42px" }}
+          _hover={{
+            backgroundColor: "#e6e6e6",
+          }}
+          _active={{
+            border: "1px solid",
+            borderColor: "blue.500",
+          }}
+          _focus={{
+            border: "1px solid",
+            borderColor: "blue.500",
+          }}
         >
-          <UserAvatar
-            height="36px"
-            width="36px"
-            imageUrl={user?.picture}
-            alt={`${user?.username}'s profile image`}
-          />
+          <Flex alignItems="center">
+            <UserAvatar
+              height={{ base: "22px", md: "26px" }}
+              width={{ base: "22px", md: "26px" }}
+              imageUrl={user?.picture}
+              alt={`${user?.username}'s profile image`}
+            />
+            <Text
+              marginLeft={1.5}
+              marginRight={0.5}
+              fontWeight="bold"
+              fontSize={{ base: "10px", md: "12px" }}
+              isTruncated
+              maxWidth={{ base: "80px", md: "125px", lg: "135px" }}
+            >
+              {user?.username}
+            </Text>
+            <SolidChevronDown
+              height={{ base: "10px", md: "12px" }}
+              width={{ base: "10px", md: "12px" }}
+              marginLeft="1px"
+            />
+          </Flex>
         </MenuButton>
 
         <MenuList>
