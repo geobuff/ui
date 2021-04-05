@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 
 import {
   Box,
+  Fade,
   Flex,
   IconButton,
   Input,
@@ -11,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { CloseIcon } from "@chakra-ui/icons";
+import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 
 import GameInputBannerTimer from "./GameInputBannerTimer";
 import GameInputBannerError from "./GameInputBannerError";
@@ -64,19 +65,24 @@ const GameInputBanner = ({
             value={inputValue}
           />
           <InputRightElement>
-            <IconButton
-              color="red.400"
-              backgroundColor="transparent"
-              borderRadius={25}
-              display={hasError ? "flex" : "none"}
-              onClick={onClearInput}
-              maxHeight="22px"
-              minWidth="22px"
-              mr={2}
-              _hover={{ backgroundColor: "gray.100" }}
-            >
-              <CloseIcon p={0} height={3} width={3} />
-            </IconButton>
+            <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+              <IconButton
+                // position="absolute"
+                // top="27px"
+                right={3}
+                maxHeight="22px"
+                minWidth="22px"
+                marginBottom="2px"
+                backgroundColor="transparent"
+                borderRadius={25}
+                onClick={onClearInput}
+                color={hasError ? "red.500" : "#a6a6a6"}
+                fontWeight="bold"
+                _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+              >
+                <SolidCloseCircle height={5} width={5} padding={0} />
+              </IconButton>
+            </Fade>
           </InputRightElement>
         </InputGroup>
       </Flex>
