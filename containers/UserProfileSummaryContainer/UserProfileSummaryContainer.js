@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useMemo } from "react";
 import PropTypes from "prop-types";
 import { useAuth0 } from "@auth0/auth0-react";
 
@@ -15,6 +15,11 @@ const UserProfileSummaryContainer = ({ user, quizzes }) => {
 
   const [config, setConfig] = useState(null);
   const [updated, setUpdated] = useState(false);
+
+  const sortedCountries = useMemo(
+    () => countries?.sort((a, b) => a.svgName.localeCompare(b.svgName)),
+    [countries]
+  );
 
   useEffect(() => {
     getAccessTokenSilently({
@@ -46,7 +51,7 @@ const UserProfileSummaryContainer = ({ user, quizzes }) => {
   return (
     <UserProfileSummary
       user={user}
-      countries={countries.sort((a, b) => a.svgName.localeCompare(b.svgName))}
+      countries={sortedCountries}
       submitCountry={submitCountry}
       updated={updated}
       setUpdated={setUpdated}
