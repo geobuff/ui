@@ -133,7 +133,15 @@ const UserAvatarMenu = () => {
     );
   }
 
-  return <Button onClick={loginWithRedirect}>{"Log in"}</Button>;
+  return (
+    <Button
+      _hover={{ backgroundColor: "#F3F3F3" }}
+      variant="text"
+      onClick={loginWithRedirect}
+    >
+      {"Login or Register"}
+    </Button>
+  );
 };
 
 UserAvatarMenu.propTypes = {};
