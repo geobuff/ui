@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { Box, Button, Divider, Heading, Text } from "@chakra-ui/react";
 import Sheet from "react-modal-sheet";
@@ -19,24 +19,15 @@ const GameBottomSheetModal = ({
   checked,
   recents,
   hasGameStarted,
+  isOpen,
   gameStartText,
   onGameStart,
   onGameStop,
 }) => {
-  const [isOpen, setIsOpen] = useState(true);
-
-  // Because we want the modal to stay open, this forces the
-  // modal to stay open even if it's forced closed by pesky users
-  const handleClose = () => {
-    setIsOpen(false);
-    setIsOpen(true);
-  };
-
   return (
     <Box
       as={Sheet}
       isOpen={isOpen}
-      onClose={handleClose}
       snapPoints={snapPoints}
       initialSnap={initialSnap}
       mt="120px"
@@ -142,8 +133,9 @@ GameBottomSheetModal.propTypes = {
       code: PropTypes.string,
     })
   ),
-  hasGameStarted: PropTypes.bool,
   gameStartText: PropTypes.string,
+  hasGameStarted: PropTypes.bool,
+  isOpen: PropTypes.bool,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
 };
@@ -153,8 +145,9 @@ GameBottomSheetModal.defaultProps = {
   mapping: [],
   checked: [],
   recents: [],
-  hasGameStarted: false,
   gameStartText: "START",
+  hasGameStarted: false,
+  isOpen: false,
   onGameStart: () => {},
   onGameStop: () => {},
 };
