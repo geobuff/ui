@@ -106,6 +106,13 @@ const OurMission = () => (
             imageUrl="/kirby.jpeg"
             link="https://github.com/KirbyMcKenzie"
           />
+          <TeamMemberCard
+            title="Daniel Marchbank"
+            position="UI Developer"
+            location="Wellington, New Zealand"
+            imageUrl="/dan.jpeg"
+            link="https://github.com/danielmarchbank"
+          />
         </SimpleGrid>
       </Box>
     </Box>
