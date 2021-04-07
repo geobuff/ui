@@ -86,12 +86,7 @@ const OurMission = () => (
         <Heading textAlign="center" mt={6}>
           The Team
         </Heading>
-        <SimpleGrid
-          justifyContent="center"
-          minChildWidth="140px"
-          spacing="40px"
-          p={12}
-        >
+        <SimpleGrid justifyContent="center" columns={2} spacing="40px" p={12}>
           <TeamMemberCard
             title="Ash Midgley"
             position="Founder"
@@ -105,6 +100,13 @@ const OurMission = () => (
             location="Melbourne, Australia"
             imageUrl="/kirby.jpeg"
             link="https://github.com/KirbyMcKenzie"
+          />
+          <TeamMemberCard
+            title="Daniel Marchbank"
+            position="UI Developer"
+            location="Wellington, New Zealand"
+            imageUrl="/dan.jpg"
+            link="https://github.com/danielmarchbank"
           />
         </SimpleGrid>
       </Box>
