@@ -15,7 +15,7 @@ const NavigationBar = () => {
     <Box
       m={0}
       py={2}
-      px={5}
+      px={{ base: 3, md: 5 }}
       backgroundColor="white"
       boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
       position="relative"
@@ -28,7 +28,7 @@ const NavigationBar = () => {
         <Flex alignItems="center">
           <Link href="/">
             <ChakraLink _hover={{ textDecoration: "none" }}>
-              <Text ml={2} fontSize={[22, 26, 26]} fontWeight="bold">
+              <Text fontSize={[22, 26, 26]} fontWeight="bold">
                 <Twemoji
                   emoji="🌏"
                   height={[6, 7, 7]}

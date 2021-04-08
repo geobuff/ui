@@ -135,9 +135,11 @@ const UserAvatarMenu = () => {
 
   return (
     <Button
-      _hover={{ backgroundColor: "#F3F3F3" }}
-      variant="text"
+      backgroundColor="#F3F3F3"
+      fontSize={{ base: "12px", md: "14px" }}
       onClick={loginWithRedirect}
+      paddingX={{ base: 3, md: 4 }}
+      _hover={{ backgroundColor: "#e6e6e6" }}
     >
       {"Login or Register"}
     </Button>
