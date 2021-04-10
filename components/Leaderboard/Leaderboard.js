@@ -5,6 +5,7 @@ import { Box, Button, Heading, Select, Flex, Input } from "@chakra-ui/react";
 
 import LeaderboardTableContainer from "../../containers/LeaderboardTableContainer";
 import MainView from "../MainView";
+import Twemoji from "../Twemoji";
 
 const Leaderboard = ({ quizId, quizzes }) => {
   const [quiz, setQuiz] = useState(quizId === 0 ? quizzes[0].id : quizId);
@@ -44,9 +45,15 @@ const Leaderboard = ({ quizId, quizzes }) => {
         maxWidth={{ base: "100%", md: "70%" }}
         marginX={{ base: 2, md: "auto" }}
       >
-        <Heading mt={12} ml={3}>
-          Leaderboard
-        </Heading>
+        <Flex alignItems="center" marginTop={12}>
+          <Box as="span" marginRight={1} paddingTop={1}>
+            <Twemoji emoji="🏆" height="42px" width="42px" />
+          </Box>
+          <Heading as="h1" ml={3} fontSize="42px" fontWeight="bold">
+            {"Leaderboards"}
+          </Heading>
+        </Flex>
+
         <Box>
           <Flex my={5}>
             <Select
@@ -78,14 +85,12 @@ const Leaderboard = ({ quizId, quizzes }) => {
               onChange={userChange}
             />
           </Flex>
-          <Box borderRadius={12} p={5} background="#FFFFFF">
-            <Box p={5}>
-              <LeaderboardTableContainer
-                quizId={quiz}
-                filterParams={filterParams}
-                setHasMore={setHasMore}
-              />
-            </Box>
+          <Box borderRadius={12} minHeight="750px" p={5} background="#FFFFFF">
+            <LeaderboardTableContainer
+              quizId={quiz}
+              filterParams={filterParams}
+              setHasMore={setHasMore}
+            />
             <Flex p={5}>
               <Select w="150px" background="#EDF2F7" onChange={limitChange}>
                 <option value={10}>10 Per Page</option>
@@ -98,10 +103,10 @@ const Leaderboard = ({ quizId, quizzes }) => {
                   mr={3}
                   onClick={previous}
                 >
-                  Previous
+                  {"Previous"}
                 </Button>
                 <Button disabled={!hasMore} onClick={next}>
-                  Next
+                  {"Next"}
                 </Button>
               </Box>
             </Flex>
