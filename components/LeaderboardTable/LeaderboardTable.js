@@ -42,7 +42,7 @@ const LeaderboardTable = ({ page, limit, entries }) => {
                     {entry.countryCode ? (
                       <Twemoji emoji={flag(entry.countryCode)} />
                     ) : (
-                      <Box marginY="5px" paddingBottom="2px">
+                      <Box marginY="4px">
                         <FlagFallback />
                       </Box>
                     )}
