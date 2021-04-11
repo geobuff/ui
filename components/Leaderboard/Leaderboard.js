@@ -1,13 +1,24 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 
-import { Box, Button, Heading, Select, Flex, Input } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Heading,
+  Select,
+  Flex,
+  Input,
+  InputGroup,
+  InputLeftElement,
+} from "@chakra-ui/react";
 
 import LeaderboardTableContainer from "../../containers/LeaderboardTableContainer";
 import MainView from "../MainView";
+
 import Twemoji from "../Twemoji";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import ArrowRight from "../../Icons/ArrowRight";
+import Search from "../../Icons/Search";
 
 const Leaderboard = ({ quizId, quizzes }) => {
   const [quiz, setQuiz] = useState(quizId === 0 ? quizzes[0].id : quizId);
@@ -52,40 +63,65 @@ const Leaderboard = ({ quizId, quizzes }) => {
             <Twemoji emoji="🏆" height="42px" width="42px" />
           </Box>
           <Heading as="h1" ml={3} fontSize="42px" fontWeight="bold">
-            {"Leaderboards"}
+            {"Leaderboard"}
           </Heading>
         </Flex>
 
         <Box>
-          <Flex my={5}>
-            <Select
-              width="250px"
-              background="#FFFFFF"
-              onChange={quizChange}
-              value={quiz}
-            >
-              {quizzes.map((quiz) => (
-                <option key={quiz.id} value={quiz.id}>
-                  {quiz.name}
-                </option>
-              ))}
-            </Select>
-            <Select
-              w="200px"
-              background="#FFFFFF"
-              mx={3}
-              onChange={rangeChange}
-            >
-              <option value={null}>All Time</option>
-              <option value="week">This Week</option>
-              <option value="day">Today</option>
-            </Select>
-            <Input
-              w="250px"
-              ml="auto"
-              placeholder="Enter username..."
-              onChange={userChange}
-            />
+          <Flex my={5} justifyContent="space-between">
+            <Flex>
+              <Select
+                width="250px"
+                borderColor="transparent"
+                fontWeight="bold"
+                background="#FFFFFF"
+                onChange={quizChange}
+                value={quiz}
+              >
+                {quizzes.map((quiz) => (
+                  <option key={quiz.id} value={quiz.id}>
+                    {quiz.name}
+                  </option>
+                ))}
+              </Select>
+              <Select
+                w="200px"
+                borderColor="transparent"
+                background="#FFFFFF"
+                fontWeight="bold"
+                mx={3}
+                onChange={rangeChange}
+              >
+                <option value={null}>{"All Time"}</option>
+                <option value="week">{"This Week"}</option>
+                <option value="day">{"Today"}</option>
+              </Select>
+            </Flex>
+
+            <Box maxWidth="230px">
+              <InputGroup>
+                <InputLeftElement pointerEvents="none">
+                  <Search
+                    marginTop="6px"
+                    marginLeft="12px"
+                    height="24px"
+                    width="24px"
+                    color="#000"
+                  />
+                </InputLeftElement>
+                <Input
+                  background="#FFFFFF"
+                  borderRadius={8}
+                  height="40px"
+                  marginLeft="auto"
+                  paddingLeft="46px"
+                  placeholder="Search username..."
+                  onChange={userChange}
+                  _placeholder={{ color: "#4d4d4d" }}
+                  _hover={{ border: "1px solid #CBD5E0" }}
+                />
+              </InputGroup>
+            </Box>
           </Flex>
           <Flex
             direction="column"
@@ -122,7 +158,7 @@ const Leaderboard = ({ quizId, quizzes }) => {
                   width="120px"
                   _hover={{ backgroundColor: "#e6e6e6" }}
                 >
-                  <ArrowLeft marginRight="2px" height="20px" width="20px" />
+                  <ArrowLeft marginRight="6px" height="20px" width="20px" />
                   {"Previous"}
                 </Button>
 
@@ -134,7 +170,7 @@ const Leaderboard = ({ quizId, quizzes }) => {
                   _hover={{ backgroundColor: "#e6e6e6" }}
                 >
                   {"Next"}
-                  <ArrowRight marginLeft="2px" height="20px" width="20px" />
+                  <ArrowRight marginLeft="6px" height="20px" width="20px" />
                 </Button>
               </Box>
             </Flex>
