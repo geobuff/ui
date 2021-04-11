@@ -1,7 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Alert } from "@chakra-ui/react";
-import { Box, Flex, Table, Thead, Tr, Th, Tbody, Td } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Text,
+  Table,
+  Thead,
+  Tr,
+  Th,
+  Tbody,
+  Td,
+} from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
 import flag from "country-code-emoji";
@@ -19,6 +29,19 @@ const LeaderboardTable = ({ page, limit, entries }) => {
     );
   }
 
+  const getNodeByRank = (rank) => {
+    switch (rank) {
+      case 1:
+        return <Twemoji emoji="🥇" />;
+      case 2:
+        return <Twemoji emoji="🥈" />;
+      case 3:
+        return <Twemoji emoji="🥉" />;
+      default:
+        return <Text marginX="6px">{rank}</Text>;
+    }
+  };
+
   return (
     <Box overflow="auto">
       <Table size="md" variant="striped" colorscheme="gray">
@@ -34,7 +57,7 @@ const LeaderboardTable = ({ page, limit, entries }) => {
           {entries.map((entry, index) => (
             <Tr key={index} fontWeight="bold">
               <Td paddingY={3} paddingX={6}>
-                {page * limit + index + 1}
+                {getNodeByRank(page * limit + index + 1)}
               </Td>
               <Td paddingY={3} paddingX={6}>
                 <Flex alignItems="center">

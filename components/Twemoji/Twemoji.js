@@ -44,4 +44,4 @@ Twemoji.defaultProps = {
   width: "24px",
 };
 
-export default Twemoji;
+export default React.memo(Twemoji);

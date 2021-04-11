@@ -9,8 +9,7 @@ const baseStyle = {
     width: "full",
   },
   th: {
-    fontFamily: "heading",
-    fontWeight: "bold",
+    fontWeight: 800,
     textTransform: "uppercase",
     letterSpacing: "wider",
     textAlign: "start",
@@ -65,9 +64,12 @@ const stripedVariant = (props) => {
 
   return {
     th: {
-      color: mode(`gray.600`, `gray.400`)(props),
+      color: "#000",
+      fontSize: "16px",
       borderBottom: "1px",
       borderColor: "transparent",
+      paddingTop: "8px",
+      paddingBottom: "22px",
       ...numericStyles,
     },
     td: {
