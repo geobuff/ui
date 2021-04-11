@@ -6,6 +6,8 @@ import { Box, Button, Heading, Select, Flex, Input } from "@chakra-ui/react";
 import LeaderboardTableContainer from "../../containers/LeaderboardTableContainer";
 import MainView from "../MainView";
 import Twemoji from "../Twemoji";
+import ArrowLeft from "../../Icons/ArrowLeft";
+import ArrowRight from "../../Icons/ArrowRight";
 
 const Leaderboard = ({ quizId, quizzes }) => {
   const [quiz, setQuiz] = useState(quizId === 0 ? quizzes[0].id : quizId);
@@ -85,32 +87,58 @@ const Leaderboard = ({ quizId, quizzes }) => {
               onChange={userChange}
             />
           </Flex>
-          <Box borderRadius={12} minHeight="750px" p={5} background="#FFFFFF">
+          <Flex
+            direction="column"
+            justifyContent="space-between"
+            borderRadius={12}
+            minHeight="750px"
+            p={5}
+            background="#FFFFFF"
+          >
             <LeaderboardTableContainer
               quizId={quiz}
               filterParams={filterParams}
               setHasMore={setHasMore}
             />
             <Flex p={5}>
-              <Select w="150px" background="#EDF2F7" onChange={limitChange}>
-                <option value={10}>10 Per Page</option>
-                <option value={20}>20 Per Page</option>
-                <option value={50}>50 Per Page</option>
+              <Select
+                backgroundColor="#F3F3F3"
+                border="none"
+                fontWeight="bold"
+                onChange={limitChange}
+                width="150px"
+                _hover={{ backgroundColor: "#e6e6e6" }}
+              >
+                <option value={10}>{"10 Per Page"}</option>
+                <option value={20}>{"20 Per Page"}</option>
+                <option value={50}>{"50 Per Page"}</option>
               </Select>
               <Box ml="auto">
                 <Button
+                  backgroundColor="#F3F3F3"
                   disabled={filterParams.page === 0}
-                  mr={3}
+                  marginRight={3}
                   onClick={previous}
+                  width="120px"
+                  _hover={{ backgroundColor: "#e6e6e6" }}
                 >
+                  <ArrowLeft marginRight="2px" height="20px" width="20px" />
                   {"Previous"}
                 </Button>
-                <Button disabled={!hasMore} onClick={next}>
+
+                <Button
+                  backgroundColor="#F3F3F3"
+                  disabled={!hasMore}
+                  onClick={next}
+                  width="120px"
+                  _hover={{ backgroundColor: "#e6e6e6" }}
+                >
                   {"Next"}
+                  <ArrowRight marginLeft="2px" height="20px" width="20px" />
                 </Button>
               </Box>
             </Flex>
-          </Box>
+          </Flex>
         </Box>
       </Flex>
     </MainView>

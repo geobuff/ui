@@ -57,7 +57,9 @@ const LeaderboardTable = ({ page, limit, entries }) => {
           {entries.map((entry, index) => (
             <Tr key={index} fontWeight="bold">
               <Td paddingY={3} paddingX={6}>
-                {getNodeByRank(page * limit + index + 1)}
+                <Flex alignItems="center">
+                  {getNodeByRank(page * limit + index + 1)}
+                </Flex>
               </Td>
               <Td paddingY={3} paddingX={6}>
                 <Flex alignItems="center">
