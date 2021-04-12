@@ -9,25 +9,25 @@ import axiosClient from "../../axios/axiosClient";
 const LeaderboardTableContainer = ({ quizId, filterParams, setHasMore }) => {
   const { quiz, isLoading } = useQuiz(quizId);
 
-  const [entries, setEntries] = useState();
-  const [loadingEntries, setLoadingEntries] = useState(true);
+  const [entries, setEntries] = useState([]);
+  const [isLoadingEntries, setIsLoadingEntries] = useState(true);
 
   useEffect(() => {
     if (!isLoading) {
-      setLoadingEntries(true);
+      setIsLoadingEntries(true);
 
       axiosClient
         .post(`/${quiz.apiPath}/leaderboard/all`, filterParams)
         .then((response) => {
           setHasMore(response.data.hasMore);
           setEntries(response.data.entries);
-          setLoadingEntries(false);
+          setIsLoadingEntries(false);
         });
     }
   }, [quizId, isLoading, filterParams]);
 
-  if (loadingEntries) {
-    return <LeaderboardTablePlaceholder noOfLines={filterParams.limit} />;
+  if (isLoadingEntries) {
+    return <LeaderboardTablePlaceholder rows={filterParams.limit} />;
   }
 
   return (

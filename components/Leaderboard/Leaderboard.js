@@ -10,6 +10,7 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
 import LeaderboardTableContainer from "../../containers/LeaderboardTableContainer";
@@ -23,7 +24,9 @@ import Search from "../../Icons/Search";
 const Leaderboard = ({ quizId, quizzes }) => {
   const [quiz, setQuiz] = useState(quizId === 0 ? quizzes[0].id : quizId);
   const [filterParams, setFilterParams] = useState({ page: 0, limit: 10 });
-  const [hasMore, setHasMore] = useState();
+  const [hasMore, setHasMore] = useState(false);
+
+  const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const quizChange = (e) => {
     setQuiz(parseInt(e.target.value));
@@ -55,28 +58,54 @@ const Leaderboard = ({ quizId, quizzes }) => {
     <MainView>
       <Flex
         direction="column"
-        maxWidth={{ base: "100%", md: "70%" }}
-        marginX={{ base: 2, md: "auto" }}
+        maxWidth={{ base: "100%", sm: "90%", md: "75%" }}
+        marginX="auto"
       >
-        <Flex alignItems="center" marginTop={12}>
+        <Flex
+          alignItems="center"
+          marginTop={12}
+          paddingX={{ base: 3, sm: 0, md: 0 }}
+        >
           <Box as="span" marginRight={1} paddingTop={1}>
-            <Twemoji emoji="🏆" height="42px" width="42px" />
+            <Twemoji
+              emoji="🏆"
+              height={{ base: "26px", sm: "36px", md: "42px" }}
+              width={{ base: "26px", sm: "36px", md: "42px" }}
+            />
           </Box>
-          <Heading as="h1" ml={3} fontSize="42px" fontWeight="bold">
+          <Heading
+            as="h1"
+            ml={{ base: 2, md: 3 }}
+            fontSize={{ base: "26px", sm: "36px", md: "42px" }}
+            fontWeight="bold"
+          >
             {"Leaderboard"}
           </Heading>
         </Flex>
 
         <Box>
-          <Flex my={5} justifyContent="space-between">
-            <Flex>
+          <Flex
+            my={5}
+            justifyContent="space-between"
+            flexWrap="wrap"
+            paddingX={{ base: 2.5, sm: 0, md: 0 }}
+          >
+            <Flex
+              flexGrow={4}
+              marginBottom={2}
+              flexWrap="wrap"
+              width={{ base: "100%", md: "inherit" }}
+            >
               <Select
-                width="250px"
+                maxWidth={{ base: "100%", sm: "48.5%", md: "235px" }}
                 borderColor="transparent"
                 fontWeight="bold"
                 background="#FFFFFF"
                 onChange={quizChange}
                 value={quiz}
+                marginRight={{ base: 0, sm: 4, md: 3 }}
+                marginBottom={2}
+                isTruncated
               >
                 {quizzes.map((quiz) => (
                   <option key={quiz.id} value={quiz.id}>
@@ -85,11 +114,10 @@ const Leaderboard = ({ quizId, quizzes }) => {
                 ))}
               </Select>
               <Select
-                w="200px"
+                maxWidth={{ base: "100%", sm: "48.5%", md: "235px" }}
                 borderColor="transparent"
                 background="#FFFFFF"
                 fontWeight="bold"
-                mx={3}
                 onChange={rangeChange}
               >
                 <option value={null}>{"All Time"}</option>
@@ -98,7 +126,10 @@ const Leaderboard = ({ quizId, quizzes }) => {
               </Select>
             </Flex>
 
-            <Box maxWidth="230px">
+            <Flex
+              marginLeft={{ base: 0, md: 2 }}
+              width={{ base: "100%", sm: "100%", md: "230px" }}
+            >
               <InputGroup>
                 <InputLeftElement pointerEvents="none">
                   <Search
@@ -106,29 +137,31 @@ const Leaderboard = ({ quizId, quizzes }) => {
                     marginLeft="12px"
                     height="24px"
                     width="24px"
-                    color="#000"
+                    color="gray.500"
                   />
                 </InputLeftElement>
                 <Input
                   background="#FFFFFF"
-                  borderRadius={8}
+                  borderRadius={6}
                   height="40px"
                   marginLeft="auto"
                   paddingLeft="46px"
-                  placeholder="Search username..."
+                  placeholder="Search users..."
                   onChange={userChange}
-                  _placeholder={{ color: "#4d4d4d" }}
+                  _placeholder={{ color: "gray.500" }}
                   _hover={{ border: "1px solid #CBD5E0" }}
                 />
               </InputGroup>
-            </Box>
+            </Flex>
           </Flex>
+
           <Flex
             direction="column"
             justifyContent="space-between"
-            borderRadius={12}
+            borderRadius={6}
             minHeight="750px"
-            p={5}
+            padding={{ base: 3, md: 5 }}
+            marginX={{ base: 0, sm: 0, md: 0 }}
             background="#FFFFFF"
           >
             <LeaderboardTableContainer
@@ -136,7 +169,7 @@ const Leaderboard = ({ quizId, quizzes }) => {
               filterParams={filterParams}
               setHasMore={setHasMore}
             />
-            <Flex p={5}>
+            <Flex padding={{ base: 2, sm: 5 }}>
               <Select
                 backgroundColor="#F3F3F3"
                 border="none"
@@ -153,24 +186,33 @@ const Leaderboard = ({ quizId, quizzes }) => {
                 <Button
                   backgroundColor="#F3F3F3"
                   disabled={filterParams.page === 0}
-                  marginRight={3}
+                  marginRight={{ base: 2, sm: 3 }}
                   onClick={previous}
-                  width="120px"
+                  width={{ base: "42px", md: "120px" }}
                   _hover={{ backgroundColor: "#e6e6e6" }}
                 >
-                  <ArrowLeft marginRight="6px" height="20px" width="20px" />
-                  {"Previous"}
+                  <ArrowLeft
+                    marginRight={{ base: 0, md: "6px" }}
+                    height="20px"
+                    width="20px"
+                  />
+                  {shouldRenderOnMobile && "Previous"}
                 </Button>
 
                 <Button
                   backgroundColor="#F3F3F3"
+                  role="group"
                   disabled={!hasMore}
                   onClick={next}
-                  width="120px"
+                  width={{ base: "42px", md: "120px" }}
                   _hover={{ backgroundColor: "#e6e6e6" }}
                 >
-                  {"Next"}
-                  <ArrowRight marginLeft="6px" height="20px" width="20px" />
+                  {shouldRenderOnMobile && "Next"}
+                  <ArrowRight
+                    marginLeft={{ base: 0, md: "6px" }}
+                    height="20px"
+                    width="20px"
+                  />
                 </Button>
               </Box>
             </Flex>

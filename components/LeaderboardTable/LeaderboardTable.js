@@ -1,7 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Alert } from "@chakra-ui/react";
+import flag from "country-code-emoji";
+
 import {
+  Alert,
   Box,
   Flex,
   Text,
@@ -10,15 +12,13 @@ import {
   Tr,
   Th,
   Tbody,
-  Td,
 } from "@chakra-ui/react";
 
-import Twemoji from "../Twemoji";
-import flag from "country-code-emoji";
-import { secondsToMinutesString } from "../../helpers/time";
-
-// TODO: Move component
 import FlagFallback from "../ResultsListItem/FlagFallback";
+import Twemoji from "../Twemoji";
+import TableCell from "../TableCell";
+
+import { secondsToMinutesString } from "../../helpers/time";
 
 const LeaderboardTable = ({ page, limit, entries }) => {
   if (entries.length === 0) {
@@ -53,15 +53,16 @@ const LeaderboardTable = ({ page, limit, entries }) => {
             <Th textAlign="right">{"SCORE"}</Th>
           </Tr>
         </Thead>
+
         <Tbody>
-          {entries.map((entry, index) => (
+          {entries?.map((entry, index) => (
             <Tr key={index} fontWeight={600}>
-              <Td paddingY={3} paddingX={6}>
+              <TableCell paddingY={3} paddingX={6}>
                 <Flex alignItems="center">
                   {getNodeByRank(page * limit + index + 1)}
                 </Flex>
-              </Td>
-              <Td paddingY={3} paddingX={6}>
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
                 <Flex alignItems="center">
                   <Box marginRight={3} marginTop="5.5px" alignItems="center">
                     {entry.countryCode ? (
@@ -72,15 +73,21 @@ const LeaderboardTable = ({ page, limit, entries }) => {
                       </Box>
                     )}
                   </Box>
-                  {entry.username}
+                  <Text
+                    fontWeight={
+                      page * limit + index + 1 <= 3 ? "bold" : "medium"
+                    }
+                  >
+                    {entry.username}
+                  </Text>
                 </Flex>
-              </Td>
-              <Td isNumeric paddingY={3} paddingX={6}>
+              </TableCell>
+              <TableCell isNumeric paddingY={3} paddingX={6}>
                 {secondsToMinutesString(entry.time)}
-              </Td>
-              <Td isNumeric paddingY={3} paddingX={6}>
+              </TableCell>
+              <TableCell isNumeric paddingY={3} paddingX={6}>
                 {entry.score}
-              </Td>
+              </TableCell>
             </Tr>
           ))}
         </Tbody>
@@ -103,6 +110,12 @@ LeaderboardTable.propTypes = {
       added: PropTypes.time,
     })
   ),
+};
+
+LeaderboardTable.defaultProps = {
+  limit: 10,
+  page: 0,
+  entries: [],
 };
 
 export default LeaderboardTable;
