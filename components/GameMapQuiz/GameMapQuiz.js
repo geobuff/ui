@@ -4,6 +4,7 @@ import { debounce } from "throttle-debounce";
 import PropTypes from "prop-types";
 import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
 import { useTimer } from "react-timer-hook";
+import { DateTime } from "luxon";
 
 import GameBottomSheetModal from "../GameBottomSheetModal";
 import GameInputBanner from "../GameInputBanner";
@@ -17,7 +18,6 @@ import GameMap from "../GameMap/GameMap";
 import { groupMapping } from "../../helpers/mapping";
 import { mergeArrayByName } from "../../helpers/array";
 
-import { DateTime } from "luxon";
 import {
   findSubmissionByNames,
   findSubmissionsByPrefixes,
@@ -198,7 +198,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
       <Flex>
         {!shouldDisplayOnMobile && (
           <Box minHeight="100%">
-            <Sidebar heading={quiz.name}>
+            <Sidebar heading={quiz.name} quiz={quiz}>
               <Box>
                 <GameInputCard
                   quiz={quiz}

@@ -1,11 +1,21 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Button, Divider, Heading, Text } from "@chakra-ui/react";
+import Link from "next/link";
+import {
+  Box,
+  Button,
+  Divider,
+  Heading,
+  Text,
+  Flex,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
 import Sheet from "react-modal-sheet";
 
 import ResultsList from "../ResultsList";
 import ResultsMap from "../ResultsMap";
 import ResultsListWrapper from "../ResultsListWrapper";
+import Twemoji from "../Twemoji";
 
 import { mergeArrayByName } from "../../helpers/array";
 import { groupMapping } from "../../helpers/mapping";
@@ -44,8 +54,17 @@ const GameBottomSheetModal = ({
         <Sheet.Content>
           <Box overflowY="scroll" mx={5} my={0} pb="100px">
             <Box>
-              <Heading pt={0} size="md" textAlign="center">
-                {quiz.name}
+              <Heading pt={0} size="md">
+                <Flex justifyContent="center">
+                  {quiz.hasLeaderboard && (
+                    <Link href={`/leaderboard?quizId=${quiz.id}`}>
+                      <ChakraLink>
+                        <Twemoji emoji="🏆" mr={2} />
+                      </ChakraLink>
+                    </Link>
+                  )}
+                  {quiz.name}
+                </Flex>
               </Heading>
 
               <Divider my={4} />
