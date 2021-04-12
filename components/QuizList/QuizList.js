@@ -38,8 +38,12 @@ const QuizList = ({ quizzes }) => (
         >
           {quizzes.map((quiz) => (
             <Link
-              href={`/quiz/${quiz.name.replaceAll(" ", "-").toLowerCase()}`}
               key={quiz.id}
+              href={
+                quiz.enabled
+                  ? `/quiz/${quiz.name.replaceAll(" ", "-").toLowerCase()}`
+                  : "/"
+              }
             >
               <AspectRatio
                 maxW="260px"
@@ -47,7 +51,8 @@ const QuizList = ({ quizzes }) => (
                 maxHeight="220px"
                 ratio={3 / 2}
                 transition="all 150ms ease-out"
-                _hover={{ transform: "scale(1.030)" }}
+                _hover={quiz.enabled && { transform: "scale(1.030)" }}
+                opacity={!quiz.enabled ? "0.25" : "1"}
               >
                 <QuizCard quiz={quiz} />
               </AspectRatio>
