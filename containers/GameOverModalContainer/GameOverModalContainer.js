@@ -39,7 +39,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       return;
     }
 
-    if (!isAuthenticated) {
+    if (!isAuthenticated || score === 0) {
       setLoading(false);
       return;
     }
