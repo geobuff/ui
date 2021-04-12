@@ -30,12 +30,11 @@ const OurMission = () => (
           <List>
             <ListItem mb={6}>
               <ListIcon as={SunIcon} color="green.500" />
-              Build a platform that helps people learn the names of all of the
-              crazy, amazing places in this world.
+              Create a quiz for every country in the world.
             </ListItem>
             <ListItem>
               <ListIcon as={UnlockIcon} color="green.500" />
-              Create open source{" "}
+              Build open source{" "}
               <Link href="https://github.com/geobuff/maps" color="teal.500">
                 map
               </Link>
@@ -47,24 +46,9 @@ const OurMission = () => (
               <Link href="https://github.com/geobuff/flags" color="teal.500">
                 flag
               </Link>{" "}
-              libraries that contain entries for every country in the world so
-              others can build off of our resources.
+              libraries so that others can build off of our resources.
             </ListItem>
           </List>
-        </Box>
-        <Box mb={6}>
-          <Text>
-            GeoBuff was initially a single{" "}
-            <Link
-              href="https://github.com/ashmidgley/countries-of-the-world"
-              color="teal.500"
-            >
-              knock-off
-            </Link>{" "}
-            map quiz that was started to keep Ash sane during lockdown. Since
-            then we&apos;ve added a couple more features but maintained the same
-            hack-and-slash approach to writing code in Go and JavaScript.
-          </Text>
         </Box>
         <Alert
           status="warning"
@@ -83,10 +67,14 @@ const OurMission = () => (
       </Box>
       <Divider />
       <Box>
-        <Heading textAlign="center" mt={6}>
+        <Heading textAlign="center" my={6}>
           The Team
         </Heading>
-        <SimpleGrid justifyContent="center" columns={2} spacing="40px" p={12}>
+        <SimpleGrid
+          columns={{ base: 1, sm: 2 }}
+          spacing={9}
+          p={{ base: 2, sm: 6 }}
+        >
           <TeamMemberCard
             title="Ash Midgley"
             position="Founder"
