@@ -1,9 +1,9 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { Box, Tooltip } from "@chakra-ui/react";
+import { SVGMap } from "react-svg-map";
 
 import MapInteractionCSS from "../MapInteractionCSS";
-import { SVGMap } from "react-svg-map";
 
 const GameMap = ({ showTooltip, map, onLocationClassName }) => {
   const [tooltipText, setTooltipText] = useState();
