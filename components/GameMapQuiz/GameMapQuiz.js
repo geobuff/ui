@@ -109,7 +109,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   const handleChangeDebounced = debounce(30, (event) => checkSubmission(event));
 
   const checkSubmission = (event) => {
-    const submission = event.target.value;
+    const submission = event.target.value.trim();
 
     if (!submission) {
       setHasError(false);
