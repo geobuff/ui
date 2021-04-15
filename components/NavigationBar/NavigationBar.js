@@ -1,10 +1,7 @@
 import React from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
-
-import { Box, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
-
-import Twemoji from "../Twemoji";
+import { Box, Flex, Link as ChakraLink, Image } from "@chakra-ui/react";
 
 const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
   ssr: false,
@@ -28,16 +25,7 @@ const NavigationBar = () => {
         <Flex alignItems="center">
           <Link href="/">
             <ChakraLink _hover={{ textDecoration: "none" }}>
-              <Text fontSize={[22, 26, 26]} fontWeight="bold">
-                <Twemoji
-                  emoji="🌏"
-                  height={[6, 7, 7]}
-                  width={[6, 7, 7]}
-                  pt={["4px", "5px", "5px"]}
-                  mr={2}
-                />
-                {"GeoBuff"}
-              </Text>
+              <Image src="/logo.svg" height="40px" />
             </ChakraLink>
           </Link>
         </Flex>
