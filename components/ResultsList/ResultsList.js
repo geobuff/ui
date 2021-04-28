@@ -34,6 +34,7 @@ const ResultsList = ({ quiz, results }) => {
 ResultsList.propTypes = {
   quiz: PropTypes.shape({
     id: PropTypes.number,
+    type: PropTypes.number,
     name: PropTypes.string,
     maxScore: PropTypes.number,
     time: PropTypes.number,

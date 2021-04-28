@@ -13,7 +13,7 @@ import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
 import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
-import GameMap from "../GameMap/GameMap";
+import GameFlags from "../GameFlags/GameFlags";
 
 import { groupMapping } from "../../helpers/mapping";
 import { mergeArrayByName } from "../../helpers/array";
@@ -23,7 +23,7 @@ import {
   findSubmissionsByPrefixes,
 } from "../../helpers/game";
 
-const GameMapQuiz = ({ quiz, mapping, map }) => {
+const GameFlagQuiz = ({ quiz, mapping }) => {
   const [checkedSubmissions, setCheckedSubmissions] = useState([]);
   const [recentSubmissions, setRecentSubmissions] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -63,19 +63,6 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   useEffect(() => {
     restart(quizDateTime());
   }, [timeRemaining]);
-
-  const handleLocationClassName = (location) => {
-    if (
-      checkedSubmissions.length
-        ? checkedSubmissions.find(
-            (submission) =>
-              submission.name.toLowerCase() === location.name.toLowerCase()
-          )
-        : false
-    ) {
-      return `selected`;
-    }
-  };
 
   const handleGameStart = () => {
     setCheckedSubmissions([]);
@@ -233,11 +220,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           </Box>
         )}
 
-        <GameMap
-          map={map}
-          showTooltip={!hasGameStarted}
-          onLocationClassName={handleLocationClassName}
-        />
+        <GameFlags mapping={mapping} />
 
         {shouldDisplayOnMobile && (
           <GameBottomSheetModal
@@ -258,7 +241,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   );
 };
 
-GameMapQuiz.propTypes = {
+GameFlagQuiz.propTypes = {
   quiz: PropTypes.shape({
     id: PropTypes.number,
     type: PropTypes.number,
@@ -285,13 +268,12 @@ GameMapQuiz.propTypes = {
       group: PropTypes.string,
     })
   ),
-  map: PropTypes.object,
 };
 
-GameMapQuiz.defaultProps = {
+GameFlagQuiz.defaultProps = {
   quiz: {},
   submissions: [],
   map: {},
 };
 
-export default GameMapQuiz;
+export default GameFlagQuiz;

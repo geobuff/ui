@@ -3,6 +3,9 @@ import { useRouter } from "next/router";
 
 import useQuizzes from "../../hooks/UseQuizzes";
 import GameMapQuizContainer from "../../containers/GameMapQuizContainer";
+import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
+
+import { QuizTypes } from "../../helpers/quiz-type";
 
 const Quiz = () => {
   const { quizzes, loading } = useQuizzes();
@@ -18,7 +21,15 @@ const Quiz = () => {
     return null;
   }
 
-  return <GameMapQuizContainer quizId={filter[0].id} />;
+  const quiz = filter[0];
+  switch (quiz.type) {
+    case QuizTypes.MAP:
+      return <GameMapQuizContainer quizId={quiz.id} />;
+    case QuizTypes.FLAG:
+      return <GameFlagQuizContainer quizId={quiz.id} />;
+    default:
+      return null;
+  }
 };
 
 export default Quiz;

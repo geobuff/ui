@@ -58,6 +58,7 @@ Sidebar.propTypes = {
   heading: PropTypes.string,
   quiz: PropTypes.shape({
     id: PropTypes.number,
+    type: PropTypes.number,
     name: PropTypes.string,
     maxScore: PropTypes.number,
     time: PropTypes.number,
