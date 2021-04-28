@@ -220,7 +220,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
           </Box>
         )}
 
-        <GameFlags />
+        <GameFlags mapping={mapping} />
 
         {shouldDisplayOnMobile && (
           <GameBottomSheetModal
