@@ -4,20 +4,18 @@ import { Box, Image } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 
 const GameFlags = ({ mapping }) => (
-  <Box width="100%">
-    <Box height="100%">
-      {mapping.map((entry, i) => (
-        <Box key={i} my={6}>
-          <Image
-            src={getFlagUrl(entry.code)}
-            width="245px"
-            height="180px"
-            borderRadius={4}
-            mx="auto"
-          />
-        </Box>
-      ))}
-    </Box>
+  <Box width="100%" height="100%">
+    {mapping.map((entry, i) => (
+      <Box key={i} my={6}>
+        <Image
+          src={getFlagUrl(entry.code)}
+          width="245px"
+          height="180px"
+          borderRadius={4}
+          mx="auto"
+        />
+      </Box>
+    ))}
   </Box>
 );
 
