@@ -9,7 +9,7 @@ const GameFlags = ({ mapping }) => (
       {mapping.map((entry, i) => (
         <Box key={i} my={6}>
           <Image
-            url={getFlagUrl(entry.code)}
+            src={getFlagUrl(entry.code)}
             width="245px"
             height="180px"
             borderRadius={4}
@@ -34,7 +34,7 @@ GameFlags.propTypes = {
   ),
 };
 GameFlags.defaultProps = {
-  mapping: {},
+  mapping: [],
 };
 
 export default GameFlags;
