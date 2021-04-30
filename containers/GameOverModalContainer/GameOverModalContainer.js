@@ -137,17 +137,15 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   };
 
   const getLeaderboardEntry = () => {
-    axiosClient
-      .get(`/${quiz.apiPath}/leaderboard/${user.id}`)
-      .then((response) => {
-        if (response.status !== 200) {
-          setLoading(false);
-          return;
-        }
-
-        setEntry(response.data);
+    axiosClient.get(`/leaderboard/${quiz.id}/${user.id}`).then((response) => {
+      if (response.status !== 200) {
         setLoading(false);
-      });
+        return;
+      }
+
+      setEntry(response.data);
+      setLoading(false);
+    });
   };
 
   const handleSubmitEntry = (existingEntry) => {
@@ -167,7 +165,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       time: time,
     };
 
-    axiosClient.post(`/${quiz.apiPath}/leaderboard`, entry, config).then(() => {
+    axiosClient.post(`/leaderboard`, entry, config).then(() => {
       setSubmitting(false);
       onClose();
       entrySubmitted();
@@ -183,7 +181,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     };
 
     axiosClient
-      .put(`/${quiz.apiPath}/leaderboard/${existingEntry.id}`, entry, config)
+      .put(`/leaderboard/${existingEntry.id}`, entry, config)
       .then(() => {
         setSubmitting(false);
         onClose();
