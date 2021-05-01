@@ -3,28 +3,22 @@ import PropTypes from "prop-types";
 
 import LeaderboardTable from "../../components/LeaderboardTable";
 import LeaderboardTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder";
-import useQuiz from "../../hooks/UseQuiz";
 import axiosClient from "../../axios/axiosClient";
 
 const LeaderboardTableContainer = ({ quizId, filterParams, setHasMore }) => {
-  const { quiz, isLoading } = useQuiz(quizId);
-
   const [entries, setEntries] = useState([]);
   const [isLoadingEntries, setIsLoadingEntries] = useState(true);
 
   useEffect(() => {
-    if (!isLoading) {
-      setIsLoadingEntries(true);
-
-      axiosClient
-        .post(`/${quiz.apiPath}/leaderboard/all`, filterParams)
-        .then((response) => {
-          setHasMore(response.data.hasMore);
-          setEntries(response.data.entries);
-          setIsLoadingEntries(false);
-        });
-    }
-  }, [quizId, isLoading, filterParams]);
+    setIsLoadingEntries(true);
+    axiosClient
+      .post(`/leaderboard/all/${quizId}`, filterParams)
+      .then((response) => {
+        setHasMore(response.data.hasMore);
+        setEntries(response.data.entries);
+        setIsLoadingEntries(false);
+      });
+  }, [quizId, filterParams]);
 
   if (isLoadingEntries) {
     return <LeaderboardTablePlaceholder rows={filterParams.limit} />;
