@@ -30,7 +30,6 @@ const Register = ({ countries }) => {
         countryCode: decoded["countryCode"],
         xp: decoded["xp"],
         isPremium: decoded["isPremium"],
-        isAdmin: decoded["isAdmin"],
         token: response.data,
       };
 

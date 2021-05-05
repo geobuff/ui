@@ -19,7 +19,6 @@ const useCurrentUser = () => {
       countryCode: window.localStorage.getItem("geobuff.countryCode"),
       xp: parseInt(window.localStorage.getItem("geobuff.xp")),
       isPremium: window.localStorage.getItem("geobuff.isPremium") === "true",
-      isAdmin: window.localStorage.getItem("geobuff.isAdmin") === "true",
       token: window.localStorage.getItem("geobuff.token"),
     };
   });
