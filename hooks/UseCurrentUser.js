@@ -1,18 +1,7 @@
-import { useEffect, useState } from "react";
-
-import { useAuth0 } from "@auth0/auth0-react";
-import jwt_decode from "jwt-decode";
-
-import axiosClient from "../axios/axiosClient";
+import { useState } from "react";
 
 const useCurrentUser = () => {
-  const {
-    user: auth0User,
-    isAuthenticated,
-    getAccessTokenSilently,
-  } = useAuth0();
-
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState(() => {
     if (typeof window === "undefined") {
@@ -26,56 +15,20 @@ const useCurrentUser = () => {
     return {
       id: parseInt(window.localStorage.getItem("geobuff.id")),
       username: window.localStorage.getItem("geobuff.username"),
+      email: window.localStorage.getItem("geobuff.email"),
       countryCode: window.localStorage.getItem("geobuff.countryCode"),
       xp: parseInt(window.localStorage.getItem("geobuff.xp")),
-      email: window.localStorage.getItem("geobuff.email"),
-      picture: window.localStorage.getItem("geobuff.picture"),
-      updatedAt: window.localStorage.getItem("geobuff.updatedAt"),
+      isPremium: window.localStorage.getItem("geobuff.isPremium") === "true",
+      isAdmin: window.localStorage.getItem("geobuff.isAdmin") === "true",
+      token: window.localStorage.getItem("geobuff.token"),
     };
   });
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      !user && setIsLoading(true);
-      refreshToken();
-    }
-  }, [isAuthenticated]);
-
-  const updateLocalStorage = (object) => {
-    Object.entries(object).forEach(([key, value]) => {
-      window.localStorage.setItem(`geobuff.${key}`, value);
-    });
-  };
-
-  const refreshToken = () => {
-    getAccessTokenSilently({
-      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-    }).then((token) => {
-      const decoded = jwt_decode(token);
-      const id = decoded[process.env.NEXT_PUBLIC_AUTH0_USERID_KEY];
-
-      const config = {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      };
-
-      axiosClient.get(`/users/${id}`, config).then((response) => {
-        const updatedUser = {
-          id: id,
-          username: response.data.username,
-          countryCode: response.data.countryCode,
-          xp: response.data.xp,
-          picture: auth0User?.picture,
-          email: auth0User?.email,
-          updatedAt: auth0User?.updated_at,
-        };
-
-        setUser(updatedUser);
-        updateLocalStorage(updatedUser);
-        setIsLoading(false);
-      });
-    });
+  const updateUser = (user) => {
+    setIsLoading(true);
+    setUser(user);
+    updateLocalStorage(user);
+    setIsLoading(false);
   };
 
   const clearUser = () => {
@@ -85,9 +38,16 @@ const useCurrentUser = () => {
     setUser(null);
   };
 
+  const updateLocalStorage = (object) => {
+    Object.entries(object).forEach(([key, value]) => {
+      window.localStorage.setItem(`geobuff.${key}`, value);
+    });
+  };
+
   return {
-    isLoading,
     user,
+    isLoading,
+    updateUser,
     clearUser,
   };
 };

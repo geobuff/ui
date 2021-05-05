@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useMemo } from "react";
 import PropTypes from "prop-types";
-import { useAuth0 } from "@auth0/auth0-react";
 
 import useMapping from "../../hooks/UseMapping";
 import UserProfileSummary from "../../components/UserProfileSummary";
@@ -8,8 +7,6 @@ import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummary
 import axiosClient from "../../axios/axiosClient";
 
 const UserProfileSummaryContainer = ({ user, quizzes }) => {
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
-
   const quizId = quizzes.filter((x) => x.apiPath === "world-countries")[0].id;
   const { mapping: countries, loading } = useMapping(quizId);
 
@@ -22,16 +19,14 @@ const UserProfileSummaryContainer = ({ user, quizzes }) => {
   );
 
   useEffect(() => {
-    getAccessTokenSilently({
-      audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-    }).then((token) => {
+    if (user) {
       setConfig({
         headers: {
-          Authorization: `Bearer ${token}`,
+          Authorization: `Bearer ${user.token}`,
         },
       });
-    });
-  }, [isAuthenticated]);
+    }
+  }, [user]);
 
   const submitCountry = (code) => {
     const update = {
