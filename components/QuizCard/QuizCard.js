@@ -121,4 +121,4 @@ QuizCard.defaultProps = {
   quiz: {},
 };
 
-export default QuizCard;
+export default React.memo(QuizCard);
