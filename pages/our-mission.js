@@ -18,7 +18,7 @@ import MainView from "../components/MainView";
 
 const OurMission = () => (
   <MainView>
-    <Box m={5}>
+    <Box marginTop={5}>
       <Box
         borderRadius={12}
         p={5}

@@ -8,7 +8,7 @@ import Footer from "../Footer";
 
 const MainView = ({ hasNavigationBar, hasFooter, children, ...props }) => (
   <>
-    <Box as="main" width="100%" margin="0 auto" {...props}>
+    <Box as="main" width="100%" marginX="auto" marginBottom={10} {...props}>
       {hasNavigationBar && <NavigationBar />}
       {children}
     </Box>
