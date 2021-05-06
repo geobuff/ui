@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
+import { getFlagUrl } from "@geobuff/flags";
+
 import {
   Box,
   FormControl,
@@ -42,12 +44,13 @@ const UserProfileSummary = ({
   return (
     <Box mb={6}>
       <Image
-        src={user.picture}
-        alt="Auth0 profile"
+        src={getFlagUrl(user.countryCode)}
+        alt="profile picture"
+        height="100px"
         mx="auto"
         my={6}
         borderRadius={12}
-      ></Image>
+      />
       <Divider />
       <FormControl my={6}>
         <FormLabel>Username</FormLabel>

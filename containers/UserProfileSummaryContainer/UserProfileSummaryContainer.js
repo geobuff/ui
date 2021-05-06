@@ -5,11 +5,14 @@ import useMapping from "../../hooks/UseMapping";
 import UserProfileSummary from "../../components/UserProfileSummary";
 import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
 import axiosClient from "../../axios/axiosClient";
+import useCurrentUser from "../../hooks/UseCurrentUser";
 
 const UserProfileSummaryContainer = ({ user, quizzes }) => {
   const quizId =
     quizzes.find((quiz) => quiz.apiPath === "world-countries")?.id || "";
   const { mapping: countries, loading } = useMapping(quizId);
+
+  const { updateUser } = useCurrentUser();
 
   const [config, setConfig] = useState(null);
   const [updated, setUpdated] = useState(false);
@@ -35,7 +38,9 @@ const UserProfileSummaryContainer = ({ user, quizzes }) => {
       countryCode: code,
     };
 
-    axiosClient.put(`/users/${user.id}`, update, config).then(() => {
+    axiosClient.put(`/users/${user.id}`, update, config).then((response) => {
+      const updatedUser = { ...user, countryCode: response.data.countryCode };
+      updateUser(updatedUser);
       setUpdated(true);
     });
   };

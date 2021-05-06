@@ -152,8 +152,8 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
 
   const createEntry = () => {
     const entry = {
+      quizId: quiz.id,
       userId: user.id,
-      countryCode: "US",
       score: score,
       time: time,
     };
@@ -167,8 +167,8 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
 
   const updateEntry = (existingEntry) => {
     const entry = {
+      quizId: existingEntry.quizId,
       userId: existingEntry.userId,
-      countryCode: existingEntry.countryCode,
       score: score,
       time: time,
     };
@@ -202,7 +202,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       quiz={quiz}
       score={score}
       time={time}
-      loggedIn={user == null}
+      loggedIn={!!user}
       existingEntry={entry}
       isOpen={isOpen}
       onClose={onClose}
