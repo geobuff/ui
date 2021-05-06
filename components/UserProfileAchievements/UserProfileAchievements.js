@@ -23,12 +23,9 @@ const UserProfileAchievements = ({ user, badges, scores, entriesCount }) => {
       <Box>
         <Heading size="md">{badge.name}</Heading>
         <Text my={2}>{badge.description}</Text>
-        <Text mb={2}>{`Progress: ${getProgress(
-          badge,
-          user,
-          scores,
-          entriesCount
-        )}/${badge.total}`}</Text>
+        <Text mb={2}>{`Progress: ${getProgress(badge, scores, entriesCount)}/${
+          badge.total
+        }`}</Text>
       </Box>
     );
   };
@@ -64,9 +61,7 @@ const UserProfileAchievements = ({ user, badges, scores, entriesCount }) => {
               height="50px"
               mx={3}
               opacity={
-                isBadgeComplete(badge, user, scores, entriesCount)
-                  ? "1"
-                  : "0.25"
+                isBadgeComplete(badge, scores, entriesCount) ? "1" : "0.25"
               }
             />
           </Tooltip>
