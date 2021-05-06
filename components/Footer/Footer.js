@@ -6,10 +6,11 @@ import { Flex, Spacer, Text, Link as ChakraLink } from "@chakra-ui/react";
 const Footer = () => {
   return (
     <Flex
+      as="footer"
       borderTop="2px solid #E3E1E1"
       direction="column"
       justifyContent="center"
-      marginY={5}
+      marginTop="auto"
     >
       <Flex paddingY={5} paddingX={{ base: 3, md: 8 }}>
         <Link href="/our-mission">

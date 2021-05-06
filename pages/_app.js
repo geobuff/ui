@@ -1,13 +1,11 @@
 import React from "react";
 import Head from "next/head";
 import PropTypes from "prop-types";
-
 import { ChakraProvider } from "@chakra-ui/react";
 
 import "../styles/globals.css";
 import theme from "../styles/theme";
 
-import NavigationBar from "../components/NavigationBar";
 function MyApp({ Component, pageProps }) {
   return (
     <>
@@ -16,7 +14,6 @@ function MyApp({ Component, pageProps }) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <ChakraProvider theme={theme}>
-        <NavigationBar />
         <Component {...pageProps} />
       </ChakraProvider>
     </>

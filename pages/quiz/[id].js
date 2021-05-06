@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import useQuizzes from "../../hooks/UseQuizzes";
 import GameMapQuizContainer from "../../containers/GameMapQuizContainer";
 import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
+import MainView from "../../components/MainView";
 
 import { QuizTypes } from "../../helpers/quiz-type";
 
@@ -16,20 +17,24 @@ const Quiz = () => {
     return null;
   }
 
-  const filter = quizzes.filter((x) => x.route === id);
-  if (filter.length === 0) {
+  const matchedQuiz = quizzes.find((x) => x.route === id);
+
+  if (!matchedQuiz) {
     return null;
   }
 
-  const quiz = filter[0];
-  switch (quiz.type) {
-    case QuizTypes.MAP:
-      return <GameMapQuizContainer quizId={quiz.id} />;
-    case QuizTypes.FLAG:
-      return <GameFlagQuizContainer quizId={quiz.id} />;
-    default:
-      return null;
-  }
+  const getQuizComponent = () => {
+    switch (matchedQuiz.type) {
+      case QuizTypes.MAP:
+        return <GameMapQuizContainer quizId={matchedQuiz.id} />;
+      case QuizTypes.FLAG:
+        return <GameFlagQuizContainer quizId={matchedQuiz.id} />;
+      default:
+        return null;
+    }
+  };
+
+  return <MainView hasFooter={false}>{getQuizComponent()}</MainView>;
 };
 
 export default Quiz;
