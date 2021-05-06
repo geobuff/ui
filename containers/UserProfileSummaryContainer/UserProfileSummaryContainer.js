@@ -7,7 +7,7 @@ import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummary
 import axiosClient from "../../axios/axiosClient";
 
 const UserProfileSummaryContainer = ({ user, quizzes }) => {
-  const quizId = quizzes.filter((x) => x.apiPath === "world-countries")[0].id;
+  const quizId = quizzes.find((x) => x.apiPath === "world-countries").id;
   const { mapping: countries, loading } = useMapping(quizId);
 
   const [config, setConfig] = useState(null);
