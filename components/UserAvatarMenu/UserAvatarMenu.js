@@ -11,13 +11,10 @@ import {
   MenuDivider,
   MenuButton,
   Skeleton,
-  SkeletonCircle,
   Text,
 } from "@chakra-ui/react";
 
-import UserAvatar from "../UserAvatar";
 import useCurrentUser from "../../hooks/UseCurrentUser";
-
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 
 const UserAvatarMenu = () => {
@@ -40,10 +37,6 @@ const UserAvatarMenu = () => {
         paddingX={{ base: 1.5, md: 3 }}
         margin={0}
       >
-        <SkeletonCircle
-          height={{ base: "22px", md: "26px" }}
-          width={{ base: "22px", md: "26px" }}
-        />
         <Skeleton
           marginLeft={1.5}
           marginRight={0.5}
@@ -77,12 +70,6 @@ const UserAvatarMenu = () => {
           }}
         >
           <Flex alignItems="center">
-            <UserAvatar
-              height={{ base: "22px", md: "26px" }}
-              width={{ base: "22px", md: "26px" }}
-              imageUrl={user?.picture}
-              alt={`${user?.username}'s profile image`}
-            />
             <Text
               marginLeft={1.5}
               marginRight={0.5}
@@ -130,8 +117,5 @@ const UserAvatarMenu = () => {
     </Box>
   );
 };
-
-UserAvatarMenu.propTypes = {};
-UserAvatarMenu.defaultProps = {};
 
 export default UserAvatarMenu;
