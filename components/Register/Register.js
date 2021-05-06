@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 import jwt_decode from "jwt-decode";
@@ -10,6 +10,8 @@ import {
   Input,
   Button,
   Select,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
@@ -19,27 +21,40 @@ const Register = ({ countries }) => {
   const router = useRouter();
   const { updateUser } = useCurrentUser();
 
-  const register = (username, email, countryCode, password) => {
-    const register = { username, email, countryCode, password };
-    axiosClient.post("/auth/register", register).then((response) => {
-      const decoded = jwt_decode(response.data);
-      const user = {
-        id: decoded["userId"],
-        username: decoded["username"],
-        email: decoded["email"],
-        countryCode: decoded["countryCode"],
-        xp: decoded["xp"],
-        isPremium: decoded["isPremium"],
-        token: response.data,
-      };
+  const [error, setError] = useState(null);
 
-      updateUser(user);
-      router.push("/");
-    });
+  const register = (username, email, countryCode, password) => {
+    setError(null);
+    const register = { username, email, countryCode, password };
+    axiosClient
+      .post("/auth/register", register)
+      .then((response) => {
+        const decoded = jwt_decode(response.data);
+        const user = {
+          id: decoded["userId"],
+          username: decoded["username"],
+          email: decoded["email"],
+          countryCode: decoded["countryCode"],
+          xp: decoded["xp"],
+          isPremium: decoded["isPremium"],
+          token: response.data,
+        };
+        updateUser(user);
+        router.push("/");
+      })
+      .catch((error) => {
+        setError(error.response.data);
+      });
   };
 
   return (
     <Box maxWidth="50%" mx="auto">
+      {error && (
+        <Alert status="error" borderRadius={6}>
+          <AlertIcon />
+          {error}
+        </Alert>
+      )}
       <Formik
         initialValues={{
           username: "",
