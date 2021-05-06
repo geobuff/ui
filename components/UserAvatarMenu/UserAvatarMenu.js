@@ -1,6 +1,8 @@
 import React from "react";
 import { useRouter } from "next/router";
 
+import { getFlagUrl } from "@geobuff/flags";
+
 import {
   Box,
   Button,
@@ -79,7 +81,7 @@ const UserAvatarMenu = () => {
             <UserAvatar
               height={{ base: "22px", md: "26px" }}
               width={{ base: "22px", md: "26px" }}
-              imageUrl={user?.picture}
+              imageUrl={getFlagUrl(user?.countryCode)}
               alt={`${user?.username}'s profile image`}
             />
             <Text

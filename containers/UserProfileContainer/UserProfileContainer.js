@@ -12,7 +12,7 @@ const UserProfileContainer = () => {
 
   useEffect(() => {
     if (!isLoadingUser && !user) {
-      router.push("/");
+      router.push("/login");
     }
   }, [isLoadingUser, user, router]);
 

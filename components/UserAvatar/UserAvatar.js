@@ -20,6 +20,7 @@ const UserAvatar = ({ borderRadius, height, width, imageUrl, alt }) => {
         height={height}
         width={width}
         borderRadius={borderRadius}
+        objectFit="cover"
         border="border.primary"
         onLoad={() => setHasLoaded(true)}
       />
