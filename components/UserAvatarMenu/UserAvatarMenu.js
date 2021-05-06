@@ -1,9 +1,8 @@
-import React, { useState, useEffect } from "react";
-
-import { useAuth0 } from "@auth0/auth0-react";
+import React from "react";
 import { useRouter } from "next/router";
 
 import {
+  Box,
   Button,
   Flex,
   Menu,
@@ -18,34 +17,18 @@ import {
 
 import UserAvatar from "../UserAvatar";
 import useCurrentUser from "../../hooks/UseCurrentUser";
-
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 
 const UserAvatarMenu = () => {
-  const [isUserLoading, setIsUserLoading] = useState(true);
-
-  const { loginWithRedirect, logout, isLoading } = useAuth0();
-  const { user, clearUser } = useCurrentUser();
+  const { user, isLoading, clearUser } = useCurrentUser();
   const router = useRouter();
 
-  const logoutUser = () => {
-    logout({ returnTo: process.env.NEXT_PUBLIC_REDIRECT_URI });
+  const logout = () => {
     clearUser();
+    router.push("/");
   };
 
-  // Don't need to wait for Auth0 user if
-  // we can retrieve user from localStorage
-  useEffect(() => {
-    if (user) {
-      setIsUserLoading(false);
-    }
-
-    if (!isLoading && !user) {
-      setIsUserLoading(false);
-    }
-  }, [user, isLoading]);
-
-  if (isUserLoading) {
+  if (isLoading) {
     return (
       <Flex
         alignItems="center"
@@ -127,26 +110,24 @@ const UserAvatarMenu = () => {
           </MenuItem>
 
           <MenuDivider />
-          <MenuItem onClick={logoutUser}>{"Logout"}</MenuItem>
+          <MenuItem onClick={logout}>{"Logout"}</MenuItem>
         </MenuList>
       </Menu>
     );
   }
 
   return (
-    <Button
-      backgroundColor="#F3F3F3"
-      fontSize={{ base: "12px", md: "14px" }}
-      onClick={loginWithRedirect}
-      paddingX={{ base: 3, md: 4 }}
-      _hover={{ backgroundColor: "#e6e6e6" }}
-    >
-      {"Login or Register"}
-    </Button>
+    <Box>
+      <Button
+        colorScheme="blue"
+        onClick={() => router.push("/register")}
+        mr={3}
+      >
+        {"Register"}
+      </Button>
+      <Button onClick={() => router.push("/login")}>{"Login"}</Button>
+    </Box>
   );
 };
-
-UserAvatarMenu.propTypes = {};
-UserAvatarMenu.defaultProps = {};
 
 export default UserAvatarMenu;

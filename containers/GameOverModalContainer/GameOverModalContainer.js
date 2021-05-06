@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useAuth0 } from "@auth0/auth0-react";
 import { useToast } from "@chakra-ui/react";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
@@ -10,8 +9,6 @@ import axiosClient from "../../axios/axiosClient";
 
 const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const toast = useToast();
-
-  const { isAuthenticated, getAccessTokenSilently } = useAuth0();
   const { user } = useCurrentUser();
 
   const [config, setConfig] = useState(null);
@@ -20,18 +17,14 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    if (isAuthenticated) {
-      getAccessTokenSilently({
-        audience: process.env.NEXT_PUBLIC_AUTH0_AUDIENCE,
-      }).then((token) => {
-        setConfig({
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+    if (user) {
+      setConfig({
+        headers: {
+          Authorization: `Bearer ${user.token}`,
+        },
       });
     }
-  }, [isAuthenticated, getAccessTokenSilently]);
+  }, [user]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -39,7 +32,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       return;
     }
 
-    if (!isAuthenticated || score === 0) {
+    if (!user || score === 0) {
       setLoading(false);
       return;
     }
@@ -51,7 +44,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     } else {
       getLeaderboardEntry(user.id);
     }
-  }, [isOpen, isAuthenticated, getAccessTokenSilently]);
+  }, [isOpen, user]);
 
   const increaseXP = (increase) => {
     const update = {
@@ -209,7 +202,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       quiz={quiz}
       score={score}
       time={time}
-      loggedIn={isAuthenticated}
+      loggedIn={user == null}
       existingEntry={entry}
       isOpen={isOpen}
       onClose={onClose}

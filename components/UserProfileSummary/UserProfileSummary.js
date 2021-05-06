@@ -23,9 +23,6 @@ const UserProfileSummary = ({
 }) => {
   const toast = useToast();
   const [countryCode, setCountryCode] = useState(user.countryCode);
-  const [countryAction, setCountryAction] = useState(
-    user.countryCode ? "UPDATE" : "SAVE"
-  );
 
   useEffect(() => {
     if (updated) {
@@ -39,9 +36,6 @@ const UserProfileSummary = ({
       });
       setUpdated(false);
       user.countryCode = countryCode;
-      if (countryAction === "SAVE") {
-        setCountryAction("UPDATE");
-      }
     }
   }, [updated]);
 
@@ -86,7 +80,7 @@ const UserProfileSummary = ({
             disabled={!countryCode || countryCode === user.countryCode}
             onClick={() => submitCountry(countryCode)}
           >
-            {countryAction}
+            {"UPDATE"}
           </Button>
         </Box>
       </Flex>
