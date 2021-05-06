@@ -6,30 +6,26 @@ import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfile
 import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
 import UserProfileAchievementsContainer from "../../containers/UserProfileAchievementsContainer";
 
-import MainView from "../MainView";
-
 const divider = <Divider my={3} />;
 
 const UserProfile = ({ user, quizzes }) => (
-  <MainView>
-    <Flex
-      direction="column"
-      borderRadius={12}
-      p={5}
-      background="#FFFFFF"
-      maxWidth={{ base: "100%", md: "50%" }}
-      marginX={{ base: 2, md: "auto" }}
-      marginTop={4}
-    >
-      <UserProfileSummaryContainer user={user} quizzes={quizzes} />
-      {divider}
-      <UserProfileAchievementsContainer user={user} />
-      {divider}
-      <UserProfileLeaderboardEntriesContainer userId={user.id} />
-      {divider}
-      <UserProfileScoresContainer userId={user.id} />
-    </Flex>
-  </MainView>
+  <Flex
+    direction="column"
+    borderRadius={12}
+    p={5}
+    background="#FFFFFF"
+    maxWidth={{ base: "100%", md: "50%" }}
+    marginX={{ base: 2, md: "auto" }}
+    marginTop={4}
+  >
+    <UserProfileSummaryContainer user={user} quizzes={quizzes} />
+    {divider}
+    <UserProfileAchievementsContainer user={user} />
+    {divider}
+    <UserProfileLeaderboardEntriesContainer userId={user.id} />
+    {divider}
+    <UserProfileScoresContainer userId={user.id} />
+  </Flex>
 );
 
 UserProfile.propTypes = {
