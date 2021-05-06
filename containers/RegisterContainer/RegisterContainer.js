@@ -11,7 +11,8 @@ const RegisterContainer = () => {
     return null;
   }
 
-  const quizId = quizzes.find((x) => x.apiPath === "world-countries").id;
+  const quizId =
+    quizzes.find((quiz) => quiz.apiPath === "world-countries")?.id || "";
   const { mapping: countries, isLoading: isMappingLoading } = useMapping(
     quizId
   );
