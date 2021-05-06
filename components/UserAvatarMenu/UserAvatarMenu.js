@@ -1,8 +1,6 @@
 import React from "react";
 import { useRouter } from "next/router";
 
-import { getFlagUrl } from "@geobuff/flags";
-
 import {
   Box,
   Button,
@@ -15,9 +13,9 @@ import {
   Skeleton,
   SkeletonCircle,
   Text,
+  Avatar,
 } from "@chakra-ui/react";
 
-import UserAvatar from "../UserAvatar";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 
@@ -78,11 +76,11 @@ const UserAvatarMenu = () => {
           }}
         >
           <Flex alignItems="center">
-            <UserAvatar
+            <Avatar
               height={{ base: "22px", md: "26px" }}
               width={{ base: "22px", md: "26px" }}
-              imageUrl={getFlagUrl(user?.countryCode)}
-              alt={`${user?.username}'s profile image`}
+              src={user?.picture}
+              name={user.username}
             />
             <Text
               marginLeft={1.5}
