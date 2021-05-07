@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Formik, Field, Form } from "formik";
@@ -62,6 +63,9 @@ const Login = () => {
 
   return (
     <MainView>
+      <Head>
+        <title>Login - GeoBuff</title>
+      </Head>
       <Box maxWidth="50%" mx="auto">
         {error && (
           <Alert status="error" borderRadius={6}>

@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React from "react";
 
 import MainView from "../components/MainView";
@@ -13,6 +14,9 @@ const Register = () => {
 
   return (
     <MainView>
+      <Head>
+        <title>Register - GeoBuff</title>
+      </Head>
       <RegisterContainer quizzes={quizzes} />
     </MainView>
   );
