@@ -14,6 +14,7 @@ import {
 import axiosClient from "../axios/axiosClient";
 import MainView from "../components/MainView";
 import useCurrentUser from "../hooks/UseCurrentUser";
+import Head from "next/head";
 
 const ForgotPassword = () => {
   const router = useRouter();
@@ -47,6 +48,9 @@ const ForgotPassword = () => {
 
   return (
     <MainView>
+      <Head>
+        <title>Forgot Password - GeoBuff</title>
+      </Head>
       <Box maxWidth="50%" mx="auto">
         {error && (
           <Alert status="error" borderRadius={6}>

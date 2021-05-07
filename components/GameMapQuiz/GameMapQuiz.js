@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import { debounce } from "throttle-debounce";
 
 import PropTypes from "prop-types";
@@ -172,6 +173,9 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
       backgroundColor="#276F86"
       position="fixed"
     >
+      <Head>
+        <title>{quiz.name} - GeoBuff</title>
+      </Head>
       <GameOverModalContainer
         quiz={quiz}
         score={score}

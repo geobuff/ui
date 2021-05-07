@@ -9,12 +9,14 @@ import {
   FormLabel,
   Input,
   Divider,
-  Image,
   Flex,
   Select,
   Button,
   useToast,
+  Avatar,
 } from "@chakra-ui/react";
+
+import UserAvatar from "../UserAvatar/UserAvatar";
 
 const UserProfileSummary = ({
   user,
@@ -43,14 +45,16 @@ const UserProfileSummary = ({
 
   return (
     <Box mb={6}>
-      <Image
-        src={getFlagUrl(user.countryCode)}
-        alt="profile picture"
-        height="100px"
-        mx="auto"
-        my={6}
-        borderRadius={12}
-      />
+      <Box textAlign="center">
+        <Avatar
+          height="60px"
+          width="60px"
+          src={user?.picture}
+          name={user.username}
+          mt={2}
+          mb={6}
+        />
+      </Box>
       <Divider />
       <FormControl my={6}>
         <FormLabel>Username</FormLabel>
@@ -77,6 +81,14 @@ const UserProfileSummary = ({
             ))}
           </Select>
         </FormControl>
+        <Box mt="auto" mx={3}>
+          <UserAvatar
+            borderRadius={4}
+            height="40px"
+            width="40px"
+            imageUrl={getFlagUrl(countryCode)}
+          />
+        </Box>
         <Box mt="auto">
           <Button
             mx={6}
