@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
+import Head from "next/head";
 
 import {
   Box,
@@ -56,6 +57,9 @@ const Leaderboard = ({ quizId, quizzes }) => {
 
   return (
     <MainView>
+      <Head>
+        <title>Leaderboard - GeoBuff</title>
+      </Head>
       <Flex
         direction="column"
         maxWidth={{ base: "100%", sm: "90%", md: "75%" }}

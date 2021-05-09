@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Formik, Field, Form } from "formik";
@@ -69,6 +70,9 @@ const ResetPassword = () => {
 
   return (
     <MainView>
+      <Head>
+        <title>Reset Password - GeoBuff</title>
+      </Head>
       <Box maxWidth="50%" mx="auto">
         {error && (
           <Alert status="error" borderRadius={6}>

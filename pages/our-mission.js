@@ -1,4 +1,6 @@
 import React from "react";
+import Head from "next/head";
+
 import {
   Box,
   Divider,
@@ -18,6 +20,9 @@ import MainView from "../components/MainView";
 
 const OurMission = () => (
   <MainView>
+    <Head>
+      <title>Our Mission - GeoBuff</title>
+    </Head>
     <Box marginTop={5}>
       <Box
         borderRadius={12}

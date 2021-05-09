@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import { debounce } from "throttle-debounce";
 
 import PropTypes from "prop-types";
@@ -13,7 +14,7 @@ import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
 import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
-import GameFlags from "../GameFlags/GameFlags";
+import GameFlag from "../GameFlag/GameFlag";
 
 import { groupMapping } from "../../helpers/mapping";
 import { mergeArrayByName } from "../../helpers/array";
@@ -159,6 +160,9 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
       backgroundColor="#276F86"
       position="fixed"
     >
+      <Head>
+        <title>{quiz.name} - GeoBuff</title>
+      </Head>
       <GameOverModalContainer
         quiz={quiz}
         score={score}
@@ -220,7 +224,15 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
           </Box>
         )}
 
-        <GameFlags mapping={mapping} />
+        {checkedSubmissions.length !== mapping.length && (
+          <GameFlag
+            code={
+              mapping.find(
+                (x) => !checkedSubmissions.map((x) => x.code).includes(x.code)
+              ).code
+            }
+          />
+        )}
 
         {shouldDisplayOnMobile && (
           <GameBottomSheetModal
