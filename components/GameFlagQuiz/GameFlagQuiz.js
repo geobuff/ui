@@ -224,7 +224,11 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
           </Box>
         )}
 
-        <GameFlags mapping={mapping} />
+        <GameFlags
+          flags={mapping.filter(
+            (x) => !checkedSubmissions.map((x) => x.code).includes(x.code)
+          )}
+        />
 
         {shouldDisplayOnMobile && (
           <GameBottomSheetModal

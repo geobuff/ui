@@ -3,36 +3,39 @@ import PropTypes from "prop-types";
 import { Box, Image } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 
-const GameFlags = ({ mapping }) => (
-  <Box width="100%" height="100%">
-    {mapping.map((entry, i) => (
-      <Box key={i} my={6}>
-        <Image
-          src={getFlagUrl(entry.code)}
-          width="245px"
-          height="180px"
-          borderRadius={4}
-          mx="auto"
-        />
-      </Box>
-    ))}
-  </Box>
-);
+const GameFlags = ({ flags }) => {
+  if (flags.length === 0) {
+    return null;
+  }
+
+  return (
+    <Box width="100%" height="100%">
+      <Image
+        src={getFlagUrl(flags[0].code)}
+        width={{ base: "80%", md: "500px" }}
+        borderRadius={4}
+        position="absolute"
+        top="0"
+        left="0"
+        right="0"
+        bottom="0"
+        margin="auto"
+        pb="50px"
+      />
+    </Box>
+  );
+};
 
 GameFlags.propTypes = {
-  mapping: PropTypes.arrayOf(
+  flags: PropTypes.arrayOf(
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
-      svgName: PropTypes.string,
-      alternativeNames: PropTypes.arrayOf(PropTypes.string),
-      prefixes: PropTypes.arrayOf(PropTypes.string),
-      group: PropTypes.string,
     })
   ),
 };
 GameFlags.defaultProps = {
-  mapping: [],
+  flags: [],
 };
 
 export default GameFlags;
