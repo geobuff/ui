@@ -14,7 +14,7 @@ import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
 import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
-import GameFlags from "../GameFlags/GameFlags";
+import GameFlag from "../GameFlag/GameFlag";
 
 import { groupMapping } from "../../helpers/mapping";
 import { mergeArrayByName } from "../../helpers/array";
@@ -224,11 +224,15 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
           </Box>
         )}
 
-        <GameFlags
-          flags={mapping.filter(
-            (x) => !checkedSubmissions.map((x) => x.code).includes(x.code)
-          )}
-        />
+        {checkedSubmissions.length !== mapping.length && (
+          <GameFlag
+            code={
+              mapping.find(
+                (x) => !checkedSubmissions.map((x) => x.code).includes(x.code)
+              ).code
+            }
+          />
+        )}
 
         {shouldDisplayOnMobile && (
           <GameBottomSheetModal
