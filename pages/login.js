@@ -5,7 +5,7 @@ import LoginContainer from "../containers/LoginContainer";
 
 const Login = () => {
   return (
-    <MainView>
+    <MainView hasNavigationBar={false} hasFooter={false}>
       <LoginContainer />
     </MainView>
   );

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useRouter } from "next/router";
 import jwt_decode from "jwt-decode";
 
@@ -13,11 +13,9 @@ const LoginContainer = () => {
 
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    if (!isLoadingUser && user) {
-      router.push("/");
-    }
-  }, [isLoadingUser, user, router]);
+  if (!isLoadingUser && user) {
+    router.push("/");
+  }
 
   const login = (email, password) => {
     setError(null);
@@ -26,7 +24,7 @@ const LoginContainer = () => {
       .post("/auth/login", login)
       .then((response) => {
         const decoded = jwt_decode(response.data);
-        const user = {
+        updateUser({
           id: decoded["userId"],
           username: decoded["username"],
           email: decoded["email"],
@@ -34,8 +32,7 @@ const LoginContainer = () => {
           xp: decoded["xp"],
           isPremium: decoded["isPremium"],
           token: response.data,
-        };
-        updateUser(user);
+        });
         router.push("/");
       })
       .catch((error) => {
@@ -43,16 +40,11 @@ const LoginContainer = () => {
       });
   };
 
-  const handleSubmit = (values, actions) => {
+  const handleSubmit = (values) => {
     login(values.email, values.password);
-    actions.setSubmitting(false);
   };
 
-  if (isLoadingUser || user) {
-    return null;
-  }
-
-  return <Login error={error} user={user} onSubmit={handleSubmit} />;
+  return <Login error={error} onSubmit={handleSubmit} />;
 };
 
 export default LoginContainer;
