@@ -17,8 +17,8 @@ import ResultsMap from "../ResultsMap";
 import ResultsListWrapper from "../ResultsListWrapper";
 import Twemoji from "../Twemoji";
 
-import { mergeArrayByName } from "../../helpers/array";
 import { groupMapping } from "../../helpers/mapping";
+import { getResults } from "../../helpers/results-list";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
@@ -29,6 +29,7 @@ const GameBottomSheetModal = ({
   checked,
   recents,
   hasGameStarted,
+  hasGameStopped,
   isOpen,
   gameStartText,
   onGameStart,
@@ -97,13 +98,14 @@ const GameBottomSheetModal = ({
               {quiz.hasGrouping ? (
                 <ResultsMap
                   quiz={quiz}
-                  results={checked}
+                  checked={checked}
                   map={groupMapping(mapping)}
+                  hasGameStopped={hasGameStopped}
                 />
               ) : (
                 <ResultsListWrapper
                   quiz={quiz}
-                  results={mergeArrayByName(mapping, checked)}
+                  results={getResults(mapping, checked, hasGameStopped)}
                 />
               )}
             </Box>
@@ -155,6 +157,7 @@ GameBottomSheetModal.propTypes = {
   ),
   gameStartText: PropTypes.string,
   hasGameStarted: PropTypes.bool,
+  hasGameStopped: PropTypes.bool,
   isOpen: PropTypes.bool,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
@@ -167,6 +170,7 @@ GameBottomSheetModal.defaultProps = {
   recents: [],
   gameStartText: "START",
   hasGameStarted: false,
+  hasGameStopped: false,
   isOpen: false,
   onGameStart: () => {},
   onGameStop: () => {},

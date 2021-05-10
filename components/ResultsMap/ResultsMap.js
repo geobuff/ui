@@ -3,9 +3,9 @@ import PropTypes from "prop-types";
 import { Box, Divider, Text } from "@chakra-ui/react";
 
 import ResultsList from "../ResultsList";
-import { mergeArrayByName } from "../../helpers/array";
+import { getResults } from "../../helpers/results-list";
 
-const ResultsMap = ({ quiz, results, map }) => {
+const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
   return (
     <Box textAlign="left">
       <Divider my={4} />
@@ -14,14 +14,14 @@ const ResultsMap = ({ quiz, results, map }) => {
       </Text>
       <Divider my={3} />
       <Box>
-        {Object.entries(map).map(([key, value], index) => (
+        {Object.entries(map).map(([key, mapping], index) => (
           <Box mt={5} key={index}>
             <Text fontWeight="bold" my={3} textTransform="uppercase">
               {key}
             </Text>
             <ResultsList
               quiz={quiz}
-              results={mergeArrayByName(value, results)}
+              results={getResults(mapping, checked, hasGameStopped)}
             />
           </Box>
         ))}
@@ -47,13 +47,15 @@ ResultsMap.propTypes = {
     hasFlags: PropTypes.bool,
     enabled: PropTypes.bool,
   }),
-  results: PropTypes.array,
+  checked: PropTypes.array,
   map: PropTypes.object,
+  hasGameStopped: PropTypes.bool,
 };
 ResultsMap.defaultProps = {
   quiz: {},
-  results: [],
+  checked: [],
   map: {},
+  hasGameStopped: false,
 };
 
 export default React.memo(ResultsMap);
