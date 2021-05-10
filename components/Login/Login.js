@@ -31,10 +31,10 @@ const Login = ({ error, onSubmit }) => {
         marginY={5}
         padding={5}
         width={375}
-        height={520}
+        height={560}
       >
-        <Flex justifyContent="center" marginY={5}>
-          <Image src="/logo.svg" height="36px" />
+        <Flex justifyContent="center" marginTop={3} marginBottom={5}>
+          <Image src="/logo.svg" height="42px" />
         </Flex>
 
         <Text fontSize="26px" marginY={2} fontWeight="800">
@@ -123,16 +123,24 @@ const Login = ({ error, onSubmit }) => {
                     borderRadius={6}
                     marginY={2}
                     paddingLeft={0}
+                    height="30px"
                   >
-                    <AlertIcon color="red.400" />
-                    <Text color="red.500" fontWeight="500">
-                      {error}
-                    </Text>
+                    <Flex alignItems="center">
+                      <AlertIcon
+                        marginRight={2}
+                        marginTop="1px"
+                        color="red.400"
+                        height="15px"
+                      />
+                      <Text color="red.500" fontWeight="500" fontSize="14px">
+                        {error}
+                      </Text>
+                    </Flex>
                   </Alert>
                 </Box>
               </Fade>
 
-              <Flex marginTop="20px" marginBottom={5}>
+              <Flex marginTop="76px" marginBottom={5}>
                 <Button
                   size="lg"
                   colorScheme="green"
