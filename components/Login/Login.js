@@ -15,6 +15,7 @@ import {
   Text,
   Fade,
 } from "@chakra-ui/react";
+
 import Link from "next/link";
 
 import { Formik, Field, Form } from "formik";
@@ -22,6 +23,29 @@ import { Formik, Field, Form } from "formik";
 const Login = ({ error, onSubmit }) => {
   return (
     <Flex height="90vh" direction="column" justifyContent="center">
+      <Flex
+        marginTop={0}
+        marginRight={6}
+        marginBottom={6}
+        justifyContent="flex-end"
+        direction="row"
+      >
+        <Text fontSize="14px" marginRight={1}>
+          {"Don't have an account?"}
+        </Text>
+        <Link href="/register">
+          <ChakraLink
+            fontSize="14px"
+            fontWeight="500"
+            textDecoration="underline"
+            _hover={{
+              color: "#5c5c5c",
+            }}
+          >
+            {"Sign up today"}
+          </ChakraLink>
+        </Link>
+      </Flex>
       <Flex
         backgroundColor="white"
         borderRadius={12}
@@ -33,8 +57,15 @@ const Login = ({ error, onSubmit }) => {
         width={375}
         height={560}
       >
-        <Flex justifyContent="center" marginTop={3} marginBottom={5}>
-          <Image src="/logo.svg" height="42px" />
+        <Flex
+          justifyContent="center"
+          marginTop={3}
+          marginBottom={5}
+          _hover={{ cursor: "pointer" }}
+        >
+          <Link href="/">
+            <Image src="/logo.svg" height="42px" />
+          </Link>
         </Flex>
 
         <Text fontSize="26px" marginY={2} fontWeight="800">
@@ -105,7 +136,7 @@ const Login = ({ error, onSubmit }) => {
                 </Field>
               </Flex>
 
-              <Flex direction="column" marginLeft="2px">
+              <Flex direction="column" marginTop={4} marginLeft="2px">
                 <Link href="/forgot-password">
                   <ChakraLink fontSize="14px" fontWeight="500">
                     {"Forgot password?"}
@@ -140,7 +171,7 @@ const Login = ({ error, onSubmit }) => {
                 </Box>
               </Fade>
 
-              <Flex marginTop="76px" marginBottom={5}>
+              <Flex marginTop="73px" marginBottom={5}>
                 <Button
                   size="lg"
                   colorScheme="green"
