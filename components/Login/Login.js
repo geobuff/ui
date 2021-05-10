@@ -2,15 +2,18 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {
+  Alert,
+  AlertIcon,
+  Box,
+  Button,
+  Flex,
   FormControl,
   FormLabel,
   Input,
   Image,
-  Button,
-  Alert,
-  AlertIcon,
   Link as ChakraLink,
-  Flex,
+  Text,
+  Fade,
 } from "@chakra-ui/react";
 import Link from "next/link";
 
@@ -27,18 +30,17 @@ const Login = ({ error, onSubmit }) => {
         marginX="auto"
         marginY={5}
         padding={5}
-        width={400}
-        height={600}
+        width={375}
+        height={520}
       >
         <Flex justifyContent="center" marginY={5}>
           <Image src="/logo.svg" height="36px" />
         </Flex>
-        {error && (
-          <Alert status="error" borderRadius={6}>
-            <AlertIcon />
-            {error}
-          </Alert>
-        )}
+
+        <Text fontSize="26px" marginY={2} fontWeight="800">
+          {"Login"}
+        </Text>
+
         <Formik
           initialValues={{
             email: "",
@@ -51,55 +53,93 @@ const Login = ({ error, onSubmit }) => {
         >
           {(formProps) => (
             <Form>
-              <Field name="email">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.email && form.touched.email}
-                  >
-                    <FormLabel htmlFor="email">{"Email"}</FormLabel>
-                    <Input
-                      {...field}
-                      id="email"
-                      type="email"
-                      placeholder="Enter email..."
-                      background="#F6F6F6"
-                      borderRadius={6}
-                      height="40px"
-                      _placeholder={{ color: "gray.500" }}
-                      _hover={{ background: "#e0e0e0" }}
-                    />
-                  </FormControl>
-                )}
-              </Field>
-              <Field name="password">
-                {({ field, form }) => (
-                  <FormControl
-                    isInvalid={form.errors.password && form.touched.password}
-                  >
-                    <FormLabel htmlFor="password">{"Password"}</FormLabel>
-                    <Input
-                      {...field}
-                      id="password"
-                      type="password"
-                      placeholder="Enter password..."
-                      background="#F6F6F6"
-                      borderRadius={6}
-                      height="40px"
-                      _placeholder={{ color: "gray.500" }}
-                      _hover={{ background: "#e0e0e0" }}
-                    />
-                  </FormControl>
-                )}
-              </Field>
+              <Flex marginTop={4} marginBottom={6}>
+                <Field name="email">
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={form.errors.email && form.touched.email}
+                    >
+                      <FormLabel fontWeight="bold" htmlFor="email">
+                        {"Email"}
+                      </FormLabel>
+                      <Input
+                        {...field}
+                        id="email"
+                        type="email"
+                        size="lg"
+                        fontSize="16px"
+                        placeholder="Enter email..."
+                        background="#F6F6F6"
+                        borderRadius={6}
+                        _placeholder={{ color: "gray.500" }}
+                        _hover={{ background: "#e0e0e0" }}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+              </Flex>
 
-              <Flex direction="column" marginY={3}>
+              <Flex marginTop={6} marginBottom={3}>
+                <Field name="password">
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={form.errors.password && form.touched.password}
+                    >
+                      <FormLabel fontWeight="bold" htmlFor="password">
+                        {"Password"}
+                      </FormLabel>
+                      <Input
+                        {...field}
+                        id="password"
+                        type="password"
+                        placeholder="Enter password..."
+                        background="#F6F6F6"
+                        borderRadius={6}
+                        size="lg"
+                        fontSize="16px"
+                        _placeholder={{ color: "gray.500" }}
+                        _hover={{ background: "#e0e0e0" }}
+                      />
+                    </FormControl>
+                  )}
+                </Field>
+              </Flex>
+
+              <Flex direction="column" marginLeft="2px">
                 <Link href="/forgot-password">
-                  <ChakraLink>{"Forgot password?"}</ChakraLink>
+                  <ChakraLink fontSize="14px" fontWeight="500">
+                    {"Forgot password?"}
+                  </ChakraLink>
                 </Link>
               </Flex>
 
-              <Flex marginTop={10} marginBottom={5}>
-                <Button colorScheme="green" width="100%" type="submit">
+              <Fade in={error} out={!error}>
+                <Box marginY={2}>
+                  <Alert
+                    width="100%"
+                    status="error"
+                    backgroundColor="transparent"
+                    variant="subtle"
+                    borderRadius={6}
+                    marginY={2}
+                    paddingLeft={0}
+                  >
+                    <AlertIcon color="red.400" />
+                    <Text color="red.500" fontWeight="500">
+                      {error}
+                    </Text>
+                  </Alert>
+                </Box>
+              </Fade>
+
+              <Flex marginTop="20px" marginBottom={5}>
+                <Button
+                  size="lg"
+                  colorScheme="green"
+                  width="100%"
+                  type="submit"
+                  isLoading={formProps.isSubmitting}
+                >
                   {"Submit"}
                 </Button>
               </Flex>
