@@ -6,7 +6,7 @@ export default {
   component: ResultsMap,
 };
 
-const results = [
+const checked = [
   {
     code: "AU",
     svgName: "Australia",
@@ -71,6 +71,6 @@ const Template = (args) => <ResultsMap {...args} />;
 export const Default = Template.bind({});
 Default.args = {
   quiz: {},
-  results,
+  checked,
   map,
 };

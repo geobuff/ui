@@ -17,7 +17,7 @@ import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameFlag from "../GameFlag/GameFlag";
 
 import { groupMapping } from "../../helpers/mapping";
-import { mergeArrayByName } from "../../helpers/array";
+import { getResults } from "../../helpers/results-list";
 
 import {
   findSubmissionByNames,
@@ -210,13 +210,18 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                 {quiz.hasGrouping ? (
                   <ResultsMap
                     quiz={quiz}
-                    results={checkedSubmissions}
+                    checked={checkedSubmissions}
                     map={groupMapping(mapping)}
+                    hasGameStopped={hasGameStopped}
                   />
                 ) : (
                   <ResultsListWrapper
                     quiz={quiz}
-                    results={mergeArrayByName(mapping, checkedSubmissions)}
+                    results={getResults(
+                      mapping,
+                      checkedSubmissions,
+                      hasGameStopped
+                    )}
                   />
                 )}
               </Box>

@@ -22,7 +22,8 @@ const ResultsList = ({ quiz, results }) => {
           key={result.code}
           code={result.code}
           svgName={result.svgName}
-          isHidden={!result.checked}
+          isHidden={result.isHidden}
+          isMissedResult={result.isMissedResult}
           hasFlag={quiz.hasFlags}
           my={2}
         />
@@ -52,6 +53,9 @@ ResultsList.propTypes = {
     PropTypes.shape({
       name: PropTypes.string,
       code: PropTypes.string,
+      svgName: PropTypes.string,
+      isHidden: PropTypes.bool,
+      isMissedResult: PropTypes.bool,
     })
   ),
 };
