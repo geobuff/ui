@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { debounce } from "throttle-debounce";
 
@@ -34,21 +34,17 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
-  const [time, setTime] = useState(0);
-  const [gameStartText, setGameStartText] = useState("START");
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
-  const handleExpire = (seconds, minutes) => {
-    setTime(quiz.time - (seconds + minutes * 60));
-    setHasGameStarted(false);
-    setHasGameStopped(true);
-    onOpen();
-    if (gameStartText === "START") {
-      setGameStartText("RETRY");
-    }
+  const handleExpire = () => {
+    setTimeout(() => {
+      setHasGameStarted(false);
+      setHasGameStopped(true);
+      onOpen();
+    }, 50);
   };
 
   const { seconds, minutes, restart, pause } = useTimer({
@@ -59,11 +55,16 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
     },
   });
 
-  const quizDateTime = () => DateTime.now().plus({ seconds: quiz.time });
+  const quizDateTime = useCallback(
+    () => DateTime.now().plus({ seconds: quiz.time }),
+    [quiz]
+  );
 
   useEffect(() => {
-    restart(quizDateTime());
-  }, [timeRemaining]);
+    if (hasGameStarted) {
+      restart(quizDateTime());
+    }
+  }, [timeRemaining, hasGameStarted]);
 
   const handleLocationClassName = (location) => {
     if (
@@ -93,13 +94,9 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
   const handleGameStop = () => {
     pause();
-    setTime(quiz.time - (seconds + minutes * 60));
     setHasGameStarted(false);
     setHasGameStopped(true);
     onOpen();
-    if (gameStartText === "START") {
-      setGameStartText("RETRY");
-    }
   };
 
   const handleChange = (event) => {
@@ -150,13 +147,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
             )
           : updatedCheckedSubmissions;
 
-      if (updatedCheckedSubmissions.length === mapping.length) {
-        handleGameStop();
-      }
-
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
+
+      if (updatedCheckedSubmissions.length === mapping.length) {
+        handleGameStop();
+      }
     }
   };
 
@@ -179,7 +176,11 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
       <GameOverModalContainer
         quiz={quiz}
         score={score}
-        time={time}
+        time={
+          minutes === 0 && seconds === 0
+            ? quiz.time
+            : quiz.time - (seconds + minutes * 60)
+        }
         isOpen={isOpen}
         onClose={onClose}
       />
@@ -209,7 +210,6 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                   recents={recentSubmissions}
                   score={score}
                   timeRemaining={{ seconds, minutes }}
-                  gameStartText={gameStartText}
                   errorMessage={errorMessage}
                   hasError={hasError}
                   hasGameStarted={hasGameStarted}
@@ -257,7 +257,6 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
             hasGameStarted={hasGameStarted}
             hasGameStopped={hasGameStopped}
             isOpen={!hasGameStopped || !isOpen}
-            gameStartText={gameStartText}
             onGameStart={handleGameStart}
             onGameStop={handleGameStop}
           />

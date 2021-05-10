@@ -1,7 +1,15 @@
 import React, { useState, useCallback } from "react";
 import { debounce } from "debounce";
 
-import { Box, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
+import {
+  Box,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  InputRightElement,
+  Fade,
+  IconButton,
+} from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
 import HeroBanner from "../components/HeroBanner";
@@ -9,12 +17,20 @@ import HeroBanner from "../components/HeroBanner";
 import QuizListContainer from "../containers/QuizListContainer";
 
 import Search from "../Icons/Search";
+import SolidCloseCircle from "../Icons/SolidCloseCircle";
 
 import useCurrentUser from "../hooks/UseCurrentUser";
 
 const Home = () => {
   const [filter, setFilter] = useState();
   const { user } = useCurrentUser();
+
+  const [inputValue, setInputValue] = useState("");
+
+  const handleClearInput = () => {
+    setInputValue("");
+    setFilter("");
+  };
 
   const onChange = (value) => {
     setFilter(value);
@@ -23,6 +39,7 @@ const Home = () => {
   const handleDebounceChange = useCallback(debounce(onChange, 500), [onChange]);
 
   const handleChange = (event) => {
+    setInputValue(event.target.value);
     handleDebounceChange(event.target.value);
   };
 
@@ -58,7 +75,27 @@ const Home = () => {
             size="lg"
             onChange={handleChange}
             placeholder="Enter quiz name..."
+            value={inputValue}
           />
+          <InputRightElement>
+            <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+              <IconButton
+                position="absolute"
+                top="11px"
+                right={3}
+                maxHeight="22px"
+                minWidth="22px"
+                backgroundColor="transparent"
+                borderRadius={25}
+                onClick={handleClearInput}
+                color="#a6a6a6"
+                fontWeight="bold"
+                _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+              >
+                <SolidCloseCircle height={5} width={5} padding={0} />
+              </IconButton>
+            </Fade>
+          </InputRightElement>
         </InputGroup>
       </Box>
       <QuizListContainer filter={filter} />
