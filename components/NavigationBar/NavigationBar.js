@@ -25,7 +25,7 @@ const NavigationBar = () => {
         <Flex alignItems="center">
           <Link href="/">
             <ChakraLink _hover={{ textDecoration: "none" }}>
-              <Image src="/logo.svg" height="40px" />
+              <Image src="/logo.svg" height="36px" />
             </ChakraLink>
           </Link>
         </Flex>

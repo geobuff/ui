@@ -117,7 +117,12 @@ const UserAvatarMenu = () => {
 
   return (
     <Flex alignContent="center">
-      <Button variant="link" onClick={() => router.push("/login")} mr={6}>
+      <Button
+        variant="link"
+        color="black"
+        onClick={() => router.push("/login")}
+        mr={6}
+      >
         {"Login"}
       </Button>
       <Button colorScheme="green" onClick={() => router.push("/register")}>
