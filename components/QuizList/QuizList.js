@@ -24,7 +24,7 @@ const QuizList = ({ quizzes }) => (
     }}
   >
     {quizzes.length === 0 ? (
-      <Alert status="info" borderRadius={12} p={5} mt={5}>
+      <Alert status="info" borderRadius={6} p={5} mt={5}>
         <AlertIcon />
         {"No quizzes to display."}
       </Alert>

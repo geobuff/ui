@@ -21,14 +21,18 @@ const ResultsListItem = ({
       <Flex alignItems="center">
         {hasFlag ? (
           <>
-            {!isHidden ? (
+            {!isHidden && !isMissedResult ? (
               <CustomFlag url={getFlagUrl(code)} />
             ) : (
               <FlagFallback />
             )}
           </>
         ) : (
-          <Twemoji emoji={isHidden ? "🔲" : "✅"} height="18px" width="18px" />
+          <Twemoji
+            emoji={isHidden ? "🔲" : isMissedResult ? "❌" : "✅"}
+            height="18px"
+            width="18px"
+          />
         )}
         <Text
           ml={2}

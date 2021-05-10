@@ -2,7 +2,6 @@ import React from "react";
 import { useRouter } from "next/router";
 
 import {
-  Box,
   Button,
   Flex,
   Menu,
@@ -117,16 +116,14 @@ const UserAvatarMenu = () => {
   }
 
   return (
-    <Box>
-      <Button
-        colorScheme="blue"
-        onClick={() => router.push("/register")}
-        mr={3}
-      >
+    <Flex alignContent="center">
+      <Button variant="link" onClick={() => router.push("/login")} mr={6}>
+        {"Login"}
+      </Button>
+      <Button colorScheme="green" onClick={() => router.push("/register")}>
         {"Register"}
       </Button>
-      <Button onClick={() => router.push("/login")}>{"Login"}</Button>
-    </Box>
+    </Flex>
   );
 };
 

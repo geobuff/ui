@@ -12,6 +12,7 @@ import {
   Tr,
   Th,
   Tbody,
+  AlertIcon,
 } from "@chakra-ui/react";
 
 import FlagFallback from "../ResultsListItem/FlagFallback";
@@ -24,6 +25,7 @@ const LeaderboardTable = ({ page, limit, entries }) => {
   if (entries.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
+        <AlertIcon />
         No entries to display.
       </Alert>
     );

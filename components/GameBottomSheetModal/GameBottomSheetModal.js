@@ -31,90 +31,87 @@ const GameBottomSheetModal = ({
   hasGameStarted,
   hasGameStopped,
   isOpen,
-  gameStartText,
   onGameStart,
   onGameStop,
-}) => {
-  return (
-    <Box
-      as={Sheet}
-      isOpen={isOpen}
-      snapPoints={snapPoints}
-      initialSnap={initialSnap}
-      mt="120px"
-      top="100% !important"
-      minHeight="92vh"
-      springConfig={{
-        stiffness: 600,
-        damping: 60,
-        mass: 0.2,
-      }}
-    >
-      <Sheet.Container style={{ position: "fixed" }}>
-        <Box pt={1} height="54px" as={Sheet.Header} />
-        <Sheet.Content>
-          <Box overflowY="scroll" mx={5} my={0} pb="100px">
-            <Box>
-              <Heading pt={0} size="md">
-                <Flex justifyContent="center">
-                  {quiz.hasLeaderboard && (
-                    <Link href={`/leaderboard?quizId=${quiz.id}`}>
-                      <ChakraLink>
-                        <Twemoji emoji="🏆" mr={2} />
-                      </ChakraLink>
-                    </Link>
-                  )}
-                  {quiz.name}
-                </Flex>
-              </Heading>
-
-              <Divider my={4} />
-
-              <Box my={4}>
-                <Button
-                  colorScheme={hasGameStarted ? "red" : "green"}
-                  isFullWidth
-                  onClick={hasGameStarted ? onGameStop : onGameStart}
-                  p={8}
-                  size="md"
-                >
-                  <Text fontWeight="700" fontSize="22px">
-                    {hasGameStarted ? "GIVE UP" : gameStartText}
-                  </Text>
-                </Button>
-              </Box>
-            </Box>
+}) => (
+  <Box
+    as={Sheet}
+    isOpen={isOpen}
+    snapPoints={snapPoints}
+    initialSnap={initialSnap}
+    mt="120px"
+    top="100% !important"
+    minHeight="92vh"
+    springConfig={{
+      stiffness: 600,
+      damping: 60,
+      mass: 0.2,
+    }}
+  >
+    <Sheet.Container style={{ position: "fixed" }}>
+      <Box pt={1} height="54px" as={Sheet.Header} />
+      <Sheet.Content>
+        <Box overflowY="scroll" mx={5} my={0} pb="100px">
+          <Box>
+            <Heading pt={0} size="md">
+              <Flex justifyContent="center">
+                {quiz.hasLeaderboard && (
+                  <Link href={`/leaderboard?quizId=${quiz.id}`}>
+                    <ChakraLink>
+                      <Twemoji emoji="🏆" mr={2} />
+                    </ChakraLink>
+                  </Link>
+                )}
+                {quiz.name}
+              </Flex>
+            </Heading>
 
             <Divider my={4} />
 
-            <Box mt={4}>
-              <Text fontWeight="bold" mb={1}>
-                {"RECENT"}
-              </Text>
-              <ResultsList quiz={quiz} results={recents} />
-            </Box>
-
-            <Box>
-              {quiz.hasGrouping ? (
-                <ResultsMap
-                  quiz={quiz}
-                  checked={checked}
-                  map={groupMapping(mapping)}
-                  hasGameStopped={hasGameStopped}
-                />
-              ) : (
-                <ResultsListWrapper
-                  quiz={quiz}
-                  results={getResults(mapping, checked, hasGameStopped)}
-                />
-              )}
+            <Box my={4}>
+              <Button
+                colorScheme={hasGameStarted ? "red" : "green"}
+                isFullWidth
+                onClick={hasGameStarted ? onGameStop : onGameStart}
+                p={8}
+                size="md"
+              >
+                <Text fontWeight="700" fontSize="22px">
+                  {!hasGameStarted ? "START" : "GIVE UP"}
+                </Text>
+              </Button>
             </Box>
           </Box>
-        </Sheet.Content>
-      </Sheet.Container>
-    </Box>
-  );
-};
+
+          <Divider my={4} />
+
+          <Box mt={4}>
+            <Text fontWeight="bold" mb={1}>
+              {"RECENT"}
+            </Text>
+            <ResultsList quiz={quiz} results={recents} />
+          </Box>
+
+          <Box>
+            {quiz.hasGrouping ? (
+              <ResultsMap
+                quiz={quiz}
+                checked={checked}
+                map={groupMapping(mapping)}
+                hasGameStopped={hasGameStopped}
+              />
+            ) : (
+              <ResultsListWrapper
+                quiz={quiz}
+                results={getResults(mapping, checked, hasGameStopped)}
+              />
+            )}
+          </Box>
+        </Box>
+      </Sheet.Content>
+    </Sheet.Container>
+  </Box>
+);
 
 GameBottomSheetModal.propTypes = {
   quiz: PropTypes.shape({
@@ -155,7 +152,6 @@ GameBottomSheetModal.propTypes = {
       code: PropTypes.string,
     })
   ),
-  gameStartText: PropTypes.string,
   hasGameStarted: PropTypes.bool,
   hasGameStopped: PropTypes.bool,
   isOpen: PropTypes.bool,
@@ -168,7 +164,6 @@ GameBottomSheetModal.defaultProps = {
   mapping: [],
   checked: [],
   recents: [],
-  gameStartText: "START",
   hasGameStarted: false,
   hasGameStopped: false,
   isOpen: false,
