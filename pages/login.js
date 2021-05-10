@@ -10,7 +10,7 @@ const Login = () => {
       <Head>
         <title>Login - GeoBuff</title>
       </Head>
-      <MainView hasNavigationBar={false} hasFooter={false}>
+      <MainView hasNavigationBar={false} footerVariant="simple">
         <LoginContainer />
       </MainView>
     </>

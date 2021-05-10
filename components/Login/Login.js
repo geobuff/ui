@@ -22,11 +22,11 @@ import { Formik, Field, Form } from "formik";
 
 const Login = ({ error, onSubmit }) => {
   return (
-    <Flex height="90vh" direction="column" justifyContent="center">
+    <Flex height="85vh" direction="column" justifyContent="center">
       <Flex
-        marginTop={0}
+        marginTop={8}
         marginRight={6}
-        marginBottom={6}
+        marginBottom={4}
         justifyContent="flex-end"
         direction="row"
       >
