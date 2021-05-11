@@ -27,6 +27,7 @@ const GameInputCard = ({
   score,
   timeRemaining,
   errorMessage,
+  hasGameRunOnce,
   hasGameStarted,
   hasGameStopped,
   hasError,
@@ -114,7 +115,7 @@ const GameInputCard = ({
           size="lg"
         >
           <Text fontWeight="700" fontSize="24px">
-            {!hasGameStarted ? "START" : "GIVE UP"}
+            {hasGameStarted ? "GIVE UP" : hasGameRunOnce ? "RETRY" : "START"}
           </Text>
         </Button>
       </Box>
@@ -157,6 +158,7 @@ GameInputCard.propTypes = {
   }),
   errorMessage: PropTypes.string,
   hasError: PropTypes.bool,
+  hasGameRunOnce: PropTypes.bool,
   hasGameStarted: PropTypes.bool,
   hasGameStopped: PropTypes.bool,
   inputValue: PropTypes.string,
@@ -173,6 +175,7 @@ GameInputCard.defaultProps = {
   timeRemaining: 0,
   errorMessage: "",
   hasError: false,
+  hasGameRunOnce: false,
   hasGameStarted: false,
   hasGameStopped: false,
   inputValue: "",
