@@ -7,7 +7,16 @@ import GameOverModal from "../../components/GameOverModal";
 import { getLevel } from "../../helpers/gamification";
 import axiosClient from "../../axios/axiosClient";
 
-const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
+const GameOverModalContainer = ({
+  quiz,
+  score,
+  time,
+  isOpen,
+  onClose,
+  scoreSubmitted,
+  setScoreSubmitted,
+  setLeaderboardEntrySubmitted,
+}) => {
   const toast = useToast();
   const { user } = useCurrentUser();
 
@@ -37,8 +46,12 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       return;
     }
 
-    increaseXP(10);
-    handleScore();
+    if (!scoreSubmitted) {
+      increaseXP(10);
+      handleScore();
+      setScoreSubmitted(true);
+    }
+
     if (!quiz.hasLeaderboard) {
       setLoading(false);
     } else {
@@ -101,7 +114,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     };
 
     axiosClient.post(`/scores`, result, config).then(() => {
-      scoreSubmitted();
+      scoreSubmittedToast();
     });
   };
 
@@ -114,11 +127,11 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     };
 
     axiosClient.put(`/scores/${existing.id}`, update, config).then(() => {
-      scoreSubmitted();
+      scoreSubmittedToast();
     });
   };
 
-  const scoreSubmitted = () => {
+  const scoreSubmittedToast = () => {
     toast({
       position: "bottom-right",
       title: "Score Submitted",
@@ -148,6 +161,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
     } else {
       createEntry();
     }
+    setLeaderboardEntrySubmitted(true);
   };
 
   const createEntry = () => {
@@ -206,7 +220,7 @@ const GameOverModalContainer = ({ quiz, score, time, isOpen, onClose }) => {
       existingEntry={entry}
       isOpen={isOpen}
       onClose={onClose}
-      onSubmit={quiz.hasLeaderboard && handleSubmitEntry}
+      onSubmit={quiz.hasLeaderboard ? handleSubmitEntry : null}
       submitting={submitting}
     />
   );
@@ -233,6 +247,7 @@ GameOverModalContainer.propTypes = {
   time: PropTypes.number,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
+  scoreSubmitted: PropTypes.bool,
   setScoreSubmitted: PropTypes.func,
   setLeaderboardEntrySubmitted: PropTypes.func,
 };

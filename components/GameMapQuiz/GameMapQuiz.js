@@ -3,7 +3,13 @@ import Head from "next/head";
 import { debounce } from "throttle-debounce";
 
 import PropTypes from "prop-types";
-import { Box, Flex, useBreakpointValue, useDisclosure } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  useBreakpointValue,
+  useDisclosure,
+} from "@chakra-ui/react";
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
@@ -15,6 +21,7 @@ import ResultsMap from "../ResultsMap";
 import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameMap from "../GameMap/GameMap";
+import SolidChevronUp from "../../Icons/SolidChevronUp";
 
 import { groupMapping } from "../../helpers/mapping";
 import { getResults } from "../../helpers/results-list";
@@ -31,8 +38,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   const [hasError, setHasError] = useState(false);
   const [score, setScore] = useState(0);
   const [inputValue, setInputValue] = useState("");
+  const [hasGameRunOnce, setHasGameRunOnce] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
+  const [scoreSubmitted, setScoreSubmitted] = useState(false);
+  const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
+    false
+  );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -63,6 +75,9 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   useEffect(() => {
     if (hasGameStarted) {
       restart(quizDateTime());
+      if (!hasGameRunOnce) {
+        setHasGameRunOnce(true);
+      }
     }
   }, [timeRemaining, hasGameStarted]);
 
@@ -90,6 +105,8 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
     setHasGameStarted(true);
     setHasGameStopped(false);
+    setScoreSubmitted(false);
+    setLeaderboardEntrySubmitted(false);
   };
 
   const handleGameStop = () => {
@@ -183,6 +200,9 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
         }
         isOpen={isOpen}
         onClose={onClose}
+        scoreSubmitted={scoreSubmitted}
+        setScoreSubmitted={setScoreSubmitted}
+        setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
       />
 
       {shouldDisplayOnMobile && (
@@ -212,6 +232,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                   timeRemaining={{ seconds, minutes }}
                   errorMessage={errorMessage}
                   hasError={hasError}
+                  hasGameRunOnce={hasGameRunOnce}
                   hasGameStarted={hasGameStarted}
                   hasGameStopped={hasGameStopped}
                   inputValue={inputValue}
@@ -254,6 +275,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
             mapping={mapping}
             checked={checkedSubmissions}
             recents={recentSubmissions}
+            hasGameRunOnce={hasGameRunOnce}
             hasGameStarted={hasGameStarted}
             hasGameStopped={hasGameStopped}
             isOpen={!hasGameStopped || !isOpen}
@@ -262,6 +284,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           />
         )}
       </Flex>
+      {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
+        <Box position="fixed" bottom="20px" right="20px">
+          <Button onClick={onOpen}>
+            <SolidChevronUp />
+          </Button>
+        </Box>
+      )}
     </Box>
   );
 };
