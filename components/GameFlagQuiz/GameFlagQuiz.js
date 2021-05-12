@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
+import { useRouter } from "next/router";
 import { debounce } from "throttle-debounce";
 
 import PropTypes from "prop-types";
@@ -22,6 +23,7 @@ import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameFlag from "../GameFlag/GameFlag";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
+import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import { groupMapping } from "../../helpers/mapping";
 import { getResults } from "../../helpers/results-list";
@@ -32,6 +34,9 @@ import {
 } from "../../helpers/game";
 
 const GameFlagQuiz = ({ quiz, mapping }) => {
+  const router = useRouter();
+  const { user, isLoading: isUserLoading } = useCurrentUser();
+
   const [checkedSubmissions, setCheckedSubmissions] = useState([]);
   const [recentSubmissions, setRecentSubmissions] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -50,6 +55,15 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
+
+  useEffect(() => {
+    if (!isUserLoading && user && router.query.data) {
+      const data = JSON.parse(router.query.data);
+      setScore(data.score);
+      restart(DateTime.now().plus({ seconds: quiz.time - data.time }));
+      handleGameStop();
+    }
+  }, [isUserLoading, user, router.query]);
 
   const handleExpire = () => {
     setTimeout(() => {
