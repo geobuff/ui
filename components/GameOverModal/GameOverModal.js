@@ -52,9 +52,9 @@ const GameOverModal = ({
   const noExistingEntry = onSubmit && loggedIn && !existingEntry;
   const shouldShowExistingEntry = onSubmit && loggedIn && existingEntry;
 
-  const redirectLoginWithScore = () => {
+  const redirectWithScore = (pathname) => {
     router.push({
-      pathname: "/login",
+      pathname: pathname,
       query: {
         data: JSON.stringify({
           route: quiz.route,
@@ -166,11 +166,20 @@ const GameOverModal = ({
                   You must{" "}
                   <Button
                     variant="link"
-                    onClick={redirectLoginWithScore}
+                    onClick={() => redirectWithScore("/login")}
                     fontSize="12px"
                     minWidth="0"
                   >
                     login
+                  </Button>{" "}
+                  or{" "}
+                  <Button
+                    variant="link"
+                    onClick={() => redirectWithScore("/register")}
+                    fontSize="12px"
+                    minWidth="0"
+                  >
+                    register
                   </Button>{" "}
                   to update your high score.
                 </Text>
@@ -188,11 +197,20 @@ const GameOverModal = ({
                   You must{" "}
                   <Button
                     variant="link"
-                    onClick={redirectLoginWithScore}
+                    onClick={() => redirectWithScore("/login")}
                     fontSize="12px"
                     minWidth="0"
                   >
                     login
+                  </Button>{" "}
+                  or{" "}
+                  <Button
+                    variant="link"
+                    onClick={() => redirectWithScore("/register")}
+                    fontSize="12px"
+                    minWidth="0"
+                  >
+                    register
                   </Button>{" "}
                   to submit a leaderboard entry.
                 </Text>

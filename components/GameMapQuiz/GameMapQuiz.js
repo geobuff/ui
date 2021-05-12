@@ -23,6 +23,7 @@ import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameMap from "../GameMap/GameMap";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
+import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import { groupMapping } from "../../helpers/mapping";
 import { getResults } from "../../helpers/results-list";
@@ -34,6 +35,7 @@ import {
 
 const GameMapQuiz = ({ quiz, mapping, map }) => {
   const router = useRouter();
+  const { user, isLoading: isUserLoading } = useCurrentUser();
 
   const [checkedSubmissions, setCheckedSubmissions] = useState([]);
   const [recentSubmissions, setRecentSubmissions] = useState([]);
@@ -55,13 +57,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   useEffect(() => {
-    if (router.query.data) {
+    if (!isUserLoading && user && router.query.data) {
       const data = JSON.parse(router.query.data);
       setScore(data.score);
       restart(DateTime.now().plus({ seconds: quiz.time - data.time }));
       handleGameStop();
     }
-  }, [router.query]);
+  }, [isUserLoading, user, router.query]);
 
   const handleExpire = () => {
     setTimeout(() => {

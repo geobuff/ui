@@ -40,7 +40,21 @@ const Register = ({ countries }) => {
           token: response.data,
         };
         updateUser(user);
-        router.push("/");
+
+        if (router.query.data) {
+          const data = JSON.parse(router.query.data);
+          router.push({
+            pathname: `/quiz/${data.route}`,
+            query: {
+              data: JSON.stringify({
+                score: data.score,
+                time: data.time,
+              }),
+            },
+          });
+        } else {
+          router.push("/");
+        }
       })
       .catch((error) => {
         setError(error.response.data);
