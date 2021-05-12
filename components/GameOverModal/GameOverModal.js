@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { useRouter } from "next/router";
 
 import {
   Box,
@@ -25,12 +26,8 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
 const explainerCloseModal =
   "Feel free to close this modal to view the map and your results. Don’t worry, you’ll still be able to submit your score afterwards!";
-const explainerScoreQuizNotLoggedIn =
-  "You must login to update your high score.";
 const explainerScoreQuizLoggedIn =
   "If this score is greater than your existing score, we will update it behind the scenes.";
-const explainerLeaderboardQuizNotLoggedIn =
-  "You must login to submit a leaderboard entry.";
 const explainerNoExistingEntry =
   "No existing entry for this quiz. By clicking submit you will create a new leaderboard entry.";
 const explainerExistingEntry =
@@ -47,11 +44,26 @@ const GameOverModal = ({
   onSubmit,
   submitting,
 }) => {
+  const router = useRouter();
+
   const scoreQuizNotLoggedIn = !onSubmit && !loggedIn;
   const scoreQuizLoggedIn = !onSubmit && loggedIn;
   const leaderboardQuizNotLoggedIn = onSubmit && !loggedIn;
   const noExistingEntry = onSubmit && loggedIn && !existingEntry;
   const shouldShowExistingEntry = onSubmit && loggedIn && existingEntry;
+
+  const redirectWithScore = (pathname) => {
+    router.push({
+      pathname: pathname,
+      query: {
+        data: JSON.stringify({
+          route: quiz.route,
+          score,
+          time,
+        }),
+      },
+    });
+  };
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -151,7 +163,25 @@ const GameOverModal = ({
                   fontWeight="medium"
                   textAlign="center"
                 >
-                  {explainerScoreQuizNotLoggedIn}
+                  You must{" "}
+                  <Button
+                    variant="link"
+                    onClick={() => redirectWithScore("/login")}
+                    fontSize="12px"
+                    minWidth="0"
+                  >
+                    login
+                  </Button>{" "}
+                  or{" "}
+                  <Button
+                    variant="link"
+                    onClick={() => redirectWithScore("/register")}
+                    fontSize="12px"
+                    minWidth="0"
+                  >
+                    register
+                  </Button>{" "}
+                  to update your high score.
                 </Text>
               </Box>
             )}
@@ -164,7 +194,25 @@ const GameOverModal = ({
                   fontWeight="medium"
                   textAlign="center"
                 >
-                  {explainerLeaderboardQuizNotLoggedIn}
+                  You must{" "}
+                  <Button
+                    variant="link"
+                    onClick={() => redirectWithScore("/login")}
+                    fontSize="12px"
+                    minWidth="0"
+                  >
+                    login
+                  </Button>{" "}
+                  or{" "}
+                  <Button
+                    variant="link"
+                    onClick={() => redirectWithScore("/register")}
+                    fontSize="12px"
+                    minWidth="0"
+                  >
+                    register
+                  </Button>{" "}
+                  to submit a leaderboard entry.
                 </Text>
               </Box>
             )}
