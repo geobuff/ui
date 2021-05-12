@@ -13,7 +13,7 @@ const Register = () => {
   }
 
   return (
-    <MainView>
+    <MainView hasNavigationBar={false} footerVariant="simple">
       <Head>
         <title>Register - GeoBuff</title>
       </Head>
