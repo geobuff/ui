@@ -63,6 +63,7 @@ const GameOverModalContainer = ({
     const update = {
       id: user.id,
       username: user.username,
+      email: user.email,
       countryCode: user.countryCode,
       xp: user.xp + increase,
     };

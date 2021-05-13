@@ -16,7 +16,7 @@
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
     "@geobuff/flags": "^1.13.0",
-    "@geobuff/maps": "^1.38.0",
+    "@geobuff/maps": "^1.39.0",
     "axios": "^0.21.1",
     "country-code-emoji": "^1.0.0",
     "debounce": "^1.2.0",

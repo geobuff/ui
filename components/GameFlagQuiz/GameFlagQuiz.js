@@ -24,6 +24,7 @@ import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameFlag from "../GameFlag/GameFlag";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
 import useCurrentUser from "../../hooks/UseCurrentUser";
+import axiosClient from "../../axios/axiosClient";
 
 import { groupMapping } from "../../helpers/mapping";
 import { getResults } from "../../helpers/results-list";
@@ -59,9 +60,17 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
       const data = JSON.parse(router.query.data);
-      setScore(data.score);
-      restart(DateTime.now().plus({ seconds: quiz.time - data.time }));
-      handleGameStop();
+      axiosClient
+        .get(`/tempscores/${data.tempScoreId}`)
+        .then((response) => {
+          const tempScore = response.data;
+          setScore(tempScore.score);
+          restart(DateTime.now().plus({ seconds: quiz.time - tempScore.time }));
+          handleGameStop();
+        })
+        .catch(() => {
+          // Ignore invalid tempscore.
+        });
     }
   }, [isUserLoading, user, router.query]);
 

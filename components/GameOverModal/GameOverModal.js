@@ -21,6 +21,7 @@ import GameExistingEntry from "../GameExistingEntry";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
 import { secondsToMinutesString } from "../../helpers/time";
+import axiosClient from "../../axios/axiosClient";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
@@ -53,15 +54,17 @@ const GameOverModal = ({
   const shouldShowExistingEntry = onSubmit && loggedIn && existingEntry;
 
   const redirectWithScore = (pathname) => {
-    router.push({
-      pathname: pathname,
-      query: {
-        data: JSON.stringify({
-          route: quiz.route,
-          score,
-          time,
-        }),
-      },
+    const tempScore = { score, time };
+    axiosClient.post("/tempscores", tempScore).then((response) => {
+      router.push({
+        pathname: pathname,
+        query: {
+          data: JSON.stringify({
+            redirect: `/quiz/${quiz.route}`,
+            tempScoreId: response.data,
+          }),
+        },
+      });
     });
   };
 
