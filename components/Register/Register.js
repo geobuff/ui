@@ -44,11 +44,10 @@ const Register = ({ countries }) => {
         if (router.query.data) {
           const data = JSON.parse(router.query.data);
           router.push({
-            pathname: `/quiz/${data.route}`,
+            pathname: data.redirect,
             query: {
               data: JSON.stringify({
-                score: data.score,
-                time: data.time,
+                tempScoreId: data.tempScoreId,
               }),
             },
           });
