@@ -18,7 +18,7 @@ const GameOverModalContainer = ({
   setLeaderboardEntrySubmitted,
 }) => {
   const toast = useToast();
-  const { user } = useCurrentUser();
+  const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
 
   const [config, setConfig] = useState(null);
   const [entry, setEntry] = useState();
@@ -26,18 +26,22 @@ const GameOverModalContainer = ({
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => {
-    if (user) {
+    if (!isUserLoading && user) {
       setConfig({
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
     }
-  }, [user]);
+  }, [isUserLoading, user]);
 
   useEffect(() => {
     if (!isOpen) {
       setLoading(true);
+      return;
+    }
+
+    if (isUserLoading) {
       return;
     }
 
@@ -57,7 +61,7 @@ const GameOverModalContainer = ({
     } else {
       getLeaderboardEntry(user.id);
     }
-  }, [isOpen, user]);
+  }, [isOpen, isUserLoading, user]);
 
   const increaseXP = (increase) => {
     const update = {
@@ -88,6 +92,11 @@ const GameOverModalContainer = ({
           isClosable: true,
         });
       }
+
+      updateUser({
+        ...user,
+        xp: update.xp,
+      });
     });
   };
 
