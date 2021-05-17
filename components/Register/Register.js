@@ -12,18 +12,19 @@ import {
   FormControl,
   FormLabel,
   Input,
-  Image,
+  Link as ChakraLink,
   Text,
-  Select,
-  // Fade,
 } from "@chakra-ui/react";
 
 import Link from "next/link";
 
+import Image from "../Image";
+
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import axiosClient from "../../axios/axiosClient";
+import CountrySelect from "../CountrySelect/CountrySelect";
 
-const Register = ({ countries }) => {
+const Register = () => {
   const router = useRouter();
   const { updateUser } = useCurrentUser();
 
@@ -69,7 +70,7 @@ const Register = ({ countries }) => {
         marginY={5}
         padding={5}
         width={420}
-        height={700}
+        height={720}
       >
         <Flex
           justifyContent="center"
@@ -78,7 +79,9 @@ const Register = ({ countries }) => {
           _hover={{ cursor: "pointer" }}
         >
           <Link href="/">
-            <Image src="/logo.svg" height="42px" />
+            <ChakraLink>
+              <Image src="/logo.svg" height="42px" />
+            </ChakraLink>
           </Link>
         </Flex>
 
@@ -123,7 +126,7 @@ const Register = ({ countries }) => {
                       <Input
                         {...field}
                         id="username"
-                        autocomplete="off"
+                        autoComplete="off"
                         placeholder="Enter username..."
                         type="text"
                         size="lg"
@@ -176,7 +179,7 @@ const Register = ({ countries }) => {
                         {...field}
                         id="password"
                         type="password"
-                        autocomplete="new-password"
+                        autoComplete="new-password"
                         placeholder="Enter password..."
                         size="lg"
                         fontSize="16px"
@@ -200,26 +203,8 @@ const Register = ({ countries }) => {
                       <FormLabel htmlFor="countryCode" fontWeight="bold">
                         {"Country"}
                       </FormLabel>
-                      <Select
-                        {...field}
-                        id="countryCode"
-                        size="lg"
-                        fontSize="16px"
-                        background="#F6F6F6"
-                        border="none"
-                        borderRadius={6}
-                        _placeholder={{ color: "gray.500" }}
-                        _hover={{ background: "#e0e0e0" }}
-                      >
-                        <option value="" disabled>
-                          Please select a country...
-                        </option>
-                        {countries.map((country) => (
-                          <option key={country.code} value={country.code}>
-                            {country.svgName}
-                          </option>
-                        ))}
-                      </Select>
+
+                      <CountrySelect fieldProps={field} />
                     </FormControl>
                   )}
                 </Field>

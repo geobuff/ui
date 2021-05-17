@@ -12,19 +12,14 @@ const RegisterContainer = ({ quizzes }) => {
 
   const quizId =
     quizzes.find((quiz) => quiz.apiPath === "world-countries")?.id || "";
-  const { mapping: countries, isLoading: isMappingLoading } = useMapping(
-    quizId
-  );
+
+  const { mapping: countries } = useMapping(quizId);
 
   useEffect(() => {
     if (!isLoadingUser && user) {
       router.push("/");
     }
   }, [isLoadingUser, user, router]);
-
-  if (isMappingLoading || isLoadingUser || user) {
-    return null;
-  }
 
   return <Register countries={countries} />;
 };
