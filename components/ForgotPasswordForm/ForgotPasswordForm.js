@@ -2,13 +2,17 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Formik, Field, Form } from "formik";
 
+import * as Yup from "yup";
+
 import {
   Alert,
   AlertIcon,
+  Box,
   Button,
   Fade,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Image,
   Input,
@@ -22,6 +26,10 @@ import SolidSuccessCircle from "../../Icons/SolidSuccessCircle";
 
 const forgotPasswordExplainer =
   "Enter the email address you used when you joined and we’ll send you a link to reset your password.";
+
+const validationSchema = Yup.object().shape({
+  email: Yup.string().required("Please include an email."),
+});
 
 const ForgotPasswordForm = ({ error, hasResetPassword, onSubmit }) => {
   const successMessage = (
@@ -48,9 +56,8 @@ const ForgotPasswordForm = ({ error, hasResetPassword, onSubmit }) => {
       </Text>
 
       <Formik
-        initialValues={{
-          email: "",
-        }}
+        initialValues={{ email: "" }}
+        validationSchema={validationSchema}
         onSubmit={(values, actions) => {
           onSubmit(values);
           actions.setSubmitting(false);
@@ -80,6 +87,12 @@ const ForgotPasswordForm = ({ error, hasResetPassword, onSubmit }) => {
                     _placeholder={{ color: "gray.500" }}
                     _hover={{ background: "#e0e0e0" }}
                   />
+
+                  <Box position="absolute" top="38px" left="2px">
+                    <FormErrorMessage fontSize="11px">
+                      {form.errors.email}
+                    </FormErrorMessage>
+                  </Box>
                 </FormControl>
               )}
             </Field>
