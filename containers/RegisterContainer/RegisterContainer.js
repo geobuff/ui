@@ -6,7 +6,7 @@ import jwt_decode from "jwt-decode";
 
 import axiosClient from "../../axios/axiosClient";
 
-import Register from "../../components/Register";
+import RegisterForm from "../../components/RegisterForm";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
 const RegisterContainer = () => {
@@ -57,7 +57,7 @@ const RegisterContainer = () => {
       });
   };
 
-  return <Register error={error} onSubmit={handleSubmit} />;
+  return <RegisterForm error={error} onSubmit={handleSubmit} />;
 };
 
 RegisterContainer.propTypes = {
