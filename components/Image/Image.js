@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { Image as ChakraImage, Skeleton } from "@chakra-ui/react";
 
 const Image = ({ src, height, width, ...props }) => {
   const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(true);
+  }, [src]);
 
   const handleLoad = () => setIsLoading(false);
 

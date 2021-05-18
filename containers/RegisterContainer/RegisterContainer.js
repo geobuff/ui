@@ -1,32 +1,22 @@
 import React, { useEffect } from "react";
 import PropTypes from "prop-types";
 
-import useMapping from "../../hooks/UseMapping";
 import Register from "../../components/Register";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import { useRouter } from "next/router";
 
-const RegisterContainer = ({ quizzes }) => {
+const RegisterContainer = () => {
   const router = useRouter();
   const { user, isLoading: isLoadingUser } = useCurrentUser();
 
-  const quizId =
-    quizzes.find((quiz) => quiz.apiPath === "world-countries")?.id || "";
-  const { mapping: countries, isLoading: isMappingLoading } = useMapping(
-    quizId
-  );
-
+  // Redirect user to home if logged in
   useEffect(() => {
     if (!isLoadingUser && user) {
       router.push("/");
     }
   }, [isLoadingUser, user, router]);
 
-  if (isMappingLoading || isLoadingUser || user) {
-    return null;
-  }
-
-  return <Register countries={countries} />;
+  return <Register />;
 };
 
 RegisterContainer.propTypes = {
