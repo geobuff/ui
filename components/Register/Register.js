@@ -12,13 +12,12 @@ import {
   FormControl,
   FormLabel,
   Input,
+  Image,
   Link as ChakraLink,
   Text,
 } from "@chakra-ui/react";
 
 import Link from "next/link";
-
-import Image from "../Image";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import axiosClient from "../../axios/axiosClient";
@@ -70,7 +69,7 @@ const Register = () => {
         marginY={5}
         padding={5}
         width={420}
-        height={720}
+        height={675}
       >
         <Flex
           justifyContent="center"
@@ -210,7 +209,7 @@ const Register = () => {
                 </Field>
               </Flex>
 
-              <Flex marginTop="50px" marginBottom={0}>
+              <Flex marginTop="85px" marginBottom={0}>
                 <Button
                   size="lg"
                   colorScheme="green"

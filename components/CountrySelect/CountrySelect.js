@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { getFlagUrl } from "@geobuff/flags";
@@ -7,21 +7,10 @@ import { Select } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import Image from "../Image";
 
-import useMapping from "../../hooks/UseMapping";
+import useCountries from "../../hooks/useCountries";
 
 const CountrySelect = ({ fieldProps }) => {
-  const { mapping: countries } = useMapping(1);
-
-  const countryOptions = useMemo(
-    () =>
-      countries
-        .map((country) => ({
-          value: country.code,
-          label: country.svgName,
-        }))
-        .sort((a, b) => a.label.localeCompare(b.label)),
-    [countries]
-  );
+  const { countries, isLoading } = useCountries();
 
   return (
     <Select
@@ -35,7 +24,10 @@ const CountrySelect = ({ fieldProps }) => {
       fontSize="16px"
       fontWeight={600}
       height="44px"
-      _hover={{ background: "#e0e0e0" }}
+      _hover={{
+        background: isLoading ? "#F6F6F6" : "#e0e0e0",
+        cursor: isLoading ? "not-allowed" : "inherit",
+      }}
       icon={
         fieldProps.value ? (
           <Image
@@ -47,14 +39,14 @@ const CountrySelect = ({ fieldProps }) => {
             borderRadius={5}
           />
         ) : (
-          <ChevronDownIcon minHeight="24px" width="24px" />
+          <ChevronDownIcon stroke="black" />
         )
       }
     >
       <option value="" disabled>
-        {"Please select a country..."}
+        {isLoading ? "Loading countries..." : "Please select a country..."}
       </option>
-      {countryOptions?.map(({ value, label }) => (
+      {countries?.map(({ value, label }) => (
         <option key={value} value={value}>
           {label}
         </option>
