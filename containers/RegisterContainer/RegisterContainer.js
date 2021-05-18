@@ -1,22 +1,63 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
-import Register from "../../components/Register";
-import useCurrentUser from "../../hooks/UseCurrentUser";
 import { useRouter } from "next/router";
+import jwt_decode from "jwt-decode";
+
+import axiosClient from "../../axios/axiosClient";
+
+import RegisterForm from "../../components/RegisterForm";
+import useCurrentUser from "../../hooks/UseCurrentUser";
 
 const RegisterContainer = () => {
   const router = useRouter();
-  const { user, isLoading: isLoadingUser } = useCurrentUser();
+  const { user, updateUser, isLoading: isLoadingUser } = useCurrentUser();
 
-  // Redirect user to home if logged in
+  const [error, setError] = useState(null);
+
   useEffect(() => {
     if (!isLoadingUser && user) {
       router.push("/");
     }
   }, [isLoadingUser, user, router]);
 
-  return <Register />;
+  const handleSubmit = ({ username, email, countryCode, password }) => {
+    setError(null);
+    axiosClient
+      .post("/auth/register", { username, email, countryCode, password })
+      .then((response) => {
+        const decoded = jwt_decode(response.data);
+
+        updateUser({
+          id: decoded["userId"],
+          username: decoded["username"],
+          email: decoded["email"],
+          countryCode: decoded["countryCode"],
+          xp: decoded["xp"],
+          isPremium: decoded["isPremium"],
+          token: response?.data,
+        });
+
+        if (router.query.data) {
+          const data = JSON.parse(router.query.data);
+          router.push({
+            pathname: data.redirect,
+            query: {
+              data: JSON.stringify({
+                tempScoreId: data.tempScoreId,
+              }),
+            },
+          });
+        } else {
+          router.push("/");
+        }
+      })
+      .catch((error) => {
+        setError(error.response.data);
+      });
+  };
+
+  return <RegisterForm error={error} onSubmit={handleSubmit} />;
 };
 
 RegisterContainer.propTypes = {

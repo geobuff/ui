@@ -20,7 +20,7 @@ import Link from "next/link";
 
 import { Formik, Field, Form } from "formik";
 
-const Login = ({ error, onSubmit }) => {
+const LoginForm = ({ error, onSubmit }) => {
   return (
     <>
       <Box position="absolute" top={0} right={0}>
@@ -195,13 +195,13 @@ const Login = ({ error, onSubmit }) => {
   );
 };
 
-Login.propTypes = {
+LoginForm.propTypes = {
   error: PropTypes.string,
   onSubmit: PropTypes.func,
 };
-Login.defaultProps = {
+LoginForm.defaultProps = {
   error: null,
   onSubmit: () => {},
 };
 
-export default Login;
+export default LoginForm;

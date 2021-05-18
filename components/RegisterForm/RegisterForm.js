@@ -1,15 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { useRouter } from "next/router";
-import jwt_decode from "jwt-decode";
+
 import { Formik, Field, Form } from "formik";
+import * as Yup from "yup";
 
 import {
-  Alert,
-  AlertIcon,
   Button,
+  Box,
+  Collapse,
   Flex,
   FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
   Image,
@@ -18,57 +19,69 @@ import {
 } from "@chakra-ui/react";
 
 import Link from "next/link";
+import CountrySelect from "../CountrySelect";
 
-import useCurrentUser from "../../hooks/UseCurrentUser";
-import axiosClient from "../../axios/axiosClient";
-import CountrySelect from "../CountrySelect/CountrySelect";
+const initialValues = {
+  username: "",
+  email: "",
+  countryCode: "",
+  password: "",
+};
 
-const Register = () => {
-  const router = useRouter();
-  const { updateUser } = useCurrentUser();
+const validationSchema = Yup.object().shape({
+  username: Yup.string().required("Please include a username."),
+  countryCode: Yup.string().required("Please include a country."),
+  email: Yup.string().required("Please include an email."),
+  password: Yup.string()
+    .required("Please include a password.")
+    .matches(
+      /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      "Must contain at least 8 characters, least one uppercase letter, one lowercase letter and one number."
+    ),
+});
 
-  const [error, setError] = useState(null);
+const RegisterForm = ({ error, onSubmit }) => (
+  <>
+    <Collapse
+      in={error}
+      animateOpacity
+      unmountOnExit
+      style={{
+        position: "absolute",
+        left: 0,
+        right: 0,
+        zIndex: 10,
+      }}
+    >
+      <Box p={1} backgroundColor="red.500" color="white">
+        <Text fontWeight={700} fontSize={14} textAlign="center">
+          {error}
+        </Text>
+      </Box>
+    </Collapse>
 
-  const register = (username, email, countryCode, password) => {
-    setError(null);
-    const register = { username, email, countryCode, password };
-    axiosClient
-      .post("/auth/register", register)
-      .then((response) => {
-        const decoded = jwt_decode(response.data);
-        const user = {
-          id: decoded["userId"],
-          username: decoded["username"],
-          email: decoded["email"],
-          countryCode: decoded["countryCode"],
-          xp: decoded["xp"],
-          isPremium: decoded["isPremium"],
-          token: response.data,
-        };
-        updateUser(user);
+    <Box position="absolute" top={0} right={0}>
+      <Flex direction="row" margin={{ sm: 3, md: 5 }}>
+        <Text fontSize="14px" marginRight={1} fontWeight="500">
+          {"Already signed up?"}
+        </Text>
+        <Link href="/login">
+          <ChakraLink
+            fontSize="14px"
+            fontWeight="500"
+            textDecoration="underline"
+            _hover={{
+              color: "#5c5c5c",
+            }}
+          >
+            {"Login to your account"}
+          </ChakraLink>
+        </Link>
+      </Flex>
+    </Box>
 
-        if (router.query.data) {
-          const data = JSON.parse(router.query.data);
-          router.push({
-            pathname: data.redirect,
-            query: {
-              data: JSON.stringify({
-                tempScoreId: data.tempScoreId,
-              }),
-            },
-          });
-        } else {
-          router.push("/");
-        }
-      })
-      .catch((error) => {
-        setError(error.response.data);
-      });
-  };
-
-  return (
     <Flex
-      marginTop={14}
+      marginTop={16}
       height="78vh"
       direction="column"
       justifyContent="center"
@@ -81,8 +94,9 @@ const Register = () => {
         marginX="auto"
         marginY={5}
         padding={5}
-        width={420}
-        height={675}
+        maxWidth={420}
+        minWidth={{ base: "100%", sm: 420 }}
+        zIndex={2}
       >
         <Flex
           justifyContent="center"
@@ -97,36 +111,21 @@ const Register = () => {
           </Link>
         </Flex>
 
-        <Text fontSize="26px" marginY={2} fontWeight="800">
+        <Text fontSize="26px" marginY={1} fontWeight="800">
           {"Create an Account"}
         </Text>
 
-        {error && (
-          <Alert status="error" borderRadius={6}>
-            <AlertIcon />
-            {error}
-          </Alert>
-        )}
         <Formik
-          initialValues={{
-            username: "",
-            email: "",
-            countryCode: "",
-            password: "",
-          }}
+          initialValues={initialValues}
+          validationSchema={validationSchema}
           onSubmit={(values, actions) => {
-            register(
-              values.username,
-              values.email,
-              values.countryCode,
-              values.password
-            );
+            onSubmit(values);
             actions.setSubmitting(false);
           }}
         >
           {(formProps) => (
             <Form>
-              <Flex marginY={4}>
+              <Flex marginY={6}>
                 <Field name="username">
                   {({ field, form }) => (
                     <FormControl
@@ -142,17 +141,47 @@ const Register = () => {
                         placeholder="Enter username..."
                         type="text"
                         size="lg"
+                        height="40px"
                         fontSize="16px"
                         background="#F6F6F6"
                         borderRadius={6}
                         _placeholder={{ color: "gray.500" }}
                         _hover={{ background: "#e0e0e0" }}
                       />
+                      <Box position="absolute" top="68px" left="2px">
+                        <FormErrorMessage fontSize="11px">
+                          {form.errors.username}
+                        </FormErrorMessage>
+                      </Box>
                     </FormControl>
                   )}
                 </Field>
               </Flex>
-              <Flex marginY={4}>
+
+              <Flex marginY={6}>
+                <Field name="countryCode">
+                  {({ field, form }) => (
+                    <FormControl
+                      isInvalid={
+                        form.errors.countryCode && form.touched.countryCode
+                      }
+                    >
+                      <FormLabel htmlFor="countryCode" fontWeight="bold">
+                        {"Country"}
+                      </FormLabel>
+
+                      <CountrySelect fieldProps={field} />
+                      <Box position="absolute" top="68px" left="2px">
+                        <FormErrorMessage fontSize="11px">
+                          {form.errors.countryCode}
+                        </FormErrorMessage>
+                      </Box>
+                    </FormControl>
+                  )}
+                </Field>
+              </Flex>
+
+              <Flex marginY={6}>
                 <Field name="email">
                   {({ field, form }) => (
                     <FormControl
@@ -167,18 +196,24 @@ const Register = () => {
                         type="email"
                         size="lg"
                         placeholder="Enter email..."
+                        height="40px"
                         fontSize="16px"
                         background="#F6F6F6"
                         borderRadius={6}
                         _placeholder={{ color: "gray.500" }}
                         _hover={{ background: "#e0e0e0" }}
                       />
+                      <Box position="absolute" top="68px" left="2px">
+                        <FormErrorMessage fontSize="11px">
+                          {form.errors.email}
+                        </FormErrorMessage>
+                      </Box>
                     </FormControl>
                   )}
                 </Field>
               </Flex>
 
-              <Flex marginY={4}>
+              <Flex marginY={6}>
                 <Field name="password">
                   {({ field, form }) => (
                     <FormControl
@@ -194,35 +229,28 @@ const Register = () => {
                         autoComplete="new-password"
                         placeholder="Enter password..."
                         size="lg"
+                        height="40px"
                         fontSize="16px"
                         background="#F6F6F6"
                         borderRadius={6}
                         _placeholder={{ color: "gray.500" }}
                         _hover={{ background: "#e0e0e0" }}
                       />
-                    </FormControl>
-                  )}
-                </Field>
-              </Flex>
-              <Flex marginY={4}>
-                <Field name="countryCode">
-                  {({ field, form }) => (
-                    <FormControl
-                      isInvalid={
-                        form.errors.countryCode && form.touched.countryCode
-                      }
-                    >
-                      <FormLabel htmlFor="countryCode" fontWeight="bold">
-                        {"Country"}
-                      </FormLabel>
-
-                      <CountrySelect fieldProps={field} />
+                      <Box position="absolute" top="68px" left="2px">
+                        <FormErrorMessage
+                          fontSize={
+                            form.errors.password?.length > 26 ? "10px" : "11px"
+                          }
+                        >
+                          {form.errors.password}
+                        </FormErrorMessage>
+                      </Box>
                     </FormControl>
                   )}
                 </Field>
               </Flex>
 
-              <Flex marginTop="85px" marginBottom={0}>
+              <Flex marginTop="56px" marginBottom={0}>
                 <Button
                   size="lg"
                   colorScheme="green"
@@ -230,7 +258,7 @@ const Register = () => {
                   type="submit"
                   isLoading={formProps.isSubmitting}
                 >
-                  {"Submit"}
+                  {"Create Account"}
                 </Button>
               </Flex>
             </Form>
@@ -238,16 +266,17 @@ const Register = () => {
         </Formik>
       </Flex>
     </Flex>
-  );
+  </>
+);
+
+RegisterForm.propTypes = {
+  error: PropTypes.string,
+  onSubmit: PropTypes.func,
 };
 
-Register.propTypes = {
-  countries: PropTypes.arrayOf(
-    PropTypes.shape({
-      svgName: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
+RegisterForm.defaultProps = {
+  error: "",
+  onSubmit: () => {},
 };
 
-export default Register;
+export default RegisterForm;
