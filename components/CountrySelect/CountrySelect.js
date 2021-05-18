@@ -28,6 +28,10 @@ const CountrySelect = ({ fieldProps }) => {
         background: isLoading ? "#F6F6F6" : "#e0e0e0",
         cursor: isLoading ? "not-allowed" : "inherit",
       }}
+      _invalid={{
+        border: "2px solid #e56161",
+        color: "#e56161",
+      }}
       icon={
         fieldProps.value ? (
           <Image
