@@ -59,8 +59,29 @@ const RegisterForm = ({ error, onSubmit }) => (
         </Text>
       </Box>
     </Collapse>
+
+    <Box position="absolute" top={0} right={0}>
+      <Flex direction="row" margin={{ sm: 3, md: 5 }}>
+        <Text fontSize="14px" marginRight={1} fontWeight="500">
+          {"Already signed up?"}
+        </Text>
+        <Link href="/login">
+          <ChakraLink
+            fontSize="14px"
+            fontWeight="500"
+            textDecoration="underline"
+            _hover={{
+              color: "#5c5c5c",
+            }}
+          >
+            {"Login to your account"}
+          </ChakraLink>
+        </Link>
+      </Flex>
+    </Box>
+
     <Flex
-      marginTop={14}
+      marginTop={16}
       height="78vh"
       direction="column"
       justifyContent="center"
