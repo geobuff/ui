@@ -54,7 +54,7 @@ const RegisterForm = ({ error, onSubmit }) => (
       }}
     >
       <Box p={1} backgroundColor="red.500" color="white">
-        <Text fontWeight={700} fontSize={16} textAlign="center">
+        <Text fontWeight={700} fontSize={14} textAlign="center">
           {error}
         </Text>
       </Box>
@@ -148,8 +148,8 @@ const RegisterForm = ({ error, onSubmit }) => (
                         _placeholder={{ color: "gray.500" }}
                         _hover={{ background: "#e0e0e0" }}
                       />
-                      <Box position="absolute" top="70px" left="2px">
-                        <FormErrorMessage fontSize="12px">
+                      <Box position="absolute" top="68px" left="2px">
+                        <FormErrorMessage fontSize="11px">
                           {form.errors.username}
                         </FormErrorMessage>
                       </Box>
@@ -171,8 +171,8 @@ const RegisterForm = ({ error, onSubmit }) => (
                       </FormLabel>
 
                       <CountrySelect fieldProps={field} />
-                      <Box position="absolute" top="70px" left="2px">
-                        <FormErrorMessage fontSize="12px">
+                      <Box position="absolute" top="68px" left="2px">
+                        <FormErrorMessage fontSize="11px">
                           {form.errors.countryCode}
                         </FormErrorMessage>
                       </Box>
@@ -203,8 +203,8 @@ const RegisterForm = ({ error, onSubmit }) => (
                         _placeholder={{ color: "gray.500" }}
                         _hover={{ background: "#e0e0e0" }}
                       />
-                      <Box position="absolute" top="70px" left="2px">
-                        <FormErrorMessage fontSize="12px">
+                      <Box position="absolute" top="68px" left="2px">
+                        <FormErrorMessage fontSize="11px">
                           {form.errors.email}
                         </FormErrorMessage>
                       </Box>
@@ -236,10 +236,10 @@ const RegisterForm = ({ error, onSubmit }) => (
                         _placeholder={{ color: "gray.500" }}
                         _hover={{ background: "#e0e0e0" }}
                       />
-                      <Box position="absolute" top="70px" left="2px">
+                      <Box position="absolute" top="68px" left="2px">
                         <FormErrorMessage
                           fontSize={
-                            form.errors.password?.length > 26 ? "10px" : "12px"
+                            form.errors.password?.length > 26 ? "10px" : "11px"
                           }
                         >
                           {form.errors.password}
