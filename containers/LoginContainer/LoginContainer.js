@@ -5,7 +5,7 @@ import jwt_decode from "jwt-decode";
 import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-import Login from "../../components/Login";
+import LoginForm from "../../components/LoginForm";
 
 const LoginContainer = () => {
   const router = useRouter();
@@ -57,7 +57,7 @@ const LoginContainer = () => {
     login(values.email, values.password);
   };
 
-  return <Login error={error} onSubmit={handleSubmit} />;
+  return <LoginForm error={error} onSubmit={handleSubmit} />;
 };
 
 export default LoginContainer;

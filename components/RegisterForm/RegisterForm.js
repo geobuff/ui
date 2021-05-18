@@ -229,7 +229,7 @@ const RegisterForm = ({ error, onSubmit }) => (
                 </Field>
               </Flex>
 
-              <Flex marginTop="32px" marginBottom={0}>
+              <Flex marginTop="56px" marginBottom={0}>
                 <Button
                   size="lg"
                   colorScheme="green"
