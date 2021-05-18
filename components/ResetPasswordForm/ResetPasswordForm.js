@@ -41,7 +41,7 @@ const ResetPasswordForm = ({ error, isSuccess, onSubmit }) => {
   const successMessage = (
     <Fade in out>
       <Flex marginBottom={4} alignItems="center" direction="column">
-        <ScaleFade initialScale={0.9} in>
+        <ScaleFade initialScale={0.75} in>
           <SolidSuccessCircle
             marginBottom={2}
             height="60px"
@@ -71,7 +71,7 @@ const ResetPasswordForm = ({ error, isSuccess, onSubmit }) => {
 
   const errorMessage = (
     <Flex marginBottom={4} alignItems="center" direction="column">
-      <ScaleFade initialScale={0.5} in>
+      <ScaleFade initialScale={0.75} in>
         <SolidSubtractCircle
           marginBottom={2}
           height="60px"
@@ -83,21 +83,15 @@ const ResetPasswordForm = ({ error, isSuccess, onSubmit }) => {
         textAlign="center"
         fontSize="14px"
         fontWeight="bold"
-        marginBottom={2}
+        marginBottom={4}
       >
         {error}
       </Text>
 
       <Link href="/forgot-password">
-        <ChakraLink
-          fontWeight={600}
-          color="gray.600"
-          textAlign="center"
-          fontSize="14px"
-          _hover={{ textDecoration: "underline" }}
-        >
-          {"request new token"}
-        </ChakraLink>
+        <Button size="sm" variant="outline" color="gray.600">
+          {"Request New Token"}
+        </Button>
       </Link>
     </Flex>
   );

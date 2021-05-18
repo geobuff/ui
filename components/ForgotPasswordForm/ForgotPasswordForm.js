@@ -30,11 +30,11 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required("Please include an email."),
 });
 
-const ForgotPasswordForm = ({ error, hasResetPassword, onSubmit }) => {
+const ForgotPasswordForm = ({ error, isSuccess, onSubmit }) => {
   const successMessage = (
     <Fade in out>
       <Flex marginBottom={4} alignItems="center" direction="column">
-        <ScaleFade initialScale={0.9} in>
+        <ScaleFade initialScale={0.75} in>
           <SolidSuccessCircle
             marginBottom={2}
             height="60px"
@@ -171,7 +171,7 @@ const ForgotPasswordForm = ({ error, hasResetPassword, onSubmit }) => {
           </Link>
         </Flex>
 
-        {hasResetPassword ? successMessage : form}
+        {isSuccess ? successMessage : form}
       </Flex>
     </Flex>
   );
@@ -179,12 +179,12 @@ const ForgotPasswordForm = ({ error, hasResetPassword, onSubmit }) => {
 
 ForgotPasswordForm.propTypes = {
   error: PropTypes.string,
-  hasResetPassword: PropTypes.bool,
+  isSuccess: PropTypes.bool,
   onSubmit: PropTypes.func,
 };
 ForgotPasswordForm.defaultProps = {
   error: "",
-  hasResetPassword: false,
+  isSuccess: false,
   onSubmit: () => {},
 };
 

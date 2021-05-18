@@ -14,16 +14,16 @@ const ResetPasswordContainer = () => {
 
   const [isLoading, setIsLoading] = useState(true);
 
-  // TODO: update name
   const [error, setError] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
 
-  // TODO: break into separate useEffects
   useEffect(() => {
     if (!isLoadingUser && user) {
       router.push("/");
     }
+  }, [user, isLoadingUser, router]);
 
+  useEffect(() => {
     if (userId && token) {
       axiosClient
         .get(`/auth/reset-token-valid/${userId}/${token}`)
@@ -40,7 +40,7 @@ const ResetPasswordContainer = () => {
           setIsLoading(false);
         });
     }
-  }, [userId, token, user, isLoadingUser]);
+  }, [token, userId]);
 
   const handleSubmit = ({ password }) => {
     setError(null);

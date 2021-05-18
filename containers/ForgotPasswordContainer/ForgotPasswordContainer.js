@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-
 import { useRouter } from "next/router";
 
 import axiosClient from "../../axios/axiosClient";
@@ -11,7 +10,7 @@ const ForgotPasswordContainer = () => {
   const router = useRouter();
   const { user, isLoading: isLoadingUser } = useCurrentUser();
 
-  const [hasResetPassword, setHasResetPassword] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
@@ -25,7 +24,7 @@ const ForgotPasswordContainer = () => {
     axiosClient
       .post("/auth/send-reset-token", { email })
       .then(() => {
-        setHasResetPassword(true);
+        setIsSuccess(true);
       })
       .catch((error) => {
         setError(error.response.data);
@@ -35,7 +34,7 @@ const ForgotPasswordContainer = () => {
   return (
     <ForgotPasswordForm
       error={error}
-      hasResetPassword={hasResetPassword}
+      isSuccess={isSuccess}
       onSubmit={handleSubmit}
     />
   );
