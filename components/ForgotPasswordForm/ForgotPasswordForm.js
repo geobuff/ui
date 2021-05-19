@@ -16,12 +16,14 @@ import {
   Image,
   Input,
   Text,
-  ScaleFade,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Formik, Field, Form } from "formik";
 import Link from "next/link";
 
-import SolidSuccessCircle from "../../Icons/SolidSuccessCircle";
+import ForgotPasswordSuccess from "./ForgotPasswordSuccess";
+import AuthView from "../AuthView";
+import AuthCard from "../AuthCard";
 
 const forgotPasswordExplainer =
   "Enter the email address you used when you joined and we’ll send you a link to reset your password.";
@@ -31,26 +33,39 @@ const validationSchema = Yup.object().shape({
 });
 
 const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
-  const successMessage = (
-    <Fade in out>
-      <Flex marginBottom={4} alignItems="center" direction="column">
-        <ScaleFade initialScale={0.75} in>
-          <SolidSuccessCircle
-            marginBottom={2}
-            height="60px"
-            width="56px"
-            color="green.500"
-          />
-        </ScaleFade>
-        <Text textAlign="center" fontWeight="500" fontSize="14px">
-          {"Successfully sent password reset link. Please check your email."}
-        </Text>
+  const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
+
+  const success = (
+    <>
+      <Flex
+        justifyContent="center"
+        marginTop={3}
+        marginBottom={5}
+        _hover={{ cursor: "pointer" }}
+      >
+        <Link href="/">
+          <Image src="/logo.svg" height="42px" />
+        </Link>
       </Flex>
-    </Fade>
+      <Box marginY={2}>
+        <ForgotPasswordSuccess />
+      </Box>
+    </>
   );
 
-  const form = (
+  const mainContent = (
     <>
+      <Flex
+        justifyContent="center"
+        marginTop={3}
+        marginBottom={5}
+        _hover={{ cursor: "pointer" }}
+      >
+        <Link href="/">
+          <Image src="/logo.svg" height="42px" />
+        </Link>
+      </Flex>
+
       <Text fontSize="26px" marginY={2} fontWeight="800">
         {"Forgotten Password"}
       </Text>
@@ -144,36 +159,26 @@ const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
   );
 
   return (
-    <Flex
-      marginTop={6}
-      height="80vh"
-      direction="column"
-      justifyContent="center"
-    >
-      <Flex
-        backgroundColor="white"
-        borderRadius={12}
-        boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
-        direction="column"
-        marginX="auto"
-        marginY={5}
-        padding={5}
-        width={375}
-      >
-        <Flex
-          justifyContent="center"
-          marginTop={3}
-          marginBottom={5}
-          _hover={{ cursor: "pointer" }}
-        >
-          <Link href="/">
-            <Image src="/logo.svg" height="42px" />
-          </Link>
+    <>
+      {shouldRenderOnMobile ? (
+        <>
+          <AuthView>
+            <AuthCard
+              marginX="auto"
+              marginY={5}
+              width={375}
+              height={isSuccess ? 260 : 422}
+            >
+              {isSuccess ? success : mainContent}
+            </AuthCard>
+          </AuthView>
+        </>
+      ) : (
+        <Flex direction="column" padding={5}>
+          {isSuccess ? success : mainContent}
         </Flex>
-
-        {isSuccess ? successMessage : form}
-      </Flex>
-    </Flex>
+      )}
+    </>
   );
 };
 
