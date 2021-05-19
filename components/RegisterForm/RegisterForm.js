@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
 import {
@@ -17,8 +15,10 @@ import {
   Link as ChakraLink,
   Text,
 } from "@chakra-ui/react";
+import { Formik, Field, Form } from "formik";
 
 import Link from "next/link";
+
 import CountrySelect from "../CountrySelect";
 
 const initialValues = {
@@ -35,7 +35,7 @@ const validationSchema = Yup.object().shape({
   password: Yup.string()
     .required("Please include a password.")
     .matches(
-      /(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
       "Must contain at least 8 characters, one uppercase letter, one lowercase letter and one number."
     ),
 });
