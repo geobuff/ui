@@ -26,11 +26,7 @@ const Login = () => {
         }
       `}</style>
 
-      <MainView
-        hasNavigationBar={false}
-        footerVariant="simple"
-        backgroundColor={backgroundColor}
-      >
+      <MainView hasNavigationBar={false} footerVariant="simple">
         <LoginContainer />
       </MainView>
     </>
