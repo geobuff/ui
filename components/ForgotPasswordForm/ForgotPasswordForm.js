@@ -30,7 +30,7 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required("Please include an email."),
 });
 
-const ForgotPasswordForm = ({ error, isSuccess, onSubmit }) => {
+const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
   const successMessage = (
     <Fade in out>
       <Flex marginBottom={4} alignItems="center" direction="column">
@@ -67,7 +67,7 @@ const ForgotPasswordForm = ({ error, isSuccess, onSubmit }) => {
           actions.setSubmitting(false);
         }}
       >
-        {(formProps) => (
+        {() => (
           <Form>
             <Field name="email">
               {({ field, form }) => (
@@ -132,7 +132,7 @@ const ForgotPasswordForm = ({ error, isSuccess, onSubmit }) => {
                 colorScheme="green"
                 width="100%"
                 type="submit"
-                isLoading={formProps.isSubmitting}
+                isLoading={isSubmitting}
               >
                 {"Reset"}
               </Button>
@@ -180,11 +180,13 @@ const ForgotPasswordForm = ({ error, isSuccess, onSubmit }) => {
 ForgotPasswordForm.propTypes = {
   error: PropTypes.string,
   isSuccess: PropTypes.bool,
+  isSubmitting: PropTypes.bool,
   onSubmit: PropTypes.func,
 };
 ForgotPasswordForm.defaultProps = {
   error: "",
   isSuccess: false,
+  isSubmitting: false,
   onSubmit: () => {},
 };
 

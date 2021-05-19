@@ -14,6 +14,7 @@ const RegisterContainer = () => {
   const { user, updateUser, isLoading: isLoadingUser } = useCurrentUser();
 
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!isLoadingUser && user) {
@@ -21,7 +22,17 @@ const RegisterContainer = () => {
     }
   }, [isLoadingUser, user, router]);
 
+  // Clear error after 5 seconds to clear banner
+  useEffect(() => {
+    setTimeout(() => {
+      if (error) {
+        setError(null);
+      }
+    }, 5000);
+  }, [error]);
+
   const handleSubmit = ({ username, email, countryCode, password }) => {
+    setIsSubmitting(true);
     setError(null);
     axiosClient
       .post("/auth/register", { username, email, countryCode, password })
@@ -52,12 +63,17 @@ const RegisterContainer = () => {
           router.push("/");
         }
       })
-      .catch((error) => {
-        setError(error.response.data);
-      });
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSubmitting(false));
   };
 
-  return <RegisterForm error={error} onSubmit={handleSubmit} />;
+  return (
+    <RegisterForm
+      error={error}
+      onSubmit={handleSubmit}
+      isSubmitting={isSubmitting}
+    />
+  );
 };
 
 RegisterContainer.propTypes = {

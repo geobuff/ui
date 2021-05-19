@@ -40,7 +40,7 @@ const validationSchema = Yup.object().shape({
     ),
 });
 
-const RegisterForm = ({ error, onSubmit }) => (
+const RegisterForm = ({ error, onSubmit, isSubmitting }) => (
   <>
     <Collapse
       in={error}
@@ -54,7 +54,11 @@ const RegisterForm = ({ error, onSubmit }) => (
       }}
     >
       <Box p={1} backgroundColor="red.500" color="white">
-        <Text fontWeight={700} fontSize={14} textAlign="center">
+        <Text
+          fontWeight={700}
+          fontSize={{ base: 14, md: 18 }}
+          textAlign="center"
+        >
           {error}
         </Text>
       </Box>
@@ -118,12 +122,9 @@ const RegisterForm = ({ error, onSubmit }) => (
         <Formik
           initialValues={initialValues}
           validationSchema={validationSchema}
-          onSubmit={(values, actions) => {
-            onSubmit(values);
-            actions.setSubmitting(false);
-          }}
+          onSubmit={onSubmit}
         >
-          {(formProps) => (
+          {() => (
             <Form>
               <Flex marginY={6}>
                 <Field name="username">
@@ -256,7 +257,7 @@ const RegisterForm = ({ error, onSubmit }) => (
                   colorScheme="green"
                   width="100%"
                   type="submit"
-                  isLoading={formProps.isSubmitting}
+                  isLoading={isSubmitting}
                 >
                   {"Create Account"}
                 </Button>
@@ -272,11 +273,13 @@ const RegisterForm = ({ error, onSubmit }) => (
 RegisterForm.propTypes = {
   error: PropTypes.string,
   onSubmit: PropTypes.func,
+  isSubmitting: PropTypes.bool,
 };
 
 RegisterForm.defaultProps = {
   error: "",
   onSubmit: () => {},
+  isSubmitting: false,
 };
 
 export default RegisterForm;

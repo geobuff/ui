@@ -37,7 +37,7 @@ const validationSchema = Yup.object().shape({
     ),
 });
 
-const LoginForm = ({ error, onSubmit }) => {
+const LoginForm = ({ error, onSubmit, isSubmitting }) => {
   return (
     <>
       <Box position="absolute" top={0} right={0}>
@@ -95,12 +95,9 @@ const LoginForm = ({ error, onSubmit }) => {
           <Formik
             initialValues={initialValues}
             validationSchema={validationSchema}
-            onSubmit={(values, actions) => {
-              onSubmit(values);
-              actions.setSubmitting(false);
-            }}
+            onSubmit={onSubmit}
           >
-            {(formProps) => (
+            {() => (
               <Form>
                 <Flex marginTop={4} marginBottom={6}>
                   <Field name="email">
@@ -213,7 +210,7 @@ const LoginForm = ({ error, onSubmit }) => {
                     colorScheme="green"
                     width="100%"
                     type="submit"
-                    isLoading={formProps.isSubmitting}
+                    isLoading={isSubmitting}
                   >
                     {"Submit"}
                   </Button>
@@ -230,10 +227,12 @@ const LoginForm = ({ error, onSubmit }) => {
 LoginForm.propTypes = {
   error: PropTypes.string,
   onSubmit: PropTypes.func,
+  isSubmitting: PropTypes.bool,
 };
 LoginForm.defaultProps = {
   error: null,
   onSubmit: () => {},
+  isSubmitting: false,
 };
 
 export default LoginForm;

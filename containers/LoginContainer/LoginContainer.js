@@ -12,12 +12,14 @@ const LoginContainer = () => {
   const { user, isLoading: isLoadingUser, updateUser } = useCurrentUser();
 
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   if (!isLoadingUser && user) {
     router.push("/");
   }
 
   const login = (email, password) => {
+    setIsSubmitting(true);
     setError(null);
     const login = { email, password };
     axiosClient
@@ -48,16 +50,19 @@ const LoginContainer = () => {
           router.push("/");
         }
       })
-      .catch((error) => {
-        setError(error.response.data);
-      });
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSubmitting(false));
   };
 
-  const handleSubmit = (values) => {
-    login(values.email, values.password);
-  };
+  const handleSubmit = ({ email, password }) => login(email, password);
 
-  return <LoginForm error={error} onSubmit={handleSubmit} />;
+  return (
+    <LoginForm
+      error={error}
+      onSubmit={handleSubmit}
+      isSubmitting={isSubmitting}
+    />
+  );
 };
 
 export default LoginContainer;
