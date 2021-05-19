@@ -28,7 +28,7 @@ const RegisterContainer = () => {
       if (error) {
         setError(null);
       }
-    }, 5000);
+    }, 7500);
   }, [error]);
 
   const handleSubmit = ({ username, email, countryCode, password }) => {
