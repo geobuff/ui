@@ -1,7 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-
-import { Formik, Field, Form } from "formik";
 import * as Yup from "yup";
 
 import {
@@ -17,8 +15,10 @@ import {
   Link as ChakraLink,
   Text,
 } from "@chakra-ui/react";
+import { Formik, Field, Form } from "formik";
 
 import Link from "next/link";
+
 import CountrySelect from "../CountrySelect";
 
 const initialValues = {
