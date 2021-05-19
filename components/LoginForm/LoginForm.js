@@ -3,11 +3,8 @@ import PropTypes from "prop-types";
 import * as Yup from "yup";
 
 import {
-  Alert,
-  AlertIcon,
   Box,
   Button,
-  Fade,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -25,6 +22,7 @@ import { Formik, Field, Form } from "formik";
 
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
+import ErrorAlert from "./ErrorAlert";
 import RegisterLink from "./RegisterLink";
 
 const initialValues = {
@@ -145,34 +143,9 @@ const LoginForm = ({ error, onSubmit, isSubmitting }) => {
               </Field>
             </Flex>
 
-            <Fade in={error} out={!error}>
-              <Box marginY={2}>
-                <Alert
-                  width="100%"
-                  status="error"
-                  backgroundColor="transparent"
-                  variant="subtle"
-                  borderRadius={6}
-                  marginY={2}
-                  paddingLeft={0}
-                  height="30px"
-                >
-                  <Flex alignItems="center">
-                    <AlertIcon
-                      color="red.400"
-                      height="15px"
-                      marginRight={2}
-                      marginTop="1px"
-                    />
-                    <Text color="red.500" fontWeight="500" fontSize="14px">
-                      {error}
-                    </Text>
-                  </Flex>
-                </Alert>
-              </Box>
-            </Fade>
+            {shouldRenderOnMobile && <ErrorAlert error={error} />}
 
-            <Flex marginTop="115px" marginBottom={5}>
+            <Flex marginTop={{ base: "46px", md: "115px" }} marginBottom={5}>
               <Button
                 size="lg"
                 colorScheme="green"
@@ -191,23 +164,32 @@ const LoginForm = ({ error, onSubmit, isSubmitting }) => {
 
   return (
     <>
-      {shouldRenderOnMobile && <RegisterLink />}
-
       {shouldRenderOnMobile ? (
-        <AuthView>
-          <AuthCard
-            marginX="auto"
-            marginTop={5}
-            marginBottom={3}
-            width={375}
-            height={560}
-          >
-            {mainContent}
-          </AuthCard>
-        </AuthView>
+        <>
+          <Box position="absolute" top={0} right={0}>
+            <RegisterLink />
+          </Box>
+          <AuthView>
+            <AuthCard
+              marginX="auto"
+              marginTop={5}
+              marginBottom={3}
+              width={375}
+              height={560}
+            >
+              {mainContent}
+            </AuthCard>
+          </AuthView>
+        </>
       ) : (
         <Flex direction="column" padding={5}>
           {mainContent}
+
+          <RegisterLink />
+
+          <Box marginTop={2}>
+            <ErrorAlert error={error} />
+          </Box>
         </Flex>
       )}
     </>

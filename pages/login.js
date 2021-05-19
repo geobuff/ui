@@ -7,8 +7,9 @@ import MainView from "../components/MainView";
 import LoginContainer from "../containers/LoginContainer";
 
 const Login = () => {
-  const backgroundColor = useBreakpointValue({ base: "#fff", md: "#F0F0F0" });
+  const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
 
+  // Stops page flickering while it figures out backgroundColor
   if (!backgroundColor) {
     return null;
   }
