@@ -37,7 +37,7 @@ const validationSchema = Yup.object().shape({
 const resetPasswordExplainer =
   "Enter your new password. Make sure it's secure and different to your last one.";
 
-const ResetPasswordForm = ({ error, isSuccess, onSubmit }) => {
+const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
   const successMessage = (
     <Fade in out>
       <Flex marginBottom={4} alignItems="center" direction="column">
@@ -113,7 +113,7 @@ const ResetPasswordForm = ({ error, isSuccess, onSubmit }) => {
           actions.setSubmitting(false);
         }}
       >
-        {(formProps) => (
+        {() => (
           <Form>
             <Field name="password">
               {({ field, form }) => (
@@ -176,7 +176,7 @@ const ResetPasswordForm = ({ error, isSuccess, onSubmit }) => {
                 colorScheme="green"
                 width="100%"
                 type="submit"
-                isLoading={formProps.isSubmitting}
+                isLoading={isSubmitting}
               >
                 {"Reset"}
               </Button>
@@ -235,11 +235,13 @@ const ResetPasswordForm = ({ error, isSuccess, onSubmit }) => {
 ResetPasswordForm.propTypes = {
   error: PropTypes.string,
   isSuccess: PropTypes.bool,
+  isSubmitting: PropTypes.bool,
   onSubmit: PropTypes.func,
 };
 ResetPasswordForm.defaultProps = {
   error: "",
   isSuccess: false,
+  isSubmitting: false,
   onSubmit: () => {},
 };
 

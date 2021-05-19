@@ -16,6 +16,7 @@ const ResetPasswordContainer = () => {
 
   const [error, setError] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!isLoadingUser && user) {
@@ -43,6 +44,7 @@ const ResetPasswordContainer = () => {
   }, [token, userId]);
 
   const handleSubmit = ({ password }) => {
+    setIsSubmitting(true);
     setError(null);
     axiosClient
       .put("/auth", {
@@ -53,9 +55,8 @@ const ResetPasswordContainer = () => {
       .then(() => {
         setIsSuccess(true);
       })
-      .catch((error) => {
-        setError(error.response.data);
-      });
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSubmitting(false));
   };
 
   if (isLoading || isLoadingUser || user) {
@@ -66,6 +67,7 @@ const ResetPasswordContainer = () => {
     <ResetPasswordForm
       error={error}
       isSuccess={isSuccess}
+      isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
     />
   );
