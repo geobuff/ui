@@ -19,11 +19,14 @@ import {
 import Link from "next/link";
 
 import { Squash as Hamburger } from "hamburger-react";
+import useCurrentUser from "../../hooks/UseCurrentUser";
 
 const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
   ssr: false,
 });
 
+const createAccountExplainer =
+  "Don't have an account? Sign up today to earn XP, unlock badges and compete with friends!";
 const popularQuizzes = [
   {
     href: "/quiz/countries-of-the-world",
@@ -62,6 +65,7 @@ const desktopLayout = (
 
 const NavigationBar = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const { user } = useCurrentUser();
 
   const [isOpen, setOpen] = useState(false);
 
@@ -99,7 +103,6 @@ const NavigationBar = () => {
 
       {isMobile && (
         <Drawer
-          size="full"
           placement={"top"}
           onClose={() => setOpen(false)}
           isOpen={isOpen}
@@ -117,11 +120,7 @@ const NavigationBar = () => {
                 <Flex direction="column" justifyContent="space-between">
                   <Box>
                     <Link href="/">
-                      <ChakraLink
-                        fontSize="20px"
-                        fontWeight={600}
-                        color="gray.700"
-                      >
+                      <ChakraLink fontSize="20px" fontWeight={600}>
                         {"Home"}
                       </ChakraLink>
                     </Link>
@@ -129,11 +128,7 @@ const NavigationBar = () => {
                     <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />
 
                     <Link href="/leaderboard">
-                      <ChakraLink
-                        fontSize="20px"
-                        fontWeight={600}
-                        color="gray.700"
-                      >
+                      <ChakraLink fontSize="20px" fontWeight={600}>
                         {"Leaderboard"}
                       </ChakraLink>
                     </Link>
@@ -147,13 +142,13 @@ const NavigationBar = () => {
 
                   <Flex direction="column">
                     <Text
-                      fontSize="20px"
-                      fontWeight={600}
-                      color="gray.600"
-                      marginTop={6}
-                      marginBottom={4}
+                      fontSize="18px"
+                      fontWeight="bold"
+                      color="gray.700"
+                      marginTop={8}
+                      marginBottom={3}
                     >
-                      {"Popular Quizzes"}
+                      {"POPULAR QUIZZES"}
                     </Text>
 
                     {popularQuizzes.map(({ href, label }) => (
@@ -171,30 +166,31 @@ const NavigationBar = () => {
                   </Flex>
                 </Flex>
 
-                <Flex width="100%" direction="column">
-                  <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />
-                  <Text
-                    marginY={4}
-                    textAlign="center"
-                    fontSize="12px"
-                    color="gray.600"
-                    fontWeight={600}
-                  >
-                    {
-                      "Don't have an account? Sign up today to earn XP, unlock badges and compete with friends!"
-                    }
-                  </Text>
-                  <Link href="/register">
-                    <Button
-                      colorScheme="green"
-                      size="lg"
-                      width="100%"
-                      height="60px"
+                {!user && (
+                  <Flex width="100%" direction="column" marginTop={10}>
+                    <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />
+                    <Text
+                      marginY={4}
+                      textAlign="center"
+                      fontSize="12px"
+                      color="gray.600"
+                      fontWeight={600}
                     >
-                      {"Create An Account"}
-                    </Button>
-                  </Link>
-                </Flex>
+                      {createAccountExplainer}
+                    </Text>
+                    <Link href="/register">
+                      <Button
+                        colorScheme="green"
+                        size="lg"
+                        width="100%"
+                        height="60px"
+                        fontWeight="bold"
+                      >
+                        {"Create An Account"}
+                      </Button>
+                    </Link>
+                  </Flex>
+                )}
               </Flex>
             </DrawerBody>
           </DrawerContent>
