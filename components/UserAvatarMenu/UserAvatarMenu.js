@@ -130,13 +130,15 @@ const UserAvatarMenu = ({ isCondensed }) => {
         color="gray.600"
         fontWeight={600}
         onClick={() => router.push("/login")}
-        mr={6}
+        mr={4}
       >
         {"Login"}
       </Button>
-      <Button colorScheme="green" onClick={() => router.push("/register")}>
-        {"Register"}
-      </Button>
+      {!isCondensed && (
+        <Button colorScheme="green" onClick={() => router.push("/register")}>
+          {"Register"}
+        </Button>
+      )}
     </Flex>
   );
 };
