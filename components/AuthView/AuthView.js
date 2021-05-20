@@ -2,10 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Flex } from "@chakra-ui/react";
 
-const AuthView = ({ height, children, ...props }) => {
+const AuthView = ({ height, marginTop, children, ...props }) => {
   return (
     <Flex
-      marginTop={6}
+      marginTop={marginTop}
       height={height}
       direction="column"
       justifyContent="center"
@@ -17,6 +17,12 @@ const AuthView = ({ height, children, ...props }) => {
 };
 
 AuthView.propTypes = {
+  marginTop: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.number,
+    PropTypes.array,
+    PropTypes.object,
+  ]),
   height: PropTypes.oneOfType([
     PropTypes.string,
     PropTypes.number,
@@ -26,6 +32,7 @@ AuthView.propTypes = {
   children: PropTypes.object,
 };
 AuthView.defaultProps = {
+  marginTop: 6,
   height: "80vh",
   children: null,
 };

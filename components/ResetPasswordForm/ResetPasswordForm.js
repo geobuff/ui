@@ -14,16 +14,17 @@ import {
   FormLabel,
   Image,
   Input,
-  Link as ChakraLink,
   Text,
-  ScaleFade,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { Formik, Field, Form } from "formik";
 
-import SolidSuccessCircle from "../../Icons/SolidSuccessCircle";
-import SolidSubtractCircle from "../../Icons/SolidSubtractCircle";
-
 import Link from "next/link";
+
+import ResetPasswordError from "./ResetPasswordError";
+import ResetPasswordSuccess from "./ResetPasswordSuccess";
+import AuthView from "../AuthView";
+import AuthCard from "../AuthCard";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -38,63 +39,7 @@ const resetPasswordExplainer =
   "Enter your new password. Make sure it's secure and different to your last one.";
 
 const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
-  const successMessage = (
-    <Fade in out>
-      <Flex marginBottom={4} alignItems="center" direction="column">
-        <ScaleFade initialScale={0.75} in>
-          <SolidSuccessCircle
-            marginBottom={2}
-            height="60px"
-            width="56px"
-            color="green.500"
-          />
-        </ScaleFade>
-        <Text textAlign="center" fontWeight="bold" marginBottom={1}>
-          {"Successfully updated password!"}
-        </Text>
-
-        <Text color="gray.600" textAlign="center" fontSize="14px">
-          {"Please "}
-          <Link href="/login">
-            <ChakraLink
-              fontWeight={600}
-              _hover={{ textDecoration: "underline" }}
-            >
-              {"login"}
-            </ChakraLink>
-          </Link>
-          {" to continue."}
-        </Text>
-      </Flex>
-    </Fade>
-  );
-
-  const errorMessage = (
-    <Flex marginBottom={4} alignItems="center" direction="column">
-      <ScaleFade initialScale={0.75} in>
-        <SolidSubtractCircle
-          marginBottom={2}
-          height="60px"
-          width="56px"
-          color="red.500"
-        />
-      </ScaleFade>
-      <Text
-        textAlign="center"
-        fontSize="14px"
-        fontWeight="bold"
-        marginBottom={4}
-      >
-        {error}
-      </Text>
-
-      <Link href="/forgot-password">
-        <Button size="sm" variant="outline" color="gray.600">
-          {"Request New Token"}
-        </Button>
-      </Link>
-    </Flex>
-  );
+  const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const form = (
     <>
@@ -189,46 +134,52 @@ const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
 
   const getViewComponent = () => {
     if (error) {
-      return errorMessage;
+      return <ResetPasswordError error={error} />;
     }
+
     if (isSuccess) {
-      return successMessage;
+      return (
+        <Box marginY={2}>
+          <ResetPasswordSuccess />
+        </Box>
+      );
     }
 
     return form;
   };
 
   return (
-    <Flex
-      marginTop={6}
-      height="80vh"
-      direction="column"
-      justifyContent="center"
-    >
-      <Flex
-        backgroundColor="white"
-        borderRadius={12}
-        boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
-        direction="column"
-        marginX="auto"
-        marginY={5}
-        padding={5}
-        width={375}
-      >
-        <Flex
-          justifyContent="center"
-          marginTop={3}
-          marginBottom={5}
-          _hover={{ cursor: "pointer" }}
-        >
-          <Link href="/">
-            <Image src="/logo.svg" height="42px" />
-          </Link>
-        </Flex>
+    <>
+      {shouldRenderOnMobile ? (
+        <AuthView>
+          <AuthCard
+            marginX="auto"
+            marginY={5}
+            height={isSuccess || error ? 280 : 422}
+          >
+            <Flex
+              justifyContent="center"
+              marginTop={3}
+              marginBottom={5}
+              _hover={{ cursor: "pointer" }}
+            >
+              <Link href="/">
+                <Image src="/logo.svg" height="42px" />
+              </Link>
+            </Flex>
 
-        {getViewComponent()}
-      </Flex>
-    </Flex>
+            {getViewComponent()}
+          </AuthCard>
+        </AuthView>
+      ) : (
+        <Flex direction="column" padding={5}>
+          <Link href="/">
+            <Image src="/logo.svg" height="42px" marginBottom={4} />
+          </Link>
+          {getViewComponent()}
+        </Flex>
+      )}
+    </>
   );
 };
 
