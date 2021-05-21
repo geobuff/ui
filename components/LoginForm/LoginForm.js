@@ -10,7 +10,6 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
-  Image,
   Link as ChakraLink,
   Text,
   useBreakpointValue,
@@ -22,6 +21,8 @@ import { Formik, Field, Form } from "formik";
 
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
+import Logo from "../Logo";
+
 import ErrorAlert from "./ErrorAlert";
 import RegisterLink from "./RegisterLink";
 
@@ -52,7 +53,7 @@ const LoginForm = ({ error, onSubmit, isSubmitting }) => {
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Image src="/logo.svg" height="42px" />
+          <Logo height="42px" width="200px" />
         </Link>
       </Flex>
 

@@ -1,14 +1,14 @@
 import React from "react";
-// import PropTypes from "prop-types";
+import PropTypes from "prop-types";
 
-const Logo = () => {
+const Logo = ({ height, width }) => {
   return (
     <svg
       data-name="Layer 1"
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 72.37 18.91"
-      height="32px"
-      width="140px"
+      height={height}
+      width={width}
     >
       <defs>
         <linearGradient
@@ -46,7 +46,14 @@ const Logo = () => {
   );
 };
 
-Logo.propTypes = {};
-Logo.defaultProps = {};
+Logo.propTypes = {
+  height: PropTypes.string,
+  width: PropTypes.string,
+};
+
+Logo.defaultProps = {
+  height: "32px",
+  width: "140px",
+};
 
 export default Logo;

@@ -10,7 +10,6 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
-  Image,
   Link as ChakraLink,
   Text,
   useBreakpointValue,
@@ -19,12 +18,13 @@ import { Formik, Field, Form } from "formik";
 
 import Link from "next/link";
 
+import AuthView from "../AuthView";
+import AuthCard from "../AuthCard";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
+import Logo from "../Logo";
 
-import AuthView from "../AuthView";
 import LoginLink from "./LoginLink";
-import AuthCard from "../AuthCard";
 
 const initialValues = {
   username: "",
@@ -58,7 +58,7 @@ const RegisterForm = ({ error, onSubmit, isSubmitting }) => {
       >
         <Link href="/">
           <ChakraLink>
-            <Image src="/logo.svg" height="42px" />
+            <Logo height="42px" width="200px" />
           </ChakraLink>
         </Link>
       </Flex>
