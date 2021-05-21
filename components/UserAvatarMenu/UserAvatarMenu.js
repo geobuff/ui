@@ -1,4 +1,6 @@
 import React from "react";
+import PropTypes from "prop-types";
+
 import { useRouter } from "next/router";
 
 import {
@@ -18,9 +20,11 @@ import {
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 
-const UserAvatarMenu = () => {
+const UserAvatarMenu = ({ isCondensed }) => {
   const { user, isLoading, clearUser } = useCurrentUser();
   const router = useRouter();
+
+  const avatarSize = isCondensed ? "26px" : { base: "22px", md: "26px" };
 
   const logout = () => {
     clearUser();
@@ -76,21 +80,25 @@ const UserAvatarMenu = () => {
         >
           <Flex alignItems="center">
             <Avatar
-              height={{ base: "22px", md: "26px" }}
-              width={{ base: "22px", md: "26px" }}
+              height={avatarSize}
+              width={avatarSize}
               src={user?.picture}
               name={user.username}
+              marginX={isCondensed ? 1 : 0}
             />
-            <Text
-              marginLeft={1.5}
-              marginRight={0.5}
-              fontWeight="bold"
-              fontSize={{ base: "10px", md: "12px" }}
-              isTruncated
-              maxWidth={{ base: "80px", md: "125px", lg: "135px" }}
-            >
-              {user?.username}
-            </Text>
+
+            {!isCondensed && (
+              <Text
+                marginLeft={1.5}
+                marginRight={0.5}
+                fontWeight="bold"
+                fontSize={{ base: "10px", md: "12px" }}
+                isTruncated
+                maxWidth={{ base: "80px", md: "125px", lg: "135px" }}
+              >
+                {user?.username}
+              </Text>
+            )}
             <SolidChevronDown
               height={{ base: "10px", md: "12px" }}
               width={{ base: "10px", md: "12px" }}
@@ -119,17 +127,28 @@ const UserAvatarMenu = () => {
     <Flex alignContent="center">
       <Button
         variant="link"
-        color="black"
+        color="gray.600"
+        fontWeight={600}
         onClick={() => router.push("/login")}
-        mr={6}
+        mr={4}
       >
         {"Login"}
       </Button>
-      <Button colorScheme="green" onClick={() => router.push("/register")}>
-        {"Register"}
-      </Button>
+      {!isCondensed && (
+        <Button colorScheme="green" onClick={() => router.push("/register")}>
+          {"Register"}
+        </Button>
+      )}
     </Flex>
   );
+};
+
+UserAvatarMenu.propTypes = {
+  isCondensed: PropTypes.bool,
+};
+
+UserAvatarMenu.defaultProps = {
+  isCondensed: false,
 };
 
 export default UserAvatarMenu;
