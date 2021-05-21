@@ -38,7 +38,7 @@ const ResultsListItem = ({
           ml={2}
           fontWeight="600"
           fontSize={14}
-          color={isMissedResult && "red"}
+          color={isMissedResult && "#e24f4f"}
         >
           {!isHidden ? svgName : "???"}
         </Text>

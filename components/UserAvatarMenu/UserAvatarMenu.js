@@ -112,11 +112,6 @@ const UserAvatarMenu = ({ isCondensed }) => {
           <MenuItem onClick={() => router.push("/profile")}>
             {"Profile"}
           </MenuItem>
-
-          <MenuItem onClick={() => router.push("/leaderboard")}>
-            {"Leaderboard"}
-          </MenuItem>
-
           <MenuDivider />
           <MenuItem onClick={logout}>{"Logout"}</MenuItem>
         </MenuList>
