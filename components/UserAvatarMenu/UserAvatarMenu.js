@@ -125,8 +125,8 @@ const UserAvatarMenu = ({ isCondensed }) => {
   }
 
   return (
-    <Flex alignContent="center">
-      <Fade in>
+    <Fade in>
+      <Flex alignContent="center">
         <Button
           variant="link"
           color="gray.600"
@@ -141,8 +141,8 @@ const UserAvatarMenu = ({ isCondensed }) => {
             {"Register"}
           </Button>
         )}
-      </Fade>
-    </Flex>
+      </Flex>
+    </Fade>
   );
 };
 
