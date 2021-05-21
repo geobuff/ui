@@ -14,6 +14,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  Link as ChakraLink,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -44,7 +45,9 @@ const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Logo height="42px" width="200px" />
+          <ChakraLink>
+            <Logo height="42px" width="200px" />
+          </ChakraLink>
         </Link>
       </Flex>
       <Box marginY={2}>
@@ -62,7 +65,9 @@ const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Logo height="42px" width="200px" />
+          <ChakraLink>
+            <Logo height="42px" width="200px" />
+          </ChakraLink>
         </Link>
       </Flex>
 

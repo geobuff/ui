@@ -28,14 +28,19 @@ const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
 
 const createAccountExplainer =
   "Don't have an account? Sign up today to earn XP, unlock badges and compete with friends!";
+
 const popularQuizzes = [
   {
     href: "/quiz/countries-of-the-world",
     label: "Countries of the World",
   },
   {
-    href: "/quiz/countries-of-europe",
-    label: "Countries of Europe",
+    href: "/quiz/capitals-of-the-world",
+    label: "Capitals of the World",
+  },
+  {
+    href: "/quiz/flags-of-the-world",
+    label: "Flags of the World",
   },
   {
     href: "/quiz/us-states",
@@ -153,9 +158,8 @@ const NavigationBar = () => {
 
                   <Flex direction="column">
                     <Text
-                      fontSize="18px"
+                      fontSize="16px"
                       fontWeight="bold"
-                      color="gray.700"
                       marginTop={8}
                       marginBottom={3}
                     >

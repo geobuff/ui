@@ -13,6 +13,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
+  Link as ChakraLink,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -165,7 +166,9 @@ const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
               _hover={{ cursor: "pointer" }}
             >
               <Link href="/">
-                <Logo height="42px" width="200px" />
+                <ChakraLink>
+                  <Logo height="42px" width="200px" />
+                </ChakraLink>
               </Link>
             </Flex>
 
@@ -175,7 +178,9 @@ const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
       ) : (
         <Flex direction="column" padding={5} marginBottom={4}>
           <Link href="/">
-            <Logo height="42px" width="200px" />
+            <ChakraLink>
+              <Logo height="42px" width="200px" />
+            </ChakraLink>
           </Link>
           {getViewComponent()}
         </Flex>

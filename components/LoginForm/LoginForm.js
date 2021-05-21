@@ -53,7 +53,9 @@ const LoginForm = ({ error, onSubmit, isSubmitting }) => {
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Logo height="42px" width="200px" />
+          <ChakraLink>
+            <Logo height="42px" width="200px" />
+          </ChakraLink>
         </Link>
       </Flex>
 
