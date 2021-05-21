@@ -13,8 +13,8 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Image,
   Input,
+  Link as ChakraLink,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -24,6 +24,7 @@ import Link from "next/link";
 import ForgotPasswordSuccess from "./ForgotPasswordSuccess";
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
+import Logo from "../Logo";
 
 const forgotPasswordExplainer =
   "Enter the email address you used when you joined and we’ll send you a link to reset your password.";
@@ -44,7 +45,9 @@ const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Image src="/logo.svg" height="42px" />
+          <ChakraLink>
+            <Logo height="42px" width="200px" />
+          </ChakraLink>
         </Link>
       </Flex>
       <Box marginY={2}>
@@ -62,7 +65,9 @@ const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Image src="/logo.svg" height="42px" />
+          <ChakraLink>
+            <Logo height="42px" width="200px" />
+          </ChakraLink>
         </Link>
       </Flex>
 

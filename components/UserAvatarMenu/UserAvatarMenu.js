@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import {
   Button,
   Flex,
+  Fade,
   Menu,
   MenuList,
   MenuItem,
@@ -125,20 +126,22 @@ const UserAvatarMenu = ({ isCondensed }) => {
 
   return (
     <Flex alignContent="center">
-      <Button
-        variant="link"
-        color="gray.600"
-        fontWeight={600}
-        onClick={() => router.push("/login")}
-        mr={4}
-      >
-        {"Login"}
-      </Button>
-      {!isCondensed && (
-        <Button colorScheme="green" onClick={() => router.push("/register")}>
-          {"Register"}
+      <Fade in>
+        <Button
+          variant="link"
+          color="gray.600"
+          fontWeight={600}
+          onClick={() => router.push("/login")}
+          mr={4}
+        >
+          {"Login"}
         </Button>
-      )}
+        {!isCondensed && (
+          <Button colorScheme="green" onClick={() => router.push("/register")}>
+            {"Register"}
+          </Button>
+        )}
+      </Fade>
     </Flex>
   );
 };

@@ -11,7 +11,6 @@ import {
   DrawerBody,
   Flex,
   Link as ChakraLink,
-  Image,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -21,20 +20,27 @@ import Link from "next/link";
 import { Squash as Hamburger } from "hamburger-react";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
+import Logo from "../Logo";
+
 const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
   ssr: false,
 });
 
 const createAccountExplainer =
   "Don't have an account? Sign up today to earn XP, unlock badges and compete with friends!";
+
 const popularQuizzes = [
   {
     href: "/quiz/countries-of-the-world",
     label: "Countries of the World",
   },
   {
-    href: "/quiz/countries-of-europe",
-    label: "Countries of Europe",
+    href: "/quiz/capitals-of-the-world",
+    label: "Capitals of the World",
+  },
+  {
+    href: "/quiz/flags-of-the-world",
+    label: "Flags of the World",
   },
   {
     href: "/quiz/us-states",
@@ -43,11 +49,11 @@ const popularQuizzes = [
 ];
 
 const desktopLayout = (
-  <Flex alignItems="center" justifyContent="space-between">
+  <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
     <Flex alignItems="center">
       <Link href="/">
         <ChakraLink _hover={{ textDecoration: "none" }}>
-          <Image src="/logo.svg" height="36px" />
+          <Logo />
         </ChakraLink>
       </Link>
 
@@ -59,6 +65,7 @@ const desktopLayout = (
         </Link>
       </Flex>
     </Flex>
+
     <UserAvatarMenuNoSSR />
   </Flex>
 );
@@ -69,17 +76,27 @@ const NavigationBar = () => {
 
   const [isOpen, setOpen] = useState(false);
 
+  const getViewLayout = () => {
+    if (isMobile === undefined) {
+      return true;
+    }
+    return isMobile ? mobileLayout : desktopLayout;
+  };
+
   const mobileLayout = (
-    <Flex alignItems="center" justifyContent="space-between">
+    <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
       <Flex alignItems="center">
         <Hamburger size={24} toggled={isOpen} toggle={setOpen} />
       </Flex>
       <Link href="/">
         <ChakraLink _hover={{ textDecoration: "none" }}>
-          <Image src="/logo.svg" height="36px" />
+          <Logo />
         </ChakraLink>
       </Link>
-      <UserAvatarMenuNoSSR isCondensed />
+
+      <Box minWidth="60px">
+        <UserAvatarMenuNoSSR isCondensed />
+      </Box>
     </Flex>
   );
 
@@ -87,7 +104,6 @@ const NavigationBar = () => {
     <>
       <Box
         m={0}
-        py={2}
         px={{ base: 3, md: 5 }}
         backgroundColor="white"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
@@ -98,7 +114,7 @@ const NavigationBar = () => {
         zIndex={9999}
         minHeight="56px"
       >
-        {isMobile && isMobile ? mobileLayout : desktopLayout}
+        {getViewLayout()}
       </Box>
 
       {isMobile && (
@@ -142,9 +158,8 @@ const NavigationBar = () => {
 
                   <Flex direction="column">
                     <Text
-                      fontSize="18px"
+                      fontSize="16px"
                       fontWeight="bold"
-                      color="gray.700"
                       marginTop={8}
                       marginBottom={3}
                     >

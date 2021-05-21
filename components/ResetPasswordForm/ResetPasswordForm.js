@@ -12,8 +12,8 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Image,
   Input,
+  Link as ChakraLink,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -21,10 +21,12 @@ import { Formik, Field, Form } from "formik";
 
 import Link from "next/link";
 
-import ResetPasswordError from "./ResetPasswordError";
-import ResetPasswordSuccess from "./ResetPasswordSuccess";
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
+import Logo from "../Logo";
+
+import ResetPasswordError from "./ResetPasswordError";
+import ResetPasswordSuccess from "./ResetPasswordSuccess";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -164,7 +166,9 @@ const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
               _hover={{ cursor: "pointer" }}
             >
               <Link href="/">
-                <Image src="/logo.svg" height="42px" />
+                <ChakraLink>
+                  <Logo height="42px" width="200px" />
+                </ChakraLink>
               </Link>
             </Flex>
 
@@ -172,9 +176,11 @@ const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
           </AuthCard>
         </AuthView>
       ) : (
-        <Flex direction="column" padding={5}>
+        <Flex direction="column" padding={5} marginBottom={4}>
           <Link href="/">
-            <Image src="/logo.svg" height="42px" marginBottom={4} />
+            <ChakraLink>
+              <Logo height="42px" width="200px" />
+            </ChakraLink>
           </Link>
           {getViewComponent()}
         </Flex>
