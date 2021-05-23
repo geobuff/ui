@@ -1,26 +1,19 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useToast } from "@chakra-ui/react";
 
-import useMapping from "../../hooks/UseMapping";
 import UserProfileSummary from "../../components/UserProfileSummary";
-import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
 import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-const UserProfileSummaryContainer = ({ user, quizzes }) => {
-  const quizId =
-    quizzes.find((quiz) => quiz.apiPath === "world-countries")?.id || "";
-  const { mapping: countries, loading } = useMapping(quizId);
+const UserProfileSummaryContainer = ({ user }) => {
+  const toast = useToast();
 
   const { updateUser } = useCurrentUser();
 
   const [config, setConfig] = useState(null);
-  const [updated, setUpdated] = useState(false);
-
-  const sortedCountries = useMemo(
-    () => countries?.sort((a, b) => a.svgName.localeCompare(b.svgName)),
-    [countries]
-  );
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -32,52 +25,55 @@ const UserProfileSummaryContainer = ({ user, quizzes }) => {
     }
   }, [user]);
 
-  const submitCountry = (code) => {
+  const handleSubmit = (values) => {
+    setIsSubmitting(true);
+    setError(null);
+
     const update = {
-      ...user,
-      countryCode: code,
+      username: values.username,
+      email: values.email,
+      countryCode: values.countryCode,
+      xp: user.xp,
     };
 
-    axiosClient.put(`/users/${user.id}`, update, config).then((response) => {
-      const updatedUser = { ...user, countryCode: response.data.countryCode };
-      updateUser(updatedUser);
-      setUpdated(true);
-    });
-  };
+    axiosClient
+      .put(`/users/${user.id}`, update, config)
+      .then((response) => {
+        updateUser({
+          id: response.data.id,
+          username: response.data.username,
+          email: response.data.email,
+          countryCode: response.data.countryCode,
+          xp: response.data.xp,
+          isPremium: response.data.isPremium,
+          token: user.token,
+        });
 
-  if (loading) {
-    return <UserProfileSummaryPlaceholder />;
-  }
+        toast({
+          position: "bottom-right",
+          title: "User Updated",
+          description: "Successfully updated user details.",
+          status: "success",
+          duration: 9000,
+          isClosable: true,
+        });
+      })
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSubmitting(false));
+  };
 
   return (
     <UserProfileSummary
       user={user}
-      countries={sortedCountries}
-      submitCountry={submitCountry}
-      updated={updated}
-      setUpdated={setUpdated}
+      onSubmit={handleSubmit}
+      isSubmitting={isSubmitting}
+      error={error}
     />
   );
 };
 
 UserProfileSummaryContainer.propTypes = {
   user: PropTypes.object,
-  quizzes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      maxScore: PropTypes.number,
-      time: PropTypes.number,
-      mapSVG: PropTypes.string,
-      imageUrl: PropTypes.string,
-      verb: PropTypes.string,
-      apiPath: PropTypes.string,
-      route: PropTypes.string,
-      hasLeaderboard: PropTypes.bool,
-      hasGrouping: PropTypes.bool,
-      enabled: PropTypes.bool,
-    })
-  ),
 };
 
 export default UserProfileSummaryContainer;

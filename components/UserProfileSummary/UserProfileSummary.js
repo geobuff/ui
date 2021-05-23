@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-
-import { getFlagUrl } from "@geobuff/flags";
+import { Formik, Field, Form } from "formik";
 
 import {
   Box,
@@ -10,125 +9,158 @@ import {
   Input,
   Divider,
   Flex,
-  Select,
   Button,
-  useToast,
   Avatar,
+  FormErrorMessage,
+  Checkbox,
 } from "@chakra-ui/react";
 
-import UserAvatar from "../UserAvatar/UserAvatar";
+import CountrySelect from "../CountrySelect";
+import ErrorAlertBanner from "../ErrorAlertBanner";
 
-const UserProfileSummary = ({
-  user,
-  countries,
-  submitCountry,
-  updated,
-  setUpdated,
-}) => {
-  const toast = useToast();
-  const [countryCode, setCountryCode] = useState(user.countryCode);
-
-  useEffect(() => {
-    if (updated) {
-      toast({
-        position: "bottom-right",
-        title: "User Updated",
-        description: "Country code successfully updated.",
-        status: "success",
-        duration: 9000,
-        isClosable: true,
-      });
-      setUpdated(false);
-      user.countryCode = countryCode;
-    }
-  }, [updated]);
-
-  return (
-    <Box mb={6}>
-      <Box textAlign="center">
-        <Avatar
-          height="60px"
-          width="60px"
-          src={user?.picture}
-          name={user.username}
-          mt={2}
-          mb={6}
-        />
-      </Box>
-      <Divider />
-      <FormControl my={6}>
-        <FormLabel>Username</FormLabel>
-        <Input variant="filled" value={user.username} readOnly />
-      </FormControl>
-      <FormControl my={6}>
-        <FormLabel>Email</FormLabel>
-        <Input variant="filled" type="email" value={user.email} readOnly />
-      </FormControl>
-      <Flex>
-        <FormControl>
-          <FormLabel>Country</FormLabel>
-          <Select
-            value={countryCode}
-            onChange={(e) => setCountryCode(e.target.value)}
-          >
-            <option value="" disabled>
-              Please select a country...
-            </option>
-            {countries.map((x) => (
-              <option key={x.code} value={x.code}>
-                {x.svgName}
-              </option>
-            ))}
-          </Select>
-        </FormControl>
-        <Box mt="auto" mx={3}>
-          <UserAvatar
-            borderRadius={4}
-            height="40px"
-            width="40px"
-            imageUrl={getFlagUrl(countryCode)}
-          />
-        </Box>
-        <Box mt="auto">
-          <Button
-            mx={6}
-            disabled={!countryCode || countryCode === user.countryCode}
-            onClick={() => submitCountry(countryCode)}
-          >
-            {"UPDATE"}
-          </Button>
-        </Box>
-      </Flex>
+const UserProfileSummary = ({ user, onSubmit, isSubmitting, error }) => (
+  <Box mb={6}>
+    <ErrorAlertBanner error={error} />
+    <Box textAlign="center">
+      <Avatar
+        height="60px"
+        width="60px"
+        src={user?.picture}
+        name={user.username}
+        mt={2}
+        mb={6}
+      />
     </Box>
-  );
-};
+    <Divider />
+    <Formik
+      initialValues={{
+        username: user.username,
+        email: user.email,
+        countryCode: user.countryCode,
+        isPremium: user.isPremium,
+      }}
+      onSubmit={onSubmit}
+    >
+      {() => (
+        <Form>
+          <Flex marginY={6}>
+            <Field name="username">
+              {({ field }) => (
+                <FormControl>
+                  <FormLabel fontWeight="bold" htmlFor="username">
+                    {"Username"}
+                  </FormLabel>
+                  <Input
+                    {...field}
+                    id="username"
+                    autoComplete="off"
+                    type="text"
+                    size="lg"
+                    height="40px"
+                    fontSize="16px"
+                    background="#F6F6F6"
+                    borderRadius={6}
+                    _placeholder={{ color: "gray.500" }}
+                    _hover={{ background: "#e0e0e0" }}
+                    disabled
+                  />
+                </FormControl>
+              )}
+            </Field>
+          </Flex>
+
+          <Flex marginY={6}>
+            <Field name="email">
+              {({ field }) => (
+                <FormControl>
+                  <FormLabel htmlFor="email" fontWeight="bold">
+                    {"Email"}
+                  </FormLabel>
+                  <Input
+                    {...field}
+                    id="email"
+                    type="email"
+                    size="lg"
+                    height="40px"
+                    fontSize="16px"
+                    background="#F6F6F6"
+                    borderRadius={6}
+                    _placeholder={{ color: "gray.500" }}
+                    _hover={{ background: "#e0e0e0" }}
+                    disabled
+                  />
+                </FormControl>
+              )}
+            </Field>
+          </Flex>
+
+          <Flex marginY={6}>
+            <Field name="countryCode">
+              {({ field, form }) => (
+                <FormControl>
+                  <FormLabel htmlFor="countryCode" fontWeight="bold">
+                    {"Country"}
+                  </FormLabel>
+                  <CountrySelect fieldProps={field} />
+                  <Box position="absolute" top="68px" left="2px">
+                    <FormErrorMessage fontSize="11px">
+                      {form.errors.countryCode}
+                    </FormErrorMessage>
+                  </Box>
+                </FormControl>
+              )}
+            </Field>
+          </Flex>
+
+          <Flex marginY={6}>
+            <Field name="isPremium">
+              {({ field }) => (
+                <FormControl>
+                  <Checkbox {...field} id="isPremium" size="lg" isDisabled>
+                    {"Premium"}
+                  </Checkbox>
+                </FormControl>
+              )}
+            </Field>
+          </Flex>
+
+          <Flex marginTop="44px" marginBottom={0}>
+            <Button
+              size="lg"
+              colorScheme="green"
+              width="100%"
+              type="submit"
+              isLoading={isSubmitting}
+            >
+              {"Update"}
+            </Button>
+          </Flex>
+        </Form>
+      )}
+    </Formik>
+  </Box>
+);
 
 UserProfileSummary.propTypes = {
   user: PropTypes.shape({
     id: PropTypes.number,
     username: PropTypes.string,
+    email: PropTypes.string,
     countryCode: PropTypes.string,
     xp: PropTypes.number,
-    email: PropTypes.string,
+    isPremium: PropTypes.bool,
     picture: PropTypes.string,
   }),
-  countries: PropTypes.arrayOf(
-    PropTypes.shape({
-      svgName: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
-  submitCountry: PropTypes.func,
-  updated: PropTypes.bool,
-  setUpdated: PropTypes.func,
+  onSubmit: PropTypes.func,
+  isSubmitting: PropTypes.bool,
+  error: PropTypes.string,
 };
 
 UserProfileSummary.defaultProps = {
   user: {},
-  countries: [],
-  submitCountry: () => {},
-  updated: false,
-  setUpdated: () => {},
+  onSubmit: () => {},
+  isSubmitting: false,
+  error: "",
 };
 
 export default UserProfileSummary;
