@@ -45,6 +45,7 @@ const GameOverModalContainer = ({
       return;
     }
 
+    axiosClient.put(`/plays/${quiz.id}`);
     if (!user || score === 0) {
       setLoading(false);
       return;
