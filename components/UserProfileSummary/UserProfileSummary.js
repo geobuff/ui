@@ -18,7 +18,13 @@ import {
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 
-const UserProfileSummary = ({ user, onSubmit, isSubmitting, error }) => (
+const UserProfileSummary = ({
+  user,
+  onSubmit,
+  isSubmitting,
+  error,
+  createCheckoutSession,
+}) => (
   <Box mb={6}>
     <ErrorAlertBanner error={error} />
     <Box textAlign="center">
@@ -114,14 +120,23 @@ const UserProfileSummary = ({ user, onSubmit, isSubmitting, error }) => (
 
           <Flex marginY={6}>
             <Field name="isPremium">
-              {({ field }) => (
+              {({ field, form }) => (
                 <FormControl>
-                  <Checkbox {...field} id="isPremium" size="lg" isDisabled>
+                  <Checkbox
+                    {...field}
+                    id="isPremium"
+                    size="lg"
+                    isChecked={form.values.isPremium}
+                    isDisabled
+                  >
                     {"Premium"}
                   </Checkbox>
                 </FormControl>
               )}
             </Field>
+            {!user.isPremium && (
+              <Button onClick={createCheckoutSession}>Upgrade</Button>
+            )}
           </Flex>
 
           <Flex marginTop="44px" marginBottom={0}>
@@ -154,6 +169,7 @@ UserProfileSummary.propTypes = {
   onSubmit: PropTypes.func,
   isSubmitting: PropTypes.bool,
   error: PropTypes.string,
+  createCheckoutSession: PropTypes.func,
 };
 
 UserProfileSummary.defaultProps = {
@@ -161,6 +177,7 @@ UserProfileSummary.defaultProps = {
   onSubmit: () => {},
   isSubmitting: false,
   error: "",
+  createCheckoutSession: () => {},
 };
 
 export default UserProfileSummary;

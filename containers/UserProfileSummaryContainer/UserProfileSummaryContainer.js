@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useToast } from "@chakra-ui/react";
+import { useStripe } from "@stripe/react-stripe-js";
 
 import UserProfileSummary from "../../components/UserProfileSummary";
 import axiosClient from "../../axios/axiosClient";
@@ -8,6 +9,7 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 
 const UserProfileSummaryContainer = ({ user }) => {
   const toast = useToast();
+  const stripe = useStripe();
 
   const { updateUser } = useCurrentUser();
 
@@ -62,12 +64,27 @@ const UserProfileSummaryContainer = ({ user }) => {
       .finally(() => setIsSubmitting(false));
   };
 
+  const createCheckoutSession = () => {
+    const payload = {
+      priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
+    };
+
+    axiosClient
+      .post("/subscription/create-checkout-session", payload)
+      .then((response) => {
+        stripe.redirectToCheckout({
+          sessionId: response.data.sessionId,
+        });
+      });
+  };
+
   return (
     <UserProfileSummary
       user={user}
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
       error={error}
+      createCheckoutSession={createCheckoutSession}
     />
   );
 };
