@@ -203,6 +203,10 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
     setInputValue("");
   };
 
+  if (shouldDisplayOnMobile === undefined) {
+    return null;
+  }
+
   return (
     <Box
       width="100%"

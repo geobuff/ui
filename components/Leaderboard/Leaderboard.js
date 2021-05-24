@@ -55,6 +55,10 @@ const Leaderboard = ({ quizId, quizzes }) => {
     setFilterParams({ ...filterParams, page: filterParams.page - 1 });
   };
 
+  if (shouldRenderOnMobile === undefined) {
+    return null;
+  }
+
   return (
     <MainView>
       <Head>
