@@ -93,7 +93,7 @@ const stripedVariant = (props) => {
           },
         },
         td: {
-          "&:nth-child(1)": {
+          "&:nth-of-type(1)": {
             borderTopLeftRadius: 8,
             borderBottomLeftRadius: 8,
           },
