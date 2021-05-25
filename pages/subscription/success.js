@@ -11,8 +11,10 @@ const Success = () => {
 
   useEffect(() => {
     if (!isUserLoading && user) {
+      const sessionId = router.query.session_id;
       const payload = {
         userId: user.id,
+        sessionId: sessionId,
       };
 
       const config = {
@@ -25,11 +27,12 @@ const Success = () => {
         updateUser({
           ...user,
           isPremium: true,
+          stripeSessionId: sessionId,
         });
         router.push("/profile");
       });
     }
-  }, [router, user, isUserLoading]);
+  }, [router, user, isUserLoading, updateUser]);
 
   return (
     <Text m={3}>

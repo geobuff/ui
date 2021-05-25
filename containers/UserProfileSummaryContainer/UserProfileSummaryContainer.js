@@ -78,6 +78,16 @@ const UserProfileSummaryContainer = ({ user }) => {
       });
   };
 
+  const manageSubscription = () => {
+    const payload = {
+      sessionId: user.stripeSessionId,
+    };
+
+    axiosClient.post("/subscription/manage", payload).then((response) => {
+      window.location.href = response.data.url;
+    });
+  };
+
   return (
     <UserProfileSummary
       user={user}
@@ -85,6 +95,7 @@ const UserProfileSummaryContainer = ({ user }) => {
       isSubmitting={isSubmitting}
       error={error}
       createCheckoutSession={createCheckoutSession}
+      manageSubscription={manageSubscription}
     />
   );
 };

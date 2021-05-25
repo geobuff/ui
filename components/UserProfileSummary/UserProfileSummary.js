@@ -24,6 +24,7 @@ const UserProfileSummary = ({
   isSubmitting,
   error,
   createCheckoutSession,
+  manageSubscription,
 }) => (
   <Box mb={6}>
     <ErrorAlertBanner error={error} />
@@ -134,8 +135,10 @@ const UserProfileSummary = ({
                 </FormControl>
               )}
             </Field>
-            {!user.isPremium && (
+            {!user.isPremium ? (
               <Button onClick={createCheckoutSession}>Upgrade</Button>
+            ) : (
+              <Button onClick={manageSubscription}>Manage Subscription</Button>
             )}
           </Flex>
 
@@ -170,6 +173,7 @@ UserProfileSummary.propTypes = {
   isSubmitting: PropTypes.bool,
   error: PropTypes.string,
   createCheckoutSession: PropTypes.func,
+  manageSubscription: PropTypes.func,
 };
 
 UserProfileSummary.defaultProps = {
@@ -178,6 +182,7 @@ UserProfileSummary.defaultProps = {
   isSubmitting: false,
   error: "",
   createCheckoutSession: () => {},
+  manageSubscription: () => {},
 };
 
 export default UserProfileSummary;
