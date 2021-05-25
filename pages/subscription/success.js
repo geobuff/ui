@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { Text } from "@chakra-ui/react";
 
@@ -8,6 +8,8 @@ import axiosClient from "../../axios/axiosClient";
 const Success = () => {
   const router = useRouter();
   const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
+
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (!isUserLoading && user) {
@@ -24,6 +26,7 @@ const Success = () => {
       };
 
       axiosClient.post("/subscription/premium", payload, config).then(() => {
+        setIsLoading(false);
         updateUser({
           ...user,
           isPremium: true,
@@ -34,11 +37,11 @@ const Success = () => {
     }
   }, [router, user, isUserLoading, updateUser]);
 
-  return (
-    <Text m={3}>
-      Successfully updated subscription. Redirecting back to profile...
-    </Text>
-  );
+  if (isLoading) {
+    return <Text m={3}>Updating subscription...</Text>;
+  }
+
+  return <Text m={3}>Redirecting back to profile...</Text>;
 };
 
 export default Success;

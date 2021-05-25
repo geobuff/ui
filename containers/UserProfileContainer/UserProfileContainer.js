@@ -3,24 +3,22 @@ import { useRouter } from "next/router";
 
 import UserProfile from "../../components/UserProfile";
 import useCurrentUser from "../../hooks/UseCurrentUser";
-import useQuizzes from "../../hooks/UseQuizzes";
 
 const UserProfileContainer = () => {
   const router = useRouter();
-  const { user, isLoading: isLoadingUser } = useCurrentUser();
-  const { quizzes } = useQuizzes();
+  const { user, isLoading: isUserLoading } = useCurrentUser();
 
   useEffect(() => {
-    if (!isLoadingUser && !user) {
+    if (!isUserLoading && !user) {
       router.push("/login");
     }
-  }, [isLoadingUser, user, router]);
+  }, [isUserLoading, user, router]);
 
-  if (!user || !quizzes) {
+  if (!user) {
     return null;
   }
 
-  return <UserProfile user={user} quizzes={quizzes} />;
+  return <UserProfile user={user} />;
 };
 
 export default UserProfileContainer;

@@ -138,7 +138,7 @@ const UserProfileSummary = ({
             {!user.isPremium ? (
               <Button onClick={createCheckoutSession}>Upgrade</Button>
             ) : (
-              <Button onClick={manageSubscription}>Manage Subscription</Button>
+              <Button onClick={manageSubscription}>Manage</Button>
             )}
           </Flex>
 

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { useToast } from "@chakra-ui/react";
 import { useStripe } from "@stripe/react-stripe-js";
 
@@ -7,25 +6,25 @@ import UserProfileSummary from "../../components/UserProfileSummary";
 import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-const UserProfileSummaryContainer = ({ user }) => {
+const UserProfileSummaryContainer = () => {
   const toast = useToast();
   const stripe = useStripe();
 
-  const { updateUser } = useCurrentUser();
+  const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
 
   const [config, setConfig] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    if (user) {
+    if (!isUserLoading && user) {
       setConfig({
         headers: {
           Authorization: `Bearer ${user.token}`,
         },
       });
     }
-  }, [user]);
+  }, [isUserLoading, user]);
 
   const handleSubmit = (values) => {
     setIsSubmitting(true);
@@ -98,10 +97,6 @@ const UserProfileSummaryContainer = ({ user }) => {
       manageSubscription={manageSubscription}
     />
   );
-};
-
-UserProfileSummaryContainer.propTypes = {
-  user: PropTypes.object,
 };
 
 export default UserProfileSummaryContainer;

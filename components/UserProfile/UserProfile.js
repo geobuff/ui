@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Flex, Divider } from "@chakra-ui/react";
+
 import UserProfileScoresContainer from "../../containers/UserProfileScoresContainer";
 import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer";
 import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
@@ -8,7 +9,7 @@ import UserProfileAchievementsContainer from "../../containers/UserProfileAchiev
 
 const divider = <Divider my={3} />;
 
-const UserProfile = ({ user, quizzes }) => (
+const UserProfile = ({ user }) => (
   <Flex
     direction="column"
     borderRadius={12}
@@ -18,7 +19,7 @@ const UserProfile = ({ user, quizzes }) => (
     marginX={{ base: 2, md: "auto" }}
     marginTop={4}
   >
-    <UserProfileSummaryContainer user={user} quizzes={quizzes} />
+    <UserProfileSummaryContainer />
     {divider}
     <UserProfileAchievementsContainer user={user} />
     {divider}
@@ -37,22 +38,6 @@ UserProfile.propTypes = {
     email: PropTypes.string,
     picture: PropTypes.string,
   }),
-  quizzes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      maxScore: PropTypes.number,
-      time: PropTypes.number,
-      mapSVG: PropTypes.string,
-      imageUrl: PropTypes.string,
-      verb: PropTypes.string,
-      apiPath: PropTypes.string,
-      route: PropTypes.string,
-      hasLeaderboard: PropTypes.bool,
-      hasGrouping: PropTypes.bool,
-      enabled: PropTypes.bool,
-    })
-  ),
 };
 
 export default UserProfile;
