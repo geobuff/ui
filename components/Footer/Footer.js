@@ -40,6 +40,17 @@ const extendedFooter = (
           </Text>
         </ChakraLink>
       </Link>
+      <Link href="/terms-of-service">
+        <ChakraLink marginLeft={4}>
+          <Text
+            color="gray.600"
+            fontSize={{ base: "11px", md: "14px" }}
+            fontWeight="bold"
+          >
+            {"Terms of Service"}
+          </Text>
+        </ChakraLink>
+      </Link>
       <Spacer />
       <Text color="gray.500" fontSize={{ base: "11px", md: "14px" }}>
         {"© 2021 GeoBuff. All rights reserved."}
