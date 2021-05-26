@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputRightElement,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
@@ -36,6 +37,40 @@ const GameInputBanner = ({
     inputRef.current.focus();
   };
 
+  const scoreLabel = `${score} of ${quiz.maxScore} ${quiz.verb}`;
+
+  const scoreNode = (
+    <>
+      {scoreLabel?.length > 23 ? (
+        <Tooltip label={quiz.verb}>
+          <Text
+            color="white"
+            fontSize="12px"
+            fontWeight={700}
+            minWidth="125px"
+            maxWidth="140px"
+            width="100%"
+            isTruncated
+          >
+            {scoreLabel}
+          </Text>
+        </Tooltip>
+      ) : (
+        <Text
+          color="white"
+          fontSize="12px"
+          fontWeight={700}
+          minWidth="125px"
+          maxWidth="140px"
+          width="100%"
+          isTruncated
+        >
+          {scoreLabel}
+        </Text>
+      )}
+    </>
+  );
+
   return (
     <>
       <Flex
@@ -53,16 +88,9 @@ const GameInputBanner = ({
             hasGameStopped={hasGameStopped}
             totalSeconds={quiz.time}
           />
-          <Text
-            color="white"
-            fontSize="12px"
-            fontWeight={700}
-            minWidth="125px"
-            width="100%"
-          >
-            {`${score} of ${quiz.maxScore} ${quiz.verb}`}
-          </Text>
+          {scoreNode}
         </Box>
+
         <InputGroup>
           <Input
             ref={inputRef}
