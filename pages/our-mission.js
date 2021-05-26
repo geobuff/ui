@@ -40,7 +40,7 @@ const OurMission = () => (
               textAlign="center"
               mx="auto"
             >
-              Build something that makes it easier for people to learn the
+              Create something that makes it easier for people to learn the
               countries and flags of the world
             </Text>
           </Box>
@@ -63,7 +63,7 @@ const OurMission = () => (
               textAlign="center"
               mx="auto"
             >
-              Build open source{" "}
+              Share open source{" "}
               <Link href="https://github.com/geobuff/maps" color="teal.500">
                 map
               </Link>
