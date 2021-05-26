@@ -12,13 +12,13 @@ import {
 import MainView from "../components/MainView";
 import HeroHeader from "../components/HeroHeader";
 
-const TermsOfService = () => (
+const PrivacyPolicy = () => (
   <MainView>
     <Head>
-      <title>Terms of Service - GeoBuff</title>
+      <title>Privacy Policy - GeoBuff</title>
     </Head>
     <Box>
-      <HeroHeader heading="Terms of Service" />
+      <HeroHeader heading="Privacy Policy" />
       <Box background="white">
         <Box
           maxWidth={{ base: "80%", md: "50%" }}
@@ -99,4 +99,4 @@ const TermsOfService = () => (
   </MainView>
 );
 
-export default TermsOfService;
+export default PrivacyPolicy;

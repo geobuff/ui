@@ -33,6 +33,7 @@ const LoginContainer = () => {
           countryCode: decoded["countryCode"],
           xp: decoded["xp"],
           isPremium: decoded["isPremium"],
+          stripeSessionId: decoded["stripeSessionId"],
           token: response.data,
         });
 

@@ -1,37 +1,38 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Link, Image, Box, Heading, Text } from "@chakra-ui/react";
+import { Link, Image, Box, Text } from "@chakra-ui/react";
 
-import User from "../../Icons/User";
-import LocationMarker from "../../Icons/LocationMarker";
-
-const TeamMemberCard = ({ title, position, location, imageUrl, link }) => (
-  <Link
-    href={link}
-    borderRadius={12}
-    boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
-    transition="all 150ms ease-out"
-    _hover={{ transform: "scale(1.030)" }}
-  >
-    <Image src={imageUrl} borderTopLeftRadius={12} borderTopRightRadius={12} />
-    <Box p={6}>
-      <Heading size="md" mb={2}>
-        {title}
-      </Heading>
-      <Text>
-        <User mr={1} /> {position}
-      </Text>
-      <Text>
-        <LocationMarker mr={1} /> {location}
-      </Text>
+const TeamMemberCard = ({ title, position, city, country, imageUrl, link }) => (
+  <Box textAlign="center">
+    <Link href={link}>
+      <Image
+        src={imageUrl}
+        height="160px"
+        width="160px"
+        borderRadius="100%"
+        mx="auto"
+      />
+    </Link>
+    <Box>
+      <Box fontSize="16px" lineHeight="19px" mb={3}>
+        <Text fontWeight="bold" mt={6}>
+          {title}
+        </Text>
+        <Text mb={1}>{position}</Text>
+      </Box>
+      <Box color="#737373" fontSize="12px" lineHeight="14px">
+        <Text>{city},</Text>
+        <Text>{country}</Text>
+      </Box>
     </Box>
-  </Link>
+  </Box>
 );
 
 TeamMemberCard.propTypes = {
   title: PropTypes.string,
   position: PropTypes.string,
-  location: PropTypes.string,
+  city: PropTypes.string,
+  country: PropTypes.string,
   imageUrl: PropTypes.string,
   link: PropTypes.string,
 };

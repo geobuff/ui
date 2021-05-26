@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 
 import {
@@ -75,6 +75,17 @@ const NavigationBar = () => {
   const { user } = useCurrentUser();
 
   const [isOpen, setOpen] = useState(false);
+  const [zIndex, setZIndex] = useState(1);
+
+  useEffect(() => {
+    if (isOpen) {
+      setZIndex(9999);
+    } else {
+      setTimeout(() => {
+        setZIndex(1);
+      }, 200);
+    }
+  }, [isOpen]);
 
   const getViewLayout = () => {
     if (isMobile === undefined) {
@@ -111,7 +122,7 @@ const NavigationBar = () => {
         top={0}
         left={0}
         width="100%"
-        zIndex={9999}
+        zIndex={zIndex}
         minHeight="56px"
       >
         {getViewLayout()}

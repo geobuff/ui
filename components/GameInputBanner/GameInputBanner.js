@@ -96,6 +96,7 @@ const GameInputBanner = ({
         px={3}
         py={2}
         zIndex={10}
+        position="relative"
       >
         {scoreNode}
 
