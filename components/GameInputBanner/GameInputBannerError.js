@@ -12,6 +12,7 @@ const GameInputBannerError = ({ errorMessage }) => {
         position: "absolute",
         left: 0,
         right: 0,
+        zIndex: 1,
       }}
     >
       <Box p={1} backgroundColor="red.500" color="white">

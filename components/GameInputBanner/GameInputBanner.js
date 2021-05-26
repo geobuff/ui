@@ -44,6 +44,7 @@ const GameInputBanner = ({
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
         px={3}
         py={2}
+        position="relative"
         zIndex={10}
       >
         <Box textAlign="center" mr={3}>

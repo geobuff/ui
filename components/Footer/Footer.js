@@ -51,6 +51,17 @@ const extendedFooter = (
           </Text>
         </ChakraLink>
       </Link>
+      <Link href="/privacy-policy">
+        <ChakraLink marginLeft={4}>
+          <Text
+            color="gray.600"
+            fontSize={{ base: "11px", md: "14px" }}
+            fontWeight="bold"
+          >
+            {"Privacy Policy"}
+          </Text>
+        </ChakraLink>
+      </Link>
       <Link href="/merch">
         <ChakraLink marginLeft={4}>
           <Text
