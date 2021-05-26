@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useToast } from "@chakra-ui/react";
+import { useBreakpointValue, useToast } from "@chakra-ui/react";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import GameOverModal from "../../components/GameOverModal";
@@ -19,6 +19,8 @@ const GameOverModalContainer = ({
 }) => {
   const toast = useToast();
   const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
+
+  const toastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
 
   const [config, setConfig] = useState(null);
   const [entry, setEntry] = useState();
@@ -74,7 +76,7 @@ const GameOverModalContainer = ({
 
     axiosClient.put(`/users/${user.id}`, update, config).then(() => {
       toast({
-        position: "bottom-right",
+        position: toastPosition,
         description: `+${increase} XP`,
         status: "info",
         duration: 9000,
@@ -84,7 +86,7 @@ const GameOverModalContainer = ({
       const newLevel = getLevel(update.xp);
       if (newLevel > getLevel(user.xp)) {
         toast({
-          position: "bottom-right",
+          position: toastPosition,
           title: "Congratulations!",
           description: `You've reached level ${newLevel}.`,
           status: "info",
@@ -143,7 +145,7 @@ const GameOverModalContainer = ({
 
   const scoreSubmittedToast = () => {
     toast({
-      position: "bottom-right",
+      position: toastPosition,
       title: "Score Submitted",
       description: "We've updated your high score for you.",
       status: "success",
@@ -208,7 +210,7 @@ const GameOverModalContainer = ({
 
   const entrySubmitted = () => {
     toast({
-      position: "bottom-right",
+      position: toastPosition,
       title: "Leaderboard Entry Submitted",
       description: "Your leaderboard entry was submitted successfully.",
       status: "success",
