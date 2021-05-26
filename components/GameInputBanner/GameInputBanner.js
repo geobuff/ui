@@ -43,6 +43,34 @@ const GameInputBanner = ({
     <>
       {scoreLabel?.length > 23 ? (
         <Tooltip label={quiz.verb}>
+          <Box textAlign="center" mr={3}>
+            <GameInputBannerTimer
+              expiryTimestamp={expiryTimestamp}
+              hasGameStarted={hasGameStarted}
+              hasGameStopped={hasGameStopped}
+              totalSeconds={quiz.time}
+            />
+            <Text
+              color="white"
+              fontSize="12px"
+              fontWeight={700}
+              minWidth="125px"
+              maxWidth="140px"
+              width="100%"
+              isTruncated
+            >
+              {scoreLabel}
+            </Text>
+          </Box>
+        </Tooltip>
+      ) : (
+        <Box textAlign="center" mr={3}>
+          <GameInputBannerTimer
+            expiryTimestamp={expiryTimestamp}
+            hasGameStarted={hasGameStarted}
+            hasGameStopped={hasGameStopped}
+            totalSeconds={quiz.time}
+          />
           <Text
             color="white"
             fontSize="12px"
@@ -54,19 +82,7 @@ const GameInputBanner = ({
           >
             {scoreLabel}
           </Text>
-        </Tooltip>
-      ) : (
-        <Text
-          color="white"
-          fontSize="12px"
-          fontWeight={700}
-          minWidth="125px"
-          maxWidth="140px"
-          width="100%"
-          isTruncated
-        >
-          {scoreLabel}
-        </Text>
+        </Box>
       )}
     </>
   );
@@ -81,15 +97,7 @@ const GameInputBanner = ({
         py={2}
         zIndex={10}
       >
-        <Box textAlign="center" mr={3}>
-          <GameInputBannerTimer
-            expiryTimestamp={expiryTimestamp}
-            hasGameStarted={hasGameStarted}
-            hasGameStopped={hasGameStopped}
-            totalSeconds={quiz.time}
-          />
-          {scoreNode}
-        </Box>
+        {scoreNode}
 
         <InputGroup>
           <Input
