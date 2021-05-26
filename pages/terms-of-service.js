@@ -2,8 +2,6 @@ import React from "react";
 import Head from "next/head";
 import {
   Box,
-  Flex,
-  Fade,
   Text,
   Heading,
   Divider,
@@ -12,6 +10,7 @@ import {
 } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
+import HeroHeader from "../components/HeroHeader";
 
 const TermsOfService = () => (
   <MainView>
@@ -19,42 +18,14 @@ const TermsOfService = () => (
       <title>Terms of Service - GeoBuff</title>
     </Head>
     <Box>
-      <Box
-        role="banner"
-        background="linear-gradient(90deg, #27AE60 0%, #219250 100%)"
-        height={{ base: "130px", md: "200px" }}
-        width="100%"
-      >
-        <Box
-          height="100%"
-          background={"url(/world-map.svg)"}
-          backgroundRepeat="no-repeat"
-          backgroundSize={{ base: "600px 300px", md: "1200px 475px" }}
-          backgroundPosition="center top 2px"
-        >
-          <Flex
-            direction="column"
-            padding={[3, 6, 12]}
-            height="100%"
-            justifyContent="center"
-            alignItems="center"
-            textAlign="center"
-          >
-            <Fade in>
-              <Text
-                color="white"
-                fontSize={["38px", "42px", "56px"]}
-                fontWeight="black"
-                lineHeight={{ base: "1.1", md: "1" }}
-              >
-                {"Terms of Service"}
-              </Text>
-            </Fade>
-          </Flex>
-        </Box>
-      </Box>
+      <HeroHeader heading="Terms of Service" />
       <Box background="white">
-        <Box maxWidth={{ base: "90%", md: "50%" }} mx="auto" py={12}>
+        <Box
+          maxWidth={{ base: "80%", md: "50%" }}
+          mx="auto"
+          py={12}
+          fontSize={{ base: "12px", md: "inherit" }}
+        >
           <Heading mb={3} textAlign="center" size="lg">
             Nemtatiuntus coratiosam
           </Heading>
