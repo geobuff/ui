@@ -28,7 +28,7 @@ const ManageRedirect = () => {
           });
         }
 
-        router.push("/profile");
+        setTimeout(() => router.push("/profile"), 50);
       });
     }
   }, [router, user, isUserLoading, updateUser]);
