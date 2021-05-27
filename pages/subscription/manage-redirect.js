@@ -19,7 +19,7 @@ const ManageRedirect = () => {
         },
       };
 
-      axiosClient.post(`/users/${user.id}`, config).then((response) => {
+      axiosClient.get(`/users/${user.id}`, config).then((response) => {
         setIsLoading(false);
         if (user.isPremium && !response.data.isPremium) {
           updateUser({
