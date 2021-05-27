@@ -17,6 +17,7 @@ const QuizList = ({ quizzes }) => (
     width={{ base: "95%", sm: "80%", md: "65%" }}
     maxWidth="1200px"
     marginTop="32px"
+    marginBottom={10}
     marginLeft="auto"
     marginRight="auto"
     _hover={{

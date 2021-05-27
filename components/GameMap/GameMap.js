@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Box, Tooltip } from "@chakra-ui/react";
+import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
 
 import MapInteractionCSS from "../MapInteractionCSS";
 
 const GameMap = ({ showTooltip, map, onLocationClassName }) => {
-  const [tooltipText, setTooltipText] = useState();
+  const [tooltipText, setTooltipText] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [tooltipTop, setTooltipTop] = useState(0);
   const [tooltipLeft, setTooltipLeft] = useState(0);
+
+  const shouldRenderTooltip = useBreakpointValue({ base: false, md: true });
 
   const mouseOver = (event) => {
     if (!showTooltip) return;
@@ -32,13 +34,26 @@ const GameMap = ({ showTooltip, map, onLocationClassName }) => {
   return (
     <Box width="100%">
       <Box textAlign="center" height="100%">
-        <Tooltip
-          label={tooltipText}
-          position="absolute"
-          top={tooltipTop}
-          left={tooltipLeft}
-          isOpen={tooltipOpen}
-        >
+        {shouldRenderTooltip ? (
+          <Tooltip
+            label={tooltipText}
+            position="absolute"
+            top={tooltipTop}
+            left={tooltipLeft}
+            isOpen={tooltipOpen}
+          >
+            <MapInteractionCSS>
+              <SVGMap
+                map={map}
+                className="quiz-map"
+                locationClassName={onLocationClassName}
+                onLocationMouseOver={mouseOver}
+                onLocationMouseMove={mouseMove}
+                onLocationMouseOut={mouseOut}
+              />
+            </MapInteractionCSS>
+          </Tooltip>
+        ) : (
           <MapInteractionCSS>
             <SVGMap
               map={map}
@@ -49,7 +64,7 @@ const GameMap = ({ showTooltip, map, onLocationClassName }) => {
               onLocationMouseOut={mouseOut}
             />
           </MapInteractionCSS>
-        </Tooltip>
+        )}
       </Box>
     </Box>
   );
