@@ -10,7 +10,7 @@ const Merch = () => (
     <Head>
       <title>Merch - GeoBuff</title>
     </Head>
-    <Box>
+    <Box marginBottom={10}>
       <HeroHeader heading="Merch" />
       <Box maxWidth={{ base: "80%", md: "50%" }} mt={6} mx="auto">
         <Image src="/merch-placeholder.png" borderRadius={12} />

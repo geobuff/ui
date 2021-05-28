@@ -144,7 +144,10 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
   const handleChange = (event) => {
     setInputValue(event.target.value);
-    handleChangeDebounced(event);
+
+    if (event.target.value?.length >= 2) {
+      handleChangeDebounced(event);
+    }
   };
 
   const handleChangeDebounced = debounce(30, (event) => checkSubmission(event));
