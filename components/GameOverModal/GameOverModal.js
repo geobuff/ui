@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 
@@ -6,35 +6,27 @@ import {
   Box,
   Button,
   Divider,
-  Fade,
   Flex,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalOverlay,
   Text,
   Tooltip,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
-import GameExistingEntry from "../GameExistingEntry";
+import { secondsToMinutesString } from "../../helpers/time";
+import axiosClient from "../../axios/axiosClient";
+
+import Modal from "../Modal";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
-import { secondsToMinutesString } from "../../helpers/time";
-import axiosClient from "../../axios/axiosClient";
+import GameOverModalExplainerText from "./GameOverModalExplainerText";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
 const explainerCloseModal =
   "Feel free to close this modal to view the map and your results. Don’t worry, you’ll still be able to submit your score afterwards!";
-const explainerScoreQuizLoggedIn =
-  "If this score is greater than your existing score, we will update it behind the scenes.";
-const explainerNoExistingEntry =
-  "No existing entry for this quiz. By clicking submit you will create a new leaderboard entry.";
-const explainerExistingEntry =
-  "You have an existing entry for this quiz. By clicking submit you will update your existing entry.";
 
+// TODO: rename loggedIn to isLoggedIn
 const GameOverModal = ({
   quiz,
   score,
@@ -47,31 +39,7 @@ const GameOverModal = ({
   submitting,
 }) => {
   const router = useRouter();
-
-  const [shouldAnimate, setShouldAnimate] = useState(false);
-  const [isOpenDelayed, setIsOpenDelayed] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => {
-      setShouldAnimate(isOpen);
-    }, 200);
-  }, [isOpen]);
-
-  useEffect(() => {
-    if (!isOpen) {
-      setTimeout(() => {
-        setIsOpenDelayed(false);
-      }, 1000);
-    } else {
-      setIsOpenDelayed(true);
-    }
-  }, [isOpen]);
-
-  const scoreQuizNotLoggedIn = !onSubmit && !loggedIn;
-  const scoreQuizLoggedIn = !onSubmit && loggedIn;
-  const leaderboardQuizNotLoggedIn = onSubmit && !loggedIn;
-  const noExistingEntry = onSubmit && loggedIn && !existingEntry;
-  const shouldShowExistingEntry = onSubmit && loggedIn && existingEntry;
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const redirectWithScore = (pathname) => {
     const tempScore = { score, time };
@@ -88,24 +56,22 @@ const GameOverModal = ({
     });
   };
 
-  return (
-    // <Modal isOpen={isOpen} onClose={onClose}>
-    //   <ModalOverlay />
+  if (isMobile === undefined) {
+    return null;
+  }
 
-    //   <ModalContent borderRadius="12px">
-    //     <ModalBody padding={0}>
-    <Box
-      display={!isOpenDelayed ? "none" : "inherit"}
-      backgroundColor="white"
-      position="fixed"
-      top={0}
-      left={0}
-      right={0}
-      bottom={0}
-      zIndex={1000}
-      opacity={shouldAnimate ? 1 : 0}
-      transition="all 250ms ease-in-out"
+  const footer = (
+    <Button
+      colorScheme="green"
+      onClick={() => onSubmit(existingEntry)}
+      disabled={!loggedIn || submitting}
     >
+      {"Submit"}
+    </Button>
+  );
+
+  return (
+    <Modal isOpen={isOpen} onClose={onClose} footer={footer}>
       <Button
         alignItems="center"
         backgroundColor="transparent"
@@ -190,126 +156,13 @@ const GameOverModal = ({
 
         {divider}
 
-        {scoreQuizNotLoggedIn && (
-          <Box>
-            <Text
-              color="#828282"
-              fontSize="12px"
-              fontWeight="medium"
-              textAlign="center"
-            >
-              You must{" "}
-              <Button
-                variant="link"
-                onClick={() => redirectWithScore("/login")}
-                fontSize="12px"
-                minWidth="0"
-              >
-                login
-              </Button>{" "}
-              or{" "}
-              <Button
-                variant="link"
-                onClick={() => redirectWithScore("/register")}
-                fontSize="12px"
-                minWidth="0"
-              >
-                register
-              </Button>{" "}
-              to update your high score.
-            </Text>
-          </Box>
-        )}
-
-        {leaderboardQuizNotLoggedIn && (
-          <Box>
-            <Text
-              color="#828282"
-              fontSize="12px"
-              fontWeight="medium"
-              textAlign="center"
-            >
-              You must{" "}
-              <Button
-                variant="link"
-                onClick={() => redirectWithScore("/login")}
-                fontSize="12px"
-                minWidth="0"
-              >
-                login
-              </Button>{" "}
-              or{" "}
-              <Button
-                variant="link"
-                onClick={() => redirectWithScore("/register")}
-                fontSize="12px"
-                minWidth="0"
-              >
-                register
-              </Button>{" "}
-              to submit a leaderboard entry.
-            </Text>
-          </Box>
-        )}
-
-        {scoreQuizLoggedIn && (
-          <Box>
-            <Text
-              color="#828282"
-              fontSize="12px"
-              fontWeight="medium"
-              textAlign="center"
-            >
-              {explainerScoreQuizLoggedIn}
-            </Text>
-          </Box>
-        )}
-
-        {noExistingEntry && (
-          <Box>
-            <Text
-              color="#828282"
-              fontSize="12px"
-              fontWeight="medium"
-              textAlign="center"
-            >
-              {explainerNoExistingEntry}
-            </Text>
-          </Box>
-        )}
-
-        {shouldShowExistingEntry && (
-          <Box>
-            <Text color="#828282" fontSize="12px" fontWeight="bold">
-              {"Existing Entry"}
-            </Text>
-            <Box marginY={2}>
-              <GameExistingEntry {...existingEntry} />
-            </Box>
-            <Text color="#828282" fontSize="12px" fontWeight="medium">
-              {explainerExistingEntry}
-            </Text>
-          </Box>
-        )}
+        <GameOverModalExplainerText
+          isLoggedIn={loggedIn}
+          onSubmit={onSubmit}
+          existingEntry={existingEntry}
+        />
       </Box>
-      {/* </ModalBody> */}
-
-      <Box marginBottom={1}>
-        {/* <ModalFooter marginBottom={1}> */}
-        {onSubmit && (
-          <Button
-            colorScheme="green"
-            onClick={() => onSubmit(existingEntry)}
-            disabled={!loggedIn || submitting}
-          >
-            {"Submit"}
-          </Button>
-        )}
-      </Box>
-      {/* </ModalFooter> */}
-      {/* //   </ModalContent> */}
-      {/* </Modal> */}
-    </Box>
+    </Modal>
   );
 };
 
