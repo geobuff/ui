@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { MapInteraction } from "react-map-interaction";
 
-import { Box } from "@chakra-ui/react";
+import { Box, Button } from "@chakra-ui/react";
 
 const MapInteractionCSS = (props) => (
   <Box
@@ -12,7 +12,13 @@ const MapInteractionCSS = (props) => (
     bottom={0}
     right={0}
   >
-    <MapInteraction {...props}>
+    <MapInteraction
+      showControls
+      btnClass="quiz-map-controls"
+      plusBtnContents={<Button>{"+"}</Button>}
+      minusBtnContents={<Button>{"-"}</Button>}
+      {...props}
+    >
       {({ translation, scale }) => {
         const transform = `translate(${translation.x}px, ${translation.y}px) scale(${scale})`;
 
