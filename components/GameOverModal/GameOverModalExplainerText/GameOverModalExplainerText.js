@@ -30,12 +30,14 @@ const GameOverModalExplainerText = ({
   isLoggedIn,
   existingEntry,
 }) => {
+  // TODO: rename values for boolean naming
   const scoreQuizNotLoggedIn = !onSubmit && !isLoggedIn;
   const scoreQuizLoggedIn = !onSubmit && isLoggedIn;
   const leaderboardQuizNotLoggedIn = onSubmit && !isLoggedIn;
   const noExistingEntry = onSubmit && isLoggedIn && !existingEntry;
   const shouldShowExistingEntry = onSubmit && isLoggedIn && existingEntry;
 
+  // TODO: merge this node and leaderboardQuizNotLoggedIn;
   if (scoreQuizNotLoggedIn) {
     return (
       <ExplainerText>
