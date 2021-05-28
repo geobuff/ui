@@ -22,7 +22,10 @@ import ResultsMap from "../ResultsMap";
 import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameMap from "../GameMap/GameMap";
+
 import SolidChevronUp from "../../Icons/SolidChevronUp";
+import SolidChevronDown from "../../Icons/SolidChevronDown";
+
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import axiosClient from "../../axios/axiosClient";
 
@@ -311,12 +314,29 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           />
         )}
       </Flex>
+
       {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
-        <Box position="fixed" bottom="20px" right="20px">
-          <Button onClick={onOpen}>
-            <SolidChevronUp />
-          </Button>
-        </Box>
+        <>
+          {shouldDisplayOnMobile ? (
+            <Box position="fixed" top="142px" left="20px">
+              <Button
+                height="38px"
+                width="38px"
+                onClick={onOpen}
+                opacity="0.85"
+              >
+                <SolidChevronDown />
+              </Button>
+            </Box>
+          ) : (
+            <Box position="fixed" bottom="20px" right="20px">
+              <Button onClick={onOpen} opacity="0.85">
+                {"Game Details"}
+                <SolidChevronUp marginLeft={2} />
+              </Button>
+            </Box>
+          )}
+        </>
       )}
     </Box>
   );
