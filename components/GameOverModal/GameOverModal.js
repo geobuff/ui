@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { useRouter } from "next/router";
 
@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Divider,
+  Fade,
   Flex,
   Modal,
   ModalBody,
@@ -47,6 +48,25 @@ const GameOverModal = ({
 }) => {
   const router = useRouter();
 
+  const [shouldAnimate, setShouldAnimate] = useState(false);
+  const [isOpenDelayed, setIsOpenDelayed] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setShouldAnimate(isOpen);
+    }, 200);
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (!isOpen) {
+      setTimeout(() => {
+        setIsOpenDelayed(false);
+      }, 1000);
+    } else {
+      setIsOpenDelayed(true);
+    }
+  }, [isOpen]);
+
   const scoreQuizNotLoggedIn = !onSubmit && !loggedIn;
   const scoreQuizLoggedIn = !onSubmit && loggedIn;
   const leaderboardQuizNotLoggedIn = onSubmit && !loggedIn;
@@ -69,212 +89,227 @@ const GameOverModal = ({
   };
 
   return (
-    <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
+    // <Modal isOpen={isOpen} onClose={onClose}>
+    //   <ModalOverlay />
 
-      <ModalContent borderRadius="12px">
-        <ModalBody padding={0}>
-          <Button
-            alignItems="center"
-            backgroundColor="transparent"
-            marginTop={2}
-            marginLeft={2}
-            _hover={{
-              textDecoration: "underline",
-              cursor: "pointer",
-            }}
-            onClick={onClose}
-          >
-            <ArrowLeft height={5} width={5} marginRight={1} />
-            <Text fontWeight="bold" fontSize="14px">
-              {"View map & results"}
+    //   <ModalContent borderRadius="12px">
+    //     <ModalBody padding={0}>
+    <Box
+      display={!isOpenDelayed ? "none" : "inherit"}
+      backgroundColor="white"
+      position="fixed"
+      top={0}
+      left={0}
+      right={0}
+      bottom={0}
+      zIndex={1000}
+      opacity={shouldAnimate ? 1 : 0}
+      transition="all 250ms ease-in-out"
+    >
+      <Button
+        alignItems="center"
+        backgroundColor="transparent"
+        marginTop={2}
+        marginLeft={2}
+        _hover={{
+          textDecoration: "underline",
+          cursor: "pointer",
+        }}
+        onClick={onClose}
+      >
+        <ArrowLeft height={5} width={5} marginRight={1} />
+        <Text fontWeight="bold" fontSize="14px">
+          {"View map & results"}
+        </Text>
+        <Tooltip padding={2} label={explainerCloseModal}>
+          <Text>
+            <SolidQuestionMarkCircle
+              height={3}
+              width={3}
+              marginLeft={1}
+              marginBottom="2px"
+              color="gray.600"
+            />
+          </Text>
+        </Tooltip>
+      </Button>
+
+      <Box paddingY={10} paddingX={8}>
+        <Box textAlign="center">
+          <Text fontSize="32px" fontWeight="black">
+            {"GAME OVER"}
+          </Text>
+
+          <Text color="#828282" fontSize="22px" fontWeight="bold">
+            {quiz.name}
+          </Text>
+        </Box>
+
+        {divider}
+
+        <Flex marginY={4} marginX={2} justifyContent="space-between">
+          <Box>
+            <Text fontSize="16px" fontWeight="bold">
+              {"SCORE"}
             </Text>
-            <Tooltip padding={2} label={explainerCloseModal}>
-              <Text>
-                <SolidQuestionMarkCircle
-                  height={3}
-                  width={3}
-                  marginLeft={1}
-                  marginBottom="2px"
-                  color="gray.600"
-                />
+            <Flex alignItems="flex-end">
+              <Text
+                fontSize="46px"
+                fontWeight="black"
+                lineHeight="40px"
+                marginRight={1}
+                marginY={2}
+              >
+                {score}
               </Text>
-            </Tooltip>
-          </Button>
-
-          <Box paddingY={10} paddingX={8}>
-            <Box textAlign="center">
-              <Text fontSize="32px" fontWeight="black">
-                {"GAME OVER"}
+              <Text
+                color="#768389"
+                fontSize="26px"
+                fontWeight="bold"
+                lineHeight="40px"
+                marginBottom={1}
+              >
+                {`/ ${quiz.maxScore}`}
               </Text>
-
-              <Text color="#828282" fontSize="22px" fontWeight="bold">
-                {quiz.name}
-              </Text>
-            </Box>
-
-            {divider}
-
-            <Flex marginY={4} marginX={2} justifyContent="space-between">
-              <Box>
-                <Text fontSize="16px" fontWeight="bold">
-                  {"SCORE"}
-                </Text>
-                <Flex alignItems="flex-end">
-                  <Text
-                    fontSize="46px"
-                    fontWeight="black"
-                    lineHeight="40px"
-                    marginRight={1}
-                    marginY={2}
-                  >
-                    {score}
-                  </Text>
-                  <Text
-                    color="#768389"
-                    fontSize="26px"
-                    fontWeight="bold"
-                    lineHeight="40px"
-                    marginBottom={1}
-                  >
-                    {`/ ${quiz.maxScore}`}
-                  </Text>
-                </Flex>
-              </Box>
-              <Box>
-                <Text fontSize="16px" fontWeight="bold">
-                  {"TIME"}
-                </Text>
-                <Text
-                  fontSize="46px"
-                  fontWeight="black"
-                  lineHeight="40px"
-                  marginY={2}
-                >
-                  {secondsToMinutesString(time)}
-                </Text>
-              </Box>
             </Flex>
-
-            {divider}
-
-            {scoreQuizNotLoggedIn && (
-              <Box>
-                <Text
-                  color="#828282"
-                  fontSize="12px"
-                  fontWeight="medium"
-                  textAlign="center"
-                >
-                  You must{" "}
-                  <Button
-                    variant="link"
-                    onClick={() => redirectWithScore("/login")}
-                    fontSize="12px"
-                    minWidth="0"
-                  >
-                    login
-                  </Button>{" "}
-                  or{" "}
-                  <Button
-                    variant="link"
-                    onClick={() => redirectWithScore("/register")}
-                    fontSize="12px"
-                    minWidth="0"
-                  >
-                    register
-                  </Button>{" "}
-                  to update your high score.
-                </Text>
-              </Box>
-            )}
-
-            {leaderboardQuizNotLoggedIn && (
-              <Box>
-                <Text
-                  color="#828282"
-                  fontSize="12px"
-                  fontWeight="medium"
-                  textAlign="center"
-                >
-                  You must{" "}
-                  <Button
-                    variant="link"
-                    onClick={() => redirectWithScore("/login")}
-                    fontSize="12px"
-                    minWidth="0"
-                  >
-                    login
-                  </Button>{" "}
-                  or{" "}
-                  <Button
-                    variant="link"
-                    onClick={() => redirectWithScore("/register")}
-                    fontSize="12px"
-                    minWidth="0"
-                  >
-                    register
-                  </Button>{" "}
-                  to submit a leaderboard entry.
-                </Text>
-              </Box>
-            )}
-
-            {scoreQuizLoggedIn && (
-              <Box>
-                <Text
-                  color="#828282"
-                  fontSize="12px"
-                  fontWeight="medium"
-                  textAlign="center"
-                >
-                  {explainerScoreQuizLoggedIn}
-                </Text>
-              </Box>
-            )}
-
-            {noExistingEntry && (
-              <Box>
-                <Text
-                  color="#828282"
-                  fontSize="12px"
-                  fontWeight="medium"
-                  textAlign="center"
-                >
-                  {explainerNoExistingEntry}
-                </Text>
-              </Box>
-            )}
-
-            {shouldShowExistingEntry && (
-              <Box>
-                <Text color="#828282" fontSize="12px" fontWeight="bold">
-                  {"Existing Entry"}
-                </Text>
-                <Box marginY={2}>
-                  <GameExistingEntry {...existingEntry} />
-                </Box>
-                <Text color="#828282" fontSize="12px" fontWeight="medium">
-                  {explainerExistingEntry}
-                </Text>
-              </Box>
-            )}
           </Box>
-        </ModalBody>
-
-        <ModalFooter marginBottom={1}>
-          {onSubmit && (
-            <Button
-              colorScheme="green"
-              onClick={() => onSubmit(existingEntry)}
-              disabled={!loggedIn || submitting}
+          <Box>
+            <Text fontSize="16px" fontWeight="bold">
+              {"TIME"}
+            </Text>
+            <Text
+              fontSize="46px"
+              fontWeight="black"
+              lineHeight="40px"
+              marginY={2}
             >
-              {"Submit"}
-            </Button>
-          )}
-        </ModalFooter>
-      </ModalContent>
-    </Modal>
+              {secondsToMinutesString(time)}
+            </Text>
+          </Box>
+        </Flex>
+
+        {divider}
+
+        {scoreQuizNotLoggedIn && (
+          <Box>
+            <Text
+              color="#828282"
+              fontSize="12px"
+              fontWeight="medium"
+              textAlign="center"
+            >
+              You must{" "}
+              <Button
+                variant="link"
+                onClick={() => redirectWithScore("/login")}
+                fontSize="12px"
+                minWidth="0"
+              >
+                login
+              </Button>{" "}
+              or{" "}
+              <Button
+                variant="link"
+                onClick={() => redirectWithScore("/register")}
+                fontSize="12px"
+                minWidth="0"
+              >
+                register
+              </Button>{" "}
+              to update your high score.
+            </Text>
+          </Box>
+        )}
+
+        {leaderboardQuizNotLoggedIn && (
+          <Box>
+            <Text
+              color="#828282"
+              fontSize="12px"
+              fontWeight="medium"
+              textAlign="center"
+            >
+              You must{" "}
+              <Button
+                variant="link"
+                onClick={() => redirectWithScore("/login")}
+                fontSize="12px"
+                minWidth="0"
+              >
+                login
+              </Button>{" "}
+              or{" "}
+              <Button
+                variant="link"
+                onClick={() => redirectWithScore("/register")}
+                fontSize="12px"
+                minWidth="0"
+              >
+                register
+              </Button>{" "}
+              to submit a leaderboard entry.
+            </Text>
+          </Box>
+        )}
+
+        {scoreQuizLoggedIn && (
+          <Box>
+            <Text
+              color="#828282"
+              fontSize="12px"
+              fontWeight="medium"
+              textAlign="center"
+            >
+              {explainerScoreQuizLoggedIn}
+            </Text>
+          </Box>
+        )}
+
+        {noExistingEntry && (
+          <Box>
+            <Text
+              color="#828282"
+              fontSize="12px"
+              fontWeight="medium"
+              textAlign="center"
+            >
+              {explainerNoExistingEntry}
+            </Text>
+          </Box>
+        )}
+
+        {shouldShowExistingEntry && (
+          <Box>
+            <Text color="#828282" fontSize="12px" fontWeight="bold">
+              {"Existing Entry"}
+            </Text>
+            <Box marginY={2}>
+              <GameExistingEntry {...existingEntry} />
+            </Box>
+            <Text color="#828282" fontSize="12px" fontWeight="medium">
+              {explainerExistingEntry}
+            </Text>
+          </Box>
+        )}
+      </Box>
+      {/* </ModalBody> */}
+
+      <Box marginBottom={1}>
+        {/* <ModalFooter marginBottom={1}> */}
+        {onSubmit && (
+          <Button
+            colorScheme="green"
+            onClick={() => onSubmit(existingEntry)}
+            disabled={!loggedIn || submitting}
+          >
+            {"Submit"}
+          </Button>
+        )}
+      </Box>
+      {/* </ModalFooter> */}
+      {/* //   </ModalContent> */}
+      {/* </Modal> */}
+    </Box>
   );
 };
 

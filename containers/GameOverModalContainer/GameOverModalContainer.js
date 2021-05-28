@@ -219,9 +219,10 @@ const GameOverModalContainer = ({
     });
   };
 
-  if (loading) {
-    return null;
-  }
+  // TODO: move to loading state
+  // if (loading) {
+  //   return null;
+  // }
 
   return (
     <GameOverModal
