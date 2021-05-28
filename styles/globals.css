@@ -46,6 +46,11 @@ svg * {
   clear: both;
 }
 
+.quiz-map-controls {
+  margin: 4px 8px;
+  opacity: 0.85;
+}
+
 .highlight-on-hover:hover {
   fill: #27ae60;
   transition: all 500ms ease-out;
