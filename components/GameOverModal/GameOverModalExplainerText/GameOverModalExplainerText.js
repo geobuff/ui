@@ -15,7 +15,7 @@ const ExplainerText = ({ children, ...props }) => {
   return (
     <Text
       color="#828282"
-      fontSize="12px"
+      fontSize="14px"
       fontWeight="medium"
       textAlign="center"
       {...props}
@@ -45,7 +45,7 @@ const GameOverModalExplainerText = ({
         <Button
           variant="link"
           onClick={() => redirectWithScore("/login")}
-          fontSize="12px"
+          fontSize="14px"
           minWidth="0"
         >
           login
@@ -54,7 +54,7 @@ const GameOverModalExplainerText = ({
         <Button
           variant="link"
           onClick={() => redirectWithScore("/register")}
-          fontSize="12px"
+          fontSize="14px"
           minWidth="0"
         >
           register
@@ -71,7 +71,7 @@ const GameOverModalExplainerText = ({
         <Button
           variant="link"
           onClick={() => redirectWithScore("/login")}
-          fontSize="12px"
+          fontSize="14px"
           minWidth="0"
         >
           login
@@ -80,7 +80,7 @@ const GameOverModalExplainerText = ({
         <Button
           variant="link"
           onClick={() => redirectWithScore("/register")}
-          fontSize="12px"
+          fontSize="14px"
           minWidth="0"
         >
           register
