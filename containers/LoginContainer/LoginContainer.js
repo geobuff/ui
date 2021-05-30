@@ -28,6 +28,7 @@ const LoginContainer = () => {
         const decoded = jwt_decode(response.data);
         updateUser({
           id: decoded["userId"],
+          avatarId: decoded["avatarId"],
           username: decoded["username"],
           email: decoded["email"],
           countryCode: decoded["countryCode"],
