@@ -20,9 +20,9 @@ import Card from "../Card";
 import { secondsToMinutesString } from "../../helpers/time";
 
 const UserProfileLeaderboardEntries = ({ entries }) => (
-  <Card>
-    <Heading size="md" textAlign="center" m={6}>
-      Leaderboard Entries
+  <Card padding={6}>
+    <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
+      {"Leaderboard Entries"}
     </Heading>
     <Box my={6}>
       {entries.length === 0 ? (

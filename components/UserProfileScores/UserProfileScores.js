@@ -17,9 +17,9 @@ import Image from "../Image";
 import { secondsToMinutesString } from "../../helpers/time";
 
 const UserProfileScores = ({ scores }) => (
-  <Card>
-    <Heading size="md" textAlign="center" m={6}>
-      Scores
+  <Card padding={6}>
+    <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
+      {"Scores"}
     </Heading>
     <Box my={6}>
       {scores.length === 0 ? (
