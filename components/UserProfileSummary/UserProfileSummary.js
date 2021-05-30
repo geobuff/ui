@@ -6,6 +6,7 @@ import {
   Box,
   Heading,
   Flex,
+  IconButton,
   Text,
   Spacer,
   Progress,
@@ -16,6 +17,8 @@ import { getFlagUrl } from "@geobuff/flags";
 import Card from "../Card";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import Image from "../Image";
+
+import SolidPencil from "../../Icons/SolidPencil";
 
 import useCountries from "../../hooks/useCountries";
 
@@ -31,6 +34,18 @@ const UserProfileSummary = ({ user, error }) => {
 
   return (
     <Card>
+      <Box width="100%">
+        <Flex justifyContent="flex-end">
+          <IconButton backgroundColor="transparent">
+            <SolidPencil
+              marginLeft="4px"
+              marginTop="4px"
+              height="22px"
+              width="22px"
+            />
+          </IconButton>
+        </Flex>
+      </Box>
       <Box mb={6}>
         <ErrorAlertBanner error={error} />
         <Box textAlign="center">
@@ -39,9 +54,10 @@ const UserProfileSummary = ({ user, error }) => {
             width="130px"
             src={user?.picture}
             name={user.username}
-            marginTop={-20}
+            marginTop="-112px"
             marginBottom={6}
           />
+
           <Heading fontSize="32px">{user.username}</Heading>
           <Text color="gray.500" fontWeight={600} marginY={1}>
             {user.email}
