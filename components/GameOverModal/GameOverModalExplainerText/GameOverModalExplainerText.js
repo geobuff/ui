@@ -27,6 +27,7 @@ const ExplainerText = ({ children, ...props }) => {
 
 const GameOverModalExplainerText = ({
   onSubmit,
+  onRedirectWithScore,
   isLoggedIn,
   existingEntry,
 }) => {
@@ -101,11 +102,13 @@ const GameOverModalExplainerText = ({
   if (shouldShowExistingEntry) {
     return (
       <Box>
-        <ExplainerText>{"Existing Entry"}</ExplainerText>
-        <Box marginY={2}>
+        <ExplainerText textAlign="left" fontWeight="bold" color="black">
+          {"EXISTING ENTRY"}
+        </ExplainerText>
+        <Box marginY={3}>
           <GameExistingEntry {...existingEntry} />
         </Box>
-        <ExplainerText>{explainerExistingEntry}</ExplainerText>
+        <ExplainerText marginTop={2}>{explainerExistingEntry}</ExplainerText>
       </Box>
     );
   }

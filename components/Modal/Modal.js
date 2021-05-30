@@ -97,7 +97,7 @@ const Modal = ({ header, footer, isOpen, onClose, children, ...props }) => {
             )}
 
             <ModalBody padding={0}>{children}</ModalBody>
-            {!!footer && <ModalFooter>{footer}</ModalFooter>}
+            {!!footer && <ModalFooter marginBottom={1}>{footer}</ModalFooter>}
           </ModalContent>
         </ChakraModal>
       )}

@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useRouter } from "next/router";
+
 import { useBreakpointValue, useToast } from "@chakra-ui/react";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
@@ -19,6 +21,7 @@ const GameOverModalContainer = ({
 }) => {
   const toast = useToast();
   const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
+  const router = useRouter();
 
   const toastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
 
@@ -143,6 +146,7 @@ const GameOverModalContainer = ({
     });
   };
 
+  // TODO: rename
   const scoreSubmittedToast = () => {
     toast({
       position: toastPosition,
@@ -174,6 +178,21 @@ const GameOverModalContainer = ({
       createEntry();
     }
     setLeaderboardEntrySubmitted(true);
+  };
+
+  const handleRedirectWithScore = (pathname) => {
+    const tempScore = { score, time };
+    axiosClient.post("/tempscores", tempScore).then((response) => {
+      router.push({
+        pathname: pathname,
+        query: {
+          data: JSON.stringify({
+            redirect: `/quiz/${quiz.route}`,
+            tempScoreId: response.data,
+          }),
+        },
+      });
+    });
   };
 
   const createEntry = () => {
@@ -208,6 +227,7 @@ const GameOverModalContainer = ({
       });
   };
 
+  // TODO: rename
   const entrySubmitted = () => {
     toast({
       position: toastPosition,
@@ -234,6 +254,7 @@ const GameOverModalContainer = ({
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={quiz.hasLeaderboard ? handleSubmitEntry : null}
+      onRedirectWithScore={handleRedirectWithScore}
       submitting={submitting}
     />
   );

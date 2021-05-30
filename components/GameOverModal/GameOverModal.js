@@ -36,25 +36,11 @@ const GameOverModal = ({
   isOpen,
   onClose,
   onSubmit,
+  onRedirectWithScore,
   submitting,
 }) => {
-  const router = useRouter();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const redirectWithScore = (pathname) => {
-    const tempScore = { score, time };
-    axiosClient.post("/tempscores", tempScore).then((response) => {
-      router.push({
-        pathname: pathname,
-        query: {
-          data: JSON.stringify({
-            redirect: `/quiz/${quiz.route}`,
-            tempScoreId: response.data,
-          }),
-        },
-      });
-    });
-  };
 
   if (isMobile === undefined) {
     return null;
@@ -100,9 +86,9 @@ const GameOverModal = ({
         </Tooltip>
       </Button>
 
-      <Box paddingY={10} paddingX={8}>
+      <Box padding={8}>
         <Box textAlign="center">
-          <Text fontSize="32px" fontWeight="black">
+          <Text fontSize="46px" fontWeight="black">
             {"GAME OVER"}
           </Text>
 
@@ -156,11 +142,14 @@ const GameOverModal = ({
 
         {divider}
 
-        <GameOverModalExplainerText
-          isLoggedIn={loggedIn}
-          onSubmit={onSubmit}
-          existingEntry={existingEntry}
-        />
+        <Box marginTop={8}>
+          <GameOverModalExplainerText
+            isLoggedIn={loggedIn}
+            onSubmit={onSubmit}
+            onRedirectWithScore={onRedirectWithScore}
+            existingEntry={existingEntry}
+          />
+        </Box>
       </Box>
     </Modal>
   );
