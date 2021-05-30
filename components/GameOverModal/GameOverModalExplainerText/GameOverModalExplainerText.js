@@ -39,7 +39,7 @@ const GameOverModalExplainerText = ({
 
   const shouldShowExistingEntry = onSubmit && isLoggedIn && !!existingEntry;
 
-  if (scoreQuizNotLoggedIn || leaderboardQuizNotLoggedIn) {
+  if (scoreQuizNotLoggedIn) {
     return (
       <ExplainerText>
         You must{" "}
@@ -61,6 +61,32 @@ const GameOverModalExplainerText = ({
           register
         </Button>{" "}
         to update your high score.
+      </ExplainerText>
+    );
+  }
+
+  if (leaderboardQuizNotLoggedIn) {
+    return (
+      <ExplainerText>
+        You must{" "}
+        <Button
+          variant="link"
+          onClick={() => onRedirectWithScore("/login")}
+          fontSize="14px"
+          minWidth="0"
+        >
+          login
+        </Button>{" "}
+        or{" "}
+        <Button
+          variant="link"
+          onClick={() => onRedirectWithScore("/register")}
+          fontSize="14px"
+          minWidth="0"
+        >
+          register
+        </Button>{" "}
+        to submit a leaderboard entry.
       </ExplainerText>
     );
   }
