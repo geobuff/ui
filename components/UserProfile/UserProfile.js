@@ -13,7 +13,7 @@ const divider = <Divider borderColor="transparent" my={3} />;
 
 const UserProfile = ({ user }) => (
   <>
-    <HeroHeader height="250px" />
+    <HeroHeader height={{ base: "200px", md: "250px" }} />
 
     <Flex
       direction="column"
