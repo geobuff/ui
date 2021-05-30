@@ -34,13 +34,23 @@ const RegisterContainer = () => {
   const handleSubmit = ({ username, email, countryCode, password }) => {
     setIsSubmitting(true);
     setError(null);
+
+    const payload = {
+      avatarId: 1,
+      username,
+      email,
+      countryCode,
+      password,
+    };
+
     axiosClient
-      .post("/auth/register", { username, email, countryCode, password })
+      .post("/auth/register", payload)
       .then((response) => {
         const decoded = jwt_decode(response.data);
 
         updateUser({
           id: decoded["userId"],
+          avatarId: decoded["avatarId"],
           username: decoded["username"],
           email: decoded["email"],
           countryCode: decoded["countryCode"],

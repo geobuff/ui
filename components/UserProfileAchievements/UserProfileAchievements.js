@@ -43,7 +43,7 @@ const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
           {badges.map((badge) => (
             <Tooltip key={badge.id} label={getLabel(badge)}>
               <Image
-                src={badge.icon}
+                src={badge.imageUrl}
                 height="50px"
                 mx={3}
                 opacity={
@@ -72,7 +72,7 @@ UserProfileAchievements.propTypes = {
       id: PropTypes.number,
       name: PropTypes.string,
       description: PropTypes.string,
-      icon: PropTypes.string,
+      imageUrl: PropTypes.string,
       total: PropTypes.number,
     })
   ),
