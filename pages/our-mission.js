@@ -1,11 +1,12 @@
 import React from "react";
 import Head from "next/head";
-
-import { Box, Divider, Text, Link, SimpleGrid, Image } from "@chakra-ui/react";
+import { Box, Divider, Text, Link, SimpleGrid } from "@chakra-ui/react";
 
 import TeamMemberCard from "../components/TeamMemberCard/TeamMemberCard";
 import MainView from "../components/MainView";
 import HeroHeader from "../components/HeroHeader";
+import QuestionMark from "../components/QuestionMark";
+import Earth from "../components/Earth";
 
 const OurMission = () => (
   <MainView>
@@ -27,20 +28,16 @@ const OurMission = () => (
             mx="auto"
             lineHeight="28px"
           >
-            <Image
-              src="/question-mark.svg"
-              height="75px"
-              width="75px"
-              mx="auto"
-              mb={6}
-            />
+            <Box mb={6}>
+              <QuestionMark height="75" width="100%" mx="auto" />
+            </Box>
             <Text
               fontSize="18px"
               fontWeight="bold"
               textAlign="center"
               mx="auto"
             >
-              Build something that makes it easier for people to learn the
+              Create something that makes it easier for people to learn the
               countries and flags of the world
             </Text>
           </Box>
@@ -50,20 +47,16 @@ const OurMission = () => (
             mx="auto"
             lineHeight="28px"
           >
-            <Image
-              src="/earth.svg"
-              height="75px"
-              width="75px"
-              mx="auto"
-              mb={6}
-            />
+            <Box mb={6}>
+              <Earth height="75" width="100%" mx="auto" />
+            </Box>
             <Text
               fontSize="18px"
               fontWeight="bold"
               textAlign="center"
               mx="auto"
             >
-              Build open source{" "}
+              Share open source{" "}
               <Link href="https://github.com/geobuff/maps" color="teal.500">
                 map
               </Link>
@@ -91,9 +84,9 @@ const OurMission = () => (
           </Text>
           <Divider />
           <SimpleGrid
-            columns={{ base: "1", md: "3" }}
+            columns={{ base: "1", md: "2", lg: "3" }}
+            spacing={{ base: "50px", lg: "inherit" }}
             mt={12}
-            spacing={{ base: "50px", md: "inherit" }}
           >
             <TeamMemberCard
               title="Ash Midgley"

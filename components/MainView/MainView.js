@@ -14,14 +14,7 @@ const MainView = ({
   ...props
 }) => (
   <>
-    <Box
-      as="main"
-      width="100%"
-      marginX="auto"
-      marginBottom={10}
-      flexGrow={1}
-      {...props}
-    >
+    <Box as="main" width="100%" marginX="auto" flexGrow={1} {...props}>
       {hasNavigationBar && <NavigationBar />}
       {children}
     </Box>
