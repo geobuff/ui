@@ -18,7 +18,6 @@ const UserProfileAchievementsContainer = ({ user }) => {
 
   return (
     <UserProfileAchievements
-      user={user}
       badges={badges}
       scores={scores}
       entriesCount={entries.length}

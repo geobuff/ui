@@ -6,20 +6,15 @@ import {
   Image,
   Flex,
   Text,
-  Spacer,
-  Progress,
   Heading,
   SimpleGrid,
 } from "@chakra-ui/react";
 
 import Card from "../Card";
 
-import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 import { isBadgeComplete, getProgress } from "../../helpers/badge";
 
-const UserProfileAchievements = ({ user, badges, scores, entriesCount }) => {
-  const level = getLevel(user.xp);
-
+const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
   const getLabel = (badge) => {
     return (
       <Box>
@@ -33,42 +28,32 @@ const UserProfileAchievements = ({ user, badges, scores, entriesCount }) => {
   };
 
   return (
-    <Card>
-      <Heading size="md" textAlign="center" m={6}>
-        Achievements
+    <Card padding={6}>
+      <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
+        {"Achievements"}
       </Heading>
-      <Box mt={6} mb={12}>
-        <Flex mb={3}>
-          <Text fontWeight="bold">{level}</Text>
-          <Spacer />
-          <Text fontWeight="bold">{level + 1}</Text>
-        </Flex>
-        <Progress
-          hasStripe
-          size="lg"
-          value={getLevelCompletion(user.xp)}
-          colorScheme="green"
-        />
-      </Box>
-      <SimpleGrid
-        mb={6}
-        justifyContent="center"
-        minChildWidth="75px"
-        spacingY={8}
-      >
-        {badges.map((badge) => (
-          <Tooltip key={badge.id} label={getLabel(badge)}>
-            <Image
-              src={badge.icon}
-              height="50px"
-              mx={3}
-              opacity={
-                isBadgeComplete(badge, scores, entriesCount) ? "1" : "0.25"
-              }
-            />
-          </Tooltip>
-        ))}
-      </SimpleGrid>
+
+      <Flex direction="column" justifyContent="center" marginX={2}>
+        <SimpleGrid
+          mb={6}
+          justifyContent="center"
+          minChildWidth="75px"
+          spacingY={8}
+        >
+          {badges.map((badge) => (
+            <Tooltip key={badge.id} label={getLabel(badge)}>
+              <Image
+                src={badge.icon}
+                height="50px"
+                mx={3}
+                opacity={
+                  isBadgeComplete(badge, scores, entriesCount) ? "1" : "0.25"
+                }
+              />
+            </Tooltip>
+          ))}
+        </SimpleGrid>
+      </Flex>
     </Card>
   );
 };
