@@ -32,15 +32,14 @@ const GameOverModalExplainerText = ({
   isLoading,
   existingEntry,
 }) => {
-  // TODO: rename values for boolean naming
   const scoreQuizNotLoggedIn = !onSubmit && !isLoggedIn;
   const scoreQuizLoggedIn = !onSubmit && isLoggedIn;
   const leaderboardQuizNotLoggedIn = onSubmit && !isLoggedIn;
   const noExistingEntry = onSubmit && isLoggedIn && !existingEntry;
-  const shouldShowExistingEntry = onSubmit && isLoggedIn && existingEntry;
 
-  // TODO: merge this node and leaderboardQuizNotLoggedIn;
-  if (scoreQuizNotLoggedIn) {
+  const shouldShowExistingEntry = onSubmit && isLoggedIn && !!existingEntry;
+
+  if (scoreQuizNotLoggedIn || leaderboardQuizNotLoggedIn) {
     return (
       <ExplainerText>
         You must{" "}
@@ -62,32 +61,6 @@ const GameOverModalExplainerText = ({
           register
         </Button>{" "}
         to update your high score.
-      </ExplainerText>
-    );
-  }
-
-  if (leaderboardQuizNotLoggedIn) {
-    return (
-      <ExplainerText>
-        You must{" "}
-        <Button
-          variant="link"
-          onClick={() => onRedirectWithScore("/login")}
-          fontSize="14px"
-          minWidth="0"
-        >
-          login
-        </Button>{" "}
-        or{" "}
-        <Button
-          variant="link"
-          onClick={() => onRedirectWithScore("/register")}
-          fontSize="14px"
-          minWidth="0"
-        >
-          register
-        </Button>{" "}
-        to submit a leaderboard entry.
       </ExplainerText>
     );
   }
@@ -148,7 +121,7 @@ GameOverModalExplainerText.defaultProps = {
   onRedirectWithScore: () => {},
   isLoggedIn: false,
   isLoading: true,
-  existingEntry: {},
+  existingEntry: null,
 };
 
 export default GameOverModalExplainerText;

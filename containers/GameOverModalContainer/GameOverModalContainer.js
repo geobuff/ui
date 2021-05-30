@@ -34,7 +34,7 @@ const GameOverModalContainer = ({
   const toastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
 
   const [config, setConfig] = useState(null);
-  const [entry, setEntry] = useState({});
+  const [entry, setEntry] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
