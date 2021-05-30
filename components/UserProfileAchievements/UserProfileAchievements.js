@@ -12,6 +12,8 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
+import Card from "../Card";
+
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 import { isBadgeComplete, getProgress } from "../../helpers/badge";
 
@@ -31,7 +33,7 @@ const UserProfileAchievements = ({ user, badges, scores, entriesCount }) => {
   };
 
   return (
-    <Box>
+    <Card>
       <Heading size="md" textAlign="center" m={6}>
         Achievements
       </Heading>
@@ -67,7 +69,7 @@ const UserProfileAchievements = ({ user, badges, scores, entriesCount }) => {
           </Tooltip>
         ))}
       </SimpleGrid>
-    </Box>
+    </Card>
   );
 };
 

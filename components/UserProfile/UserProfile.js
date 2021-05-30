@@ -2,31 +2,37 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Flex, Divider } from "@chakra-ui/react";
 
+import HeroHeader from "../HeroHeader";
+
 import UserProfileScoresContainer from "../../containers/UserProfileScoresContainer";
 import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer";
 import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
 import UserProfileAchievementsContainer from "../../containers/UserProfileAchievementsContainer";
 
-const divider = <Divider my={3} />;
+const divider = <Divider borderColor="transparent" my={3} />;
 
 const UserProfile = ({ user }) => (
-  <Flex
-    direction="column"
-    borderRadius={12}
-    p={5}
-    background="#FFFFFF"
-    maxWidth={{ base: "100%", md: "50%" }}
-    marginX={{ base: 2, md: "auto" }}
-    marginTop={4}
-  >
-    <UserProfileSummaryContainer />
-    {divider}
-    <UserProfileAchievementsContainer user={user} />
-    {divider}
-    <UserProfileLeaderboardEntriesContainer userId={user.id} />
-    {divider}
-    <UserProfileScoresContainer userId={user.id} />
-  </Flex>
+  <>
+    <HeroHeader height="250px" />
+
+    <Flex
+      direction="column"
+      borderRadius={12}
+      p={5}
+      // background="#FFFFFF"
+      maxWidth={{ base: "100%", md: "50%" }}
+      marginX={{ base: 2, md: "auto" }}
+      marginTop={-100}
+    >
+      <UserProfileSummaryContainer />
+      {divider}
+      <UserProfileAchievementsContainer user={user} />
+      {divider}
+      <UserProfileLeaderboardEntriesContainer userId={user.id} />
+      {divider}
+      <UserProfileScoresContainer userId={user.id} />
+    </Flex>
+  </>
 );
 
 UserProfile.propTypes = {

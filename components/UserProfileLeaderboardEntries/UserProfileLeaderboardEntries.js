@@ -15,10 +15,12 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 
+import Card from "../Card";
+
 import { secondsToMinutesString } from "../../helpers/time";
 
 const UserProfileLeaderboardEntries = ({ entries }) => (
-  <Box>
+  <Card>
     <Heading size="md" textAlign="center" m={6}>
       Leaderboard Entries
     </Heading>
@@ -55,7 +57,7 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
         </Box>
       )}
     </Box>
-  </Box>
+  </Card>
 );
 
 UserProfileLeaderboardEntries.propTypes = {

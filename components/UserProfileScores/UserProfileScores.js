@@ -11,11 +11,13 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
+import Card from "../Card";
 import Image from "../Image";
+
 import { secondsToMinutesString } from "../../helpers/time";
 
 const UserProfileScores = ({ scores }) => (
-  <Box>
+  <Card>
     <Heading size="md" textAlign="center" m={6}>
       Scores
     </Heading>
@@ -80,7 +82,7 @@ const UserProfileScores = ({ scores }) => (
         </SimpleGrid>
       )}
     </Box>
-  </Box>
+  </Card>
 );
 
 UserProfileScores.propTypes = {
