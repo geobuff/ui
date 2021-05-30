@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { useRouter } from "next/router";
 
 import {
   Box,
@@ -13,47 +12,47 @@ import {
 } from "@chakra-ui/react";
 
 import { secondsToMinutesString } from "../../helpers/time";
-import axiosClient from "../../axios/axiosClient";
 
+import GameOverModalExplainerText from "./GameOverModalExplainerText";
 import Modal from "../Modal";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
-import GameOverModalExplainerText from "./GameOverModalExplainerText";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
 const explainerCloseModal =
   "Feel free to close this modal to view the map and your results. Don’t worry, you’ll still be able to submit your score afterwards!";
 
-// TODO: rename loggedIn to isLoggedIn
 const GameOverModal = ({
   quiz,
   score,
   time,
-  loggedIn,
+  isLoggedIn,
+  isLoading,
   existingEntry,
   isOpen,
   onClose,
   onSubmit,
   onRedirectWithScore,
-  submitting,
+  isSubmitting,
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
-
 
   if (isMobile === undefined) {
     return null;
   }
 
-  const footer = (
+  const footer = onSubmit ? (
     <Button
       colorScheme="green"
       onClick={() => onSubmit(existingEntry)}
-      disabled={!loggedIn || submitting}
+      isDisabled={!isLoggedIn || isSubmitting || isLoading}
     >
       {"Submit"}
     </Button>
+  ) : (
+    <Box height="30px" />
   );
 
   return (
@@ -144,7 +143,8 @@ const GameOverModal = ({
 
         <Box marginTop={8}>
           <GameOverModalExplainerText
-            isLoggedIn={loggedIn}
+            isLoggedIn={isLoggedIn}
+            isLoading={isLoading}
             onSubmit={onSubmit}
             onRedirectWithScore={onRedirectWithScore}
             existingEntry={existingEntry}
@@ -176,7 +176,6 @@ GameOverModal.propTypes = {
   }),
   score: PropTypes.number,
   time: PropTypes.number,
-  loggedIn: PropTypes.bool,
   existingEntry: PropTypes.shape({
     id: PropTypes.number,
     userId: PropTypes.number,
@@ -186,20 +185,25 @@ GameOverModal.propTypes = {
     username: PropTypes.string,
     countryCode: PropTypes.string,
   }),
+  isLoggedIn: PropTypes.bool,
+  isLoading: PropTypes.bool,
   isOpen: PropTypes.bool,
+  isSubmitting: PropTypes.bool,
   onClose: PropTypes.func,
   onSubmit: PropTypes.func,
-  submitting: PropTypes.bool,
+  onRedirectWithScore: PropTypes.func,
 };
 
 GameOverModal.defaultProps = {
   quiz: {},
   score: 0,
   time: 100,
-  loggedIn: true,
+  isLoggedIn: true,
+  isLoading: true,
   existingEntry: null,
   isOpen: false,
+  isSubmitting: false,
   onClose: () => {},
   onSubmit: () => {},
-  submitting: false,
+  onRedirectWithScore: () => {},
 };

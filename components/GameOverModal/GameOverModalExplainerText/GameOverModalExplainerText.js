@@ -29,6 +29,7 @@ const GameOverModalExplainerText = ({
   onSubmit,
   onRedirectWithScore,
   isLoggedIn,
+  isLoading,
   existingEntry,
 }) => {
   // TODO: rename values for boolean naming
@@ -45,7 +46,7 @@ const GameOverModalExplainerText = ({
         You must{" "}
         <Button
           variant="link"
-          onClick={() => redirectWithScore("/login")}
+          onClick={() => onRedirectWithScore("/login")}
           fontSize="14px"
           minWidth="0"
         >
@@ -54,7 +55,7 @@ const GameOverModalExplainerText = ({
         or{" "}
         <Button
           variant="link"
-          onClick={() => redirectWithScore("/register")}
+          onClick={() => onRedirectWithScore("/register")}
           fontSize="14px"
           minWidth="0"
         >
@@ -71,7 +72,7 @@ const GameOverModalExplainerText = ({
         You must{" "}
         <Button
           variant="link"
-          onClick={() => redirectWithScore("/login")}
+          onClick={() => onRedirectWithScore("/login")}
           fontSize="14px"
           minWidth="0"
         >
@@ -80,7 +81,7 @@ const GameOverModalExplainerText = ({
         or{" "}
         <Button
           variant="link"
-          onClick={() => redirectWithScore("/register")}
+          onClick={() => onRedirectWithScore("/register")}
           fontSize="14px"
           minWidth="0"
         >
@@ -106,7 +107,7 @@ const GameOverModalExplainerText = ({
           {"EXISTING ENTRY"}
         </ExplainerText>
         <Box marginY={3}>
-          <GameExistingEntry {...existingEntry} />
+          <GameExistingEntry isLoading={isLoading} {...existingEntry} />
         </Box>
         <ExplainerText marginTop={2}>{explainerExistingEntry}</ExplainerText>
       </Box>
@@ -129,7 +130,9 @@ ExplainerText.defaultProps = {
 
 GameOverModalExplainerText.propTypes = {
   onSubmit: PropTypes.func,
+  onRedirectWithScore: PropTypes.func,
   isLoggedIn: PropTypes.bool,
+  isLoading: PropTypes.bool,
   existingEntry: PropTypes.shape({
     id: PropTypes.number,
     userId: PropTypes.number,
@@ -142,7 +145,9 @@ GameOverModalExplainerText.propTypes = {
 };
 GameOverModalExplainerText.defaultProps = {
   onSubmit: () => {},
+  onRedirectWithScore: () => {},
   isLoggedIn: false,
+  isLoading: true,
   existingEntry: {},
 };
 

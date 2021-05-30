@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Skeleton, Text } from "@chakra-ui/react";
 
 import { formatNumber } from "../../helpers/number";
 import { secondsToMinutesString } from "../../helpers/time";
 
-const GameExistingEntry = ({ ranking, score, time, username }) => {
+const GameExistingEntry = ({ ranking, score, time, username, isLoading }) => {
   return (
     <Flex
       borderRadius={12}
@@ -18,15 +18,21 @@ const GameExistingEntry = ({ ranking, score, time, username }) => {
         <Text color="#768389" fontSize="10px" fontWeight="bold">
           {"RANK"}
         </Text>
-        <Text fontSize="14px" fontWeight="bold">
-          {formatNumber(ranking)}
-        </Text>
+        {isLoading ? (
+          <Skeleton height="20px" width="100%" />
+        ) : (
+          <Text fontSize="14px" fontWeight="bold">
+            {formatNumber(ranking)}
+          </Text>
+        )}
       </Box>
       <Box>
         <Text color="#768389" fontSize="10px" fontWeight="bold">
           {"USERNAME"}
         </Text>
-        <Flex alignItems="center">
+        {isLoading ? (
+          <Skeleton height="20px" width="100%" />
+        ) : (
           <Text
             fontSize="14px"
             fontWeight="bold"
@@ -36,23 +42,31 @@ const GameExistingEntry = ({ ranking, score, time, username }) => {
           >
             {username}
           </Text>
-        </Flex>
+        )}
       </Box>
       <Box>
         <Text color="#768389" fontSize="10px" fontWeight="bold">
           {"TIME"}
         </Text>
-        <Text fontSize="14px" fontWeight="bold">
-          {secondsToMinutesString(time)}
-        </Text>
+        {isLoading ? (
+          <Skeleton height="20px" width="100%" />
+        ) : (
+          <Text fontSize="14px" fontWeight="bold">
+            {secondsToMinutesString(time)}
+          </Text>
+        )}
       </Box>
       <Box>
         <Text color="#768389" fontSize="10px" fontWeight="bold">
           {"SCORE"}
         </Text>
-        <Text fontSize="14px" fontWeight="bold">
-          {score}
-        </Text>
+        {isLoading ? (
+          <Skeleton height="20px" width="100%" />
+        ) : (
+          <Text fontSize="14px" fontWeight="bold">
+            {score}
+          </Text>
+        )}
       </Box>
     </Flex>
   );
@@ -64,13 +78,15 @@ GameExistingEntry.propTypes = {
   time: PropTypes.number,
   username: PropTypes.string,
   countryCode: PropTypes.string,
+  isLoading: PropTypes.bool,
 };
 GameExistingEntry.defaultProps = {
-  rank: 0,
+  ranking: 0,
   score: 0,
   time: "15:00",
   username: "PhileasFogg",
   country: "UK",
+  isLoading: true,
 };
 
 export default GameExistingEntry;

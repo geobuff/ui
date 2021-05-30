@@ -210,7 +210,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         }
         isOpen={isOpen}
         onClose={onClose}
-        scoreSubmitted={scoreSubmitted}
+        isScoreSubmitted={scoreSubmitted}
         setScoreSubmitted={setScoreSubmitted}
         setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
       />

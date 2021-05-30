@@ -222,7 +222,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
         }
         isOpen={isOpen}
         onClose={onClose}
-        scoreSubmitted={scoreSubmitted}
+        isScoreSubmitted={scoreSubmitted}
         setScoreSubmitted={setScoreSubmitted}
         setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
       />
