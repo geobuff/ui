@@ -32,14 +32,13 @@ const GameOverModalExplainerText = ({
   isLoading,
   existingEntry,
 }) => {
-  // TODO: rename values for boolean naming
   const scoreQuizNotLoggedIn = !onSubmit && !isLoggedIn;
   const scoreQuizLoggedIn = !onSubmit && isLoggedIn;
   const leaderboardQuizNotLoggedIn = onSubmit && !isLoggedIn;
   const noExistingEntry = onSubmit && isLoggedIn && !existingEntry;
-  const shouldShowExistingEntry = onSubmit && isLoggedIn && existingEntry;
 
-  // TODO: merge this node and leaderboardQuizNotLoggedIn;
+  const shouldShowExistingEntry = onSubmit && isLoggedIn && !!existingEntry;
+
   if (scoreQuizNotLoggedIn) {
     return (
       <ExplainerText>
@@ -148,7 +147,7 @@ GameOverModalExplainerText.defaultProps = {
   onRedirectWithScore: () => {},
   isLoggedIn: false,
   isLoading: true,
-  existingEntry: {},
+  existingEntry: null,
 };
 
 export default GameOverModalExplainerText;
