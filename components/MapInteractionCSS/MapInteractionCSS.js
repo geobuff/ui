@@ -52,6 +52,7 @@ const MapInteractionCSS = (props) => {
 
       <MapInteraction
         showControls
+        maxScale={15}
         value={value}
         onChange={handleChange}
         btnClass="quiz-map-controls"
