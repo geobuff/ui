@@ -214,12 +214,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   }
 
   return (
-    <Box
-      width="100%"
-      minHeight="100%"
-      backgroundColor="#276F86"
-      position="fixed"
-    >
+    <>
       <Head>
         <title>{quiz.name} - GeoBuff</title>
       </Head>
@@ -233,90 +228,97 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
         }
         isOpen={isOpen}
         onClose={onClose}
-        scoreSubmitted={scoreSubmitted}
+        isScoreSubmitted={scoreSubmitted}
         setScoreSubmitted={setScoreSubmitted}
         setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
       />
 
-      {shouldDisplayOnMobile && (
-        <GameInputBanner
-          quiz={quiz}
-          score={score}
-          errorMessage={errorMessage}
-          expiryTimestamp={{ seconds, minutes }}
-          hasError={hasError}
-          hasGameStarted={hasGameStarted}
-          hasGameStopped={hasGameStopped}
-          inputValue={inputValue}
-          onChange={handleChange}
-          onClearInput={onClearInput}
-        />
-      )}
-
-      <Flex>
-        {!shouldDisplayOnMobile && (
-          <Box minHeight="100%">
-            <Sidebar heading={quiz.name} quiz={quiz}>
-              <Box>
-                <GameInputCard
-                  quiz={quiz}
-                  recents={recentSubmissions}
-                  score={score}
-                  timeRemaining={{ seconds, minutes }}
-                  errorMessage={errorMessage}
-                  hasError={hasError}
-                  hasGameRunOnce={hasGameRunOnce}
-                  hasGameStarted={hasGameStarted}
-                  hasGameStopped={hasGameStopped}
-                  inputValue={inputValue}
-                  onChange={handleChange}
-                  onClearInput={onClearInput}
-                  onGameStart={handleGameStart}
-                  onGameStop={handleGameStop}
-                />
-                {quiz.hasGrouping ? (
-                  <ResultsMap
-                    quiz={quiz}
-                    checked={checkedSubmissions}
-                    map={groupMapping(mapping)}
-                    hasGameStopped={hasGameStopped}
-                  />
-                ) : (
-                  <ResultsListWrapper
-                    quiz={quiz}
-                    results={getResults(
-                      mapping,
-                      checkedSubmissions,
-                      hasGameStopped
-                    )}
-                  />
-                )}
-              </Box>
-            </Sidebar>
-          </Box>
-        )}
-
-        <GameMap
-          map={map}
-          showTooltip={!hasGameStarted}
-          onLocationClassName={handleLocationClassName}
-        />
-
+      <Box
+        width="100%"
+        minHeight="100%"
+        backgroundColor="#276F86"
+        position="fixed"
+      >
         {shouldDisplayOnMobile && (
-          <GameBottomSheetModal
+          <GameInputBanner
             quiz={quiz}
-            mapping={mapping}
-            checked={checkedSubmissions}
-            recents={recentSubmissions}
-            hasGameRunOnce={hasGameRunOnce}
+            score={score}
+            errorMessage={errorMessage}
+            expiryTimestamp={{ seconds, minutes }}
+            hasError={hasError}
             hasGameStarted={hasGameStarted}
             hasGameStopped={hasGameStopped}
-            isOpen={!hasGameStopped || !isOpen}
-            onGameStart={handleGameStart}
-            onGameStop={handleGameStop}
+            inputValue={inputValue}
+            onChange={handleChange}
+            onClearInput={onClearInput}
           />
         )}
-      </Flex>
+
+        <Flex>
+          {!shouldDisplayOnMobile && (
+            <Box minHeight="100%">
+              <Sidebar heading={quiz.name} quiz={quiz}>
+                <Box>
+                  <GameInputCard
+                    quiz={quiz}
+                    recents={recentSubmissions}
+                    score={score}
+                    timeRemaining={{ seconds, minutes }}
+                    errorMessage={errorMessage}
+                    hasError={hasError}
+                    hasGameRunOnce={hasGameRunOnce}
+                    hasGameStarted={hasGameStarted}
+                    hasGameStopped={hasGameStopped}
+                    inputValue={inputValue}
+                    onChange={handleChange}
+                    onClearInput={onClearInput}
+                    onGameStart={handleGameStart}
+                    onGameStop={handleGameStop}
+                  />
+                  {quiz.hasGrouping ? (
+                    <ResultsMap
+                      quiz={quiz}
+                      checked={checkedSubmissions}
+                      map={groupMapping(mapping)}
+                      hasGameStopped={hasGameStopped}
+                    />
+                  ) : (
+                    <ResultsListWrapper
+                      quiz={quiz}
+                      results={getResults(
+                        mapping,
+                        checkedSubmissions,
+                        hasGameStopped
+                      )}
+                    />
+                  )}
+                </Box>
+              </Sidebar>
+            </Box>
+          )}
+
+          <GameMap
+            map={map}
+            showTooltip={!hasGameStarted}
+            onLocationClassName={handleLocationClassName}
+          />
+
+          {shouldDisplayOnMobile && (
+            <GameBottomSheetModal
+              quiz={quiz}
+              mapping={mapping}
+              checked={checkedSubmissions}
+              recents={recentSubmissions}
+              hasGameRunOnce={hasGameRunOnce}
+              hasGameStarted={hasGameStarted}
+              hasGameStopped={hasGameStopped}
+              isOpen={!hasGameStopped || !isOpen}
+              onGameStart={handleGameStart}
+              onGameStop={handleGameStop}
+            />
+          )}
+        </Flex>
+      </Box>
 
       {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
         <>
@@ -341,7 +343,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           )}
         </>
       )}
-    </Box>
+    </>
   );
 };
 

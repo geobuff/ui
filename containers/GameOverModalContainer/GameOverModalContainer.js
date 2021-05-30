@@ -1,11 +1,21 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useRouter } from "next/router";
+
 import { useBreakpointValue, useToast } from "@chakra-ui/react";
 
-import useCurrentUser from "../../hooks/UseCurrentUser";
 import GameOverModal from "../../components/GameOverModal";
-import { getLevel } from "../../helpers/gamification";
+
 import axiosClient from "../../axios/axiosClient";
+import useCurrentUser from "../../hooks/UseCurrentUser";
+import { getLevel } from "../../helpers/gamification";
+
+import {
+  entrySubmitted,
+  scoreSubmitted,
+  levelUp,
+  increaseXP as increaseXPToast,
+} from "../../helpers/toasts";
 
 const GameOverModalContainer = ({
   quiz,
@@ -13,19 +23,20 @@ const GameOverModalContainer = ({
   time,
   isOpen,
   onClose,
-  scoreSubmitted,
+  isScoreSubmitted,
   setScoreSubmitted,
   setLeaderboardEntrySubmitted,
 }) => {
   const toast = useToast();
-  const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
+  const router = useRouter();
 
+  const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
   const toastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
 
   const [config, setConfig] = useState(null);
-  const [entry, setEntry] = useState();
-  const [loading, setLoading] = useState(true);
-  const [submitting, setSubmitting] = useState(false);
+  const [entry, setEntry] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     if (!isUserLoading && user) {
@@ -39,7 +50,7 @@ const GameOverModalContainer = ({
 
   useEffect(() => {
     if (!isOpen) {
-      setLoading(true);
+      setIsLoading(true);
       return;
     }
 
@@ -49,18 +60,18 @@ const GameOverModalContainer = ({
 
     axiosClient.put(`/plays/${quiz.id}`);
     if (!user || score === 0) {
-      setLoading(false);
+      setIsLoading(false);
       return;
     }
 
-    if (!scoreSubmitted) {
+    if (!isScoreSubmitted) {
       increaseXP(10);
       handleScore();
       setScoreSubmitted(true);
     }
 
     if (!quiz.hasLeaderboard) {
-      setLoading(false);
+      setIsLoading(false);
     } else {
       getLeaderboardEntry(user.id);
     }
@@ -75,24 +86,11 @@ const GameOverModalContainer = ({
     };
 
     axiosClient.put(`/users/${user.id}`, update, config).then(() => {
-      toast({
-        position: toastPosition,
-        description: `+${increase} XP`,
-        status: "info",
-        duration: 9000,
-        isClosable: true,
-      });
+      toast(increaseXPToast(increase, toastPosition));
 
       const newLevel = getLevel(update.xp);
       if (newLevel > getLevel(user.xp)) {
-        toast({
-          position: toastPosition,
-          title: "Congratulations!",
-          description: `You've reached level ${newLevel}.`,
-          status: "info",
-          duration: 9000,
-          isClosable: true,
-        });
+        toast(levelUp(newLevel, toastPosition));
       }
 
       updateUser({
@@ -118,56 +116,53 @@ const GameOverModalContainer = ({
   };
 
   const createScore = () => {
-    const result = {
-      userId: user.id,
-      quizId: quiz.id,
-      score: score,
-      time: time,
-    };
-
-    axiosClient.post(`/scores`, result, config).then(() => {
-      scoreSubmittedToast();
-    });
+    axiosClient
+      .post(
+        `/scores`,
+        {
+          userId: user.id,
+          quizId: quiz.id,
+          score: score,
+          time: time,
+        },
+        config
+      )
+      .then(() => {
+        toast(scoreSubmitted(toastPosition));
+      });
   };
 
   const updateScore = (existing) => {
-    const update = {
-      userId: existing.userId,
-      quizId: quiz.id,
-      score: score,
-      time: time,
-    };
-
-    axiosClient.put(`/scores/${existing.id}`, update, config).then(() => {
-      scoreSubmittedToast();
-    });
-  };
-
-  const scoreSubmittedToast = () => {
-    toast({
-      position: toastPosition,
-      title: "Score Submitted",
-      description: "We've updated your high score for you.",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
+    axiosClient
+      .put(
+        `/scores/${existing.id}`,
+        {
+          userId: existing.userId,
+          quizId: quiz.id,
+          score: score,
+          time: time,
+        },
+        config
+      )
+      .then(() => {
+        toast(scoreSubmitted(toastPosition));
+      });
   };
 
   const getLeaderboardEntry = () => {
     axiosClient.get(`/leaderboard/${quiz.id}/${user.id}`).then((response) => {
       if (response.status !== 200) {
-        setLoading(false);
+        setIsLoading(false);
         return;
       }
 
       setEntry(response.data);
-      setLoading(false);
+      setIsLoading(false);
     });
   };
 
   const handleSubmitEntry = (existingEntry) => {
-    setSubmitting(true);
+    setIsSubmitting(true);
     if (existingEntry) {
       updateEntry(existingEntry);
     } else {
@@ -176,64 +171,72 @@ const GameOverModalContainer = ({
     setLeaderboardEntrySubmitted(true);
   };
 
-  const createEntry = () => {
-    const entry = {
-      quizId: quiz.id,
-      userId: user.id,
-      score: score,
-      time: time,
-    };
-
-    axiosClient.post(`/leaderboard`, entry, config).then(() => {
-      setSubmitting(false);
-      onClose();
-      entrySubmitted();
+  const handleRedirectWithScore = (pathname) => {
+    const tempScore = { score, time };
+    axiosClient.post("/tempscores", tempScore).then((response) => {
+      router.push({
+        pathname: pathname,
+        query: {
+          data: JSON.stringify({
+            redirect: `/quiz/${quiz.route}`,
+            tempScoreId: response.data,
+          }),
+        },
+      });
     });
   };
 
-  const updateEntry = (existingEntry) => {
-    const entry = {
-      quizId: existingEntry.quizId,
-      userId: existingEntry.userId,
-      score: score,
-      time: time,
-    };
-
+  const createEntry = () => {
     axiosClient
-      .put(`/leaderboard/${existingEntry.id}`, entry, config)
+      .post(
+        `/leaderboard`,
+        {
+          quizId: quiz.id,
+          userId: user.id,
+          score: score,
+          time: time,
+        },
+        config
+      )
       .then(() => {
-        setSubmitting(false);
+        setIsSubmitting(false);
         onClose();
         entrySubmitted();
       });
   };
 
-  const entrySubmitted = () => {
-    toast({
-      position: toastPosition,
-      title: "Leaderboard Entry Submitted",
-      description: "Your leaderboard entry was submitted successfully.",
-      status: "success",
-      duration: 9000,
-      isClosable: true,
-    });
+  const updateEntry = (existingEntry) => {
+    axiosClient
+      .put(
+        `/leaderboard/${existingEntry.id}`,
+        {
+          quizId: existingEntry.quizId,
+          userId: existingEntry.userId,
+          score: score,
+          time: time,
+        },
+        config
+      )
+      .then(() => {
+        setIsSubmitting(false);
+        onClose();
+        toast(entrySubmitted(toastPosition));
+      });
   };
-
-  if (loading) {
-    return null;
-  }
 
   return (
     <GameOverModal
       quiz={quiz}
       score={score}
       time={time}
-      loggedIn={!!user}
       existingEntry={entry}
+      isLoggedIn={!!user}
+      isLoading={isLoading}
       isOpen={isOpen}
+      isSubmitting={isSubmitting}
       onClose={onClose}
       onSubmit={quiz.hasLeaderboard ? handleSubmitEntry : null}
-      submitting={submitting}
+      onRedirectWithScore={handleRedirectWithScore}
     />
   );
 };
@@ -259,9 +262,22 @@ GameOverModalContainer.propTypes = {
   time: PropTypes.number,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
-  scoreSubmitted: PropTypes.bool,
+  isScoreSubmitted: PropTypes.bool,
   setScoreSubmitted: PropTypes.func,
   setLeaderboardEntrySubmitted: PropTypes.func,
+  onRedirectWithScore: PropTypes.func,
+};
+
+GameOverModalContainer.defaultProps = {
+  quiz: {},
+  score: 0,
+  time: 0,
+  isOpen: false,
+  onClose: () => {},
+  isScoreSubmitted: false,
+  setScoreSubmitted: () => {},
+  setLeaderboardEntrySubmitted: () => {},
+  onRedirectWithScore: () => {},
 };
 
 export default GameOverModalContainer;
