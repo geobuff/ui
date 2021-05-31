@@ -72,11 +72,14 @@ const UpdateUserFormModal = ({
                             size="lg"
                             height="40px"
                             fontSize="16px"
-                            background="#F6F6F6"
+                            background="#c3c3c3"
                             borderRadius={6}
                             _placeholder={{ color: "gray.500" }}
-                            _hover={{ background: "#e0e0e0" }}
-                            disabled
+                            _hover={{
+                              background: "#e0e0e0",
+                              cursor: "not-allowed",
+                            }}
+                            isDisabled
                           />
                         </FormControl>
                       )}
@@ -97,11 +100,14 @@ const UpdateUserFormModal = ({
                             size="lg"
                             height="40px"
                             fontSize="16px"
-                            background="#F6F6F6"
+                            background="#c3c3c3"
                             borderRadius={6}
                             _placeholder={{ color: "gray.500" }}
-                            _hover={{ background: "#e0e0e0" }}
-                            disabled
+                            _hover={{
+                              background: "#e0e0e0",
+                              cursor: "not-allowed",
+                            }}
+                            isDisabled
                           />
                         </FormControl>
                       )}
@@ -126,7 +132,7 @@ const UpdateUserFormModal = ({
                     </Field>
                   </Flex>
 
-                  <Flex marginY={3}>
+                  <Flex marginY={4}>
                     <Field name="isPremium">
                       {({ field, form }) => (
                         <FormControl>
@@ -143,7 +149,13 @@ const UpdateUserFormModal = ({
                       )}
                     </Field>
                     {!user.isPremium ? (
-                      <Button onClick={onClickUpgrade}>{"Upgrade"}</Button>
+                      <Button
+                        backgroundColor="purple.700"
+                        color="white"
+                        onClick={onClickUpgrade}
+                      >
+                        {"Upgrade"}
+                      </Button>
                     ) : (
                       <Button onClick={onClickManage}>{"Manage"}</Button>
                     )}
@@ -151,9 +163,17 @@ const UpdateUserFormModal = ({
                 </Flex>
 
                 <Flex justifyContent="flex-end">
-                  <Flex marginTop="44px" marginBottom={6} marginRight={6}>
+                  <Flex
+                    direction="row"
+                    marginTop="44px"
+                    marginBottom={6}
+                    marginRight={6}
+                  >
+                    <Button marginRight={3} width="100%" onClick={onClose}>
+                      {"Close"}
+                    </Button>
                     <Button
-                      colorScheme="red"
+                      colorScheme="green"
                       width="100%"
                       type="submit"
                       isLoading={isSubmitting}
