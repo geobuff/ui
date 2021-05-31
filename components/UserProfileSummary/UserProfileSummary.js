@@ -42,6 +42,7 @@ const UserProfileSummary = ({ user, error }) => {
           <Flex justifyContent="flex-end">
             <IconButton backgroundColor="transparent" onClick={onOpen}>
               <SolidPencil
+                color="gray.600"
                 marginLeft="4px"
                 marginTop="4px"
                 height="22px"

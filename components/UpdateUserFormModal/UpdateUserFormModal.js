@@ -11,14 +11,10 @@ import {
   Button,
   FormErrorMessage,
   Checkbox,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalFooter,
-  ModalBody,
   Heading,
 } from "@chakra-ui/react";
 
+import Modal from "../Modal";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 
@@ -34,8 +30,6 @@ const UpdateUserFormModal = ({
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-
       <Formik
         enableReinitialize
         initialValues={{
@@ -47,9 +41,13 @@ const UpdateUserFormModal = ({
         onSubmit={onSubmit}
       >
         {() => (
-          <Form>
-            <ModalContent borderRadius="12px">
-              <ModalBody padding={0}>
+          <Form style={{ height: "100%" }}>
+            <Box height="100%">
+              <Flex
+                direction="column"
+                justifyContent="space-between"
+                height="100%"
+              >
                 <Flex direction="column" marginX={6}>
                   <Heading
                     marginTop={6}
@@ -74,11 +72,14 @@ const UpdateUserFormModal = ({
                             size="lg"
                             height="40px"
                             fontSize="16px"
-                            background="#F6F6F6"
+                            background="#c3c3c3"
                             borderRadius={6}
                             _placeholder={{ color: "gray.500" }}
-                            _hover={{ background: "#e0e0e0" }}
-                            disabled
+                            _hover={{
+                              background: "#e0e0e0",
+                              cursor: "not-allowed",
+                            }}
+                            isDisabled
                           />
                         </FormControl>
                       )}
@@ -99,11 +100,14 @@ const UpdateUserFormModal = ({
                             size="lg"
                             height="40px"
                             fontSize="16px"
-                            background="#F6F6F6"
+                            background="#c3c3c3"
                             borderRadius={6}
                             _placeholder={{ color: "gray.500" }}
-                            _hover={{ background: "#e0e0e0" }}
-                            disabled
+                            _hover={{
+                              background: "#e0e0e0",
+                              cursor: "not-allowed",
+                            }}
+                            isDisabled
                           />
                         </FormControl>
                       )}
@@ -128,7 +132,7 @@ const UpdateUserFormModal = ({
                     </Field>
                   </Flex>
 
-                  <Flex marginY={3}>
+                  <Flex marginY={4}>
                     <Field name="isPremium">
                       {({ field, form }) => (
                         <FormControl>
@@ -145,27 +149,42 @@ const UpdateUserFormModal = ({
                       )}
                     </Field>
                     {!user.isPremium ? (
-                      <Button onClick={onClickUpgrade}>{"Upgrade"}</Button>
+                      <Button
+                        backgroundColor="purple.700"
+                        color="white"
+                        onClick={onClickUpgrade}
+                      >
+                        {"Upgrade"}
+                      </Button>
                     ) : (
                       <Button onClick={onClickManage}>{"Manage"}</Button>
                     )}
                   </Flex>
                 </Flex>
-              </ModalBody>
-              <ModalFooter marginBottom={1}>
-                <Flex marginTop="44px" marginBottom={0}>
-                  <Button
-                    colorScheme="green"
-                    width="100%"
-                    type="submit"
-                    isLoading={isSubmitting}
+
+                <Flex justifyContent="flex-end">
+                  <Flex
+                    direction="row"
+                    marginTop="44px"
+                    marginBottom={6}
+                    marginRight={6}
                   >
-                    {"Update"}
-                  </Button>
-                  <ErrorAlertBanner error={error} />
+                    <Button marginRight={3} width="100%" onClick={onClose}>
+                      {"Close"}
+                    </Button>
+                    <Button
+                      colorScheme="green"
+                      width="100%"
+                      type="submit"
+                      isLoading={isSubmitting}
+                    >
+                      {"Update"}
+                    </Button>
+                    <ErrorAlertBanner error={error} />
+                  </Flex>
                 </Flex>
-              </ModalFooter>
-            </ModalContent>
+              </Flex>
+            </Box>
           </Form>
         )}
       </Formik>

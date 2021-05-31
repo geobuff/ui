@@ -59,8 +59,13 @@ const Modal = ({ header, footer, isOpen, onClose, children, ...props }) => {
           transition="all 250ms ease-in-out"
           {...props}
         >
-          <Flex direction="column" justifyContent="space-between" height="100%">
-            <Box>
+          <Flex
+            direction="column"
+            justifyContent="space-between"
+            height="100%"
+            width="100%"
+          >
+            <Box height="100%">
               {!!header && (
                 <>
                   {React.isValidElement(header) ? (
