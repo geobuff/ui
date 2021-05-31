@@ -79,6 +79,7 @@ const GameOverModalContainer = ({
 
   const increaseXP = (increase) => {
     const update = {
+      avatarId: user.avatarId,
       username: user.username,
       email: user.email,
       countryCode: user.countryCode,

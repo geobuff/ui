@@ -14,7 +14,7 @@ const useCurrentUser = () => {
 
     return {
       id: parseInt(window.localStorage.getItem("geobuff.id")),
-      avatarId: window.localStorage.getItem("geobuff.avatarId"),
+      avatarId: parseInt(window.localStorage.getItem("geobuff.avatarId")),
       username: window.localStorage.getItem("geobuff.username"),
       email: window.localStorage.getItem("geobuff.email"),
       countryCode: window.localStorage.getItem("geobuff.countryCode"),

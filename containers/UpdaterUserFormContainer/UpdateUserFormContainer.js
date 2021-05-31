@@ -61,6 +61,7 @@ const UpdateUserFormContainer = ({ isOpen, onClose }) => {
       .put(
         `/users/${user.id}`,
         {
+          avatarId: user.avatarId,
           username: values.username,
           email: values.email,
           countryCode: values.countryCode,
@@ -70,13 +71,10 @@ const UpdateUserFormContainer = ({ isOpen, onClose }) => {
       )
       .then((response) => {
         updateUser({
-          id: response.data.id,
+          ...user,
           username: response.data.username,
           email: response.data.email,
           countryCode: response.data.countryCode,
-          xp: response.data.xp,
-          isPremium: response.data.isPremium,
-          token: user.token,
         });
 
         onClose();
