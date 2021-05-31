@@ -14,11 +14,7 @@ const UserProfileContainer = () => {
     }
   }, [isUserLoading, user, router]);
 
-  if (!user) {
-    return null;
-  }
-
-  return <UserProfile user={user} />;
+  return <UserProfile user={user || null} />;
 };
 
 export default UserProfileContainer;

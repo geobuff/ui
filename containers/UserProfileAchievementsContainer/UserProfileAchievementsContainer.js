@@ -9,10 +9,12 @@ import UserProfileAchievementsPlaceholder from "../../placeholders/UserProfileAc
 
 const UserProfileAchievementsContainer = ({ user }) => {
   const { badges, isLoading: badgesLoading } = useBadges();
-  const { scores, isLoading: scoresLoading } = useScores(user.id);
-  const { entries, isLoading: entriesLoading } = useLeaderboardEntries(user.id);
+  const { scores, isLoading: scoresLoading } = useScores(user?.id);
+  const { entries, isLoading: entriesLoading } = useLeaderboardEntries(
+    user?.id
+  );
 
-  if (badgesLoading || scoresLoading || entriesLoading) {
+  if (badgesLoading || scoresLoading || entriesLoading || !user) {
     return <UserProfileAchievementsPlaceholder />;
   }
 
@@ -34,6 +36,10 @@ UserProfileAchievementsContainer.propTypes = {
     email: PropTypes.string,
     picture: PropTypes.string,
   }),
+};
+
+UserProfileAchievementsContainer.defaultProps = {
+  user: null,
 };
 
 export default UserProfileAchievementsContainer;
