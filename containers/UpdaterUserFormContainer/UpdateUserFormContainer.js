@@ -1,17 +1,19 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useToast } from "@chakra-ui/react";
 import { useStripe } from "@stripe/react-stripe-js";
+import { useToast, useBreakpointValue } from "@chakra-ui/react";
 
 import UpdateUserFormModal from "../../components/UpdateUserFormModal";
 
 import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
+import { userUpdated } from "../../helpers/toasts";
 
 const UpdateUserFormContainer = ({ isOpen, onClose }) => {
   const toast = useToast();
   const stripe = useStripe();
   const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
+  const toastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
 
   const [config, setConfig] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -55,15 +57,17 @@ const UpdateUserFormContainer = ({ isOpen, onClose }) => {
     setIsSubmitting(true);
     setError(null);
 
-    const update = {
-      username: values.username,
-      email: values.email,
-      countryCode: values.countryCode,
-      xp: user.xp,
-    };
-
     axiosClient
-      .put(`/users/${user.id}`, update, config)
+      .put(
+        `/users/${user.id}`,
+        {
+          username: values.username,
+          email: values.email,
+          countryCode: values.countryCode,
+          xp: user.xp,
+        },
+        config
+      )
       .then((response) => {
         updateUser({
           id: response.data.id,
@@ -75,14 +79,8 @@ const UpdateUserFormContainer = ({ isOpen, onClose }) => {
           token: user.token,
         });
 
-        toast({
-          position: "bottom-right",
-          title: "User Updated",
-          description: "Successfully updated user details.",
-          status: "success",
-          duration: 9000,
-          isClosable: true,
-        });
+        onClose();
+        toast(userUpdated(toastPosition));
       })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));

@@ -34,3 +34,12 @@ export const levelUp = (newLevel, position = defaultPosition) => ({
   duration: 9000,
   isClosable: true,
 });
+
+export const userUpdated = (position = defaultPosition) => ({
+  position: position,
+  title: "User Updated",
+  description: "Successfully updated user details.",
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});
