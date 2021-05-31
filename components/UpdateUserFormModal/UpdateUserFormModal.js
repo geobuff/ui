@@ -11,14 +11,10 @@ import {
   Button,
   FormErrorMessage,
   Checkbox,
-  Modal,
-  ModalOverlay,
-  ModalContent,
-  ModalFooter,
-  ModalBody,
   Heading,
 } from "@chakra-ui/react";
 
+import Modal from "../Modal";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 
@@ -34,8 +30,6 @@ const UpdateUserFormModal = ({
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
-      <ModalOverlay />
-
       <Formik
         enableReinitialize
         initialValues={{
@@ -47,9 +41,13 @@ const UpdateUserFormModal = ({
         onSubmit={onSubmit}
       >
         {() => (
-          <Form>
-            <ModalContent borderRadius="12px">
-              <ModalBody padding={0}>
+          <Form style={{ height: "100%" }}>
+            <Box height="100%">
+              <Flex
+                direction="column"
+                justifyContent="space-between"
+                height="100%"
+              >
                 <Flex direction="column" marginX={6}>
                   <Heading
                     marginTop={6}
@@ -151,21 +149,22 @@ const UpdateUserFormModal = ({
                     )}
                   </Flex>
                 </Flex>
-              </ModalBody>
-              <ModalFooter marginBottom={1}>
-                <Flex marginTop="44px" marginBottom={0}>
-                  <Button
-                    colorScheme="green"
-                    width="100%"
-                    type="submit"
-                    isLoading={isSubmitting}
-                  >
-                    {"Update"}
-                  </Button>
-                  <ErrorAlertBanner error={error} />
+
+                <Flex justifyContent="flex-end">
+                  <Flex marginTop="44px" marginBottom={6} marginRight={6}>
+                    <Button
+                      colorScheme="red"
+                      width="100%"
+                      type="submit"
+                      isLoading={isSubmitting}
+                    >
+                      {"Update"}
+                    </Button>
+                    <ErrorAlertBanner error={error} />
+                  </Flex>
                 </Flex>
-              </ModalFooter>
-            </ModalContent>
+              </Flex>
+            </Box>
           </Form>
         )}
       </Formik>
