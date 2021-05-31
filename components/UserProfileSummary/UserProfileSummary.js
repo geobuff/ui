@@ -26,14 +26,27 @@ import SolidPencil from "../../Icons/SolidPencil";
 import useCountries from "../../hooks/useCountries";
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 
-const UserProfileSummary = ({ user, error }) => {
+import LoadingPlaceholder from "./UserProfileSummaryPlaceholder";
+
+const UserProfileSummary = ({
+  isLoading,
+  picture,
+  email,
+  xp,
+  countryCode,
+  username,
+  error,
+}) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { countries } = useCountries();
-  const level = getLevel(user.xp);
+  const level = getLevel(xp);
 
-  const matchedCountry = countries?.find(
-    ({ value }) => value === user.countryCode
-  )?.label;
+  const matchedCountry = countries?.find(({ value }) => value === countryCode)
+    ?.label;
+
+  if (isLoading) {
+    return <LoadingPlaceholder />;
+  }
 
   return (
     <>
@@ -57,15 +70,15 @@ const UserProfileSummary = ({ user, error }) => {
             <Avatar
               height="130px"
               width="130px"
-              src={user?.picture}
-              name={user.username}
+              src={picture}
+              name={username}
               marginTop="-112px"
               marginBottom={6}
             />
 
-            <Heading fontSize="32px">{user.username}</Heading>
+            <Heading fontSize="32px">{username}</Heading>
             <Text color="gray.500" fontWeight={600} marginY={1}>
-              {user.email}
+              {email}
             </Text>
             <Flex
               width="100%"
@@ -78,7 +91,7 @@ const UserProfileSummary = ({ user, error }) => {
                 height="17px"
                 width="23.5px"
                 objectFit="cover"
-                src={getFlagUrl(user.countryCode)}
+                src={getFlagUrl(countryCode)}
                 borderRadius={4}
               />
               <Text color="gray.500" fontWeight={600}>
@@ -93,7 +106,7 @@ const UserProfileSummary = ({ user, error }) => {
             </Flex>
             <Progress
               size="lg"
-              value={getLevelCompletion(user.xp)}
+              value={getLevelCompletion(xp)}
               colorScheme="blue"
               marginX={6}
             />
@@ -106,29 +119,31 @@ const UserProfileSummary = ({ user, error }) => {
 };
 
 UserProfileSummary.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    username: PropTypes.string,
-    email: PropTypes.string,
-    countryCode: PropTypes.string,
-    xp: PropTypes.number,
-    isPremium: PropTypes.bool,
-    picture: PropTypes.string,
-  }),
+  xp: PropTypes.number,
+  countryCode: PropTypes.string,
+  username: PropTypes.string,
+  email: PropTypes.string,
+  picture: PropTypes.string,
   onSubmit: PropTypes.func,
   isSubmitting: PropTypes.bool,
   error: PropTypes.string,
   createCheckoutSession: PropTypes.func,
   manageSubscription: PropTypes.func,
+  isLoading: PropTypes.bool,
 };
 
 UserProfileSummary.defaultProps = {
-  user: {},
+  xp: 0,
+  countryCode: "",
+  username: "",
+  email: "",
+  picture: "",
   onSubmit: () => {},
   isSubmitting: false,
   error: "",
   createCheckoutSession: () => {},
   manageSubscription: () => {},
+  isLoading: true,
 };
 
 export default UserProfileSummary;

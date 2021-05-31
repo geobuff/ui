@@ -33,10 +33,10 @@ const UpdateUserFormModal = ({
       <Formik
         enableReinitialize
         initialValues={{
-          username: user.username,
-          email: user.email,
-          countryCode: user.countryCode,
-          isPremium: user.isPremium,
+          username: user?.username,
+          email: user?.email,
+          countryCode: user?.countryCode,
+          isPremium: user?.isPremium,
         }}
         onSubmit={onSubmit}
       >
@@ -214,7 +214,7 @@ UpdateUserFormModal.propTypes = {
 UpdateUserFormModal.defaultProps = {
   isOpen: false,
   onClose: () => {},
-  user: {},
+  user: null,
   onSubmit: () => {},
   isSubmitting: false,
   error: "",
