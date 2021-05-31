@@ -25,16 +25,18 @@ const HeroHeader = ({ heading, ...props }) => (
         alignItems="center"
         textAlign="center"
       >
-        <Fade in>
-          <Text
-            color="white"
-            fontSize={["38px", "42px", "56px"]}
-            fontWeight="black"
-            lineHeight={{ base: "1.1", md: "1" }}
-          >
-            {heading}
-          </Text>
-        </Fade>
+        {!!heading && (
+          <Fade in>
+            <Text
+              color="white"
+              fontSize={["38px", "42px", "56px"]}
+              fontWeight="black"
+              lineHeight={{ base: "1.1", md: "1" }}
+            >
+              {heading}
+            </Text>
+          </Fade>
+        )}
       </Flex>
     </Box>
   </Box>
@@ -42,6 +44,10 @@ const HeroHeader = ({ heading, ...props }) => (
 
 HeroHeader.propTypes = {
   heading: PropTypes.string,
+};
+
+HeroHeader.defaultProps = {
+  heading: "",
 };
 
 export default HeroHeader;
