@@ -94,5 +94,8 @@ MerchList.propTypes = {
     })
   ),
 };
+MerchList.defaultProps = {
+  merch: [],
+};
 
 export default MerchList;
