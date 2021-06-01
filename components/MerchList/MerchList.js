@@ -1,8 +1,14 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Link from "next/link";
+import PropTypes from "prop-types";
 
-import { Box, SimpleGrid, Link as ChakraLink } from "@chakra-ui/react";
+import {
+  AspectRatio,
+  Box,
+  Alert,
+  AlertIcon,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
 import ProductCard from "../ProductCard";
 
@@ -18,28 +24,75 @@ const MerchList = ({ merch }) => (
       cursor: "pointer",
     }}
   >
-    <SimpleGrid
-      justifyContent="center"
-      columns={{ base: 1, sm: 2 }}
-      spacing={{ base: "50px", sm: "24px" }}
-    >
-      {merch.map((product) => (
-        <Link key={product.id} href={`/merch/${product.id}`}>
-          <ChakraLink>
-            <ProductCard
-              imageUrl={product.imageUrls[0]}
-              name={product.name}
-              price={product.price}
-            />
-          </ChakraLink>
-        </Link>
-      ))}
-    </SimpleGrid>
+    {merch.length === 0 ? (
+      <Alert status="info" borderRadius={6} p={5} mt={5}>
+        <AlertIcon />
+        {"No merch to display."}
+      </Alert>
+    ) : (
+      <>
+        <SimpleGrid
+          justifyContent="center"
+          minChildWidth={{ base: "140px", sm: "185px", md: "200px" }}
+          spacing={{ base: "16px", md: "24px" }}
+        >
+          {merch.map((product) => (
+            <Link
+              key={product.id}
+              href={!product.disabled ? `/merch/${product.id}` : "/"}
+            >
+              <AspectRatio
+                width="100%"
+                marginX="auto"
+                maxW="260px"
+                minHeight="200px"
+                maxHeight="220px"
+                ratio={3 / 2}
+                transition="all 150ms ease-out"
+                _hover={!product.disabled && { transform: "scale(1.030)" }}
+                opacity={product.disabled ? "0.25" : "1"}
+              >
+                <ProductCard
+                  name={product.name}
+                  imageUrl={
+                    product.images.find((image) => image.isPrimary).imageUrl
+                  }
+                  price={product.price}
+                  sizes={product.sizes
+                    .filter((size) => !size.soldOut)
+                    .map((x) => x.size)}
+                />
+              </AspectRatio>
+            </Link>
+          ))}
+        </SimpleGrid>
+      </>
+    )}
   </Box>
 );
 
 MerchList.propTypes = {
-  merch: PropTypes.arrayOf(PropTypes.object),
+  merch: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+      description: PropTypes.string,
+      price: PropTypes.number,
+      disabled: PropTypes.bool,
+      sizes: PropTypes.arrayOf(
+        PropTypes.shape({
+          size: PropTypes.string,
+          soldOut: PropTypes.bool,
+        })
+      ),
+      images: PropTypes.arrayOf(
+        PropTypes.shape({
+          imageUrl: PropTypes.string,
+          isPrimary: PropTypes.bool,
+        })
+      ),
+    })
+  ),
 };
 
 export default MerchList;
