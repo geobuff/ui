@@ -1,7 +1,15 @@
 import { useState } from "react";
+import jwt_decode from "jwt-decode";
 
 const useCurrentUser = () => {
   const [isLoading, setIsLoading] = useState(false);
+
+  const tokenExpired = (token) => {
+    const decoded = jwt_decode(token);
+    const d = new Date();
+    const seconds = Math.round(d.getTime() / 1000);
+    return decoded.exp <= seconds;
+  };
 
   const [user, setUser] = useState(() => {
     if (typeof window === "undefined") {
@@ -9,6 +17,13 @@ const useCurrentUser = () => {
     }
 
     if (!window.localStorage.getItem("geobuff.id")) {
+      return null;
+    }
+
+    if (tokenExpired(window.localStorage.getItem("geobuff.token"))) {
+      if (typeof window !== "undefined") {
+        window.localStorage.clear();
+      }
       return null;
     }
 
