@@ -258,7 +258,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           {!shouldDisplayOnMobile && (
             <Box minHeight="100%">
               <Sidebar heading={quiz.name} quiz={quiz}>
-                <Box>
+                <Flex direction="column" height="100%">
                   <GameInputCard
                     quiz={quiz}
                     recents={recentSubmissions}
@@ -292,7 +292,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                       )}
                     />
                   )}
-                </Box>
+                </Flex>
               </Sidebar>
             </Box>
           )}

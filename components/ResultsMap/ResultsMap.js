@@ -34,7 +34,7 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
   }) => {
     return (
       <div key={key} className="list--header" style={style}>
-        <Text fontWeight="bold" my={3} textTransform="uppercase">
+        <Text fontWeight="bold" py={6} textTransform="uppercase">
           {title}
         </Text>
       </div>
@@ -69,7 +69,7 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
   const ROW_HEIGHT = 30;
 
   return (
-    <Box textAlign="left">
+    <Box textAlign="left" height="100%">
       <Divider my={4} />
       <Text fontSize="xl" mt={2} fontWeight="bold">
         {"Results"}
@@ -87,7 +87,7 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
           </Box>
         ))} */}
       {/* <Box backgroundColor="red.500" minHeight="200px" height="100%"> */}
-      <div style={{ display: "flex", height: "100%", minHeight: "200px" }}>
+      <div style={{ display: "flex", height: "75%", minHeight: "400px" }}>
         <div style={{ flex: "1 1 auto" }}>
           <AutoSizer>
             {({ height, width }) => (
