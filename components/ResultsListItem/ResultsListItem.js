@@ -16,35 +16,35 @@ const ResultsListItem = ({
   hasFlag,
   ...props
 }) => (
-  <ListItem listStyleType="none" {...props}>
-    <Fade in>
-      <Flex alignItems="center">
-        {hasFlag ? (
-          <>
-            {!isHidden && !isMissedResult ? (
-              <CustomFlag url={getFlagUrl(code)} />
-            ) : (
-              <FlagFallback />
-            )}
-          </>
+  // <ListItem listStyleType="none" {...props}>
+  // <Fade in>
+  <Flex alignItems="center">
+    {hasFlag ? (
+      <>
+        {!isHidden && !isMissedResult ? (
+          <CustomFlag url={getFlagUrl(code)} />
         ) : (
-          <Twemoji
-            emoji={isHidden ? "🔲" : isMissedResult ? "❌" : "✅"}
-            height="18px"
-            width="18px"
-          />
+          <FlagFallback />
         )}
-        <Text
-          ml={2}
-          fontWeight="600"
-          fontSize={14}
-          color={isMissedResult && "#e24f4f"}
-        >
-          {!isHidden ? svgName : "???"}
-        </Text>
-      </Flex>
-    </Fade>
-  </ListItem>
+      </>
+    ) : (
+      <Twemoji
+        emoji={isHidden ? "🔲" : isMissedResult ? "❌" : "✅"}
+        height="18px"
+        width="18px"
+      />
+    )}
+    <Text
+      ml={2}
+      fontWeight="600"
+      fontSize={14}
+      color={isMissedResult && "#e24f4f"}
+    >
+      {!isHidden ? svgName : "???"}
+    </Text>
+  </Flex>
+  // </Fade>
+  // </ListItem>
 );
 
 ResultsListItem.propTypes = {
