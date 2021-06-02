@@ -2,16 +2,12 @@ import React, { useMemo } from "react";
 import PropTypes from "prop-types";
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 
-// import SectionList from "react-virtualized-sectionlist";
-
-import ResultsList from "../ResultsList";
 import { getResults } from "../../helpers/results-list";
 
 import SectionList from "../SectionList";
 import ResultsListItem from "../ResultsListItem";
 
 import { AutoSizer } from "react-virtualized";
-import "react-virtualized/styles.css"; // only needs to be imported once
 
 const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
   const sorted = useMemo(
@@ -23,50 +19,37 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
     [map, checked, hasGameStopped]
   );
 
-  const renderHeader = ({
-    title,
-    sectionIndex,
-    key,
-    style,
-    isScrolling,
-    isVisible,
-    parent,
-  }) => {
+  const renderHeader = ({ title, key, style }) => {
     return (
-      <div key={key} className="list--header" style={style}>
-        <Text fontWeight="bold" py={6} textTransform="uppercase">
+      <Box key={key} style={style}>
+        <Text
+          marginY={2}
+          fontSize="18px"
+          fontWeight="bold"
+          textTransform="uppercase"
+        >
           {title}
         </Text>
-      </div>
+      </Box>
     );
   };
 
-  const renderRow = ({
-    item,
-    sectionIndex,
-    rowIndex,
-    key,
-    style,
-    isScrolling,
-    isVisible,
-    parent,
-  }) => {
-    item.svgName === "Australia" && console.log(item, "item");
+  const renderRow = ({ item, key, style }) => {
     return (
-      <div key={key} className="list--item" style={style}>
+      <Box key={key} style={style}>
         <ResultsListItem
           code={item.code}
           svgName={item.svgName}
           isHidden={item.isHidden}
           isMissedResult={item.isMissedResult}
           hasFlag={quiz.hasFlags}
-          my={2}
         />
-      </div>
+      </Box>
     );
   };
 
-  const ROW_HEIGHT = 30;
+  const HEADER_HEIGHT = 50;
+  const ROW_HEIGHT = 28;
 
   return (
     <Box textAlign="left" height="100%">
@@ -75,20 +58,12 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
         {"Results"}
       </Text>
       <Divider my={3} />
-      {/* {Object.entries(map).map(([key, mapping], index) => (
-          <Box mt={5} key={index}>
-            <Text fontWeight="bold" my={3} textTransform="uppercase">
-              {key}
-            </Text>
-            <ResultsList
-              quiz={quiz}
-              results={getResults(mapping, checked, hasGameStopped)}
-            />
-          </Box>
-        ))} */}
-      {/* <Box backgroundColor="red.500" minHeight="200px" height="100%"> */}
-      <div style={{ display: "flex", height: "75%", minHeight: "400px" }}>
-        <div style={{ flex: "1 1 auto" }}>
+      <Flex
+        direction="column"
+        height={{ base: "100%", sm: "75%" }}
+        minHeight="400px"
+      >
+        <Box flex="1 1 auto">
           <AutoSizer>
             {({ height, width }) => (
               <SectionList
@@ -96,14 +71,15 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
                 height={height}
                 sections={sorted}
                 sectionHeaderRenderer={renderHeader}
-                sectionHeaderHeight={ROW_HEIGHT}
+                sectionHeaderHeight={HEADER_HEIGHT}
                 rowHeight={ROW_HEIGHT}
                 rowRenderer={renderRow}
               />
             )}
           </AutoSizer>
-        </div>
-      </div>
+        </Box>
+      </Flex>
+      <Box height="75px" />
     </Box>
   );
 };
