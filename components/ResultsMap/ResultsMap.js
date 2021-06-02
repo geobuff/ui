@@ -7,9 +7,9 @@ import { getResults } from "../../helpers/results-list";
 import SectionList from "../SectionList";
 import ResultsListItem from "../ResultsListItem";
 
-import { AutoSizer } from "react-virtualized";
+import { AutoSizer, List } from "react-virtualized";
 
-const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
+const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
   const sorted = useMemo(
     () =>
       Object.entries(map).map(([key, mapping]) => ({
@@ -34,7 +34,7 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
     );
   };
 
-  const renderRow = ({ item, key, style }) => {
+  const renderSectionRow = ({ item, key, style }) => {
     return (
       <Box key={key} style={style}>
         <ResultsListItem
@@ -42,6 +42,20 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
           svgName={item.svgName}
           isHidden={item.isHidden}
           isMissedResult={item.isMissedResult}
+          hasFlag={quiz.hasFlags}
+        />
+      </Box>
+    );
+  };
+
+  const renderListRow = ({ key, index, style }) => {
+    return (
+      <Box key={key} style={style}>
+        <ResultsListItem
+          code={sorted[0].data[index].code}
+          svgName={sorted[0].data[index].svgName}
+          isHidden={sorted[0].data[index].isHidden}
+          isMissedResult={sorted[0].data[index].isMissedResult}
           hasFlag={quiz.hasFlags}
         />
       </Box>
@@ -64,19 +78,33 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
         minHeight="400px"
       >
         <Box flex="1 1 auto">
-          <AutoSizer>
-            {({ height, width }) => (
-              <SectionList
-                width={width}
-                height={height}
-                sections={sorted}
-                sectionHeaderRenderer={renderHeader}
-                sectionHeaderHeight={HEADER_HEIGHT}
-                rowHeight={ROW_HEIGHT}
-                rowRenderer={renderRow}
-              />
-            )}
-          </AutoSizer>
+          {!!sorted.length && (
+            <AutoSizer>
+              {({ height, width }) => (
+                <>
+                  {hasGrouping ? (
+                    <SectionList
+                      width={width}
+                      height={height}
+                      sections={sorted}
+                      sectionHeaderRenderer={renderHeader}
+                      sectionHeaderHeight={HEADER_HEIGHT}
+                      rowHeight={ROW_HEIGHT}
+                      rowRenderer={renderSectionRow}
+                    />
+                  ) : (
+                    <List
+                      width={width}
+                      height={height}
+                      rowCount={sorted[0].data.length}
+                      rowHeight={ROW_HEIGHT}
+                      rowRenderer={renderListRow}
+                    />
+                  )}
+                </>
+              )}
+            </AutoSizer>
+          )}
         </Box>
       </Flex>
       <Box height="75px" />
@@ -104,12 +132,14 @@ ResultsMap.propTypes = {
   checked: PropTypes.array,
   map: PropTypes.object,
   hasGameStopped: PropTypes.bool,
+  hasGrouping: PropTypes.bool,
 };
 ResultsMap.defaultProps = {
   quiz: {},
   checked: [],
   map: {},
   hasGameStopped: false,
+  hasGrouping: false,
 };
 
 export default ResultsMap;

@@ -275,23 +275,24 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                     onGameStart={handleGameStart}
                     onGameStop={handleGameStop}
                   />
-                  {quiz.hasGrouping ? (
-                    <ResultsMap
-                      quiz={quiz}
-                      checked={checkedSubmissions}
-                      map={groupMapping(mapping)}
-                      hasGameStopped={hasGameStopped}
-                    />
-                  ) : (
-                    <ResultsListWrapper
-                      quiz={quiz}
-                      results={getResults(
-                        mapping,
-                        checkedSubmissions,
-                        hasGameStopped
-                      )}
-                    />
-                  )}
+                  {/* {quiz.hasGrouping ? ( */}
+                  <ResultsMap
+                    quiz={quiz}
+                    checked={checkedSubmissions}
+                    map={groupMapping(mapping)}
+                    hasGameStopped={hasGameStopped}
+                    hasGrouping={quiz.hasGrouping}
+                  />
+                  {/* // ) : (
+                  //   <ResultsListWrapper
+                  //     quiz={quiz}
+                  //     results={getResults(
+                  //       mapping,
+                  //       checkedSubmissions,
+                  //       hasGameStopped
+                  //     )}
+                  //   />
+                  // )} */}
                 </Flex>
               </Sidebar>
             </Box>
