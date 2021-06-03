@@ -4,10 +4,13 @@ import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 
 import { getResults } from "../../helpers/results-list";
 
-import SectionList from "../SectionList";
+import VirtualizedSectionList from "../SectionList";
 import ResultsListItem from "../ResultsListItem";
 
-import { AutoSizer, List } from "react-virtualized";
+import { AutoSizer, List as VirtualizedList } from "react-virtualized";
+
+const HEADER_HEIGHT = 50;
+const ROW_HEIGHT = 28;
 
 const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
   const sorted = useMemo(
@@ -22,14 +25,11 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
   const renderHeader = ({ title, key, style }) => {
     return (
       <Box key={key} style={style}>
-        <Text
-          marginY={2}
-          fontSize="18px"
-          fontWeight="bold"
-          textTransform="uppercase"
-        >
-          {title}
-        </Text>
+        <Box height="100%" marginTop={4}>
+          <Text fontSize="18px" fontWeight="bold" textTransform="uppercase">
+            {title}
+          </Text>
+        </Box>
       </Box>
     );
   };
@@ -62,13 +62,10 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
     );
   };
 
-  const HEADER_HEIGHT = 50;
-  const ROW_HEIGHT = 28;
-
   return (
     <Box textAlign="left" height="100%">
       <Divider my={4} />
-      <Text fontSize="xl" mt={2} fontWeight="bold">
+      <Text fontSize="xl" pt={5} fontWeight="bold">
         {"Results"}
       </Text>
       <Divider my={3} />
@@ -83,7 +80,7 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
               {({ height, width }) => (
                 <>
                   {hasGrouping ? (
-                    <SectionList
+                    <VirtualizedSectionList
                       width={width}
                       height={height}
                       sections={sorted}
@@ -93,7 +90,7 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
                       rowRenderer={renderSectionRow}
                     />
                   ) : (
-                    <List
+                    <VirtualizedList
                       width={width}
                       height={height}
                       rowCount={sorted[0].data.length}
