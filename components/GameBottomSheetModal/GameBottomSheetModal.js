@@ -14,11 +14,9 @@ import Sheet from "react-modal-sheet";
 
 import ResultsList from "../ResultsList";
 import ResultsMap from "../ResultsMap";
-import ResultsListWrapper from "../ResultsListWrapper";
 import Twemoji from "../Twemoji";
 
 import { groupMapping } from "../../helpers/mapping";
-import { getResults } from "../../helpers/results-list";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
@@ -104,21 +102,13 @@ const GameBottomSheetModal = ({
             <ResultsList quiz={quiz} results={recents} />
           </Box>
 
-          <Box>
-            {quiz.hasGrouping ? (
-              <ResultsMap
-                quiz={quiz}
-                checked={checked}
-                map={groupMapping(mapping)}
-                hasGameStopped={hasGameStopped}
-              />
-            ) : (
-              <ResultsListWrapper
-                quiz={quiz}
-                results={getResults(mapping, checked, hasGameStopped)}
-              />
-            )}
-          </Box>
+          <ResultsMap
+            quiz={quiz}
+            checked={checked}
+            map={groupMapping(mapping)}
+            hasGameStopped={hasGameStopped}
+            hasGrouping={quiz.hasGrouping}
+          />
         </Flex>
       </Sheet.Content>
     </Sheet.Container>
