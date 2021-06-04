@@ -48,6 +48,7 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
     );
   };
 
+  // TODO: Refactor to remove magic number
   const renderListRow = ({ key, index, style }) => {
     return (
       <Box key={key} style={style}>
