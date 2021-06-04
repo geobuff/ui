@@ -19,9 +19,9 @@ import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
-import ResultsListWrapper from "../ResultsListWrapper";
+import GameMap from "../GameMap";
+
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
-import GameMap from "../GameMap/GameMap";
 
 import SolidChevronUp from "../../Icons/SolidChevronUp";
 import SolidChevronDown from "../../Icons/SolidChevronDown";
@@ -30,7 +30,6 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 import axiosClient from "../../axios/axiosClient";
 
 import { groupMapping } from "../../helpers/mapping";
-import { getResults } from "../../helpers/results-list";
 
 import {
   findSubmissionByNames,
@@ -72,7 +71,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           handleGameStop();
         })
         .catch(() => {
-          // Ignore invalid tempscore.
+          //Ignore invalid tempscore.
         });
     }
   }, [isUserLoading, user, router.query]);
@@ -258,7 +257,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           {!shouldDisplayOnMobile && (
             <Box minHeight="100%">
               <Sidebar heading={quiz.name} quiz={quiz}>
-                <Box>
+                <Flex direction="column" height="100%">
                   <GameInputCard
                     quiz={quiz}
                     recents={recentSubmissions}
@@ -275,24 +274,14 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                     onGameStart={handleGameStart}
                     onGameStop={handleGameStop}
                   />
-                  {quiz.hasGrouping ? (
-                    <ResultsMap
-                      quiz={quiz}
-                      checked={checkedSubmissions}
-                      map={groupMapping(mapping)}
-                      hasGameStopped={hasGameStopped}
-                    />
-                  ) : (
-                    <ResultsListWrapper
-                      quiz={quiz}
-                      results={getResults(
-                        mapping,
-                        checkedSubmissions,
-                        hasGameStopped
-                      )}
-                    />
-                  )}
-                </Box>
+                  <ResultsMap
+                    quiz={quiz}
+                    checked={checkedSubmissions}
+                    map={groupMapping(mapping)}
+                    hasGameStopped={hasGameStopped}
+                    hasGrouping={quiz.hasGrouping}
+                  />
+                </Flex>
               </Sidebar>
             </Box>
           )}

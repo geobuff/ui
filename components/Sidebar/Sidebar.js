@@ -28,8 +28,10 @@ const Sidebar = ({ heading, quiz, children }) => (
       top={0}
       left={0}
       right={0}
+      bottom={0}
       padding={4}
       paddingBottom="100px"
+      minHeight="1200px"
     >
       {!!heading && (
         <>

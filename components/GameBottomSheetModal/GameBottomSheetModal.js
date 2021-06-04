@@ -52,7 +52,14 @@ const GameBottomSheetModal = ({
     <Sheet.Container style={{ position: "fixed" }}>
       <Box pt={1} height="54px" as={Sheet.Header} />
       <Sheet.Content>
-        <Box overflowY="scroll" mx={5} my={0} pb="100px">
+        <Flex
+          direction="column"
+          height="100%"
+          overflowY="scroll"
+          mx={5}
+          my={0}
+          pb="100px"
+        >
           <Box>
             <Heading pt={0} size="md">
               <Flex justifyContent="center">
@@ -112,7 +119,7 @@ const GameBottomSheetModal = ({
               />
             )}
           </Box>
-        </Box>
+        </Flex>
       </Sheet.Content>
     </Sheet.Container>
   </Box>

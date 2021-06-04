@@ -11,6 +11,7 @@ import {
   InputGroup,
   InputRightElement,
   Fade,
+  Flex,
 } from "@chakra-ui/react";
 
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
@@ -45,7 +46,7 @@ const GameInputCard = ({
   };
 
   return (
-    <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
+    <Flex backgroundColor="#F0F0F0" borderRadius={12} direction="column" p={5}>
       <Box mb={5}>
         <Text fontWeight="bold">{"SCORE"}</Text>
         <GameInputCardScore quiz={quiz} score={score} />
@@ -124,7 +125,7 @@ const GameInputCard = ({
         <Text fontWeight="bold">{"RECENT"}</Text>
         <ResultsList quiz={quiz} results={recents} />
       </Box>
-    </Box>
+    </Flex>
   );
 };
 
