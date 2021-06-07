@@ -1,18 +1,20 @@
 import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+
+import { Box, Divider, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
+import { AutoSizer, List as VirtualizedList } from "react-virtualized";
 
 import { getResults } from "../../helpers/results-list";
 
 import VirtualizedSectionList from "../SectionList";
 import ResultsListItem from "../ResultsListItem";
 
-import { AutoSizer, List as VirtualizedList } from "react-virtualized";
-
 const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 28;
 
 const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   const sorted = useMemo(
     () =>
       Object.entries(map).map(([key, mapping]) => ({
@@ -65,7 +67,7 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
 
   return (
     <Box textAlign="left" height="100%">
-      <Divider my={4} />
+      <Divider my={3} />
       <Text fontSize="xl" pt={5} fontWeight="bold">
         {"Results"}
       </Text>
@@ -105,7 +107,7 @@ const ResultsMap = ({ quiz, checked, map, hasGameStopped, hasGrouping }) => {
           )}
         </Box>
       </Flex>
-      <Box height="75px" />
+      {isMobile && <Box height="35px" />}
     </Box>
   );
 };
