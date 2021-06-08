@@ -11,6 +11,8 @@ import {
   Spacer,
   Progress,
   useDisclosure,
+  Checkbox,
+  Button,
 } from "@chakra-ui/react";
 
 import { getFlagUrl } from "@geobuff/flags";
@@ -30,11 +32,14 @@ import LoadingPlaceholder from "./UserProfileSummaryPlaceholder";
 
 const UserProfileSummary = ({
   isLoading,
-  picture,
-  email,
-  xp,
-  countryCode,
+  onClickUpgrade,
+  onClickManage,
   username,
+  email,
+  countryCode,
+  xp,
+  isPremium,
+  picture,
   error,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -98,6 +103,22 @@ const UserProfileSummary = ({
                 {matchedCountry}
               </Text>
             </Flex>
+            <Box>
+              <Checkbox size="lg" isChecked={isPremium} isDisabled>
+                {"Premium"}
+              </Checkbox>
+              {!isPremium ? (
+                <Button
+                  backgroundColor="purple.700"
+                  color="white"
+                  onClick={onClickUpgrade}
+                >
+                  {"Upgrade"}
+                </Button>
+              ) : (
+                <Button onClick={onClickManage}>{"Manage"}</Button>
+              )}
+            </Box>
 
             <Flex marginBottom={3} marginX={6}>
               <Text fontWeight="bold">{level}</Text>
@@ -119,31 +140,29 @@ const UserProfileSummary = ({
 };
 
 UserProfileSummary.propTypes = {
-  xp: PropTypes.number,
-  countryCode: PropTypes.string,
+  isLoading: PropTypes.bool,
+  onClickUpgrade: PropTypes.func,
+  onClickManage: PropTypes.func,
   username: PropTypes.string,
   email: PropTypes.string,
+  countryCode: PropTypes.string,
+  xp: PropTypes.number,
+  isPremium: PropTypes.bool,
   picture: PropTypes.string,
-  onSubmit: PropTypes.func,
-  isSubmitting: PropTypes.bool,
   error: PropTypes.string,
-  createCheckoutSession: PropTypes.func,
-  manageSubscription: PropTypes.func,
-  isLoading: PropTypes.bool,
 };
 
 UserProfileSummary.defaultProps = {
-  xp: 0,
-  countryCode: "",
+  isLoading: false,
+  onClickUpgrade: () => {},
+  onClickManage: () => {},
   username: "",
   email: "",
+  countryCode: "",
+  xp: 0,
+  isPremium: false,
   picture: "",
-  onSubmit: () => {},
-  isSubmitting: false,
   error: "",
-  createCheckoutSession: () => {},
-  manageSubscription: () => {},
-  isLoading: true,
 };
 
 export default UserProfileSummary;

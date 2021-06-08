@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import PropTypes from "prop-types";
-import { useStripe } from "@stripe/react-stripe-js";
 import { useToast, useBreakpointValue } from "@chakra-ui/react";
 
 import UpdateUserFormModal from "../../components/UpdateUserFormModal";
@@ -11,7 +10,6 @@ import { userUpdated } from "../../helpers/toasts";
 
 const UpdateUserFormContainer = ({ isOpen, onClose }) => {
   const toast = useToast();
-  const stripe = useStripe();
   const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
   const toastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
 
@@ -28,30 +26,6 @@ const UpdateUserFormContainer = ({ isOpen, onClose }) => {
       });
     }
   }, [isUserLoading, user]);
-
-  const handleClickManage = () => {
-    const payload = {
-      sessionId: user.stripeSessionId,
-    };
-
-    axiosClient.post("/subscription/manage", payload).then((response) => {
-      window.location.href = response.data.url;
-    });
-  };
-
-  const handleClickUpgrade = () => {
-    const payload = {
-      priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
-    };
-
-    axiosClient
-      .post("/subscription/create-checkout-session", payload)
-      .then((response) => {
-        stripe.redirectToCheckout({
-          sessionId: response.data.sessionId,
-        });
-      });
-  };
 
   const handleSubmit = (values) => {
     setIsSubmitting(true);
@@ -90,10 +64,8 @@ const UpdateUserFormContainer = ({ isOpen, onClose }) => {
       onClose={onClose}
       user={user}
       onSubmit={handleSubmit}
-      onClickUpgrade={handleClickUpgrade}
-      onClickManage={handleClickManage}
-      error={error}
       isSubmitting={isSubmitting}
+      error={error}
     />
   );
 };

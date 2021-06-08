@@ -34,9 +34,15 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
-  username: Yup.string().required("Please include a username."),
+  username: Yup.string()
+    .required("Please include a username.")
+    .min(3, "Must be at least 3 characters long.")
+    .max(30, "Must be less than 30 characters long.")
+    .matches(/^\S*$/, "Cannot contain spaces."),
   countryCode: Yup.string().required("Please include a country."),
-  email: Yup.string().required("Please include an email."),
+  email: Yup.string()
+    .required("Please include an email.")
+    .email("Must be a valid email address."),
   password: Yup.string()
     .required("Please include a password.")
     .matches(
