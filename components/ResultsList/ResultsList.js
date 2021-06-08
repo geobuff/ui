@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import ResultsListItem from "../ResultsListItem";
-import { Box, Text, List } from "@chakra-ui/react";
+import { Box, Text } from "@chakra-ui/react";
 
 const ResultsList = ({ quiz, results }) => {
   if (!results || results.length === 0) {
@@ -16,7 +16,7 @@ const ResultsList = ({ quiz, results }) => {
   }
 
   return (
-    <List>
+    <Box>
       {results.map((result) => (
         <ResultsListItem
           key={result.code}
@@ -25,10 +25,11 @@ const ResultsList = ({ quiz, results }) => {
           isHidden={result.isHidden}
           isMissedResult={result.isMissedResult}
           hasFlag={quiz.hasFlags}
-          my={2}
+          shouldFadeIn
+          my={1}
         />
       ))}
-    </List>
+    </Box>
   );
 };
 

@@ -19,7 +19,6 @@ import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
-import ResultsListWrapper from "../ResultsListWrapper";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameFlag from "../GameFlag/GameFlag";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
@@ -27,7 +26,6 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 import axiosClient from "../../axios/axiosClient";
 
 import { groupMapping } from "../../helpers/mapping";
-import { getResults } from "../../helpers/results-list";
 
 import {
   findSubmissionByNames,
@@ -251,23 +249,13 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
                 />
-                {quiz.hasGrouping ? (
-                  <ResultsMap
-                    quiz={quiz}
-                    checked={checkedSubmissions}
-                    map={groupMapping(mapping)}
-                    hasGameStopped={hasGameStopped}
-                  />
-                ) : (
-                  <ResultsListWrapper
-                    quiz={quiz}
-                    results={getResults(
-                      mapping,
-                      checkedSubmissions,
-                      hasGameStopped
-                    )}
-                  />
-                )}
+                <ResultsMap
+                  checked={checkedSubmissions}
+                  map={groupMapping(mapping)}
+                  hasGameStopped={hasGameStopped}
+                  hasGroupings={quiz.hasGrouping}
+                  hasFlags={quiz.hasFlags}
+                />
               </Box>
             </Sidebar>
           </Box>

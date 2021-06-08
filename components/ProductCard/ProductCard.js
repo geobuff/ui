@@ -23,8 +23,8 @@ const ProductCard = ({ name, imageUrl, price, sizes }) => (
     <Box position="absolute" top={0} left={0} right={0} bottom={0}>
       <Image
         src={imageUrl}
-        maxHeight={{ base: "75px", md: "90px" }}
-        minHeight={{ base: "75px", md: "90px" }}
+        maxHeight={{ base: "140px", md: "160px" }}
+        minHeight={{ base: "140px", md: "160px" }}
         backgroundColor="#E3E1E1"
         width="100%"
         borderTopLeftRadius={12}
@@ -32,8 +32,8 @@ const ProductCard = ({ name, imageUrl, price, sizes }) => (
         objectFit="cover"
         transition="all 150ms ease-out"
         _groupHover={{
-          maxHeight: { base: "80px", md: "88px" },
-          minHeight: { base: "80px", md: "88px" },
+          maxHeight: { base: "132px", md: "156px" },
+          minHeight: { base: "132px", md: "156px" },
         }}
       />
 
