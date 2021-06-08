@@ -107,7 +107,8 @@ const GameBottomSheetModal = ({
             checked={checked}
             map={groupMapping(mapping)}
             hasGameStopped={hasGameStopped}
-            hasGrouping={quiz.hasGrouping}
+            hasGroupings={quiz.hasGrouping}
+            hasFlags={quiz.hasFlags}
           />
         </Flex>
       </Sheet.Content>
