@@ -2,27 +2,18 @@ import React from "react";
 import Link from "next/link";
 import PropTypes from "prop-types";
 
-import {
-  AspectRatio,
-  Box,
-  Alert,
-  AlertIcon,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { AspectRatio, Flex, Alert, AlertIcon } from "@chakra-ui/react";
 
 import ProductCard from "../ProductCard";
 
 const MerchList = ({ merch }) => (
-  <Box
-    width={{ base: "95%", sm: "80%", md: "65%" }}
+  <Flex
+    width={{ base: "95%", sm: "85%", md: "65%" }}
     maxWidth="1200px"
     marginTop="32px"
     marginBottom={10}
     marginLeft="auto"
     marginRight="auto"
-    _hover={{
-      cursor: "pointer",
-    }}
   >
     {merch.length === 0 ? (
       <Alert status="info" borderRadius={6} p={5} mt={5}>
@@ -30,45 +21,45 @@ const MerchList = ({ merch }) => (
         {"No merch to display."}
       </Alert>
     ) : (
-      <>
-        <SimpleGrid
-          justifyContent="center"
-          minChildWidth={{ base: "140px", sm: "185px", md: "200px" }}
-          spacing={{ base: "16px", md: "24px" }}
-        >
-          {merch.map((product) => (
+      <Flex direction="row" width="100%" justifyContent="center">
+        {merch.map((product) => (
+          <AspectRatio
+            key={product.id}
+            width="100%"
+            marginX={{ base: 1, md: 5 }}
+            maxWidth="300px"
+            minHeight={{ base: "220px", md: "260px" }}
+            maxHeight="260px"
+            ratio={3 / 2}
+            transition="all 150ms ease-out"
+            opacity={product.disabled ? "0.25" : "1"}
+            _hover={
+              !product.disabled && {
+                transform: "scale(1.030)",
+                cursor: "pointer",
+              }
+            }
+          >
             <Link
               key={product.id}
               href={!product.disabled ? `/merch/${product.id}` : "/"}
             >
-              <AspectRatio
-                width="100%"
-                marginX="auto"
-                maxW="260px"
-                minHeight="200px"
-                maxHeight="220px"
-                ratio={3 / 2}
-                transition="all 150ms ease-out"
-                _hover={!product.disabled && { transform: "scale(1.030)" }}
-                opacity={product.disabled ? "0.25" : "1"}
-              >
-                <ProductCard
-                  name={product.name}
-                  imageUrl={
-                    product.images.find((image) => image.isPrimary).imageUrl
-                  }
-                  price={product.price}
-                  sizes={product.sizes
-                    .filter((size) => !size.soldOut)
-                    .map((x) => x.size)}
-                />
-              </AspectRatio>
+              <ProductCard
+                name={product.name}
+                imageUrl={
+                  product.images.find((image) => image.isPrimary).imageUrl
+                }
+                price={product.price}
+                sizes={product.sizes
+                  .filter((size) => !size.soldOut)
+                  .map((x) => x.size)}
+              />
             </Link>
-          ))}
-        </SimpleGrid>
-      </>
+          </AspectRatio>
+        ))}
+      </Flex>
     )}
-  </Box>
+  </Flex>
 );
 
 MerchList.propTypes = {
