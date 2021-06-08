@@ -17,7 +17,7 @@ const RegisterContainer = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!isLoadingUser && user) {
+    if (!router.query.data && !isLoadingUser && user) {
       router.push("/");
     }
   }, [isLoadingUser, user, router]);
