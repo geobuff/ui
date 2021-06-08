@@ -73,7 +73,7 @@ const ResultsMap = ({
   return (
     <Box textAlign="left" height="100%">
       <Divider my={3} />
-      <Text fontSize="xl" pt={5} fontWeight="bold">
+      <Text fontSize="xl" fontWeight="bold">
         {"Results"}
       </Text>
       <Divider my={3} />
