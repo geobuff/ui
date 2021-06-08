@@ -32,9 +32,9 @@ const MerchList = ({ merch }) => (
           >
             <AspectRatio
               width="100%"
-              marginX={5}
-              maxWidth="280px"
-              minHeight="250px"
+              marginX={{ base: 1, md: 5 }}
+              maxWidth="300px"
+              minHeight={{ base: "220px", md: "260px" }}
               maxHeight="260px"
               ratio={3 / 2}
               transition="all 150ms ease-out"
