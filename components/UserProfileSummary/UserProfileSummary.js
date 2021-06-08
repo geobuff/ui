@@ -11,7 +11,6 @@ import {
   Spacer,
   Progress,
   useDisclosure,
-  FormControl,
   Checkbox,
   Button,
 } from "@chakra-ui/react";
@@ -105,11 +104,9 @@ const UserProfileSummary = ({
               </Text>
             </Flex>
             <Box>
-              <FormControl>
-                <Checkbox size="lg" isChecked={isPremium} isDisabled>
-                  {"Premium"}
-                </Checkbox>
-              </FormControl>
+              <Checkbox size="lg" isChecked={isPremium} isDisabled>
+                {"Premium"}
+              </Checkbox>
               {!isPremium ? (
                 <Button
                   backgroundColor="purple.700"
