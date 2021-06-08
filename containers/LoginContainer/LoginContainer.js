@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import jwt_decode from "jwt-decode";
 
@@ -14,9 +14,11 @@ const LoginContainer = () => {
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  if (!isLoadingUser && user) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (!router.query.data && !isLoadingUser && user) {
+      router.push("/");
+    }
+  }, [isLoadingUser, user, router]);
 
   const login = (email, password) => {
     setIsSubmitting(true);
