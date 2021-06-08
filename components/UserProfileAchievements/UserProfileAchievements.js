@@ -14,6 +14,8 @@ import Card from "../Card";
 
 import { isBadgeComplete, getProgress } from "../../helpers/badge";
 
+import SolidLock from "../../Icons/SolidLock";
+
 const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
   console.log(badges, "badges");
 
@@ -45,25 +47,47 @@ const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
         >
           {badges.map((badge) => (
             <Tooltip key={badge.id} label={getLabel(badge)}>
-              <Box
-                borderRadius={50}
-                backgroundColor={badge.background || "gray.200"}
-                borderWidth={10}
-                border="solid 5px"
-                borderColor={badge.border || "gray.600"}
-                padding={3}
-                height="75px"
-                width="75px"
-              >
-                <Image
-                  src={badge.imageUrl}
-                  height="40px"
-                  width="40px"
-                  marginX="auto"
-                  // opacity={
-                  //   isBadgeComplete(badge, scores, entriesCount) ? "1" : "0.25"
-                  // }
-                />
+              <Box position="relative">
+                <Box
+                  borderRadius={50}
+                  backgroundColor={badge.background || "gray.200"}
+                  borderWidth={10}
+                  border="solid 5px"
+                  borderColor={badge.border || "gray.600"}
+                  padding={3}
+                  height="75px"
+                  width="75px"
+                >
+                  <Image
+                    src={badge.imageUrl}
+                    height="40px"
+                    width="40px"
+                    marginX="auto"
+                  />
+                </Box>
+
+                {!isBadgeComplete(badge, scores, entriesCount) && (
+                  <Box
+                    position="absolute"
+                    borderRadius={50}
+                    top={0}
+                    left={0}
+                    right={0}
+                    bottom={0}
+                    opacity={0.75}
+                    transition=".5s ease"
+                    backgroundColor="#292929"
+                  >
+                    <Flex
+                      alignItems="center"
+                      justifyContent="center"
+                      height="100%"
+                      width="100%"
+                    >
+                      <SolidLock height="26px" width="26px" color="white" />
+                    </Flex>
+                  </Box>
+                )}
               </Box>
             </Tooltip>
           ))}
