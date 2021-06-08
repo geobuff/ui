@@ -19,9 +19,11 @@ const UserProfile = ({ user }) => (
       direction="column"
       borderRadius={12}
       p={5}
-      maxWidth={{ base: "100%", md: "50%" }}
-      marginX={{ base: 2, md: "auto" }}
+      width="100%"
+      maxWidth={{ base: "100%", md: "850px" }}
+      marginX={{ base: 0, md: "auto" }}
       marginTop={-100}
+      justifyContent="center"
     >
       <UserProfileSummaryContainer />
       {divider}
