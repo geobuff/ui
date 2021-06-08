@@ -33,9 +33,9 @@ const MerchList = ({ merch }) => (
             <AspectRatio
               width="100%"
               marginX={5}
-              maxW="260px"
-              minHeight="200px"
-              maxHeight="220px"
+              maxWidth="280px"
+              minHeight="250px"
+              maxHeight="260px"
               ratio={3 / 2}
               transition="all 150ms ease-out"
               _hover={!product.disabled && { transform: "scale(1.030)" }}
