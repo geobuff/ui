@@ -1,4 +1,5 @@
 import { useState } from "react";
+import jwt_decode from "jwt-decode";
 
 const useCurrentUser = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -45,11 +46,18 @@ const useCurrentUser = () => {
     });
   };
 
+  const tokenExpired = (token) => {
+    const decoded = jwt_decode(token);
+    const seconds = Math.round(new Date().getTime() / 1000);
+    return decoded.exp <= seconds;
+  };
+
   return {
     user,
     isLoading,
     updateUser,
     clearUser,
+    tokenExpired,
   };
 };
 
