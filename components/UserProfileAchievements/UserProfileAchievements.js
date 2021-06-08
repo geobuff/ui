@@ -17,8 +17,6 @@ import { isBadgeComplete, getProgress } from "../../helpers/badge";
 import SolidLock from "../../Icons/SolidLock";
 
 const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
-  console.log(badges, "badges");
-
   const getLabel = (badge) => {
     return (
       <Box>
@@ -65,7 +63,6 @@ const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
                     marginX="auto"
                   />
                 </Box>
-
                 {!isBadgeComplete(badge, scores, entriesCount) && (
                   <Box
                     position="absolute"
@@ -75,8 +72,9 @@ const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
                     right={0}
                     bottom={0}
                     opacity={0.75}
-                    transition=".5s ease"
                     backgroundColor="#292929"
+                    width="75px"
+                    height="75px"
                   >
                     <Flex
                       alignItems="center"
