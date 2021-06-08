@@ -15,6 +15,8 @@ import Card from "../Card";
 import { isBadgeComplete, getProgress } from "../../helpers/badge";
 
 const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
+  console.log(badges, "badges");
+
   const getLabel = (badge) => {
     return (
       <Box>
@@ -39,17 +41,30 @@ const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
           justifyContent="center"
           minChildWidth="75px"
           spacingY={8}
+          spacingX={5}
         >
           {badges.map((badge) => (
             <Tooltip key={badge.id} label={getLabel(badge)}>
-              <Image
-                src={badge.imageUrl}
-                height="50px"
-                mx={3}
-                opacity={
-                  isBadgeComplete(badge, scores, entriesCount) ? "1" : "0.25"
-                }
-              />
+              <Box
+                borderRadius={50}
+                backgroundColor={badge.background || "gray.200"}
+                borderWidth={10}
+                border="solid 5px"
+                borderColor={badge.border || "gray.600"}
+                padding={3}
+                height="75px"
+                width="75px"
+              >
+                <Image
+                  src={badge.imageUrl}
+                  height="40px"
+                  width="40px"
+                  marginX="auto"
+                  // opacity={
+                  //   isBadgeComplete(badge, scores, entriesCount) ? "1" : "0.25"
+                  // }
+                />
+              </Box>
             </Tooltip>
           ))}
         </SimpleGrid>
