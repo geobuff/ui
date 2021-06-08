@@ -10,7 +10,6 @@ import {
   Flex,
   Button,
   FormErrorMessage,
-  Checkbox,
   Heading,
 } from "@chakra-ui/react";
 
@@ -25,8 +24,6 @@ const UpdateUserFormModal = ({
   onSubmit,
   isSubmitting,
   error,
-  onClickUpgrade,
-  onClickManage,
 }) => {
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
@@ -131,35 +128,6 @@ const UpdateUserFormModal = ({
                       )}
                     </Field>
                   </Flex>
-
-                  <Flex marginY={4}>
-                    <Field name="isPremium">
-                      {({ field, form }) => (
-                        <FormControl>
-                          <Checkbox
-                            {...field}
-                            id="isPremium"
-                            size="lg"
-                            isChecked={form.values.isPremium}
-                            isDisabled
-                          >
-                            {"Premium"}
-                          </Checkbox>
-                        </FormControl>
-                      )}
-                    </Field>
-                    {!user.isPremium ? (
-                      <Button
-                        backgroundColor="purple.700"
-                        color="white"
-                        onClick={onClickUpgrade}
-                      >
-                        {"Upgrade"}
-                      </Button>
-                    ) : (
-                      <Button onClick={onClickManage}>{"Manage"}</Button>
-                    )}
-                  </Flex>
                 </Flex>
 
                 <Flex justifyContent="flex-end">
@@ -207,8 +175,6 @@ UpdateUserFormModal.propTypes = {
   onSubmit: PropTypes.func,
   isSubmitting: PropTypes.bool,
   error: PropTypes.string,
-  onClickUpgrade: PropTypes.func,
-  onClickManage: PropTypes.func,
 };
 
 UpdateUserFormModal.defaultProps = {
@@ -218,8 +184,6 @@ UpdateUserFormModal.defaultProps = {
   onSubmit: () => {},
   isSubmitting: false,
   error: "",
-  onClickUpgrade: () => {},
-  onClickManage: () => {},
 };
 
 export default UpdateUserFormModal;
