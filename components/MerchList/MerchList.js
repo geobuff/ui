@@ -14,9 +14,6 @@ const MerchList = ({ merch }) => (
     marginBottom={10}
     marginLeft="auto"
     marginRight="auto"
-    _hover={{
-      cursor: "pointer",
-    }}
   >
     {merch.length === 0 ? (
       <Alert status="info" borderRadius={6} p={5} mt={5}>
@@ -26,20 +23,26 @@ const MerchList = ({ merch }) => (
     ) : (
       <Flex direction="row" width="100%" justifyContent="center">
         {merch.map((product) => (
-          <Link
+          <AspectRatio
             key={product.id}
-            href={!product.disabled ? `/merch/${product.id}` : "/"}
+            width="100%"
+            marginX={{ base: 1, md: 5 }}
+            maxWidth="300px"
+            minHeight={{ base: "220px", md: "260px" }}
+            maxHeight="260px"
+            ratio={3 / 2}
+            transition="all 150ms ease-out"
+            opacity={product.disabled ? "0.25" : "1"}
+            _hover={
+              !product.disabled && {
+                transform: "scale(1.030)",
+                cursor: "pointer",
+              }
+            }
           >
-            <AspectRatio
-              width="100%"
-              marginX={{ base: 1, md: 5 }}
-              maxWidth="300px"
-              minHeight={{ base: "220px", md: "260px" }}
-              maxHeight="260px"
-              ratio={3 / 2}
-              transition="all 150ms ease-out"
-              _hover={!product.disabled && { transform: "scale(1.030)" }}
-              opacity={product.disabled ? "0.25" : "1"}
+            <Link
+              key={product.id}
+              href={!product.disabled ? `/merch/${product.id}` : "/"}
             >
               <ProductCard
                 name={product.name}
@@ -51,8 +54,8 @@ const MerchList = ({ merch }) => (
                   .filter((size) => !size.soldOut)
                   .map((x) => x.size)}
               />
-            </AspectRatio>
-          </Link>
+            </Link>
+          </AspectRatio>
         ))}
       </Flex>
     )}
