@@ -102,15 +102,14 @@ const GameBottomSheetModal = ({
             <ResultsList quiz={quiz} results={recents} />
           </Box>
 
-          <Box>
-            <ResultsMap
-              checked={checked}
-              map={groupMapping(mapping)}
-              hasGameStopped={hasGameStopped}
-              hasGroupings={quiz.hasGrouping}
-              hasFlags={quiz.hasFlags}
-            />
-          </Box>
+          <ResultsMap
+            quiz={quiz}
+            checked={checked}
+            map={groupMapping(mapping)}
+            hasGameStopped={hasGameStopped}
+            hasGroupings={quiz.hasGrouping}
+            hasFlags={quiz.hasFlags}
+          />
         </Flex>
       </Sheet.Content>
     </Sheet.Container>
