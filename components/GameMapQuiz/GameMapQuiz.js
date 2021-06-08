@@ -275,11 +275,11 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
                     onGameStop={handleGameStop}
                   />
                   <ResultsMap
-                    quiz={quiz}
                     checked={checkedSubmissions}
                     map={groupMapping(mapping)}
                     hasGameStopped={hasGameStopped}
-                    hasGrouping={quiz.hasGrouping}
+                    hasGroupings={quiz.hasGrouping}
+                    hasFlags={quiz.hasFlags}
                   />
                 </Flex>
               </Sidebar>
