@@ -48,8 +48,7 @@ const useCurrentUser = () => {
 
   const tokenExpired = (token) => {
     const decoded = jwt_decode(token);
-    const d = new Date();
-    const seconds = Math.round(d.getTime() / 1000);
+    const seconds = Math.round(new Date().getTime() / 1000);
     return decoded.exp <= seconds;
   };
 
