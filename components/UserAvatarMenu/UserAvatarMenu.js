@@ -93,7 +93,7 @@ const UserAvatarMenu = ({ isCondensed }) => {
             >
               <Image
                 src={user.avatarImageUrl}
-                alt={user.avatarName}
+                // alt={user.avatarName}
                 height={imageSize}
                 width={imageSize}
                 marginX="auto"
