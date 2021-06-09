@@ -10,6 +10,10 @@ import useAvatars from "../../hooks/useAvatars";
 const AvatarSelect = ({ fieldProps }) => {
   const { avatars, isLoading } = useAvatars();
 
+  if (isLoading) {
+    return null;
+  }
+
   return (
     <Select
       {...fieldProps}

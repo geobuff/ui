@@ -15,10 +15,12 @@ import {
 } from "@chakra-ui/react";
 
 import Modal from "../Modal";
+import AvatarSelect from "../AvatarSelect";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 
 const validationSchema = Yup.object().shape({
+  avatarId: Yup.number().required("Please select an avatar."),
   username: Yup.string()
     .required("Please include a username.")
     .min(3, "Must be at least 3 characters long.")
@@ -42,6 +44,7 @@ const UpdateUserFormModal = ({
       <Formik
         enableReinitialize
         initialValues={{
+          avatarId: user?.avatarId,
           username: user?.username,
           email: user?.email,
           countryCode: user?.countryCode,
@@ -66,6 +69,30 @@ const UpdateUserFormModal = ({
                   >
                     {"Update Profile"}
                   </Heading>
+
+                  <Flex marginY={6}>
+                    <Field name="avatarId">
+                      {({ field, form }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.avatarId && form.touched.avatarId
+                          }
+                        >
+                          <FormLabel htmlFor="avatarId" fontWeight="bold">
+                            {"Avatar"}
+                          </FormLabel>
+
+                          <AvatarSelect fieldProps={field} />
+                          <Box position="absolute" top="68px" left="2px">
+                            <FormErrorMessage fontSize="11px">
+                              {form.errors.avatarId}
+                            </FormErrorMessage>
+                          </Box>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
                   <Flex marginY={3}>
                     <Field name="username">
                       {({ field, form }) => (
@@ -185,6 +212,7 @@ UpdateUserFormModal.propTypes = {
   onClose: PropTypes.func,
   user: PropTypes.shape({
     id: PropTypes.number,
+    avatarId: PropTypes.number,
     username: PropTypes.string,
     email: PropTypes.string,
     countryCode: PropTypes.string,
