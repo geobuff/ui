@@ -74,7 +74,8 @@ const UserProfileSummary = ({
         <Box mb={6}>
           <ErrorAlertBanner error={error} />
           <Box textAlign="center">
-            <Box
+            <Flex
+              alignItems="center"
               borderRadius={"100%"}
               backgroundColor={avatarBackground}
               borderWidth={10}
@@ -83,8 +84,8 @@ const UserProfileSummary = ({
               padding={3}
               height="130px"
               width="130px"
-              marginTop="-112px"
-              marginBottom={6}
+              marginTop="-122px"
+              marginBottom={2}
               marginX="auto"
             >
               <Image
@@ -94,7 +95,7 @@ const UserProfileSummary = ({
                 width="70px"
                 marginX="auto"
               />
-            </Box>
+            </Flex>
             <Heading fontSize="32px">{username}</Heading>
             <Text color="gray.500" fontWeight={600} marginY={1}>
               {email}

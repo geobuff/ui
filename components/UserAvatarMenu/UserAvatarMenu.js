@@ -15,7 +15,6 @@ import {
   Skeleton,
   SkeletonCircle,
   Text,
-  Box,
   Image,
 } from "@chakra-ui/react";
 
@@ -82,7 +81,8 @@ const UserAvatarMenu = ({ isCondensed }) => {
           }}
         >
           <Flex alignItems="center">
-            <Box
+            <Flex
+              alignItems="center"
               borderRadius={"100%"}
               backgroundColor={user.avatarBackground}
               border="solid 3px"
@@ -98,7 +98,7 @@ const UserAvatarMenu = ({ isCondensed }) => {
                 width={imageSize}
                 marginX="auto"
               />
-            </Box>
+            </Flex>
 
             {!isCondensed && (
               <Text
