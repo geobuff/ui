@@ -1,83 +1,55 @@
-import React, { useEffect, useState, useMemo } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState } from "react";
+import { useStripe } from "@stripe/react-stripe-js";
 
-import useMapping from "../../hooks/UseMapping";
-import UserProfileSummary from "../../components/UserProfileSummary";
-import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
 import axiosClient from "../../axios/axiosClient";
+import UserProfileSummary from "../../components/UserProfileSummary";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-const UserProfileSummaryContainer = ({ user, quizzes }) => {
-  const quizId =
-    quizzes.find((quiz) => quiz.apiPath === "world-countries")?.id || "";
-  const { mapping: countries, loading } = useMapping(quizId);
+const UserProfileSummaryContainer = () => {
+  const { user } = useCurrentUser();
+  const stripe = useStripe();
 
-  const { updateUser } = useCurrentUser();
+  const [isLoading, setIsLoading] = useState(true);
 
-  const [config, setConfig] = useState(null);
-  const [updated, setUpdated] = useState(false);
-
-  const sortedCountries = useMemo(
-    () => countries?.sort((a, b) => a.svgName.localeCompare(b.svgName)),
-    [countries]
-  );
-
+  // Fix issue where user does not load in time
   useEffect(() => {
-    if (user) {
-      setConfig({
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-    }
-  }, [user]);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 50);
+  });
 
-  const submitCountry = (code) => {
-    const update = {
-      ...user,
-      countryCode: code,
+  const handleClickManage = () => {
+    const payload = {
+      sessionId: user.stripeSessionId,
     };
 
-    axiosClient.put(`/users/${user.id}`, update, config).then((response) => {
-      const updatedUser = { ...user, countryCode: response.data.countryCode };
-      updateUser(updatedUser);
-      setUpdated(true);
+    axiosClient.post("/subscription/manage", payload).then((response) => {
+      window.location.href = response.data.url;
     });
   };
 
-  if (loading) {
-    return <UserProfileSummaryPlaceholder />;
-  }
+  const handleClickUpgrade = () => {
+    const payload = {
+      priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
+    };
+
+    axiosClient
+      .post("/subscription/create-checkout-session", payload)
+      .then((response) => {
+        stripe.redirectToCheckout({
+          sessionId: response.data.sessionId,
+        });
+      });
+  };
 
   return (
     <UserProfileSummary
-      user={user}
-      countries={sortedCountries}
-      submitCountry={submitCountry}
-      updated={updated}
-      setUpdated={setUpdated}
+      isLoading={isLoading}
+      onClickUpgrade={handleClickUpgrade}
+      onClickManage={handleClickManage}
+      {...user}
     />
   );
-};
-
-UserProfileSummaryContainer.propTypes = {
-  user: PropTypes.object,
-  quizzes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      maxScore: PropTypes.number,
-      time: PropTypes.number,
-      mapSVG: PropTypes.string,
-      imageUrl: PropTypes.string,
-      verb: PropTypes.string,
-      apiPath: PropTypes.string,
-      route: PropTypes.string,
-      hasLeaderboard: PropTypes.bool,
-      hasGrouping: PropTypes.bool,
-      enabled: PropTypes.bool,
-    })
-  ),
 };
 
 export default UserProfileSummaryContainer;

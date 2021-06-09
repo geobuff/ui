@@ -1,23 +1,27 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import jwt_decode from "jwt-decode";
 
 import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-import Login from "../../components/Login";
+import LoginForm from "../../components/LoginForm";
 
 const LoginContainer = () => {
   const router = useRouter();
   const { user, isLoading: isLoadingUser, updateUser } = useCurrentUser();
 
   const [error, setError] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
-  if (!isLoadingUser && user) {
-    router.push("/");
-  }
+  useEffect(() => {
+    if (!router.query.data && !isLoadingUser && user) {
+      router.push("/");
+    }
+  }, [isLoadingUser, user, router]);
 
   const login = (email, password) => {
+    setIsSubmitting(true);
     setError(null);
     const login = { email, password };
     axiosClient
@@ -26,11 +30,17 @@ const LoginContainer = () => {
         const decoded = jwt_decode(response.data);
         updateUser({
           id: decoded["userId"],
+          avatarId: decoded["avatarId"],
+          avatarName: decoded["avatarName"],
+          avatarImageUrl: decoded["avatarImageUrl"],
+          avatarBackground: decoded["avatarBackground"],
+          avatarBorder: decoded["avatarBorder"],
           username: decoded["username"],
           email: decoded["email"],
           countryCode: decoded["countryCode"],
           xp: decoded["xp"],
           isPremium: decoded["isPremium"],
+          stripeSessionId: decoded["stripeSessionId"],
           token: response.data,
         });
 
@@ -48,16 +58,19 @@ const LoginContainer = () => {
           router.push("/");
         }
       })
-      .catch((error) => {
-        setError(error.response.data);
-      });
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSubmitting(false));
   };
 
-  const handleSubmit = (values) => {
-    login(values.email, values.password);
-  };
+  const handleSubmit = ({ email, password }) => login(email, password);
 
-  return <Login error={error} onSubmit={handleSubmit} />;
+  return (
+    <LoginForm
+      error={error}
+      onSubmit={handleSubmit}
+      isSubmitting={isSubmitting}
+    />
+  );
 };
 
 export default LoginContainer;

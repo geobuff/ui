@@ -23,10 +23,14 @@ const CountrySelect = ({ fieldProps }) => {
       color={!fieldProps.value ? "gray.500" : "inherit"}
       fontSize="16px"
       fontWeight={600}
-      height="44px"
+      height="40px"
       _hover={{
         background: isLoading ? "#F6F6F6" : "#e0e0e0",
         cursor: isLoading ? "not-allowed" : "inherit",
+      }}
+      _invalid={{
+        border: "2px solid #e56161",
+        color: "#e56161",
       }}
       icon={
         fieldProps.value ? (
@@ -44,7 +48,7 @@ const CountrySelect = ({ fieldProps }) => {
       }
     >
       <option value="" disabled>
-        {isLoading ? "Loading countries..." : "Please select a country..."}
+        {isLoading ? "Loading countries..." : "Select a country..."}
       </option>
       {countries?.map(({ value, label }) => (
         <option key={value} value={value}>

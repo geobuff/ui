@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 
 import useQuizzes from "../../hooks/UseQuizzes";
@@ -7,11 +7,26 @@ import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
 import MainView from "../../components/MainView";
 
 import { QuizTypes } from "../../helpers/quiz-type";
+import useCurrentUser from "../../hooks/UseCurrentUser";
 
 const Quiz = () => {
   const { quizzes, loading } = useQuizzes();
   const router = useRouter();
   const { id } = router.query;
+
+  const {
+    user,
+    isLoading: isUserLoading,
+    clearUser,
+    tokenExpired,
+  } = useCurrentUser();
+
+  useEffect(() => {
+    if (!isUserLoading && user && tokenExpired(user.token)) {
+      clearUser();
+      router.push("/login");
+    }
+  }, [isUserLoading, user, tokenExpired, clearUser, router]);
 
   if (loading) {
     return null;

@@ -12,18 +12,24 @@ import {
   Th,
   Td,
   Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
+
+import Card from "../Card";
 
 import { secondsToMinutesString } from "../../helpers/time";
 
 const UserProfileLeaderboardEntries = ({ entries }) => (
-  <Box>
-    <Heading size="md" textAlign="center" m={6}>
-      Leaderboard Entries
+  <Card padding={6}>
+    <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
+      {"Leaderboard Entries"}
     </Heading>
     <Box my={6}>
       {entries.length === 0 ? (
-        <Alert borderRadius={6}>No entries to display.</Alert>
+        <Alert borderRadius={6}>
+          <AlertIcon />
+          No entries to display.
+        </Alert>
       ) : (
         <Box overflow="auto">
           <Table variant="striped" colorScheme="gray">
@@ -51,7 +57,7 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
         </Box>
       )}
     </Box>
-  </Box>
+  </Card>
 );
 
 UserProfileLeaderboardEntries.propTypes = {

@@ -1,19 +1,32 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Alert, Box, Flex, Heading, Text, SimpleGrid } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Box,
+  Flex,
+  Heading,
+  Text,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
+import Card from "../Card";
 import Image from "../Image";
+
 import { secondsToMinutesString } from "../../helpers/time";
 
 const UserProfileScores = ({ scores }) => (
-  <Box>
-    <Heading size="md" textAlign="center" m={6}>
-      Scores
+  <Card padding={6}>
+    <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
+      {"Scores"}
     </Heading>
     <Box my={6}>
       {scores.length === 0 ? (
-        <Alert borderRadius={6}>No scores to display.</Alert>
+        <Alert borderRadius={6}>
+          <AlertIcon />
+          No scores to display.
+        </Alert>
       ) : (
         <SimpleGrid minChildWidth="115px" spacingX="16px" spacingY="32px">
           {scores.map((score) => (
@@ -69,7 +82,7 @@ const UserProfileScores = ({ scores }) => (
         </SimpleGrid>
       )}
     </Box>
-  </Box>
+  </Card>
 );
 
 UserProfileScores.propTypes = {

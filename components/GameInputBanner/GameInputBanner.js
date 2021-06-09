@@ -10,6 +10,7 @@ import {
   InputGroup,
   InputRightElement,
   Text,
+  Tooltip,
 } from "@chakra-ui/react";
 
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
@@ -36,16 +37,33 @@ const GameInputBanner = ({
     inputRef.current.focus();
   };
 
-  return (
+  const scoreLabel = `${score} of ${quiz.maxScore} ${quiz.verb}`;
+
+  const scoreNode = (
     <>
-      <Flex
-        alignItems="center"
-        backgroundColor="#27AE60"
-        boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
-        px={3}
-        py={2}
-        zIndex={10}
-      >
+      {scoreLabel?.length > 23 ? (
+        <Tooltip label={quiz.verb}>
+          <Box textAlign="center" mr={3}>
+            <GameInputBannerTimer
+              expiryTimestamp={expiryTimestamp}
+              hasGameStarted={hasGameStarted}
+              hasGameStopped={hasGameStopped}
+              totalSeconds={quiz.time}
+            />
+            <Text
+              color="white"
+              fontSize="12px"
+              fontWeight={700}
+              minWidth="125px"
+              maxWidth="140px"
+              width="100%"
+              isTruncated
+            >
+              {scoreLabel}
+            </Text>
+          </Box>
+        </Tooltip>
+      ) : (
         <Box textAlign="center" mr={3}>
           <GameInputBannerTimer
             expiryTimestamp={expiryTimestamp}
@@ -58,11 +76,30 @@ const GameInputBanner = ({
             fontSize="12px"
             fontWeight={700}
             minWidth="125px"
+            maxWidth="140px"
             width="100%"
+            isTruncated
           >
-            {`${score} of ${quiz.maxScore} ${quiz.verb}`}
+            {scoreLabel}
           </Text>
         </Box>
+      )}
+    </>
+  );
+
+  return (
+    <>
+      <Flex
+        alignItems="center"
+        backgroundColor="#27AE60"
+        boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
+        px={3}
+        py={2}
+        zIndex={10}
+        position="relative"
+      >
+        {scoreNode}
+
         <InputGroup>
           <Input
             ref={inputRef}

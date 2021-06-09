@@ -2,7 +2,26 @@ import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
 
-import { Flex, Spacer, Text, Link as ChakraLink } from "@chakra-ui/react";
+import { Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
+
+const links = [
+  {
+    href: "/our-mission",
+    text: "Our Mission",
+  },
+  {
+    href: "/terms-of-service",
+    text: "Terms of Service",
+  },
+  {
+    href: "/privacy-policy",
+    text: "Privacy Policy",
+  },
+  {
+    href: "/merch",
+    text: "Merch",
+  },
+];
 
 const simpleFooter = (
   <Flex
@@ -28,22 +47,35 @@ const extendedFooter = (
     justifyContent="center"
     marginTop="auto"
   >
-    <Flex paddingY={5} paddingX={{ base: 3, md: 8 }}>
-      <Link href="/our-mission">
-        <ChakraLink marginLeft={4}>
-          <Text
-            color="gray.600"
-            fontSize={{ base: "11px", md: "14px" }}
-            fontWeight="bold"
-          >
-            {"Our Mission"}
-          </Text>
-        </ChakraLink>
-      </Link>
-      <Spacer />
-      <Text color="gray.500" fontSize={{ base: "11px", md: "14px" }}>
-        {"© 2021 GeoBuff. All rights reserved."}
-      </Text>
+    <Flex
+      paddingY={5}
+      paddingX={{ base: 3, md: 8 }}
+      justifyContent="space-between"
+    >
+      <Flex direction={{ base: "column", md: "row" }}>
+        {links.map(({ href, text }) => (
+          <Link key={href} href={href}>
+            <ChakraLink
+              color="gray.600"
+              fontSize={{ base: "11px", md: "14px" }}
+              fontWeight="bold"
+              marginLeft={4}
+              marginY={{ base: 1, md: 0 }}
+            >
+              {text}
+            </ChakraLink>
+          </Link>
+        ))}
+      </Flex>
+
+      <Flex
+        justifyContent="flex-end"
+        alignItems={{ base: "flex-end", md: "center" }}
+      >
+        <Text color="gray.500" fontSize={{ base: "11px", md: "14px" }}>
+          {"© 2021 GeoBuff. All rights reserved."}
+        </Text>
+      </Flex>
     </Flex>
   </Flex>
 );

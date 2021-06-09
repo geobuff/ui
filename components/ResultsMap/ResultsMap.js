@@ -1,61 +1,135 @@
-import React from "react";
+import React, { useMemo } from "react";
 import PropTypes from "prop-types";
-import { Box, Divider, Text } from "@chakra-ui/react";
 
-import ResultsList from "../ResultsList";
+import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { AutoSizer, List as VirtualizedList } from "react-virtualized";
+
 import { getResults } from "../../helpers/results-list";
 
-const ResultsMap = ({ quiz, checked, map, hasGameStopped }) => {
+import VirtualizedSectionList from "../SectionList";
+import ResultsListItem from "../ResultsListItem";
+
+const HEADER_HEIGHT = 50;
+const ROW_HEIGHT = 28;
+
+const ResultsMap = ({
+  checked,
+  map,
+  hasGameStopped,
+  hasGroupings,
+  hasFlags,
+}) => {
+  const results = useMemo(
+    () =>
+      Object.entries(map).map(([key, mapping]) => ({
+        title: key,
+        data: getResults(mapping, checked, hasGameStopped),
+      })),
+    [map, checked, hasGameStopped]
+  );
+
+  const resultRows = results[0].data;
+
+  const renderHeader = ({ title, key, style }) => {
+    return (
+      <Box key={key} style={style}>
+        <Box height="100%" marginTop={4}>
+          <Text fontSize="18px" fontWeight="bold" textTransform="uppercase">
+            {title}
+          </Text>
+        </Box>
+      </Box>
+    );
+  };
+
+  const renderSectionRow = ({ item, key, style }) => {
+    return (
+      <Box key={key} style={style}>
+        <ResultsListItem
+          code={item.code}
+          svgName={item.svgName}
+          isHidden={item.isHidden}
+          isMissedResult={item.isMissedResult}
+          hasFlag={hasFlags}
+        />
+      </Box>
+    );
+  };
+
+  const renderListRow = ({ key, index, style }) => {
+    return (
+      <Box key={key} style={style}>
+        <ResultsListItem
+          code={resultRows[index].code}
+          svgName={resultRows[index].svgName}
+          isHidden={resultRows[index].isHidden}
+          isMissedResult={resultRows[index].isMissedResult}
+          hasFlag={hasFlags}
+        />
+      </Box>
+    );
+  };
+
   return (
-    <Box textAlign="left">
-      <Divider my={4} />
-      <Text fontSize="xl" mt={2} fontWeight="bold">
+    <Box textAlign="left" height="100%">
+      <Divider my={3} />
+      <Text fontSize="xl" fontWeight="bold">
         {"Results"}
       </Text>
       <Divider my={3} />
-      <Box>
-        {Object.entries(map).map(([key, mapping], index) => (
-          <Box mt={5} key={index}>
-            <Text fontWeight="bold" my={3} textTransform="uppercase">
-              {key}
-            </Text>
-            <ResultsList
-              quiz={quiz}
-              results={getResults(mapping, checked, hasGameStopped)}
-            />
-          </Box>
-        ))}
-      </Box>
+      <Flex
+        direction="column"
+        height={{ base: "100%", sm: "75%" }}
+        minHeight="400px"
+      >
+        <Box flex="1 1 auto">
+          {!!results.length && (
+            <AutoSizer>
+              {({ height, width }) => (
+                <>
+                  {hasGroupings ? (
+                    <VirtualizedSectionList
+                      width={width}
+                      height={height}
+                      sections={results}
+                      sectionHeaderRenderer={renderHeader}
+                      sectionHeaderHeight={HEADER_HEIGHT}
+                      rowHeight={ROW_HEIGHT}
+                      rowRenderer={renderSectionRow}
+                    />
+                  ) : (
+                    <VirtualizedList
+                      width={width}
+                      height={height}
+                      rowCount={resultRows.length}
+                      rowHeight={ROW_HEIGHT}
+                      rowRenderer={renderListRow}
+                    />
+                  )}
+                </>
+              )}
+            </AutoSizer>
+          )}
+        </Box>
+      </Flex>
+      <Box height={{ base: "35px", md: "20px", lg: "35px" }} />
     </Box>
   );
 };
 
 ResultsMap.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
   checked: PropTypes.array,
   map: PropTypes.object,
   hasGameStopped: PropTypes.bool,
+  hasGroupings: PropTypes.bool,
+  hasFlags: PropTypes.bool,
 };
 ResultsMap.defaultProps = {
-  quiz: {},
   checked: [],
   map: {},
   hasGameStopped: false,
+  hasGroupings: false,
+  hasFlags: false,
 };
 
-export default React.memo(ResultsMap);
+export default ResultsMap;

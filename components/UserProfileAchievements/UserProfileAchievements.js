@@ -6,18 +6,17 @@ import {
   Image,
   Flex,
   Text,
-  Spacer,
-  Progress,
   Heading,
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import { getLevel, getLevelCompletion } from "../../helpers/gamification";
+import Card from "../Card";
+
 import { isBadgeComplete, getProgress } from "../../helpers/badge";
 
-const UserProfileAchievements = ({ user, badges, scores, entriesCount }) => {
-  const level = getLevel(user.xp);
+import SolidLock from "../../Icons/SolidLock";
 
+const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
   const getLabel = (badge) => {
     return (
       <Box>
@@ -31,43 +30,68 @@ const UserProfileAchievements = ({ user, badges, scores, entriesCount }) => {
   };
 
   return (
-    <Box>
-      <Heading size="md" textAlign="center" m={6}>
-        Achievements
+    <Card padding={6}>
+      <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
+        {"Achievements"}
       </Heading>
-      <Box mt={6} mb={12}>
-        <Flex mb={3}>
-          <Text fontWeight="bold">{level}</Text>
-          <Spacer />
-          <Text fontWeight="bold">{level + 1}</Text>
-        </Flex>
-        <Progress
-          hasStripe
-          size="lg"
-          value={getLevelCompletion(user.xp)}
-          colorScheme="green"
-        />
-      </Box>
-      <SimpleGrid
-        mb={6}
-        justifyContent="center"
-        minChildWidth="75px"
-        spacingY={8}
-      >
-        {badges.map((badge) => (
-          <Tooltip key={badge.id} label={getLabel(badge)}>
-            <Image
-              src={badge.icon}
-              height="50px"
-              mx={3}
-              opacity={
-                isBadgeComplete(badge, scores, entriesCount) ? "1" : "0.25"
-              }
-            />
-          </Tooltip>
-        ))}
-      </SimpleGrid>
-    </Box>
+
+      <Flex direction="column" justifyContent="center" marginX={2}>
+        <SimpleGrid
+          mb={6}
+          justifyContent="center"
+          minChildWidth="75px"
+          spacingY={8}
+          spacingX={5}
+        >
+          {badges.map((badge) => (
+            <Tooltip key={badge.id} label={getLabel(badge)}>
+              <Box position="relative">
+                <Box
+                  borderRadius={50}
+                  backgroundColor={badge.background || "gray.200"}
+                  borderWidth={10}
+                  border="solid 5px"
+                  borderColor={badge.border || "gray.600"}
+                  padding={3}
+                  height="75px"
+                  width="75px"
+                >
+                  <Image
+                    src={badge.imageUrl}
+                    height="40px"
+                    width="40px"
+                    marginX="auto"
+                  />
+                </Box>
+                {!isBadgeComplete(badge, scores, entriesCount) && (
+                  <Box
+                    position="absolute"
+                    borderRadius={50}
+                    top={0}
+                    left={0}
+                    right={0}
+                    bottom={0}
+                    opacity={0.75}
+                    backgroundColor="#292929"
+                    width="75px"
+                    height="75px"
+                  >
+                    <Flex
+                      alignItems="center"
+                      justifyContent="center"
+                      height="100%"
+                      width="100%"
+                    >
+                      <SolidLock height="26px" width="26px" color="white" />
+                    </Flex>
+                  </Box>
+                )}
+              </Box>
+            </Tooltip>
+          ))}
+        </SimpleGrid>
+      </Flex>
+    </Card>
   );
 };
 
@@ -85,7 +109,7 @@ UserProfileAchievements.propTypes = {
       id: PropTypes.number,
       name: PropTypes.string,
       description: PropTypes.string,
-      icon: PropTypes.string,
+      imageUrl: PropTypes.string,
       total: PropTypes.number,
     })
   ),

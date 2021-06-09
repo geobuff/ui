@@ -1,4 +1,5 @@
 import { useState } from "react";
+import jwt_decode from "jwt-decode";
 
 const useCurrentUser = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,11 +15,17 @@ const useCurrentUser = () => {
 
     return {
       id: parseInt(window.localStorage.getItem("geobuff.id")),
+      avatarId: parseInt(window.localStorage.getItem("geobuff.avatarId")),
+      avatarName: window.localStorage.getItem("geobuff.avatarName"),
+      avatarImageUrl: window.localStorage.getItem("geobuff.avatarImageUrl"),
+      avatarBackground: window.localStorage.getItem("geobuff.avatarBackground"),
+      avatarBorder: window.localStorage.getItem("geobuff.avatarBorder"),
       username: window.localStorage.getItem("geobuff.username"),
       email: window.localStorage.getItem("geobuff.email"),
       countryCode: window.localStorage.getItem("geobuff.countryCode"),
       xp: parseInt(window.localStorage.getItem("geobuff.xp")),
       isPremium: window.localStorage.getItem("geobuff.isPremium") === "true",
+      stripeSessionId: window.localStorage.getItem("geobuff.stripeSessionId"),
       token: window.localStorage.getItem("geobuff.token"),
     };
   });
@@ -43,11 +50,18 @@ const useCurrentUser = () => {
     });
   };
 
+  const tokenExpired = (token) => {
+    const decoded = jwt_decode(token);
+    const seconds = Math.round(new Date().getTime() / 1000);
+    return decoded.exp <= seconds;
+  };
+
   return {
     user,
     isLoading,
     updateUser,
     clearUser,
+    tokenExpired,
   };
 };
 
