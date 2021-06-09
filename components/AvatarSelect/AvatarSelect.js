@@ -5,7 +5,7 @@ import { Select } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import Image from "../Image";
 
-import useAvatars from "../../hooks/useAvatars";
+import useAvatars from "../../hooks/UseAvatars";
 
 const AvatarSelect = ({ fieldProps }) => {
   const { avatars, isLoading } = useAvatars();
