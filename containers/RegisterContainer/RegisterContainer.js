@@ -31,12 +31,18 @@ const RegisterContainer = () => {
     }, 7500);
   }, [error]);
 
-  const handleSubmit = ({ username, email, countryCode, password }) => {
+  const handleSubmit = ({
+    avatarId,
+    username,
+    email,
+    countryCode,
+    password,
+  }) => {
     setIsSubmitting(true);
     setError(null);
 
     const payload = {
-      avatarId: 1,
+      avatarId: parseInt(avatarId),
       username,
       email,
       countryCode,
@@ -51,6 +57,10 @@ const RegisterContainer = () => {
         updateUser({
           id: decoded["userId"],
           avatarId: decoded["avatarId"],
+          avatarName: decoded["avatarName"],
+          avatarImageUrl: decoded["avatarImageUrl"],
+          avatarBackground: decoded["avatarBackground"],
+          avatarBorder: decoded["avatarBorder"],
           username: decoded["username"],
           email: decoded["email"],
           countryCode: decoded["countryCode"],

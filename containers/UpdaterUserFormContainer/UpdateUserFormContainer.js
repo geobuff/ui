@@ -35,7 +35,7 @@ const UpdateUserFormContainer = ({ isOpen, onClose }) => {
       .put(
         `/users/${user.id}`,
         {
-          avatarId: user.avatarId,
+          avatarId: parseInt(values.avatarId),
           username: values.username,
           email: values.email,
           countryCode: values.countryCode,
@@ -46,6 +46,7 @@ const UpdateUserFormContainer = ({ isOpen, onClose }) => {
       .then((response) => {
         updateUser({
           ...user,
+          avatarId: response.data.avatarId,
           username: response.data.username,
           email: response.data.email,
           countryCode: response.data.countryCode,

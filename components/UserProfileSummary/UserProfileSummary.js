@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import {
-  Avatar,
   Box,
   Heading,
   Flex,
@@ -39,7 +38,10 @@ const UserProfileSummary = ({
   countryCode,
   xp,
   isPremium,
-  picture,
+  avatarName,
+  avatarImageUrl,
+  avatarBackground,
+  avatarBorder,
   error,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -72,15 +74,28 @@ const UserProfileSummary = ({
         <Box mb={6}>
           <ErrorAlertBanner error={error} />
           <Box textAlign="center">
-            <Avatar
+            <Flex
+              alignItems="center"
+              borderRadius={"100%"}
+              backgroundColor={avatarBackground}
+              borderWidth={10}
+              border="solid 5px"
+              borderColor={avatarBorder}
+              padding={3}
               height="130px"
               width="130px"
-              src={picture}
-              name={username}
-              marginTop="-112px"
-              marginBottom={6}
-            />
-
+              marginTop="-122px"
+              marginBottom={2}
+              marginX="auto"
+            >
+              <Image
+                src={avatarImageUrl}
+                alt={avatarName}
+                height="70px"
+                width="70px"
+                marginX="auto"
+              />
+            </Flex>
             <Heading fontSize="32px">{username}</Heading>
             <Text color="gray.500" fontWeight={600} marginY={1}>
               {email}
@@ -148,7 +163,10 @@ UserProfileSummary.propTypes = {
   countryCode: PropTypes.string,
   xp: PropTypes.number,
   isPremium: PropTypes.bool,
-  picture: PropTypes.string,
+  avatarName: PropTypes.string,
+  avatarImageUrl: PropTypes.string,
+  avatarBackground: PropTypes.string,
+  avatarBorder: PropTypes.string,
   error: PropTypes.string,
 };
 
@@ -161,7 +179,10 @@ UserProfileSummary.defaultProps = {
   countryCode: "",
   xp: 0,
   isPremium: false,
-  picture: "",
+  avatarName: "",
+  avatarImageUrl: "",
+  avatarBackground: "",
+  avatarBorder: "",
   error: "",
 };
 

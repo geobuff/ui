@@ -20,6 +20,7 @@ import Link from "next/link";
 
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
+import AvatarSelect from "../AvatarSelect";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import Logo from "../Logo";
@@ -27,6 +28,7 @@ import Logo from "../Logo";
 import LoginLink from "./LoginLink";
 
 const initialValues = {
+  avatarId: "",
   username: "",
   email: "",
   countryCode: "",
@@ -34,12 +36,13 @@ const initialValues = {
 };
 
 const validationSchema = Yup.object().shape({
+  avatarId: Yup.number().required("Please select an avatar."),
   username: Yup.string()
     .required("Please include a username.")
     .min(3, "Must be at least 3 characters long.")
     .max(30, "Must be less than 30 characters long.")
     .matches(/^\S*$/, "Cannot contain spaces."),
-  countryCode: Yup.string().required("Please include a country."),
+  countryCode: Yup.string().required("Please select a country."),
   email: Yup.string()
     .required("Please include an email.")
     .email("Must be a valid email address."),
@@ -80,6 +83,27 @@ const RegisterForm = ({ error, onSubmit, isSubmitting }) => {
       >
         {() => (
           <Form>
+            <Flex marginY={6}>
+              <Field name="avatarId">
+                {({ field, form }) => (
+                  <FormControl
+                    isInvalid={form.errors.avatarId && form.touched.avatarId}
+                  >
+                    <FormLabel htmlFor="avatarId" fontWeight="bold">
+                      {"Avatar"}
+                    </FormLabel>
+
+                    <AvatarSelect fieldProps={field} />
+                    <Box position="absolute" top="68px" left="2px">
+                      <FormErrorMessage fontSize="11px">
+                        {form.errors.avatarId}
+                      </FormErrorMessage>
+                    </Box>
+                  </FormControl>
+                )}
+              </Field>
+            </Flex>
+
             <Flex marginY={6}>
               <Field name="username">
                 {({ field, form }) => (

@@ -15,7 +15,7 @@ import {
   Skeleton,
   SkeletonCircle,
   Text,
-  Avatar,
+  Image,
 } from "@chakra-ui/react";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
@@ -26,6 +26,7 @@ const UserAvatarMenu = ({ isCondensed }) => {
   const router = useRouter();
 
   const avatarSize = isCondensed ? "26px" : { base: "22px", md: "26px" };
+  const imageSize = isCondensed ? "13px" : { base: "11px", md: "13px" };
 
   const logout = () => {
     clearUser();
@@ -80,13 +81,24 @@ const UserAvatarMenu = ({ isCondensed }) => {
           }}
         >
           <Flex alignItems="center">
-            <Avatar
+            <Flex
+              alignItems="center"
+              borderRadius={"100%"}
+              backgroundColor={user.avatarBackground}
+              border="solid 3px"
+              borderColor={user.avatarBorder}
               height={avatarSize}
               width={avatarSize}
-              src={user?.picture}
-              name={user.username}
               marginX={isCondensed ? 1 : 0}
-            />
+            >
+              <Image
+                src={user.avatarImageUrl}
+                alt={user.avatarName}
+                height={imageSize}
+                width={imageSize}
+                marginX="auto"
+              />
+            </Flex>
 
             {!isCondensed && (
               <Text
