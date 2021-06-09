@@ -57,6 +57,10 @@ const RegisterContainer = () => {
         updateUser({
           id: decoded["userId"],
           avatarId: decoded["avatarId"],
+          avatarName: decoded["avatarName"],
+          avatarImageUrl: decoded["avatarImageUrl"],
+          avatarBackground: decoded["avatarBackground"],
+          avatarBorder: decoded["avatarBorder"],
           username: decoded["username"],
           email: decoded["email"],
           countryCode: decoded["countryCode"],
