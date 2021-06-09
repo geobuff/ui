@@ -31,12 +31,18 @@ const RegisterContainer = () => {
     }, 7500);
   }, [error]);
 
-  const handleSubmit = ({ username, email, countryCode, password }) => {
+  const handleSubmit = ({
+    avatarId,
+    username,
+    email,
+    countryCode,
+    password,
+  }) => {
     setIsSubmitting(true);
     setError(null);
 
     const payload = {
-      avatarId: 1,
+      avatarId: parseInt(avatarId),
       username,
       email,
       countryCode,
