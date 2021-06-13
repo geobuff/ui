@@ -8,7 +8,7 @@ const ErrorAlertBanner = ({ error }) => (
     animateOpacity
     unmountOnExit
     style={{
-      position: "absolute",
+      position: "fixed",
       left: 0,
       right: 0,
       zIndex: 10,
