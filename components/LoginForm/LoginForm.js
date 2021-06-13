@@ -23,7 +23,7 @@ import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
 import Logo from "../Logo";
 
-import ErrorAlert from "./ErrorAlert";
+import ErrorAlertBanner from "../ErrorAlertBanner";
 import RegisterLink from "./RegisterLink";
 
 const initialValues = {
@@ -146,8 +146,6 @@ const LoginForm = ({ error, onSubmit, isSubmitting }) => {
               </Field>
             </Flex>
 
-            {shouldRenderOnMobile && <ErrorAlert error={error} />}
-
             <Flex marginTop={{ base: "46px", md: "115px" }} marginBottom={5}>
               <Button
                 size="lg"
@@ -167,6 +165,7 @@ const LoginForm = ({ error, onSubmit, isSubmitting }) => {
 
   return (
     <>
+      <ErrorAlertBanner error={error} />
       {shouldRenderOnMobile ? (
         <>
           <Box position="absolute" top={0} right={0}>
@@ -187,12 +186,7 @@ const LoginForm = ({ error, onSubmit, isSubmitting }) => {
       ) : (
         <Flex direction="column" padding={5}>
           {mainContent}
-
           <RegisterLink />
-
-          <Box marginTop={2}>
-            <ErrorAlert error={error} />
-          </Box>
         </Flex>
       )}
     </>

@@ -118,7 +118,13 @@ const UserProfileSummary = ({
                 {matchedCountry}
               </Text>
             </Flex>
-            <Box>
+            <Flex
+              marginTop={4}
+              marginBottom={0}
+              alignItems="center"
+              justifyContent="center"
+              width="100%"
+            >
               <Checkbox size="lg" isChecked={isPremium} isDisabled>
                 {"Premium"}
               </Checkbox>
@@ -127,13 +133,17 @@ const UserProfileSummary = ({
                   backgroundColor="purple.700"
                   color="white"
                   onClick={onClickUpgrade}
+                  marginLeft={5}
+                  _hover={{ backgroundColor: "purple.800" }}
                 >
                   {"Upgrade"}
                 </Button>
               ) : (
-                <Button onClick={onClickManage}>{"Manage"}</Button>
+                <Button marginLeft={5} onClick={onClickManage}>
+                  {"Manage"}
+                </Button>
               )}
-            </Box>
+            </Flex>
 
             <Flex marginBottom={3} marginX={6}>
               <Text fontWeight="bold">{level}</Text>
