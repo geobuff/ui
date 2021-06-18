@@ -23,6 +23,7 @@ import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import GameFlag from "../GameFlag/GameFlag";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
 import useCurrentUser from "../../hooks/UseCurrentUser";
+import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 import axiosClient from "../../axios/axiosClient";
 
 import { groupMapping } from "../../helpers/mapping";
@@ -50,6 +51,8 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     false
   );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+
+  useWarnIfActiveGame(hasGameStarted);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 

@@ -27,6 +27,8 @@ import SolidChevronUp from "../../Icons/SolidChevronUp";
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
+import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
+
 import axiosClient from "../../axios/axiosClient";
 
 import { groupMapping } from "../../helpers/mapping";
@@ -54,6 +56,8 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
     false
   );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+
+  useWarnIfActiveGame(hasGameStarted);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
