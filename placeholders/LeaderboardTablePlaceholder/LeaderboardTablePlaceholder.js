@@ -16,6 +16,10 @@ import {
 const LeaderboardTablePlaceholder = ({ rows }) => {
   const hasLoadedBreakpoint = useBreakpointValue({ base: true, md: true });
 
+  if (hasLoadedBreakpoint === undefined) {
+    return null;
+  }
+
   return (
     <Table size="md" variant="striped" colorscheme="gray">
       <Thead>
@@ -38,41 +42,36 @@ const LeaderboardTablePlaceholder = ({ rows }) => {
           </Th>
         </Tr>
       </Thead>
-      {hasLoadedBreakpoint !== undefined && (
-        <Tbody>
-          {[...Array(rows)].map((_, i) => (
-            <Tr padding={0} key={i}>
-              <Td width={{ base: "25%", md: "17%" }}>
-                <Skeleton height="26px" width={{ base: "30px", md: "30%" }} />
-              </Td>
-              <Td width={{ base: "30%", md: "30%" }}>
-                <Flex alignItems="center">
-                  <Skeleton
-                    height="21px"
-                    width="28px"
-                    borderRadius={4}
-                    marginRight={3}
-                  />
-                  <Skeleton
-                    height="26px"
-                    width={{ base: "100px", md: "70%" }}
-                  />
-                </Flex>
-              </Td>
-              <Td width={{ base: "20%", md: "20%" }}>
-                <Flex justifyContent="flex-end">
-                  <Skeleton height="26px" width={{ base: "100%", md: "40%" }} />
-                </Flex>
-              </Td>
-              <Td width={{ base: "20%", md: "20%" }}>
-                <Flex justifyContent="flex-end">
-                  <Skeleton height="26px" width="40%" />
-                </Flex>
-              </Td>
-            </Tr>
-          ))}
-        </Tbody>
-      )}
+      <Tbody>
+        {[...Array(rows)].map((_, i) => (
+          <Tr padding={0} key={i}>
+            <Td width={{ base: "25%", md: "17%" }}>
+              <Skeleton height="26px" width={{ base: "30px", md: "30%" }} />
+            </Td>
+            <Td width={{ base: "30%", md: "30%" }}>
+              <Flex alignItems="center">
+                <Skeleton
+                  height="21px"
+                  width="28px"
+                  borderRadius={4}
+                  marginRight={3}
+                />
+                <Skeleton height="26px" width={{ base: "100px", md: "70%" }} />
+              </Flex>
+            </Td>
+            <Td width={{ base: "20%", md: "20%" }}>
+              <Flex justifyContent="flex-end">
+                <Skeleton height="26px" width={{ base: "100%", md: "40%" }} />
+              </Flex>
+            </Td>
+            <Td width={{ base: "20%", md: "20%" }}>
+              <Flex justifyContent="flex-end">
+                <Skeleton height="26px" width="40%" />
+              </Flex>
+            </Td>
+          </Tr>
+        ))}
+      </Tbody>
     </Table>
   );
 };
