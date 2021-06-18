@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -31,6 +31,12 @@ const GameInputBanner = ({
   onClearInput,
 }) => {
   const inputRef = useRef("");
+
+  useEffect(() => {
+    if (hasGameStarted) {
+      inputRef.current.focus();
+    }
+  }, [hasGameStarted]);
 
   const handleClearInput = () => {
     onClearInput();
