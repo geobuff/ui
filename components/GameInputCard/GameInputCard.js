@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -39,6 +39,12 @@ const GameInputCard = ({
   onGameStop,
 }) => {
   const inputRef = useRef("");
+
+  useEffect(() => {
+    if (hasGameStarted) {
+      inputRef.current.focus();
+    }
+  }, [hasGameStarted]);
 
   const handleClearInput = () => {
     onClearInput();
