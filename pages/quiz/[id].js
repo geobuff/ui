@@ -49,7 +49,11 @@ const Quiz = () => {
     }
   };
 
-  return <MainView hasFooter={false}>{getQuizComponent()}</MainView>;
+  return (
+    <MainView backgroundColor="#276F86" hasFooter={false}>
+      {getQuizComponent()}
+    </MainView>
+  );
 };
 
 export default Quiz;
