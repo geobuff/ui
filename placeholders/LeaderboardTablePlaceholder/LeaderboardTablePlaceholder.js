@@ -14,10 +14,52 @@ import {
 } from "@chakra-ui/react";
 
 const LeaderboardTablePlaceholder = ({ rows }) => {
-  const hasLoadedBreakpoint = useBreakpointValue({ base: true, md: true });
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
-  if (hasLoadedBreakpoint === undefined) {
+  // Prevent layout shift on load
+  if (isMobile === undefined) {
     return null;
+  }
+
+  if (isMobile) {
+    return (
+      <Table size="md" variant="striped" colorscheme="gray">
+        <Thead>
+          <Tr>
+            <Th textAlign="left">
+              <Skeleton height="24px" width="64px" />
+            </Th>
+            <Th textAlign="left">
+              <Skeleton height="24px" width="100%" />
+            </Th>
+          </Tr>
+        </Thead>
+        <Tbody>
+          {[...Array(rows)].map((_, i) => (
+            <Tr padding={0} key={i}>
+              <Td>
+                <Skeleton height="26px" width="100%" maxWidth="52px" />
+              </Td>
+              <Td
+                width="80%"
+                borderTopRightRadius={0}
+                borderBottomRightRadius={0}
+              >
+                <Flex alignItems="center">
+                  <Skeleton
+                    height="24px"
+                    width="42px"
+                    borderRadius={4}
+                    marginRight={3}
+                  />
+                  <Skeleton height="26px" width="100%" />
+                </Flex>
+              </Td>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    );
   }
 
   return (
