@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import {
   Box,
   Button,
+  Fade,
   Flex,
   useBreakpointValue,
   useDisclosure,
@@ -290,11 +291,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
             </Box>
           )}
 
-          <GameMap
-            map={map}
-            showTooltip={!hasGameStarted}
-            onLocationClassName={handleLocationClassName}
-          />
+          <Fade in>
+            <GameMap
+              map={map}
+              showTooltip={!hasGameStarted}
+              onLocationClassName={handleLocationClassName}
+            />
+          </Fade>
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
