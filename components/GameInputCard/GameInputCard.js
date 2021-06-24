@@ -83,23 +83,25 @@ const GameInputCard = ({
             </Text>
           </Fade>
           <InputRightElement>
-            <Fade in={inputValue?.length > 0} out={inputValue?.length}>
-              <IconButton
-                position="absolute"
-                top="27px"
-                right={3}
-                maxHeight="22px"
-                minWidth="22px"
-                backgroundColor="transparent"
-                borderRadius={25}
-                onClick={handleClearInput}
-                color={hasError ? "red.500" : "#a6a6a6"}
-                fontWeight="bold"
-                _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
-              >
-                <SolidCloseCircle height={5} width={5} padding={0} />
-              </IconButton>
-            </Fade>
+            {inputValue && (
+              <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+                <IconButton
+                  position="absolute"
+                  top="27px"
+                  right={3}
+                  maxHeight="22px"
+                  minWidth="22px"
+                  backgroundColor="transparent"
+                  borderRadius={25}
+                  onClick={handleClearInput}
+                  color={hasError ? "red.500" : "#a6a6a6"}
+                  fontWeight="bold"
+                  _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+                >
+                  <SolidCloseCircle height={5} width={5} padding={0} />
+                </IconButton>
+              </Fade>
+            )}
           </InputRightElement>
         </InputGroup>
       </Box>

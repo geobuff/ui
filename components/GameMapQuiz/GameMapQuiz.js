@@ -260,35 +260,37 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
         <Flex>
           {!shouldDisplayOnMobile && (
-            <Box minHeight="100%">
-              <Sidebar heading={quiz.name} quiz={quiz}>
-                <Flex direction="column" height="100%">
-                  <GameInputCard
-                    quiz={quiz}
-                    recents={recentSubmissions}
-                    score={score}
-                    timeRemaining={{ seconds, minutes }}
-                    errorMessage={errorMessage}
-                    hasError={hasError}
-                    hasGameRunOnce={hasGameRunOnce}
-                    hasGameStarted={hasGameStarted}
-                    hasGameStopped={hasGameStopped}
-                    inputValue={inputValue}
-                    onChange={handleChange}
-                    onClearInput={onClearInput}
-                    onGameStart={handleGameStart}
-                    onGameStop={handleGameStop}
-                  />
-                  <ResultsMap
-                    checked={checkedSubmissions}
-                    map={groupMapping(mapping)}
-                    hasGameStopped={hasGameStopped}
-                    hasGroupings={quiz.hasGrouping}
-                    hasFlags={quiz.hasFlags}
-                  />
-                </Flex>
-              </Sidebar>
-            </Box>
+            <Fade in>
+              <Box minHeight="100%">
+                <Sidebar heading={quiz.name} quiz={quiz}>
+                  <Flex direction="column" height="100%">
+                    <GameInputCard
+                      quiz={quiz}
+                      recents={recentSubmissions}
+                      score={score}
+                      timeRemaining={{ seconds, minutes }}
+                      errorMessage={errorMessage}
+                      hasError={hasError}
+                      hasGameRunOnce={hasGameRunOnce}
+                      hasGameStarted={hasGameStarted}
+                      hasGameStopped={hasGameStopped}
+                      inputValue={inputValue}
+                      onChange={handleChange}
+                      onClearInput={onClearInput}
+                      onGameStart={handleGameStart}
+                      onGameStop={handleGameStop}
+                    />
+                    <ResultsMap
+                      checked={checkedSubmissions}
+                      map={groupMapping(mapping)}
+                      hasGameStopped={hasGameStopped}
+                      hasGroupings={quiz.hasGrouping}
+                      hasFlags={quiz.hasFlags}
+                    />
+                  </Flex>
+                </Sidebar>
+              </Box>
+            </Fade>
           )}
 
           <Fade in>
