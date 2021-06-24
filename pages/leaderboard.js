@@ -1,21 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 import LeaderboardContainer from "../containers/LeaderboardContainer";
+import MainView from "../components/MainView";
 
 const Leaderboard = () => {
   const router = useRouter();
   const { quizId } = router.query;
 
-  const [quiz, setQuiz] = useState(0);
-
-  useEffect(() => {
-    if (quizId !== undefined) {
-      setQuiz(parseInt(quizId));
-    }
-  }, [quizId]);
-
-  return <LeaderboardContainer quizId={quiz} />;
+  return (
+    <>
+      <Head>
+        <title>{"Leaderboard - GeoBuff"}</title>
+      </Head>
+      <MainView>
+        <LeaderboardContainer defaultQuizId={quizId} />;
+      </MainView>
+    </>
+  );
 };
 
 export default Leaderboard;
