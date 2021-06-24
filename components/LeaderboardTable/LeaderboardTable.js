@@ -15,13 +15,18 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 
+import LeaderTablePlaceholder from "./LeaderboardTablePlaceholder";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import Twemoji from "../Twemoji";
 import TableCell from "../TableCell";
 
 import { secondsToMinutesString } from "../../helpers/time";
 
-const LeaderboardTable = ({ page, limit, entries }) => {
+const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
+  if (isLoading && !entries.length) {
+    return <LeaderTablePlaceholder />;
+  }
+
   if (entries.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
@@ -64,7 +69,7 @@ const LeaderboardTable = ({ page, limit, entries }) => {
                   {getNodeByRank(page * limit + index + 1)}
                 </Flex>
               </TableCell>
-              <TableCell paddingY={3} paddingX={6}>
+              <TableCell paddingY={3} paddingX={6} minWidth="200px">
                 <Flex alignItems="center">
                   <Box marginRight={3} marginTop="5.5px" alignItems="center">
                     {entry.countryCode ? (
@@ -99,6 +104,7 @@ const LeaderboardTable = ({ page, limit, entries }) => {
 };
 
 LeaderboardTable.propTypes = {
+  isLoading: PropTypes.bool,
   page: PropTypes.number,
   limit: PropTypes.number,
   entries: PropTypes.arrayOf(
@@ -115,6 +121,7 @@ LeaderboardTable.propTypes = {
 };
 
 LeaderboardTable.defaultProps = {
+  isLoading: true,
   limit: 10,
   page: 0,
   entries: [],

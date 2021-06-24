@@ -7,7 +7,7 @@ import useQuizzes from "../../hooks/UseQuizzes";
 import Leaderboard from "../../components/Leaderboard";
 
 const LeaderboardContainer = ({ defaultQuizId }) => {
-  const { quizzes, isLoadingQuizzes } = useQuizzes();
+  const { quizzes, isLoading: isLoadingQuizzes } = useQuizzes();
 
   const [quizId, setQuizId] = useState(() => defaultQuizId);
   const [entries, setEntries] = useState([]);

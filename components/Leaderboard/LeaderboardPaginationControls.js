@@ -22,13 +22,14 @@ const LeaderboardPaginationControls = ({
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   return (
-    <Flex marginTop="auto" padding={{ base: 2, sm: 5 }}>
+    <Flex marginTop="auto">
       <Select
         backgroundColor="#F3F3F3"
         border="none"
         fontWeight="bold"
         onChange={onChangeLimit}
-        width="150px"
+        width="170px"
+        height="48px"
         _hover={{ backgroundColor: "#e6e6e6" }}
       >
         <option value={10}>{"10 Per Page"}</option>
@@ -42,7 +43,8 @@ const LeaderboardPaginationControls = ({
           isDisabled={page === 0}
           marginRight={{ base: 2, sm: 3 }}
           onClick={onPreviousPage}
-          width={{ base: "42px", md: "120px" }}
+          height="48px"
+          width={{ base: "46px", md: "132px" }}
           _hover={{ backgroundColor: "#e6e6e6" }}
         >
           <ArrowLeft
@@ -58,7 +60,8 @@ const LeaderboardPaginationControls = ({
           backgroundColor="#F3F3F3"
           onClick={onNextPage}
           isDisabled={!hasMoreEntries}
-          width={{ base: "42px", md: "120px" }}
+          height="48px"
+          width={{ base: "46px", md: "132px" }}
           _hover={{ backgroundColor: "#e6e6e6" }}
         >
           {shouldRenderOnMobile && "Next"}

@@ -1,23 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import PropTypes from "prop-types";
 
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 
-import LeaderboardTableContainer from "../../containers/LeaderboardTableContainer";
-
 import LeaderboardHeader from "./LeaderboardHeader";
 import LeaderboardFilters from "./LeaderboardFilters";
 import LeaderboardPaginationControls from "./LeaderboardPaginationControls";
+import LeaderboardTable from "../LeaderboardTable";
+
+import Card from "../Card";
 
 const Leaderboard = ({
+  entries,
+  hasMoreEntries,
   filterParams,
+  isLoading,
   quizId,
   quizzes,
   onChangeFilterParams,
   onChangeQuiz,
 }) => {
-  const [hasMore, setHasMore] = useState(false);
-
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const handleChangeQuiz = (e) => {
@@ -59,7 +61,7 @@ const Leaderboard = ({
       marginBottom={10}
       marginTop={10}
     >
-      <LeaderboardHeader />
+      <LeaderboardHeader isLoading={isLoading} />
 
       <LeaderboardFilters
         quizId={quizId}
@@ -69,34 +71,47 @@ const Leaderboard = ({
         onChangeSearchUsers={userChange}
       />
 
-      <Flex
-        direction="column"
-        justifyContent="space-between"
-        borderRadius={6}
-        minHeight="750px"
-        padding={{ base: 3, md: 5 }}
-        marginX={{ base: 0, sm: 0, md: 0 }}
-        background="#FFFFFF"
-      >
-        <LeaderboardTableContainer
-          quizId={quizId}
-          filterParams={filterParams}
-          setHasMore={setHasMore}
-        />
+      <Card>
+        <Flex
+          direction="column"
+          justifyContent="space-between"
+          minHeight="750px"
+          paddingTop={2}
+          paddingBottom={{ base: 1, md: 3 }}
+          paddingX={{ base: 0, md: 3 }}
+        >
+          <LeaderboardTable
+            page={filterParams.page}
+            limit={filterParams.limit}
+            entries={entries}
+            isLoading={isLoading}
+          />
 
-        <LeaderboardPaginationControls
-          hasMoreEntries={hasMore}
-          page={filterParams.page}
-          onChangeLimit={limitChange}
-          onNextPage={next}
-          onPreviousPage={previous}
-        />
-      </Flex>
+          <LeaderboardPaginationControls
+            hasMoreEntries={hasMoreEntries}
+            page={filterParams.page}
+            onChangeLimit={limitChange}
+            onNextPage={next}
+            onPreviousPage={previous}
+          />
+        </Flex>
+      </Card>
     </Flex>
   );
 };
 
 Leaderboard.propTypes = {
+  entries: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.number,
+      userId: PropTypes.number,
+      username: PropTypes.string,
+      countryCode: PropTypes.string,
+      score: PropTypes.number,
+      time: PropTypes.time,
+      added: PropTypes.time,
+    })
+  ),
   filterParams: PropTypes.shape({
     page: PropTypes.number,
     limit: PropTypes.number,
@@ -113,6 +128,7 @@ Leaderboard.propTypes = {
 };
 
 Leaderboard.defaultProps = {
+  entries: [],
   filterParams: {
     page: 0,
     limit: 10,

@@ -15,7 +15,7 @@ const Leaderboard = () => {
         <title>{"Leaderboard - GeoBuff"}</title>
       </Head>
       <MainView>
-        <LeaderboardContainer defaultQuizId={quizId} />;
+        <LeaderboardContainer defaultQuizId={quizId} />
       </MainView>
     </>
   );
