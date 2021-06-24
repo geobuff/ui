@@ -20,7 +20,7 @@ const LeaderboardFilters = ({
 }) => {
   return (
     <Flex
-      my={5}
+      marginBottom={{ base: 4, md: 2 }}
       justifyContent="space-between"
       flexWrap="wrap"
       paddingX={{ base: 2.5, sm: 0, md: 0 }}
@@ -32,13 +32,13 @@ const LeaderboardFilters = ({
         width={{ base: "100%", md: "inherit" }}
       >
         <Select
-          maxWidth={{ base: "100%", sm: "48.5%", md: "235px" }}
+          maxWidth={{ base: "100%", sm: "100%", md: "235px" }}
           borderColor="transparent"
           fontWeight="bold"
           background="#FFFFFF"
           onChange={onChangeQuiz}
           value={quizId}
-          marginRight={{ base: 0, sm: 4, md: 3 }}
+          marginRight={{ base: 0, sm: 0, md: 3 }}
           marginBottom={2}
           isTruncated
         >
@@ -49,7 +49,7 @@ const LeaderboardFilters = ({
           ))}
         </Select>
         <Select
-          maxWidth={{ base: "100%", sm: "48.5%", md: "235px" }}
+          maxWidth={{ base: "100%", sm: "100%", md: "235px" }}
           borderColor="transparent"
           background="#FFFFFF"
           fontWeight="bold"

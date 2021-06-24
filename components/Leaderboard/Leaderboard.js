@@ -61,7 +61,7 @@ const Leaderboard = ({
       marginBottom={10}
       marginTop={10}
     >
-      <LeaderboardHeader isLoading={isLoading} />
+      <LeaderboardHeader isLoading={isLoading} marginBottom={6} />
 
       <LeaderboardFilters
         quizId={quizId}
