@@ -20,7 +20,7 @@ const LeaderboardFilters = ({
 }) => {
   return (
     <Flex
-      marginBottom={{ base: 4, md: 2 }}
+      marginBottom={{ base: 3, md: 1 }}
       justifyContent="space-between"
       flexWrap="wrap"
       paddingX={{ base: 2.5, sm: 0, md: 0 }}
@@ -34,6 +34,9 @@ const LeaderboardFilters = ({
         <Select
           maxWidth={{ base: "100%", sm: "100%", md: "235px" }}
           borderColor="transparent"
+          boxShadow="0px 3px 4px rgba(226, 227, 227, 0.5)"
+          height="42px"
+          borderRadius={8}
           fontWeight="bold"
           background="#FFFFFF"
           onChange={onChangeQuiz}
@@ -50,8 +53,11 @@ const LeaderboardFilters = ({
         </Select>
         <Select
           maxWidth={{ base: "100%", sm: "100%", md: "235px" }}
+          boxShadow="0px 3px 4px rgba(226, 227, 227, 0.5)"
+          height="42px"
           borderColor="transparent"
           background="#FFFFFF"
+          borderRadius={8}
           fontWeight="bold"
           onChange={onChangeRange}
         >
@@ -77,8 +83,9 @@ const LeaderboardFilters = ({
           </InputLeftElement>
           <Input
             background="#FFFFFF"
-            borderRadius={6}
-            height="40px"
+            boxShadow="0px 3px 4px rgba(226, 227, 227, 0.5)"
+            borderRadius={8}
+            height="42px"
             marginLeft="auto"
             paddingLeft="46px"
             placeholder="Search users..."
