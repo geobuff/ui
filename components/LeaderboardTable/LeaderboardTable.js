@@ -5,6 +5,7 @@ import flag from "country-code-emoji";
 import {
   Alert,
   Box,
+  Fade,
   Flex,
   Text,
   Table,
@@ -21,6 +22,7 @@ import Twemoji from "../Twemoji";
 import TableCell from "../TableCell";
 
 import { secondsToMinutesString } from "../../helpers/time";
+import Sparkles from "../Sparkles/Sparkles";
 
 const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
   if (isLoading && !entries.length) {
@@ -46,6 +48,21 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
         return <Twemoji emoji="🥉" />;
       default:
         return <Text marginX="6px">{rank}</Text>;
+    }
+  };
+
+  const getTextNodeByRank = (rank, username) => {
+    switch (rank) {
+      case 1:
+        return (
+          <Fade in>
+            <Sparkles>
+              <Text fontWeight="bold">{username}</Text>
+            </Sparkles>
+          </Fade>
+        );
+      default:
+        return <Text marginX="6px">{username}</Text>;
     }
   };
 
@@ -80,13 +97,7 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
                       </Box>
                     )}
                   </Box>
-                  <Text
-                    fontWeight={
-                      page * limit + index + 1 <= 3 ? "bold" : "medium"
-                    }
-                  >
-                    {entry.username}
-                  </Text>
+                  {getTextNodeByRank(page * limit + index + 1, entry.username)}
                 </Flex>
               </TableCell>
               <TableCell isNumeric paddingY={3} paddingX={6}>

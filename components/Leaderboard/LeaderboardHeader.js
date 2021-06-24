@@ -16,18 +16,20 @@ const LeaderboardHeader = ({ isLoading, ...props }) => {
       <Box as="span" marginRight={1} paddingTop={1}>
         <Twemoji
           emoji="🏆"
-          height={{ base: "26px", sm: "36px", md: "42px" }}
-          width={{ base: "26px", sm: "36px", md: "42px" }}
+          height={{ base: "26px", sm: "36px", md: "46px" }}
+          width={{ base: "26px", sm: "36px", md: "46px" }}
         />
       </Box>
-      <Heading
-        as="h1"
-        ml={{ base: 2, md: 3 }}
-        fontSize={{ base: "28px", sm: "36px", md: "42px" }}
-        fontWeight="bold"
-      >
-        {"Leaderboard"}
-      </Heading>
+      <Box>
+        <Heading
+          as="h1"
+          ml={{ base: 2, md: 3 }}
+          fontSize={{ base: "28px", sm: "36px", md: "48px" }}
+          fontWeight="bold"
+        >
+          {"Leaderboard"}
+        </Heading>
+      </Box>
       <Fade in={isLoading} unmountOnExit>
         <Spinner
           marginLeft={{ base: 3, md: 4 }}
