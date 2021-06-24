@@ -27,24 +27,24 @@ const Leaderboard = ({
     onChangeFilterParams({ ...filterParams, page: 0 });
   };
 
-  const rangeChange = (e) => {
+  const handleChangeRange = (e) => {
     onChangeFilterParams({ ...filterParams, range: e.target.value, page: 0 });
   };
 
-  const userChange = (e) => {
+  const handleChangeSearchUsers = (e) => {
     onChangeFilterParams({ ...filterParams, user: e.target.value, page: 0 });
   };
 
-  const limitChange = (e) => {
+  const handleChangeLimit = (e) => {
     const limit = parseInt(e.target.value);
     onChangeFilterParams({ ...filterParams, limit: limit, page: 0 });
   };
 
-  const next = () => {
+  const handleNextPage = () => {
     onChangeFilterParams({ ...filterParams, page: filterParams.page + 1 });
   };
 
-  const previous = () => {
+  const handlePreviousPage = () => {
     onChangeFilterParams({ ...filterParams, page: filterParams.page - 1 });
   };
 
@@ -59,16 +59,16 @@ const Leaderboard = ({
       maxWidth={{ base: "100%", sm: "90%", md: "75%" }}
       marginX="auto"
       marginBottom={10}
-      marginTop={10}
+      marginTop={{ sm: 10, md: 16 }}
     >
       <LeaderboardHeader isLoading={isLoading} marginBottom={6} />
 
       <LeaderboardFilters
         quizId={quizId}
         quizzes={quizzes}
-        onChangeRange={rangeChange}
+        onChangeRange={handleChangeRange}
         onChangeQuiz={handleChangeQuiz}
-        onChangeSearchUsers={userChange}
+        onChangeSearchUsers={handleChangeSearchUsers}
       />
 
       <Card>
@@ -90,9 +90,9 @@ const Leaderboard = ({
           <LeaderboardPaginationControls
             hasMoreEntries={hasMoreEntries}
             page={filterParams.page}
-            onChangeLimit={limitChange}
-            onNextPage={next}
-            onPreviousPage={previous}
+            onChangeLimit={handleChangeLimit}
+            onNextPage={handleNextPage}
+            onPreviousPage={handlePreviousPage}
           />
         </Flex>
       </Card>
@@ -112,6 +112,8 @@ Leaderboard.propTypes = {
       added: PropTypes.time,
     })
   ),
+  isLoading: PropTypes.bool,
+  hasMoreEntries: PropTypes.bool,
   filterParams: PropTypes.shape({
     page: PropTypes.number,
     limit: PropTypes.number,
@@ -129,6 +131,8 @@ Leaderboard.propTypes = {
 
 Leaderboard.defaultProps = {
   entries: [],
+  hasMoreEntries: false,
+  isLoading: true,
   filterParams: {
     page: 0,
     limit: 10,
