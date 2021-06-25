@@ -4,6 +4,7 @@ import flag from "country-code-emoji";
 
 import {
   Alert,
+  AlertIcon,
   Box,
   Fade,
   Flex,
@@ -13,7 +14,7 @@ import {
   Tr,
   Th,
   Tbody,
-  AlertIcon,
+  Skeleton,
 } from "@chakra-ui/react";
 
 import LeaderTablePlaceholder from "./LeaderboardTablePlaceholder";
@@ -39,6 +40,10 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
   }
 
   const getNodeByRank = (rank) => {
+    if (isLoading) {
+      return <Skeleton height="32px" width="10%" />;
+    }
+
     switch (rank) {
       case 1:
         return <Twemoji emoji="🥇" />;
