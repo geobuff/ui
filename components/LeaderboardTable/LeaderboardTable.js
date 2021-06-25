@@ -41,7 +41,7 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
 
   const getNodeByRank = (rank) => {
     if (isLoading) {
-      return <Skeleton height="32px" width="10%" />;
+      return <Skeleton height="32px" width="30px" />;
     }
 
     switch (rank) {

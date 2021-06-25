@@ -75,6 +75,7 @@ const stripedVariant = (props) => {
     td: {
       borderBottom: "1px",
       borderColor: "transparent",
+      fontWeight: "bold",
       ...numericStyles,
     },
     caption: {
@@ -90,7 +91,6 @@ const stripedVariant = (props) => {
           },
           td: {
             background: mode("#F3F3F3", `${c}.700`)(props),
-            fontWeight: "bold",
           },
         },
         td: {
