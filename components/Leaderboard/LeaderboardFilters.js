@@ -14,6 +14,7 @@ import Search from "../../Icons/Search";
 const LeaderboardFilters = ({
   quizzes,
   quizId,
+  isLoading,
   onChangeSearchUsers,
   onChangeQuiz,
   onChangeRange,
@@ -44,6 +45,7 @@ const LeaderboardFilters = ({
           marginRight={{ base: 0, sm: 0, md: 3 }}
           marginBottom={2}
           isTruncated
+          isDisabled={isLoading}
         >
           {quizzes.map((quiz) => (
             <option key={quiz.id} value={quiz.id}>
@@ -60,6 +62,7 @@ const LeaderboardFilters = ({
           borderRadius={8}
           fontWeight="bold"
           onChange={onChangeRange}
+          isDisabled={isLoading}
         >
           <option value={null}>{"All Time"}</option>
           <option value="week">{"This Week"}</option>
@@ -107,6 +110,7 @@ LeaderboardFilters.propTypes = {
       name: PropTypes.string,
     })
   ),
+  isLoading: PropTypes.bool,
   onChangeQuiz: PropTypes.func,
   onChangeRange: PropTypes.func,
   onChangeSearchUsers: PropTypes.func,
@@ -114,6 +118,7 @@ LeaderboardFilters.propTypes = {
 LeaderboardFilters.defaultProps = {
   quizId: 1,
   quizzes: [],
+  isLoading: false,
   onChangeQuiz: () => {},
   onChangeRange: () => {},
   onChangeSearchUsers: () => {},

@@ -13,6 +13,7 @@ import ArrowLeft from "../../Icons/ArrowLeft";
 import ArrowRight from "../../Icons/ArrowRight";
 
 const LeaderboardPaginationControls = ({
+  isLoading,
   hasMoreEntries,
   page,
   onChangeLimit,
@@ -22,7 +23,7 @@ const LeaderboardPaginationControls = ({
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   return (
-    <Flex marginTop="auto">
+    <Flex marginTop="auto" pt={4}>
       <Select
         backgroundColor="#F3F3F3"
         border="none"
@@ -31,6 +32,7 @@ const LeaderboardPaginationControls = ({
         width="170px"
         height="48px"
         _hover={{ backgroundColor: "#e6e6e6" }}
+        isDisabled={isLoading}
       >
         <option value={10}>{"10 Per Page"}</option>
         <option value={20}>{"20 Per Page"}</option>
@@ -40,7 +42,7 @@ const LeaderboardPaginationControls = ({
       <Box marginLeft="auto">
         <Button
           backgroundColor="#F3F3F3"
-          isDisabled={page === 0}
+          isDisabled={page === 0 || isLoading}
           marginRight={{ base: 2, sm: 3 }}
           onClick={onPreviousPage}
           height="48px"
@@ -59,7 +61,7 @@ const LeaderboardPaginationControls = ({
           role="group"
           backgroundColor="#F3F3F3"
           onClick={onNextPage}
-          isDisabled={!hasMoreEntries}
+          isDisabled={!hasMoreEntries || isLoading}
           height="48px"
           width={{ base: "46px", md: "132px" }}
           _hover={{ backgroundColor: "#e6e6e6" }}
@@ -77,6 +79,7 @@ const LeaderboardPaginationControls = ({
 };
 
 LeaderboardPaginationControls.propTypes = {
+  isLoading: PropTypes.bool,
   hasMoreEntries: PropTypes.bool,
   page: PropTypes.number,
   onChangeLimit: PropTypes.func,
@@ -85,6 +88,7 @@ LeaderboardPaginationControls.propTypes = {
 };
 
 LeaderboardPaginationControls.defaultProps = {
+  isLoading: false,
   hasMoreEntries: false,
   page: 0,
   onChangeLimit: () => {},

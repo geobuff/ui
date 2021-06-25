@@ -51,18 +51,42 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
     }
   };
 
-  const getTextNodeByRank = (rank, username) => {
+  const getTextNodeByRank = (rank, username, countryCode) => {
     switch (rank) {
       case 1:
         return (
           <Fade in>
-            <Sparkles>
-              <Text fontWeight="bold">{username}</Text>
+            <Sparkles showSparkles={!isLoading}>
+              <Flex alignItems="center">
+                <Box marginRight={3} marginTop="5.5px" alignItems="center">
+                  {countryCode ? (
+                    <Twemoji emoji={flag(countryCode)} />
+                  ) : (
+                    <Box marginY="4px">
+                      <FlagFallback />
+                    </Box>
+                  )}
+                </Box>
+                <Text fontWeight="bold">{username}</Text>
+              </Flex>
             </Sparkles>
           </Fade>
         );
       default:
-        return <Text marginX="6px">{username}</Text>;
+        return (
+          <Flex alignItems="center">
+            <Box marginRight={3} marginTop="5.5px" alignItems="center">
+              {countryCode ? (
+                <Twemoji emoji={flag(countryCode)} />
+              ) : (
+                <Box marginY="4px">
+                  <FlagFallback />
+                </Box>
+              )}
+            </Box>
+            <Text>{username}</Text>
+          </Flex>
+        );
     }
   };
 
@@ -87,18 +111,11 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
                 </Flex>
               </TableCell>
               <TableCell paddingY={3} paddingX={6} minWidth="200px">
-                <Flex alignItems="center">
-                  <Box marginRight={3} marginTop="5.5px" alignItems="center">
-                    {entry.countryCode ? (
-                      <Twemoji emoji={flag(entry.countryCode)} />
-                    ) : (
-                      <Box marginY="4px">
-                        <FlagFallback />
-                      </Box>
-                    )}
-                  </Box>
-                  {getTextNodeByRank(page * limit + index + 1, entry.username)}
-                </Flex>
+                {getTextNodeByRank(
+                  page * limit + index + 1,
+                  entry.username,
+                  entry.countryCode
+                )}
               </TableCell>
               <TableCell isNumeric paddingY={3} paddingX={6}>
                 {secondsToMinutesString(entry.time)}

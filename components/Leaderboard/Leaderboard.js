@@ -66,6 +66,7 @@ const Leaderboard = ({
       <LeaderboardFilters
         quizId={quizId}
         quizzes={quizzes}
+        isLoading={isLoading}
         onChangeRange={handleChangeRange}
         onChangeQuiz={handleChangeQuiz}
         onChangeSearchUsers={handleChangeSearchUsers}
@@ -89,6 +90,7 @@ const Leaderboard = ({
 
           <LeaderboardPaginationControls
             hasMoreEntries={hasMoreEntries}
+            isLoading={isLoading}
             page={filterParams.page}
             onChangeLimit={handleChangeLimit}
             onNextPage={handleNextPage}

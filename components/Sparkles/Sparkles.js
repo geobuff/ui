@@ -32,7 +32,7 @@ const generateSparkle = (color) => {
   };
   return sparkle;
 };
-const Sparkles = ({ color, children, ...delegated }) => {
+const Sparkles = ({ color, showSparkles, children, ...delegated }) => {
   const [sparkles, setSparkles] = React.useState(() => {
     return range(3).map(() => generateSparkle(color));
   });
@@ -47,20 +47,21 @@ const Sparkles = ({ color, children, ...delegated }) => {
       nextSparkles.push(sparkle);
       setSparkles(nextSparkles);
     },
-    100,
-    1000
+    50,
+    400
   );
   return (
     <Box position="relative" display="inline-block" {...delegated}>
-      {sparkles.map((sparkle) => (
-        <Sparkle
-          key={sparkle.id}
-          color={sparkle.color}
-          size={sparkle.size}
-          style={sparkle.style}
-        />
-      ))}
-      <Box as="strong" fontWeight="bold" position="relative" zIndex={1}>
+      {showSparkles &&
+        sparkles.map((sparkle) => (
+          <Sparkle
+            key={sparkle.id}
+            color={sparkle.color}
+            size={sparkle.size}
+            style={sparkle.style}
+          />
+        ))}
+      <Box as="strong" fontWeight="bold" position="relative" zIndex={100}>
         {children}
       </Box>
     </Box>
@@ -121,6 +122,12 @@ Sparkles.propTypes = {
     PropTypes.object,
     PropTypes.func,
   ]),
+  showSparkles: PropTypes.bool,
+};
+
+Sparkles.defaultProps = {
+  color: "#FFC700",
+  showSparkles: true,
 };
 
 Sparkle.propTypes = {
