@@ -57,42 +57,30 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
   };
 
   const getTextNodeByRank = (rank, username, countryCode) => {
-    switch (rank) {
-      case 1:
-        return (
-          <Fade in>
-            <Sparkles showSparkles={!isLoading}>
-              <Flex alignItems="center">
-                <Box marginRight={3} marginTop="5.5px" alignItems="center">
-                  {countryCode ? (
-                    <Twemoji emoji={flag(countryCode)} />
-                  ) : (
-                    <Box marginY="4px">
-                      <FlagFallback />
-                    </Box>
-                  )}
-                </Box>
-                <Text fontWeight="bold">{username}</Text>
-              </Flex>
-            </Sparkles>
-          </Fade>
-        );
-      default:
-        return (
-          <Flex alignItems="center">
-            <Box marginRight={3} marginTop="5.5px" alignItems="center">
-              {countryCode ? (
-                <Twemoji emoji={flag(countryCode)} />
-              ) : (
-                <Box marginY="4px">
-                  <FlagFallback />
-                </Box>
-              )}
+    const mainContent = (
+      <Flex alignItems="center">
+        <Box marginRight={3} marginTop="5.5px" alignItems="center">
+          {countryCode ? (
+            <Twemoji emoji={flag(countryCode)} />
+          ) : (
+            <Box marginY="4px">
+              <FlagFallback />
             </Box>
-            <Text>{username}</Text>
-          </Flex>
-        );
+          )}
+        </Box>
+        <Text fontWeight="bold">{username}</Text>
+      </Flex>
+    );
+
+    if (rank === 1 && !isLoading) {
+      return (
+        <Fade in>
+          <Sparkles>{mainContent}</Sparkles>
+        </Fade>
+      );
     }
+
+    return <Fade in>{mainContent}</Fade>;
   };
 
   return (
