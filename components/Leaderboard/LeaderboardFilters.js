@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import { debounce } from "throttle-debounce";
 
 import {
   Select,
@@ -19,6 +20,15 @@ const LeaderboardFilters = ({
   onChangeQuiz,
   onChangeRange,
 }) => {
+  // const handleSearchUsers = (event) => {
+  //   setInputValue(event.target.value);
+  //   handleChangeDebounced(event);
+  // };
+
+  const handleSearchUsersDebounced = debounce(250, (event) =>
+    onChangeSearchUsers(event)
+  );
+
   return (
     <Flex
       marginBottom={{ base: 3, md: 1 }}
@@ -92,7 +102,7 @@ const LeaderboardFilters = ({
             marginLeft="auto"
             paddingLeft="46px"
             placeholder="Search users..."
-            onChange={onChangeSearchUsers}
+            onChange={handleSearchUsersDebounced}
             _placeholder={{ color: "gray.500" }}
             _hover={{ border: "1px solid #CBD5E0" }}
           />
