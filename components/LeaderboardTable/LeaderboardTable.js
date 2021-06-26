@@ -17,6 +17,7 @@ import {
   Skeleton,
 } from "@chakra-ui/react";
 
+import useCurrentUser from "../../hooks/UseCurrentUser";
 import LeaderTablePlaceholder from "./LeaderboardTablePlaceholder";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import Twemoji from "../Twemoji";
@@ -26,6 +27,8 @@ import { secondsToMinutesString } from "../../helpers/time";
 import Sparkles from "../Sparkles/Sparkles";
 
 const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
+  const { user } = useCurrentUser();
+
   if (isLoading && !entries.length) {
     return <LeaderTablePlaceholder />;
   }
@@ -69,6 +72,11 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
           )}
         </Box>
         <Text fontWeight="bold">{username}</Text>
+        {username === user?.username && (
+          <Text ml={2} fontWeight={600} color="gray.500">
+            {"(You)"}
+          </Text>
+        )}
       </Flex>
     );
 
