@@ -59,7 +59,7 @@ const Leaderboard = ({
       maxWidth={{ base: "100%", sm: "90%", md: "75%" }}
       marginX="auto"
       marginBottom={10}
-      marginTop={{ sm: 10, md: 14 }}
+      marginTop={{ base: 10, sm: 10, md: 14 }}
     >
       <LeaderboardHeader isLoading={isLoading} marginBottom={6} />
 
