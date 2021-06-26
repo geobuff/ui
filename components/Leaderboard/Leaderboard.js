@@ -61,7 +61,10 @@ const Leaderboard = ({
       marginBottom={10}
       marginTop={{ base: 10, sm: 10, md: 14 }}
     >
-      <LeaderboardHeader isLoading={isLoading} marginBottom={6} />
+      <LeaderboardHeader
+        isLoading={isLoading}
+        marginBottom={{ base: 4, md: 6 }}
+      />
 
       <LeaderboardFilters
         quizId={quizId}

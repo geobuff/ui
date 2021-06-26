@@ -20,11 +20,6 @@ const LeaderboardFilters = ({
   onChangeQuiz,
   onChangeRange,
 }) => {
-  // const handleSearchUsers = (event) => {
-  //   setInputValue(event.target.value);
-  //   handleChangeDebounced(event);
-  // };
-
   const handleSearchUsersDebounced = debounce(250, (event) =>
     onChangeSearchUsers(event)
   );
@@ -103,6 +98,8 @@ const LeaderboardFilters = ({
             paddingLeft="46px"
             placeholder="Search users..."
             onChange={handleSearchUsersDebounced}
+            isDisabled={isLoading}
+            _disabled={{ backgroundColor: "transparent", opacity: 0.4 }}
             _placeholder={{ color: "gray.500" }}
             _hover={{ border: "1px solid #CBD5E0" }}
           />
