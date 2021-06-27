@@ -4,7 +4,9 @@ import flag from "country-code-emoji";
 
 import {
   Alert,
+  AlertIcon,
   Box,
+  Fade,
   Flex,
   Text,
   Table,
@@ -12,16 +14,25 @@ import {
   Tr,
   Th,
   Tbody,
-  AlertIcon,
+  Skeleton,
 } from "@chakra-ui/react";
 
+import useCurrentUser from "../../hooks/UseCurrentUser";
+import LeaderTablePlaceholder from "./LeaderboardTablePlaceholder";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import Twemoji from "../Twemoji";
 import TableCell from "../TableCell";
 
 import { secondsToMinutesString } from "../../helpers/time";
+import Sparkles from "../Sparkles/Sparkles";
 
-const LeaderboardTable = ({ page, limit, entries }) => {
+const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
+  const { user } = useCurrentUser();
+
+  if (isLoading && !entries.length) {
+    return <LeaderTablePlaceholder />;
+  }
+
   if (entries.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
@@ -32,6 +43,10 @@ const LeaderboardTable = ({ page, limit, entries }) => {
   }
 
   const getNodeByRank = (rank) => {
+    if (isLoading) {
+      return <Skeleton height="32px" width="30px" />;
+    }
+
     switch (rank) {
       case 1:
         return <Twemoji emoji="🥇" />;
@@ -42,6 +57,38 @@ const LeaderboardTable = ({ page, limit, entries }) => {
       default:
         return <Text marginX="6px">{rank}</Text>;
     }
+  };
+
+  const getTextNodeByRank = (rank, username, countryCode) => {
+    const mainContent = (
+      <Flex alignItems="center">
+        <Box marginRight={3} marginTop="5.5px" alignItems="center">
+          {countryCode ? (
+            <Twemoji emoji={flag(countryCode)} />
+          ) : (
+            <Box marginY="4px">
+              <FlagFallback />
+            </Box>
+          )}
+        </Box>
+        <Text fontWeight="bold">{username}</Text>
+        {username === user?.username && (
+          <Text ml={2} fontWeight={600} color="gray.500">
+            {"(You)"}
+          </Text>
+        )}
+      </Flex>
+    );
+
+    if (rank === 1 && !isLoading) {
+      return (
+        <Fade in>
+          <Sparkles>{mainContent}</Sparkles>
+        </Fade>
+      );
+    }
+
+    return <Fade in>{mainContent}</Fade>;
   };
 
   return (
@@ -64,25 +111,12 @@ const LeaderboardTable = ({ page, limit, entries }) => {
                   {getNodeByRank(page * limit + index + 1)}
                 </Flex>
               </TableCell>
-              <TableCell paddingY={3} paddingX={6}>
-                <Flex alignItems="center">
-                  <Box marginRight={3} marginTop="5.5px" alignItems="center">
-                    {entry.countryCode ? (
-                      <Twemoji emoji={flag(entry.countryCode)} />
-                    ) : (
-                      <Box marginY="4px">
-                        <FlagFallback />
-                      </Box>
-                    )}
-                  </Box>
-                  <Text
-                    fontWeight={
-                      page * limit + index + 1 <= 3 ? "bold" : "medium"
-                    }
-                  >
-                    {entry.username}
-                  </Text>
-                </Flex>
+              <TableCell paddingY={3} paddingX={6} minWidth="200px">
+                {getTextNodeByRank(
+                  page * limit + index + 1,
+                  entry.username,
+                  entry.countryCode
+                )}
               </TableCell>
               <TableCell isNumeric paddingY={3} paddingX={6}>
                 {secondsToMinutesString(entry.time)}
@@ -99,6 +133,7 @@ const LeaderboardTable = ({ page, limit, entries }) => {
 };
 
 LeaderboardTable.propTypes = {
+  isLoading: PropTypes.bool,
   page: PropTypes.number,
   limit: PropTypes.number,
   entries: PropTypes.arrayOf(
@@ -115,6 +150,7 @@ LeaderboardTable.propTypes = {
 };
 
 LeaderboardTable.defaultProps = {
+  isLoading: true,
   limit: 10,
   page: 0,
   entries: [],
