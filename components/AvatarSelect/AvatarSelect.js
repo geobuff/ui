@@ -37,7 +37,7 @@ const AvatarSelect = ({ fieldProps }) => {
             minHeight="22px"
             minWidth="32px"
             objectFit="cover"
-            src={avatars.find((x) => x.id == fieldProps?.value).imageUrl}
+            src={avatars.find((x) => x.id == fieldProps?.value)?.imageUrl}
             borderRadius={5}
           />
         ) : (
