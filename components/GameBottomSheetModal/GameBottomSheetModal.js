@@ -9,6 +9,7 @@ import {
   Text,
   Flex,
   Link as ChakraLink,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import Sheet from "react-modal-sheet";
 
@@ -34,15 +35,16 @@ const GameBottomSheetModal = ({
   onGameStop,
 }) => {
   const ref = useRef();
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   // Push modal down on game start
   useEffect(() => {
-    if (hasGameStarted) {
+    if (hasGameStarted && isMobile) {
       snapTo(snapPoints.length - 1);
     }
-  }, [hasGameStarted]);
+  }, [hasGameStarted, isMobile]);
 
-  const snapTo = (snapIndex) => ref.current?.snapTo(snapIndex);
+  const snapTo = (snapIndex) => ref?.current?.snapTo(snapIndex);
 
   return (
     <Box
