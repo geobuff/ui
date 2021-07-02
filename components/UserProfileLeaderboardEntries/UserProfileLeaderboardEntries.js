@@ -36,7 +36,7 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
             <Thead>
               <Tr>
                 <Th>Quiz</Th>
-                <Th>Ranking</Th>
+                <Th>Rank</Th>
                 <Th>Score</Th>
                 <Th>Time</Th>
                 <Th>Added</Th>
