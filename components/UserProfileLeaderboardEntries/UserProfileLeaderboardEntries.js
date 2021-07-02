@@ -46,7 +46,7 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
               {entries.map((entry) => (
                 <Tr key={entry.quizId}>
                   <Td>{entry.quizName}</Td>
-                  <Td>{entry.ranking}</Td>
+                  <Td>{entry.rank}</Td>
                   <Td>{entry.score}</Td>
                   <Td>{secondsToMinutesString(entry.time)}</Td>
                   <Td>{DateTime.fromISO(entry.added).toISODate()}</Td>
@@ -71,7 +71,7 @@ UserProfileLeaderboardEntries.propTypes = {
       score: PropTypes.number,
       time: PropTypes.number,
       added: PropTypes.time,
-      ranking: PropTypes.number,
+      rank: PropTypes.number,
     })
   ),
 };

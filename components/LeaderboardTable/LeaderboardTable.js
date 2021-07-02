@@ -107,9 +107,7 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
           {entries?.map((entry, index) => (
             <Tr key={index} fontWeight={600}>
               <TableCell paddingY={3} paddingX={6}>
-                <Flex alignItems="center">
-                  {getNodeByRank(page * limit + index + 1)}
-                </Flex>
+                <Flex alignItems="center">{getNodeByRank(entry.rank)}</Flex>
               </TableCell>
               <TableCell paddingY={3} paddingX={6} minWidth="200px">
                 {getTextNodeByRank(
@@ -145,6 +143,7 @@ LeaderboardTable.propTypes = {
       score: PropTypes.number,
       time: PropTypes.time,
       added: PropTypes.time,
+      rank: PropTypes.number,
     })
   ),
 };
