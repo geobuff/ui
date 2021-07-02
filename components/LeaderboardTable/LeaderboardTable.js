@@ -14,7 +14,6 @@ import {
   Tr,
   Th,
   Tbody,
-  Skeleton,
 } from "@chakra-ui/react";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
@@ -26,7 +25,7 @@ import TableCell from "../TableCell";
 import { secondsToMinutesString } from "../../helpers/time";
 import Sparkles from "../Sparkles/Sparkles";
 
-const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
+const LeaderboardTable = ({ entries, isLoading }) => {
   const { user } = useCurrentUser();
 
   if (isLoading && !entries.length) {
@@ -43,10 +42,6 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
   }
 
   const getNodeByRank = (rank) => {
-    if (isLoading) {
-      return <Skeleton height="32px" width="30px" />;
-    }
-
     switch (rank) {
       case 1:
         return <Twemoji emoji="🥇" />;
@@ -111,7 +106,7 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
               </TableCell>
               <TableCell paddingY={3} paddingX={6} minWidth="200px">
                 {getTextNodeByRank(
-                  page * limit + index + 1,
+                  entry.rank,
                   entry.username,
                   entry.countryCode
                 )}
@@ -132,8 +127,6 @@ const LeaderboardTable = ({ page, limit, entries, isLoading }) => {
 
 LeaderboardTable.propTypes = {
   isLoading: PropTypes.bool,
-  page: PropTypes.number,
-  limit: PropTypes.number,
   entries: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -150,8 +143,6 @@ LeaderboardTable.propTypes = {
 
 LeaderboardTable.defaultProps = {
   isLoading: true,
-  limit: 10,
-  page: 0,
   entries: [],
 };
 
