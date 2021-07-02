@@ -47,8 +47,8 @@ const Sparkles = ({ color, showSparkles, children, ...delegated }) => {
       nextSparkles.push(sparkle);
       setSparkles(nextSparkles);
     },
-    50,
-    400
+    200,
+    600
   );
   return (
     <Box position="relative" display="inline-block" {...delegated}>
