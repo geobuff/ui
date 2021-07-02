@@ -115,6 +115,7 @@ Leaderboard.propTypes = {
       score: PropTypes.number,
       time: PropTypes.time,
       added: PropTypes.time,
+      rank: PropTypes.number,
     })
   ),
   isLoading: PropTypes.bool,
