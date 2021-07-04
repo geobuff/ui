@@ -16,13 +16,13 @@ import { isBadgeComplete, getProgress } from "../../helpers/badge";
 
 import SolidLock from "../../Icons/SolidLock";
 
-const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
+const UserProfileAchievements = ({ badges, entries }) => {
   const getLabel = (badge) => {
     return (
       <Box>
         <Heading size="md">{badge.name}</Heading>
         <Text my={2}>{badge.description}</Text>
-        <Text mb={2}>{`Progress: ${getProgress(badge, scores, entriesCount)}/${
+        <Text mb={2}>{`Progress: ${getProgress(badge, entries)}/${
           badge.total
         }`}</Text>
       </Box>
@@ -63,7 +63,7 @@ const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
                     marginX="auto"
                   />
                 </Box>
-                {!isBadgeComplete(badge, scores, entriesCount) && (
+                {!isBadgeComplete(badge, entries) && (
                   <Box
                     position="absolute"
                     borderRadius={50}
@@ -96,14 +96,6 @@ const UserProfileAchievements = ({ badges, scores, entriesCount }) => {
 };
 
 UserProfileAchievements.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    username: PropTypes.string,
-    countryCode: PropTypes.string,
-    xp: PropTypes.number,
-    email: PropTypes.string,
-    picture: PropTypes.string,
-  }),
   badges: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -113,7 +105,7 @@ UserProfileAchievements.propTypes = {
       total: PropTypes.number,
     })
   ),
-  scores: PropTypes.arrayOf(
+  entries: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
       userId: PropTypes.number,
@@ -127,7 +119,10 @@ UserProfileAchievements.propTypes = {
       added: PropTypes.time,
     })
   ),
-  entriesCount: PropTypes.number,
+};
+UserProfileAchievements.defaultProps = {
+  badges: [],
+  entries: [],
 };
 
 export default UserProfileAchievements;

@@ -9,15 +9,6 @@ export const entrySubmitted = (position = defaultPosition) => ({
   isClosable: true,
 });
 
-export const scoreSubmitted = (position = defaultPosition) => ({
-  position: position,
-  title: "Score Submitted",
-  description: "We've updated your high score for you.",
-  status: "success",
-  duration: 9000,
-  isClosable: true,
-});
-
 export const increaseXP = (increase, position = defaultPosition) => ({
   position: position,
   description: `+${increase} XP`,
