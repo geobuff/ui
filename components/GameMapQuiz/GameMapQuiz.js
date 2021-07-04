@@ -52,7 +52,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   const [hasGameRunOnce, setHasGameRunOnce] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
-  const [scoreSubmitted, setScoreSubmitted] = useState(false);
+  const [isXPUpdated, setXPUpdated] = useState(false);
   const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
     false
   );
@@ -135,7 +135,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
     setHasGameStarted(true);
     setHasGameStopped(false);
-    setScoreSubmitted(false);
+    setXPUpdated(false);
     setLeaderboardEntrySubmitted(false);
   };
 
@@ -232,8 +232,8 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
         }
         isOpen={isOpen}
         onClose={onClose}
-        isScoreSubmitted={scoreSubmitted}
-        setScoreSubmitted={setScoreSubmitted}
+        isXPUpdated={isXPUpdated}
+        setXPUpdated={setXPUpdated}
         setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
       />
 

@@ -4,7 +4,6 @@ import { Flex, Divider } from "@chakra-ui/react";
 
 import HeroHeader from "../HeroHeader";
 
-import UserProfileScoresContainer from "../../containers/UserProfileScoresContainer";
 import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer";
 import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
 import UserProfileAchievementsContainer from "../../containers/UserProfileAchievementsContainer";
@@ -30,8 +29,6 @@ const UserProfile = ({ user }) => (
       <UserProfileAchievementsContainer user={user} />
       {divider}
       <UserProfileLeaderboardEntriesContainer userId={user?.id} />
-      {divider}
-      <UserProfileScoresContainer userId={user?.id} />
     </Flex>
   </>
 );

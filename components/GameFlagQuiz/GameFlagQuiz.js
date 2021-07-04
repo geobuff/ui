@@ -46,7 +46,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   const [hasGameRunOnce, setHasGameRunOnce] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
-  const [scoreSubmitted, setScoreSubmitted] = useState(false);
+  const [isXPUpdated, setXPUpdated] = useState(false);
   const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
     false
   );
@@ -116,7 +116,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
 
     setHasGameStarted(true);
     setHasGameStopped(false);
-    setScoreSubmitted(false);
+    setXPUpdated(false);
     setLeaderboardEntrySubmitted(false);
   };
 
@@ -211,8 +211,8 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         }
         isOpen={isOpen}
         onClose={onClose}
-        isScoreSubmitted={scoreSubmitted}
-        setScoreSubmitted={setScoreSubmitted}
+        isXPUpdated={isXPUpdated}
+        setXPUpdated={setXPUpdated}
         setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
       />
 

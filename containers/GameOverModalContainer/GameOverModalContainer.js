@@ -12,7 +12,6 @@ import { getLevel } from "../../helpers/gamification";
 
 import {
   entrySubmitted,
-  scoreSubmitted,
   levelUp,
   increaseXP as increaseXPToast,
 } from "../../helpers/toasts";
@@ -23,8 +22,8 @@ const GameOverModalContainer = ({
   time,
   isOpen,
   onClose,
-  isScoreSubmitted,
-  setScoreSubmitted,
+  isXPUpdated,
+  setXPUpdated,
   setLeaderboardEntrySubmitted,
 }) => {
   const toast = useToast();
@@ -64,10 +63,9 @@ const GameOverModalContainer = ({
       return;
     }
 
-    if (!isScoreSubmitted) {
+    if (!isXPUpdated) {
       increaseXP(10);
-      handleScore();
-      setScoreSubmitted(true);
+      setXPUpdated(true);
     }
 
     if (!quiz.hasLeaderboard) {
@@ -99,55 +97,6 @@ const GameOverModalContainer = ({
         xp: update.xp,
       });
     });
-  };
-
-  const handleScore = () => {
-    axiosClient
-      .get(`/scores/${user.id}/${quiz.id}`, config)
-      .then((response) => {
-        if (response.status === 204) {
-          createScore(user.id);
-        } else if (
-          score > response.data.score ||
-          (score === response.data.score && time < response.data.time)
-        ) {
-          updateScore(response.data);
-        }
-      });
-  };
-
-  const createScore = () => {
-    axiosClient
-      .post(
-        `/scores`,
-        {
-          userId: user.id,
-          quizId: quiz.id,
-          score: score,
-          time: time,
-        },
-        config
-      )
-      .then(() => {
-        toast(scoreSubmitted(toastPosition));
-      });
-  };
-
-  const updateScore = (existing) => {
-    axiosClient
-      .put(
-        `/scores/${existing.id}`,
-        {
-          userId: existing.userId,
-          quizId: quiz.id,
-          score: score,
-          time: time,
-        },
-        config
-      )
-      .then(() => {
-        toast(scoreSubmitted(toastPosition));
-      });
   };
 
   const getLeaderboardEntry = () => {
@@ -202,7 +151,7 @@ const GameOverModalContainer = ({
       .then(() => {
         setIsSubmitting(false);
         onClose();
-        entrySubmitted();
+        toast(entrySubmitted(toastPosition));
       });
   };
 
@@ -263,8 +212,8 @@ GameOverModalContainer.propTypes = {
   time: PropTypes.number,
   isOpen: PropTypes.bool,
   onClose: PropTypes.func,
-  isScoreSubmitted: PropTypes.bool,
-  setScoreSubmitted: PropTypes.func,
+  isXPUpdated: PropTypes.bool,
+  setXPUpdated: PropTypes.func,
   setLeaderboardEntrySubmitted: PropTypes.func,
   onRedirectWithScore: PropTypes.func,
 };
@@ -275,8 +224,8 @@ GameOverModalContainer.defaultProps = {
   time: 0,
   isOpen: false,
   onClose: () => {},
-  isScoreSubmitted: false,
-  setScoreSubmitted: () => {},
+  isXPUpdated: false,
+  setXPUpdated: () => {},
   setLeaderboardEntrySubmitted: () => {},
   onRedirectWithScore: () => {},
 };
