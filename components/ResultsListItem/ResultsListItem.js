@@ -4,7 +4,7 @@ import { Fade, Flex, Text } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 
 import FlagFallback from "./FlagFallback";
-import CustomFlag from "./CustomFlag";
+import CustomFlag from "../CustomFlag";
 
 import Twemoji from "../Twemoji";
 
