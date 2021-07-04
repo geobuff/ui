@@ -13,9 +13,11 @@ import {
   Td,
   Alert,
   AlertIcon,
+  Flex,
 } from "@chakra-ui/react";
 
 import Card from "../Card";
+import Image from "../Image";
 
 import { secondsToMinutesString } from "../../helpers/time";
 
@@ -45,7 +47,18 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
             <Tbody>
               {entries.map((entry) => (
                 <Tr key={entry.quizId}>
-                  <Td>{entry.quizName}</Td>
+                  <Td>
+                    <Flex direction="row" alignItems="center">
+                      <Image
+                        src={entry.quizImageUrl}
+                        width="24px"
+                        height="24px"
+                        borderRadius={3}
+                        mr={3}
+                      />
+                      {entry.quizName}
+                    </Flex>
+                  </Td>
                   <Td>{entry.rank}</Td>
                   <Td>{entry.score}</Td>
                   <Td>{secondsToMinutesString(entry.time)}</Td>
@@ -66,8 +79,9 @@ UserProfileLeaderboardEntries.propTypes = {
       id: PropTypes.number,
       userId: PropTypes.number,
       quizId: PropTypes.number,
+      badgeGroup: PropTypes.number,
       quizName: PropTypes.string,
-      countryCode: PropTypes.string,
+      quizImageUrl: PropTypes.string,
       score: PropTypes.number,
       time: PropTypes.number,
       added: PropTypes.time,
