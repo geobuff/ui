@@ -17,7 +17,7 @@ import {
 } from "@chakra-ui/react";
 
 import Card from "../Card";
-import Image from "../Image";
+import CustomFlag from "../CustomFlag";
 
 import { secondsToMinutesString } from "../../helpers/time";
 
@@ -46,16 +46,10 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
             </Thead>
             <Tbody>
               {entries.map((entry) => (
-                <Tr key={entry.quizId}>
+                <Tr key={entry.id}>
                   <Td>
                     <Flex direction="row" alignItems="center">
-                      <Image
-                        src={entry.quizImageUrl}
-                        width="24px"
-                        height="24px"
-                        borderRadius={3}
-                        mr={3}
-                      />
+                      <CustomFlag url={entry.quizImageUrl} mr={3} />
                       {entry.quizName}
                     </Flex>
                   </Td>
