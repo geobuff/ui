@@ -6,8 +6,10 @@ import {
   Box,
   Heading,
   Table,
+  Text,
   Tbody,
   Thead,
+  Tooltip,
   Tr,
   Th,
   Td,
@@ -49,14 +51,33 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
                 <Tr key={entry.id}>
                   <Td>
                     <Flex direction="row" alignItems="center">
-                      <CustomFlag url={entry.quizImageUrl} mr={3} />
-                      {entry.quizName}
+                      {entry.quizName.length > 23 ? (
+                        <>
+                          <CustomFlag url={entry.quizImageUrl} mr={3} />
+                          <Tooltip label={entry.quizName}>
+                            <Text maxWidth="200px" isTruncated>
+                              {entry.quizName}
+                            </Text>
+                          </Tooltip>
+                        </>
+                      ) : (
+                        <>
+                          <CustomFlag url={entry.quizImageUrl} mr={3} />
+                          <Text maxWidth="200px" isTruncated>
+                            {entry.quizName}
+                          </Text>
+                        </>
+                      )}
                     </Flex>
                   </Td>
                   <Td>{entry.rank}</Td>
                   <Td>{entry.score}</Td>
                   <Td>{secondsToMinutesString(entry.time)}</Td>
-                  <Td>{DateTime.fromISO(entry.added).toISODate()}</Td>
+                  <Td>
+                    <Text minWidth="100px">
+                      {DateTime.fromISO(entry.added).toISODate()}
+                    </Text>
+                  </Td>
                 </Tr>
               ))}
             </Tbody>
