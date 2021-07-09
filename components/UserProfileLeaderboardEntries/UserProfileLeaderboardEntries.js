@@ -1,5 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "next/link";
 import { DateTime } from "luxon";
 
 import {
@@ -16,6 +17,7 @@ import {
   Alert,
   AlertIcon,
   Flex,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 
 import Card from "../Card";
@@ -49,35 +51,41 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
             <Tbody>
               {entries.map((entry) => (
                 <Tr key={entry.id}>
-                  <Td>
-                    <Flex direction="row" alignItems="center">
-                      {entry.quizName.length > 23 ? (
-                        <>
-                          <CustomFlag url={entry.quizImageUrl} mr={3} />
-                          <Tooltip label={entry.quizName}>
-                            <Text maxWidth="200px" isTruncated>
-                              {entry.quizName}
-                            </Text>
-                          </Tooltip>
-                        </>
-                      ) : (
-                        <>
-                          <CustomFlag url={entry.quizImageUrl} mr={3} />
-                          <Text maxWidth="200px" isTruncated>
-                            {entry.quizName}
-                          </Text>
-                        </>
-                      )}
-                    </Flex>
-                  </Td>
-                  <Td>{entry.rank}</Td>
-                  <Td>{entry.score}</Td>
-                  <Td>{secondsToMinutesString(entry.time)}</Td>
-                  <Td>
-                    <Text minWidth="100px">
-                      {DateTime.fromISO(entry.added).toISODate()}
-                    </Text>
-                  </Td>
+                  <Link
+                    href={`/leaderboard?quizId=${entry.quizId}&rank=${entry.rank}`}
+                  >
+                    <ChakraLink display="contents">
+                      <Td>
+                        <Flex direction="row" alignItems="center">
+                          {entry.quizName.length > 23 ? (
+                            <>
+                              <CustomFlag url={entry.quizImageUrl} mr={3} />
+                              <Tooltip label={entry.quizName}>
+                                <Text maxWidth="200px" isTruncated>
+                                  {entry.quizName}
+                                </Text>
+                              </Tooltip>
+                            </>
+                          ) : (
+                            <>
+                              <CustomFlag url={entry.quizImageUrl} mr={3} />
+                              <Text maxWidth="200px" isTruncated>
+                                {entry.quizName}
+                              </Text>
+                            </>
+                          )}
+                        </Flex>
+                      </Td>
+                      <Td>{entry.rank}</Td>
+                      <Td>{entry.score}</Td>
+                      <Td>{secondsToMinutesString(entry.time)}</Td>
+                      <Td>
+                        <Text minWidth="100px">
+                          {DateTime.fromISO(entry.added).toISODate()}
+                        </Text>
+                      </Td>
+                    </ChakraLink>
+                  </Link>
                 </Tr>
               ))}
             </Tbody>
