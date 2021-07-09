@@ -19,6 +19,8 @@ const Leaderboard = ({
   quizzes,
   onChangeFilterParams,
   onChangeQuiz,
+  rank,
+  setRank,
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
@@ -33,6 +35,14 @@ const Leaderboard = ({
 
   const handleChangeSearchUsers = (e) => {
     onChangeFilterParams({ ...filterParams, user: e.target.value, page: 0 });
+  };
+
+  const handleChangeSearchRank = (e) => {
+    setRank(e.target.value);
+    onChangeFilterParams({
+      ...filterParams,
+      rank: e.target.value ? parseInt(e.target.value) : 0,
+    });
   };
 
   const handleChangeLimit = (e) => {
@@ -73,6 +83,8 @@ const Leaderboard = ({
         onChangeRange={handleChangeRange}
         onChangeQuiz={handleChangeQuiz}
         onChangeSearchUsers={handleChangeSearchUsers}
+        rank={rank}
+        onChangeSearchRank={handleChangeSearchRank}
       />
 
       <Card>
@@ -98,6 +110,7 @@ const Leaderboard = ({
             onChangeLimit={handleChangeLimit}
             onNextPage={handleNextPage}
             onPreviousPage={handlePreviousPage}
+            rank={rank}
           />
         </Flex>
       </Card>
@@ -124,7 +137,7 @@ Leaderboard.propTypes = {
     page: PropTypes.number,
     limit: PropTypes.number,
   }),
-  quizId: PropTypes.number,
+  quizId: PropTypes.string,
   quizzes: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -133,6 +146,8 @@ Leaderboard.propTypes = {
   ),
   onChangeQuiz: PropTypes.func,
   onChangeFilterParams: PropTypes.func,
+  rank: PropTypes.string,
+  setRank: PropTypes.func,
 };
 
 Leaderboard.defaultProps = {
@@ -143,10 +158,12 @@ Leaderboard.defaultProps = {
     page: 0,
     limit: 10,
   },
-  quizId: 1,
+  quizId: "1",
   quizzes: [],
   onChangeQuiz: () => {},
   onChangeFilterParams: () => {},
+  rank: "",
+  setRank: () => {},
 };
 
 export default Leaderboard;

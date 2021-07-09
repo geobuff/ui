@@ -7,7 +7,7 @@ import MainView from "../components/MainView";
 
 const Leaderboard = () => {
   const router = useRouter();
-  const { quizId } = router.query;
+  const { quizId, rank } = router.query;
 
   return (
     <>
@@ -15,7 +15,7 @@ const Leaderboard = () => {
         <title>{"Leaderboard - GeoBuff"}</title>
       </Head>
       <MainView>
-        <LeaderboardContainer defaultQuizId={quizId} />
+        <LeaderboardContainer defaultQuizId={quizId} rankParam={rank} />
       </MainView>
     </>
   );
