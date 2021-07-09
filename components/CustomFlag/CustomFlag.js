@@ -8,8 +8,8 @@ const CustomFlag = ({ url, height, width, ...props }) => {
   return (
     <Box
       borderRadius={4}
-      height={height}
-      width={width}
+      minHeight={height}
+      minWidth={width}
       backgroundColor="transparent"
       {...props}
     >
