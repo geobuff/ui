@@ -19,6 +19,7 @@ const LeaderboardPaginationControls = ({
   onChangeLimit,
   onNextPage,
   onPreviousPage,
+  rank,
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
@@ -42,7 +43,7 @@ const LeaderboardPaginationControls = ({
       <Box marginLeft="auto">
         <Button
           backgroundColor="#F3F3F3"
-          isDisabled={page === 0 || isLoading}
+          isDisabled={page === 0 || rank || isLoading}
           marginRight={{ base: 2, sm: 3 }}
           onClick={onPreviousPage}
           height="48px"
@@ -61,7 +62,7 @@ const LeaderboardPaginationControls = ({
           role="group"
           backgroundColor="#F3F3F3"
           onClick={onNextPage}
-          isDisabled={!hasMoreEntries || isLoading}
+          isDisabled={!hasMoreEntries || rank || isLoading}
           height="48px"
           width={{ base: "46px", md: "132px" }}
           _hover={{ backgroundColor: "#e6e6e6" }}
@@ -85,6 +86,7 @@ LeaderboardPaginationControls.propTypes = {
   onChangeLimit: PropTypes.func,
   onNextPage: PropTypes.func,
   onPreviousPage: PropTypes.func,
+  rank: PropTypes.string,
 };
 
 LeaderboardPaginationControls.defaultProps = {
@@ -94,6 +96,7 @@ LeaderboardPaginationControls.defaultProps = {
   onChangeLimit: () => {},
   onNextPage: () => {},
   onPreviousPage: () => {},
+  rank: "",
 };
 
 export default LeaderboardPaginationControls;

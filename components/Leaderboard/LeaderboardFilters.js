@@ -19,6 +19,8 @@ const LeaderboardFilters = ({
   onChangeSearchUsers,
   onChangeQuiz,
   onChangeRange,
+  rank,
+  onChangeSearchRank,
 }) => {
   const handleSearchUsersDebounced = debounce(250, (event) =>
     onChangeSearchUsers(event)
@@ -77,7 +79,7 @@ const LeaderboardFilters = ({
 
       <Flex
         marginLeft={{ base: 0, md: 2 }}
-        width={{ base: "100%", sm: "100%", md: "230px" }}
+        width={{ base: "100%", sm: "100%", md: "400px" }}
       >
         <InputGroup>
           <InputLeftElement pointerEvents="none">
@@ -104,13 +106,28 @@ const LeaderboardFilters = ({
             _hover={{ border: "1px solid #CBD5E0" }}
           />
         </InputGroup>
+        <Input
+          type="number"
+          value={rank}
+          background="#FFFFFF"
+          boxShadow="0px 3px 4px rgba(226, 227, 227, 0.5)"
+          borderRadius={8}
+          height="42px"
+          marginLeft={3}
+          placeholder="Enter rank..."
+          onChange={onChangeSearchRank}
+          isDisabled={isLoading}
+          _disabled={{ backgroundColor: "transparent", opacity: 0.4 }}
+          _placeholder={{ color: "gray.500" }}
+          _hover={{ border: "1px solid #CBD5E0" }}
+        />
       </Flex>
     </Flex>
   );
 };
 
 LeaderboardFilters.propTypes = {
-  quizId: PropTypes.number,
+  quizId: PropTypes.string,
   quizzes: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -121,14 +138,18 @@ LeaderboardFilters.propTypes = {
   onChangeQuiz: PropTypes.func,
   onChangeRange: PropTypes.func,
   onChangeSearchUsers: PropTypes.func,
+  rank: PropTypes.string,
+  onChangeSearchRank: PropTypes.func,
 };
 LeaderboardFilters.defaultProps = {
-  quizId: 1,
+  quizId: "1",
   quizzes: [],
   isLoading: false,
   onChangeQuiz: () => {},
   onChangeRange: () => {},
   onChangeSearchUsers: () => {},
+  rank: "",
+  onChangeSearchRank: () => {},
 };
 
 export default LeaderboardFilters;
