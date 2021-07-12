@@ -15,7 +15,7 @@ const GameMapQuizContainer = ({ quizId }) => {
   if (isLoadingQuiz || isLoadingMapping) {
     return (
       <Flex
-        height="90vh"
+        height={{ base: "30vh", md: "90vh" }}
         alignItems="center"
         justifyContent="center"
         color="white"
