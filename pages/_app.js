@@ -34,6 +34,7 @@ function MyApp({ Component, pageProps }) {
       <Head>
         <title>GeoBuff - Get Your Geo Flex On</title>
         <link rel="icon" href="/favicon.ico" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link
           rel="apple-touch-icon"
