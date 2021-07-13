@@ -49,11 +49,16 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     false
   );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
-  const [acceptedFlag, setAcceptedFlag] = useState(
+  const [acceptedFlag, setAcceptedFlag] = useState(() =>
     mapping.find(
       (x) => !checkedSubmissions.map((sub) => sub.code).includes(x.code)
     )
   );
+  const [currentSubmission, setCurrentSubmission] = useState(null);
+
+  useEffect(() => {
+    checkSubmission(currentSubmission);
+  }, [currentSubmission, checkSubmission]);
 
   useWarnIfActiveGame(hasGameStarted);
 
@@ -130,53 +135,59 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     onOpen();
   };
 
-  const checkSubmission = (submission) => {
-    // if (submission !== acceptedFlag.code) {
-    //   // Do error animation here!
-    //   return;
-    // }
+  // TODO: add useCallback or this will get very expe$nny
+  const checkSubmission = useCallback(
+    (submission) => {
+      // if (submission !== acceptedFlag.code) {
+      //   // Do error animation here!
+      //   return;
+      // }
 
-    const matchedSubmission = findSubmissionByCode(mapping, submission);
-    const isChecked = findSubmissionByCode(checkedSubmissions, submission);
+      const matchedSubmission = findSubmissionByCode(mapping, submission);
+      const isAcceptedAnswer = submission === acceptedFlag.code;
 
-    setErrorMessage("");
-    setHasError(false);
-    setInputValue("");
+      setErrorMessage("");
+      setHasError(false);
+      setInputValue("");
 
-    if (isChecked) {
-      return;
-    }
+      if (!isAcceptedAnswer) {
+        console.log(acceptedFlag, "bad! wrong answer! >:o");
+        return null;
+      }
 
-    console.log(matchedSubmission, "matchedSubmission");
+      console.log(matchedSubmission, "matchedSubmission");
 
-    const updatedCheckedSubmissions = [
-      ...checkedSubmissions,
-      { ...matchedSubmission, checked: true },
-    ];
+      const updatedCheckedSubmissions = [
+        ...checkedSubmissions,
+        { ...matchedSubmission, checked: true },
+      ];
 
-    const updatedRecentSubmissions =
-      updatedCheckedSubmissions.length > 3
-        ? updatedCheckedSubmissions.slice(
-            Math.max([...checkedSubmissions, matchedSubmission].length - 3, 1)
-          )
-        : updatedCheckedSubmissions;
+      // TODO: Fix this
+      const updatedRecentSubmissions =
+        updatedCheckedSubmissions.length > 3
+          ? updatedCheckedSubmissions.slice(
+              Math.max([...checkedSubmissions, matchedSubmission].length - 3, 1)
+            )
+          : updatedCheckedSubmissions;
 
-    setScore(updatedCheckedSubmissions.length);
-    setRecentSubmissions(updatedRecentSubmissions.reverse());
-    setCheckedSubmissions(updatedCheckedSubmissions);
-    // Success animation
+      // get random new
+      const slicedMapping = mapping.slice(0, 12);
+      const nextItem =
+        slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
+      console.log(nextItem, "setting next flag");
 
-    // get random new
-    const slicedMapping = mapping.slice(0, 12);
-    const nextItem =
-      slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
+      setScore(updatedCheckedSubmissions.length);
+      setRecentSubmissions(updatedRecentSubmissions.reverse());
+      setCheckedSubmissions(updatedCheckedSubmissions);
+      // Success animation
+      setAcceptedFlag(nextItem);
 
-    setAcceptedFlag(nextItem);
-
-    if (updatedCheckedSubmissions.length === mapping.length) {
-      handleGameStop();
-    }
-  };
+      if (updatedCheckedSubmissions.length === mapping.length) {
+        handleGameStop();
+      }
+    },
+    [acceptedFlag, checkedSubmissions, handleGameStop, mapping]
+  );
 
   const onClearInput = () => {
     setHasError(false);
@@ -270,7 +281,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                     !checkedSubmissions.map((x) => x.code).includes(code)
                 )
                 .slice(0, 12)}
-              checkSubmission={checkSubmission}
+              checkSubmission={(submission) => setCurrentSubmission(submission)}
               hasGameStarted={hasGameStarted}
             />
           </Flex>
