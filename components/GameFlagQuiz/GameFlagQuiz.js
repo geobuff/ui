@@ -131,15 +131,23 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   };
 
   const checkSubmission = (submission) => {
-    if (submission !== acceptedFlag.code) {
-      // Do error animation here!
-      return;
-    }
+    // if (submission !== acceptedFlag.code) {
+    //   // Do error animation here!
+    //   return;
+    // }
 
     const matchedSubmission = findSubmissionByCode(mapping, submission);
+    const isChecked = findSubmissionByCode(checkedSubmissions, submission);
+
     setErrorMessage("");
     setHasError(false);
     setInputValue("");
+
+    if (isChecked) {
+      return;
+    }
+
+    console.log(matchedSubmission, "matchedSubmission");
 
     const updatedCheckedSubmissions = [
       ...checkedSubmissions,
@@ -156,15 +164,14 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     setScore(updatedCheckedSubmissions.length);
     setRecentSubmissions(updatedRecentSubmissions.reverse());
     setCheckedSubmissions(updatedCheckedSubmissions);
-
     // Success animation
-    setAcceptedFlag(
-      mapping.find(
-        (x) =>
-          !checkedSubmissions.map((sub) => sub.code).includes(x.code) &&
-          x.code !== submission
-      )
-    );
+
+    // get random new
+    const slicedMapping = mapping.slice(0, 12);
+    const nextItem =
+      slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
+
+    setAcceptedFlag(nextItem);
 
     if (updatedCheckedSubmissions.length === mapping.length) {
       handleGameStop();
