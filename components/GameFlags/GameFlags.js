@@ -4,7 +4,7 @@ import { Box, Flex, SimpleGrid } from "@chakra-ui/react";
 
 import DraggableFlag from "../DraggableFlag";
 
-const GameFlags = ({ codes, checkSubmission, hasGameStarted }) => (
+const GameFlags = ({ codes, onCheckSubmission, hasGameStarted }) => (
   <Box width="400px" height="100%" backgroundColor="#E0E0E0">
     {!hasGameStarted ? (
       <SimpleGrid columns={2}>
@@ -24,7 +24,7 @@ const GameFlags = ({ codes, checkSubmission, hasGameStarted }) => (
       <SimpleGrid columns={2}>
         {codes.map((code) => (
           <Flex key={code} justifyContent="center">
-            <DraggableFlag code={code} checkSubmission={checkSubmission} />
+            <DraggableFlag code={code} checkSubmission={onCheckSubmission} />
           </Flex>
         ))}
       </SimpleGrid>
@@ -34,12 +34,12 @@ const GameFlags = ({ codes, checkSubmission, hasGameStarted }) => (
 
 GameFlags.propTypes = {
   codes: PropTypes.arrayOf(PropTypes.string),
-  checkSubmission: PropTypes.func,
+  onCheckSubmission: PropTypes.func,
   hasGameStarted: PropTypes.bool,
 };
 GameFlags.defaultProps = {
   codes: [],
-  checkSubmission: () => {},
+  onCheckSubmission: () => {},
   hasGameStarted: false,
 };
 

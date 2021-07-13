@@ -162,7 +162,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         { ...matchedSubmission, checked: true },
       ];
 
-      // TODO: Fix this
       const updatedRecentSubmissions =
         updatedCheckedSubmissions.length > 3
           ? updatedCheckedSubmissions.slice(
@@ -170,7 +169,8 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             )
           : updatedCheckedSubmissions;
 
-      // get random new
+      // get random new flag
+      // TODO: update to get properly get next flag from remaining answers
       const slicedMapping = mapping.slice(0, 12);
       const nextItem =
         slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
@@ -281,7 +281,9 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                     !checkedSubmissions.map((x) => x.code).includes(code)
                 )
                 .slice(0, 12)}
-              checkSubmission={(submission) => setCurrentSubmission(submission)}
+              onCheckSubmission={(submission) =>
+                setCurrentSubmission(submission)
+              }
               hasGameStarted={hasGameStarted}
             />
           </Flex>
