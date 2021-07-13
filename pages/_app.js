@@ -5,6 +5,8 @@ import PropTypes from "prop-types";
 import { ChakraProvider } from "@chakra-ui/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
+import { DndProvider } from "react-dnd";
+import { HTML5Backend } from "react-dnd-html5-backend";
 
 import "../styles/globals.css";
 import theme from "../styles/theme";
@@ -78,9 +80,11 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <ChakraProvider theme={theme}>
-        <Elements stripe={stripePromise}>
-          <Component {...pageProps} />
-        </Elements>
+        <DndProvider backend={HTML5Backend}>
+          <Elements stripe={stripePromise}>
+            <Component {...pageProps} />
+          </Elements>
+        </DndProvider>
       </ChakraProvider>
     </>
   );

@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { debounce } from "throttle-debounce";
 
 import PropTypes from "prop-types";
 import {
@@ -10,7 +9,9 @@ import {
   Flex,
   useBreakpointValue,
   useDisclosure,
+  Spacer,
 } from "@chakra-ui/react";
+
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
@@ -20,18 +21,15 @@ import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
-import GameFlag from "../GameFlag/GameFlag";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 import axiosClient from "../../axios/axiosClient";
+import GameFlags from "../GameFlags/GameFlags";
+import FlagDropZone from "../FlagDropZone/FlagDropZone";
 
 import { groupMapping } from "../../helpers/mapping";
-
-import {
-  findSubmissionByNames,
-  findSubmissionsByPrefixes,
-} from "../../helpers/game";
+import { findSubmissionByCode } from "../../helpers/game";
 
 const GameFlagQuiz = ({ quiz, mapping }) => {
   const router = useRouter();
@@ -51,6 +49,11 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     false
   );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+  const [acceptedFlag, setAcceptedFlag] = useState(
+    mapping.find(
+      (x) => !checkedSubmissions.map((sub) => sub.code).includes(x.code)
+    )
+  );
 
   useWarnIfActiveGame(hasGameStarted);
 
@@ -127,61 +130,44 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     onOpen();
   };
 
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-    handleChangeDebounced(event);
-  };
-
-  const handleChangeDebounced = debounce(30, (event) => checkSubmission(event));
-
-  const checkSubmission = (event) => {
-    const submission = event.target.value.trim();
-
-    if (!submission) {
-      setHasError(false);
-      setErrorMessage("");
-    }
-
-    const matchedPrefixes = findSubmissionsByPrefixes(mapping, submission);
-    const isChecked = findSubmissionByNames(checkedSubmissions, submission);
-
-    if (isChecked && matchedPrefixes.length > 0) {
+  const checkSubmission = (submission) => {
+    if (submission !== acceptedFlag.code) {
+      // Do error animation here!
       return;
     }
 
-    const matchedSubmission = findSubmissionByNames(mapping, submission);
+    const matchedSubmission = findSubmissionByCode(mapping, submission);
+    setErrorMessage("");
+    setHasError(false);
+    setInputValue("");
 
-    if (matchedSubmission && isChecked) {
-      setHasError(true);
-      setErrorMessage(
-        `${matchedSubmission.svgName} has already been answered!`
-      );
-    }
+    const updatedCheckedSubmissions = [
+      ...checkedSubmissions,
+      { ...matchedSubmission, checked: true },
+    ];
 
-    if (matchedSubmission && !isChecked) {
-      setErrorMessage("");
-      setHasError(false);
-      setInputValue("");
+    const updatedRecentSubmissions =
+      updatedCheckedSubmissions.length > 3
+        ? updatedCheckedSubmissions.slice(
+            Math.max([...checkedSubmissions, matchedSubmission].length - 3, 1)
+          )
+        : updatedCheckedSubmissions;
 
-      const updatedCheckedSubmissions = [
-        ...checkedSubmissions,
-        { ...matchedSubmission, checked: true },
-      ];
+    setScore(updatedCheckedSubmissions.length);
+    setRecentSubmissions(updatedRecentSubmissions.reverse());
+    setCheckedSubmissions(updatedCheckedSubmissions);
 
-      const updatedRecentSubmissions =
-        updatedCheckedSubmissions.length > 3
-          ? updatedCheckedSubmissions.slice(
-              Math.max([...checkedSubmissions, matchedSubmission].length - 3, 1)
-            )
-          : updatedCheckedSubmissions;
+    // Success animation
+    setAcceptedFlag(
+      mapping.find(
+        (x) =>
+          !checkedSubmissions.map((sub) => sub.code).includes(x.code) &&
+          x.code !== submission
+      )
+    );
 
-      setScore(updatedCheckedSubmissions.length);
-      setRecentSubmissions(updatedRecentSubmissions.reverse());
-      setCheckedSubmissions(updatedCheckedSubmissions);
-
-      if (updatedCheckedSubmissions.length === mapping.length) {
-        handleGameStop();
-      }
+    if (updatedCheckedSubmissions.length === mapping.length) {
+      handleGameStop();
     }
   };
 
@@ -226,7 +212,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
           hasGameStarted={hasGameStarted}
           hasGameStopped={hasGameStopped}
           inputValue={inputValue}
-          onChange={handleChange}
           onClearInput={onClearInput}
         />
       )}
@@ -247,7 +232,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                   hasGameStarted={hasGameStarted}
                   hasGameStopped={hasGameStopped}
                   inputValue={inputValue}
-                  onChange={handleChange}
                   onClearInput={onClearInput}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
@@ -265,13 +249,24 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         )}
 
         {checkedSubmissions.length !== mapping.length && (
-          <GameFlag
-            code={
-              mapping.find(
-                (x) => !checkedSubmissions.map((x) => x.code).includes(x.code)
-              ).code
-            }
-          />
+          <Flex direction="row" width="100%" height="100%" alignItems="center">
+            <FlagDropZone
+              acceptedFlagName={acceptedFlag.svgName}
+              hasGameStarted={hasGameStarted}
+            />
+            <Spacer />
+            <GameFlags
+              codes={mapping
+                .map((x) => x.code)
+                .filter(
+                  (code) =>
+                    !checkedSubmissions.map((x) => x.code).includes(code)
+                )
+                .slice(0, 12)}
+              checkSubmission={checkSubmission}
+              hasGameStarted={hasGameStarted}
+            />
+          </Flex>
         )}
 
         {shouldDisplayOnMobile && (

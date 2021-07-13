@@ -24,3 +24,6 @@ export const findSubmissionsByPrefixes = (collection, submissionName) =>
   collection.filter((submission) =>
     submission.prefixes.includes(submissionName.toLowerCase())
   );
+
+export const findSubmissionByCode = (collection, submissionCode) =>
+  collection?.find(({ code }) => code === submissionCode);
