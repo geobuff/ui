@@ -55,6 +55,8 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     )
   );
   const [currentSubmission, setCurrentSubmission] = useState(null);
+  const [submissionCorrect, setSubmissionCorrect] = useState(false);
+  const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
 
   useEffect(() => {
     checkSubmission(currentSubmission);
@@ -151,11 +153,17 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
       setInputValue("");
 
       if (!isAcceptedAnswer) {
-        console.log(acceptedFlag, "bad! wrong answer! >:o");
+        setSubmissionIncorrect(true);
+        setTimeout(() => {
+          setSubmissionIncorrect(false);
+        }, 1000);
         return null;
       }
 
-      console.log(matchedSubmission, "matchedSubmission");
+      setSubmissionCorrect(true);
+      setTimeout(() => {
+        setSubmissionCorrect(false);
+      }, 1000);
 
       const updatedCheckedSubmissions = [
         ...checkedSubmissions,
@@ -174,7 +182,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
       const slicedMapping = mapping.slice(0, 12);
       const nextItem =
         slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
-      console.log(nextItem, "setting next flag");
 
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
@@ -271,6 +278,8 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             <FlagDropZone
               acceptedFlagName={acceptedFlag.svgName}
               hasGameStarted={hasGameStarted}
+              submissionCorrect={submissionCorrect}
+              submissionIncorrect={submissionIncorrect}
             />
             <Spacer />
             <GameFlags

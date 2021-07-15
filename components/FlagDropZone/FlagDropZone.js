@@ -5,7 +5,12 @@ import { Flex, Text, Heading } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../helpers/item-types";
 
-const FlagDropZone = ({ acceptedFlagName, hasGameStarted }) => {
+const FlagDropZone = ({
+  acceptedFlagName,
+  hasGameStarted,
+  submissionCorrect,
+  submissionIncorrect,
+}) => {
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.FLAG,
     drop: () => ({ name: ItemTypes.DROPZONE }),
@@ -22,24 +27,33 @@ const FlagDropZone = ({ acceptedFlagName, hasGameStarted }) => {
       direction="column"
       justifyContent="center"
       alignItems="center"
+      paddingLeft="20%"
     >
-      {hasGameStarted && <Heading mb={6}>{acceptedFlagName}</Heading>}
+      {hasGameStarted && (
+        <Heading mb={9} color="#FFFFFF">
+          {acceptedFlagName}
+        </Heading>
+      )}
       <Flex
         justifyContent="center"
         alignItems="center"
         ref={drop}
         role="Dropzone"
-        background={
-          canDrop && isOver ? "darkgreen" : canDrop ? "darkkhaki" : "#222"
-        }
-        width={{ base: "80%", md: "400px" }}
-        height="300px"
+        width="335px"
+        height="243px"
         borderRadius={12}
-        borderWidth="2px"
-        borderColor="black"
+        background={
+          submissionCorrect
+            ? "green.500"
+            : submissionIncorrect
+            ? "red.500"
+            : "#236175"
+        }
+        transition="all 150ms ease-out"
+        transform={isOver && "scale(1.125)"}
       >
         {hasGameStarted && (
-          <Text color={!canDrop && !isOver ? "white" : "inherit"}>
+          <Text color="white">
             {canDrop && isOver ? "Release to drop..." : "Drag a flag here..."}
           </Text>
         )}
@@ -50,10 +64,14 @@ const FlagDropZone = ({ acceptedFlagName, hasGameStarted }) => {
 FlagDropZone.propTypes = {
   acceptedFlagName: PropTypes.string,
   hasGameStarted: PropTypes.bool,
+  submissionCorrect: PropTypes.bool,
+  submissionIncorrect: PropTypes.bool,
 };
 FlagDropZone.defaultTypes = {
   acceptedFlagName: "",
   hasGameStarted: false,
+  submissionCorrect: false,
+  submissionIncorrect: false,
 };
 
 export default FlagDropZone;
