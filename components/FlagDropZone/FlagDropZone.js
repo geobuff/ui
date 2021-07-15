@@ -27,7 +27,8 @@ const FlagDropZone = ({
       direction="column"
       justifyContent="center"
       alignItems="center"
-      paddingLeft="20%"
+      paddingLeft={{ base: 0, md: "20%" }}
+      marginTop={{ base: 6, md: 0 }}
     >
       {hasGameStarted && (
         <Heading mb={9} color="#FFFFFF">
@@ -39,9 +40,11 @@ const FlagDropZone = ({
         alignItems="center"
         ref={drop}
         role="Dropzone"
-        width="335px"
-        height="243px"
-        borderRadius={12}
+        width={{ base: "206px", md: "335px" }}
+        height={{ base: "150px", md: "243px" }}
+        borderRadius="8%"
+        transition="all 150ms ease-out"
+        transform={isOver && "scale(1.125)"}
         background={
           submissionCorrect
             ? "green.500"
@@ -49,10 +52,8 @@ const FlagDropZone = ({
             ? "red.500"
             : "#236175"
         }
-        transition="all 150ms ease-out"
-        transform={isOver && "scale(1.125)"}
       >
-        {hasGameStarted && (
+        {hasGameStarted && !submissionCorrect && !submissionIncorrect && (
           <Text color="white">
             {canDrop && isOver ? "Release to drop..." : "Drag a flag here..."}
           </Text>

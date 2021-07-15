@@ -137,13 +137,11 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     onOpen();
   };
 
-  // TODO: add useCallback or this will get very expe$nny
   const checkSubmission = useCallback(
     (submission) => {
-      // if (submission !== acceptedFlag.code) {
-      //   // Do error animation here!
-      //   return;
-      // }
+      if (!hasGameStarted) {
+        return;
+      }
 
       const matchedSubmission = findSubmissionByCode(mapping, submission);
       const isAcceptedAnswer = submission === acceptedFlag.code;
@@ -160,11 +158,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         return null;
       }
 
-      setSubmissionCorrect(true);
-      setTimeout(() => {
-        setSubmissionCorrect(false);
-      }, 1000);
-
       const updatedCheckedSubmissions = [
         ...checkedSubmissions,
         { ...matchedSubmission, checked: true },
@@ -179,15 +172,19 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
 
       // get random new flag
       // TODO: update to get properly get next flag from remaining answers
-      const slicedMapping = mapping.slice(0, 12);
+      const slicedMapping = mapping.slice(0, shouldDisplayOnMobile ? 3 : 12);
       const nextItem =
         slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
 
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
-      // Success animation
+
       setAcceptedFlag(nextItem);
+      setSubmissionCorrect(true);
+      setTimeout(() => {
+        setSubmissionCorrect(false);
+      }, 1000);
 
       if (updatedCheckedSubmissions.length === mapping.length) {
         handleGameStop();
@@ -282,19 +279,20 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
               submissionIncorrect={submissionIncorrect}
             />
             <Spacer />
-            <GameFlags
-              codes={mapping
-                .map((x) => x.code)
-                .filter(
-                  (code) =>
-                    !checkedSubmissions.map((x) => x.code).includes(code)
-                )
-                .slice(0, 12)}
-              onCheckSubmission={(submission) =>
-                setCurrentSubmission(submission)
-              }
-              hasGameStarted={hasGameStarted}
-            />
+            {!shouldDisplayOnMobile && (
+              <GameFlags
+                codes={mapping
+                  .map((x) => x.code)
+                  .filter(
+                    (code) =>
+                      !checkedSubmissions.map((x) => x.code).includes(code)
+                  )
+                  .slice(0, 12)}
+                onCheckSubmission={(submission) =>
+                  setCurrentSubmission(submission)
+                }
+              />
+            )}
           </Flex>
         )}
 
@@ -310,6 +308,13 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             isOpen={!hasGameStopped || !isOpen}
             onGameStart={handleGameStart}
             onGameStop={handleGameStop}
+            codes={mapping
+              .map((x) => x.code)
+              .filter(
+                (code) => !checkedSubmissions.map((x) => x.code).includes(code)
+              )
+              .slice(0, 3)}
+            onCheckSubmission={(submission) => setCurrentSubmission(submission)}
           />
         )}
       </Flex>

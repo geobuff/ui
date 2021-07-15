@@ -7,13 +7,13 @@ import { Box } from "@chakra-ui/react";
 import Image from "../Image";
 import { ItemTypes } from "../../helpers/item-types";
 
-const DraggableFlag = ({ code, checkSubmission, hasGameStarted }) => {
+const DraggableFlag = ({ code, checkSubmission, ...props }) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.FLAG,
     item: { name: code },
     end: (item, monitor) => {
       const dropResult = monitor.getDropResult();
-      if (hasGameStarted && item && dropResult) {
+      if (item && dropResult) {
         checkSubmission(item.name);
       }
     },
@@ -24,7 +24,13 @@ const DraggableFlag = ({ code, checkSubmission, hasGameStarted }) => {
   }));
 
   return (
-    <Box ref={drag} role="Flag" opacity={isDragging ? 0.4 : 1} cursor="pointer">
+    <Box
+      ref={drag}
+      role="Flag"
+      opacity={isDragging ? 0.4 : 1}
+      cursor="pointer"
+      {...props}
+    >
       <Image src={getFlagUrl(code)} borderRadius={4} />
     </Box>
   );
@@ -33,12 +39,10 @@ const DraggableFlag = ({ code, checkSubmission, hasGameStarted }) => {
 DraggableFlag.propTypes = {
   code: PropTypes.string,
   checkSubmission: PropTypes.func,
-  hasGameStarted: PropTypes.bool,
 };
 DraggableFlag.defaultProps = {
   code: "",
   checkSubmission: () => {},
-  hasGameStarted: false,
 };
 
 export default DraggableFlag;
