@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { debounce } from "throttle-debounce";
 
 import PropTypes from "prop-types";
 import {
@@ -10,7 +9,9 @@ import {
   Flex,
   useBreakpointValue,
   useDisclosure,
+  Spacer,
 } from "@chakra-ui/react";
+
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
@@ -20,18 +21,15 @@ import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
-import GameFlag from "../GameFlag/GameFlag";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 import axiosClient from "../../axios/axiosClient";
+import GameFlags from "../GameFlags/GameFlags";
+import FlagDropZone from "../FlagDropZone/FlagDropZone";
 
 import { groupMapping } from "../../helpers/mapping";
-
-import {
-  findSubmissionByNames,
-  findSubmissionsByPrefixes,
-} from "../../helpers/game";
+import { findSubmissionByCode } from "../../helpers/game";
 
 const GameFlagQuiz = ({ quiz, mapping }) => {
   const router = useRouter();
@@ -51,6 +49,18 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     false
   );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+  const [acceptedFlag, setAcceptedFlag] = useState(() =>
+    mapping.find(
+      (x) => !checkedSubmissions.map((sub) => sub.code).includes(x.code)
+    )
+  );
+  const [currentSubmission, setCurrentSubmission] = useState(null);
+  const [submissionCorrect, setSubmissionCorrect] = useState(false);
+  const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
+
+  useEffect(() => {
+    checkSubmission(currentSubmission);
+  }, [currentSubmission, checkSubmission]);
 
   useWarnIfActiveGame(hasGameStarted);
 
@@ -127,41 +137,26 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     onOpen();
   };
 
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-    handleChangeDebounced(event);
-  };
+  const checkSubmission = useCallback(
+    (submission) => {
+      if (!hasGameStarted) {
+        return;
+      }
 
-  const handleChangeDebounced = debounce(30, (event) => checkSubmission(event));
+      const matchedSubmission = findSubmissionByCode(mapping, submission);
+      const isAcceptedAnswer = submission === acceptedFlag.code;
 
-  const checkSubmission = (event) => {
-    const submission = event.target.value.trim();
-
-    if (!submission) {
-      setHasError(false);
-      setErrorMessage("");
-    }
-
-    const matchedPrefixes = findSubmissionsByPrefixes(mapping, submission);
-    const isChecked = findSubmissionByNames(checkedSubmissions, submission);
-
-    if (isChecked && matchedPrefixes.length > 0) {
-      return;
-    }
-
-    const matchedSubmission = findSubmissionByNames(mapping, submission);
-
-    if (matchedSubmission && isChecked) {
-      setHasError(true);
-      setErrorMessage(
-        `${matchedSubmission.svgName} has already been answered!`
-      );
-    }
-
-    if (matchedSubmission && !isChecked) {
       setErrorMessage("");
       setHasError(false);
       setInputValue("");
+
+      if (!isAcceptedAnswer) {
+        setSubmissionIncorrect(true);
+        setTimeout(() => {
+          setSubmissionIncorrect(false);
+        }, 1000);
+        return null;
+      }
 
       const updatedCheckedSubmissions = [
         ...checkedSubmissions,
@@ -175,15 +170,28 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             )
           : updatedCheckedSubmissions;
 
+      // get random new flag
+      // TODO: update to get properly get next flag from remaining answers
+      const slicedMapping = mapping.slice(0, shouldDisplayOnMobile ? 3 : 12);
+      const nextItem =
+        slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
+
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
 
+      setAcceptedFlag(nextItem);
+      setSubmissionCorrect(true);
+      setTimeout(() => {
+        setSubmissionCorrect(false);
+      }, 1000);
+
       if (updatedCheckedSubmissions.length === mapping.length) {
         handleGameStop();
       }
-    }
-  };
+    },
+    [acceptedFlag, checkedSubmissions, handleGameStop, mapping]
+  );
 
   const onClearInput = () => {
     setHasError(false);
@@ -226,7 +234,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
           hasGameStarted={hasGameStarted}
           hasGameStopped={hasGameStopped}
           inputValue={inputValue}
-          onChange={handleChange}
           onClearInput={onClearInput}
         />
       )}
@@ -247,7 +254,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                   hasGameStarted={hasGameStarted}
                   hasGameStopped={hasGameStopped}
                   inputValue={inputValue}
-                  onChange={handleChange}
                   onClearInput={onClearInput}
                   onGameStart={handleGameStart}
                   onGameStop={handleGameStop}
@@ -265,13 +271,29 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         )}
 
         {checkedSubmissions.length !== mapping.length && (
-          <GameFlag
-            code={
-              mapping.find(
-                (x) => !checkedSubmissions.map((x) => x.code).includes(x.code)
-              ).code
-            }
-          />
+          <Flex direction="row" width="100%" height="100%" alignItems="center">
+            <FlagDropZone
+              acceptedFlagName={acceptedFlag.svgName}
+              hasGameStarted={hasGameStarted}
+              submissionCorrect={submissionCorrect}
+              submissionIncorrect={submissionIncorrect}
+            />
+            <Spacer />
+            {!shouldDisplayOnMobile && (
+              <GameFlags
+                codes={mapping
+                  .map((x) => x.code)
+                  .filter(
+                    (code) =>
+                      !checkedSubmissions.map((x) => x.code).includes(code)
+                  )
+                  .slice(0, 12)}
+                onCheckSubmission={(submission) =>
+                  setCurrentSubmission(submission)
+                }
+              />
+            )}
+          </Flex>
         )}
 
         {shouldDisplayOnMobile && (
@@ -286,6 +308,13 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             isOpen={!hasGameStopped || !isOpen}
             onGameStart={handleGameStart}
             onGameStop={handleGameStop}
+            codes={mapping
+              .map((x) => x.code)
+              .filter(
+                (code) => !checkedSubmissions.map((x) => x.code).includes(code)
+              )
+              .slice(0, 3)}
+            onCheckSubmission={(submission) => setCurrentSubmission(submission)}
           />
         )}
       </Flex>

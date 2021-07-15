@@ -18,6 +18,7 @@ import ResultsMap from "../ResultsMap";
 import Twemoji from "../Twemoji";
 
 import { groupMapping } from "../../helpers/mapping";
+import GameFlags from "../GameFlags/GameFlags";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
@@ -33,7 +34,10 @@ const GameBottomSheetModal = ({
   isOpen,
   onGameStart,
   onGameStop,
+  codes,
+  onCheckSubmission,
 }) => {
+  const isFlagQuiz = quiz.type === 2;
   const ref = useRef();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -88,6 +92,16 @@ const GameBottomSheetModal = ({
               </Heading>
 
               <Divider my={4} />
+
+              {isFlagQuiz && (
+                <>
+                  <GameFlags
+                    codes={codes}
+                    onCheckSubmission={onCheckSubmission}
+                  />
+                  <Divider my={4} />
+                </>
+              )}
 
               <Box my={4}>
                 <Button
@@ -177,6 +191,8 @@ GameBottomSheetModal.propTypes = {
   isOpen: PropTypes.bool,
   onGameStart: PropTypes.func,
   onGameStop: PropTypes.func,
+  codes: PropTypes.arrayOf(PropTypes.string),
+  onCheckSubmission: PropTypes.func,
 };
 
 GameBottomSheetModal.defaultProps = {
@@ -190,6 +206,8 @@ GameBottomSheetModal.defaultProps = {
   isOpen: false,
   onGameStart: () => {},
   onGameStop: () => {},
+  codes: [],
+  onCheckSubmission: () => {},
 };
 
 export default GameBottomSheetModal;

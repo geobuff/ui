@@ -30,13 +30,14 @@ const GameInputBanner = ({
   onChange,
   onClearInput,
 }) => {
+  const isFlagGame = quiz.type === 2;
   const inputRef = useRef("");
 
   useEffect(() => {
-    if (hasGameStarted) {
+    if (!isFlagGame && hasGameStarted) {
       inputRef.current.focus();
     }
-  }, [hasGameStarted]);
+  }, [isFlagGame, hasGameStarted]);
 
   const handleClearInput = () => {
     onClearInput();
@@ -97,6 +98,7 @@ const GameInputBanner = ({
     <>
       <Flex
         alignItems="center"
+        justifyContent="center"
         backgroundColor="#27AE60"
         boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
         px={3}
@@ -106,34 +108,36 @@ const GameInputBanner = ({
       >
         {scoreNode}
 
-        <InputGroup>
-          <Input
-            ref={inputRef}
-            isDisabled={!hasGameStarted}
-            isInvalid={hasError}
-            placeholder={`Enter ${quiz.verb}...`}
-            onChange={onChange}
-            value={inputValue}
-          />
-          <InputRightElement>
-            <Fade in={inputValue?.length > 0} out={inputValue?.length}>
-              <IconButton
-                right={3}
-                maxHeight="22px"
-                minWidth="22px"
-                marginBottom="2px"
-                backgroundColor="transparent"
-                borderRadius={25}
-                onClick={handleClearInput}
-                color={hasError ? "red.500" : "#a6a6a6"}
-                fontWeight="bold"
-                _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
-              >
-                <SolidCloseCircle height={5} width={5} padding={0} />
-              </IconButton>
-            </Fade>
-          </InputRightElement>
-        </InputGroup>
+        {!isFlagGame && (
+          <InputGroup>
+            <Input
+              ref={inputRef}
+              isDisabled={!hasGameStarted}
+              isInvalid={hasError}
+              placeholder={`Enter ${quiz.verb}...`}
+              onChange={onChange}
+              value={inputValue}
+            />
+            <InputRightElement>
+              <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+                <IconButton
+                  right={3}
+                  maxHeight="22px"
+                  minWidth="22px"
+                  marginBottom="2px"
+                  backgroundColor="transparent"
+                  borderRadius={25}
+                  onClick={handleClearInput}
+                  color={hasError ? "red.500" : "#a6a6a6"}
+                  fontWeight="bold"
+                  _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+                >
+                  <SolidCloseCircle height={5} width={5} padding={0} />
+                </IconButton>
+              </Fade>
+            </InputRightElement>
+          </InputGroup>
+        )}
       </Flex>
       <Box>
         <GameInputBannerError errorMessage={errorMessage} />
