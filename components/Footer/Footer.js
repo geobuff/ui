@@ -25,6 +25,10 @@ const links = [
     href: "/cookie-policy",
     text: "Cookie Policy",
   },
+  {
+    href: "/acceptable-use-policy",
+    text: "Acceptable Use Policy",
+  },
 ];
 
 const simpleFooter = (
