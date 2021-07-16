@@ -21,6 +21,10 @@ const links = [
     href: "/terms-of-service",
     text: "Terms of Service",
   },
+  {
+    href: "/cookie-policy",
+    text: "Cookie Policy",
+  },
 ];
 
 const simpleFooter = (
