@@ -10,16 +10,24 @@ const links = [
     text: "Our Mission",
   },
   {
-    href: "/terms-of-service",
-    text: "Terms of Service",
+    href: "/merch",
+    text: "Merch",
   },
   {
     href: "/privacy-policy",
     text: "Privacy Policy",
   },
   {
-    href: "/merch",
-    text: "Merch",
+    href: "/terms-of-service",
+    text: "Terms of Service",
+  },
+  {
+    href: "/cookie-policy",
+    text: "Cookie Policy",
+  },
+  {
+    href: "/acceptable-use-policy",
+    text: "Acceptable Use Policy",
   },
 ];
 
