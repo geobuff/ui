@@ -154,7 +154,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         setSubmissionIncorrect(true);
         setTimeout(() => {
           setSubmissionIncorrect(false);
-        }, 1000);
+        }, 500);
         return null;
       }
 
@@ -184,7 +184,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
       setSubmissionCorrect(true);
       setTimeout(() => {
         setSubmissionCorrect(false);
-      }, 1000);
+      }, 500);
 
       if (updatedCheckedSubmissions.length === mapping.length) {
         handleGameStop();

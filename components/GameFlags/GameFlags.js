@@ -28,7 +28,7 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
           alignItems="center"
           justifyContent="center"
         >
-          <SimpleGrid columns={2} spacingX={10}>
+          <SimpleGrid columns={2} spacingX={10} spacingY={6}>
             {codes.map((code) => (
               <DraggableFlag
                 key={code}

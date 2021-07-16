@@ -7,6 +7,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
+import { TouchBackend } from "react-dnd-touch-backend";
+import { isMobile } from "react-device-detect";
 
 import "../styles/globals.css";
 import theme from "../styles/theme";
@@ -80,7 +82,7 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <ChakraProvider theme={theme}>
-        <DndProvider backend={HTML5Backend}>
+        <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
           <Elements stripe={stripePromise}>
             <Component {...pageProps} />
           </Elements>

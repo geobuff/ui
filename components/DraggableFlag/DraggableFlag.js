@@ -31,7 +31,12 @@ const DraggableFlag = ({ code, checkSubmission, ...props }) => {
       cursor="pointer"
       {...props}
     >
-      <Image src={getFlagUrl(code)} borderRadius={4} />
+      <Image
+        src={getFlagUrl(code)}
+        borderRadius={4}
+        height="72px"
+        width="98px"
+      />
     </Box>
   );
 };
