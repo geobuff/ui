@@ -260,14 +260,15 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                 height="100%"
                 alignItems="center"
                 flex="1"
-                minWidth={{ base: "100%", md: "78%" }}
               >
-                <FlagDropZone
-                  acceptedFlagName={acceptedFlag.svgName}
-                  hasGameStarted={hasGameStarted}
-                  submissionCorrect={submissionCorrect}
-                  submissionIncorrect={submissionIncorrect}
-                />
+                <Flex flex={1} height="100%" direction="column" marginTop={10}>
+                  <FlagDropZone
+                    acceptedFlagName={acceptedFlag.svgName}
+                    hasGameStarted={hasGameStarted}
+                    submissionCorrect={submissionCorrect}
+                    submissionIncorrect={submissionIncorrect}
+                  />
+                </Flex>
                 <Spacer />
                 {!shouldDisplayOnMobile && (
                   <GameFlags

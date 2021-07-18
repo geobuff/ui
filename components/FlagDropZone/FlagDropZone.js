@@ -28,21 +28,16 @@ const FlagDropZone = ({
       justifyContent="center"
       alignItems="center"
       flex={1}
-      minWidth={{ base: "100%", md: "78%" }}
+      minWidth={{ base: "100%", md: "79%" }}
       paddingLeft={{ base: 0, md: "375px" }}
     >
-      {hasGameStarted && (
-        <Heading mb={9} color="#FFFFFF">
-          {acceptedFlagName}
-        </Heading>
-      )}
       <Flex
         flex={1}
         justifyContent="center"
         alignItems="center"
         ref={drop}
         role="Dropzone"
-        width={{ base: "206px", md: "335px" }}
+        width={{ base: "175px", md: "335px" }}
         minHeight={{ base: "40px", md: "243px" }}
         height="100%"
         borderRadius="8%"
@@ -62,6 +57,17 @@ const FlagDropZone = ({
           </Text>
         )}
       </Flex>
+      <Text
+        opacity={hasGameStarted ? "1" : "0"}
+        transition="200ms ease-in-out"
+        fontSize={{ base: "md", sm: "xl", md: "3xl" }}
+        fontWeight="bold"
+        marginY={5}
+        color="#FFFFFF"
+        minHeight="40px"
+      >
+        {acceptedFlagName}
+      </Text>
     </Flex>
   );
 };
