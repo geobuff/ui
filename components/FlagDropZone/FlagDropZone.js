@@ -27,7 +27,7 @@ const FlagDropZone = ({
       direction="column"
       justifyContent="center"
       alignItems="center"
-      paddingLeft={{ base: 0, md: "20%" }}
+      // paddingLeft={{ base: 0, md: "20%" }}
       flex={1}
     >
       {hasGameStarted && (

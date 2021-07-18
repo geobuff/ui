@@ -258,6 +258,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                 direction={{ base: "column", md: "row" }}
                 width="100%"
                 height="100%"
+                paddingLeft={{ base: 0, md: "375px" }}
                 alignItems="center"
                 flex="1"
               >

@@ -34,7 +34,6 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
       ) : (
         <Flex
           minWidth="300px"
-          minHeight="92vh"
           backgroundColor="#E0E0E0"
           alignItems="center"
           justifyContent="center"
