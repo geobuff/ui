@@ -205,8 +205,8 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
       <Head>
         <title>{quiz.name} - GeoBuff</title>
       </Head>
-      <Flex grow={1} direction="column">
-        <Flex height="100%" minHeight="100%" direction="column" grow={1}>
+      <Flex flex={1} direction="column">
+        <Flex height="100%" minHeight="100%" direction="column" flex={1}>
           {shouldDisplayOnMobile && (
             <GameInputBanner
               quiz={quiz}
@@ -221,7 +221,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             />
           )}
 
-          <Flex grow={1}>
+          <Flex grow={1} direction="column">
             {!shouldDisplayOnMobile && (
               <Box minHeight="100%">
                 <Sidebar heading={quiz.name} quiz={quiz}>
@@ -255,7 +255,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
 
             {checkedSubmissions.length !== mapping.length && (
               <Flex
-                direction="row"
+                direction={{ base: "column", md: "row" }}
                 width="100%"
                 height="100%"
                 alignItems="center"

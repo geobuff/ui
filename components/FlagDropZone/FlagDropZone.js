@@ -28,7 +28,7 @@ const FlagDropZone = ({
       justifyContent="center"
       alignItems="center"
       paddingLeft={{ base: 0, md: "20%" }}
-      marginTop={{ base: 6, md: 0 }}
+      flex={1}
     >
       {hasGameStarted && (
         <Heading mb={9} color="#FFFFFF">
@@ -36,12 +36,14 @@ const FlagDropZone = ({
         </Heading>
       )}
       <Flex
+        flex={1}
         justifyContent="center"
         alignItems="center"
         ref={drop}
         role="Dropzone"
         width={{ base: "206px", md: "335px" }}
-        height={{ base: "150px", md: "243px" }}
+        minHeight={{ base: "40px", md: "243px" }}
+        height="100%"
         borderRadius="8%"
         transition="all 150ms ease-out"
         transform={isOver && "scale(1.125)"}
