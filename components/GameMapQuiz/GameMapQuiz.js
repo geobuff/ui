@@ -237,11 +237,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
         setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
       />
 
-      <Box
+      <Flex
+        direction="column"
+        grow={1}
         width="100%"
         minHeight="100%"
         backgroundColor="#276F86"
-        position="fixed"
+        // position="fixed"
       >
         {shouldDisplayOnMobile && (
           <GameInputBanner
@@ -316,7 +318,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
             />
           )}
         </Flex>
-      </Box>
+      </Flex>
 
       {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
         <>

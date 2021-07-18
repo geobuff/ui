@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Box } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 
 import NavigationBar from "../NavigationBar";
 import Footer from "../Footer";
@@ -14,10 +14,17 @@ const MainView = ({
   ...props
 }) => (
   <>
-    <Box as="main" width="100%" marginX="auto" flexGrow={1} {...props}>
+    <Flex
+      as="main"
+      direction="column"
+      width="100%"
+      marginX="auto"
+      flexGrow={1}
+      {...props}
+    >
       {hasNavigationBar && <NavigationBar />}
       {children}
-    </Box>
+    </Flex>
     {hasFooter && <Footer variant={footerVariant} />}
   </>
 );
