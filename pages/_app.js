@@ -82,7 +82,10 @@ function MyApp({ Component, pageProps }) {
         />
       </Head>
       <ChakraProvider theme={theme}>
-        <DndProvider backend={isMobile ? TouchBackend : HTML5Backend}>
+        <DndProvider
+          backend={isMobile ? TouchBackend : HTML5Backend}
+          options={{ delayTouchStart: 10, ignoreContextMenu: true }}
+        >
           <Elements stripe={stripePromise}>
             <Component {...pageProps} />
           </Elements>

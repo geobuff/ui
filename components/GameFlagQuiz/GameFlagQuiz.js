@@ -7,6 +7,7 @@ import {
   Box,
   Button,
   Flex,
+  Text,
   useBreakpointValue,
   useDisclosure,
   Spacer,
@@ -44,6 +45,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   const [hasGameRunOnce, setHasGameRunOnce] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
+  const [showResultList, setShowResultsList] = useState(false); // TODO: Consider renaming to something modal related
   const [isXPUpdated, setXPUpdated] = useState(false);
   const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
     false
@@ -316,20 +318,70 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         //     .slice(0, 3)}
         //   onCheckSubmission={(submission) => setCurrentSubmission(submission)}
         // />
-        <Flex direction="column">
-          <GameFlags
-            codes={mapping
-              .map((x) => x.code)
-              .filter(
-                (code) => !checkedSubmissions.map((x) => x.code).includes(code)
-              )
-              // .slice(0, 3)}
-              .slice(0, 12)}
-            onCheckSubmission={(submission) => setCurrentSubmission(submission)}
-          />
-          <Button m={6} onClick={handleGameStart}>
-            {"START"}
-          </Button>
+        <Flex
+          direction="column"
+          position="fixed"
+          bottom={0}
+          left={0}
+          right={0}
+          top={showResultList ? "20%" : undefined}
+          backgroundColor="white"
+          p={4}
+          borderTopRadius={12}
+        >
+          <Box>
+            {!showResultList && (
+              <>
+                <GameFlags
+                  codes={mapping
+                    .map((x) => x.code)
+                    .filter(
+                      (code) =>
+                        !checkedSubmissions.map((x) => x.code).includes(code)
+                    )
+                    .slice(0, 12)}
+                  onCheckSubmission={(submission) =>
+                    setCurrentSubmission(submission)
+                  }
+                />
+                <Button
+                  colorScheme={hasGameStarted ? "red" : "green"}
+                  isFullWidth
+                  onClick={hasGameStarted ? handleGameStop : handleGameStart}
+                  p={8}
+                  size="md"
+                >
+                  <Text fontWeight="700" fontSize="22px">
+                    {hasGameStarted
+                      ? "GIVE UP"
+                      : hasGameRunOnce
+                      ? "RETRY"
+                      : "START"}
+                  </Text>
+                </Button>
+              </>
+            )}
+
+            <Button
+              my={4}
+              isFullWidth
+              variant="outline"
+              onClick={() => setShowResultsList(!showResultList)}
+            >
+              {"Results"}
+            </Button>
+
+            {showResultList && (
+              <ResultsMap
+                quiz={quiz}
+                checked={checkedSubmissions}
+                map={groupMapping(mapping)}
+                hasGameStopped={hasGameStopped}
+                hasGroupings={quiz.hasGrouping}
+                hasFlags={quiz.hasFlags}
+              />
+            )}
+          </Box>
         </Flex>
       )}
       {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
