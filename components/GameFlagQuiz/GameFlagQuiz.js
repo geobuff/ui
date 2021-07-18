@@ -202,9 +202,9 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   return (
     <Box
       width="100%"
-      minHeight="100%"
+      // minHeight="100%"
       backgroundColor="#276F86"
-      position="fixed"
+      // position="fixed"
     >
       <Head>
         <title>{quiz.name} - GeoBuff</title>
@@ -295,29 +295,43 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             )}
           </Flex>
         )}
-
-        {shouldDisplayOnMobile && (
-          <GameBottomSheetModal
-            quiz={quiz}
-            mapping={mapping}
-            checked={checkedSubmissions}
-            recents={recentSubmissions}
-            hasGameRunOnce={hasGameRunOnce}
-            hasGameStarted={hasGameStarted}
-            hasGameStopped={hasGameStopped}
-            isOpen={!hasGameStopped || !isOpen}
-            onGameStart={handleGameStart}
-            onGameStop={handleGameStop}
+      </Flex>
+      {shouldDisplayOnMobile && (
+        // <GameBottomSheetModal
+        //   quiz={quiz}
+        //   mapping={mapping}
+        //   checked={checkedSubmissions}
+        //   recents={recentSubmissions}
+        //   hasGameRunOnce={hasGameRunOnce}
+        //   hasGameStarted={hasGameStarted}
+        //   hasGameStopped={hasGameStopped}
+        //   isOpen={!hasGameStopped || !isOpen}
+        //   onGameStart={handleGameStart}
+        //   onGameStop={handleGameStop}
+        //   codes={mapping
+        //     .map((x) => x.code)
+        //     .filter(
+        //       (code) => !checkedSubmissions.map((x) => x.code).includes(code)
+        //     )
+        //     .slice(0, 3)}
+        //   onCheckSubmission={(submission) => setCurrentSubmission(submission)}
+        // />
+        <Flex direction="column">
+          <GameFlags
             codes={mapping
               .map((x) => x.code)
               .filter(
                 (code) => !checkedSubmissions.map((x) => x.code).includes(code)
               )
-              .slice(0, 3)}
+              // .slice(0, 3)}
+              .slice(0, 12)}
             onCheckSubmission={(submission) => setCurrentSubmission(submission)}
           />
-        )}
-      </Flex>
+          <Button m={6} onClick={handleGameStart}>
+            {"START"}
+          </Button>
+        </Flex>
+      )}
       {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
         <Box position="fixed" bottom="20px" right="20px">
           <Button onClick={onOpen}>
