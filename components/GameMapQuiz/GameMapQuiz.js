@@ -222,24 +222,10 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
       <Head>
         <title>{quiz.name} - GeoBuff</title>
       </Head>
-      <GameOverModalContainer
-        quiz={quiz}
-        score={score}
-        time={
-          minutes === 0 && seconds === 0
-            ? quiz.time
-            : quiz.time - (seconds + minutes * 60)
-        }
-        isOpen={isOpen}
-        onClose={onClose}
-        isXPUpdated={isXPUpdated}
-        setXPUpdated={setXPUpdated}
-        setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
-      />
 
       <Flex
         direction="column"
-        grow={1}
+        flex={1}
         width="100%"
         minHeight="100%"
         backgroundColor="#276F86"
@@ -260,7 +246,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           />
         )}
 
-        <Flex>
+        <Flex grow={1} direction={{ base: "column", md: "row" }}>
           {!shouldDisplayOnMobile && (
             <Fade in>
               <Box minHeight="100%">
@@ -341,6 +327,20 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
               </Button>
             </Box>
           )}
+          <GameOverModalContainer
+            quiz={quiz}
+            score={score}
+            time={
+              minutes === 0 && seconds === 0
+                ? quiz.time
+                : quiz.time - (seconds + minutes * 60)
+            }
+            isOpen={isOpen}
+            onClose={onClose}
+            isXPUpdated={isXPUpdated}
+            setXPUpdated={setXPUpdated}
+            setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
+          />
         </>
       )}
     </>

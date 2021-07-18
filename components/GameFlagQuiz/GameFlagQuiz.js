@@ -221,7 +221,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             />
           )}
 
-          <Flex grow={1} direction="column">
+          <Flex grow={1} direction={{ base: "column", md: "row" }}>
             {!shouldDisplayOnMobile && (
               <Box minHeight="100%">
                 <Sidebar heading={quiz.name} quiz={quiz}>
@@ -258,9 +258,9 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                 direction={{ base: "column", md: "row" }}
                 width="100%"
                 height="100%"
-                paddingLeft={{ base: 0, md: "375px" }}
                 alignItems="center"
                 flex="1"
+                minWidth={{ base: "100%", md: "78%" }}
               >
                 <FlagDropZone
                   acceptedFlagName={acceptedFlag.svgName}

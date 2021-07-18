@@ -35,7 +35,7 @@ const Sidebar = ({ heading, quiz, children }) => (
     >
       {!!heading && (
         <>
-          <Flex mt={16} justifyContent="center">
+          <Flex mt={14} justifyContent="center">
             <Heading size="md" textAlign="center">
               {quiz.hasLeaderboard && (
                 <Link href={`/leaderboard?quizId=${quiz.id}`}>
