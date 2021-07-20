@@ -260,7 +260,13 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                 alignItems="center"
                 flex="1"
               >
-                <Flex flex={1} height="100%" direction="column" marginTop={10}>
+                <Flex
+                  flex={1}
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  marginTop={10}
+                >
                   <FlagDropZone
                     acceptedFlagName={acceptedFlag.svgName}
                     hasGameStarted={hasGameStarted}
