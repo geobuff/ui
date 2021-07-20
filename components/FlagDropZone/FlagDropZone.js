@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Flex, Text, Heading } from "@chakra-ui/react";
+import { AspectRatio, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../helpers/item-types";
 
@@ -11,6 +11,8 @@ const FlagDropZone = ({
   submissionCorrect,
   submissionIncorrect,
 }) => {
+  const isMobile = useBreakpointValue({ base: true, lg: false });
+
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.FLAG,
     drop: () => ({ name: ItemTypes.DROPZONE }),
@@ -20,6 +22,37 @@ const FlagDropZone = ({
     }),
   }));
 
+  const dropZoneNode = (
+    <Flex
+      flex={1}
+      justifyContent="center"
+      alignItems="center"
+      ref={drop}
+      role="Dropzone"
+      minWidth={{ base: "175px", lg: "335px" }}
+      minHeight={{ base: "100px", lg: "243px" }}
+      height={{ base: "100%", lg: "335px" }}
+      width={{ base: "100%", lg: "243px" }}
+      margin={{ base: 0, lg: 1 }}
+      borderRadius="8%"
+      transition="all 150ms ease-out"
+      transform={isOver && "scale(1.125)"}
+      background={
+        submissionCorrect
+          ? "green.500"
+          : submissionIncorrect
+          ? "red.500"
+          : "#236175"
+      }
+    >
+      {hasGameStarted && !submissionCorrect && !submissionIncorrect && (
+        <Text color="white">
+          {canDrop && isOver ? "Release to drop..." : "Drag a flag here..."}
+        </Text>
+      )}
+    </Flex>
+  );
+
   return (
     <Flex
       width="100%"
@@ -27,38 +60,29 @@ const FlagDropZone = ({
       direction="column"
       justifyContent="center"
       alignItems="center"
-      paddingLeft={{ base: 0, md: "20%" }}
-      marginTop={{ base: 6, md: 0 }}
+      flex={1}
+      minWidth={{ base: "100%", md: "79%" }}
+      paddingLeft={{ base: 0, lg: "375px" }}
     >
-      {hasGameStarted && (
-        <Heading mb={9} color="#FFFFFF">
-          {acceptedFlagName}
-        </Heading>
+      {isMobile ? (
+        <AspectRatio width="60%" ratio={8 / 5}>
+          {dropZoneNode}
+        </AspectRatio>
+      ) : (
+        dropZoneNode
       )}
-      <Flex
-        justifyContent="center"
-        alignItems="center"
-        ref={drop}
-        role="Dropzone"
-        width={{ base: "206px", md: "335px" }}
-        height={{ base: "150px", md: "243px" }}
-        borderRadius="8%"
-        transition="all 150ms ease-out"
-        transform={isOver && "scale(1.125)"}
-        background={
-          submissionCorrect
-            ? "green.500"
-            : submissionIncorrect
-            ? "red.500"
-            : "#236175"
-        }
+
+      <Text
+        opacity={hasGameStarted ? "1" : "0"}
+        transition="200ms ease-in-out"
+        fontSize={{ base: "md", sm: "xl", md: "3xl" }}
+        fontWeight="bold"
+        marginY={5}
+        color="#FFFFFF"
+        minHeight="40px"
       >
-        {hasGameStarted && !submissionCorrect && !submissionIncorrect && (
-          <Text color="white">
-            {canDrop && isOver ? "Release to drop..." : "Drag a flag here..."}
-          </Text>
-        )}
-      </Flex>
+        {acceptedFlagName}
+      </Text>
     </Flex>
   );
 };
