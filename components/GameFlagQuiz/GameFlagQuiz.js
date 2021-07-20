@@ -220,7 +220,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             />
           )}
 
-          <Flex grow={1} direction={{ base: "column", md: "row" }}>
+          <Flex grow={1} direction={{ base: "column", lg: "row" }}>
             {!isMobile && (
               <Box minHeight="100%">
                 <Sidebar heading={quiz.name} quiz={quiz}>
@@ -254,7 +254,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
 
             {checkedSubmissions.length !== mapping.length && (
               <Flex
-                direction={{ base: "column", md: "row" }}
+                direction={{ base: "column", lg: "row" }}
                 width="100%"
                 height="100%"
                 alignItems="center"

@@ -8,7 +8,7 @@ const ScrollingComponent = withScrolling("div");
 import DraggableFlag from "../DraggableFlag";
 
 const GameFlags = ({ codes, onCheckSubmission }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
 
   return (
     <>
