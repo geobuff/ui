@@ -9,7 +9,8 @@ import { ItemTypes } from "../../helpers/item-types";
 
 import { usePreview } from "react-dnd-preview";
 
-const MyPreview = () => {
+// TODO: add a nice preview for mobile
+const DraggableFlagPreview = () => {
   const { display, itemType, style } = usePreview();
   if (!display) {
     return null;
@@ -35,7 +36,7 @@ const DraggableFlag = ({ code, checkSubmission, ...props }) => {
 
   return (
     <>
-      <MyPreview />
+      <DraggableFlagPreview />
       <Box
         ref={drag}
         role="Flag"

@@ -19,7 +19,7 @@ const MainView = ({
       direction="column"
       width="100%"
       marginX="auto"
-      flexGrow={1}
+      flex={1}
       {...props}
     >
       {hasNavigationBar && <NavigationBar />}
