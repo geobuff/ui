@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-import { Flex, Text, Heading } from "@chakra-ui/react";
+import { Flex, Text } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 import { ItemTypes } from "../../helpers/item-types";
 
@@ -29,7 +29,7 @@ const FlagDropZone = ({
       alignItems="center"
       flex={1}
       minWidth={{ base: "100%", md: "79%" }}
-      paddingLeft={{ base: 0, md: "375px" }}
+      paddingLeft={{ base: 0, lg: "375px" }}
     >
       <Flex
         flex={1}

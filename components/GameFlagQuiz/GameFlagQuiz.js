@@ -10,7 +10,6 @@ import {
   Text,
   useBreakpointValue,
   useDisclosure,
-  Spacer,
 } from "@chakra-ui/react";
 
 import { useTimer } from "react-timer-hook";
@@ -67,7 +66,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
 
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
@@ -173,7 +172,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
 
       // get random new flag
       // TODO: update to get properly get next flag from remaining answers
-      const slicedMapping = mapping.slice(0, shouldDisplayOnMobile ? 3 : 12);
+      const slicedMapping = mapping.slice(0, isMobile ? 3 : 12);
       const nextItem =
         slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
 
@@ -207,7 +206,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
       </Head>
       <Flex flex={1} direction="column">
         <Flex height="100%" minHeight="100%" direction="column" flex={1}>
-          {shouldDisplayOnMobile && (
+          {isMobile && (
             <GameInputBanner
               quiz={quiz}
               score={score}
@@ -222,7 +221,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
           )}
 
           <Flex grow={1} direction={{ base: "column", md: "row" }}>
-            {!shouldDisplayOnMobile && (
+            {!isMobile && (
               <Box minHeight="100%">
                 <Sidebar heading={quiz.name} quiz={quiz}>
                   <Box>
@@ -269,8 +268,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                     submissionIncorrect={submissionIncorrect}
                   />
                 </Flex>
-                <Spacer />
-                {!shouldDisplayOnMobile && (
+                {!isMobile && (
                   <GameFlags
                     codes={mapping
                       .map((x) => x.code)
@@ -287,7 +285,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
               </Flex>
             )}
           </Flex>
-          {shouldDisplayOnMobile && (
+          {isMobile && (
             <Flex
               direction="column"
               backgroundColor="white"
