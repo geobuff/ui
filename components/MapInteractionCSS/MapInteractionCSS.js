@@ -27,7 +27,7 @@ const MapInteractionCSS = (props) => {
   return (
     <Box
       position="absolute"
-      top={{ base: 70, lg: 0 }}
+      top={{ base: 130, lg: "50px" }}
       left={{ base: 0, lg: "375px" }}
       bottom={0}
       right={0}
