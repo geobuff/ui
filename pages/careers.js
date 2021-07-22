@@ -59,8 +59,11 @@ const OurMission = () => (
           </Heading>
           <Text>
             Unfortunately, there are currently no open positions in the team. If
-            you&apos;re bored and have a spare 5 minutes, send us something
-            interesting at <Link>teamgeobuff@gmail.com</Link>.
+            you&apos;re bored and have a spare 5 minutes,{" "}
+            <Link fontWeight={600} href="mailto:teamgeobuff@gmail.com">
+              email us
+            </Link>{" "}
+            something interesting.
           </Text>
         </Box>
       </Flex>
