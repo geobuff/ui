@@ -30,8 +30,8 @@ const OurMission = () => (
           <Text>Hear from our 2021 grad about his time with us so far:</Text>
         </Box>
         <Flex
-          direction="row"
-          justifyContent="space-between"
+          direction={{ base: "column", md: "row" }}
+          justifyContent={{ base: "center", md: "space-between" }}
           alignItems="center"
           my={12}
         >
@@ -41,7 +41,7 @@ const OurMission = () => (
             height="250px"
             borderRadius="100%"
           />
-          <Text maxWidth="400px">
+          <Text maxWidth="400px" mt={{ base: 6, md: 0 }}>
             &quot;GeoBuff is the single worst organization I have ever worked
             at. The snotty founders make me bring them lunch, they push poorly
             written code straight into production, and to be honest with you, I
@@ -59,8 +59,11 @@ const OurMission = () => (
           </Heading>
           <Text>
             Unfortunately, there are currently no open positions in the team. If
-            you&apos;re bored and have a spare 5 minutes, send us something
-            interesting at <Link>teamgeobuff@gmail.com</Link>.
+            you&apos;re bored and have a spare 5 minutes,{" "}
+            <Link fontWeight={600} href="mailto:teamgeobuff@gmail.com">
+              email us
+            </Link>{" "}
+            something interesting.
           </Text>
         </Box>
       </Flex>
