@@ -72,57 +72,70 @@ const extendedFooter = (
       direction={{ base: "column", md: "row" }}
       marginY={5}
       paddingX={{ base: 6, md: 10 }}
+      width="100%"
     >
       <Flex
-        direction="column"
-        width={{ base: "100%", md: "inherit" }}
-        marginBottom={{ base: 10, md: 0 }}
+        direction="row"
+        width="100%"
+        justifyContent="space-between"
+        paddingX={{ base: "5%", md: 0 }}
       >
-        <Text color="#B0B0B0" fontWeight={600} marginBottom={4}>
-          {"Company"}
-        </Text>
-        <Flex direction="column" textAlign="left">
-          {companyLinks.map(({ href, text }) => (
-            <Link key={href} href={href}>
-              <ChakraLink
-                color="#B0B0B0"
-                fontSize="14px"
-                fontWeight="medium"
-                marginY={{ base: 1, md: 1 }}
-              >
-                {text}
-              </ChakraLink>
-            </Link>
-          ))}
+        <Flex
+          direction="column"
+          marginBottom={{ base: 10, md: 0 }}
+          textAlign={{ base: "center", md: "left" }}
+        >
+          <Text color="#8a8a8a" fontWeight={600} marginBottom={2}>
+            {"Company"}
+          </Text>
+          <Flex direction="column">
+            {companyLinks.map(({ href, text }) => (
+              <Link key={href} href={href}>
+                <ChakraLink
+                  color="#B0B0B0"
+                  fontSize="14px"
+                  fontWeight="medium"
+                  marginY={{ base: 1, md: 1 }}
+                >
+                  {text}
+                </ChakraLink>
+              </Link>
+            ))}
+          </Flex>
+        </Flex>
+
+        <Flex
+          direction="column"
+          marginX={{ base: 0, md: 24 }}
+          marginBottom={{ base: 10, md: 0 }}
+          marginRight={{ base: 0, md: "auto" }}
+          textAlign={{ base: "center", md: "left" }}
+        >
+          <Text color="#8a8a8a" fontWeight={600} marginBottom={2}>
+            {"Further Information"}
+          </Text>
+          <Flex direction="column">
+            {furtherInfoLinks.map(({ href, text }) => (
+              <Link key={href} href={href}>
+                <ChakraLink
+                  color="#B0B0B0"
+                  fontSize="14px"
+                  fontWeight="medium"
+                  marginY={{ base: 1, md: 1 }}
+                >
+                  {text}
+                </ChakraLink>
+              </Link>
+            ))}
+          </Flex>
         </Flex>
       </Flex>
 
       <Flex
-        direction="column"
-        marginX={{ base: 0, md: 24 }}
-        marginBottom={{ base: 10, md: 0 }}
-        marginRight={{ base: 0, md: "auto" }}
+        direction={{ base: "column", md: "row" }}
+        marginLeft={{ base: 0, md: "auto" }}
+        justifyContent="flex-end"
       >
-        <Text color="#B0B0B0" fontWeight={600} marginBottom={4}>
-          {"Further Information"}
-        </Text>
-        <Flex direction="column" textAlign="left">
-          {furtherInfoLinks.map(({ href, text }) => (
-            <Link key={href} href={href}>
-              <ChakraLink
-                color="#B0B0B0"
-                fontSize="14px"
-                fontWeight="medium"
-                marginY={{ base: 1, md: 1 }}
-              >
-                {text}
-              </ChakraLink>
-            </Link>
-          ))}
-        </Flex>
-      </Flex>
-
-      <Flex direction={{ base: "column", md: "row" }} justifyContent="flex-end">
         <Flex
           direction="column"
           marginBottom={{ base: 5, md: 0 }}
@@ -130,19 +143,21 @@ const extendedFooter = (
         >
           <Flex
             width="100%"
-            justifyContent={{ base: "flex-start", md: "flex-end" }}
+            justifyContent={{ base: "center", md: "flex-end" }}
           >
             <Logo isGrayScale />
           </Flex>
-          <Text
-            marginTop={4}
-            marginLeft={1}
-            color="#B0B0B0"
-            maxWidth="390px"
-            textAlign={{ base: "left", md: "right" }}
-          >
-            {footerCopy}
-          </Text>
+          <Flex justifyContent={{ base: "center", md: "center" }}>
+            <Text
+              marginTop={4}
+              marginLeft={1}
+              color="#8a8a8a"
+              maxWidth={"400px"}
+              textAlign={{ base: "center", md: "right" }}
+            >
+              {footerCopy}
+            </Text>
+          </Flex>
         </Flex>
       </Flex>
     </Flex>
@@ -152,7 +167,8 @@ const extendedFooter = (
       alignItems="center"
       justifyContent="space-between"
       borderTop="2px solid #E3E1E1"
-      paddingY={{ base: 4, md: 3 }}
+      paddingTop={{ base: 2, md: 4 }}
+      paddingBottom={{ base: 2, md: 3 }}
       paddingX={{ base: 2, md: 10 }}
     >
       <Text color="#B0B0B0" fontSize="14px" marginBottom={{ base: 2, md: 0 }}>
