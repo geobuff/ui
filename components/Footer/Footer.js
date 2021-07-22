@@ -167,7 +167,7 @@ const extendedFooter = (
       alignItems="center"
       justifyContent="space-between"
       borderTop="2px solid #E3E1E1"
-      paddingTop={{ base: 2, md: 4 }}
+      paddingTop={{ base: 3, md: 5 }}
       paddingBottom={{ base: 2, md: 3 }}
       paddingX={{ base: 2, md: 10 }}
     >
