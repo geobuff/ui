@@ -71,12 +71,12 @@ const extendedFooter = (
     <Flex
       direction={{ base: "column", md: "row" }}
       marginY={5}
-      paddingX={{ base: 2, md: 10 }}
+      paddingX={{ base: 6, md: 10 }}
     >
       <Flex
         direction="column"
         width={{ base: "100%", md: "inherit" }}
-        marginY={{ base: 4, md: 0 }}
+        marginBottom={{ base: 10, md: 0 }}
       >
         <Text color="#B0B0B0" fontWeight={600} marginBottom={4}>
           {"Company"}
@@ -99,7 +99,8 @@ const extendedFooter = (
 
       <Flex
         direction="column"
-        marginX={{ base: 4, md: 10 }}
+        marginX={{ base: 0, md: 24 }}
+        marginBottom={{ base: 10, md: 0 }}
         marginRight={{ base: 0, md: "auto" }}
       >
         <Text color="#B0B0B0" fontWeight={600} marginBottom={4}>
@@ -127,7 +128,10 @@ const extendedFooter = (
           marginBottom={{ base: 5, md: 0 }}
           justifyContent="center"
         >
-          <Flex width="100%" justifyContent="flex-end">
+          <Flex
+            width="100%"
+            justifyContent={{ base: "flex-start", md: "flex-end" }}
+          >
             <Logo isGrayScale />
           </Flex>
           <Text
@@ -135,7 +139,7 @@ const extendedFooter = (
             marginLeft={1}
             color="#B0B0B0"
             maxWidth="390px"
-            textAlign="right"
+            textAlign={{ base: "left", md: "right" }}
           >
             {footerCopy}
           </Text>
@@ -145,7 +149,7 @@ const extendedFooter = (
 
     <Flex
       direction={{ base: "column", md: "row" }}
-      alignItems={{ base: "flex-end", md: "center" }}
+      alignItems="center"
       justifyContent="space-between"
       borderTop="2px solid #E3E1E1"
       paddingY={{ base: 4, md: 3 }}
