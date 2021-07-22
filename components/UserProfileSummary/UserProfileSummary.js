@@ -135,6 +135,7 @@ const UserProfileSummary = ({
                   onClick={onClickUpgrade}
                   marginLeft={5}
                   _hover={{ backgroundColor: "purple.800" }}
+                  disabled={process.env.NODE_ENV === "production"}
                 >
                   {"Upgrade"}
                 </Button>
