@@ -1,36 +1,34 @@
 import React, { useState, useEffect, useCallback } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { debounce } from "throttle-debounce";
 
 import PropTypes from "prop-types";
 import {
   Box,
   Button,
   Flex,
+  Text,
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
+
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
-import GameBottomSheetModal from "../GameBottomSheetModal";
 import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
-import GameFlag from "../GameFlag/GameFlag";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
 import useCurrentUser from "../../hooks/UseCurrentUser";
+import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 import axiosClient from "../../axios/axiosClient";
+import GameFlags from "../GameFlags/GameFlags";
+import FlagDropZone from "../FlagDropZone/FlagDropZone";
 
 import { groupMapping } from "../../helpers/mapping";
-
-import {
-  findSubmissionByNames,
-  findSubmissionsByPrefixes,
-} from "../../helpers/game";
+import { findSubmissionByCode } from "../../helpers/game";
 
 const GameFlagQuiz = ({ quiz, mapping }) => {
   const router = useRouter();
@@ -45,15 +43,30 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   const [hasGameRunOnce, setHasGameRunOnce] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
-  const [scoreSubmitted, setScoreSubmitted] = useState(false);
+  const [showResultList, setShowResultsList] = useState(false); // TODO: Consider renaming to something modal related
+  const [isXPUpdated, setXPUpdated] = useState(false);
   const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
     false
   );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+  const [acceptedFlag, setAcceptedFlag] = useState(() =>
+    mapping.find(
+      (x) => !checkedSubmissions.map((sub) => sub.code).includes(x.code)
+    )
+  );
+  const [currentSubmission, setCurrentSubmission] = useState(null);
+  const [submissionCorrect, setSubmissionCorrect] = useState(false);
+  const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
+
+  useEffect(() => {
+    checkSubmission(currentSubmission);
+  }, [currentSubmission, checkSubmission]);
+
+  useWarnIfActiveGame(hasGameStarted);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
 
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
@@ -113,7 +126,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
 
     setHasGameStarted(true);
     setHasGameStopped(false);
-    setScoreSubmitted(false);
+    setXPUpdated(false);
     setLeaderboardEntrySubmitted(false);
   };
 
@@ -124,41 +137,26 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     onOpen();
   };
 
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-    handleChangeDebounced(event);
-  };
+  const checkSubmission = useCallback(
+    (submission) => {
+      if (!hasGameStarted) {
+        return;
+      }
 
-  const handleChangeDebounced = debounce(30, (event) => checkSubmission(event));
+      const matchedSubmission = findSubmissionByCode(mapping, submission);
+      const isAcceptedAnswer = submission === acceptedFlag.code;
 
-  const checkSubmission = (event) => {
-    const submission = event.target.value.trim();
-
-    if (!submission) {
-      setHasError(false);
-      setErrorMessage("");
-    }
-
-    const matchedPrefixes = findSubmissionsByPrefixes(mapping, submission);
-    const isChecked = findSubmissionByNames(checkedSubmissions, submission);
-
-    if (isChecked && matchedPrefixes.length > 0) {
-      return;
-    }
-
-    const matchedSubmission = findSubmissionByNames(mapping, submission);
-
-    if (matchedSubmission && isChecked) {
-      setHasError(true);
-      setErrorMessage(
-        `${matchedSubmission.svgName} has already been answered!`
-      );
-    }
-
-    if (matchedSubmission && !isChecked) {
       setErrorMessage("");
       setHasError(false);
       setInputValue("");
+
+      if (!isAcceptedAnswer) {
+        setSubmissionIncorrect(true);
+        setTimeout(() => {
+          setSubmissionIncorrect(false);
+        }, 500);
+        return null;
+      }
 
       const updatedCheckedSubmissions = [
         ...checkedSubmissions,
@@ -172,15 +170,28 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             )
           : updatedCheckedSubmissions;
 
+      // get random new flag
+      // TODO: update to get properly get next flag from remaining answers
+      const slicedMapping = mapping.slice(0, isMobile ? 3 : 12);
+      const nextItem =
+        slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
+
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
 
+      setAcceptedFlag(nextItem);
+      setSubmissionCorrect(true);
+      setTimeout(() => {
+        setSubmissionCorrect(false);
+      }, 500);
+
       if (updatedCheckedSubmissions.length === mapping.length) {
         handleGameStop();
       }
-    }
-  };
+    },
+    [acceptedFlag, checkedSubmissions, handleGameStop, mapping]
+  );
 
   const onClearInput = () => {
     setHasError(false);
@@ -189,111 +200,188 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   };
 
   return (
-    <Box
-      width="100%"
-      minHeight="100%"
-      backgroundColor="#276F86"
-      position="fixed"
-    >
+    <>
       <Head>
         <title>{quiz.name} - GeoBuff</title>
       </Head>
-      <GameOverModalContainer
-        quiz={quiz}
-        score={score}
-        time={
-          minutes === 0 && seconds === 0
-            ? quiz.time
-            : quiz.time - (seconds + minutes * 60)
-        }
-        isOpen={isOpen}
-        onClose={onClose}
-        isScoreSubmitted={scoreSubmitted}
-        setScoreSubmitted={setScoreSubmitted}
-        setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
-      />
+      <Flex flex={1} direction="column">
+        <Flex height="100%" minHeight="100%" direction="column" flex={1}>
+          {isMobile && (
+            <GameInputBanner
+              quiz={quiz}
+              score={score}
+              errorMessage={errorMessage}
+              expiryTimestamp={{ seconds, minutes }}
+              hasError={hasError}
+              hasGameStarted={hasGameStarted}
+              hasGameStopped={hasGameStopped}
+              inputValue={inputValue}
+              onClearInput={onClearInput}
+            />
+          )}
 
-      {shouldDisplayOnMobile && (
-        <GameInputBanner
+          <Flex grow={1} direction={{ base: "column", lg: "row" }}>
+            {!isMobile && (
+              <Box minHeight="100%">
+                <Sidebar heading={quiz.name} quiz={quiz}>
+                  <Box>
+                    <GameInputCard
+                      quiz={quiz}
+                      recents={recentSubmissions}
+                      score={score}
+                      timeRemaining={{ seconds, minutes }}
+                      errorMessage={errorMessage}
+                      hasError={hasError}
+                      hasGameRunOnce={hasGameRunOnce}
+                      hasGameStarted={hasGameStarted}
+                      hasGameStopped={hasGameStopped}
+                      inputValue={inputValue}
+                      onClearInput={onClearInput}
+                      onGameStart={handleGameStart}
+                      onGameStop={handleGameStop}
+                    />
+                    <ResultsMap
+                      checked={checkedSubmissions}
+                      map={groupMapping(mapping)}
+                      hasGameStopped={hasGameStopped}
+                      hasGroupings={quiz.hasGrouping}
+                      hasFlags={quiz.hasFlags}
+                    />
+                  </Box>
+                </Sidebar>
+              </Box>
+            )}
+
+            {checkedSubmissions.length !== mapping.length && (
+              <Flex
+                direction={{ base: "column", lg: "row" }}
+                width="100%"
+                height="100%"
+                alignItems="center"
+                flex="1"
+              >
+                <Flex
+                  flex={1}
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  marginTop={10}
+                >
+                  <FlagDropZone
+                    acceptedFlagName={acceptedFlag.svgName}
+                    hasGameStarted={hasGameStarted}
+                    submissionCorrect={submissionCorrect}
+                    submissionIncorrect={submissionIncorrect}
+                  />
+                </Flex>
+                {!isMobile && (
+                  <GameFlags
+                    codes={mapping
+                      .map((x) => x.code)
+                      .filter(
+                        (code) =>
+                          !checkedSubmissions.map((x) => x.code).includes(code)
+                      )
+                      .slice(0, 12)}
+                    onCheckSubmission={(submission) =>
+                      setCurrentSubmission(submission)
+                    }
+                  />
+                )}
+              </Flex>
+            )}
+          </Flex>
+          {isMobile && (
+            <Flex
+              direction="column"
+              backgroundColor="white"
+              p={4}
+              borderTopRadius={12}
+            >
+              <Box>
+                {!showResultList && (
+                  <>
+                    <GameFlags
+                      codes={mapping
+                        .map((x) => x.code)
+                        .filter(
+                          (code) =>
+                            !checkedSubmissions
+                              .map((x) => x.code)
+                              .includes(code)
+                        )
+                        .slice(0, 12)}
+                      onCheckSubmission={(submission) =>
+                        setCurrentSubmission(submission)
+                      }
+                    />
+                    <Button
+                      colorScheme={hasGameStarted ? "red" : "green"}
+                      isFullWidth
+                      onClick={
+                        hasGameStarted ? handleGameStop : handleGameStart
+                      }
+                      p={8}
+                      size="md"
+                    >
+                      <Text fontWeight="700" fontSize="22px">
+                        {hasGameStarted
+                          ? "GIVE UP"
+                          : hasGameRunOnce
+                          ? "RETRY"
+                          : "START"}
+                      </Text>
+                    </Button>
+                  </>
+                )}
+
+                <Button
+                  my={4}
+                  isFullWidth
+                  variant="outline"
+                  onClick={() => setShowResultsList(!showResultList)}
+                >
+                  {"Results"}
+                </Button>
+
+                {showResultList && (
+                  <ResultsMap
+                    quiz={quiz}
+                    checked={checkedSubmissions}
+                    map={groupMapping(mapping)}
+                    hasGameStopped={hasGameStopped}
+                    hasGroupings={quiz.hasGrouping}
+                    hasFlags={quiz.hasFlags}
+                  />
+                )}
+              </Box>
+            </Flex>
+          )}
+          {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
+            <Box position="fixed" bottom="20px" right="20px">
+              <Button onClick={onOpen}>
+                <SolidChevronUp />
+              </Button>
+            </Box>
+          )}
+        </Flex>
+
+        <GameOverModalContainer
           quiz={quiz}
           score={score}
-          errorMessage={errorMessage}
-          expiryTimestamp={{ seconds, minutes }}
-          hasError={hasError}
-          hasGameStarted={hasGameStarted}
-          hasGameStopped={hasGameStopped}
-          inputValue={inputValue}
-          onChange={handleChange}
-          onClearInput={onClearInput}
+          time={
+            minutes === 0 && seconds === 0
+              ? quiz.time
+              : quiz.time - (seconds + minutes * 60)
+          }
+          isOpen={isOpen}
+          onClose={onClose}
+          isXPUpdated={isXPUpdated}
+          setXPUpdated={setXPUpdated}
+          setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
         />
-      )}
-
-      <Flex>
-        {!shouldDisplayOnMobile && (
-          <Box minHeight="100%">
-            <Sidebar heading={quiz.name} quiz={quiz}>
-              <Box>
-                <GameInputCard
-                  quiz={quiz}
-                  recents={recentSubmissions}
-                  score={score}
-                  timeRemaining={{ seconds, minutes }}
-                  errorMessage={errorMessage}
-                  hasError={hasError}
-                  hasGameRunOnce={hasGameRunOnce}
-                  hasGameStarted={hasGameStarted}
-                  hasGameStopped={hasGameStopped}
-                  inputValue={inputValue}
-                  onChange={handleChange}
-                  onClearInput={onClearInput}
-                  onGameStart={handleGameStart}
-                  onGameStop={handleGameStop}
-                />
-                <ResultsMap
-                  checked={checkedSubmissions}
-                  map={groupMapping(mapping)}
-                  hasGameStopped={hasGameStopped}
-                  hasGroupings={quiz.hasGrouping}
-                  hasFlags={quiz.hasFlags}
-                />
-              </Box>
-            </Sidebar>
-          </Box>
-        )}
-
-        {checkedSubmissions.length !== mapping.length && (
-          <GameFlag
-            code={
-              mapping.find(
-                (x) => !checkedSubmissions.map((x) => x.code).includes(x.code)
-              ).code
-            }
-          />
-        )}
-
-        {shouldDisplayOnMobile && (
-          <GameBottomSheetModal
-            quiz={quiz}
-            mapping={mapping}
-            checked={checkedSubmissions}
-            recents={recentSubmissions}
-            hasGameRunOnce={hasGameRunOnce}
-            hasGameStarted={hasGameStarted}
-            hasGameStopped={hasGameStopped}
-            isOpen={!hasGameStopped || !isOpen}
-            onGameStart={handleGameStart}
-            onGameStop={handleGameStop}
-          />
-        )}
       </Flex>
-      {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
-        <Box position="fixed" bottom="20px" right="20px">
-          <Button onClick={onOpen}>
-            <SolidChevronUp />
-          </Button>
-        </Box>
-      )}
-    </Box>
+    </>
   );
 };
 

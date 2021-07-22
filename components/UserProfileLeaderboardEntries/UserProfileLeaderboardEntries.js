@@ -1,21 +1,27 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Link from "next/link";
 import { DateTime } from "luxon";
 
 import {
   Box,
   Heading,
   Table,
+  Text,
   Tbody,
   Thead,
+  Tooltip,
   Tr,
   Th,
   Td,
   Alert,
   AlertIcon,
+  Flex,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 
 import Card from "../Card";
+import CustomFlag from "../CustomFlag";
 
 import { secondsToMinutesString } from "../../helpers/time";
 
@@ -36,7 +42,7 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
             <Thead>
               <Tr>
                 <Th>Quiz</Th>
-                <Th>Ranking</Th>
+                <Th>Rank</Th>
                 <Th>Score</Th>
                 <Th>Time</Th>
                 <Th>Added</Th>
@@ -44,12 +50,42 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
             </Thead>
             <Tbody>
               {entries.map((entry) => (
-                <Tr key={entry.quizId}>
-                  <Td>{entry.quizName}</Td>
-                  <Td>{entry.ranking}</Td>
-                  <Td>{entry.score}</Td>
-                  <Td>{secondsToMinutesString(entry.time)}</Td>
-                  <Td>{DateTime.fromISO(entry.added).toISODate()}</Td>
+                <Tr key={entry.id}>
+                  <Link
+                    href={`/leaderboard?quizId=${entry.quizId}&rank=${entry.rank}`}
+                  >
+                    <ChakraLink display="contents">
+                      <Td>
+                        <Flex direction="row" alignItems="center">
+                          {entry.quizName.length > 23 ? (
+                            <>
+                              <CustomFlag url={entry.quizImageUrl} mr={3} />
+                              <Tooltip label={entry.quizName}>
+                                <Text maxWidth="200px" isTruncated>
+                                  {entry.quizName}
+                                </Text>
+                              </Tooltip>
+                            </>
+                          ) : (
+                            <>
+                              <CustomFlag url={entry.quizImageUrl} mr={3} />
+                              <Text maxWidth="200px" isTruncated>
+                                {entry.quizName}
+                              </Text>
+                            </>
+                          )}
+                        </Flex>
+                      </Td>
+                      <Td>{entry.rank}</Td>
+                      <Td>{entry.score}</Td>
+                      <Td>{secondsToMinutesString(entry.time)}</Td>
+                      <Td>
+                        <Text minWidth="100px">
+                          {DateTime.fromISO(entry.added).toISODate()}
+                        </Text>
+                      </Td>
+                    </ChakraLink>
+                  </Link>
                 </Tr>
               ))}
             </Tbody>
@@ -66,12 +102,13 @@ UserProfileLeaderboardEntries.propTypes = {
       id: PropTypes.number,
       userId: PropTypes.number,
       quizId: PropTypes.number,
+      badgeGroup: PropTypes.number,
       quizName: PropTypes.string,
-      countryCode: PropTypes.string,
+      quizImageUrl: PropTypes.string,
       score: PropTypes.number,
       time: PropTypes.number,
       added: PropTypes.time,
-      ranking: PropTypes.number,
+      rank: PropTypes.number,
     })
   ),
 };

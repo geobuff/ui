@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 
 import {
@@ -39,6 +39,13 @@ const GameInputCard = ({
   onGameStop,
 }) => {
   const inputRef = useRef("");
+  const isFlagGame = quiz.type === 2;
+
+  useEffect(() => {
+    if (!isFlagGame && hasGameStarted) {
+      inputRef.current.focus();
+    }
+  }, [hasGameStarted, isFlagGame]);
 
   const handleClearInput = () => {
     onClearInput();
@@ -52,52 +59,59 @@ const GameInputCard = ({
         <GameInputCardScore quiz={quiz} score={score} />
       </Box>
       {divider}
-      <Box>
-        <InputGroup position="relative">
-          <Input
-            ref={inputRef}
-            isInvalid={hasError}
-            isDisabled={!hasGameStarted}
-            onChange={onChange}
-            my={5}
-            placeholder={`Enter ${quiz.verb}...`}
-            value={inputValue}
-          />
-          <Fade in={!!errorMessage} unmountOnExit>
-            <Text
-              fontWeight={600}
-              color="red.500"
-              position="absolute"
-              top="60px"
-              bottom={0}
-              left={2}
-              fontSize="xs"
-            >
-              {errorMessage}
-            </Text>
-          </Fade>
-          <InputRightElement>
-            <Fade in={inputValue?.length > 0} out={inputValue?.length}>
-              <IconButton
+      {!isFlagGame && (
+        <Box>
+          <InputGroup position="relative">
+            <Input
+              ref={inputRef}
+              isInvalid={hasError}
+              isDisabled={!hasGameStarted}
+              onChange={onChange}
+              my={5}
+              placeholder={`Enter ${quiz.verb}...`}
+              value={inputValue}
+            />
+            <Fade in={!!errorMessage} unmountOnExit>
+              <Text
+                fontWeight={600}
+                color="red.500"
                 position="absolute"
-                top="27px"
-                right={3}
-                maxHeight="22px"
-                minWidth="22px"
-                backgroundColor="transparent"
-                borderRadius={25}
-                onClick={handleClearInput}
-                color={hasError ? "red.500" : "#a6a6a6"}
-                fontWeight="bold"
-                _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+                top="60px"
+                bottom={0}
+                left={2}
+                fontSize="xs"
               >
-                <SolidCloseCircle height={5} width={5} padding={0} />
-              </IconButton>
+                {errorMessage}
+              </Text>
             </Fade>
-          </InputRightElement>
-        </InputGroup>
-      </Box>
-      {divider}
+            <InputRightElement>
+              {inputValue && (
+                <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+                  <IconButton
+                    position="absolute"
+                    top="27px"
+                    right={3}
+                    maxHeight="22px"
+                    minWidth="22px"
+                    backgroundColor="transparent"
+                    borderRadius={25}
+                    onClick={handleClearInput}
+                    color={hasError ? "red.500" : "#a6a6a6"}
+                    fontWeight="bold"
+                    _hover={{
+                      backgroundColor: "transparent",
+                      color: "#5c5c5c",
+                    }}
+                  >
+                    <SolidCloseCircle height={5} width={5} padding={0} />
+                  </IconButton>
+                </Fade>
+              )}
+            </InputRightElement>
+          </InputGroup>
+        </Box>
+      )}
+      {!isFlagGame && divider}
       <Box my={4}>
         <GameInputCardTimer
           totalSeconds={quiz.time}

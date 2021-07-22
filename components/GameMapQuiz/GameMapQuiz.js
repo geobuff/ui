@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import {
   Box,
   Button,
+  Fade,
   Flex,
   useBreakpointValue,
   useDisclosure,
@@ -27,6 +28,8 @@ import SolidChevronUp from "../../Icons/SolidChevronUp";
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
+import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
+
 import axiosClient from "../../axios/axiosClient";
 
 import { groupMapping } from "../../helpers/mapping";
@@ -49,11 +52,13 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   const [hasGameRunOnce, setHasGameRunOnce] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
-  const [scoreSubmitted, setScoreSubmitted] = useState(false);
+  const [isXPUpdated, setXPUpdated] = useState(false);
   const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
     false
   );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
+
+  useWarnIfActiveGame(hasGameStarted);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -130,7 +135,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
     setHasGameStarted(true);
     setHasGameStopped(false);
-    setScoreSubmitted(false);
+    setXPUpdated(false);
     setLeaderboardEntrySubmitted(false);
   };
 
@@ -217,26 +222,14 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
       <Head>
         <title>{quiz.name} - GeoBuff</title>
       </Head>
-      <GameOverModalContainer
-        quiz={quiz}
-        score={score}
-        time={
-          minutes === 0 && seconds === 0
-            ? quiz.time
-            : quiz.time - (seconds + minutes * 60)
-        }
-        isOpen={isOpen}
-        onClose={onClose}
-        isScoreSubmitted={scoreSubmitted}
-        setScoreSubmitted={setScoreSubmitted}
-        setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
-      />
 
-      <Box
+      <Flex
+        direction="column"
+        flex={1}
         width="100%"
         minHeight="100%"
         backgroundColor="#276F86"
-        position="fixed"
+        // position="fixed"
       >
         {shouldDisplayOnMobile && (
           <GameInputBanner
@@ -253,44 +246,48 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
           />
         )}
 
-        <Flex>
+        <Flex grow={1} direction={{ base: "column", md: "row" }}>
           {!shouldDisplayOnMobile && (
-            <Box minHeight="100%">
-              <Sidebar heading={quiz.name} quiz={quiz}>
-                <Flex direction="column" height="100%">
-                  <GameInputCard
-                    quiz={quiz}
-                    recents={recentSubmissions}
-                    score={score}
-                    timeRemaining={{ seconds, minutes }}
-                    errorMessage={errorMessage}
-                    hasError={hasError}
-                    hasGameRunOnce={hasGameRunOnce}
-                    hasGameStarted={hasGameStarted}
-                    hasGameStopped={hasGameStopped}
-                    inputValue={inputValue}
-                    onChange={handleChange}
-                    onClearInput={onClearInput}
-                    onGameStart={handleGameStart}
-                    onGameStop={handleGameStop}
-                  />
-                  <ResultsMap
-                    checked={checkedSubmissions}
-                    map={groupMapping(mapping)}
-                    hasGameStopped={hasGameStopped}
-                    hasGroupings={quiz.hasGrouping}
-                    hasFlags={quiz.hasFlags}
-                  />
-                </Flex>
-              </Sidebar>
-            </Box>
+            <Fade in>
+              <Box minHeight="100%">
+                <Sidebar heading={quiz.name} quiz={quiz}>
+                  <Flex direction="column" height="100%">
+                    <GameInputCard
+                      quiz={quiz}
+                      recents={recentSubmissions}
+                      score={score}
+                      timeRemaining={{ seconds, minutes }}
+                      errorMessage={errorMessage}
+                      hasError={hasError}
+                      hasGameRunOnce={hasGameRunOnce}
+                      hasGameStarted={hasGameStarted}
+                      hasGameStopped={hasGameStopped}
+                      inputValue={inputValue}
+                      onChange={handleChange}
+                      onClearInput={onClearInput}
+                      onGameStart={handleGameStart}
+                      onGameStop={handleGameStop}
+                    />
+                    <ResultsMap
+                      checked={checkedSubmissions}
+                      map={groupMapping(mapping)}
+                      hasGameStopped={hasGameStopped}
+                      hasGroupings={quiz.hasGrouping}
+                      hasFlags={quiz.hasFlags}
+                    />
+                  </Flex>
+                </Sidebar>
+              </Box>
+            </Fade>
           )}
 
-          <GameMap
-            map={map}
-            showTooltip={!hasGameStarted}
-            onLocationClassName={handleLocationClassName}
-          />
+          <Fade in>
+            <GameMap
+              map={map}
+              showTooltip={!hasGameStarted}
+              onLocationClassName={handleLocationClassName}
+            />
+          </Fade>
 
           {shouldDisplayOnMobile && (
             <GameBottomSheetModal
@@ -307,7 +304,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
             />
           )}
         </Flex>
-      </Box>
+      </Flex>
 
       {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
         <>
@@ -330,6 +327,20 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
               </Button>
             </Box>
           )}
+          <GameOverModalContainer
+            quiz={quiz}
+            score={score}
+            time={
+              minutes === 0 && seconds === 0
+                ? quiz.time
+                : quiz.time - (seconds + minutes * 60)
+            }
+            isOpen={isOpen}
+            onClose={onClose}
+            isXPUpdated={isXPUpdated}
+            setXPUpdated={setXPUpdated}
+            setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
+          />
         </>
       )}
     </>

@@ -75,6 +75,7 @@ const stripedVariant = (props) => {
     td: {
       borderBottom: "1px",
       borderColor: "transparent",
+      fontWeight: "bold",
       ...numericStyles,
     },
     caption: {

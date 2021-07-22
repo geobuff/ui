@@ -35,18 +35,24 @@ const Sidebar = ({ heading, quiz, children }) => (
     >
       {!!heading && (
         <>
-          <Heading mt={2} size="md">
-            <Flex justifyContent="center">
+          <Flex mt={14} justifyContent="center">
+            <Heading size="md" textAlign="center">
               {quiz.hasLeaderboard && (
                 <Link href={`/leaderboard?quizId=${quiz.id}`}>
                   <ChakraLink>
-                    <Twemoji emoji="🏆" mr={2} />
+                    <Twemoji
+                      emoji="🏆"
+                      height="22px"
+                      width="22px"
+                      pt={1}
+                      mr={2}
+                    />
                   </ChakraLink>
                 </Link>
               )}
               {heading}
-            </Flex>
-          </Heading>
+            </Heading>
+          </Flex>
           <Divider my={5} borderColor="#E3E1E1" borderWidth={1} />
         </>
       )}

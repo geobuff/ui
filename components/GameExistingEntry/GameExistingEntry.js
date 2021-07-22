@@ -5,7 +5,7 @@ import { Box, Flex, Skeleton, Text } from "@chakra-ui/react";
 import { formatNumber } from "../../helpers/number";
 import { secondsToMinutesString } from "../../helpers/time";
 
-const GameExistingEntry = ({ ranking, score, time, username, isLoading }) => {
+const GameExistingEntry = ({ rank, score, time, username, isLoading }) => {
   return (
     <Flex
       borderRadius={12}
@@ -22,7 +22,7 @@ const GameExistingEntry = ({ ranking, score, time, username, isLoading }) => {
           <Skeleton height="20px" width="100%" />
         ) : (
           <Text fontSize="14px" fontWeight="bold">
-            {formatNumber(ranking)}
+            {formatNumber(rank)}
           </Text>
         )}
       </Box>
@@ -73,7 +73,7 @@ const GameExistingEntry = ({ ranking, score, time, username, isLoading }) => {
 };
 
 GameExistingEntry.propTypes = {
-  ranking: PropTypes.number,
+  rank: PropTypes.number,
   score: PropTypes.number,
   time: PropTypes.number,
   username: PropTypes.string,
@@ -81,7 +81,7 @@ GameExistingEntry.propTypes = {
   isLoading: PropTypes.bool,
 };
 GameExistingEntry.defaultProps = {
-  ranking: 0,
+  rank: 0,
   score: 0,
   time: "15:00",
   username: "PhileasFogg",

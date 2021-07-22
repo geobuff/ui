@@ -4,7 +4,9 @@ import flag from "country-code-emoji";
 
 import {
   Alert,
+  AlertIcon,
   Box,
+  Fade,
   Flex,
   Text,
   Table,
@@ -12,16 +14,24 @@ import {
   Tr,
   Th,
   Tbody,
-  AlertIcon,
 } from "@chakra-ui/react";
 
+import useCurrentUser from "../../hooks/UseCurrentUser";
+import LeaderTablePlaceholder from "./LeaderboardTablePlaceholder";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import Twemoji from "../Twemoji";
 import TableCell from "../TableCell";
 
 import { secondsToMinutesString } from "../../helpers/time";
+import Sparkles from "../Sparkles/Sparkles";
 
-const LeaderboardTable = ({ page, limit, entries }) => {
+const LeaderboardTable = ({ entries, isLoading }) => {
+  const { user } = useCurrentUser();
+
+  if (isLoading && !entries.length) {
+    return <LeaderTablePlaceholder />;
+  }
+
   if (entries.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
@@ -44,6 +54,38 @@ const LeaderboardTable = ({ page, limit, entries }) => {
     }
   };
 
+  const getTextNodeByRank = (rank, username, countryCode) => {
+    const mainContent = (
+      <Flex alignItems="center">
+        <Box marginRight={3} marginTop="5.5px" alignItems="center">
+          {countryCode ? (
+            <Twemoji emoji={flag(countryCode)} />
+          ) : (
+            <Box marginY="4px">
+              <FlagFallback />
+            </Box>
+          )}
+        </Box>
+        <Text fontWeight="bold">{username}</Text>
+        {username === user?.username && (
+          <Text ml={2} fontWeight={600} color="gray.500">
+            {"(You)"}
+          </Text>
+        )}
+      </Flex>
+    );
+
+    if (rank === 1 && !isLoading) {
+      return (
+        <Fade in>
+          <Sparkles>{mainContent}</Sparkles>
+        </Fade>
+      );
+    }
+
+    return <Fade in>{mainContent}</Fade>;
+  };
+
   return (
     <Box overflow="auto">
       <Table size="md" variant="striped" colorscheme="gray">
@@ -60,29 +102,14 @@ const LeaderboardTable = ({ page, limit, entries }) => {
           {entries?.map((entry, index) => (
             <Tr key={index} fontWeight={600}>
               <TableCell paddingY={3} paddingX={6}>
-                <Flex alignItems="center">
-                  {getNodeByRank(page * limit + index + 1)}
-                </Flex>
+                <Flex alignItems="center">{getNodeByRank(entry.rank)}</Flex>
               </TableCell>
-              <TableCell paddingY={3} paddingX={6}>
-                <Flex alignItems="center">
-                  <Box marginRight={3} marginTop="5.5px" alignItems="center">
-                    {entry.countryCode ? (
-                      <Twemoji emoji={flag(entry.countryCode)} />
-                    ) : (
-                      <Box marginY="4px">
-                        <FlagFallback />
-                      </Box>
-                    )}
-                  </Box>
-                  <Text
-                    fontWeight={
-                      page * limit + index + 1 <= 3 ? "bold" : "medium"
-                    }
-                  >
-                    {entry.username}
-                  </Text>
-                </Flex>
+              <TableCell paddingY={3} paddingX={6} minWidth="200px">
+                {getTextNodeByRank(
+                  entry.rank,
+                  entry.username,
+                  entry.countryCode
+                )}
               </TableCell>
               <TableCell isNumeric paddingY={3} paddingX={6}>
                 {secondsToMinutesString(entry.time)}
@@ -99,8 +126,7 @@ const LeaderboardTable = ({ page, limit, entries }) => {
 };
 
 LeaderboardTable.propTypes = {
-  page: PropTypes.number,
-  limit: PropTypes.number,
+  isLoading: PropTypes.bool,
   entries: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number,
@@ -110,13 +136,13 @@ LeaderboardTable.propTypes = {
       score: PropTypes.number,
       time: PropTypes.time,
       added: PropTypes.time,
+      rank: PropTypes.number,
     })
   ),
 };
 
 LeaderboardTable.defaultProps = {
-  limit: 10,
-  page: 0,
+  isLoading: true,
   entries: [],
 };
 

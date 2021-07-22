@@ -46,58 +46,61 @@ const Home = () => {
   return (
     <MainView>
       <HeroBanner username={user?.username} />
-      <Box
-        mx="auto"
-        position="relative"
-        left={0}
-        right={0}
-        bottom="21px"
-        maxWidth={{
-          base: "85%",
-          sm: "80%",
-          md: "60%",
-          lg: "600px",
-        }}
-      >
-        <InputGroup>
-          <InputLeftElement pointerEvents="none">
-            <Search
-              marginTop="8px"
-              marginLeft="14px"
-              height="24px"
-              width="24px"
-              color="gray.500"
+      <Box>
+        <Box
+          mx="auto"
+          position="relative"
+          left={0}
+          right={0}
+          bottom="21px"
+          maxWidth={{
+            base: "85%",
+            sm: "80%",
+            md: "40%",
+            lg: "600px",
+          }}
+        >
+          <InputGroup>
+            <InputLeftElement pointerEvents="none">
+              <Search
+                marginTop="8px"
+                marginLeft="14px"
+                height="24px"
+                width="24px"
+                color="gray.500"
+              />
+            </InputLeftElement>
+            <Input
+              paddingLeft="44px"
+              width="100%"
+              size="lg"
+              onChange={handleChange}
+              placeholder="Enter quiz name..."
+              value={inputValue}
             />
-          </InputLeftElement>
-          <Input
-            paddingLeft="44px"
-            width="100%"
-            size="lg"
-            onChange={handleChange}
-            placeholder="Enter quiz name..."
-            value={inputValue}
-          />
-          <InputRightElement>
-            <Fade in={inputValue?.length > 0} out={inputValue?.length}>
-              <IconButton
-                position="absolute"
-                top="11px"
-                right={3}
-                maxHeight="22px"
-                minWidth="22px"
-                backgroundColor="transparent"
-                borderRadius={25}
-                onClick={handleClearInput}
-                color="#a6a6a6"
-                fontWeight="bold"
-                _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
-              >
-                <SolidCloseCircle height={5} width={5} padding={0} />
-              </IconButton>
-            </Fade>
-          </InputRightElement>
-        </InputGroup>
+            <InputRightElement>
+              <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+                <IconButton
+                  position="absolute"
+                  top="11px"
+                  right={3}
+                  maxHeight="22px"
+                  minWidth="22px"
+                  backgroundColor="transparent"
+                  borderRadius={25}
+                  onClick={handleClearInput}
+                  color="#a6a6a6"
+                  fontWeight="bold"
+                  _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+                >
+                  <SolidCloseCircle height={5} width={5} padding={0} />
+                </IconButton>
+              </Fade>
+            </InputRightElement>
+          </InputGroup>
+        </Box>
       </Box>
+
       <QuizListContainer filter={filter} />
     </MainView>
   );
