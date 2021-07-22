@@ -50,8 +50,8 @@ const DraggableFlag = ({ code, checkSubmission, ...props }) => {
         <Image
           src={getFlagUrl(code)}
           borderRadius={4}
-          height="100px"
-          width="125px"
+          height="72px"
+          width="98px"
         />
       </Box>
     </>
