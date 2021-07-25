@@ -75,14 +75,14 @@ const NavigationBar = () => {
   const { user } = useCurrentUser();
 
   const [isOpen, setOpen] = useState(false);
-  const [zIndex, setZIndex] = useState(1);
+  const [zIndex, setZIndex] = useState(5);
 
   useEffect(() => {
     if (isOpen) {
       setZIndex(9999);
     } else {
       setTimeout(() => {
-        setZIndex(1);
+        setZIndex(5);
       }, 200);
     }
   }, [isOpen]);
