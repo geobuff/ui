@@ -186,16 +186,21 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
           Math.floor(Math.random() * updatedRemainingAnswers.length)
         ];
 
-      const nextFlagDragItems = updatedRemainingAnswers
+      const nextFlagDragItems = [...updatedRemainingAnswers]
         .sort(() => 0.5 - Math.random())
-        .slice(0, 12)
+        .slice(0, 11)
         .map((answer) => answer.code);
+
+      const dragItemsWithNextAnswer = [
+        ...nextFlagDragItems,
+        nextFlag.code,
+      ].sort(() => 0.5 - Math.random());
 
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
       setRemainingAnswers(updatedRemainingAnswers);
-      setFlagDragItems(nextFlagDragItems);
+      setFlagDragItems(dragItemsWithNextAnswer);
 
       setAcceptedFlag(nextFlag);
       setSubmissionCorrect(true);
