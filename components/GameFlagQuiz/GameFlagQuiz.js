@@ -54,6 +54,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
       (x) => !checkedSubmissions.map((sub) => sub.code).includes(x.code)
     )
   );
+  const [remainingAnswers, setRemainingAnswers] = useState(() => mapping);
   const [currentSubmission, setCurrentSubmission] = useState(null);
   const [submissionCorrect, setSubmissionCorrect] = useState(false);
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
@@ -163,6 +164,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         { ...matchedSubmission, checked: true },
       ];
 
+      // Update recent submissions with last 3 answers
       const updatedRecentSubmissions =
         updatedCheckedSubmissions.length > 3
           ? updatedCheckedSubmissions.slice(
@@ -170,17 +172,22 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
             )
           : updatedCheckedSubmissions;
 
-      // get random new flag
-      // TODO: update to get properly get next flag from remaining answers
-      const slicedMapping = mapping.slice(0, isMobile ? 3 : 12);
-      const nextItem =
-        slicedMapping[Math.floor(Math.random() * slicedMapping.length)];
+      // Update the remaining answers excluding most recent
+      const updatedRemainingAnswers = remainingAnswers.filter(
+        (answer) => answer.code !== matchedSubmission.code
+      );
+
+      const nextFlag =
+        updatedRemainingAnswers[
+          Math.floor(Math.random() * updatedRemainingAnswers.length)
+        ];
 
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
+      setRemainingAnswers(updatedRemainingAnswers);
 
-      setAcceptedFlag(nextItem);
+      setAcceptedFlag(nextFlag);
       setSubmissionCorrect(true);
       setTimeout(() => {
         setSubmissionCorrect(false);
