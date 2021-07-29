@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import { Box, Flex, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 import withScrolling from "react-dnd-scrolling";
@@ -7,8 +7,28 @@ const ScrollingComponent = withScrolling("div");
 
 import DraggableFlag from "../DraggableFlag";
 
-const GameFlags = ({ codes, onCheckSubmission }) => {
+const GameFlags = ({ codes, acceptedFlag, onCheckSubmission, onNextFlag }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
+
+  const nextFlagsRef = useRef();
+
+  useEffect(() => {
+    const nextFlag = codes[Math.floor(Math.random() * codes.length)];
+
+    const nextFlagDragItems = codes
+      .sort(() => 0.5 - Math.random())
+      .slice(0, 11);
+
+    console.log(nextFlagDragItems, "nextFlagDragItems");
+
+    const dragItemsWithNextAnswer = [...nextFlagDragItems, nextFlag.code]
+      .filter(Boolean)
+      .sort(() => 0.5 - Math.random());
+    nextFlagsRef.current = dragItemsWithNextAnswer;
+    onNextFlag(nextFlag);
+  }, [acceptedFlag]);
+
+  console.log(nextFlagsRef, "nextFlagsRefnextFlagsRef");
 
   return (
     <>
@@ -21,7 +41,7 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
             marginRight={10}
             marginY={5}
           >
-            {codes.map((code) => (
+            {nextFlagsRef.current.map((code) => (
               <DraggableFlag
                 key={code}
                 code={code}
@@ -40,7 +60,7 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
           justifyContent="center"
         >
           <SimpleGrid columns={2} spacingX={10} spacingY={6}>
-            {codes.map((code) => (
+            {nextFlagsRef.current?.map((code) => (
               <DraggableFlag
                 key={code}
                 code={code}
