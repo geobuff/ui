@@ -35,16 +35,16 @@ const MapInteractionCSS = (props) => {
       <Box
         zIndex={999}
         position="fixed"
-        top={isMobile ? "142px" : "185px"}
+        top={isMobile ? "142px" : "200px"}
         right="18px"
       >
         <Button
           paddingTop="4px"
           paddingLeft="18px"
-          height="40px"
-          width="42px"
+          height="46px"
+          width="44px"
           onClick={handleReset}
-          opacity="0.85"
+          borderRadius={8}
         >
           <SolidRefresh />
         </Button>
@@ -59,10 +59,16 @@ const MapInteractionCSS = (props) => {
         plusBtnContents={
           !isMobile && (
             <Button
-              paddingTop="4px"
+              marginTop="16px"
+              paddingTop="3px"
               paddingLeft="18px"
-              height="40px"
-              width="42px"
+              height="46px"
+              width="44px"
+              borderTopLeftRadius={8}
+              borderTopRightRadius={8}
+              borderBottomLeftRadius={0}
+              borderBottomRightRadius={0}
+              borderBottom="1px solid #E3E1E1"
             >
               <OutlinedZoomIn />
             </Button>
@@ -71,10 +77,15 @@ const MapInteractionCSS = (props) => {
         minusBtnContents={
           !isMobile && (
             <Button
-              paddingTop="4px"
+              paddingTop="3px"
               paddingLeft="18px"
-              height="40px"
-              width="42px"
+              height="46px"
+              width="44px"
+              borderTopLeftRadius={0}
+              borderTopRightRadius={0}
+              borderBottomLeftRadius={8}
+              borderBottomRightRadius={8}
+              borderTop="1px solid #E3E1E1"
             >
               <OutlinedZoomOut />
             </Button>
