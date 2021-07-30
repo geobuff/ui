@@ -27,7 +27,7 @@ const MapInteractionCSS = (props) => {
   return (
     <Box
       position="absolute"
-      top={{ base: 130, lg: "50px" }}
+      top={{ base: 126, lg: "50px" }}
       left={{ base: 0, lg: "375px" }}
       bottom={0}
       right={0}
@@ -35,7 +35,7 @@ const MapInteractionCSS = (props) => {
       <Box
         zIndex={999}
         position="fixed"
-        top={isMobile ? "142px" : "192px"}
+        top={isMobile ? "144px" : "190px"}
         right="18px"
       >
         <Button
