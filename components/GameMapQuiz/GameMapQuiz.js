@@ -229,7 +229,6 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
         width="100%"
         minHeight="100%"
         backgroundColor="#276F86"
-        // position="fixed"
       >
         {shouldDisplayOnMobile && (
           <GameInputBanner

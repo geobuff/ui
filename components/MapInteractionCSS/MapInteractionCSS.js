@@ -14,7 +14,7 @@ const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 const MapInteractionCSS = (props) => {
   const [value, setValue] = useState(defaultValue);
 
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
 
   const handleReset = () => setValue(defaultValue);
   const handleChange = (value) => setValue(value);
@@ -27,7 +27,7 @@ const MapInteractionCSS = (props) => {
   return (
     <Box
       position="absolute"
-      top={{ base: 130, lg: "50px" }}
+      top={{ base: 126, lg: "50px" }}
       left={{ base: 0, lg: "375px" }}
       bottom={0}
       right={0}
@@ -35,16 +35,16 @@ const MapInteractionCSS = (props) => {
       <Box
         zIndex={999}
         position="fixed"
-        top={isMobile ? "142px" : "185px"}
+        top={isMobile ? "144px" : "190px"}
         right="18px"
       >
         <Button
           paddingTop="4px"
           paddingLeft="18px"
-          height="40px"
-          width="42px"
+          height="46px"
+          width="44px"
           onClick={handleReset}
-          opacity="0.85"
+          borderRadius={8}
         >
           <SolidRefresh />
         </Button>
@@ -59,10 +59,16 @@ const MapInteractionCSS = (props) => {
         plusBtnContents={
           !isMobile && (
             <Button
-              paddingTop="4px"
+              marginTop="18px"
+              paddingTop="3px"
               paddingLeft="18px"
-              height="40px"
-              width="42px"
+              height="46px"
+              width="44px"
+              borderTopLeftRadius={8}
+              borderTopRightRadius={8}
+              borderBottomLeftRadius={0}
+              borderBottomRightRadius={0}
+              borderBottom="1px solid #E3E1E1"
             >
               <OutlinedZoomIn />
             </Button>
@@ -71,10 +77,15 @@ const MapInteractionCSS = (props) => {
         minusBtnContents={
           !isMobile && (
             <Button
-              paddingTop="4px"
+              paddingTop="3px"
               paddingLeft="18px"
-              height="40px"
-              width="42px"
+              height="46px"
+              width="44px"
+              borderTopLeftRadius={0}
+              borderTopRightRadius={0}
+              borderBottomLeftRadius={8}
+              borderBottomRightRadius={8}
+              borderTop="1px solid #E3E1E1"
             >
               <OutlinedZoomOut />
             </Button>
