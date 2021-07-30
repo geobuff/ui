@@ -14,7 +14,7 @@ const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 const MapInteractionCSS = (props) => {
   const [value, setValue] = useState(defaultValue);
 
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
 
   const handleReset = () => setValue(defaultValue);
   const handleChange = (value) => setValue(value);
@@ -35,7 +35,7 @@ const MapInteractionCSS = (props) => {
       <Box
         zIndex={999}
         position="fixed"
-        top={isMobile ? "142px" : "200px"}
+        top={isMobile ? "142px" : "192px"}
         right="18px"
       >
         <Button
@@ -59,7 +59,7 @@ const MapInteractionCSS = (props) => {
         plusBtnContents={
           !isMobile && (
             <Button
-              marginTop="16px"
+              marginTop="18px"
               paddingTop="3px"
               paddingLeft="18px"
               height="46px"
