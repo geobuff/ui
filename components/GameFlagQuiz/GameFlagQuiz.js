@@ -63,6 +63,8 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     mapping.map((m) => m.code).slice(0, 12)
   );
 
+  console.log(flagDragItems, "flagDragItems");
+
   useEffect(() => {
     checkSubmission(currentSubmission);
   }, [currentSubmission, checkSubmission]);
@@ -318,15 +320,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                 {!showResultList && (
                   <>
                     <GameFlags
-                      codes={mapping
-                        .map((x) => x.code)
-                        .filter(
-                          (code) =>
-                            !checkedSubmissions
-                              .map((x) => x.code)
-                              .includes(code)
-                        )
-                        .slice(0, 12)}
+                      codes={flagDragItems}
                       onCheckSubmission={(submission) =>
                         setCurrentSubmission(submission)
                       }
