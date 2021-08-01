@@ -63,8 +63,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     mapping.map((m) => m.code).slice(0, 12)
   );
 
-  console.log(flagDragItems, "flagDragItems");
-
   useEffect(() => {
     checkSubmission(currentSubmission);
   }, [currentSubmission, checkSubmission]);
