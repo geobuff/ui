@@ -21,7 +21,7 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
             marginRight={10}
             marginY={5}
           >
-            {codes.map((code) => (
+            {[...new Set(codes)]?.map((code) => (
               <DraggableFlag
                 key={code}
                 code={code}
@@ -40,7 +40,7 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
           justifyContent="center"
         >
           <SimpleGrid columns={2} spacingX={10} spacingY={6}>
-            {codes.map((code) => (
+            {[...new Set(codes)]?.map((code) => (
               <DraggableFlag
                 key={code}
                 code={code}

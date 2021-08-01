@@ -181,28 +181,31 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
         (answer) => answer.code !== matchedSubmission.code
       );
 
-      const nextFlag =
-        updatedRemainingAnswers[
-          Math.floor(Math.random() * updatedRemainingAnswers.length)
-        ];
+      if (updatedRemainingAnswers?.length) {
+        const nextFlag =
+          updatedRemainingAnswers[
+            Math.floor(Math.random() * updatedRemainingAnswers.length)
+          ];
 
-      const nextFlagDragItems = [...updatedRemainingAnswers]
-        .sort(() => 0.5 - Math.random())
-        .slice(0, 11)
-        .map((answer) => answer.code);
+        const nextFlagDragItems = [...updatedRemainingAnswers]
+          .sort(() => 0.5 - Math.random())
+          .slice(0, 11)
+          ?.map((answer) => answer.code);
 
-      const dragItemsWithNextAnswer = [
-        ...nextFlagDragItems,
-        nextFlag.code,
-      ].sort(() => 0.5 - Math.random());
+        const dragItemsWithNextAnswer = [
+          ...nextFlagDragItems,
+          nextFlag.code,
+        ]?.sort(() => 0.5 - Math.random());
+
+        setFlagDragItems(dragItemsWithNextAnswer);
+        setAcceptedFlag(nextFlag);
+      }
 
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
       setRemainingAnswers(updatedRemainingAnswers);
-      setFlagDragItems(dragItemsWithNextAnswer);
 
-      setAcceptedFlag(nextFlag);
       setSubmissionCorrect(true);
       setTimeout(() => {
         setSubmissionCorrect(false);
@@ -318,15 +321,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                 {!showResultList && (
                   <>
                     <GameFlags
-                      codes={mapping
-                        .map((x) => x.code)
-                        .filter(
-                          (code) =>
-                            !checkedSubmissions
-                              .map((x) => x.code)
-                              .includes(code)
-                        )
-                        .slice(0, 12)}
+                      codes={flagDragItems}
                       onCheckSubmission={(submission) =>
                         setCurrentSubmission(submission)
                       }
