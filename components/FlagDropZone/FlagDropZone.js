@@ -72,7 +72,7 @@ const FlagDropZone = ({
         <AspectRatio
           width="60%"
           minWidth="320px"
-          maxWidth={{ xl: "420px", "2xl": "60%" }}
+          maxWidth={{ xl: "420px", "2xl": "560px" }}
           marginX="auto"
           ratio={2 / 1.4}
         >
