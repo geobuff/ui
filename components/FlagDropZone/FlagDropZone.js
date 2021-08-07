@@ -69,7 +69,9 @@ const FlagDropZone = ({
           {dropZoneNode}
         </AspectRatio>
       ) : (
-        dropZoneNode
+        <AspectRatio width="40%" ratio={2.2 / 1.4}>
+          {dropZoneNode}
+        </AspectRatio>
       )}
 
       <Text

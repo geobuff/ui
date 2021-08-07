@@ -34,12 +34,14 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
       ) : (
         <Flex
           minWidth="300px"
-          minHeight="92vh"
-          backgroundColor="#E0E0E0"
+          width="100%"
+          minHeight="220px"
+          backgroundColor="#236175"
           alignItems="center"
           justifyContent="center"
+          paddingLeft="375px"
         >
-          <SimpleGrid columns={2} spacingX={10} spacingY={6}>
+          <SimpleGrid columns={6} spacingX={10} spacingY={6}>
             {[...new Set(codes)]?.map((code) => (
               <DraggableFlag
                 key={code}
