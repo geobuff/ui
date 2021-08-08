@@ -6,7 +6,6 @@ import NavigationBar from "../NavigationBar";
 import Footer from "../Footer";
 
 interface Props {
-  children: React.ReactNode;
   footerVariant?: FooterVariant;
   hasNavigationBar?: boolean;
   hasFooter?: boolean;
