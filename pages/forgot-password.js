@@ -5,6 +5,7 @@ import { useBreakpointValue } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
 import ForgotPasswordContainer from "../containers/ForgotPasswordContainer";
+import { FooterVariant } from "../types/footer-variant";
 
 const ForgotPassword = () => {
   const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
@@ -26,7 +27,7 @@ const ForgotPassword = () => {
         }
       `}</style>
 
-      <MainView hasNavigationBar={false} footerVariant="simple">
+      <MainView hasNavigationBar={false} footerVariant={FooterVariant.SIMPLE}>
         <ForgotPasswordContainer />
       </MainView>
     </>
