@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Flex } from "@chakra-ui/react";
 
-import { FooterVariant } from "../../models/footer-variant";
+import { FooterVariant } from "../../types/footer-variant";
 import NavigationBar from "../NavigationBar";
 import Footer from "../Footer";
 

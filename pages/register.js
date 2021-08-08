@@ -5,7 +5,7 @@ import { useBreakpointValue } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
 import RegisterContainer from "../containers/RegisterContainer";
-import { FooterVariant } from "../models/footer-variant";
+import { FooterVariant } from "../types/footer-variant";
 
 const Register = () => {
   const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });

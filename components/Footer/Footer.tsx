@@ -4,7 +4,7 @@ import { Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
 
 import Logo from "../Logo";
 import FooterPlaysContainer from "../../containers/FooterPlaysContainer";
-import { FooterVariant } from "../../models/footer-variant";
+import { FooterVariant } from "../../types/footer-variant";
 
 const companyLinks = [
   {
