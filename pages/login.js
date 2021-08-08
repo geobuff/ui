@@ -5,6 +5,7 @@ import { useBreakpointValue } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
 import LoginContainer from "../containers/LoginContainer";
+import { FooterVariant } from "../models/footer-variant";
 
 const Login = () => {
   const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
@@ -26,7 +27,7 @@ const Login = () => {
         }
       `}</style>
 
-      <MainView hasNavigationBar={false} footerVariant="simple">
+      <MainView hasNavigationBar={false} footerVariant={FooterVariant.SIMPLE}>
         <LoginContainer />
       </MainView>
     </>

@@ -1,10 +1,10 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC }  from "react";
 import Link from "next/link";
-import Logo from "../Logo";
-import FooterPlaysContainer from "../../containers/FooterPlaysContainer/FooterPlaysContainer";
-
 import { Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
+
+import Logo from "../Logo";
+import FooterPlaysContainer from "../../containers/FooterPlaysContainer";
+import { FooterVariant } from "../../models/footer-variant";
 
 const companyLinks = [
   {
@@ -179,20 +179,17 @@ const extendedFooter = (
   </Flex>
 );
 
-const Footer = ({ variant }) => {
+interface Props {
+  variant?: FooterVariant;
+};
+
+const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
   switch (variant) {
-    case "simple":
+    case FooterVariant.SIMPLE:
       return simpleFooter;
     default:
       return extendedFooter;
   }
-};
-
-Footer.propTypes = {
-  variant: PropTypes.oneOf(["simple", "extended"]),
-};
-Footer.defaultProps = {
-  variant: "extended",
 };
 
 export default Footer;
