@@ -29,12 +29,12 @@ const FlagDropZone = ({
       alignItems="center"
       ref={drop}
       role="Dropzone"
-      minWidth={{ base: "175px", lg: "335px" }}
-      minHeight={{ base: "100px", lg: "243px" }}
-      height={{ base: "100%", lg: "335px" }}
-      width={{ base: "100%", lg: "243px" }}
-      margin={{ base: 0, lg: 1 }}
-      borderRadius="8%"
+      minWidth={{ base: "175px", lg: "100%" }}
+      minHeight={{ base: "100px", lg: "100%" }}
+      height={{ base: "100%" }}
+      width={{ base: "100%", lg: "100%" }}
+      margin={0}
+      borderRadius="12%"
       transition="all 150ms ease-out"
       transform={isOver && "scale(1.125)"}
       background={
@@ -69,7 +69,15 @@ const FlagDropZone = ({
           {dropZoneNode}
         </AspectRatio>
       ) : (
-        dropZoneNode
+        <AspectRatio
+          width="60%"
+          minWidth="320px"
+          maxWidth={{ xl: "420px", "2xl": "560px" }}
+          marginX="auto"
+          ratio={2 / 1.4}
+        >
+          {dropZoneNode}
+        </AspectRatio>
       )}
 
       <Text
