@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import { Box, Divider, Text } from "@chakra-ui/react";
 
-import ResultsList from "../../components/ResultsList/ResultsList";
+import ResultsList from "../ResultsList/ResultsList";
 
 const ResultsListWrapper = ({ quiz, results }) => (
   <Box textAlign="left">
