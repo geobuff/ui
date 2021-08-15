@@ -29,6 +29,7 @@ import FlagDropZone from "../FlagDropZone/FlagDropZone";
 
 import { groupMapping } from "../../helpers/mapping";
 import { findSubmissionByCode } from "../../helpers/game";
+import GameFlagQuizBottomSheet from "./GameFlagQuizBottomSheet";
 
 const GameFlagQuiz = ({ quiz, mapping }) => {
   const router = useRouter();
@@ -43,7 +44,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   const [hasGameRunOnce, setHasGameRunOnce] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
-  const [showResultList, setShowResultsList] = useState(false); // TODO: Consider renaming to something modal related
   const [isXPUpdated, setXPUpdated] = useState(false);
   const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
     false
@@ -310,64 +310,24 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
               </Flex>
             )}
           </Flex>
+
           {isMobile && (
-            <Flex
-              direction="column"
-              backgroundColor="white"
-              p={4}
-              borderTopRadius={12}
-            >
-              <Box>
-                {!showResultList && (
-                  <>
-                    <GameFlags
-                      codes={flagDragItems}
-                      onCheckSubmission={(submission) =>
-                        setCurrentSubmission(submission)
-                      }
-                    />
-                    <Button
-                      colorScheme={hasGameStarted ? "red" : "green"}
-                      isFullWidth
-                      onClick={
-                        hasGameStarted ? handleGameStop : handleGameStart
-                      }
-                      p={8}
-                      size="md"
-                    >
-                      <Text fontWeight="700" fontSize="22px">
-                        {hasGameStarted
-                          ? "GIVE UP"
-                          : hasGameRunOnce
-                          ? "RETRY"
-                          : "START"}
-                      </Text>
-                    </Button>
-                  </>
-                )}
-
-                <Button
-                  my={4}
-                  isFullWidth
-                  variant="outline"
-                  onClick={() => setShowResultsList(!showResultList)}
-                >
-                  {"Results"}
-                </Button>
-
-                {showResultList && (
-                  <ResultsMap
-                    quiz={quiz}
-                    checked={checkedSubmissions}
-                    map={groupMapping(mapping)}
-                    hasGameStopped={hasGameStopped}
-                    hasGroupings={quiz.hasGrouping}
-                    hasFlags={quiz.hasFlags}
-                  />
-                )}
-              </Box>
-            </Flex>
+            <GameFlagQuizBottomSheet
+              checkedSubmissions={checkedSubmissions}
+              mapping={mapping}
+              quiz={quiz}
+              flagDragItems={flagDragItems}
+              hasGameStarted={hasGameStarted}
+              hasGameStopped={hasGameStopped}
+              hasGameRunOnce={hasGameRunOnce}
+              onCheckSubmission={(submission) =>
+                setCurrentSubmission(submission)
+              }
+              onGameStart={handleGameStart}
+              onGameStop={handleGameStop}
+            />
           )}
+
           {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
             <Box position="fixed" bottom="20px" right="20px">
               <Button onClick={onOpen}>
