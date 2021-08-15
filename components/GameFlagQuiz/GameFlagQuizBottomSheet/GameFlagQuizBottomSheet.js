@@ -1,11 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Box, Flex, Button, Text } from "@chakra-ui/react";
+import { Box, Flex, Button, Text, Fade } from "@chakra-ui/react";
 
 import ResultsMap from "../../ResultsMap";
 import GameFlags from "../../GameFlags";
-import BottomSheet from "./BottomSheet";
 import { groupMapping } from "../../../helpers/mapping";
+
+import { motion } from "framer-motion";
 
 const GameFlagQuizBottomSheet = ({
   checkedSubmissions,
@@ -21,16 +22,36 @@ const GameFlagQuizBottomSheet = ({
 }) => {
   const [showResultList, setShowResultsList] = useState(false); // TODO: Consider renaming to something modal related
 
-  function onClose() {
-    setShowResultsList(false);
-  }
+  const variants = {
+    open: { top: "20%" },
+    closed: { top: "calc(100% - 300px)" },
+  };
 
-  function onOpen() {
-    setShowResultsList(true);
-  }
+  const opacityVariants = {
+    open: { opacity: 0 },
+    closed: { opacity: 1 },
+  };
 
   return (
-    <BottomSheet isOpen={showResultList}>
+    <motion.div
+      animate={showResultList ? "open" : "closed"}
+      variants={variants}
+      transition={{
+        type: "spring",
+        damping: 40,
+        stiffness: 400,
+      }}
+      style={{
+        display: "inline-block",
+        backgroundColor: "white",
+        position: "fixed",
+        bottom: 0,
+        left: 0,
+        right: 0,
+        borderTopRightRadius: 10,
+        borderTopLeftRadius: 10,
+      }}
+    >
       <Flex
         direction="column"
         backgroundColor="white"
@@ -39,7 +60,7 @@ const GameFlagQuizBottomSheet = ({
       >
         <Box>
           {!showResultList && (
-            <>
+            <Fade in unmountOnExit>
               <GameFlags
                 codes={flagDragItems}
                 onCheckSubmission={onCheckSubmission}
@@ -50,7 +71,7 @@ const GameFlagQuizBottomSheet = ({
               <Button
                 colorScheme={hasGameStarted ? "red" : "green"}
                 isFullWidth
-                onClick={hasGameStarted ? onGameStop : onGameStop}
+                onClick={hasGameStarted ? onGameStop : onGameStart}
                 p={8}
                 size="md"
               >
@@ -62,7 +83,7 @@ const GameFlagQuizBottomSheet = ({
                     : "START"}
                 </Text>
               </Button>
-            </>
+            </Fade>
           )}
 
           <Button
@@ -75,18 +96,20 @@ const GameFlagQuizBottomSheet = ({
           </Button>
 
           {showResultList && (
-            <ResultsMap
-              quiz={quiz}
-              checked={checkedSubmissions}
-              map={groupMapping(mapping)}
-              hasGameStopped={hasGameStopped}
-              hasGroupings={quiz.hasGrouping}
-              hasFlags={quiz.hasFlags}
-            />
+            <Fade in unmountOnExit>
+              <ResultsMap
+                quiz={quiz}
+                checked={checkedSubmissions}
+                map={groupMapping(mapping)}
+                hasGameStopped={hasGameStopped}
+                hasGroupings={quiz.hasGrouping}
+                hasFlags={quiz.hasFlags}
+              />
+            </Fade>
           )}
         </Box>
       </Flex>
-    </BottomSheet>
+    </motion.div>
   );
 };
 
