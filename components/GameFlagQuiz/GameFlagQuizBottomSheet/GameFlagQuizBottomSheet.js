@@ -1,7 +1,18 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Box, Flex, Button, Text, Fade } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Divider,
+  Fade,
+  Flex,
+  Heading,
+  Text,
+  Link as ChakraLink,
+} from "@chakra-ui/react";
+import Link from "next/link";
 
+import Twemoji from "../../Twemoji";
 import ResultsMap from "../../ResultsMap";
 import GameFlags from "../../GameFlags";
 import { groupMapping } from "../../../helpers/mapping";
@@ -24,7 +35,7 @@ const GameFlagQuizBottomSheet = ({
 
   const variants = {
     open: { top: "20%" },
-    closed: { top: "calc(100% - 300px)" },
+    closed: { top: "calc(100% - 360px)" },
   };
 
   const opacityVariants = {
@@ -58,6 +69,21 @@ const GameFlagQuizBottomSheet = ({
         p={4}
         borderTopRadius={12}
       >
+        <Heading pt={2} size="md">
+          <Flex justifyContent="center">
+            {quiz.hasLeaderboard && (
+              <Link href={`/leaderboard?quizId=${quiz.id}`}>
+                <ChakraLink>
+                  <Twemoji emoji="🏆" mr={2} />
+                </ChakraLink>
+              </Link>
+            )}
+            {quiz.name}
+          </Flex>
+        </Heading>
+
+        <Divider my={4} />
+
         <Box>
           {!showResultList && (
             <Fade in unmountOnExit>
