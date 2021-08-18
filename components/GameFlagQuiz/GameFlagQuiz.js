@@ -286,7 +286,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                 flex="1"
               >
                 <Flex
-                  flex={1}
+                  flex={{ base: "initial", lg: 1 }}
                   direction="column"
                   height="100%"
                   width="100%"

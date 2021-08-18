@@ -98,7 +98,7 @@ const GameFlagQuizBottomSheet = ({
                 colorScheme={hasGameStarted ? "red" : "green"}
                 isFullWidth
                 onClick={hasGameStarted ? onGameStop : onGameStart}
-                p={8}
+                p={7}
                 size="md"
               >
                 <Text fontWeight="700" fontSize="22px">
