@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
-const Earth = ({ height, width }) => (
+interface Props {
+  height: string;
+  width: string;
+}
+
+const Earth: FC<Props> = ({ height, width }) => (
   <svg viewBox="0 0 1999.52 1999.52" height={height} width={width}>
     <defs>
       <linearGradient
@@ -69,10 +73,5 @@ const Earth = ({ height, width }) => (
     </g>
   </svg>
 );
-
-Earth.propTypes = {
-  height: PropTypes.string,
-  width: PropTypes.string,
-};
 
 export default Earth;

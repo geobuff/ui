@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import { getFlagUrl } from "@geobuff/flags";
 import { Select } from "@chakra-ui/react";
@@ -8,8 +7,13 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 import Image from "../Image";
 
 import useCountries from "../../hooks/useCountries";
+import { FieldProps } from "../../types/field-props";
 
-const CountrySelect = ({ fieldProps }) => {
+interface Props {
+  fieldProps?: FieldProps;
+}
+
+const CountrySelect: FC<Props> = ({ fieldProps={value: ""} }) => {
   const { countries, isLoading } = useCountries();
 
   return (
@@ -57,17 +61,6 @@ const CountrySelect = ({ fieldProps }) => {
       ))}
     </Select>
   );
-};
-
-CountrySelect.propTypes = {
-  fieldProps: PropTypes.shape({
-    value: PropTypes.any,
-  }),
-};
-CountrySelect.defaultProps = {
-  fieldProps: {
-    value: "",
-  },
 };
 
 export default CountrySelect;

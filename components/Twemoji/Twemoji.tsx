@@ -1,10 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import twemoji from "twemoji";
 
 import { Box } from "@chakra-ui/react";
 
-const Twemoji = ({ emoji, height, width, ...props }) => (
+interface Props {
+  emoji?: string;
+  height?: string | number | Array<string> | object;
+  width?: string | number | Array<string> | object;
+  [x:string]: any;
+}
+
+const Twemoji: FC<Props> = ({ emoji="🇳🇿", height="24px", width="24px", ...props }) => (
   <Box
     as="span"
     display="inline-block"
@@ -21,27 +27,5 @@ const Twemoji = ({ emoji, height, width, ...props }) => (
 );
 
 Twemoji.displayName = "Twemoji";
-
-Twemoji.propTypes = {
-  emoji: PropTypes.string,
-  height: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-    PropTypes.object,
-  ]),
-  width: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-    PropTypes.object,
-  ]),
-};
-
-Twemoji.defaultProps = {
-  emoji: "🇳🇿",
-  height: "24px",
-  width: "24px",
-};
 
 export default React.memo(Twemoji);

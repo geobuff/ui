@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Box, Flex, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 import withScrolling from "react-dnd-scrolling";
 
@@ -7,7 +6,12 @@ const ScrollingComponent = withScrolling("div");
 
 import DraggableFlag from "../DraggableFlag";
 
-const GameFlags = ({ codes, onCheckSubmission }) => {
+interface Props {
+  codes?: Array<string>;
+  onCheckSubmission?: Function;
+}
+
+const GameFlags: FC<Props> = ({ codes=[], onCheckSubmission=()=>{} }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
   return (
@@ -21,7 +25,7 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
             marginRight={10}
             marginY={5}
           >
-            {[...new Set(codes)]?.map((code) => (
+            {[...Array.from(new Set(codes))]?.map((code) => (
               <DraggableFlag
                 key={code}
                 code={code}
@@ -42,7 +46,7 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
           paddingLeft="375px"
         >
           <SimpleGrid columns={6} spacingX={10} spacingY={6}>
-            {[...new Set(codes)]?.map((code) => (
+            {[...Array.from(new Set(codes))]?.map((code) => (
               <DraggableFlag
                 key={code}
                 code={code}
@@ -54,15 +58,6 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
       )}
     </>
   );
-};
-
-GameFlags.propTypes = {
-  codes: PropTypes.arrayOf(PropTypes.string),
-  onCheckSubmission: PropTypes.func,
-};
-GameFlags.defaultProps = {
-  codes: [],
-  onCheckSubmission: () => {},
 };
 
 export default GameFlags;

@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState, FC } from "react";
 import { MapInteraction } from "react-map-interaction";
 
 import { Box, Button, useBreakpointValue } from "@chakra-ui/react";
@@ -11,7 +10,7 @@ import OutlinedZoomOut from "../../Icons/OutlinedZoomOut";
 
 const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 
-const MapInteractionCSS = (props) => {
+const MapInteractionCSS: FC = ({children=null, ...props}) => {
   const [value, setValue] = useState(defaultValue);
 
   const isMobile = useBreakpointValue({ base: true, lg: false });
@@ -118,7 +117,7 @@ const MapInteractionCSS = (props) => {
                   height: "100%",
                 }}
               >
-                {props.children}
+                {children}
               </div>
             </div>
           );
@@ -126,14 +125,6 @@ const MapInteractionCSS = (props) => {
       </MapInteraction>
     </Box>
   );
-};
-
-MapInteractionCSS.propTypes = {
-  children: PropTypes.object,
-};
-
-MapInteractionCSS.defaultProps = {
-  children: null,
 };
 
 export default MapInteractionCSS;

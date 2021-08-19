@@ -1,10 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Box, Collapse, Text } from "@chakra-ui/react";
 
-const ErrorAlertBanner = ({ error }) => (
+interface Props {
+  error?: string;
+}
+
+const ErrorAlertBanner: FC<Props> = ({ error="" }) => (
   <Collapse
-    in={error}
+    in={!!error}
     animateOpacity
     unmountOnExit
     style={{
@@ -21,12 +24,5 @@ const ErrorAlertBanner = ({ error }) => (
     </Box>
   </Collapse>
 );
-
-ErrorAlertBanner.propTypes = {
-  error: PropTypes.string,
-};
-ErrorAlertBanner.defaultProps = {
-  error: "",
-};
 
 export default ErrorAlertBanner;

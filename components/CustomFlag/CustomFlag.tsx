@@ -1,8 +1,14 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { FC, useState } from "react";
 import { Box, Skeleton, Image } from "@chakra-ui/react";
 
-const CustomFlag = ({ url, height, width, ...props }) => {
+interface Props {
+  url?: string;
+  height?: string;
+  width?: string;
+  [x:string]: any;
+}
+
+const CustomFlag: FC<Props> = ({ url="", height="18px", width="24.5px", ...props }) => {
   const [hasLoaded, setHasLoaded] = useState(false);
 
   return (
@@ -31,17 +37,6 @@ const CustomFlag = ({ url, height, width, ...props }) => {
       />
     </Box>
   );
-};
-
-CustomFlag.propTypes = {
-  url: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-};
-CustomFlag.defaultProps = {
-  url: "",
-  height: "18px",
-  width: "24.5px",
 };
 
 export default CustomFlag;

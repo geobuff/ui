@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import * as Yup from "yup";
 
 import {
@@ -41,7 +40,13 @@ const validationSchema = Yup.object().shape({
     ),
 });
 
-const LoginForm = ({ error, onSubmit, isSubmitting }) => {
+interface Props {
+  error?: string;
+  onSubmit?: any;
+  isSubmitting?: boolean;
+}
+
+const LoginForm: FC<Props> = ({ error=null, onSubmit=()=>{}, isSubmitting=false }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const mainContent = (
@@ -191,17 +196,6 @@ const LoginForm = ({ error, onSubmit, isSubmitting }) => {
       )}
     </>
   );
-};
-
-LoginForm.propTypes = {
-  error: PropTypes.string,
-  onSubmit: PropTypes.func,
-  isSubmitting: PropTypes.bool,
-};
-LoginForm.defaultProps = {
-  error: null,
-  onSubmit: () => {},
-  isSubmitting: false,
 };
 
 export default LoginForm;

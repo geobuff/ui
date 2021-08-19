@@ -1,8 +1,14 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState, FC } from "react";
 import { Image as ChakraImage, Skeleton } from "@chakra-ui/react";
 
-const Image = ({ src, height, width, ...props }) => {
+interface Props {
+  src?: string;
+  height?: string;
+  width?: string;
+  [x:string]: any;
+}
+
+const Image: FC<Props> = ({ src="", height="100px", width="100px", ...props }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -24,17 +30,6 @@ const Image = ({ src, height, width, ...props }) => {
       />
     </>
   );
-};
-
-Image.propTypes = {
-  src: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-};
-Image.defaultProps = {
-  src: "",
-  height: "100px",
-  width: "100px",
 };
 
 export default Image;

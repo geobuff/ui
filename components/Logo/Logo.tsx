@@ -1,7 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
-const Logo = ({ height, width, isGrayScale }) => (
+interface Props {
+  height?: string;
+  width?: string;
+  isGrayScale?: boolean;
+}
+
+const Logo: FC<Props> = ({ height="32px", width="140px", isGrayScale=false }) => (
   <svg viewBox="0 0 72.37 18.91" height={height} width={width}>
     <defs>
       <linearGradient
@@ -46,16 +51,5 @@ const Logo = ({ height, width, isGrayScale }) => (
     </g>
   </svg>
 );
-
-Logo.propTypes = {
-  height: PropTypes.string,
-  width: PropTypes.string,
-  isGrayScale: PropTypes.bool,
-};
-Logo.defaultProps = {
-  height: "32px",
-  width: "140px",
-  isGrayScale: false,
-};
 
 export default Logo;

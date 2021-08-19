@@ -1,13 +1,17 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Select } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import Image from "../Image";
 
 import useAvatars from "../../hooks/UseAvatars";
+import { FieldProps } from "../../types/field-props";
 
-const AvatarSelect = ({ fieldProps }) => {
+interface Props {
+  fieldProps?: FieldProps;
+}
+
+const AvatarSelect: FC<Props> = ({ fieldProps={value: ""} }) => {
   const { avatars, isLoading } = useAvatars();
 
   return (
@@ -33,11 +37,11 @@ const AvatarSelect = ({ fieldProps }) => {
       icon={
         fieldProps.value ? (
           <Image
+            src={avatars.find((x) => x.id == fieldProps?.value)?.imageUrl}
             marginRight="16px"
             minHeight="22px"
             minWidth="32px"
             objectFit="cover"
-            src={avatars.find((x) => x.id == fieldProps?.value)?.imageUrl}
             borderRadius={5}
           />
         ) : (
@@ -55,17 +59,6 @@ const AvatarSelect = ({ fieldProps }) => {
       ))}
     </Select>
   );
-};
-
-AvatarSelect.propTypes = {
-  fieldProps: PropTypes.shape({
-    value: PropTypes.any,
-  }),
-};
-AvatarSelect.defaultProps = {
-  fieldProps: {
-    value: "",
-  },
 };
 
 export default AvatarSelect;

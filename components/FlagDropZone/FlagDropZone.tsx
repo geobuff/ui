@@ -1,15 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
-
+import React, { FC } from "react";
 import { AspectRatio, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
+
 import { ItemTypes } from "../../helpers/item-types";
 
-const FlagDropZone = ({
-  acceptedFlagName,
-  hasGameStarted,
-  submissionCorrect,
-  submissionIncorrect,
+interface Props {
+  acceptedFlagName?: string;
+  hasGameStarted?: boolean;
+  submissionCorrect?: boolean;
+  submissionIncorrect?: boolean;
+}
+
+const FlagDropZone: FC<Props> = ({
+  acceptedFlagName = "",
+  hasGameStarted=false,
+  submissionCorrect=false,
+  submissionIncorrect=false,
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
@@ -93,18 +99,6 @@ const FlagDropZone = ({
       </Text>
     </Flex>
   );
-};
-FlagDropZone.propTypes = {
-  acceptedFlagName: PropTypes.string,
-  hasGameStarted: PropTypes.bool,
-  submissionCorrect: PropTypes.bool,
-  submissionIncorrect: PropTypes.bool,
-};
-FlagDropZone.defaultTypes = {
-  acceptedFlagName: "",
-  hasGameStarted: false,
-  submissionCorrect: false,
-  submissionIncorrect: false,
 };
 
 export default FlagDropZone;

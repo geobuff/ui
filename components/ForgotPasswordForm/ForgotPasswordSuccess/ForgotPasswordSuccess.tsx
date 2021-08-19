@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC }  from "react";
 import { Fade, Flex, Text, ScaleFade } from "@chakra-ui/react";
 
 import SolidSuccessCircle from "../../../Icons/SolidSuccessCircle";
 
-const ForgotPasswordSuccess = () => (
-  <Fade in out>
+const ForgotPasswordSuccess: FC = () => (
+  <Fade in>
     <Flex marginBottom={4} alignItems="center" direction="column">
       <ScaleFade initialScale={0.75} in>
         <SolidSuccessCircle
@@ -25,8 +25,5 @@ const ForgotPasswordSuccess = () => (
     </Flex>
   </Fade>
 );
-
-ForgotPasswordSuccess.propTypes = {};
-ForgotPasswordSuccess.defaultProps = {};
 
 export default ForgotPasswordSuccess;

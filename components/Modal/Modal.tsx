@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState, FC } from "react";
 
 import {
   Box,
@@ -14,7 +13,15 @@ import {
   Heading,
 } from "@chakra-ui/react";
 
-const Modal = ({ header, footer, isOpen, onClose, children, ...props }) => {
+interface Props {
+  header?: string | React.ReactNode;
+  footer?: string | React.ReactNode;
+  isOpen?: boolean;
+  onClose?: any;
+  [x:string]: any;
+}
+
+const Modal: FC<Props> = ({ header=null, footer=null, isOpen=false, onClose=()=>{}, children, ...props }) => {
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [isOpenDelayed, setIsOpenDelayed] = useState(false);
 
@@ -108,25 +115,6 @@ const Modal = ({ header, footer, isOpen, onClose, children, ...props }) => {
       )}
     </>
   );
-};
-
-Modal.propTypes = {
-  header: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  footer: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  isOpen: PropTypes.bool,
-  onClose: PropTypes.func,
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.func,
-  ]),
-};
-Modal.defaultProps = {
-  header: null,
-  footer: null,
-  isOpen: false,
-  onClose: () => {},
-  children: null,
 };
 
 export default Modal;

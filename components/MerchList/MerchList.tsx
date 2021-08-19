@@ -1,12 +1,16 @@
-import React from "react";
+import React, { FC } from "react";
 import Link from "next/link";
-import PropTypes from "prop-types";
 
 import { AspectRatio, Flex, Alert, AlertIcon } from "@chakra-ui/react";
 
 import ProductCard from "../ProductCard";
+import { MerchItem } from "../../types/merch-item";
 
-const MerchList = ({ merch }) => (
+interface Props {
+  merch?: Array<MerchItem>;
+}
+
+const MerchList: FC<Props> = ({ merch=[] }) => (
   <Flex
     width={{ base: "95%", sm: "85%", md: "65%" }}
     maxWidth="1200px"
@@ -61,32 +65,5 @@ const MerchList = ({ merch }) => (
     )}
   </Flex>
 );
-
-MerchList.propTypes = {
-  merch: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      description: PropTypes.string,
-      price: PropTypes.number,
-      disabled: PropTypes.bool,
-      sizes: PropTypes.arrayOf(
-        PropTypes.shape({
-          size: PropTypes.string,
-          soldOut: PropTypes.bool,
-        })
-      ),
-      images: PropTypes.arrayOf(
-        PropTypes.shape({
-          imageUrl: PropTypes.string,
-          isPrimary: PropTypes.bool,
-        })
-      ),
-    })
-  ),
-};
-MerchList.defaultProps = {
-  merch: [],
-};
 
 export default MerchList;

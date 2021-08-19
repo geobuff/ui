@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import dynamic from "next/dynamic";
 
 import {
@@ -70,7 +70,7 @@ const desktopLayout = (
   </Flex>
 );
 
-const NavigationBar = () => {
+const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { user } = useCurrentUser();
 

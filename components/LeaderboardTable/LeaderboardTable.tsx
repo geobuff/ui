@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import flag from "country-code-emoji";
 
 import {
@@ -17,15 +16,21 @@ import {
 } from "@chakra-ui/react";
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
-import LeaderTablePlaceholder from "./LeaderboardTablePlaceholder";
+import LeaderTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import Twemoji from "../Twemoji";
 import TableCell from "../TableCell";
 
 import { secondsToMinutesString } from "../../helpers/time";
 import Sparkles from "../Sparkles/Sparkles";
+import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
-const LeaderboardTable = ({ entries, isLoading }) => {
+interface Props {
+  entries?: Array<LeaderboardEntry>;
+  isLoading?: boolean;
+}
+
+const LeaderboardTable: FC<Props> = ({ entries=[], isLoading=true }) => {
   const { user } = useCurrentUser();
 
   if (isLoading && !entries.length) {
@@ -123,27 +128,6 @@ const LeaderboardTable = ({ entries, isLoading }) => {
       </Table>
     </Box>
   );
-};
-
-LeaderboardTable.propTypes = {
-  isLoading: PropTypes.bool,
-  entries: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      userId: PropTypes.number,
-      username: PropTypes.string,
-      countryCode: PropTypes.string,
-      score: PropTypes.number,
-      time: PropTypes.time,
-      added: PropTypes.time,
-      rank: PropTypes.number,
-    })
-  ),
-};
-
-LeaderboardTable.defaultProps = {
-  isLoading: true,
-  entries: [],
 };
 
 export default LeaderboardTable;

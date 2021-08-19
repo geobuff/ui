@@ -1,7 +1,7 @@
-import React from "react";
+import React, { FC } from "react";
 import { Fade, Flex, Spinner } from "@chakra-ui/react";
 
-const GameSpinner = () => (
+const GameSpinner: FC = () => (
   <Flex
     height={{ base: "30vh", md: "90vh" }}
     alignItems="center"

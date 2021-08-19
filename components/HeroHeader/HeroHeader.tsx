@@ -1,8 +1,12 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Box, Flex, Fade, Text } from "@chakra-ui/react";
 
-const HeroHeader = ({ heading, ...props }) => (
+interface Props {
+  heading?: string;
+  [x:string]: any;
+}
+
+const HeroHeader: FC<Props> = ({ heading="", ...props }) => (
   <Box
     role="banner"
     background="linear-gradient(90deg, #27AE60 0%, #219250 100%)"
@@ -41,13 +45,5 @@ const HeroHeader = ({ heading, ...props }) => (
     </Box>
   </Box>
 );
-
-HeroHeader.propTypes = {
-  heading: PropTypes.string,
-};
-
-HeroHeader.defaultProps = {
-  heading: "",
-};
 
 export default HeroHeader;

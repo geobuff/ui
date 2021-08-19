@@ -1,11 +1,18 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Box, Flex, Skeleton, Text } from "@chakra-ui/react";
 
 import { formatNumber } from "../../helpers/number";
 import { secondsToMinutesString } from "../../helpers/time";
 
-const GameExistingEntry = ({ rank, score, time, username, isLoading }) => {
+interface Props {
+  rank?: number;
+  score?: number;
+  time?: string;
+  username?: string;
+  isLoading?: boolean;
+}
+
+const GameExistingEntry: FC<Props> = ({ rank=0, score=0, time="15:00", username="PhileasFogg", isLoading=true }) => {
   return (
     <Flex
       borderRadius={12}
@@ -70,23 +77,6 @@ const GameExistingEntry = ({ rank, score, time, username, isLoading }) => {
       </Box>
     </Flex>
   );
-};
-
-GameExistingEntry.propTypes = {
-  rank: PropTypes.number,
-  score: PropTypes.number,
-  time: PropTypes.number,
-  username: PropTypes.string,
-  countryCode: PropTypes.string,
-  isLoading: PropTypes.bool,
-};
-GameExistingEntry.defaultProps = {
-  rank: 0,
-  score: 0,
-  time: "15:00",
-  username: "PhileasFogg",
-  country: "UK",
-  isLoading: true,
 };
 
 export default GameExistingEntry;

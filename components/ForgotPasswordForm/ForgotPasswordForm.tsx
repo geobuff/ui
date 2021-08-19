@@ -1,6 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
-
+import React, { FC } from "react";
 import * as Yup from "yup";
 
 import {
@@ -33,7 +31,14 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().required("Please include an email."),
 });
 
-const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
+interface Props {
+  error?: string;
+  isSuccess?: boolean;
+  isSubmitting?: boolean;
+  onSubmit?: Function;
+}
+
+const ForgotPasswordForm: FC<Props> = ({ error="", isSuccess=false, isSubmitting=false, onSubmit=()=>{} }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const success = (
@@ -121,7 +126,7 @@ const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
               )}
             </Field>
 
-            <Fade in={error} out={!error}>
+            <Fade in={!!error}>
               <Alert
                 width="100%"
                 status="error"
@@ -169,10 +174,10 @@ const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
         <>
           <AuthView>
             <AuthCard
+              height={isSuccess ? 260 : 422}
+              width={375}
               marginX="auto"
               marginY={5}
-              width={375}
-              height={isSuccess ? 260 : 422}
             >
               {isSuccess ? success : mainContent}
             </AuthCard>
@@ -185,19 +190,6 @@ const ForgotPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
       )}
     </>
   );
-};
-
-ForgotPasswordForm.propTypes = {
-  error: PropTypes.string,
-  isSuccess: PropTypes.bool,
-  isSubmitting: PropTypes.bool,
-  onSubmit: PropTypes.func,
-};
-ForgotPasswordForm.defaultProps = {
-  error: "",
-  isSuccess: false,
-  isSubmitting: false,
-  onSubmit: () => {},
 };
 
 export default ForgotPasswordForm;
