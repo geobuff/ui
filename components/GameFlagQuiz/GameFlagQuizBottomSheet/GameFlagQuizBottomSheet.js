@@ -35,7 +35,7 @@ const GameFlagQuizBottomSheet = ({
 
   const variants = {
     open: { top: "20%" },
-    closed: { top: "calc(100% - 360px)" },
+    closed: { top: "calc(100% - 260px)" },
   };
 
   const opacityVariants = {
@@ -43,10 +43,19 @@ const GameFlagQuizBottomSheet = ({
     closed: { opacity: 1 },
   };
 
+  console.log(showResultList, "showResultList");
+
+  const handleDrag = () => {
+    console.log("handleDrag called");
+    setShowResultsList(true);
+  };
+
   return (
     <motion.div
       animate={showResultList ? "open" : "closed"}
       variants={variants}
+      drag="none"
+      onDrag={handleDrag}
       transition={{
         type: "spring",
         damping: 40,

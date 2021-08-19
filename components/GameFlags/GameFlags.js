@@ -15,11 +15,10 @@ const GameFlags = ({ codes, onCheckSubmission }) => {
       {isMobile ? (
         <Box as={ScrollingComponent} overflowX="auto">
           <Box
-            width="2000px"
+            width="1525px"
             position="relative"
             height="100px"
             marginRight={10}
-            marginY={5}
           >
             {[...new Set(codes)]?.map((code) => (
               <DraggableFlag
