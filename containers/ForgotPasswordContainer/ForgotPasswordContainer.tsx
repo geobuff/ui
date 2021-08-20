@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useRouter } from "next/router";
 
 import axiosClient from "../../axios/axiosClient";
@@ -6,7 +6,7 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import ForgotPasswordForm from "../../components/ForgotPasswordForm";
 
-const ForgotPasswordContainer = () => {
+const ForgotPasswordContainer: FC = () => {
   const router = useRouter();
   const { user, isLoading: isLoadingUser } = useCurrentUser();
 
@@ -41,8 +41,5 @@ const ForgotPasswordContainer = () => {
     />
   );
 };
-
-ForgotPasswordContainer.propTypes = {};
-ForgotPasswordContainer.defaultProps = {};
 
 export default ForgotPasswordContainer;

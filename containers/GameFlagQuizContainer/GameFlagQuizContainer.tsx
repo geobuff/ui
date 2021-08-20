@@ -1,12 +1,15 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import GameFlagQuiz from "../../components/GameFlagQuiz";
 import useQuiz from "../../hooks/UseQuiz";
 import useMapping from "../../hooks/UseMapping";
 import GameSpinner from "../../components/GameSpinner";
 
-const GameFlagQuizContainer = ({ quizId }) => {
+interface Props {
+  quizId: number;
+}
+
+const GameFlagQuizContainer: FC<Props> = ({ quizId }) => {
   const { quiz, isLoading: isLoadingQuiz } = useQuiz(quizId);
   const { mapping, isLoading: isLoadingMapping } = useMapping(quizId);
 
@@ -15,10 +18,6 @@ const GameFlagQuizContainer = ({ quizId }) => {
   }
 
   return <GameFlagQuiz quiz={quiz} mapping={mapping} />;
-};
-
-GameFlagQuizContainer.propTypes = {
-  quizId: PropTypes.number,
 };
 
 export default GameFlagQuizContainer;

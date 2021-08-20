@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState, FC } from "react";
 import { useRouter } from "next/router";
 
-import { useBreakpointValue, useToast } from "@chakra-ui/react";
+import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 
 import GameOverModal from "../../components/GameOverModal";
 
@@ -15,22 +14,34 @@ import {
   levelUp,
   increaseXP as increaseXPToast,
 } from "../../helpers/toasts";
+import { Quiz } from "../../types/quiz";
 
-const GameOverModalContainer = ({
-  quiz,
-  score,
-  time,
-  isOpen,
-  onClose,
-  isXPUpdated,
-  setXPUpdated,
-  setLeaderboardEntrySubmitted,
+interface Props {
+  quiz?: Quiz;
+  score?: number;
+  time?: number;
+  isOpen?: boolean;
+  onClose?: any;
+  isXPUpdated?: boolean;
+  setXPUpdated?: any;
+  setLeaderboardEntrySubmitted?: any;
+};
+
+const GameOverModalContainer: FC<Props> = ({
+  quiz={},
+  score=0,
+  time=0,
+  isOpen=false,
+  onClose=()=>{},
+  isXPUpdated=false,
+  setXPUpdated=()=>{},
+  setLeaderboardEntrySubmitted=()=>{},
 }) => {
   const toast = useToast();
   const router = useRouter();
 
   const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
-  const toastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
+  const toastPosition: ToastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
 
   const [config, setConfig] = useState(null);
   const [entry, setEntry] = useState(null);
@@ -71,7 +82,7 @@ const GameOverModalContainer = ({
     if (!quiz.hasLeaderboard) {
       setIsLoading(false);
     } else {
-      getLeaderboardEntry(user.id);
+      getLeaderboardEntry();
     }
   }, [isOpen, isUserLoading, user]);
 
@@ -189,45 +200,6 @@ const GameOverModalContainer = ({
       onRedirectWithScore={handleRedirectWithScore}
     />
   );
-};
-
-GameOverModalContainer.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  score: PropTypes.number,
-  time: PropTypes.number,
-  isOpen: PropTypes.bool,
-  onClose: PropTypes.func,
-  isXPUpdated: PropTypes.bool,
-  setXPUpdated: PropTypes.func,
-  setLeaderboardEntrySubmitted: PropTypes.func,
-  onRedirectWithScore: PropTypes.func,
-};
-
-GameOverModalContainer.defaultProps = {
-  quiz: {},
-  score: 0,
-  time: 0,
-  isOpen: false,
-  onClose: () => {},
-  isXPUpdated: false,
-  setXPUpdated: () => {},
-  setLeaderboardEntrySubmitted: () => {},
-  onRedirectWithScore: () => {},
 };
 
 export default GameOverModalContainer;

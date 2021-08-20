@@ -1,10 +1,10 @@
-import React from "react";
+import React, { FC } from "react";
 import { Flex, Text, Skeleton } from "@chakra-ui/react";
 
 import usePlays from "../../hooks/UsePlays";
 import { formatNumber } from "../../helpers/number";
 
-const FooterPlaysContainer = () => {
+const FooterPlaysContainer: FC = () => {
   const { plays, isLoading } = usePlays();
 
   return (

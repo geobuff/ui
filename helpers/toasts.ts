@@ -1,6 +1,8 @@
+import { ToastPosition, UseToastOptions } from "@chakra-ui/react";
+
 const defaultPosition = "bottom-right";
 
-export const entrySubmitted = (position = defaultPosition) => ({
+export const entrySubmitted = (position: ToastPosition = defaultPosition): UseToastOptions => ({
   position: position,
   title: "Leaderboard Entry Submitted",
   description: "Your leaderboard entry was submitted successfully.",
@@ -9,7 +11,7 @@ export const entrySubmitted = (position = defaultPosition) => ({
   isClosable: true,
 });
 
-export const increaseXP = (increase, position = defaultPosition) => ({
+export const increaseXP = (increase: number, position: ToastPosition = defaultPosition): UseToastOptions => ({
   position: position,
   description: `+${increase} XP`,
   status: "info",
@@ -17,7 +19,7 @@ export const increaseXP = (increase, position = defaultPosition) => ({
   isClosable: true,
 });
 
-export const levelUp = (newLevel, position = defaultPosition) => ({
+export const levelUp = (newLevel: number, position: ToastPosition = defaultPosition): UseToastOptions => ({
   position: position,
   title: "Congratulations!",
   description: `You've reached level ${newLevel}.`,
@@ -26,7 +28,7 @@ export const levelUp = (newLevel, position = defaultPosition) => ({
   isClosable: true,
 });
 
-export const userUpdated = (position = defaultPosition) => ({
+export const userUpdated = (position: ToastPosition = defaultPosition): UseToastOptions => ({
   position: position,
   title: "User Updated",
   description: "Successfully updated user details.",
