@@ -1,7 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 import Link from "next/link";
 
-import PropTypes from "prop-types";
 import {
   AspectRatio,
   Box,
@@ -11,8 +10,13 @@ import {
 } from "@chakra-ui/react";
 
 import QuizCard from "../QuizCard";
+import { Quiz } from "../../types/quiz";
 
-const QuizList = ({ quizzes }) => (
+interface Props {
+  quizzes?: Array<Quiz>;
+}
+
+const QuizList: FC<Props> = ({ quizzes }) => (
   <Box
     width={{ base: "95%", sm: "80%", md: "65%" }}
     maxWidth="1200px"
@@ -63,21 +67,5 @@ const QuizList = ({ quizzes }) => (
     )}
   </Box>
 );
-
-QuizList.propTypes = {
-  quizzes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      maxScore: PropTypes.number,
-      time: PropTypes.number,
-      imageUrl: PropTypes.string,
-      verb: PropTypes.string,
-      apiPath: PropTypes.string,
-      hasLeaderboard: PropTypes.bool,
-      enabled: PropTypes.bool,
-    })
-  ),
-};
 
 export default QuizList;

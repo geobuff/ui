@@ -1,9 +1,16 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState, FC } from "react";
 
 import { Box, Image, Skeleton } from "@chakra-ui/react";
 
-const UserAvatar = ({ borderRadius, height, width, imageUrl, alt }) => {
+interface Props {
+  borderRadius?: number;
+  height?: string;
+  width?: string;
+  imageUrl?: string;
+  alt?: string;
+}
+
+const UserAvatar: FC<Props> = ({ borderRadius=50, height="", width="", imageUrl="", alt="" }) => {
   const [hasLoaded, setHasLoaded] = useState(false);
 
   return (
@@ -32,21 +39,6 @@ const UserAvatar = ({ borderRadius, height, width, imageUrl, alt }) => {
       />
     </Box>
   );
-};
-
-UserAvatar.propTypes = {
-  alt: PropTypes.string,
-  borderRadius: PropTypes.number,
-  imageUrl: PropTypes.string,
-  height: PropTypes.string,
-  width: PropTypes.string,
-};
-UserAvatar.defaultProps = {
-  alt: "",
-  borderRadius: 50,
-  imageUrl: null,
-  height: PropTypes.string,
-  width: PropTypes.string,
 };
 
 export default UserAvatar;

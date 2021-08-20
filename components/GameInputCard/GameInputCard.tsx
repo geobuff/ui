@@ -1,5 +1,4 @@
-import React, { useEffect, useRef } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, createRef, FC } from "react";
 
 import {
   Box,
@@ -19,27 +18,48 @@ import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 import ResultsList from "../ResultsList";
 import GameInputCardScore from "./GameInputCardScore";
 import GameInputCardTimer from "./GameInputCardTimer";
+import { QuizType } from "../../types/quiz-type";
+import { Quiz } from "../../types/quiz";
+import { Result } from "../../types/result";
+import { TimeRemaining } from "../../types/time-remaining";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
-const GameInputCard = ({
-  quiz,
-  recents,
-  score,
-  timeRemaining,
-  errorMessage,
-  hasGameRunOnce,
-  hasGameStarted,
-  hasGameStopped,
-  hasError,
-  inputValue,
-  onChange,
-  onClearInput,
-  onGameStart,
-  onGameStop,
+interface Props {
+  quiz?: Quiz;
+  recents?: Array<Result>;
+  score?: number;
+  timeRemaining?: TimeRemaining;
+  errorMessage?: string;
+  hasGameRunOnce?: boolean;
+  hasGameStarted?: boolean;
+  hasGameStopped?: boolean;
+  hasError?: boolean;
+  inputValue?: string;
+  onChange?: any;
+  onClearInput?: any;
+  onGameStart?: any;
+  onGameStop?: any;
+}
+
+const GameInputCard: FC<Props> = ({
+  quiz=null,
+  recents=[],
+  score=0,
+  timeRemaining={minutes: 0, seconds: 0},
+  errorMessage="",
+  hasGameRunOnce=false,
+  hasGameStarted=false,
+  hasGameStopped=false,
+  hasError=false,
+  inputValue="",
+  onChange=()=>{},
+  onClearInput=()=>{},
+  onGameStart=()=>{},
+  onGameStop=()=>{},
 }) => {
-  const inputRef = useRef("");
-  const isFlagGame = quiz.type === 2;
+  const inputRef = createRef<HTMLInputElement>();
+  const isFlagGame = quiz.type === QuizType.FLAG;
 
   useEffect(() => {
     if (!isFlagGame && hasGameStarted) {
@@ -86,8 +106,9 @@ const GameInputCard = ({
             </Fade>
             <InputRightElement>
               {inputValue && (
-                <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+                <Fade in={inputValue?.length > 0}>
                   <IconButton
+                    aria-label="close circle"
                     position="absolute"
                     top="27px"
                     right={3}
@@ -141,63 +162,6 @@ const GameInputCard = ({
       </Box>
     </Flex>
   );
-};
-
-GameInputCard.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  recents: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
-  score: PropTypes.number,
-  timeRemaining: PropTypes.shape({
-    minute: PropTypes.number,
-    seconds: PropTypes.number,
-  }),
-  errorMessage: PropTypes.string,
-  hasError: PropTypes.bool,
-  hasGameRunOnce: PropTypes.bool,
-  hasGameStarted: PropTypes.bool,
-  hasGameStopped: PropTypes.bool,
-  inputValue: PropTypes.string,
-  onChange: PropTypes.func,
-  onClearInput: PropTypes.func,
-  onGameStart: PropTypes.func,
-  onGameStop: PropTypes.func,
-};
-
-GameInputCard.defaultProps = {
-  quiz: {},
-  recents: [],
-  score: 0,
-  timeRemaining: 0,
-  errorMessage: "",
-  hasError: false,
-  hasGameRunOnce: false,
-  hasGameStarted: false,
-  hasGameStopped: false,
-  inputValue: "",
-  onChange: () => {},
-  onClearInput: () => {},
-  onGameStart: () => {},
-  onGameStop: () => {},
 };
 
 export default GameInputCard;

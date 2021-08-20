@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import {
   Box,
@@ -27,22 +26,38 @@ import SolidPencil from "../../Icons/SolidPencil";
 import useCountries from "../../hooks/useCountries";
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 
-import LoadingPlaceholder from "./UserProfileSummaryPlaceholder";
+import LoadingPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
 
-const UserProfileSummary = ({
-  isLoading,
-  onClickUpgrade,
-  onClickManage,
-  username,
-  email,
-  countryCode,
-  xp,
-  isPremium,
-  avatarName,
-  avatarImageUrl,
-  avatarBackground,
-  avatarBorder,
-  error,
+interface Props {
+  isLoading?: boolean;
+  onClickUpgrade?: any;
+  onClickManage?: any;
+  username?: string;
+  email?: string;
+  countryCode?: string;
+  xp?: number;
+  isPremium?: boolean;
+  avatarName?: string;
+  avatarImageUrl?: string;
+  avatarBackground?: string;
+  avatarBorder?: string;
+  error?: string;
+}
+
+const UserProfileSummary: FC<Props> = ({
+  isLoading=false,
+  onClickUpgrade=()=>{},
+  onClickManage=()=>{},
+  username="",
+  email="",
+  countryCode="",
+  xp=0,
+  isPremium=false,
+  avatarName="",
+  avatarImageUrl="",
+  avatarBackground="",
+  avatarBorder="",
+  error="",
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { countries } = useCountries();
@@ -60,7 +75,7 @@ const UserProfileSummary = ({
       <Card>
         <Box width="100%">
           <Flex justifyContent="flex-end">
-            <IconButton backgroundColor="transparent" onClick={onOpen}>
+            <IconButton aria-label="pencil" backgroundColor="transparent" onClick={onOpen}>
               <SolidPencil
                 color="gray.600"
                 marginLeft="4px"
@@ -163,38 +178,6 @@ const UserProfileSummary = ({
       <UpdateUserFormContainer isOpen={isOpen} onClose={onClose} />
     </>
   );
-};
-
-UserProfileSummary.propTypes = {
-  isLoading: PropTypes.bool,
-  onClickUpgrade: PropTypes.func,
-  onClickManage: PropTypes.func,
-  username: PropTypes.string,
-  email: PropTypes.string,
-  countryCode: PropTypes.string,
-  xp: PropTypes.number,
-  isPremium: PropTypes.bool,
-  avatarName: PropTypes.string,
-  avatarImageUrl: PropTypes.string,
-  avatarBackground: PropTypes.string,
-  avatarBorder: PropTypes.string,
-  error: PropTypes.string,
-};
-
-UserProfileSummary.defaultProps = {
-  isLoading: false,
-  onClickUpgrade: () => {},
-  onClickManage: () => {},
-  username: "",
-  email: "",
-  countryCode: "",
-  xp: 0,
-  isPremium: false,
-  avatarName: "",
-  avatarImageUrl: "",
-  avatarBackground: "",
-  avatarBorder: "",
-  error: "",
 };
 
 export default UserProfileSummary;

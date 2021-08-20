@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 
 import Link from "next/link";
 import {
@@ -11,8 +11,8 @@ import {
 
 import SolidSuccessCircle from "../../../Icons/SolidSuccessCircle";
 
-const ResetPasswordSuccess = () => (
-  <Fade in out>
+const ResetPasswordSuccess: FC = () => (
+  <Fade in>
     <Flex marginBottom={4} alignItems="center" direction="column">
       <ScaleFade initialScale={0.75} in>
         <SolidSuccessCircle

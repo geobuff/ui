@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import * as Yup from "yup";
 
 import {
@@ -54,7 +53,13 @@ const validationSchema = Yup.object().shape({
     ),
 });
 
-const RegisterForm = ({ error, onSubmit, isSubmitting }) => {
+interface Props {
+  error?: string;
+  onSubmit?: any;
+  isSubmitting?: boolean;
+}
+
+const RegisterForm: FC<Props> = ({ error="", onSubmit=()=>{}, isSubmitting=false }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const mainContent = (
@@ -282,18 +287,6 @@ const RegisterForm = ({ error, onSubmit, isSubmitting }) => {
       )}
     </>
   );
-};
-
-RegisterForm.propTypes = {
-  error: PropTypes.string,
-  onSubmit: PropTypes.func,
-  isSubmitting: PropTypes.bool,
-};
-
-RegisterForm.defaultProps = {
-  error: "",
-  onSubmit: () => {},
-  isSubmitting: false,
 };
 
 export default RegisterForm;

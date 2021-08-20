@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 
 import { Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
 import Link from "next/link";
 
-const LoginLink = () => {
+const LoginLink: FC = () => {
   return (
     <Flex direction="row" margin={{ sm: 3, md: 5 }}>
       <Text fontSize="14px" marginRight={1} fontWeight="500">

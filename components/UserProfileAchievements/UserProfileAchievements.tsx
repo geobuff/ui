@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import {
   Box,
   Tooltip,
@@ -15,8 +14,15 @@ import Card from "../Card";
 import { isBadgeComplete, getProgress } from "../../helpers/badge";
 
 import SolidLock from "../../Icons/SolidLock";
+import { Badge } from "../../types/badge";
+import { UserLeaderboardEntry } from "../../types/user-leaderboard-entry";
 
-const UserProfileAchievements = ({ badges, entries }) => {
+interface Props {
+  badges?: Array<Badge>;
+  entries?: Array<UserLeaderboardEntry>;
+}
+
+const UserProfileAchievements: FC<Props> = ({ badges=[], entries=[] }) => {
   const getLabel = (badge) => {
     return (
       <Box>
@@ -93,36 +99,6 @@ const UserProfileAchievements = ({ badges, entries }) => {
       </Flex>
     </Card>
   );
-};
-
-UserProfileAchievements.propTypes = {
-  badges: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      description: PropTypes.string,
-      imageUrl: PropTypes.string,
-      total: PropTypes.number,
-    })
-  ),
-  entries: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      userId: PropTypes.number,
-      quizId: PropTypes.number,
-      badgeGroup: PropTypes.number,
-      quizName: PropTypes.string,
-      quizImageUrl: PropTypes.string,
-      quizMaxScore: PropTypes.number,
-      score: PropTypes.number,
-      time: PropTypes.number,
-      added: PropTypes.time,
-    })
-  ),
-};
-UserProfileAchievements.defaultProps = {
-  badges: [],
-  entries: [],
 };
 
 export default UserProfileAchievements;

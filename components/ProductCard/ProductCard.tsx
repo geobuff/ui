@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 
@@ -10,7 +9,14 @@ const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
-const ProductCard = ({ name, imageUrl, price, sizes }) => (
+interface Props {
+  name?: string;
+  imageUrl?: string;
+  price?: number;
+  sizes?: Array<string>;
+}
+
+const ProductCard: FC<Props> = ({ name="", imageUrl="", price=0.0, sizes=[] }) => (
   <Flex
     aria-label={`game card for ${name}`}
     role="group"
@@ -97,18 +103,5 @@ const ProductCard = ({ name, imageUrl, price, sizes }) => (
     </Box>
   </Flex>
 );
-
-ProductCard.propTypes = {
-  name: PropTypes.string,
-  imageUrl: PropTypes.string,
-  price: PropTypes.number,
-  sizes: PropTypes.arrayOf(PropTypes.string),
-};
-ProductCard.defaultProps = {
-  name: "",
-  imageUrl: "",
-  price: 0.0,
-  sizes: [],
-};
 
 export default React.memo(ProductCard);

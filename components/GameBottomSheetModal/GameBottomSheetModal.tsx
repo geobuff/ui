@@ -1,5 +1,4 @@
-import React, { useRef, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { createRef, useEffect, FC } from "react";
 import Link from "next/link";
 import {
   Box,
@@ -19,26 +18,45 @@ import Twemoji from "../Twemoji";
 
 import { groupMapping } from "../../helpers/mapping";
 import GameFlags from "../GameFlags/GameFlags";
+import { Quiz } from "../../types/quiz";
+import { Mapping } from "../../types/mapping";
+import { QuizType } from "../../types/quiz-type";
+import { Result } from "../../types/result";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
-const GameBottomSheetModal = ({
-  quiz,
-  mapping,
-  checked,
-  recents,
-  hasGameRunOnce,
-  hasGameStarted,
-  hasGameStopped,
-  isOpen,
-  onGameStart,
-  onGameStop,
-  codes,
-  onCheckSubmission,
+interface Props {
+  quiz?: Quiz
+  mapping?: Array<Mapping>;
+  checked?: Array<Result>;
+  recents?: Array<Result>;
+  codes?: Array<string>;
+  hasGameRunOnce?: boolean;
+  hasGameStarted?: boolean;
+  hasGameStopped?: boolean;
+  isOpen?: boolean;
+  onGameStart?: any;
+  onGameStop?: any;
+  onCheckSubmission?: any;
+}
+
+const GameBottomSheetModal: FC<Props> = ({
+  quiz=null,
+  mapping=[],
+  checked=[],
+  recents=[],
+  codes=[],
+  hasGameRunOnce=false,
+  hasGameStarted=false,
+  hasGameStopped=false,
+  isOpen=false,
+  onGameStart=()=>{},
+  onGameStop=()=>{},
+  onCheckSubmission=()=>{},
 }) => {
-  const isFlagQuiz = quiz.type === 2;
-  const ref = useRef();
+  const isFlagQuiz = quiz.type === QuizType.FLAG;
+  const ref = createRef<any>();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   // Push modal down on game start
@@ -65,6 +83,7 @@ const GameBottomSheetModal = ({
         damping: 60,
         mass: 0.2,
       }}
+      onClose={()=>{}}
     >
       <Sheet.Container style={{ position: "fixed" }}>
         <Box pt={1} height="54px" as={Sheet.Header} />
@@ -132,7 +151,6 @@ const GameBottomSheetModal = ({
             </Box>
 
             <ResultsMap
-              quiz={quiz}
               checked={checked}
               map={groupMapping(mapping)}
               hasGameStopped={hasGameStopped}
@@ -144,70 +162,6 @@ const GameBottomSheetModal = ({
       </Sheet.Container>
     </Box>
   );
-};
-
-GameBottomSheetModal.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  mapping: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-      svgName: PropTypes.string,
-      alternativeNames: PropTypes.arrayOf(PropTypes.string),
-      prefixes: PropTypes.arrayOf(PropTypes.string),
-      group: PropTypes.string,
-    })
-  ),
-  checked: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
-  recents: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-    })
-  ),
-  hasGameRunOnce: PropTypes.bool,
-  hasGameStarted: PropTypes.bool,
-  hasGameStopped: PropTypes.bool,
-  isOpen: PropTypes.bool,
-  onGameStart: PropTypes.func,
-  onGameStop: PropTypes.func,
-  codes: PropTypes.arrayOf(PropTypes.string),
-  onCheckSubmission: PropTypes.func,
-};
-
-GameBottomSheetModal.defaultProps = {
-  quiz: {},
-  mapping: [],
-  checked: [],
-  recents: [],
-  hasGameRunOnce: false,
-  hasGameStarted: false,
-  hasGameStopped: false,
-  isOpen: false,
-  onGameStart: () => {},
-  onGameStop: () => {},
-  codes: [],
-  onCheckSubmission: () => {},
 };
 
 export default GameBottomSheetModal;

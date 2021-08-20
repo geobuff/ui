@@ -1,8 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Link, Image, Box, Text } from "@chakra-ui/react";
 
-const TeamMemberCard = ({ title, position, city, country, imageUrl, link }) => (
+interface Props {
+  title?: string;
+  position?: string;
+  city?: string;
+  country?: string;
+  imageUrl?: string;
+  link?: string;
+}
+
+const TeamMemberCard: FC<Props> = ({ title="", position="", city="", country="", imageUrl="", link="" }) => (
   <Box textAlign="center">
     <Link href={link}>
       <Image
@@ -27,14 +35,5 @@ const TeamMemberCard = ({ title, position, city, country, imageUrl, link }) => (
     </Box>
   </Box>
 );
-
-TeamMemberCard.propTypes = {
-  title: PropTypes.string,
-  position: PropTypes.string,
-  city: PropTypes.string,
-  country: PropTypes.string,
-  imageUrl: PropTypes.string,
-  link: PropTypes.string,
-};
 
 export default TeamMemberCard;

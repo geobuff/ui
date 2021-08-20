@@ -1,17 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
 import Image from "../Image";
 import { secondsToMinutesString } from "../../helpers/time";
+import { Quiz } from "../../types/quiz";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
-const QuizCard = ({ quiz }) => (
+interface Props {
+  quiz?: Quiz;
+}
+
+const QuizCard: FC<Props> = ({ quiz={} }) => (
   <Flex
     aria-label={`game card for ${quiz.name}`}
     role="group"
@@ -98,27 +102,5 @@ const QuizCard = ({ quiz }) => (
     </Box>
   </Flex>
 );
-
-QuizCard.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-};
-QuizCard.defaultProps = {
-  quiz: {},
-};
 
 export default React.memo(QuizCard);

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, FC } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import PropTypes from "prop-types";
 import {
   Box,
   Button,
@@ -29,8 +28,15 @@ import FlagDropZone from "../FlagDropZone/FlagDropZone";
 
 import { groupMapping } from "../../helpers/mapping";
 import { findSubmissionByCode } from "../../helpers/game";
+import { Quiz } from "../../types/quiz";
+import { Mapping } from "../../types/mapping";
 
-const GameFlagQuiz = ({ quiz, mapping }) => {
+interface Props {
+  quiz?: Quiz;
+  mapping?: Array<Mapping>;
+}
+
+const GameFlagQuiz: FC<Props> = ({ quiz=null, mapping=[] }) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 
@@ -63,10 +69,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     mapping.map((m) => m.code).slice(0, 12)
   );
 
-  useEffect(() => {
-    checkSubmission(currentSubmission);
-  }, [currentSubmission, checkSubmission]);
-
   useWarnIfActiveGame(hasGameStarted);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,7 +77,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
 
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
-      const data = JSON.parse(router.query.data);
+      const data = JSON.parse(router.query.data[0]);
       axiosClient
         .get(`/tempscores/${data.tempScoreId}`)
         .then((response) => {
@@ -99,10 +101,10 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
   };
 
   const { seconds, minutes, restart, pause } = useTimer({
-    timeRemaining,
+    expiryTimestamp: timeRemaining,
     onExpire: () => {
       pause();
-      handleExpire(seconds, minutes);
+      handleExpire();
     },
   });
 
@@ -218,6 +220,10 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
     [acceptedFlag, checkedSubmissions, handleGameStop, mapping]
   );
 
+  useEffect(() => {
+    checkSubmission(currentSubmission);
+  }, [currentSubmission, checkSubmission]);
+
   const onClearInput = () => {
     setHasError(false);
     setErrorMessage("");
@@ -254,7 +260,7 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
                       quiz={quiz}
                       recents={recentSubmissions}
                       score={score}
-                      timeRemaining={{ seconds, minutes }}
+                      timeRemaining={{ minutes, seconds }}
                       errorMessage={errorMessage}
                       hasError={hasError}
                       hasGameRunOnce={hasGameRunOnce}
@@ -357,7 +363,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
 
                 {showResultList && (
                   <ResultsMap
-                    quiz={quiz}
                     checked={checkedSubmissions}
                     map={groupMapping(mapping)}
                     hasGameStopped={hasGameStopped}
@@ -394,41 +399,6 @@ const GameFlagQuiz = ({ quiz, mapping }) => {
       </Flex>
     </>
   );
-};
-
-GameFlagQuiz.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  mapping: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-      svgName: PropTypes.string,
-      alternativeNames: PropTypes.arrayOf(PropTypes.string),
-      prefixes: PropTypes.arrayOf(PropTypes.string),
-      group: PropTypes.string,
-    })
-  ),
-};
-
-GameFlagQuiz.defaultProps = {
-  quiz: {},
-  submissions: [],
-  map: {},
 };
 
 export default GameFlagQuiz;

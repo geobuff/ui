@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import Link from "next/link";
 import { DateTime } from "luxon";
 
@@ -24,8 +23,13 @@ import Card from "../Card";
 import CustomFlag from "../CustomFlag";
 
 import { secondsToMinutesString } from "../../helpers/time";
+import { UserLeaderboardEntry } from "../../types/user-leaderboard-entry";
 
-const UserProfileLeaderboardEntries = ({ entries }) => (
+interface Props {
+  entries?: Array<UserLeaderboardEntry>;
+}
+
+const UserProfileLeaderboardEntries: FC<Props> = ({ entries=[] }) => (
   <Card padding={6}>
     <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
       {"Leaderboard Entries"}
@@ -95,22 +99,5 @@ const UserProfileLeaderboardEntries = ({ entries }) => (
     </Box>
   </Card>
 );
-
-UserProfileLeaderboardEntries.propTypes = {
-  entries: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      userId: PropTypes.number,
-      quizId: PropTypes.number,
-      badgeGroup: PropTypes.number,
-      quizName: PropTypes.string,
-      quizImageUrl: PropTypes.string,
-      score: PropTypes.number,
-      time: PropTypes.number,
-      added: PropTypes.time,
-      rank: PropTypes.number,
-    })
-  ),
-};
 
 export default UserProfileLeaderboardEntries;

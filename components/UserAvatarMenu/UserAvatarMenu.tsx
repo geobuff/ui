@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import { useRouter } from "next/router";
 
@@ -21,7 +20,11 @@ import {
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 
-const UserAvatarMenu = ({ isCondensed }) => {
+interface Props {
+  isCondensed?: boolean;
+}
+
+const UserAvatarMenu: FC<Props> = ({ isCondensed=false }) => {
   const { user, isLoading, clearUser } = useCurrentUser();
   const router = useRouter();
 
@@ -151,14 +154,6 @@ const UserAvatarMenu = ({ isCondensed }) => {
       </Flex>
     </Fade>
   );
-};
-
-UserAvatarMenu.propTypes = {
-  isCondensed: PropTypes.bool,
-};
-
-UserAvatarMenu.defaultProps = {
-  isCondensed: false,
 };
 
 export default UserAvatarMenu;

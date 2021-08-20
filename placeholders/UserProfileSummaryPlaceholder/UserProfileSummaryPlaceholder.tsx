@@ -1,7 +1,7 @@
 import React from "react";
 import { Flex, Skeleton, SkeletonCircle } from "@chakra-ui/react";
 
-import Card from "../../Card";
+import Card from "../../components/Card";
 
 const UserProfileSummaryPlaceholder = () => {
   return (

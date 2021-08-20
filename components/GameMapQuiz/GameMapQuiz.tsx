@@ -1,9 +1,8 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, FC } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { debounce } from "throttle-debounce";
 
-import PropTypes from "prop-types";
 import {
   Box,
   Button,
@@ -12,6 +11,7 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
+
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
@@ -38,8 +38,17 @@ import {
   findSubmissionByNames,
   findSubmissionsByPrefixes,
 } from "../../helpers/game";
+import { Quiz } from "../../types/quiz";
+import { Mapping } from "../../types/mapping";
 
-const GameMapQuiz = ({ quiz, mapping, map }) => {
+// TODO: Define type for map.
+interface Props {
+  quiz?: Quiz;
+  mapping?: Array<Mapping>;
+  map?: object;
+}
+
+const GameMapQuiz: FC<Props> = ({ quiz=null, mapping=[], map={} }) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 
@@ -66,7 +75,7 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
 
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
-      const data = JSON.parse(router.query.data);
+      const data = JSON.parse(router.query.data[0]);
       axiosClient
         .get(`/tempscores/${data.tempScoreId}`)
         .then((response) => {
@@ -90,10 +99,10 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
   };
 
   const { seconds, minutes, restart, pause } = useTimer({
-    timeRemaining,
+    expiryTimestamp: timeRemaining,
     onExpire: () => {
       pause();
-      handleExpire(seconds, minutes);
+      handleExpire();
     },
   });
 
@@ -344,42 +353,6 @@ const GameMapQuiz = ({ quiz, mapping, map }) => {
       )}
     </>
   );
-};
-
-GameMapQuiz.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  mapping: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-      svgName: PropTypes.string,
-      alternativeNames: PropTypes.arrayOf(PropTypes.string),
-      prefixes: PropTypes.arrayOf(PropTypes.string),
-      group: PropTypes.string,
-    })
-  ),
-  map: PropTypes.object,
-};
-
-GameMapQuiz.defaultProps = {
-  quiz: {},
-  submissions: [],
-  map: {},
 };
 
 export default GameMapQuiz;

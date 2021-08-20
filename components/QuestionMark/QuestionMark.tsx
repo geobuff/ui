@@ -1,7 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
-const QuestionMark = ({ height, width }) => (
+interface Props {
+  height?: number;
+  width?: number;
+}
+
+const QuestionMark: FC<Props> = ({ height, width }) => (
   <svg viewBox="0 0 2000 2000" height={height} width={width}>
     <defs>
       <linearGradient
@@ -42,10 +46,5 @@ const QuestionMark = ({ height, width }) => (
     </g>
   </svg>
 );
-
-QuestionMark.propTypes = {
-  height: PropTypes.string,
-  width: PropTypes.string,
-};
 
 export default QuestionMark;

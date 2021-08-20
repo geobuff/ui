@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 
@@ -9,18 +8,34 @@ import LeaderboardPaginationControls from "./LeaderboardPaginationControls";
 import LeaderboardTable from "../LeaderboardTable";
 
 import Card from "../Card";
+import { LeaderboardEntry } from "../../types/leaderboard-entry";
+import { FilterParams } from "../../types/filter-params";
+import { Quiz } from "../../types/quiz";
 
-const Leaderboard = ({
-  entries,
-  hasMoreEntries,
-  filterParams,
-  isLoading,
-  quizId,
-  quizzes,
-  onChangeFilterParams,
-  onChangeQuiz,
-  rank,
-  setRank,
+interface Props {
+  entries?: Array<LeaderboardEntry>,
+  hasMoreEntries?: boolean;
+  isLoading?: boolean;
+  filterParams?: FilterParams;
+  quizId?: string;
+  quizzes?: Array<Quiz>;
+  onChangeQuiz?: any;
+  onChangeFilterParams?: any;
+  rank?: string;
+  setRank?: any;
+}
+
+const Leaderboard: FC<Props> = ({
+  entries=[],
+  hasMoreEntries=false,
+  filterParams={page: 0, limit: 10},
+  isLoading=false,
+  quizId="1",
+  quizzes=[],
+  onChangeFilterParams=()=>{},
+  onChangeQuiz=()=>{},
+  rank="",
+  setRank=()=>{},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
@@ -98,8 +113,6 @@ const Leaderboard = ({
           paddingX={{ base: 0, md: 3 }}
         >
           <LeaderboardTable
-            page={filterParams.page}
-            limit={filterParams.limit}
             entries={entries}
             isLoading={isLoading}
           />
@@ -117,54 +130,6 @@ const Leaderboard = ({
       </Card>
     </Flex>
   );
-};
-
-Leaderboard.propTypes = {
-  entries: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      userId: PropTypes.number,
-      username: PropTypes.string,
-      countryCode: PropTypes.string,
-      score: PropTypes.number,
-      time: PropTypes.time,
-      added: PropTypes.time,
-      rank: PropTypes.number,
-    })
-  ),
-  isLoading: PropTypes.bool,
-  hasMoreEntries: PropTypes.bool,
-  filterParams: PropTypes.shape({
-    page: PropTypes.number,
-    limit: PropTypes.number,
-  }),
-  quizId: PropTypes.string,
-  quizzes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-    })
-  ),
-  onChangeQuiz: PropTypes.func,
-  onChangeFilterParams: PropTypes.func,
-  rank: PropTypes.string,
-  setRank: PropTypes.func,
-};
-
-Leaderboard.defaultProps = {
-  entries: [],
-  hasMoreEntries: false,
-  isLoading: true,
-  filterParams: {
-    page: 0,
-    limit: 10,
-  },
-  quizId: "1",
-  quizzes: [],
-  onChangeQuiz: () => {},
-  onChangeFilterParams: () => {},
-  rank: "",
-  setRank: () => {},
 };
 
 export default Leaderboard;

@@ -1,5 +1,4 @@
-import React, { useRef, useEffect } from "react";
-import PropTypes from "prop-types";
+import React, { createRef, useEffect, FC } from "react";
 
 import {
   Box,
@@ -17,21 +16,36 @@ import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 
 import GameInputBannerTimer from "./GameInputBannerTimer";
 import GameInputBannerError from "./GameInputBannerError";
+import { Quiz } from "../../types/quiz";
+import { TimeRemaining } from "../../types/time-remaining";
 
-const GameInputBanner = ({
-  quiz,
-  score,
-  errorMessage,
-  expiryTimestamp,
-  hasError,
-  hasGameStarted,
-  hasGameStopped,
-  inputValue,
-  onChange,
-  onClearInput,
+interface Props {
+  quiz?: Quiz;
+  score?: number;
+  errorMessage?: string;
+  expiryTimestamp?: TimeRemaining;
+  hasError?: boolean;
+  hasGameStarted?: boolean;
+  hasGameStopped?: boolean;
+  inputValue?: string;
+  onChange?: any;
+  onClearInput?: any;
+}
+
+const GameInputBanner: FC<Props> = ({
+  quiz=null,
+  score=0,
+  errorMessage="",
+  expiryTimestamp={minutes: 0, seconds: 0},
+  hasError=false,
+  hasGameStarted=false,
+  hasGameStopped=false,
+  inputValue="",
+  onChange=()=>{},
+  onClearInput=()=>{},
 }) => {
   const isFlagGame = quiz.type === 2;
-  const inputRef = useRef("");
+  const inputRef = createRef<HTMLInputElement>();
 
   useEffect(() => {
     if (!isFlagGame && hasGameStarted) {
@@ -119,8 +133,9 @@ const GameInputBanner = ({
               value={inputValue}
             />
             <InputRightElement>
-              <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+              <Fade in={inputValue?.length > 0}>
                 <IconButton
+                  aria-label="close circle"
                   right={3}
                   maxHeight="22px"
                   minWidth="22px"
@@ -144,49 +159,6 @@ const GameInputBanner = ({
       </Box>
     </>
   );
-};
-
-GameInputBanner.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  score: PropTypes.number,
-  errorMessage: PropTypes.string,
-  expiryTimestamp: PropTypes.shape({
-    minutes: PropTypes.number,
-    seconds: PropTypes.number,
-  }),
-  hasError: PropTypes.bool,
-  hasGameStarted: PropTypes.bool,
-  hasGameStopped: PropTypes.bool,
-  inputValue: PropTypes.string,
-  onChange: PropTypes.func,
-  onClearInput: PropTypes.func,
-};
-GameInputBanner.defaultProps = {
-  quiz: {},
-  score: 0,
-  errorMessage: "",
-  expiryTimestamp: null,
-  hasError: false,
-  hasGameStarted: false,
-  hasGameStopped: false,
-  inputValue: "",
-  onChange: () => {},
-  onClearInput: () => {},
 };
 
 export default GameInputBanner;

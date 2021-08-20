@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { debounce } from "throttle-debounce";
 
 import {
@@ -11,16 +10,28 @@ import {
 } from "@chakra-ui/react";
 
 import Search from "../../Icons/Search";
+import { Quiz } from "../../types/quiz";
 
-const LeaderboardFilters = ({
-  quizzes,
-  quizId,
-  isLoading,
-  onChangeSearchUsers,
-  onChangeQuiz,
-  onChangeRange,
-  rank,
-  onChangeSearchRank,
+interface Props {
+  quizId?: string;
+  quizzes?: Array<Quiz>;
+  isLoading?: boolean;
+  rank?: string;
+  onChangeQuiz?: any;
+  onChangeRange?: any;
+  onChangeSearchUsers?: any;
+  onChangeSearchRank?: any;
+}
+
+const LeaderboardFilters: FC<Props> = ({
+  quizzes=[],
+  quizId="1",
+  isLoading=false,
+  onChangeSearchUsers=()=>{},
+  onChangeQuiz=()=>{},
+  onChangeRange=()=>{},
+  rank="",
+  onChangeSearchRank=()=>{},
 }) => {
   const handleSearchUsersDebounced = debounce(250, (event) =>
     onChangeSearchUsers(event)
@@ -124,32 +135,6 @@ const LeaderboardFilters = ({
       </Flex>
     </Flex>
   );
-};
-
-LeaderboardFilters.propTypes = {
-  quizId: PropTypes.string,
-  quizzes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-    })
-  ),
-  isLoading: PropTypes.bool,
-  onChangeQuiz: PropTypes.func,
-  onChangeRange: PropTypes.func,
-  onChangeSearchUsers: PropTypes.func,
-  rank: PropTypes.string,
-  onChangeSearchRank: PropTypes.func,
-};
-LeaderboardFilters.defaultProps = {
-  quizId: "1",
-  quizzes: [],
-  isLoading: false,
-  onChangeQuiz: () => {},
-  onChangeRange: () => {},
-  onChangeSearchUsers: () => {},
-  rank: "",
-  onChangeSearchRank: () => {},
 };
 
 export default LeaderboardFilters;

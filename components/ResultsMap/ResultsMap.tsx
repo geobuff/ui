@@ -1,5 +1,4 @@
-import React, { useMemo } from "react";
-import PropTypes from "prop-types";
+import React, { useMemo, FC } from "react";
 
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { AutoSizer, List as VirtualizedList } from "react-virtualized";
@@ -12,12 +11,21 @@ import ResultsListItem from "../ResultsListItem";
 const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 28;
 
-const ResultsMap = ({
-  checked,
-  map,
-  hasGameStopped,
-  hasGroupings,
-  hasFlags,
+// TODO: Define types for checked + map.
+interface Props {
+  checked?: Array<object>;
+  map?: object;
+  hasGameStopped?: boolean;
+  hasGroupings?: boolean;
+  hasFlags?: boolean;
+}
+
+const ResultsMap: FC<Props> = ({
+  checked=[],
+  map={},
+  hasGameStopped=false,
+  hasGroupings=false,
+  hasFlags=false,
 }) => {
   const results = useMemo(
     () =>
@@ -29,7 +37,7 @@ const ResultsMap = ({
   );
 
   const resultRows = results[0].data;
-
+       
   const renderHeader = ({ title, key, style }) => {
     return (
       <Box key={key} style={style}>
@@ -115,21 +123,6 @@ const ResultsMap = ({
       <Box height={{ base: "35px", md: "20px", lg: "35px" }} />
     </Box>
   );
-};
-
-ResultsMap.propTypes = {
-  checked: PropTypes.array,
-  map: PropTypes.object,
-  hasGameStopped: PropTypes.bool,
-  hasGroupings: PropTypes.bool,
-  hasFlags: PropTypes.bool,
-};
-ResultsMap.defaultProps = {
-  checked: [],
-  map: {},
-  hasGameStopped: false,
-  hasGroupings: false,
-  hasFlags: false,
 };
 
 export default ResultsMap;

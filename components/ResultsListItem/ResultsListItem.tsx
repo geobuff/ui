@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Fade, Flex, Text } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 
@@ -8,13 +7,23 @@ import CustomFlag from "../CustomFlag";
 
 import Twemoji from "../Twemoji";
 
-const ResultsListItem = ({
-  code,
-  isHidden,
-  isMissedResult,
-  svgName,
-  hasFlag,
-  shouldFadeIn,
+interface Props {
+  code?: string;
+  isHidden?: boolean;
+  isMissedResult?: boolean;
+  svgName?: string;
+  hasFlag?: boolean;
+  shouldFadeIn?: boolean;
+  [x:string]: any;
+}
+
+const ResultsListItem: FC<Props> = ({
+  code="",
+  isHidden=false,
+  isMissedResult=false,
+  svgName="",
+  hasFlag=false,
+  shouldFadeIn=false,
   ...props
 }) => {
   const mainContent = (
@@ -46,24 +55,6 @@ const ResultsListItem = ({
   );
 
   return <> {shouldFadeIn ? <Fade in> {mainContent} </Fade> : mainContent} </>;
-};
-
-ResultsListItem.propTypes = {
-  code: PropTypes.string,
-  isHidden: PropTypes.bool,
-  isMissedResult: PropTypes.bool,
-  svgName: PropTypes.string,
-  hasFlag: PropTypes.bool,
-  shouldFadeIn: PropTypes.bool,
-};
-
-ResultsListItem.defaultProps = {
-  code: "",
-  isHidden: false,
-  isMissedResult: false,
-  svgName: "",
-  hasFlag: false,
-  shouldFadeIn: false,
 };
 
 export default ResultsListItem;

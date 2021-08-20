@@ -1,8 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Box, Collapse, Text } from "@chakra-ui/react";
 
-const GameInputBannerError = ({ errorMessage }) => {
+interface Props {
+  errorMessage?: string;
+}
+
+const GameInputBannerError: FC<Props> = ({ errorMessage="" }) => {
   return (
     <Collapse
       in={!!errorMessage}
@@ -22,13 +25,6 @@ const GameInputBannerError = ({ errorMessage }) => {
       </Box>
     </Collapse>
   );
-};
-
-GameInputBannerError.propTypes = {
-  errorMessage: PropTypes.string,
-};
-GameInputBannerError.defaultProps = {
-  errorMessage: "",
 };
 
 export default GameInputBannerError;

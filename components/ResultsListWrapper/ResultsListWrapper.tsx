@@ -1,10 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Box, Divider, Text } from "@chakra-ui/react";
 
 import ResultsList from "../ResultsList/ResultsList";
+import { Quiz } from "../../types/quiz";
+import { Result } from "../../types/result";
 
-const ResultsListWrapper = ({ quiz, results }) => (
+interface Props {
+  quiz?: Quiz;
+  results?: Array<Result>;
+}
+
+const ResultsListWrapper: FC<Props> = ({ quiz, results=[] }) => (
   <Box textAlign="left">
     <Divider my={4} />
     <Text fontSize="xl" mt={2} fontWeight="bold">
@@ -16,29 +22,5 @@ const ResultsListWrapper = ({ quiz, results }) => (
     </Box>
   </Box>
 );
-
-ResultsListWrapper.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  results: PropTypes.array,
-};
-ResultsListWrapper.defaultProps = {
-  quiz: {},
-  results: [],
-};
 
 export default ResultsListWrapper;

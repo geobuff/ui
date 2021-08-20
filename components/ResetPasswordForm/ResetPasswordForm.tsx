@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import * as Yup from "yup";
 
 import {
@@ -40,7 +39,14 @@ const validationSchema = Yup.object().shape({
 const resetPasswordExplainer =
   "Enter your new password. Make sure it's secure and different to your last one.";
 
-const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
+interface Props {
+  error?: string;
+  isSuccess?: boolean;
+  isSubmitting?: boolean;
+  onSubmit?: Function;
+}
+
+const ResetPasswordForm: FC<Props> = ({ error="", isSuccess=false, isSubmitting=false, onSubmit=()=>{} }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const form = (
@@ -92,7 +98,7 @@ const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
               )}
             </Field>
 
-            <Fade in={error} out={!error}>
+            <Fade in={!!error}>
               <Alert
                 width="100%"
                 status="error"
@@ -187,19 +193,6 @@ const ResetPasswordForm = ({ error, isSuccess, isSubmitting, onSubmit }) => {
       )}
     </>
   );
-};
-
-ResetPasswordForm.propTypes = {
-  error: PropTypes.string,
-  isSuccess: PropTypes.bool,
-  isSubmitting: PropTypes.bool,
-  onSubmit: PropTypes.func,
-};
-ResetPasswordForm.defaultProps = {
-  error: "",
-  isSuccess: false,
-  isSubmitting: false,
-  onSubmit: () => {},
 };
 
 export default ResetPasswordForm;

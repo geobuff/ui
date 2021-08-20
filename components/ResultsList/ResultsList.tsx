@@ -1,10 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import ResultsListItem from "../ResultsListItem";
 import { Box, Text } from "@chakra-ui/react";
+import { Quiz } from "../../types/quiz";
+import { Result } from "../../types/result";
 
-const ResultsList = ({ quiz, results }) => {
+interface Props {
+  quiz?: Quiz;
+  results?: Array<Result>;
+}
+
+const ResultsList: FC<Props> = ({ quiz={}, results=[] }) => {
   if (!results || results.length === 0) {
     return (
       <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
@@ -31,38 +37,6 @@ const ResultsList = ({ quiz, results }) => {
       ))}
     </Box>
   );
-};
-
-ResultsList.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  results: PropTypes.arrayOf(
-    PropTypes.shape({
-      name: PropTypes.string,
-      code: PropTypes.string,
-      svgName: PropTypes.string,
-      isHidden: PropTypes.bool,
-      isMissedResult: PropTypes.bool,
-    })
-  ),
-};
-ResultsList.defaultProps = {
-  quiz: {},
-  results: [],
 };
 
 export default ResultsList;

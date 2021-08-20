@@ -1,9 +1,13 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import { Box } from "@chakra-ui/react";
 
-const FlagFallback = ({ height, width }) => (
+interface Props {
+  height?: string | number | Array<string> | object;
+  width?: string | number | Array<string> | object;
+}
+
+const FlagFallback: FC<Props> = ({ height="18px", width="24.5px" }) => (
   <Box
     height={height}
     width={width}
@@ -11,25 +15,5 @@ const FlagFallback = ({ height, width }) => (
     backgroundColor="#364858"
   />
 );
-
-FlagFallback.propTypes = {
-  height: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-    PropTypes.object,
-  ]),
-  width: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.array,
-    PropTypes.object,
-  ]),
-};
-
-FlagFallback.defaultProps = {
-  height: "18px",
-  width: "24.5px",
-};
 
 export default FlagFallback;

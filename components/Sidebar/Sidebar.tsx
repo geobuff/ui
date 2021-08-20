@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import Link from "next/link";
 import {
   Box,
@@ -10,8 +9,14 @@ import {
 } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
+import { Quiz } from "../../types/quiz";
 
-const Sidebar = ({ heading, quiz, children }) => (
+interface Props {
+  heading?: string;
+  quiz?: Quiz;
+}
+
+const Sidebar: FC<Props> = ({ heading="", quiz={}, children=null }) => (
   <Box
     position="absolute"
     top={0}
@@ -61,32 +66,5 @@ const Sidebar = ({ heading, quiz, children }) => (
     </Box>
   </Box>
 );
-
-Sidebar.propTypes = {
-  heading: PropTypes.string,
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  children: PropTypes.node,
-};
-
-Sidebar.defaultProps = {
-  heading: "",
-  quiz: {},
-  children: null,
-};
 
 export default Sidebar;

@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Flex, Divider } from "@chakra-ui/react";
 
 import HeroHeader from "../HeroHeader";
@@ -7,10 +6,15 @@ import HeroHeader from "../HeroHeader";
 import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer";
 import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
 import UserProfileAchievementsContainer from "../../containers/UserProfileAchievementsContainer";
+import { User } from "../../types/user";
 
 const divider = <Divider borderColor="transparent" my={3} />;
 
-const UserProfile = ({ user }) => (
+interface Props {
+  user?: User;
+}
+
+const UserProfile: FC<Props> = ({ user=null }) => (
   <>
     <HeroHeader height={{ base: "200px", md: "250px" }} />
 
@@ -32,20 +36,5 @@ const UserProfile = ({ user }) => (
     </Flex>
   </>
 );
-
-UserProfile.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    username: PropTypes.string,
-    countryCode: PropTypes.string,
-    xp: PropTypes.number,
-    email: PropTypes.string,
-    picture: PropTypes.string,
-  }),
-};
-
-UserProfile.defaultProps = {
-  user: null,
-};
 
 export default UserProfile;
