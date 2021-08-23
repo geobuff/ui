@@ -5,5 +5,5 @@ export interface User {
     email: string;
     countryCode: string;
     xp: number;
-    picture: string;
+    picture?: string;
 }

@@ -1,12 +1,16 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import UserProfileAchievements from "../../components/UserProfileAchievements";
 import useBadges from "../../hooks/UseBadges";
 import useLeaderboardEntries from "../../hooks/UseLeaderboardEntries";
 import UserProfileAchievementsPlaceholder from "../../placeholders/UserProfileAchievementsPlaceholder";
+import { User } from "../../types/user";
 
-const UserProfileAchievementsContainer = ({ user }) => {
+interface Props {
+  user?: User;
+}
+
+const UserProfileAchievementsContainer: FC<Props> = ({ user=null }) => {
   const { badges, isLoading: badgesLoading } = useBadges();
   const { entries, isLoading: entriesLoading } = useLeaderboardEntries(
     user?.id
@@ -17,21 +21,6 @@ const UserProfileAchievementsContainer = ({ user }) => {
   }
 
   return <UserProfileAchievements badges={badges} entries={entries} />;
-};
-
-UserProfileAchievementsContainer.propTypes = {
-  user: PropTypes.shape({
-    id: PropTypes.number,
-    username: PropTypes.string,
-    countryCode: PropTypes.string,
-    xp: PropTypes.number,
-    email: PropTypes.string,
-    picture: PropTypes.string,
-  }),
-};
-
-UserProfileAchievementsContainer.defaultProps = {
-  user: null,
 };
 
 export default UserProfileAchievementsContainer;

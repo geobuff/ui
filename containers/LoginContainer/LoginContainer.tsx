@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useRouter } from "next/router";
 import jwt_decode from "jwt-decode";
 
@@ -7,7 +7,7 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import LoginForm from "../../components/LoginForm";
 
-const LoginContainer = () => {
+const LoginContainer: FC = () => {
   const router = useRouter();
   const { user, isLoading: isLoadingUser, updateUser } = useCurrentUser();
 
@@ -45,7 +45,7 @@ const LoginContainer = () => {
         });
 
         if (router.query.data) {
-          const data = JSON.parse(router.query.data);
+          const data = JSON.parse(router.query.data[0]);
           router.push({
             pathname: data.redirect,
             query: {

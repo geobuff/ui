@@ -1,11 +1,14 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import QuizList from "../../components/QuizList";
 import useQuizzes from "../../hooks/UseQuizzes";
 import QuizListPlaceholder from "../../placeholders/QuizListPlaceholder/QuizListPlaceholder";
 
-const QuizListContainer = ({ filter }) => {
+interface Props {
+  filter?: string;
+}
+
+const QuizListContainer: FC<Props> = ({ filter="" }) => {
   const { quizzes, isLoading } = useQuizzes(filter);
 
   if (isLoading) {
@@ -13,13 +16,6 @@ const QuizListContainer = ({ filter }) => {
   }
 
   return <QuizList quizzes={quizzes} />;
-};
-
-QuizListContainer.propTypes = {
-  filter: PropTypes.string,
-};
-QuizListContainer.defaultProps = {
-  filter: "",
 };
 
 export default QuizListContainer;

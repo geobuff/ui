@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useRouter } from "next/router";
 
 import axiosClient from "../../axios/axiosClient";
@@ -6,7 +6,7 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import ResetPasswordForm from "../../components/ResetPasswordForm";
 
-const ResetPasswordContainer = () => {
+const ResetPasswordContainer: FC = () => {
   const router = useRouter();
   const { userId, token } = router.query;
 
@@ -48,7 +48,7 @@ const ResetPasswordContainer = () => {
     setError(null);
     axiosClient
       .put("/auth", {
-        userId: parseInt(userId),
+        userId: parseInt(userId[0]),
         token,
         password,
       })
@@ -72,8 +72,5 @@ const ResetPasswordContainer = () => {
     />
   );
 };
-
-ResetPasswordContainer.propTypes = {};
-ResetPasswordContainer.defaultProps = {};
 
 export default ResetPasswordContainer;

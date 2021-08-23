@@ -1,22 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import UserProfileLeaderboardEntries from "../../components/UserProfileLeaderboardEntries";
 import useLeaderboardEntries from "../../hooks/UseLeaderboardEntries";
 import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";
 
-const UserProfileLeaderboardEntriesContainer = ({ userId }) => {
-  const { entries, isPending } = useLeaderboardEntries(userId);
+interface Props {
+  userId: number;
+}
 
-  if (isPending) {
+const UserProfileLeaderboardEntriesContainer: FC<Props> = ({ userId }) => {
+  const { entries, isLoading } = useLeaderboardEntries(userId);
+
+  if (isLoading) {
     return <UserProfileLeaderboardEntriesPlaceholder />;
   }
 
   return <UserProfileLeaderboardEntries entries={entries} />;
-};
-
-UserProfileLeaderboardEntriesContainer.propTypes = {
-  userId: PropTypes.number,
 };
 
 export default UserProfileLeaderboardEntriesContainer;

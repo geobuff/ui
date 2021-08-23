@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState, FC } from "react";
 
 import axiosClient from "../../axios/axiosClient";
 
 import useQuizzes from "../../hooks/UseQuizzes";
 import Leaderboard from "../../components/Leaderboard";
+import { FilterParams } from "../../types/filter-params";
 
-const LeaderboardContainer = ({ defaultQuizId, rankParam }) => {
+interface Props {
+  defaultQuizId?: string;
+  rankParam?: string;
+}
+
+const LeaderboardContainer: FC<Props> = ({ defaultQuizId="1", rankParam }) => {
   const { quizzes, isLoading: isLoadingQuizzes } = useQuizzes();
 
   const [quizId, setQuizId] = useState(() => defaultQuizId);
   const [entries, setEntries] = useState([]);
   const [isLoadingEntries, setIsLoadingEntries] = useState(true);
   const [hasMoreEntries, setHasMoreEntries] = useState(false);
-  const [filterParams, setFilterParams] = useState({ page: 0, limit: 10 });
+  const [filterParams, setFilterParams]  = useState<FilterParams>({ page: 0, limit: 10 });
   const [rank, setRank] = useState("");
   const [rankSet, setRankSet] = useState(false);
 
@@ -55,15 +60,6 @@ const LeaderboardContainer = ({ defaultQuizId, rankParam }) => {
       setRank={setRank}
     />
   );
-};
-
-LeaderboardContainer.propTypes = {
-  defaultQuizId: PropTypes.string,
-  rankParam: PropTypes.string,
-};
-
-LeaderboardContainer.defaultProps = {
-  defaultQuizId: "1", // COTW
 };
 
 export default LeaderboardContainer;

@@ -1,10 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import { useRouter } from "next/router";
 
 import UserProfile from "../../components/UserProfile";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-const UserProfileContainer = () => {
+const UserProfileContainer: FC = () => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 
@@ -14,7 +14,7 @@ const UserProfileContainer = () => {
     }
   }, [isUserLoading, user, router]);
 
-  return <UserProfile user={user || null} />;
+  return <UserProfile user={user} />;
 };
 
 export default UserProfileContainer;

@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
-import { useToast, useBreakpointValue } from "@chakra-ui/react";
+import React, { useEffect, useState, FC } from "react";
+import { useToast, useBreakpointValue, ToastPosition } from "@chakra-ui/react";
 
 import UpdateUserFormModal from "../../components/UpdateUserFormModal";
 
@@ -8,10 +7,15 @@ import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import { userUpdated } from "../../helpers/toasts";
 
-const UpdateUserFormContainer = ({ isOpen, onClose }) => {
+interface Props {
+  isOpen?: boolean;
+  onClose?: any;
+}
+
+const UpdateUserFormContainer: FC<Props> = ({ isOpen=false, onClose=()=>{} }) => {
   const toast = useToast();
-  const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
-  const toastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
+  const { user, isLoading: isUserLoading, updateUser } =  useCurrentUser();
+  const toastPosition: ToastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
 
   const [config, setConfig] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -69,15 +73,6 @@ const UpdateUserFormContainer = ({ isOpen, onClose }) => {
       error={error}
     />
   );
-};
-
-UpdateUserFormContainer.propTypes = {
-  isOpen: PropTypes.bool,
-  onClose: PropTypes.func,
-};
-UpdateUserFormContainer.defaultProps = {
-  isOpen: false,
-  onClose: () => {},
 };
 
 export default UpdateUserFormContainer;

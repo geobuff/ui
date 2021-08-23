@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import PropTypes from "prop-types";
+import React, { useEffect, useState, FC } from "react";
 
 import { useRouter } from "next/router";
 import jwt_decode from "jwt-decode";
@@ -9,7 +8,7 @@ import axiosClient from "../../axios/axiosClient";
 import RegisterForm from "../../components/RegisterForm";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-const RegisterContainer = () => {
+const RegisterContainer: FC = () => {
   const router = useRouter();
   const { user, updateUser, isLoading: isLoadingUser } = useCurrentUser();
 
@@ -71,7 +70,7 @@ const RegisterContainer = () => {
         });
 
         if (router.query.data) {
-          const data = JSON.parse(router.query.data);
+          const data = JSON.parse(router.query.data[0]);
           router.push({
             pathname: data.redirect,
             query: {
@@ -95,28 +94,6 @@ const RegisterContainer = () => {
       isSubmitting={isSubmitting}
     />
   );
-};
-
-RegisterContainer.propTypes = {
-  quizzes: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.number,
-      name: PropTypes.string,
-      maxScore: PropTypes.number,
-      time: PropTypes.number,
-      mapSVG: PropTypes.string,
-      imageUrl: PropTypes.string,
-      verb: PropTypes.string,
-      apiPath: PropTypes.string,
-      route: PropTypes.string,
-      hasLeaderboard: PropTypes.bool,
-      hasGrouping: PropTypes.bool,
-      enabled: PropTypes.bool,
-    })
-  ),
-};
-RegisterContainer.defaultProps = {
-  quizzes: [],
 };
 
 export default RegisterContainer;

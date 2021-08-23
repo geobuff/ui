@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useStripe } from "@stripe/react-stripe-js";
 
 import axiosClient from "../../axios/axiosClient";
 import UserProfileSummary from "../../components/UserProfileSummary";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-const UserProfileSummaryContainer = () => {
+const UserProfileSummaryContainer: FC = () => {
   const { user } = useCurrentUser();
   const stripe = useStripe();
 
