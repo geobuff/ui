@@ -21,11 +21,11 @@ interface Props {
 }
 
 const ResultsMap: FC<Props> = ({
-  checked=[],
-  map={},
-  hasGameStopped=false,
-  hasGroupings=false,
-  hasFlags=false,
+  checked = [],
+  map = {},
+  hasGameStopped = false,
+  hasGroupings = false,
+  hasFlags = false,
 }) => {
   const results = useMemo(
     () =>
@@ -37,7 +37,7 @@ const ResultsMap: FC<Props> = ({
   );
 
   const resultRows = results[0].data;
-       
+
   const renderHeader = ({ title, key, style }) => {
     return (
       <Box key={key} style={style}>

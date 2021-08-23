@@ -29,7 +29,7 @@ const OurMission = () => (
             lineHeight="28px"
           >
             <Box mb={6}>
-              <QuestionMark height="75" width="100%"/>
+              <QuestionMark height="75" width="100%" />
             </Box>
             <Text
               fontSize="18px"

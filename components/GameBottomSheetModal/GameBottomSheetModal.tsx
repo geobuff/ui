@@ -27,7 +27,7 @@ const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
 interface Props {
-  quiz?: Quiz
+  quiz?: Quiz;
   mapping?: Array<Mapping>;
   checked?: Array<Result>;
   recents?: Array<Result>;
@@ -42,18 +42,18 @@ interface Props {
 }
 
 const GameBottomSheetModal: FC<Props> = ({
-  quiz=null,
-  mapping=[],
-  checked=[],
-  recents=[],
-  codes=[],
-  hasGameRunOnce=false,
-  hasGameStarted=false,
-  hasGameStopped=false,
-  isOpen=false,
-  onGameStart=()=>{},
-  onGameStop=()=>{},
-  onCheckSubmission=()=>{},
+  quiz = null,
+  mapping = [],
+  checked = [],
+  recents = [],
+  codes = [],
+  hasGameRunOnce = false,
+  hasGameStarted = false,
+  hasGameStopped = false,
+  isOpen = false,
+  onGameStart = () => {},
+  onGameStop = () => {},
+  onCheckSubmission = () => {},
 }) => {
   const isFlagQuiz = quiz.type === QuizType.FLAG;
   const ref = createRef<any>();
@@ -83,7 +83,7 @@ const GameBottomSheetModal: FC<Props> = ({
         damping: 60,
         mass: 0.2,
       }}
-      onClose={()=>{}}
+      onClose={() => {}}
     >
       <Sheet.Container style={{ position: "fixed" }}>
         <Box pt={1} height="54px" as={Sheet.Header} />

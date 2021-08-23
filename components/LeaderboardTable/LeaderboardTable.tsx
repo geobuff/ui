@@ -30,7 +30,7 @@ interface Props {
   isLoading?: boolean;
 }
 
-const LeaderboardTable: FC<Props> = ({ entries=[], isLoading=true }) => {
+const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
   const { user } = useCurrentUser();
 
   if (isLoading && !entries.length) {

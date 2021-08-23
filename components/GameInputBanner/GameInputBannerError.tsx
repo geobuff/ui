@@ -5,7 +5,7 @@ interface Props {
   errorMessage?: string;
 }
 
-const GameInputBannerError: FC<Props> = ({ errorMessage="" }) => {
+const GameInputBannerError: FC<Props> = ({ errorMessage = "" }) => {
   return (
     <Collapse
       in={!!errorMessage}

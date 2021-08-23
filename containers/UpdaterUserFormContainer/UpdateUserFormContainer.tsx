@@ -12,10 +12,16 @@ interface Props {
   onClose?: any;
 }
 
-const UpdateUserFormContainer: FC<Props> = ({ isOpen=false, onClose=()=>{} }) => {
+const UpdateUserFormContainer: FC<Props> = ({
+  isOpen = false,
+  onClose = () => {},
+}) => {
   const toast = useToast();
-  const { user, isLoading: isUserLoading, updateUser } =  useCurrentUser();
-  const toastPosition: ToastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
+  const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
+  const toastPosition: ToastPosition = useBreakpointValue({
+    base: "top",
+    md: "bottom-right",
+  });
 
   const [config, setConfig] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);

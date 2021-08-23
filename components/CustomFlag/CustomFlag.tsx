@@ -5,10 +5,15 @@ interface Props {
   url?: string;
   height?: string;
   width?: string;
-  [x:string]: any;
+  [x: string]: any;
 }
 
-const CustomFlag: FC<Props> = ({ url="", height="18px", width="24.5px", ...props }) => {
+const CustomFlag: FC<Props> = ({
+  url = "",
+  height = "18px",
+  width = "24.5px",
+  ...props
+}) => {
   const [hasLoaded, setHasLoaded] = useState(false);
 
   return (

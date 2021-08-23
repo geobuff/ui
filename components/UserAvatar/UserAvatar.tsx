@@ -10,7 +10,13 @@ interface Props {
   alt?: string;
 }
 
-const UserAvatar: FC<Props> = ({ borderRadius=50, height="", width="", imageUrl="", alt="" }) => {
+const UserAvatar: FC<Props> = ({
+  borderRadius = 50,
+  height = "",
+  width = "",
+  imageUrl = "",
+  alt = "",
+}) => {
   const [hasLoaded, setHasLoaded] = useState(false);
 
   return (

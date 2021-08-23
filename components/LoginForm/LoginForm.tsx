@@ -46,7 +46,11 @@ interface Props {
   isSubmitting?: boolean;
 }
 
-const LoginForm: FC<Props> = ({ error=null, onSubmit=()=>{}, isSubmitting=false }) => {
+const LoginForm: FC<Props> = ({
+  error = null,
+  onSubmit = () => {},
+  isSubmitting = false,
+}) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const mainContent = (

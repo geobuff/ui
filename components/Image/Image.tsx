@@ -5,10 +5,15 @@ interface Props {
   src?: string;
   height?: string;
   width?: string;
-  [x:string]: any;
+  [x: string]: any;
 }
 
-const Image: FC<Props> = ({ src="", height="100px", width="100px", ...props }) => {
+const Image: FC<Props> = ({
+  src = "",
+  height = "100px",
+  width = "100px",
+  ...props
+}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {

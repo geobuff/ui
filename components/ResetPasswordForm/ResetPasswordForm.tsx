@@ -46,7 +46,12 @@ interface Props {
   onSubmit?: Function;
 }
 
-const ResetPasswordForm: FC<Props> = ({ error="", isSuccess=false, isSubmitting=false, onSubmit=()=>{} }) => {
+const ResetPasswordForm: FC<Props> = ({
+  error = "",
+  isSuccess = false,
+  isSubmitting = false,
+  onSubmit = () => {},
+}) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const form = (

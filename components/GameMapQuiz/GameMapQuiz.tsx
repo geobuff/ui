@@ -48,7 +48,7 @@ interface Props {
   map?: object;
 }
 
-const GameMapQuiz: FC<Props> = ({ quiz=null, mapping=[], map={} }) => {
+const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = {} }) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 

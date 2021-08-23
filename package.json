@@ -19,6 +19,8 @@
     "@geobuff/maps": "^1.55.0",
     "@stripe/react-stripe-js": "^1.4.1",
     "@stripe/stripe-js": "^1.15.0",
+    "@typescript-eslint/eslint-plugin": "^4.29.3",
+    "@typescript-eslint/parser": "^4.29.3",
     "axios": "^0.21.1",
     "country-code-emoji": "^1.0.0",
     "debounce": "^1.2.0",

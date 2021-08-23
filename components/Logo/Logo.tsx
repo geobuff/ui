@@ -6,7 +6,11 @@ interface Props {
   isGrayScale?: boolean;
 }
 
-const Logo: FC<Props> = ({ height="32px", width="140px", isGrayScale=false }) => (
+const Logo: FC<Props> = ({
+  height = "32px",
+  width = "140px",
+  isGrayScale = false,
+}) => (
   <svg viewBox="0 0 72.37 18.91" height={height} width={width}>
     <defs>
       <linearGradient

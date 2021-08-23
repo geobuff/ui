@@ -11,7 +11,7 @@ import { usePreview } from "react-dnd-preview";
 interface Props {
   code?: string;
   checkSubmission?: Function;
-  [x:string]: any;
+  [x: string]: any;
 }
 
 // TODO: add a nice preview for mobile
@@ -23,7 +23,11 @@ const DraggableFlagPreview = () => {
   return <div style={style}>{itemType}</div>;
 };
 
-const DraggableFlag: FC<Props> = ({ code="", checkSubmission=()=>{}, ...props }) => {
+const DraggableFlag: FC<Props> = ({
+  code = "",
+  checkSubmission = () => {},
+  ...props
+}) => {
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.FLAG,
     item: { name: code },

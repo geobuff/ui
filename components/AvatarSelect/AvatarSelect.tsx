@@ -11,7 +11,7 @@ interface Props {
   fieldProps?: FieldProps;
 }
 
-const AvatarSelect: FC<Props> = ({ fieldProps={value: ""} }) => {
+const AvatarSelect: FC<Props> = ({ fieldProps = { value: "" } }) => {
   const { avatars, isLoading } = useAvatars();
 
   return (

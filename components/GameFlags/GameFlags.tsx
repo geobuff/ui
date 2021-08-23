@@ -11,7 +11,7 @@ interface Props {
   onCheckSubmission?: Function;
 }
 
-const GameFlags: FC<Props> = ({ codes=[], onCheckSubmission=()=>{} }) => {
+const GameFlags: FC<Props> = ({ codes = [], onCheckSubmission = () => {} }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
   return (

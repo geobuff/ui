@@ -5,7 +5,7 @@ interface Props {
   error?: string;
 }
 
-const ErrorAlertBanner: FC<Props> = ({ error="" }) => (
+const ErrorAlertBanner: FC<Props> = ({ error = "" }) => (
   <Collapse
     in={!!error}
     animateOpacity

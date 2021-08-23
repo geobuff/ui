@@ -1,3 +1,3 @@
 export interface FieldProps {
-    value: string;
+  value: string;
 }

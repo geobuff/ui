@@ -16,7 +16,12 @@ interface Props {
   sizes?: Array<string>;
 }
 
-const ProductCard: FC<Props> = ({ name="", imageUrl="", price=0.0, sizes=[] }) => (
+const ProductCard: FC<Props> = ({
+  name = "",
+  imageUrl = "",
+  price = 0.0,
+  sizes = [],
+}) => (
   <Flex
     aria-label={`game card for ${name}`}
     role="group"

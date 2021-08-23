@@ -1,4 +1,4 @@
 export interface TimeRemaining {
-    minutes: number;
-    seconds: number;
+  minutes: number;
+  seconds: number;
 }

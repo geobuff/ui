@@ -13,9 +13,9 @@ interface Props {
 
 const FlagDropZone: FC<Props> = ({
   acceptedFlagName = "",
-  hasGameStarted=false,
-  submissionCorrect=false,
-  submissionIncorrect=false,
+  hasGameStarted = false,
+  submissionCorrect = false,
+  submissionIncorrect = false,
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 

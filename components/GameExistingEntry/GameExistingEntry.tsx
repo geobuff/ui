@@ -12,7 +12,13 @@ interface Props {
   isLoading?: boolean;
 }
 
-const GameExistingEntry: FC<Props> = ({ rank=0, score=0, time="15:00", username="PhileasFogg", isLoading=true }) => {
+const GameExistingEntry: FC<Props> = ({
+  rank = 0,
+  score = 0,
+  time = "15:00",
+  username = "PhileasFogg",
+  isLoading = true,
+}) => {
   return (
     <Flex
       borderRadius={12}

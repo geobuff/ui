@@ -15,7 +15,7 @@ interface Props {
   quiz?: Quiz;
 }
 
-const QuizCard: FC<Props> = ({ quiz={} }) => (
+const QuizCard: FC<Props> = ({ quiz = {} }) => (
   <Flex
     aria-label={`game card for ${quiz.name}`}
     role="group"

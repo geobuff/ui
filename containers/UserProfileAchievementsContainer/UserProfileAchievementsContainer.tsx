@@ -10,7 +10,7 @@ interface Props {
   user?: User;
 }
 
-const UserProfileAchievementsContainer: FC<Props> = ({ user=null }) => {
+const UserProfileAchievementsContainer: FC<Props> = ({ user = null }) => {
   const { badges, isLoading: badgesLoading } = useBadges();
   const { entries, isLoading: entriesLoading } = useLeaderboardEntries(
     user?.id

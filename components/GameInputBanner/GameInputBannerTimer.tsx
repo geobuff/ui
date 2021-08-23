@@ -6,7 +6,7 @@ import { toMinTwoDigits } from "../../helpers/format-text";
 import { secondsToMinutesString } from "../../helpers/time";
 import { TimeRemaining } from "../../types/time-remaining";
 
-const Timer: FC = ({ children=null }) => (
+const Timer: FC = ({ children = null }) => (
   <Text lineHeight={1.15} color="white" fontSize="32px" fontWeight={700}>
     {children}
   </Text>
@@ -20,10 +20,10 @@ interface Props {
 }
 
 const GameInputBannerTimer: FC<Props> = ({
-  expiryTimestamp={minutes: 0, seconds: 0},
-  hasGameStarted=false,
-  hasGameStopped=false,
-  totalSeconds=900,
+  expiryTimestamp = { minutes: 0, seconds: 0 },
+  hasGameStarted = false,
+  hasGameStopped = false,
+  totalSeconds = 900,
 }) => {
   if (hasGameStopped) {
     return (

@@ -15,20 +15,20 @@ interface Props {
   isLoading?: boolean;
   hasMoreEntries?: boolean;
   page?: number;
-  rank?: string,
+  rank?: string;
   onChangeLimit?: any;
   onNextPage?: any;
   onPreviousPage?: any;
 }
 
 const LeaderboardPaginationControls: FC<Props> = ({
-  isLoading=false,
-  hasMoreEntries=false,
-  page=0,
-  rank="",
-  onChangeLimit=()=>{},
-  onNextPage=()=>{},
-  onPreviousPage=()=>{},
+  isLoading = false,
+  hasMoreEntries = false,
+  page = 0,
+  rank = "",
+  onChangeLimit = () => {},
+  onNextPage = () => {},
+  onPreviousPage = () => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 

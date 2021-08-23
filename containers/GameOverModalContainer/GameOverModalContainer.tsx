@@ -25,23 +25,26 @@ interface Props {
   isXPUpdated?: boolean;
   setXPUpdated?: any;
   setLeaderboardEntrySubmitted?: any;
-};
+}
 
 const GameOverModalContainer: FC<Props> = ({
-  quiz={},
-  score=0,
-  time=0,
-  isOpen=false,
-  onClose=()=>{},
-  isXPUpdated=false,
-  setXPUpdated=()=>{},
-  setLeaderboardEntrySubmitted=()=>{},
+  quiz = {},
+  score = 0,
+  time = 0,
+  isOpen = false,
+  onClose = () => {},
+  isXPUpdated = false,
+  setXPUpdated = () => {},
+  setLeaderboardEntrySubmitted = () => {},
 }) => {
   const toast = useToast();
   const router = useRouter();
 
   const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
-  const toastPosition: ToastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
+  const toastPosition: ToastPosition = useBreakpointValue({
+    base: "top",
+    md: "bottom-right",
+  });
 
   const [config, setConfig] = useState(null);
   const [entry, setEntry] = useState(null);

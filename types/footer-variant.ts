@@ -1,4 +1,4 @@
 export enum FooterVariant {
-    SIMPLE,
-    EXTENDED
-};
+  SIMPLE,
+  EXTENDED,
+}

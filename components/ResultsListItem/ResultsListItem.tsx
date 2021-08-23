@@ -14,16 +14,16 @@ interface Props {
   svgName?: string;
   hasFlag?: boolean;
   shouldFadeIn?: boolean;
-  [x:string]: any;
+  [x: string]: any;
 }
 
 const ResultsListItem: FC<Props> = ({
-  code="",
-  isHidden=false,
-  isMissedResult=false,
-  svgName="",
-  hasFlag=false,
-  shouldFadeIn=false,
+  code = "",
+  isHidden = false,
+  isMissedResult = false,
+  svgName = "",
+  hasFlag = false,
+  shouldFadeIn = false,
   ...props
 }) => {
   const mainContent = (

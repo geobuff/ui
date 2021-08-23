@@ -10,7 +10,7 @@ interface Props {
   merch?: Array<MerchItem>;
 }
 
-const MerchList: FC<Props> = ({ merch=[] }) => (
+const MerchList: FC<Props> = ({ merch = [] }) => (
   <Flex
     width={{ base: "95%", sm: "85%", md: "65%" }}
     maxWidth="1200px"

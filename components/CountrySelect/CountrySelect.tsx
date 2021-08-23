@@ -13,7 +13,7 @@ interface Props {
   fieldProps?: FieldProps;
 }
 
-const CountrySelect: FC<Props> = ({ fieldProps={value: ""} }) => {
+const CountrySelect: FC<Props> = ({ fieldProps = { value: "" } }) => {
   const { countries, isLoading } = useCountries();
 
   return (

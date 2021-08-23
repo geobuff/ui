@@ -8,7 +8,7 @@ interface Props {
   filter?: string;
 }
 
-const QuizListContainer: FC<Props> = ({ filter="" }) => {
+const QuizListContainer: FC<Props> = ({ filter = "" }) => {
   const { quizzes, isLoading } = useQuizzes(filter);
 
   if (isLoading) {
