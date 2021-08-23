@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -17,6 +17,10 @@ import ResultsMap from "../../ResultsMap";
 import GameFlags from "../../GameFlags";
 import { groupMapping } from "../../../helpers/mapping";
 
+import { ItemTypes } from "../../../helpers/item-types";
+
+import { useDrag } from "react-dnd";
+
 import { motion } from "framer-motion";
 
 const GameFlagQuizBottomSheet = ({
@@ -33,6 +37,9 @@ const GameFlagQuizBottomSheet = ({
 }) => {
   const [showResultList, setShowResultsList] = useState(false); // TODO: Consider renaming to something modal related
 
+  const [dragStart, setDragStart] = useState(null);
+  const [dragEnd, setDragEnd] = useState(null);
+
   const variants = {
     open: { top: "20%" },
     closed: { top: "calc(100% - 260px)" },
@@ -43,19 +50,49 @@ const GameFlagQuizBottomSheet = ({
     closed: { opacity: 1 },
   };
 
+  useEffect(() => {
+    console.log(dragStart - dragEnd, "dragStart - dragEnd");
+    if (dragStart - dragEnd === 0) {
+      setShowResultsList(true);
+    }
+  }, [dragEnd]);
+
   console.log(showResultList, "showResultList");
 
-  const handleDrag = () => {
-    console.log("handleDrag called");
-    setShowResultsList(true);
+  const handleDrag = (event, info) => {
+    console.log(info.point.x, info.point.y);
+    setDragStart(info.point.x);
+    console.log("handleDrag start called");
+    // setShowResultsList(true);
   };
+
+  const handleDragEnd = (event, info) => {
+    console.log(info.point.x, info.point.y);
+    console.log("handleDrag end called");
+    setDragEnd(info.point.x);
+    // setShowResultsList(true);
+  };
+
+  const [{ isDragging }, drag] = useDrag(() => ({
+    type: ItemTypes.FLAG,
+    item: { name },
+    end: (item, monitor) => {
+      const dropResult = monitor.getDropResult();
+      console.log("emd");
+    },
+    collect: (monitor) => ({
+      isDragging: monitor.isDragging(),
+    }),
+  }));
 
   return (
     <motion.div
       animate={showResultList ? "open" : "closed"}
       variants={variants}
-      drag="none"
-      onDrag={handleDrag}
+      // drag="y"
+      dragConstraints={{ bottom: 0, top: 0 }}
+      onDragStart={handleDrag}
+      onDragEnd={handleDragEnd}
       transition={{
         type: "spring",
         damping: 40,
@@ -63,7 +100,7 @@ const GameFlagQuizBottomSheet = ({
       }}
       style={{
         display: "inline-block",
-        backgroundColor: "white",
+        backgroundColor: isDragging ? "red" : "white",
         position: "fixed",
         bottom: 0,
         left: 0,
