@@ -29,7 +29,7 @@ const OurMission = () => (
             lineHeight="28px"
           >
             <Box mb={6}>
-              <QuestionMark height="75" width="100%" mx="auto" />
+              <QuestionMark height="75" width="100%"/>
             </Box>
             <Text
               fontSize="18px"
@@ -48,7 +48,7 @@ const OurMission = () => (
             lineHeight="28px"
           >
             <Box mb={6}>
-              <Earth height="75" width="100%" mx="auto" />
+              <Earth height="75" width="100%" />
             </Box>
             <Text
               fontSize="18px"
@@ -84,7 +84,7 @@ const OurMission = () => (
           </Text>
           <Divider />
           <SimpleGrid
-            columns={{ base: "1", md: "2", lg: "3" }}
+            columns={{ base: 1, md: 2, lg: 3 }}
             spacing={{ base: "50px", lg: "inherit" }}
             mt={12}
           >

@@ -1,9 +1,9 @@
-import React from "react";
+import React, { FC } from "react";
 import { Flex, Skeleton, SkeletonCircle } from "@chakra-ui/react";
 
 import Card from "../../components/Card";
 
-const UserProfileSummaryPlaceholder = () => {
+const UserProfileSummaryPlaceholder: FC = () => {
   return (
     <Card padding={6}>
       <Flex
@@ -28,8 +28,5 @@ const UserProfileSummaryPlaceholder = () => {
     </Card>
   );
 };
-
-UserProfileSummaryPlaceholder.propTypes = {};
-UserProfileSummaryPlaceholder.defaultProps = {};
 
 export default UserProfileSummaryPlaceholder;

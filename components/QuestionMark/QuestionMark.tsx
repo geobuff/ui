@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
 interface Props {
-  height?: number;
-  width?: number;
+  height?: string;
+  width?: string;
 }
 
 const QuestionMark: FC<Props> = ({ height, width }) => (

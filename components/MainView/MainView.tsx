@@ -9,6 +9,7 @@ interface Props {
   footerVariant?: FooterVariant;
   hasNavigationBar?: boolean;
   hasFooter?: boolean;
+  [x:string]: any;
 };
 
 const MainView: FC<Props> = ({

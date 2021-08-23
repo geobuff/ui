@@ -1,9 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-
+import React, { FC } from "react";
 import { Box, SimpleGrid, Skeleton, Flex } from "@chakra-ui/react";
 
-const MerchListPlaceholder = ({ noOfTiles }) => (
+interface Props {
+  noOfTiles?: number;
+}
+
+const MerchListPlaceholder: FC<Props> = ({ noOfTiles=2 }) => (
   <Box
     width={{ base: "95%", sm: "80%", md: "65%" }}
     maxWidth="1200px"
@@ -32,9 +34,5 @@ const MerchListPlaceholder = ({ noOfTiles }) => (
     </SimpleGrid>
   </Box>
 );
-
-MerchListPlaceholder.propTypes = {
-  noOfTiles: PropTypes.number,
-};
 
 export default MerchListPlaceholder;

@@ -22,9 +22,7 @@ import SolidCloseCircle from "../Icons/SolidCloseCircle";
 import useCurrentUser from "../hooks/UseCurrentUser";
 
 const Home = () => {
-  const [filter, setFilter] = useState();
-  const { user } = useCurrentUser();
-
+  const [filter, setFilter] = useState("");
   const [inputValue, setInputValue] = useState("");
 
   const handleClearInput = () => {
@@ -45,7 +43,7 @@ const Home = () => {
 
   return (
     <MainView>
-      <HeroBanner username={user?.username} />
+      <HeroBanner />
       <Box>
         <Box
           mx="auto"
@@ -79,8 +77,9 @@ const Home = () => {
               value={inputValue}
             />
             <InputRightElement>
-              <Fade in={inputValue?.length > 0} out={inputValue?.length}>
+              <Fade in={inputValue?.length > 0}>
                 <IconButton
+                  aria-label="close circle"
                   position="absolute"
                   top="11px"
                   right={3}

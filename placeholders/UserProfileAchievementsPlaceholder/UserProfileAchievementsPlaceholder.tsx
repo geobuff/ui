@@ -1,4 +1,5 @@
-import React from "react";
+import React, { FC } from "react";
+
 import {
   Box,
   Heading,
@@ -10,7 +11,7 @@ import {
   Center,
 } from "@chakra-ui/react";
 
-const UserProfileAchievementsPlaceholder = () => (
+const UserProfileAchievementsPlaceholder: FC = () => (
   <Box>
     <Skeleton>
       <Heading size="md" mt={6} mb={12}>

@@ -5,5 +5,12 @@ export interface User {
     email: string;
     countryCode: string;
     xp: number;
+    isPremium?: boolean;
+    stripeSessionId?: string;
     picture?: string;
+    avatarName?: string;
+    avatarBackground?: string;
+    avatarBorder?: string;
+    avatarImageUrl?: string;
+    token?: string;
 }

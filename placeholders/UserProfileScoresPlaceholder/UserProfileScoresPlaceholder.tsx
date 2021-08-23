@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import {
   Box,
   Skeleton,
@@ -11,7 +11,7 @@ import {
   Td,
 } from "@chakra-ui/react";
 
-const UserProfileScoresPlaceholder = () => (
+const UserProfileScoresPlaceholder: FC = () => (
   <Box>
     <Skeleton>
       <Heading size="md" m={6}>

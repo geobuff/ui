@@ -10,7 +10,7 @@ import { QuizTypes } from "../../helpers/quiz-type";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
 const Quiz = () => {
-  const { quizzes, loading } = useQuizzes();
+  const { quizzes, isLoading } = useQuizzes();
   const router = useRouter();
   const { id } = router.query;
 
@@ -28,7 +28,7 @@ const Quiz = () => {
     }
   }, [isUserLoading, user, tokenExpired, clearUser, router]);
 
-  if (loading) {
+  if (isLoading) {
     return null;
   }
 
@@ -50,7 +50,7 @@ const Quiz = () => {
   };
 
   return (
-    <MainView backgroundColor="#276F86" hasFooter={false}>
+    <MainView hasFooter={false} backgroundColor="#276F86">
       {getQuizComponent()}
     </MainView>
   );

@@ -5,6 +5,11 @@ import { Text } from "@chakra-ui/react";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import axiosClient from "../../axios/axiosClient";
 
+interface Payload {
+  userId: number;
+  sessionId: string;
+}
+
 const Success = () => {
   const router = useRouter();
   const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
@@ -13,8 +18,8 @@ const Success = () => {
 
   useEffect(() => {
     if (!isUserLoading && user) {
-      const sessionId = router.query.session_id;
-      const payload = {
+      const sessionId = router.query.session_id[0];
+      const payload: Payload = {
         userId: user.id,
         sessionId: sessionId,
       };

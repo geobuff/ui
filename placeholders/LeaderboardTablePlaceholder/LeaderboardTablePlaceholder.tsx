@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import {
   Flex,
@@ -13,7 +12,11 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-const LeaderboardTablePlaceholder = ({ rows }) => {
+interface Props {
+  rows?: number;
+}
+
+const LeaderboardTablePlaceholder: FC<Props> = ({ rows=10 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   // Prevent layout shift on load
@@ -116,14 +119,6 @@ const LeaderboardTablePlaceholder = ({ rows }) => {
       </Tbody>
     </Table>
   );
-};
-
-LeaderboardTablePlaceholder.propTypes = {
-  rows: PropTypes.number,
-};
-
-LeaderboardTablePlaceholder.defaultProps = {
-  rows: 10,
 };
 
 export default LeaderboardTablePlaceholder;

@@ -1,7 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import { Icon } from "@chakra-ui/react";
 
-const OutlinedZoomOut = (props) => (
+interface Props {
+  [x:string]: any;
+}
+
+const OutlinedZoomOut: FC<Props> = ({...props}) => (
   <Icon {...props}>
     <path
       fill="currentColor"

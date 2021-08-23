@@ -1,10 +1,11 @@
 import { useState } from "react";
 import jwt_decode from "jwt-decode";
+import { User } from "../types/user";
 
 const useCurrentUser = () => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [user, setUser] = useState(() => {
+  const [user, setUser] = useState<User>(() => {
     if (typeof window === "undefined") {
       return null;
     }
@@ -30,28 +31,28 @@ const useCurrentUser = () => {
     };
   });
 
-  const updateUser = (user) => {
+  const updateUser = (user: User): void => {
     setIsLoading(true);
     setUser(user);
     updateLocalStorage(user);
     setIsLoading(false);
   };
 
-  const clearUser = () => {
+  const clearUser = (): void => {
     if (typeof window !== "undefined") {
       window.localStorage.clear();
     }
     setUser(null);
   };
 
-  const updateLocalStorage = (object) => {
-    Object.entries(object).forEach(([key, value]) => {
+  const updateLocalStorage = (user: User): void => {
+    Object.entries(user).forEach(([key, value]) => {
       window.localStorage.setItem(`geobuff.${key}`, value);
     });
   };
 
-  const tokenExpired = (token) => {
-    const decoded = jwt_decode(token);
+  const tokenExpired = (token: string): boolean => {
+    const decoded: any = jwt_decode(token);
     const seconds = Math.round(new Date().getTime() / 1000);
     return decoded.exp <= seconds;
   };

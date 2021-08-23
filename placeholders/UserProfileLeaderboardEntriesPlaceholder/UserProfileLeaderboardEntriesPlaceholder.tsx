@@ -1,4 +1,5 @@
-import React from "react";
+import React, { FC } from "react";
+
 import {
   Box,
   Skeleton,
@@ -11,7 +12,7 @@ import {
   Td,
 } from "@chakra-ui/react";
 
-const UserProfileLeaderboardEntriesPlaceholder = () => (
+const UserProfileLeaderboardEntriesPlaceholder: FC = () => (
   <Box>
     <Skeleton>
       <Heading size="md" m={6}>

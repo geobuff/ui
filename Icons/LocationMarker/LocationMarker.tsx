@@ -1,7 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import { Icon } from "@chakra-ui/react";
 
-const LocationMarker = (props) => (
+interface Props {
+  [x:string]: any;
+}
+
+const LocationMarker: FC<Props> = ({...props}) => (
   <Icon {...props}>
     <path
       fill="currentColor"
