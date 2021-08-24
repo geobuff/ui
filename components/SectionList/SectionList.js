@@ -46,9 +46,9 @@ export default class SectionList extends PureComponent {
       return 0;
     }
 
-    if (!!info.header) {
-      if (!!this.props.sectionHeaderRenderer) {
-        if (!!this.props.sectionHeaderHeight) {
+    if (info.header) {
+      if (this.props.sectionHeaderRenderer) {
+        if (this.props.sectionHeaderHeight) {
           return typeof this.props.sectionHeaderHeight === "function"
             ? this.props.sectionHeaderHeight({ index })
             : +this.props.sectionHeaderHeight;
@@ -64,9 +64,9 @@ export default class SectionList extends PureComponent {
   }
   _renderItem({ key, index, isScrolling, isVisible, style, parent }) {
     const info = subExtractor(this.props.sections, index);
-    if (!!info) {
-      if (!!info.header) {
-        if (!!this.props.sectionHeaderRenderer) {
+    if (info) {
+      if (info.header) {
+        if (this.props.sectionHeaderRenderer) {
           return this.props.sectionHeaderRenderer({
             key,
             title: info.section.title || null,

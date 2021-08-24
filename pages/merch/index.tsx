@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import Head from "next/head";
 
 import MainView from "../../components/MainView";
 import MerchContainer from "../../containers/MerchContainer";
 import HeroHeader from "../../components/HeroHeader";
 
-const Merch = () => (
+const Merch: FC = () => (
   <>
     <Head>
       <title>Merch - GeoBuff</title>

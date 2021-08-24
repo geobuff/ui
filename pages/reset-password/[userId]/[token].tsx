@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Head from "next/head";
 
 import { useBreakpointValue } from "@chakra-ui/react";
@@ -7,7 +7,7 @@ import MainView from "../../../components/MainView";
 import ResetPasswordContainer from "../../../containers/ResetPasswordContainer";
 import { FooterVariant } from "../../../types/footer-variant";
 
-const ResetPassword = () => {
+const ResetPassword: FC = () => {
   const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
 
   // Stops page flickering while it figures out backgroundColor

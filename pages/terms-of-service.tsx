@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Head from "next/head";
 import Link from "next/link";
 
@@ -15,7 +15,7 @@ import {
 import MainView from "../components/MainView";
 import HeroHeader from "../components/HeroHeader";
 
-const TermsOfService = () => (
+const TermsOfService: FC = () => (
   <MainView>
     <Head>
       <title>Terms of Service - GeoBuff</title>

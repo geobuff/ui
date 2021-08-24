@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import { useRouter } from "next/router";
 import { Text } from "@chakra-ui/react";
 
-const Canceled = () => {
+const Canceled: FC = () => {
   const router = useRouter();
 
   useEffect(() => {

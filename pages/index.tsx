@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, FC } from "react";
 import { debounce } from "debounce";
 
 import {
@@ -19,9 +19,7 @@ import QuizListContainer from "../containers/QuizListContainer";
 import Search from "../Icons/Search";
 import SolidCloseCircle from "../Icons/SolidCloseCircle";
 
-import useCurrentUser from "../hooks/UseCurrentUser";
-
-const Home = () => {
+const Home: FC = () => {
   const [filter, setFilter] = useState("");
   const [inputValue, setInputValue] = useState("");
 

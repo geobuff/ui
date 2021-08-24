@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -6,7 +6,7 @@ import UserProfileContainer from "../containers/UserProfileContainer";
 import MainView from "../components/MainView";
 import useCurrentUser from "../hooks/UseCurrentUser";
 
-const Profile = () => {
+const Profile: FC = () => {
   const router = useRouter();
 
   const {

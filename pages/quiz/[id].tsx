@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import { useRouter } from "next/router";
 
 import useQuizzes from "../../hooks/UseQuizzes";
@@ -9,7 +9,7 @@ import MainView from "../../components/MainView";
 import { QuizTypes } from "../../helpers/quiz-type";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-const Quiz = () => {
+const Quiz: FC = () => {
   const { quizzes, isLoading } = useQuizzes();
   const router = useRouter();
   const { id } = router.query;

@@ -1,5 +1,5 @@
 export const flattenCountries = (countriesByContinent) => {
-  let flattenedCountries = [];
+  const flattenedCountries = [];
   Object.keys(countriesByContinent).forEach((continent) => {
     flattenedCountries.push(
       ...countriesByContinent[continent].map((country) => ({

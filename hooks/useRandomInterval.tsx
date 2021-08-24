@@ -12,7 +12,7 @@ const useRandomInterval = (callback, minDelay, maxDelay) => {
   });
 
   useEffect(() => {
-    let isEnabled =
+    const isEnabled =
       typeof minDelay === "number" && typeof maxDelay === "number";
     if (isEnabled) {
       const handleTick = () => {

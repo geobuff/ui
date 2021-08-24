@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Head from "next/head";
 import { Box, Divider, Text, Link, SimpleGrid } from "@chakra-ui/react";
 
@@ -8,7 +8,7 @@ import HeroHeader from "../components/HeroHeader";
 import QuestionMark from "../components/QuestionMark";
 import Earth from "../components/Earth";
 
-const OurMission = () => (
+const OurMission: FC = () => (
   <MainView>
     <Head>
       <title>Our Mission - GeoBuff</title>
