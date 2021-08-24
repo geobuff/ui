@@ -50,8 +50,9 @@ const GameFlagQuizBottomSheet = ({
   };
 
   useEffect(() => {
+    console.log(`${dragStart}-${dragEnd}`, "drag start::useEffect");
     console.log(dragStart - dragEnd, "dragStart - dragEnd");
-    if (dragStart - dragEnd === 0) {
+    if (dragEnd - dragStart >= 10) {
       setShowResultsList(true);
     }
   }, [dragEnd]);
@@ -78,8 +79,8 @@ const GameFlagQuizBottomSheet = ({
     <motion.div
       animate={showResultList ? "open" : "closed"}
       variants={variants}
-      // drag="y"
-      dragConstraints={{ bottom: 0, top: 0 }}
+      drag={isDragging ? "none" : "y"}
+      dragConstraints={{ bottom: 10, top: 0 }}
       onDragStart={handleDrag}
       onDragEnd={handleDragEnd}
       transition={{
