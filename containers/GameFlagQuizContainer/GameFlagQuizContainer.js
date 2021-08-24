@@ -5,6 +5,7 @@ import GameFlagQuiz from "../../components/GameFlagQuiz";
 import useQuiz from "../../hooks/UseQuiz";
 import useMapping from "../../hooks/UseMapping";
 import GameSpinner from "../../components/GameSpinner";
+import { FlagGameContextProvider } from "../../context/FlagGameContext";
 
 const GameFlagQuizContainer = ({ quizId }) => {
   const { quiz, isLoading: isLoadingQuiz } = useQuiz(quizId);
@@ -14,7 +15,11 @@ const GameFlagQuizContainer = ({ quizId }) => {
     return <GameSpinner />;
   }
 
-  return <GameFlagQuiz quiz={quiz} mapping={mapping} />;
+  return (
+    <FlagGameContextProvider>
+      <GameFlagQuiz quiz={quiz} mapping={mapping} />
+    </FlagGameContextProvider>
+  );
 };
 
 GameFlagQuizContainer.propTypes = {

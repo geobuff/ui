@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 import { getFlagUrl } from "@geobuff/flags";
 import { useDrag } from "react-dnd";
@@ -8,6 +8,7 @@ import Image from "../Image";
 import { ItemTypes } from "../../helpers/item-types";
 
 import { usePreview } from "react-dnd-preview";
+import { FlagGameContext } from "../../context/FlagGameContext";
 
 // TODO: add a nice preview for mobile
 const DraggableFlagPreview = () => {
@@ -19,6 +20,9 @@ const DraggableFlagPreview = () => {
 };
 
 const DraggableFlag = ({ code, checkSubmission, ...props }) => {
+  const { handleDragging } = useContext(FlagGameContext);
+
+  const [dragging, setDragging] = useState(null);
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.FLAG,
     item: { name: code },
@@ -33,6 +37,12 @@ const DraggableFlag = ({ code, checkSubmission, ...props }) => {
       handlerId: monitor.getHandlerId(),
     }),
   }));
+
+  useEffect(() => {
+    setDragging(isDragging);
+    console.log("setting isDragging::DraggableFlag");
+    handleDragging(isDragging);
+  }, [isDragging]);
 
   return (
     <>

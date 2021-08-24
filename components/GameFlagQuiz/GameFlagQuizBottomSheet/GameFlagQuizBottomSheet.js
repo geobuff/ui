@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import PropTypes from "prop-types";
 import {
   Box,
@@ -17,11 +17,8 @@ import ResultsMap from "../../ResultsMap";
 import GameFlags from "../../GameFlags";
 import { groupMapping } from "../../../helpers/mapping";
 
-import { ItemTypes } from "../../../helpers/item-types";
-
-import { useDrag } from "react-dnd";
-
 import { motion } from "framer-motion";
+import { FlagGameContext } from "../../../context/FlagGameContext";
 
 const GameFlagQuizBottomSheet = ({
   checkedSubmissions,
@@ -39,6 +36,8 @@ const GameFlagQuizBottomSheet = ({
 
   const [dragStart, setDragStart] = useState(null);
   const [dragEnd, setDragEnd] = useState(null);
+
+  const { isDragging } = useContext(FlagGameContext);
 
   const variants = {
     open: { top: "20%" },
@@ -59,6 +58,8 @@ const GameFlagQuizBottomSheet = ({
 
   console.log(showResultList, "showResultList");
 
+  console.log(isDragging, "isDragging::BottomSheet");
+
   const handleDrag = (event, info) => {
     console.log(info.point.x, info.point.y);
     setDragStart(info.point.x);
@@ -72,18 +73,6 @@ const GameFlagQuizBottomSheet = ({
     setDragEnd(info.point.x);
     // setShowResultsList(true);
   };
-
-  const [{ isDragging }, drag] = useDrag(() => ({
-    type: ItemTypes.FLAG,
-    item: { name },
-    end: (item, monitor) => {
-      const dropResult = monitor.getDropResult();
-      console.log("emd");
-    },
-    collect: (monitor) => ({
-      isDragging: monitor.isDragging(),
-    }),
-  }));
 
   return (
     <motion.div
@@ -100,7 +89,7 @@ const GameFlagQuizBottomSheet = ({
       }}
       style={{
         display: "inline-block",
-        backgroundColor: isDragging ? "red" : "white",
+        backgroundColor: "white",
         position: "fixed",
         bottom: 0,
         left: 0,
@@ -111,7 +100,7 @@ const GameFlagQuizBottomSheet = ({
     >
       <Flex
         direction="column"
-        backgroundColor="white"
+        backgroundColor={isDragging ? "red" : "white"}
         p={4}
         borderTopRadius={12}
       >
