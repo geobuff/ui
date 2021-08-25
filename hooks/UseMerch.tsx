@@ -1,7 +1,13 @@
 import useSWR from "swr";
 import { fetcher } from "../helpers/fetcher";
+import { MerchItem } from "../types/merch-item";
 
-const useMerch = () => {
+interface Result {
+  merch: Array<MerchItem>;
+  isLoading: boolean;
+}
+
+const useMerch = (): Result => {
   const { data } = useSWR(`/merch`, fetcher);
 
   return {

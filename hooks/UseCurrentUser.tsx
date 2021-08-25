@@ -1,8 +1,17 @@
 import { useState } from "react";
 import jwt_decode from "jwt-decode";
 import { User } from "../types/user";
+import { DecodedToken } from "../types/decoded-token";
 
-const useCurrentUser = () => {
+interface Result {
+  user: User;
+  isLoading: boolean;
+  updateUser: (user: User) => void;
+  clearUser: () => void;
+  tokenExpired: (token: string) => boolean;
+}
+
+const useCurrentUser = (): Result => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState<User>(() => {
@@ -52,7 +61,7 @@ const useCurrentUser = () => {
   };
 
   const tokenExpired = (token: string): boolean => {
-    const decoded: any = jwt_decode(token);
+    const decoded: DecodedToken = jwt_decode(token);
     const seconds = Math.round(new Date().getTime() / 1000);
     return decoded.exp <= seconds;
   };

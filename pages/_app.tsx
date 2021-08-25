@@ -20,7 +20,7 @@ const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 interface Props {
   Component: any;
-  [x:string]: any;
+  [x: string]: any;
 }
 
 // eslint-disable-next-line react/prop-types
@@ -100,6 +100,6 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
       </ChakraProvider>
     </>
   );
-}
+};
 
 export default MyApp;

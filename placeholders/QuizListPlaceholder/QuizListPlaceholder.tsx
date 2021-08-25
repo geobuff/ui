@@ -5,7 +5,7 @@ interface Props {
   noOfTiles?: number;
 }
 
-const QuizListPlaceholder: FC<Props> = ({ noOfTiles=8 }) => (
+const QuizListPlaceholder: FC<Props> = ({ noOfTiles = 8 }) => (
   <Box
     width={{ base: "95%", sm: "80%", md: "65%" }}
     maxWidth="1200px"

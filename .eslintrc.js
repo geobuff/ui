@@ -21,9 +21,9 @@ module.exports = {
   },
   extends: [
     "plugin:@typescript-eslint/recommended",
-    "eslint:recommended",
     "plugin:react/recommended",
     "prettier",
+    "plugin:prettier/recommended",
   ],
   rules: {
     "react-hooks/exhaustive-deps": "warn",

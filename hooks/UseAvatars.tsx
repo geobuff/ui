@@ -1,7 +1,13 @@
 import useSWR from "swr";
 import { fetcher } from "../helpers/fetcher";
+import { Avatar } from "../types/avatar";
 
-const useAvatars = () => {
+interface Result {
+  avatars: Array<Avatar>;
+  isLoading: boolean;
+}
+
+const useAvatars = (): Result => {
   const { data } = useSWR(`/avatars`, fetcher);
 
   return {
