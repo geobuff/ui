@@ -1,5 +1,5 @@
 export interface FilterParams {
-    page: number;
-    limit: number;
-    rank?: number;
+  page: number;
+  limit: number;
+  rank?: number;
 }

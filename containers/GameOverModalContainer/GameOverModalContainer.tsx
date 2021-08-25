@@ -25,38 +25,35 @@ interface Props {
   isXPUpdated?: boolean;
   setXPUpdated?: any;
   setLeaderboardEntrySubmitted?: any;
-};
+}
 
 const GameOverModalContainer: FC<Props> = ({
-  quiz={},
-  score=0,
-  time=0,
-  isOpen=false,
-  onClose=()=>{},
-  isXPUpdated=false,
-  setXPUpdated=()=>{},
-  setLeaderboardEntrySubmitted=()=>{},
+  quiz = null,
+  score = 0,
+  time = 0,
+  isOpen = false,
+  onClose = () => {},
+  isXPUpdated = false,
+  setXPUpdated = () => {},
+  setLeaderboardEntrySubmitted = () => {},
 }) => {
   const toast = useToast();
   const router = useRouter();
 
-  const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
-  const toastPosition: ToastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
+  const {
+    user,
+    isLoading: isUserLoading,
+    updateUser,
+    getAuthConfig,
+  } = useCurrentUser();
+  const toastPosition: ToastPosition = useBreakpointValue({
+    base: "top",
+    md: "bottom-right",
+  });
 
-  const [config, setConfig] = useState(null);
   const [entry, setEntry] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-
-  useEffect(() => {
-    if (!isUserLoading && user) {
-      setConfig({
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-    }
-  }, [isUserLoading, user]);
 
   useEffect(() => {
     if (!isOpen) {
@@ -95,7 +92,7 @@ const GameOverModalContainer: FC<Props> = ({
       xp: user.xp + increase,
     };
 
-    axiosClient.put(`/users/${user.id}`, update, config).then(() => {
+    axiosClient.put(`/users/${user.id}`, update, getAuthConfig()).then(() => {
       toast(increaseXPToast(increase, toastPosition));
 
       const newLevel = getLevel(update.xp);
@@ -157,7 +154,7 @@ const GameOverModalContainer: FC<Props> = ({
           score: score,
           time: time,
         },
-        config
+        getAuthConfig()
       )
       .then(() => {
         setIsSubmitting(false);
@@ -176,7 +173,7 @@ const GameOverModalContainer: FC<Props> = ({
           score: score,
           time: time,
         },
-        config
+        getAuthConfig()
       )
       .then(() => {
         setIsSubmitting(false);

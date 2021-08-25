@@ -10,7 +10,7 @@ interface Props {
   results?: Array<Result>;
 }
 
-const ResultsListWrapper: FC<Props> = ({ quiz, results=[] }) => (
+const ResultsListWrapper: FC<Props> = ({ quiz, results = [] }) => (
   <Box textAlign="left">
     <Divider my={4} />
     <Text fontSize="xl" mt={2} fontWeight="bold">

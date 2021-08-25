@@ -45,19 +45,19 @@ interface Props {
 }
 
 const UserProfileSummary: FC<Props> = ({
-  isLoading=false,
-  onClickUpgrade=()=>{},
-  onClickManage=()=>{},
-  username="",
-  email="",
-  countryCode="",
-  xp=0,
-  isPremium=false,
-  avatarName="",
-  avatarImageUrl="",
-  avatarBackground="",
-  avatarBorder="",
-  error="",
+  isLoading = false,
+  onClickUpgrade = () => {},
+  onClickManage = () => {},
+  username = "",
+  email = "",
+  countryCode = "",
+  xp = 0,
+  isPremium = false,
+  avatarName = "",
+  avatarImageUrl = "",
+  avatarBackground = "",
+  avatarBorder = "",
+  error = "",
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { countries } = useCountries();
@@ -75,7 +75,11 @@ const UserProfileSummary: FC<Props> = ({
       <Card>
         <Box width="100%">
           <Flex justifyContent="flex-end">
-            <IconButton aria-label="pencil" backgroundColor="transparent" onClick={onOpen}>
+            <IconButton
+              aria-label="pencil"
+              backgroundColor="transparent"
+              onClick={onOpen}
+            >
               <SolidPencil
                 color="gray.600"
                 marginLeft="4px"

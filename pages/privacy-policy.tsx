@@ -1,5 +1,6 @@
-import React from "react";
+import React, { FC } from "react";
 import Head from "next/head";
+
 import {
   Box,
   Text,
@@ -12,7 +13,7 @@ import {
 import MainView from "../components/MainView";
 import HeroHeader from "../components/HeroHeader";
 
-const PrivacyPolicy = () => (
+const PrivacyPolicy: FC = () => (
   <MainView>
     <Head>
       <title>Privacy Policy - GeoBuff</title>

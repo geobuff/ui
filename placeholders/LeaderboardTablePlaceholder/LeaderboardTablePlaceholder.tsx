@@ -16,7 +16,7 @@ interface Props {
   rows?: number;
 }
 
-const LeaderboardTablePlaceholder: FC<Props> = ({ rows=10 }) => {
+const LeaderboardTablePlaceholder: FC<Props> = ({ rows = 10 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   // Prevent layout shift on load

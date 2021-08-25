@@ -13,7 +13,7 @@ import { FilterParams } from "../../types/filter-params";
 import { Quiz } from "../../types/quiz";
 
 interface Props {
-  entries?: Array<LeaderboardEntry>,
+  entries?: Array<LeaderboardEntry>;
   hasMoreEntries?: boolean;
   isLoading?: boolean;
   filterParams?: FilterParams;
@@ -26,16 +26,16 @@ interface Props {
 }
 
 const Leaderboard: FC<Props> = ({
-  entries=[],
-  hasMoreEntries=false,
-  filterParams={page: 0, limit: 10},
-  isLoading=false,
-  quizId="1",
-  quizzes=[],
-  onChangeFilterParams=()=>{},
-  onChangeQuiz=()=>{},
-  rank="",
-  setRank=()=>{},
+  entries = [],
+  hasMoreEntries = false,
+  filterParams = { page: 0, limit: 10 },
+  isLoading = false,
+  quizId = "1",
+  quizzes = [],
+  onChangeFilterParams = () => {},
+  onChangeQuiz = () => {},
+  rank = "",
+  setRank = () => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
@@ -112,10 +112,7 @@ const Leaderboard: FC<Props> = ({
           paddingBottom={{ base: 1, md: 3 }}
           paddingX={{ base: 0, md: 3 }}
         >
-          <LeaderboardTable
-            entries={entries}
-            isLoading={isLoading}
-          />
+          <LeaderboardTable entries={entries} isLoading={isLoading} />
 
           <LeaderboardPaginationControls
             hasMoreEntries={hasMoreEntries}

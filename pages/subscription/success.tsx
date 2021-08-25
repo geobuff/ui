@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useRouter } from "next/router";
 import { Text } from "@chakra-ui/react";
 
@@ -10,7 +10,7 @@ interface Payload {
   sessionId: string;
 }
 
-const Success = () => {
+const Success: FC = () => {
   const router = useRouter();
   const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
 

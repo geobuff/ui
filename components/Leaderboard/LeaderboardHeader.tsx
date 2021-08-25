@@ -5,10 +5,10 @@ import Twemoji from "../Twemoji";
 
 interface Props {
   isLoading?: boolean;
-  [x:string]: any;
+  [x: string]: any;
 }
 
-const LeaderboardHeader: FC<Props> = ({ isLoading=false, ...props }) => (
+const LeaderboardHeader: FC<Props> = ({ isLoading = false, ...props }) => (
   <Flex
     alignItems="center"
     minHeight="48px"

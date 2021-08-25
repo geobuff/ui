@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { Flex, Text, Skeleton } from "@chakra-ui/react";
 
-import usePlays from "../../hooks/UsePlays";
+import useAllPlays from "../../hooks/UseAllPlays";
 import { formatNumber } from "../../helpers/number";
 
 const FooterPlaysContainer: FC = () => {
-  const { plays, isLoading } = usePlays();
+  const { plays, isLoading } = useAllPlays();
 
   return (
     <Flex direction="row" alignItems="center" height="20px">

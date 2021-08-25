@@ -9,7 +9,7 @@ interface Props {
   error?: string;
 }
 
-const ResetPasswordError: FC<Props> = ({ error="" }) => (
+const ResetPasswordError: FC<Props> = ({ error = "" }) => (
   <Flex marginBottom={4} alignItems="center" direction="column">
     <ScaleFade initialScale={0.75} in>
       <SolidSubtractCircle

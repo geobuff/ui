@@ -59,7 +59,11 @@ interface Props {
   isSubmitting?: boolean;
 }
 
-const RegisterForm: FC<Props> = ({ error="", onSubmit=()=>{}, isSubmitting=false }) => {
+const RegisterForm: FC<Props> = ({
+  error = "",
+  onSubmit = () => {},
+  isSubmitting = false,
+}) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const mainContent = (

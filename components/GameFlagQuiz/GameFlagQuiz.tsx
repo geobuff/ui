@@ -36,7 +36,7 @@ interface Props {
   mapping?: Array<Mapping>;
 }
 
-const GameFlagQuiz: FC<Props> = ({ quiz=null, mapping=[] }) => {
+const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 

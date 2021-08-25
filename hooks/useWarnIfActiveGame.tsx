@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import Router from "next/router";
 
-const useWarnIfActiveGame = (unsavedChanges) => {
+const useWarnIfActiveGame = (unsavedChanges: boolean): void => {
   const message =
     "Exiting while the game is running will mean losing your score. Are you sure you want to leave?";
 

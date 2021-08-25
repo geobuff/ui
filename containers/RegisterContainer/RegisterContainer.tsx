@@ -7,6 +7,7 @@ import axiosClient from "../../axios/axiosClient";
 
 import RegisterForm from "../../components/RegisterForm";
 import useCurrentUser from "../../hooks/UseCurrentUser";
+import { DecodedToken } from "../../types/decoded-token";
 
 const RegisterContainer: FC = () => {
   const router = useRouter();
@@ -51,21 +52,21 @@ const RegisterContainer: FC = () => {
     axiosClient
       .post("/auth/register", payload)
       .then((response) => {
-        const decoded = jwt_decode(response.data);
+        const decoded: DecodedToken = jwt_decode(response.data);
 
         updateUser({
-          id: decoded["userId"],
-          avatarId: decoded["avatarId"],
-          avatarName: decoded["avatarName"],
-          avatarImageUrl: decoded["avatarImageUrl"],
-          avatarBackground: decoded["avatarBackground"],
-          avatarBorder: decoded["avatarBorder"],
-          username: decoded["username"],
-          email: decoded["email"],
-          countryCode: decoded["countryCode"],
-          xp: decoded["xp"],
-          isPremium: decoded["isPremium"],
-          stripeSessionId: decoded["stripeSessionId"],
+          id: decoded.userId,
+          avatarId: decoded.avatarId,
+          avatarName: decoded.avatarName,
+          avatarImageUrl: decoded.avatarImageUrl,
+          avatarBackground: decoded.avatarBackground,
+          avatarBorder: decoded.avatarBorder,
+          username: decoded.username,
+          email: decoded.email,
+          countryCode: decoded.countryCode,
+          xp: decoded.xp,
+          isPremium: decoded.isPremium,
+          stripeSessionId: decoded.stripeSessionId,
           token: response?.data,
         });
 

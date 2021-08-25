@@ -1,11 +1,22 @@
-import React, { useState } from "react";
-import PropTypes from "prop-types";
+import React, { useState, FC } from "react";
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 import { SVGMap } from "react-svg-map";
 
 import MapInteractionCSS from "../MapInteractionCSS";
+import { SVGLocation } from "../../types/svg-location";
+import { Map } from "../../types/map";
 
-const GameMap = ({ showTooltip, map, onLocationClassName }) => {
+interface Props {
+  showTooltip?: boolean;
+  map?: Map;
+  onLocationClassName?: (location: SVGLocation) => string;
+}
+
+const GameMap: FC<Props> = ({
+  showTooltip = false,
+  map = null,
+  onLocationClassName = () => {},
+}) => {
   const [tooltipText, setTooltipText] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [tooltipTop, setTooltipTop] = useState(0);
@@ -68,17 +79,6 @@ const GameMap = ({ showTooltip, map, onLocationClassName }) => {
       </Box>
     </Box>
   );
-};
-
-GameMap.propTypes = {
-  showTooltip: PropTypes.bool,
-  map: PropTypes.any,
-  onLocationClassName: PropTypes.func,
-};
-GameMap.defaultProps = {
-  showTooltip: false,
-  map: null,
-  onLocationClassName: () => {},
 };
 
 export default GameMap;

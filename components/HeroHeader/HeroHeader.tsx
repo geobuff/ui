@@ -3,10 +3,10 @@ import { Box, Flex, Fade, Text } from "@chakra-ui/react";
 
 interface Props {
   heading?: string;
-  [x:string]: any;
+  [x: string]: any;
 }
 
-const HeroHeader: FC<Props> = ({ heading="", ...props }) => (
+const HeroHeader: FC<Props> = ({ heading = "", ...props }) => (
   <Box
     role="banner"
     background="linear-gradient(90deg, #27AE60 0%, #219250 100%)"

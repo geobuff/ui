@@ -2,10 +2,10 @@ import React, { FC } from "react";
 import { Icon } from "@chakra-ui/react";
 
 interface Props {
-  [x:string]: any;
+  [x: string]: any;
 }
 
-const SolidCloseCircle: FC<Props> = ({...props}) => (
+const SolidCloseCircle: FC<Props> = ({ ...props }) => (
   <Icon {...props}>
     <path
       fill="currentColor"

@@ -40,15 +40,16 @@ import {
 } from "../../helpers/game";
 import { Quiz } from "../../types/quiz";
 import { Mapping } from "../../types/mapping";
+import { SVGLocation } from "../../types/svg-location";
+import { Map } from "../../types/map";
 
-// TODO: Define type for map.
 interface Props {
   quiz?: Quiz;
   mapping?: Array<Mapping>;
-  map?: object;
+  map?: Map;
 }
 
-const GameMapQuiz: FC<Props> = ({ quiz=null, mapping=[], map={} }) => {
+const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 
@@ -120,7 +121,7 @@ const GameMapQuiz: FC<Props> = ({ quiz=null, mapping=[], map={} }) => {
     }
   }, [timeRemaining, hasGameStarted]);
 
-  const handleLocationClassName = (location) => {
+  const handleLocationClassName = (location: SVGLocation) => {
     if (
       checkedSubmissions.length
         ? checkedSubmissions.find(

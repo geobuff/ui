@@ -1,8 +1,8 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 import { Box, Button, Text } from "@chakra-ui/react";
 
 import GameExistingEntry from "../../GameExistingEntry";
+import { LeaderboardEntry } from "../../../types/leaderboard-entry";
 
 const explainerScoreQuizLoggedIn =
   "If this score is greater than your existing score, we will update it behind the scenes.";
@@ -11,26 +11,39 @@ const explainerNoExistingEntry =
 const explainerExistingEntry =
   "You have an existing entry for this quiz. By clicking submit you will update your existing entry.";
 
-const ExplainerText = ({ children, ...props }) => {
-  return (
-    <Text
-      color="#828282"
-      fontSize="14px"
-      fontWeight="medium"
-      textAlign="center"
-      {...props}
-    >
-      {children}
-    </Text>
-  );
-};
+interface ExplainerTextProps {
+  [x: string]: any;
+}
 
-const GameOverModalExplainerText = ({
-  onSubmit,
-  onRedirectWithScore,
-  isLoggedIn,
-  isLoading,
-  existingEntry,
+const ExplainerText: FC<ExplainerTextProps> = ({
+  children = null,
+  ...props
+}) => (
+  <Text
+    color="#828282"
+    fontSize="14px"
+    fontWeight="medium"
+    textAlign="center"
+    {...props}
+  >
+    {children}
+  </Text>
+);
+
+interface GameOverModalExplainerTextProps {
+  existingEntry?: LeaderboardEntry;
+  isLoggedIn?: boolean;
+  isLoading?: boolean;
+  onSubmit?: (existingEntry: LeaderboardEntry) => void;
+  onRedirectWithScore?: (path: string) => void;
+}
+
+const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
+  existingEntry = null,
+  isLoggedIn = false,
+  isLoading = true,
+  onSubmit = () => {},
+  onRedirectWithScore = () => {},
 }) => {
   const scoreQuizNotLoggedIn = !onSubmit && !isLoggedIn;
   const scoreQuizLoggedIn = !onSubmit && isLoggedIn;
@@ -114,40 +127,6 @@ const GameOverModalExplainerText = ({
   }
 
   return null;
-};
-
-ExplainerText.propTypes = {
-  children: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.func,
-  ]),
-};
-ExplainerText.defaultProps = {
-  children: null,
-};
-
-GameOverModalExplainerText.propTypes = {
-  onSubmit: PropTypes.func,
-  onRedirectWithScore: PropTypes.func,
-  isLoggedIn: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  existingEntry: PropTypes.shape({
-    id: PropTypes.number,
-    userId: PropTypes.number,
-    rank: PropTypes.number,
-    score: PropTypes.number,
-    time: PropTypes.number,
-    username: PropTypes.string,
-    countryCode: PropTypes.string,
-  }),
-};
-GameOverModalExplainerText.defaultProps = {
-  onSubmit: () => {},
-  onRedirectWithScore: () => {},
-  isLoggedIn: false,
-  isLoading: true,
-  existingEntry: null,
 };
 
 export default GameOverModalExplainerText;

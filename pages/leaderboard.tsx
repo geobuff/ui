@@ -1,11 +1,11 @@
-import React from "react";
+import React, { FC } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
 import LeaderboardContainer from "../containers/LeaderboardContainer";
 import MainView from "../components/MainView";
 
-const Leaderboard = () => {
+const Leaderboard: FC = () => {
   const router = useRouter();
   const { quizId, rank } = router.query;
 
@@ -15,7 +15,10 @@ const Leaderboard = () => {
         <title>{"Leaderboard - GeoBuff"}</title>
       </Head>
       <MainView>
-        <LeaderboardContainer defaultQuizId={quizId && quizId[0]} rankParam={rank && rank[0]} />
+        <LeaderboardContainer
+          defaultQuizId={quizId && quizId[0]}
+          rankParam={rank && rank[0]}
+        />
       </MainView>
     </>
   );

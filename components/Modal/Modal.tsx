@@ -18,10 +18,17 @@ interface Props {
   footer?: string | React.ReactNode;
   isOpen?: boolean;
   onClose?: any;
-  [x:string]: any;
+  [x: string]: any;
 }
 
-const Modal: FC<Props> = ({ header=null, footer=null, isOpen=false, onClose=()=>{}, children, ...props }) => {
+const Modal: FC<Props> = ({
+  header = null,
+  footer = null,
+  isOpen = false,
+  onClose = () => {},
+  children,
+  ...props
+}) => {
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [isOpenDelayed, setIsOpenDelayed] = useState(false);
 

@@ -7,25 +7,30 @@ import { getResults } from "../../helpers/results-list";
 
 import VirtualizedSectionList from "../SectionList";
 import ResultsListItem from "../ResultsListItem";
+import { Result } from "../../types/result";
+import { Mapping } from "../../types/mapping";
 
 const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 28;
 
-// TODO: Define types for checked + map.
+interface ResultMap {
+  [x: string]: Array<Mapping>;
+}
+
 interface Props {
-  checked?: Array<object>;
-  map?: object;
+  map?: ResultMap;
+  checked?: Array<Result>;
   hasGameStopped?: boolean;
   hasGroupings?: boolean;
   hasFlags?: boolean;
 }
 
 const ResultsMap: FC<Props> = ({
-  checked=[],
-  map={},
-  hasGameStopped=false,
-  hasGroupings=false,
-  hasFlags=false,
+  map = {},
+  checked = [],
+  hasGameStopped = false,
+  hasGroupings = false,
+  hasFlags = false,
 }) => {
   const results = useMemo(
     () =>
@@ -37,7 +42,7 @@ const ResultsMap: FC<Props> = ({
   );
 
   const resultRows = results[0].data;
-       
+
   const renderHeader = ({ title, key, style }) => {
     return (
       <Box key={key} style={style}>

@@ -9,27 +9,22 @@ import { userUpdated } from "../../helpers/toasts";
 
 interface Props {
   isOpen?: boolean;
-  onClose?: any;
+  onClose?: () => void;
 }
 
-const UpdateUserFormContainer: FC<Props> = ({ isOpen=false, onClose=()=>{} }) => {
+const UpdateUserFormContainer: FC<Props> = ({
+  isOpen = false,
+  onClose = () => {},
+}) => {
   const toast = useToast();
-  const { user, isLoading: isUserLoading, updateUser } =  useCurrentUser();
-  const toastPosition: ToastPosition = useBreakpointValue({ base: "top", md: "bottom-right" });
+  const { user, updateUser, getAuthConfig } = useCurrentUser();
+  const toastPosition: ToastPosition = useBreakpointValue({
+    base: "top",
+    md: "bottom-right",
+  });
 
-  const [config, setConfig] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
-
-  useEffect(() => {
-    if (!isUserLoading && user) {
-      setConfig({
-        headers: {
-          Authorization: `Bearer ${user.token}`,
-        },
-      });
-    }
-  }, [isUserLoading, user]);
 
   const handleSubmit = (values) => {
     setIsSubmitting(true);
@@ -45,7 +40,7 @@ const UpdateUserFormContainer: FC<Props> = ({ isOpen=false, onClose=()=>{} }) =>
           countryCode: values.countryCode,
           xp: user.xp,
         },
-        config
+        getAuthConfig()
       )
       .then((response) => {
         updateUser({

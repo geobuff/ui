@@ -41,12 +41,12 @@ interface Props {
 }
 
 const UpdateUserFormModal: FC<Props> = ({
-  user=null,
-  isOpen=false,
-  onClose=()=>{},
-  onSubmit=()=>{},
-  isSubmitting=false,
-  error="",
+  user = null,
+  isOpen = false,
+  onClose = () => {},
+  onSubmit = () => {},
+  isSubmitting = false,
+  error = "",
 }) => (
   <Modal isOpen={isOpen} onClose={onClose}>
     <Formik

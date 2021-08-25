@@ -22,7 +22,7 @@ interface Props {
   entries?: Array<UserLeaderboardEntry>;
 }
 
-const UserProfileAchievements: FC<Props> = ({ badges=[], entries=[] }) => {
+const UserProfileAchievements: FC<Props> = ({ badges = [], entries = [] }) => {
   const getLabel = (badge) => {
     return (
       <Box>

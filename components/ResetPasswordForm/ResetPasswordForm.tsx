@@ -26,6 +26,7 @@ import Logo from "../Logo";
 
 import ResetPasswordError from "./ResetPasswordError";
 import ResetPasswordSuccess from "./ResetPasswordSuccess";
+import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -43,10 +44,15 @@ interface Props {
   error?: string;
   isSuccess?: boolean;
   isSubmitting?: boolean;
-  onSubmit?: Function;
+  onSubmit?: (values: ResetPasswordFormReset) => void;
 }
 
-const ResetPasswordForm: FC<Props> = ({ error="", isSuccess=false, isSubmitting=false, onSubmit=()=>{} }) => {
+const ResetPasswordForm: FC<Props> = ({
+  error = "",
+  isSuccess = false,
+  isSubmitting = false,
+  onSubmit = () => {},
+}) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const form = (

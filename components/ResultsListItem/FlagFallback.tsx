@@ -7,7 +7,7 @@ interface Props {
   width?: string | number | Array<string> | object;
 }
 
-const FlagFallback: FC<Props> = ({ height="18px", width="24.5px" }) => (
+const FlagFallback: FC<Props> = ({ height = "18px", width = "24.5px" }) => (
   <Box
     height={height}
     width={width}

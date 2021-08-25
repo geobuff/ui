@@ -33,16 +33,16 @@ interface Props {
 }
 
 const GameInputBanner: FC<Props> = ({
-  quiz=null,
-  score=0,
-  errorMessage="",
-  expiryTimestamp={minutes: 0, seconds: 0},
-  hasError=false,
-  hasGameStarted=false,
-  hasGameStopped=false,
-  inputValue="",
-  onChange=()=>{},
-  onClearInput=()=>{},
+  quiz = null,
+  score = 0,
+  errorMessage = "",
+  expiryTimestamp = { minutes: 0, seconds: 0 },
+  hasError = false,
+  hasGameStarted = false,
+  hasGameStopped = false,
+  inputValue = "",
+  onChange = () => {},
+  onClearInput = () => {},
 }) => {
   const isFlagGame = quiz.type === 2;
   const inputRef = createRef<HTMLInputElement>();

@@ -10,7 +10,7 @@ interface Props {
   results?: Array<Result>;
 }
 
-const ResultsList: FC<Props> = ({ quiz={}, results=[] }) => {
+const ResultsList: FC<Props> = ({ quiz = {}, results = [] }) => {
   if (!results || results.length === 0) {
     return (
       <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>

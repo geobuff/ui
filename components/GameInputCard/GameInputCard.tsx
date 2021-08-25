@@ -43,20 +43,20 @@ interface Props {
 }
 
 const GameInputCard: FC<Props> = ({
-  quiz=null,
-  recents=[],
-  score=0,
-  timeRemaining={minutes: 0, seconds: 0},
-  errorMessage="",
-  hasGameRunOnce=false,
-  hasGameStarted=false,
-  hasGameStopped=false,
-  hasError=false,
-  inputValue="",
-  onChange=()=>{},
-  onClearInput=()=>{},
-  onGameStart=()=>{},
-  onGameStop=()=>{},
+  quiz = null,
+  recents = [],
+  score = 0,
+  timeRemaining = { minutes: 0, seconds: 0 },
+  errorMessage = "",
+  hasGameRunOnce = false,
+  hasGameStarted = false,
+  hasGameStopped = false,
+  hasError = false,
+  inputValue = "",
+  onChange = () => {},
+  onClearInput = () => {},
+  onGameStart = () => {},
+  onGameStop = () => {},
 }) => {
   const inputRef = createRef<HTMLInputElement>();
   const isFlagGame = quiz.type === QuizType.FLAG;

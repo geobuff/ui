@@ -24,7 +24,7 @@ interface Props {
   isCondensed?: boolean;
 }
 
-const UserAvatarMenu: FC<Props> = ({ isCondensed=false }) => {
+const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
   const { user, isLoading, clearUser } = useCurrentUser();
   const router = useRouter();
 

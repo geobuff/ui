@@ -10,7 +10,7 @@ import OutlinedZoomOut from "../../Icons/OutlinedZoomOut";
 
 const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 
-const MapInteractionCSS: FC = ({children=null, ...props}) => {
+const MapInteractionCSS: FC = ({ children = null, ...props }) => {
   const [value, setValue] = useState(defaultValue);
 
   const isMobile = useBreakpointValue({ base: true, lg: false });

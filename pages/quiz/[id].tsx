@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, FC } from "react";
 import { useRouter } from "next/router";
 
 import useQuizzes from "../../hooks/UseQuizzes";
@@ -6,10 +6,10 @@ import GameMapQuizContainer from "../../containers/GameMapQuizContainer";
 import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
 import MainView from "../../components/MainView";
 
-import { QuizTypes } from "../../helpers/quiz-type";
+import { QuizType } from "../../types/quiz-type";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
-const Quiz = () => {
+const Quiz: FC = () => {
   const { quizzes, isLoading } = useQuizzes();
   const router = useRouter();
   const { id } = router.query;
@@ -40,9 +40,9 @@ const Quiz = () => {
 
   const getQuizComponent = () => {
     switch (matchedQuiz.type) {
-      case QuizTypes.MAP:
+      case QuizType.MAP:
         return <GameMapQuizContainer quizId={matchedQuiz.id} />;
-      case QuizTypes.FLAG:
+      case QuizType.FLAG:
         return <GameFlagQuizContainer quizId={matchedQuiz.id} />;
       default:
         return null;

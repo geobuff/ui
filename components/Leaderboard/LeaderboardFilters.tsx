@@ -24,14 +24,14 @@ interface Props {
 }
 
 const LeaderboardFilters: FC<Props> = ({
-  quizzes=[],
-  quizId="1",
-  isLoading=false,
-  onChangeSearchUsers=()=>{},
-  onChangeQuiz=()=>{},
-  onChangeRange=()=>{},
-  rank="",
-  onChangeSearchRank=()=>{},
+  quizzes = [],
+  quizId = "1",
+  isLoading = false,
+  onChangeSearchUsers = () => {},
+  onChangeQuiz = () => {},
+  onChangeRange = () => {},
+  rank = "",
+  onChangeSearchRank = () => {},
 }) => {
   const handleSearchUsersDebounced = debounce(250, (event) =>
     onChangeSearchUsers(event)

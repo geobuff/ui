@@ -14,7 +14,7 @@ interface Props {
   user?: User;
 }
 
-const UserProfile: FC<Props> = ({ user=null }) => (
+const UserProfile: FC<Props> = ({ user = null }) => (
   <>
     <HeroHeader height={{ base: "200px", md: "250px" }} />
 

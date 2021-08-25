@@ -1,29 +1,24 @@
-export const flattenCountries = (countriesByContinent) => {
-  let flattenedCountries = [];
-  Object.keys(countriesByContinent).forEach((continent) => {
-    flattenedCountries.push(
-      ...countriesByContinent[continent].map((country) => ({
-        ...country,
-        checked: false,
-        continent,
-      }))
-    );
-  });
+import { Mapping } from "../types/mapping";
 
-  return flattenedCountries;
-};
-
-export const findSubmissionByNames = (collection, submissionName) =>
+export const findSubmissionByNames = (
+  collection: Array<Mapping>,
+  submissionName: string
+): Mapping =>
   collection?.find(
     ({ name, alternativeNames }) =>
       name.toLowerCase() === submissionName.toLowerCase() ||
       alternativeNames.includes(submissionName.toLowerCase())
   );
 
-export const findSubmissionsByPrefixes = (collection, submissionName) =>
+export const findSubmissionsByPrefixes = (
+  collection: Array<Mapping>,
+  submissionName: string
+): Array<Mapping> =>
   collection.filter((submission) =>
     submission.prefixes.includes(submissionName.toLowerCase())
   );
 
-export const findSubmissionByCode = (collection, submissionCode) =>
-  collection?.find(({ code }) => code === submissionCode);
+export const findSubmissionByCode = (
+  collection: Array<Mapping>,
+  submissionCode: string
+): Mapping => collection?.find(({ code }) => code === submissionCode);

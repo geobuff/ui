@@ -11,14 +11,20 @@ interface Props {
   rankParam?: string;
 }
 
-const LeaderboardContainer: FC<Props> = ({ defaultQuizId="1", rankParam }) => {
+const LeaderboardContainer: FC<Props> = ({
+  defaultQuizId = "1",
+  rankParam,
+}) => {
   const { quizzes, isLoading: isLoadingQuizzes } = useQuizzes();
 
   const [quizId, setQuizId] = useState(() => defaultQuizId);
   const [entries, setEntries] = useState([]);
   const [isLoadingEntries, setIsLoadingEntries] = useState(true);
   const [hasMoreEntries, setHasMoreEntries] = useState(false);
-  const [filterParams, setFilterParams]  = useState<FilterParams>({ page: 0, limit: 10 });
+  const [filterParams, setFilterParams] = useState<FilterParams>({
+    page: 0,
+    limit: 10,
+  });
   const [rank, setRank] = useState("");
   const [rankSet, setRankSet] = useState(false);
 

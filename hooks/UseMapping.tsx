@@ -1,8 +1,14 @@
 import useSWR from "swr";
 import useQuiz from "./UseQuiz";
 import { fetcher } from "../helpers/fetcher";
+import { Mapping } from "../types/mapping";
 
-const useMapping = (quizId) => {
+interface Result {
+  mapping: Array<Mapping>;
+  isLoading: boolean;
+}
+
+const useMapping = (quizId: number): Result => {
   const { quiz } = useQuiz(quizId);
 
   const shouldFetch = !!quiz && quiz.apiPath;

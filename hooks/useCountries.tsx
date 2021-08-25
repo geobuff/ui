@@ -1,28 +1,33 @@
 import { useMemo } from "react";
-
 import useSWR from "swr";
 import { fetcher } from "../helpers/fetcher";
+import { SortedCountry } from "../types/sorted-country";
 
-const useCountries = () => {
-  const { data: countries } = useSWR(`/mappings/world-countries`, fetcher, {
+interface Result {
+  countries: Array<SortedCountry>;
+  isLoading: boolean;
+}
+
+const useCountries = (): Result => {
+  const { data } = useSWR(`/mappings/world-countries`, fetcher, {
     revalidateOnFocus: false,
     revalidateOnReconnect: false,
   });
 
   const sortedCountries = useMemo(
     () =>
-      countries
+      data
         ?.map((country) => ({
           value: country.code,
           label: country.svgName,
         }))
         ?.sort((a, b) => a.label.localeCompare(b.label)),
-    [countries]
+    [data]
   );
 
   return {
     countries: sortedCountries ?? [],
-    isLoading: !countries,
+    isLoading: !data,
   };
 };
 

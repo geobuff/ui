@@ -16,7 +16,7 @@ interface Props {
   quiz?: Quiz;
 }
 
-const Sidebar: FC<Props> = ({ heading="", quiz={}, children=null }) => (
+const Sidebar: FC<Props> = ({ heading = "", quiz = {}, children = null }) => (
   <Box
     position="absolute"
     top={0}

@@ -2,10 +2,10 @@ import React, { FC } from "react";
 import { Box } from "@chakra-ui/react";
 
 interface Props {
-  [x:string]: any;
+  [x: string]: any;
 }
 
-const Card: FC<Props> = ({ children=null, ...props }) => (
+const Card: FC<Props> = ({ children = null, ...props }) => (
   <Box
     background="#FFF"
     boxShadow="0px 4px 4px rgba(180, 180, 180, 0.25)"

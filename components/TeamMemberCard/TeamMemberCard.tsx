@@ -10,7 +10,14 @@ interface Props {
   link?: string;
 }
 
-const TeamMemberCard: FC<Props> = ({ title="", position="", city="", country="", imageUrl="", link="" }) => (
+const TeamMemberCard: FC<Props> = ({
+  title = "",
+  position = "",
+  city = "",
+  country = "",
+  imageUrl = "",
+  link = "",
+}) => (
   <Box textAlign="center">
     <Link href={link}>
       <Image

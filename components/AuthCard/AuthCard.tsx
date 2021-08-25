@@ -4,10 +4,15 @@ import { Flex } from "@chakra-ui/react";
 interface Props {
   height?: string | number | Array<string> | object;
   width?: string | number | Array<string> | object;
-  [x:string]: any;
-};
+  [x: string]: any;
+}
 
-const AuthCard: FC<Props> = ({ height=560, width=375, children=null, ...props }) => (
+const AuthCard: FC<Props> = ({
+  height = 560,
+  width = 375,
+  children = null,
+  ...props
+}) => (
   <Flex
     backgroundColor="white"
     borderRadius={12}

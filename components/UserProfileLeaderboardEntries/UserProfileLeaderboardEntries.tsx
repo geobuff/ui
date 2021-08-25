@@ -29,7 +29,7 @@ interface Props {
   entries?: Array<UserLeaderboardEntry>;
 }
 
-const UserProfileLeaderboardEntries: FC<Props> = ({ entries=[] }) => (
+const UserProfileLeaderboardEntries: FC<Props> = ({ entries = [] }) => (
   <Card padding={6}>
     <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
       {"Leaderboard Entries"}
