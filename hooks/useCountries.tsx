@@ -1,10 +1,10 @@
 import { useMemo } from "react";
 import useSWR from "swr";
 import { fetcher } from "../helpers/fetcher";
-import { Mapping } from "../types/mapping";
+import { SortedCountry } from "../types/sorted-country";
 
 interface Result {
-  countries: Array<Mapping>;
+  countries: Array<SortedCountry>;
   isLoading: boolean;
 }
 

@@ -20,6 +20,7 @@ module.exports = {
     },
   },
   extends: [
+    "eslint:recommended",
     "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "prettier",
@@ -28,5 +29,9 @@ module.exports = {
   rules: {
     "react-hooks/exhaustive-deps": "warn",
     "react-hooks/rules-of-hooks": "warn",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/ban-types": "off",
   },
 };

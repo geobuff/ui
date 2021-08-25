@@ -1,5 +1,3 @@
-// @ts-nocheck
-
 import React, { FC } from "react";
 
 import { Box, keyframes } from "@chakra-ui/react";
@@ -47,7 +45,7 @@ const Sparkles: FC<SparklesProps> = ({
   ...delegated
 }) => {
   const [sparkles, setSparkles] = React.useState(() => {
-    return range(3).map(() => generateSparkle(color));
+    return range(0, 3).map(() => generateSparkle(color));
   });
 
   useRandomInterval(
@@ -128,7 +126,7 @@ const Sparkle: FC<SparkleProps> = ({ size, color, style }) => {
         height={size}
         viewBox="0 0 68 68"
         fill="none"
-        animation={`${spin} 1000ms linear`}
+        style={{ animation: `${spin} 1000ms linear` }}
       >
         <path d={path} fill={color} />
       </svg>

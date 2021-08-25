@@ -4,7 +4,7 @@ export interface LeaderboardEntry {
   username: string;
   countryCode: string;
   score: number;
-  time: Date;
+  time: number;
   added: Date;
   rank: number;
 }

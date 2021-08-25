@@ -5,6 +5,7 @@ import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import ResetPasswordForm from "../../components/ResetPasswordForm";
+import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
 
 const ResetPasswordContainer: FC = () => {
   const router = useRouter();
@@ -43,14 +44,14 @@ const ResetPasswordContainer: FC = () => {
     }
   }, [token, userId]);
 
-  const handleSubmit = ({ password }) => {
+  const handleSubmit = (values: ResetPasswordFormReset): void => {
     setIsSubmitting(true);
     setError(null);
     axiosClient
       .put("/auth", {
         userId: parseInt(userId[0]),
         token,
-        password,
+        password: values.password,
       })
       .then(() => {
         setIsSuccess(true);

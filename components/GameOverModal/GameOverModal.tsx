@@ -1,5 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React, { FC } from "react";
 
 import {
   Box,
@@ -18,24 +17,40 @@ import Modal from "../Modal";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
+import { Quiz } from "../../types/quiz";
+import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 
 const explainerCloseModal =
   "Feel free to close this modal to view the map and your results. Don’t worry, you’ll still be able to submit your score afterwards!";
 
-const GameOverModal = ({
-  quiz,
-  score,
-  time,
-  isLoggedIn,
-  isLoading,
-  existingEntry,
-  isOpen,
-  onClose,
-  onSubmit,
-  onRedirectWithScore,
-  isSubmitting,
+interface Props {
+  quiz?: Quiz;
+  score?: number;
+  time?: number;
+  existingEntry?: LeaderboardEntry;
+  isLoggedIn?: boolean;
+  isLoading?: boolean;
+  isOpen?: boolean;
+  isSubmitting?: boolean;
+  onClose?: () => void;
+  onSubmit?: (existingEntry: LeaderboardEntry) => void;
+  onRedirectWithScore?: (path: string) => void;
+}
+
+const GameOverModal: FC<Props> = ({
+  quiz = {},
+  score = 0,
+  time = 100,
+  isLoggedIn = true,
+  isLoading = true,
+  existingEntry = null,
+  isOpen = false,
+  isSubmitting = false,
+  onClose = () => {},
+  onSubmit = () => {},
+  onRedirectWithScore = () => {},
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -143,11 +158,11 @@ const GameOverModal = ({
 
         <Box marginTop={8}>
           <GameOverModalExplainerText
+            existingEntry={existingEntry}
             isLoggedIn={isLoggedIn}
             isLoading={isLoading}
             onSubmit={onSubmit}
             onRedirectWithScore={onRedirectWithScore}
-            existingEntry={existingEntry}
           />
         </Box>
       </Box>
@@ -156,54 +171,3 @@ const GameOverModal = ({
 };
 
 export default GameOverModal;
-
-GameOverModal.propTypes = {
-  quiz: PropTypes.shape({
-    id: PropTypes.number,
-    type: PropTypes.number,
-    name: PropTypes.string,
-    maxScore: PropTypes.number,
-    time: PropTypes.number,
-    mapSVG: PropTypes.string,
-    imageUrl: PropTypes.string,
-    verb: PropTypes.string,
-    apiPath: PropTypes.string,
-    route: PropTypes.string,
-    hasLeaderboard: PropTypes.bool,
-    hasGrouping: PropTypes.bool,
-    hasFlags: PropTypes.bool,
-    enabled: PropTypes.bool,
-  }),
-  score: PropTypes.number,
-  time: PropTypes.number,
-  existingEntry: PropTypes.shape({
-    id: PropTypes.number,
-    userId: PropTypes.number,
-    rank: PropTypes.number,
-    score: PropTypes.number,
-    time: PropTypes.number,
-    username: PropTypes.string,
-    countryCode: PropTypes.string,
-  }),
-  isLoggedIn: PropTypes.bool,
-  isLoading: PropTypes.bool,
-  isOpen: PropTypes.bool,
-  isSubmitting: PropTypes.bool,
-  onClose: PropTypes.func,
-  onSubmit: PropTypes.func,
-  onRedirectWithScore: PropTypes.func,
-};
-
-GameOverModal.defaultProps = {
-  quiz: {},
-  score: 0,
-  time: 100,
-  isLoggedIn: true,
-  isLoading: true,
-  existingEntry: null,
-  isOpen: false,
-  isSubmitting: false,
-  onClose: () => {},
-  onSubmit: () => {},
-  onRedirectWithScore: () => {},
-};

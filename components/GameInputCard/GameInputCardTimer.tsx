@@ -1,12 +1,11 @@
-import React from "react";
-import PropTypes from "prop-types";
-
+import React, { FC } from "react";
 import { Box, Text } from "@chakra-ui/react";
 
 import { toMinTwoDigits } from "../../helpers/format-text";
 import { secondsToMinutesString } from "../../helpers/time";
+import { TimeRemaining } from "../../types/time-remaining";
 
-const Timer = ({ children }) => (
+const Timer: FC = ({ children = null }) => (
   <Box>
     <Text fontWeight="bold">{"TIME REMAINING"}</Text>
     <Text fontWeight={800} fontSize="36px">
@@ -15,11 +14,18 @@ const Timer = ({ children }) => (
   </Box>
 );
 
-const GameInputCardTimer = ({
-  totalSeconds,
-  expiryTimestamp,
-  hasGameStarted,
-  hasGameStopped,
+interface Props {
+  totalSeconds?: number;
+  expiryTimestamp?: TimeRemaining;
+  hasGameStarted: boolean;
+  hasGameStopped: boolean;
+}
+
+const GameInputCardTimer: FC<Props> = ({
+  totalSeconds = 900,
+  expiryTimestamp = { minutes: 0, seconds: 0 },
+  hasGameStarted = false,
+  hasGameStopped = false,
 }) => {
   if (hasGameStopped) {
     return (
@@ -40,30 +46,6 @@ const GameInputCardTimer = ({
       expiryTimestamp.seconds
     )}`}</Timer>
   );
-};
-
-Timer.propTypes = {
-  children: PropTypes.oneOfType([PropTypes.string, PropTypes.element]),
-};
-
-Timer.defaultProps = {
-  children: "",
-};
-
-GameInputCardTimer.propTypes = {
-  totalSeconds: PropTypes.number,
-  expiryTimestamp: PropTypes.shape({
-    minutes: PropTypes.number,
-    seconds: PropTypes.number,
-  }),
-  hasGameStarted: PropTypes.bool,
-  hasGameStopped: PropTypes.bool,
-};
-GameInputCardTimer.defaultProps = {
-  totalSeconds: 900,
-  expiryTimestamp: null,
-  hasGameStarted: false,
-  hasGameStopped: false,
 };
 
 export default GameInputCardTimer;

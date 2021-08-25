@@ -2,6 +2,7 @@ import { useState } from "react";
 import jwt_decode from "jwt-decode";
 import { User } from "../types/user";
 import { DecodedToken } from "../types/decoded-token";
+import { AxiosRequestConfig } from "axios";
 
 interface Result {
   user: User;
@@ -9,6 +10,7 @@ interface Result {
   updateUser: (user: User) => void;
   clearUser: () => void;
   tokenExpired: (token: string) => boolean;
+  getAuthConfig: () => AxiosRequestConfig;
 }
 
 const useCurrentUser = (): Result => {
@@ -66,12 +68,21 @@ const useCurrentUser = (): Result => {
     return decoded.exp <= seconds;
   };
 
+  const getAuthConfig = (): AxiosRequestConfig => {
+    return {
+      headers: {
+        Authorization: `Bearer ${user.token}`,
+      },
+    };
+  };
+
   return {
     user,
     isLoading,
     updateUser,
     clearUser,
     tokenExpired,
+    getAuthConfig,
   };
 };
 

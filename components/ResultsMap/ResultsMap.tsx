@@ -7,22 +7,27 @@ import { getResults } from "../../helpers/results-list";
 
 import VirtualizedSectionList from "../SectionList";
 import ResultsListItem from "../ResultsListItem";
+import { Result } from "../../types/result";
+import { Mapping } from "../../types/mapping";
 
 const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 28;
 
-// TODO: Define types for checked + map.
+interface ResultMap {
+  [x: string]: Array<Mapping>;
+}
+
 interface Props {
-  checked?: Array<object>;
-  map?: object;
+  map?: ResultMap;
+  checked?: Array<Result>;
   hasGameStopped?: boolean;
   hasGroupings?: boolean;
   hasFlags?: boolean;
 }
 
 const ResultsMap: FC<Props> = ({
-  checked = [],
   map = {},
+  checked = [],
   hasGameStopped = false,
   hasGroupings = false,
   hasFlags = false,

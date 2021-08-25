@@ -7,7 +7,7 @@ import { secondsToMinutesString } from "../../helpers/time";
 interface Props {
   rank?: number;
   score?: number;
-  time?: string;
+  time?: number;
   username?: string;
   isLoading?: boolean;
 }
@@ -15,7 +15,7 @@ interface Props {
 const GameExistingEntry: FC<Props> = ({
   rank = 0,
   score = 0,
-  time = "15:00",
+  time = 900,
   username = "PhileasFogg",
   isLoading = true,
 }) => {

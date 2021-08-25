@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 import UserProfileLeaderboardEntries from "../../components/UserProfileLeaderboardEntries";
-import useLeaderboardEntries from "../../hooks/UseLeaderboardEntries";
+import useUserLeaderboardEntries from "../../hooks/UseUserLeaderboardEntries";
 import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const UserProfileLeaderboardEntriesContainer: FC<Props> = ({ userId }) => {
-  const { entries, isLoading } = useLeaderboardEntries(userId);
+  const { entries, isLoading } = useUserLeaderboardEntries(userId);
 
   if (isLoading) {
     return <UserProfileLeaderboardEntriesPlaceholder />;

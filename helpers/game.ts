@@ -13,9 +13,9 @@ export const findSubmissionByNames = (
 export const findSubmissionsByPrefixes = (
   collection: Array<Mapping>,
   submissionName: string
-): Mapping =>
-  collection?.find(({ prefixes }) =>
-    prefixes.includes(submissionName.toLowerCase())
+): Array<Mapping> =>
+  collection.filter((submission) =>
+    submission.prefixes.includes(submissionName.toLowerCase())
   );
 
 export const findSubmissionByCode = (

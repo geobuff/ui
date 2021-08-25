@@ -37,7 +37,10 @@ const AvatarSelect: FC<Props> = ({ fieldProps = { value: "" } }) => {
       icon={
         fieldProps.value ? (
           <Image
-            src={avatars.find((x) => x.id == fieldProps?.value)?.imageUrl}
+            src={
+              avatars.find((x) => x.id === parseInt(fieldProps?.value))
+                ?.imageUrl
+            }
             marginRight="16px"
             minHeight="22px"
             minWidth="32px"

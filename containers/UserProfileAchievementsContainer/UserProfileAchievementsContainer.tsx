@@ -2,7 +2,7 @@ import React, { FC } from "react";
 
 import UserProfileAchievements from "../../components/UserProfileAchievements";
 import useBadges from "../../hooks/UseBadges";
-import useLeaderboardEntries from "../../hooks/UseLeaderboardEntries";
+import useUserLeaderboardEntries from "../../hooks/UseUserLeaderboardEntries";
 import UserProfileAchievementsPlaceholder from "../../placeholders/UserProfileAchievementsPlaceholder";
 import { User } from "../../types/user";
 
@@ -12,7 +12,7 @@ interface Props {
 
 const UserProfileAchievementsContainer: FC<Props> = ({ user = null }) => {
   const { badges, isLoading: badgesLoading } = useBadges();
-  const { entries, isLoading: entriesLoading } = useLeaderboardEntries(
+  const { entries, isLoading: entriesLoading } = useUserLeaderboardEntries(
     user?.id
   );
 

@@ -23,7 +23,6 @@ interface Props {
   [x: string]: any;
 }
 
-// eslint-disable-next-line react/prop-types
 const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
   const router = useRouter();
   const {

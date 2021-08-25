@@ -1,13 +1,13 @@
 import useSWR from "swr";
 import { fetcher } from "../helpers/fetcher";
-import { LeaderboardEntry } from "../types/leaderboard-entry";
+import { UserLeaderboardEntry } from "../types/user-leaderboard-entry";
 
 interface Result {
-  entries: Array<LeaderboardEntry>;
+  entries: Array<UserLeaderboardEntry>;
   isLoading: boolean;
 }
 
-const useLeaderboardEntries = (userId: number): Result => {
+const useUserLeaderboardEntries = (userId: number): Result => {
   const { data } = useSWR(`/leaderboard/${userId}`, fetcher);
 
   return {
@@ -16,4 +16,4 @@ const useLeaderboardEntries = (userId: number): Result => {
   };
 };
 
-export default useLeaderboardEntries;
+export default useUserLeaderboardEntries;
