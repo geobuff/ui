@@ -6,7 +6,7 @@ import GameMapQuizContainer from "../../containers/GameMapQuizContainer";
 import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
 import MainView from "../../components/MainView";
 
-import { QuizTypes } from "../../helpers/quiz-type";
+import { QuizType } from "../../types/quiz-type";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
 const Quiz: FC = () => {
@@ -40,9 +40,9 @@ const Quiz: FC = () => {
 
   const getQuizComponent = () => {
     switch (matchedQuiz.type) {
-      case QuizTypes.MAP:
+      case QuizType.MAP:
         return <GameMapQuizContainer quizId={matchedQuiz.id} />;
-      case QuizTypes.FLAG:
+      case QuizType.FLAG:
         return <GameFlagQuizContainer quizId={matchedQuiz.id} />;
       default:
         return null;

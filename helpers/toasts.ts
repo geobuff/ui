@@ -1,6 +1,6 @@
 import { ToastPosition, UseToastOptions } from "@chakra-ui/react";
 
-const defaultPosition = "bottom-right";
+const defaultPosition: ToastPosition = "bottom-right";
 
 export const entrySubmitted = (
   position: ToastPosition = defaultPosition

@@ -4,7 +4,7 @@ import { useDrag } from "react-dnd";
 import { Box } from "@chakra-ui/react";
 
 import Image from "../Image";
-import { ItemTypes } from "../../helpers/item-types";
+import { ItemTypes } from "../../types/item-types";
 
 import { usePreview } from "react-dnd-preview";
 

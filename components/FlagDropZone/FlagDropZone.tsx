@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { AspectRatio, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
 import { useDrop } from "react-dnd";
 
-import { ItemTypes } from "../../helpers/item-types";
+import { ItemTypes } from "../../types/item-types";
 
 interface Props {
   acceptedFlagName?: string;

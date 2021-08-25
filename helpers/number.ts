@@ -1,2 +1,2 @@
-export const formatNumber = (number) =>
-  number.toLocaleString("en-US", { maximumFractionDigits: 2 });
+export const formatNumber = (value: number): string =>
+  value.toLocaleString("en-US", { maximumFractionDigits: 2 });

@@ -1,4 +1,10 @@
-export const isBadgeComplete = (badge, entries) => {
+import { Badge } from "../types/badge";
+import { UserLeaderboardEntry } from "../types/user-leaderboard-entry";
+
+export const isBadgeComplete = (
+  badge: Badge,
+  entries: Array<UserLeaderboardEntry>
+): boolean => {
   switch (badge.id) {
     case 1:
       return entries.length > 0;
@@ -9,7 +15,10 @@ export const isBadgeComplete = (badge, entries) => {
   }
 };
 
-export const getProgress = (badge, entries) => {
+export const getProgress = (
+  badge: Badge,
+  entries: Array<UserLeaderboardEntry>
+): number => {
   switch (badge.id) {
     case 1:
       return entries.length > 0 ? 1 : 0;
