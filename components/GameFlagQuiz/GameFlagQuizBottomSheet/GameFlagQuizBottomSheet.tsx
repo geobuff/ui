@@ -19,10 +19,11 @@ import { groupMapping } from "../../../helpers/mapping";
 import { motion } from "framer-motion";
 import { FlagGameContext } from "../../../context/FlagGameContext";
 
+// TODO: Migrate props to interface
 // TODO: Remove with TS migration
 /* eslint-disable react/prop-types */
 const GameFlagQuizBottomSheet = ({
-  checkedSubmissions,
+  checkedSubmissions = [],
   mapping,
   quiz,
   flagDragItems,
@@ -33,7 +34,6 @@ const GameFlagQuizBottomSheet = ({
   onGameStop,
   onGameStart,
 }) => {
-  // TODO: Consider renaming to something modal related
   const [showResultList, setShowResultsList] = useState(false);
 
   const [dragStart, setDragStart] = useState(null);
@@ -67,6 +67,7 @@ const GameFlagQuizBottomSheet = ({
     <motion.div
       animate={showResultList ? "open" : "closed"}
       variants={variants}
+      // @ts-ignore
       drag={isDragging ? "none" : "y"}
       dragConstraints={{ bottom: 10, top: 0 }}
       onDragStart={handleDrag}
@@ -151,7 +152,6 @@ const GameFlagQuizBottomSheet = ({
                 {"Results"}
               </Button>
               <ResultsMap
-                quiz={quiz}
                 checked={checkedSubmissions}
                 map={groupMapping(mapping)}
                 hasGameStopped={hasGameStopped}
