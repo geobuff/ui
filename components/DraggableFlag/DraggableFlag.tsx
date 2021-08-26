@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
+import PropTypes from "prop-types";
 import { getFlagUrl } from "@geobuff/flags";
 import { useDrag } from "react-dnd";
 import { Box } from "@chakra-ui/react";
@@ -7,6 +8,7 @@ import Image from "../Image";
 import { ItemTypes } from "../../types/item-types";
 
 import { usePreview } from "react-dnd-preview";
+import { FlagGameContext } from "../../context/FlagGameContext";
 
 interface Props {
   code?: string;
@@ -23,11 +25,14 @@ const DraggableFlagPreview = () => {
   return <div style={style}>{itemType}</div>;
 };
 
-const DraggableFlag: FC<Props> = ({
+const DraggableFlag = ({
   code = "",
-  checkSubmission = () => {},
+  checkSubmission = (submission: string) => {},
   ...props
 }) => {
+  const { handleDragging } = useContext(FlagGameContext);
+
+  const [dragging, setDragging] = useState(null);
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.FLAG,
     item: { name: code },
@@ -42,6 +47,11 @@ const DraggableFlag: FC<Props> = ({
       handlerId: monitor.getHandlerId(),
     }),
   }));
+
+  useEffect(() => {
+    setDragging(isDragging);
+    handleDragging(isDragging);
+  }, [isDragging]);
 
   return (
     <>

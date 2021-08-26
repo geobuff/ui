@@ -28,6 +28,7 @@ import FlagDropZone from "../FlagDropZone/FlagDropZone";
 
 import { groupMapping } from "../../helpers/mapping";
 import { findSubmissionByCode } from "../../helpers/game";
+import GameFlagQuizBottomSheet from "./GameFlagQuizBottomSheet";
 import { Quiz } from "../../types/quiz";
 import { Mapping } from "../../types/mapping";
 
@@ -49,7 +50,6 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
   const [hasGameRunOnce, setHasGameRunOnce] = useState(false);
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
-  const [showResultList, setShowResultsList] = useState(false); // TODO: Consider renaming to something modal related
   const [isXPUpdated, setXPUpdated] = useState(false);
   const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
     false
@@ -100,8 +100,13 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     }, 50);
   };
 
+  useEffect(() => {
+    checkSubmission(currentSubmission);
+  }, [currentSubmission]);
+
   const { seconds, minutes, restart, pause } = useTimer({
-    expiryTimestamp: timeRemaining,
+    //@ts-ignore
+    timeRemaining,
     onExpire: () => {
       pause();
       handleExpire();
@@ -220,10 +225,6 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     [acceptedFlag, checkedSubmissions, handleGameStop, mapping]
   );
 
-  useEffect(() => {
-    checkSubmission(currentSubmission);
-  }, [currentSubmission, checkSubmission]);
-
   const onClearInput = () => {
     setHasError(false);
     setErrorMessage("");
@@ -292,7 +293,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
                 flex="1"
               >
                 <Flex
-                  flex={1}
+                  flex={{ base: "initial", lg: 1 }}
                   direction="column"
                   height="100%"
                   width="100%"
@@ -308,7 +309,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
                 {!isMobile && (
                   <GameFlags
                     codes={flagDragItems}
-                    onCheckSubmission={(submission) =>
+                    onCheckSubmission={async (submission) =>
                       setCurrentSubmission(submission)
                     }
                   />
@@ -316,63 +317,24 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
               </Flex>
             )}
           </Flex>
+
           {isMobile && (
-            <Flex
-              direction="column"
-              backgroundColor="white"
-              p={4}
-              borderTopRadius={12}
-            >
-              <Box>
-                {!showResultList && (
-                  <>
-                    <GameFlags
-                      codes={flagDragItems}
-                      onCheckSubmission={(submission) =>
-                        setCurrentSubmission(submission)
-                      }
-                    />
-                    <Button
-                      colorScheme={hasGameStarted ? "red" : "green"}
-                      isFullWidth
-                      onClick={
-                        hasGameStarted ? handleGameStop : handleGameStart
-                      }
-                      p={8}
-                      size="md"
-                    >
-                      <Text fontWeight="700" fontSize="22px">
-                        {hasGameStarted
-                          ? "GIVE UP"
-                          : hasGameRunOnce
-                          ? "RETRY"
-                          : "START"}
-                      </Text>
-                    </Button>
-                  </>
-                )}
-
-                <Button
-                  my={4}
-                  isFullWidth
-                  variant="outline"
-                  onClick={() => setShowResultsList(!showResultList)}
-                >
-                  {"Results"}
-                </Button>
-
-                {showResultList && (
-                  <ResultsMap
-                    checked={checkedSubmissions}
-                    map={groupMapping(mapping)}
-                    hasGameStopped={hasGameStopped}
-                    hasGroupings={quiz.hasGrouping}
-                    hasFlags={quiz.hasFlags}
-                  />
-                )}
-              </Box>
-            </Flex>
+            <GameFlagQuizBottomSheet
+              checkedSubmissions={checkedSubmissions}
+              mapping={mapping}
+              quiz={quiz}
+              flagDragItems={flagDragItems}
+              hasGameStarted={hasGameStarted}
+              hasGameStopped={hasGameStopped}
+              hasGameRunOnce={hasGameRunOnce}
+              onCheckSubmission={(submission) =>
+                setCurrentSubmission(submission)
+              }
+              onGameStart={handleGameStart}
+              onGameStop={handleGameStop}
+            />
           )}
+
           {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
             <Box position="fixed" bottom="20px" right="20px">
               <Button onClick={onOpen}>
