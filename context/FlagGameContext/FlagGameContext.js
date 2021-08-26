@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 export const FlagGameContext = createContext({
   isDragging: false,
-  handleDragging: () => {},
+  handleDragging: (isDrag) => {},
 });
 
 export const FlagGameContextProvider = ({ children }) => {

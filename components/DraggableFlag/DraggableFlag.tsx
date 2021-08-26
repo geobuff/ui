@@ -25,7 +25,11 @@ const DraggableFlagPreview = () => {
   return <div style={style}>{itemType}</div>;
 };
 
-const DraggableFlag = ({ code = "", checkSubmission = () => {}, ...props }) => {
+const DraggableFlag = ({
+  code = "",
+  checkSubmission = (submission: string) => {},
+  ...props
+}) => {
   const { handleDragging } = useContext(FlagGameContext);
 
   const [dragging, setDragging] = useState(null);
