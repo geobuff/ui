@@ -40,7 +40,6 @@ const DraggableFlag = ({ code, checkSubmission, ...props }) => {
 
   useEffect(() => {
     setDragging(isDragging);
-    console.log("setting isDragging::DraggableFlag");
     handleDragging(isDragging);
   }, [isDragging]);
 

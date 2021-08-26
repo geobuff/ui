@@ -50,29 +50,19 @@ const GameFlagQuizBottomSheet = ({
   };
 
   useEffect(() => {
-    console.log(`${dragStart}-${dragEnd}`, "drag start::useEffect");
-    console.log(dragStart - dragEnd, "dragStart - dragEnd");
     if (dragEnd - dragStart >= 10 && !isDragging) {
       setShowResultsList(true);
     }
   }, [dragEnd]);
 
-  console.log(showResultList, "showResultList");
-
-  console.log(isDragging, "isDragging::BottomSheet");
-
   const handleDrag = (event, info) => {
     console.log(info.point.x, info.point.y);
     setDragStart(info.point.x);
-    console.log("handleDrag start called");
-    // setShowResultsList(true);
   };
 
   const handleDragEnd = (event, info) => {
     console.log(info.point.x, info.point.y);
-    console.log("handleDrag end called");
     setDragEnd(info.point.x);
-    // setShowResultsList(true);
   };
 
   return (
@@ -85,7 +75,7 @@ const GameFlagQuizBottomSheet = ({
       onDragEnd={handleDragEnd}
       transition={{
         type: "spring",
-        damping: 40,
+        damping: 60,
         stiffness: 400,
       }}
       style={{
@@ -101,7 +91,7 @@ const GameFlagQuizBottomSheet = ({
     >
       <Flex
         direction="column"
-        backgroundColor={isDragging ? "red" : "white"}
+        backgroundColor="white"
         p={4}
         borderTopRadius={12}
       >
@@ -145,20 +135,26 @@ const GameFlagQuizBottomSheet = ({
                     : "START"}
                 </Text>
               </Button>
+              <Box
+                marginTop={5}
+                marginLeft="-5"
+                marginRight="-5"
+                height="400px"
+                backgroundColor="white"
+              />
             </Fade>
           )}
 
-          <Button
-            my={4}
-            isFullWidth
-            variant="outline"
-            onClick={() => setShowResultsList(!showResultList)}
-          >
-            {"Results"}
-          </Button>
-
           {showResultList && (
             <Fade in unmountOnExit>
+              <Button
+                my={4}
+                isFullWidth
+                variant="outline"
+                onClick={() => setShowResultsList(!showResultList)}
+              >
+                {"Results"}
+              </Button>
               <ResultsMap
                 quiz={quiz}
                 checked={checkedSubmissions}
