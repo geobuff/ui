@@ -45,7 +45,7 @@ import { Map } from "../../types/map";
 
 interface Props {
   quiz?: Quiz;
-  mapping?: Array<Mapping>;
+  mapping?: Mapping[];
   map?: Map;
 }
 

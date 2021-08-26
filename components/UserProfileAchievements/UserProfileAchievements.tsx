@@ -18,8 +18,8 @@ import { Badge } from "../../types/badge";
 import { UserLeaderboardEntry } from "../../types/user-leaderboard-entry";
 
 interface Props {
-  badges?: Array<Badge>;
-  entries?: Array<UserLeaderboardEntry>;
+  badges?: Badge[];
+  entries?: UserLeaderboardEntry[];
 }
 
 const UserProfileAchievements: FC<Props> = ({ badges = [], entries = [] }) => {

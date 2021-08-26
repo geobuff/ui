@@ -4,7 +4,7 @@ import { fetcher } from "../helpers/fetcher";
 import { Mapping } from "../types/mapping";
 
 interface Result {
-  mapping: Array<Mapping>;
+  mapping: Mapping[];
   isLoading: boolean;
 }
 

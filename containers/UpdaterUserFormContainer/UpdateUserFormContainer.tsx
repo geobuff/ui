@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useState, FC } from "react";
 import { useToast, useBreakpointValue, ToastPosition } from "@chakra-ui/react";
 
 import UpdateUserFormModal from "../../components/UpdateUserFormModal";

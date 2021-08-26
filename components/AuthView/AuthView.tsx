@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import { Flex } from "@chakra-ui/react";
 
 interface Props {
-  height?: string | number | Array<string> | object;
-  marginTop?: string | number | Array<string> | object;
+  height?: string | number | string[] | object;
+  marginTop?: string | number | string[] | object;
 }
 
 const AuthView: FC<Props> = ({

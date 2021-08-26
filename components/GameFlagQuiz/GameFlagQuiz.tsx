@@ -33,7 +33,7 @@ import { Mapping } from "../../types/mapping";
 
 interface Props {
   quiz?: Quiz;
-  mapping?: Array<Mapping>;
+  mapping?: Mapping[];
 }
 
 const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
@@ -61,7 +61,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     )
   );
   const [remainingAnswers, setRemainingAnswers] = useState(() => mapping);
-  const [currentSubmission, setCurrentSubmission] = useState(null);
+  const [currentSubmission, setCurrentSubmission] = useState("");
   const [submissionCorrect, setSubmissionCorrect] = useState(false);
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
 

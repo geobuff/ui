@@ -4,7 +4,7 @@ import { fetcher } from "../helpers/fetcher";
 import { SortedCountry } from "../types/sorted-country";
 
 interface Result {
-  countries: Array<SortedCountry>;
+  countries: SortedCountry[];
   isLoading: boolean;
 }
 

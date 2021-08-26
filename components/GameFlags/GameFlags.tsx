@@ -7,8 +7,8 @@ const ScrollingComponent = withScrolling("div");
 import DraggableFlag from "../DraggableFlag";
 
 interface Props {
-  codes?: Array<string>;
-  onCheckSubmission?: Function;
+  codes?: string[];
+  onCheckSubmission?: (value: string) => void;
 }
 
 const GameFlags: FC<Props> = ({ codes = [], onCheckSubmission = () => {} }) => {

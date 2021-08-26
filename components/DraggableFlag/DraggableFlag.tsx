@@ -10,7 +10,7 @@ import { usePreview } from "react-dnd-preview";
 
 interface Props {
   code?: string;
-  checkSubmission?: Function;
+  checkSubmission?: (value: string) => void;
   [x: string]: any;
 }
 

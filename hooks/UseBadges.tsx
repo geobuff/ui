@@ -3,7 +3,7 @@ import { fetcher } from "../helpers/fetcher";
 import { Badge } from "../types/badge";
 
 interface Result {
-  badges: Array<Badge>;
+  badges: Badge[];
   isLoading: boolean;
 }
 

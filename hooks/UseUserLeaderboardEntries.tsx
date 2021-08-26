@@ -3,7 +3,7 @@ import { fetcher } from "../helpers/fetcher";
 import { UserLeaderboardEntry } from "../types/user-leaderboard-entry";
 
 interface Result {
-  entries: Array<UserLeaderboardEntry>;
+  entries: UserLeaderboardEntry[];
   isLoading: boolean;
 }
 

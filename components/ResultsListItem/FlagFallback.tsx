@@ -3,8 +3,8 @@ import React, { FC } from "react";
 import { Box } from "@chakra-ui/react";
 
 interface Props {
-  height?: string | number | Array<string> | object;
-  width?: string | number | Array<string> | object;
+  height?: string | number | string[] | object;
+  width?: string | number | string[] | object;
 }
 
 const FlagFallback: FC<Props> = ({ height = "18px", width = "24.5px" }) => (

@@ -7,7 +7,7 @@ import { Result } from "../../types/result";
 
 interface Props {
   quiz?: Quiz;
-  results?: Array<Result>;
+  results?: Result[];
 }
 
 const ResultsListWrapper: FC<Props> = ({ quiz, results = [] }) => (

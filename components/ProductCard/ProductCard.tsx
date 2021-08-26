@@ -13,7 +13,7 @@ interface Props {
   name?: string;
   imageUrl?: string;
   price?: number;
-  sizes?: Array<string>;
+  sizes?: string[];
 }
 
 const ProductCard: FC<Props> = ({

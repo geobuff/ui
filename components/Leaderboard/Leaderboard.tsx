@@ -13,12 +13,12 @@ import { FilterParams } from "../../types/filter-params";
 import { Quiz } from "../../types/quiz";
 
 interface Props {
-  entries?: Array<LeaderboardEntry>;
+  entries?: LeaderboardEntry[];
   hasMoreEntries?: boolean;
   isLoading?: boolean;
   filterParams?: FilterParams;
   quizId?: string;
-  quizzes?: Array<Quiz>;
+  quizzes?: Quiz[];
   onChangeQuiz?: any;
   onChangeFilterParams?: any;
   rank?: string;

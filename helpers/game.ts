@@ -1,7 +1,7 @@
 import { Mapping } from "../types/mapping";
 
 export const findSubmissionByNames = (
-  collection: Array<Mapping>,
+  collection: Mapping[],
   submissionName: string
 ): Mapping =>
   collection?.find(
@@ -11,14 +11,14 @@ export const findSubmissionByNames = (
   );
 
 export const findSubmissionsByPrefixes = (
-  collection: Array<Mapping>,
+  collection: Mapping[],
   submissionName: string
-): Array<Mapping> =>
+): Mapping[] =>
   collection.filter((submission) =>
     submission.prefixes.includes(submissionName.toLowerCase())
   );
 
 export const findSubmissionByCode = (
-  collection: Array<Mapping>,
+  collection: Mapping[],
   submissionCode: string
 ): Mapping => collection?.find(({ code }) => code === submissionCode);

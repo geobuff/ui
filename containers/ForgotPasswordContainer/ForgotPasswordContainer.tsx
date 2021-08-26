@@ -5,6 +5,7 @@ import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import ForgotPasswordForm from "../../components/ForgotPasswordForm";
+import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
 
 const ForgotPasswordContainer: FC = () => {
   const router = useRouter();
@@ -20,11 +21,11 @@ const ForgotPasswordContainer: FC = () => {
     }
   }, [isLoadingUser, user, router]);
 
-  const handleSubmit = ({ email }) => {
+  const handleSubmit = (values: ForgotPasswordFormSubmit): void => {
     setIsSubmitting(true);
     setError(null);
     axiosClient
-      .post("/auth/send-reset-token", { email })
+      .post("/auth/send-reset-token", { email: values.email })
       .then(() => {
         setIsSuccess(true);
       })

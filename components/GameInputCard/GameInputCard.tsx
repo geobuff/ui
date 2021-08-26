@@ -27,7 +27,7 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
 interface Props {
   quiz?: Quiz;
-  recents?: Array<Result>;
+  recents?: Result[];
   score?: number;
   timeRemaining?: TimeRemaining;
   errorMessage?: string;

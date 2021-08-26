@@ -26,7 +26,7 @@ import { secondsToMinutesString } from "../../helpers/time";
 import { UserLeaderboardEntry } from "../../types/user-leaderboard-entry";
 
 interface Props {
-  entries?: Array<UserLeaderboardEntry>;
+  entries?: UserLeaderboardEntry[];
 }
 
 const UserProfileLeaderboardEntries: FC<Props> = ({ entries = [] }) => (

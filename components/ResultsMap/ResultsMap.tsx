@@ -14,12 +14,12 @@ const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 28;
 
 interface ResultMap {
-  [x: string]: Array<Mapping>;
+  [x: string]: Mapping[];
 }
 
 interface Props {
   map?: ResultMap;
-  checked?: Array<Result>;
+  checked?: Result[];
   hasGameStopped?: boolean;
   hasGroupings?: boolean;
   hasFlags?: boolean;

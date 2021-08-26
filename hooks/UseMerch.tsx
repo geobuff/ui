@@ -3,7 +3,7 @@ import { fetcher } from "../helpers/fetcher";
 import { MerchItem } from "../types/merch-item";
 
 interface Result {
-  merch: Array<MerchItem>;
+  merch: MerchItem[];
   isLoading: boolean;
 }
 

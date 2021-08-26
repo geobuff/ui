@@ -2,7 +2,7 @@ export interface Mapping {
   name: string;
   code: string;
   svgName: string;
-  alternativeNames: Array<string>;
-  prefixes: Array<string>;
+  alternativeNames: string[];
+  prefixes: string[];
   group: string;
 }

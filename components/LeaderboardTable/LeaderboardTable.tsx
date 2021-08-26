@@ -26,7 +26,7 @@ import Sparkles from "../Sparkles/Sparkles";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
 interface Props {
-  entries?: Array<LeaderboardEntry>;
+  entries?: LeaderboardEntry[];
   isLoading?: boolean;
 }
 
