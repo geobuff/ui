@@ -52,7 +52,7 @@ const GameFlagQuizBottomSheet = ({
   useEffect(() => {
     console.log(`${dragStart}-${dragEnd}`, "drag start::useEffect");
     console.log(dragStart - dragEnd, "dragStart - dragEnd");
-    if (dragEnd - dragStart >= 10) {
+    if (dragEnd - dragStart >= 10 && !isDragging) {
       setShowResultsList(true);
     }
   }, [dragEnd]);
