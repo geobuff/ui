@@ -100,8 +100,13 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     }, 50);
   };
 
+  useEffect(() => {
+    checkSubmission(currentSubmission);
+  }, [currentSubmission]);
+
   const { seconds, minutes, restart, pause } = useTimer({
-    expiryTimestamp: timeRemaining,
+    //@ts-ignore
+    timeRemaining,
     onExpire: () => {
       pause();
       handleExpire();
@@ -219,10 +224,6 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     },
     [acceptedFlag, checkedSubmissions, handleGameStop, mapping]
   );
-
-  useEffect(() => {
-    checkSubmission(currentSubmission);
-  }, [currentSubmission, checkSubmission]);
 
   const onClearInput = () => {
     setHasError(false);

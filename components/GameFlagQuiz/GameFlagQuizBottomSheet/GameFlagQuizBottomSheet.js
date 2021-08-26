@@ -33,7 +33,8 @@ const GameFlagQuizBottomSheet = ({
   onGameStop,
   onGameStart,
 }) => {
-  const [showResultList, setShowResultsList] = useState(false); // TODO: Consider renaming to something modal related
+  // TODO: Consider renaming to something modal related
+  const [showResultList, setShowResultsList] = useState(false);
 
   const [dragStart, setDragStart] = useState(null);
   const [dragEnd, setDragEnd] = useState(null);
