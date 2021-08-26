@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useContext } from "react";
-import PropTypes from "prop-types";
 import {
   Box,
   Button,
@@ -20,6 +19,8 @@ import { groupMapping } from "../../../helpers/mapping";
 import { motion } from "framer-motion";
 import { FlagGameContext } from "../../../context/FlagGameContext";
 
+// TODO: Remove with TS migration
+/* eslint-disable react/prop-types */
 const GameFlagQuizBottomSheet = ({
   checkedSubmissions,
   mapping,
@@ -44,15 +45,11 @@ const GameFlagQuizBottomSheet = ({
     closed: { top: "calc(100% - 260px)" },
   };
 
-  const opacityVariants = {
-    open: { opacity: 0 },
-    closed: { opacity: 1 },
-  };
-
   useEffect(() => {
     if (dragEnd - dragStart >= 10 && !isDragging) {
       setShowResultsList(true);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dragEnd]);
 
   const handleDrag = (event, info) => {
@@ -75,7 +72,7 @@ const GameFlagQuizBottomSheet = ({
       onDragEnd={handleDragEnd}
       transition={{
         type: "spring",
-        damping: 60,
+        damping: 50,
         stiffness: 400,
       }}
       style={{
@@ -116,9 +113,6 @@ const GameFlagQuizBottomSheet = ({
               <GameFlags
                 codes={flagDragItems}
                 onCheckSubmission={onCheckSubmission}
-                //   onCheckSubmission={(submission) =>
-                //     setCurrentSubmission(submission)
-                //   }
               />
               <Button
                 colorScheme={hasGameStarted ? "red" : "green"}
@@ -170,8 +164,5 @@ const GameFlagQuizBottomSheet = ({
     </motion.div>
   );
 };
-
-GameFlagQuizBottomSheet.propTypes = {};
-GameFlagQuizBottomSheet.defaultProps = {};
 
 export default GameFlagQuizBottomSheet;
