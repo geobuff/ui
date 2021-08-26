@@ -9,13 +9,14 @@ interface Props {
   footerVariant?: FooterVariant;
   hasNavigationBar?: boolean;
   hasFooter?: boolean;
-};
+  [x: string]: any;
+}
 
 const MainView: FC<Props> = ({
-  children=null,
-  footerVariant=FooterVariant.EXTENDED,
-  hasNavigationBar=true,
-  hasFooter=true,
+  children = null,
+  footerVariant = FooterVariant.EXTENDED,
+  hasNavigationBar = true,
+  hasFooter = true,
   ...props
 }) => (
   <>

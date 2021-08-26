@@ -1,4 +1,4 @@
-import React, { FC }  from "react";
+import React, { FC } from "react";
 import Link from "next/link";
 import { Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
 
@@ -181,7 +181,7 @@ const extendedFooter = (
 
 interface Props {
   variant?: FooterVariant;
-};
+}
 
 const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
   switch (variant) {

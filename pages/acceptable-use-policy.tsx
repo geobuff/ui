@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import Head from "next/head";
 
 import {
@@ -14,7 +14,7 @@ import {
 import MainView from "../components/MainView";
 import HeroHeader from "../components/HeroHeader";
 
-const AcceptableUsePolicy = () => (
+const AcceptableUsePolicy: FC = () => (
   <MainView>
     <Head>
       <title>Acceptable Use Policy - GeoBuff</title>
