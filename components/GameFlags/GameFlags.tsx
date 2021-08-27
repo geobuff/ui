@@ -8,10 +8,13 @@ import DraggableFlag from "../DraggableFlag";
 
 interface Props {
   codes?: string[];
-  onCheckSubmission?: (value: string) => void;
+  onCheckSubmission?: (submission: string) => {};
 }
 
-const GameFlags: FC<Props> = ({ codes = [], onCheckSubmission = () => {} }) => {
+const GameFlags: FC<Props> = ({
+  codes = [],
+  onCheckSubmission = (submission: string) => {},
+}) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
   return (
@@ -19,11 +22,10 @@ const GameFlags: FC<Props> = ({ codes = [], onCheckSubmission = () => {} }) => {
       {isMobile ? (
         <Box as={ScrollingComponent} overflowX="auto">
           <Box
-            width="2000px"
+            width="1525px"
             position="relative"
             height="100px"
             marginRight={10}
-            marginY={5}
           >
             {[...Array.from(new Set(codes))]?.map((code) => (
               <DraggableFlag

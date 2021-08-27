@@ -12,7 +12,7 @@ const ForgotPasswordContainer: FC = () => {
   const { user, isLoading: isLoadingUser } = useCurrentUser();
 
   const [isSuccess, setIsSuccess] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
