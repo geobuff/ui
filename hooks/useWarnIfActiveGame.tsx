@@ -6,7 +6,7 @@ const useWarnIfActiveGame = (unsavedChanges: boolean): void => {
     "Exiting while the game is running will mean losing your score. Are you sure you want to leave?";
 
   useEffect(() => {
-    const routeChangeStart = (url) => {
+    const routeChangeStart = (url: string): void => {
       if (Router.asPath !== url && unsavedChanges && !confirm(message)) {
         Router.events.emit("routeChangeError");
         Router.replace(Router, Router.asPath);
@@ -14,19 +14,19 @@ const useWarnIfActiveGame = (unsavedChanges: boolean): void => {
       }
     };
 
-    const beforeunload = (e) => {
+    const beforeUnload = (event: BeforeUnloadEvent): string => {
       if (unsavedChanges) {
-        e.preventDefault();
-        e.returnValue = message;
+        event.preventDefault();
+        event.returnValue = message;
         return message;
       }
     };
 
-    window.addEventListener("beforeunload", beforeunload);
+    window.addEventListener("beforeunload", beforeUnload);
     Router.events.on("routeChangeStart", routeChangeStart);
 
-    return () => {
-      window.removeEventListener("beforeunload", beforeunload);
+    return (): void => {
+      window.removeEventListener("beforeunload", beforeUnload);
       Router.events.off("routeChangeStart", routeChangeStart);
     };
   }, [unsavedChanges]);

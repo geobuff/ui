@@ -24,6 +24,7 @@ import Logo from "../Logo";
 
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import RegisterLink from "./RegisterLink";
+import { LoginFormSubmit } from "../../types/login-form-submit";
 
 const initialValues = {
   email: "",
@@ -42,13 +43,13 @@ const validationSchema = Yup.object().shape({
 
 interface Props {
   error?: string;
-  onSubmit?: any;
+  onSubmit?: (values: LoginFormSubmit) => void;
   isSubmitting?: boolean;
 }
 
 const LoginForm: FC<Props> = ({
   error = null,
-  onSubmit = () => {},
+  onSubmit = (values: LoginFormSubmit): void => {},
   isSubmitting = false,
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
@@ -77,11 +78,11 @@ const LoginForm: FC<Props> = ({
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {() => (
+        {(): React.ReactNode => (
           <Form>
             <Flex marginTop={4} marginBottom={6}>
               <Field name="email">
-                {({ field, form }) => (
+                {({ field, form }): React.ReactNode => (
                   <FormControl
                     isInvalid={form.errors.email && form.touched.email}
                   >
@@ -113,7 +114,7 @@ const LoginForm: FC<Props> = ({
 
             <Flex marginTop={6} marginBottom={3}>
               <Field name="password">
-                {({ field, form }) => (
+                {({ field, form }): React.ReactNode => (
                   <FormControl
                     isInvalid={form.errors.password && form.touched.password}
                   >

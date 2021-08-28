@@ -4,10 +4,11 @@ import { Box, keyframes } from "@chakra-ui/react";
 
 import useRandomInterval from "../../hooks/useRandomInterval";
 
-const random = (min, max) => Math.floor(Math.random() * (max - min)) + min;
+const random = (min: number, max: number): number =>
+  Math.floor(Math.random() * (max - min)) + min;
 
-const range = (start, end, step = 1) => {
-  const output = [];
+const range = (start: number, end: number, step = 1): number[] => {
+  const output: number[] = [];
   if (typeof end === "undefined") {
     end = start;
     start = 0;
@@ -18,8 +19,21 @@ const range = (start, end, step = 1) => {
   return output;
 };
 
-const generateSparkle = (color) => {
-  const sparkle = {
+interface SparkleStyle {
+  top: string;
+  left: string;
+}
+
+interface Sparkle {
+  id: string;
+  createdAt: number;
+  color: string;
+  size: number;
+  style: SparkleStyle;
+}
+
+const generateSparkle = (color: string): Sparkle => {
+  return {
     id: String(random(10000, 99999)),
     createdAt: Date.now(),
     color,
@@ -29,7 +43,6 @@ const generateSparkle = (color) => {
       left: random(0, 100) + "%",
     },
   };
-  return sparkle;
 };
 
 interface SparklesProps {

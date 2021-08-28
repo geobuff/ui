@@ -8,6 +8,7 @@ import axiosClient from "../../axios/axiosClient";
 import RegisterForm from "../../components/RegisterForm";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import { DecodedToken } from "../../types/decoded-token";
+import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 const RegisterContainer: FC = () => {
   const router = useRouter();
@@ -31,22 +32,16 @@ const RegisterContainer: FC = () => {
     }, 7500);
   }, [error]);
 
-  const handleSubmit = ({
-    avatarId,
-    username,
-    email,
-    countryCode,
-    password,
-  }) => {
+  const handleSubmit = (values: RegisterFormSubmit): void => {
     setIsSubmitting(true);
     setError(null);
 
     const payload = {
-      avatarId: parseInt(avatarId),
-      username,
-      email,
-      countryCode,
-      password,
+      avatarId: parseInt(values.avatarId),
+      username: values.username,
+      email: values.email,
+      countryCode: values.countryCode,
+      password: values.password,
     };
 
     axiosClient

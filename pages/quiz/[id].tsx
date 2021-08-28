@@ -38,7 +38,7 @@ const Quiz: FC = () => {
     return null;
   }
 
-  const getQuizComponent = () => {
+  const getQuizComponent = (): React.ReactNode => {
     switch (matchedQuiz.type) {
       case QuizType.MAP:
         return <GameMapQuizContainer quizId={matchedQuiz.id} />;

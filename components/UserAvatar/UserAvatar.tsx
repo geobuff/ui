@@ -35,7 +35,7 @@ const UserAvatar: FC<Props> = ({
         borderRadius={borderRadius}
         objectFit="cover"
         border="border.primary"
-        onLoad={() => setHasLoaded(true)}
+        onLoad={(): void => setHasLoaded(true)}
       />
       <Skeleton
         borderRadius={borderRadius}

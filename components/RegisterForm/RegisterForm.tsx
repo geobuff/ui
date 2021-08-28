@@ -25,6 +25,7 @@ import ErrorAlertBanner from "../ErrorAlertBanner";
 import Logo from "../Logo";
 
 import LoginLink from "./LoginLink";
+import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 const initialValues = {
   avatarId: "",
@@ -55,13 +56,13 @@ const validationSchema = Yup.object().shape({
 
 interface Props {
   error?: string;
-  onSubmit?: any;
+  onSubmit?: (values: RegisterFormSubmit) => void;
   isSubmitting?: boolean;
 }
 
 const RegisterForm: FC<Props> = ({
   error = "",
-  onSubmit = () => {},
+  onSubmit = (values: RegisterFormSubmit): void => {},
   isSubmitting = false,
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
@@ -91,12 +92,12 @@ const RegisterForm: FC<Props> = ({
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {() => (
+        {(): React.ReactNode => (
           <Form>
             <Box marginBottom={5}>
               <Flex marginY={6}>
                 <Field name="avatarId">
-                  {({ field, form }) => (
+                  {({ field, form }): React.ReactNode => (
                     <FormControl
                       isInvalid={form.errors.avatarId && form.touched.avatarId}
                     >
@@ -117,7 +118,7 @@ const RegisterForm: FC<Props> = ({
 
               <Flex marginY={6}>
                 <Field name="username">
-                  {({ field, form }) => (
+                  {({ field, form }): React.ReactNode => (
                     <FormControl
                       isInvalid={form.errors.username && form.touched.username}
                     >
@@ -150,7 +151,7 @@ const RegisterForm: FC<Props> = ({
 
               <Flex marginY={6}>
                 <Field name="countryCode">
-                  {({ field, form }) => (
+                  {({ field, form }): React.ReactNode => (
                     <FormControl
                       isInvalid={
                         form.errors.countryCode && form.touched.countryCode
@@ -173,7 +174,7 @@ const RegisterForm: FC<Props> = ({
 
               <Flex marginY={6}>
                 <Field name="email">
-                  {({ field, form }) => (
+                  {({ field, form }): React.ReactNode => (
                     <FormControl
                       isInvalid={form.errors.email && form.touched.email}
                     >
@@ -205,7 +206,7 @@ const RegisterForm: FC<Props> = ({
 
               <Flex marginY={6}>
                 <Field name="password">
-                  {({ field, form }) => (
+                  {({ field, form }): React.ReactNode => (
                     <FormControl
                       isInvalid={form.errors.password && form.touched.password}
                     >

@@ -7,7 +7,7 @@ export const FlagGameContext = createContext({
 
 export const FlagGameContextProvider: FC = ({ children = null }) => {
   const [isDragging, setIsDragging] = useState(false);
-  const handleDragging = (isDrag: boolean) => setIsDragging(isDrag);
+  const handleDragging = (isDrag: boolean): void => setIsDragging(isDrag);
 
   return (
     <FlagGameContext.Provider

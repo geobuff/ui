@@ -15,16 +15,17 @@ import {
   increaseXP as increaseXPToast,
 } from "../../helpers/toasts";
 import { Quiz } from "../../types/quiz";
+import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
 interface Props {
   quiz?: Quiz;
   score?: number;
   time?: number;
   isOpen?: boolean;
-  onClose?: any;
+  onClose?: () => void;
   isXPUpdated?: boolean;
-  setXPUpdated?: any;
-  setLeaderboardEntrySubmitted?: any;
+  setXPUpdated?: React.Dispatch<React.SetStateAction<boolean>>;
+  setLeaderboardEntrySubmitted?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const GameOverModalContainer: FC<Props> = ({
@@ -32,10 +33,10 @@ const GameOverModalContainer: FC<Props> = ({
   score = 0,
   time = 0,
   isOpen = false,
-  onClose = () => {},
+  onClose = (): void => {},
   isXPUpdated = false,
-  setXPUpdated = () => {},
-  setLeaderboardEntrySubmitted = () => {},
+  setXPUpdated = (): void => {},
+  setLeaderboardEntrySubmitted = (): void => {},
 }) => {
   const toast = useToast();
   const router = useRouter();
@@ -83,7 +84,7 @@ const GameOverModalContainer: FC<Props> = ({
     }
   }, [isOpen, isUserLoading, user]);
 
-  const increaseXP = (increase) => {
+  const increaseXP = (increase: number): void => {
     const update = {
       avatarId: user.avatarId,
       username: user.username,
@@ -107,7 +108,7 @@ const GameOverModalContainer: FC<Props> = ({
     });
   };
 
-  const getLeaderboardEntry = () => {
+  const getLeaderboardEntry = (): void => {
     axiosClient.get(`/leaderboard/${quiz.id}/${user.id}`).then((response) => {
       if (response.status !== 200) {
         setIsLoading(false);
@@ -119,7 +120,7 @@ const GameOverModalContainer: FC<Props> = ({
     });
   };
 
-  const handleSubmitEntry = (existingEntry) => {
+  const handleSubmitEntry = (existingEntry: LeaderboardEntry): void => {
     setIsSubmitting(true);
     if (existingEntry) {
       updateEntry(existingEntry);
@@ -129,7 +130,7 @@ const GameOverModalContainer: FC<Props> = ({
     setLeaderboardEntrySubmitted(true);
   };
 
-  const handleRedirectWithScore = (pathname) => {
+  const handleRedirectWithScore = (pathname: string): void => {
     const tempScore = { score, time };
     axiosClient.post("/tempscores", tempScore).then((response) => {
       router.push({
@@ -144,7 +145,7 @@ const GameOverModalContainer: FC<Props> = ({
     });
   };
 
-  const createEntry = () => {
+  const createEntry = (): void => {
     axiosClient
       .post(
         `/leaderboard`,
@@ -163,7 +164,7 @@ const GameOverModalContainer: FC<Props> = ({
       });
   };
 
-  const updateEntry = (existingEntry) => {
+  const updateEntry = (existingEntry: LeaderboardEntry): void => {
     axiosClient
       .put(
         `/leaderboard/${existingEntry.id}`,

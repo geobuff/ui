@@ -51,7 +51,7 @@ const ResetPasswordForm: FC<Props> = ({
   error = "",
   isSuccess = false,
   isSubmitting = false,
-  onSubmit = () => {},
+  onSubmit = (values: ResetPasswordFormReset): void => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
@@ -67,15 +67,15 @@ const ResetPasswordForm: FC<Props> = ({
       <Formik
         initialValues={{ password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(values, actions) => {
+        onSubmit={(values, actions): void => {
           onSubmit(values);
           actions.setSubmitting(false);
         }}
       >
-        {() => (
+        {(): React.ReactNode => (
           <Form>
             <Field name="password">
-              {({ field, form }) => (
+              {({ field, form }): React.ReactNode => (
                 <FormControl
                   marginY={6}
                   isInvalid={form.errors.password && form.touched.password}
@@ -146,7 +146,7 @@ const ResetPasswordForm: FC<Props> = ({
     </>
   );
 
-  const getViewComponent = () => {
+  const getViewComponent = (): React.ReactNode => {
     if (error) {
       return <ResetPasswordError error={error} />;
     }

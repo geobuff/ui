@@ -11,6 +11,6 @@ export const secondsToMinutesString = (seconds: number): string => {
   return `${padLeft(minutes, "0", 2)}:${padLeft(seconds % 60, "0", 2)}`;
 };
 
-const padLeft = (input: number, pad: string, length: number) => {
+const padLeft = (input: number, pad: string, length: number): string => {
   return (new Array(length + 1).join(pad) + input).slice(-length);
 };

@@ -20,7 +20,7 @@ const useRandomInterval = (
     const isEnabled =
       typeof minDelay === "number" && typeof maxDelay === "number";
     if (isEnabled) {
-      const handleTick = () => {
+      const handleTick = (): void => {
         const nextTickAt = random(minDelay, maxDelay);
         timeoutId.current = window.setTimeout(() => {
           savedCallback.current();
@@ -29,7 +29,7 @@ const useRandomInterval = (
       };
       handleTick();
     }
-    return () => window.clearTimeout(timeoutId.current);
+    return (): void => window.clearTimeout(timeoutId.current);
   }, [minDelay, maxDelay]);
   const cancel = useCallback(function () {
     window.clearTimeout(timeoutId.current);

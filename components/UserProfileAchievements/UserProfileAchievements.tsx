@@ -23,17 +23,15 @@ interface Props {
 }
 
 const UserProfileAchievements: FC<Props> = ({ badges = [], entries = [] }) => {
-  const getLabel = (badge) => {
-    return (
-      <Box>
-        <Heading size="md">{badge.name}</Heading>
-        <Text my={2}>{badge.description}</Text>
-        <Text mb={2}>{`Progress: ${getProgress(badge, entries)}/${
-          badge.total
-        }`}</Text>
-      </Box>
-    );
-  };
+  const getLabel = (badge: Badge): React.ReactNode => (
+    <Box>
+      <Heading size="md">{badge.name}</Heading>
+      <Text my={2}>{badge.description}</Text>
+      <Text mb={2}>{`Progress: ${getProgress(badge, entries)}/${
+        badge.total
+      }`}</Text>
+    </Box>
+  );
 
   return (
     <Card padding={6}>

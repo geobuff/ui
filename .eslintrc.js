@@ -33,5 +33,14 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": "off",
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
   },
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      rules: {
+        "@typescript-eslint/explicit-function-return-type": "error",
+      },
+    },
+  ],
 };

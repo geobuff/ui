@@ -18,6 +18,7 @@ import AvatarSelect from "../AvatarSelect";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import { User } from "../../types/user";
+import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 
 const validationSchema = Yup.object().shape({
   avatarId: Yup.number().required("Please select an avatar."),
@@ -34,8 +35,8 @@ const validationSchema = Yup.object().shape({
 interface Props {
   user?: User;
   isOpen?: boolean;
-  onClose?: any;
-  onSubmit?: any;
+  onClose?: () => void;
+  onSubmit?: (values: UpdateUserFormSubmit) => void;
   isSubmitting?: boolean;
   error?: string;
 }
@@ -43,8 +44,8 @@ interface Props {
 const UpdateUserFormModal: FC<Props> = ({
   user = null,
   isOpen = false,
-  onClose = () => {},
-  onSubmit = () => {},
+  onClose = (): void => {},
+  onSubmit = (values: UpdateUserFormSubmit): void => {},
   isSubmitting = false,
   error = "",
 }) => (
@@ -52,7 +53,7 @@ const UpdateUserFormModal: FC<Props> = ({
     <Formik
       enableReinitialize
       initialValues={{
-        avatarId: user?.avatarId,
+        avatarId: user?.avatarId.toString(),
         username: user?.username,
         email: user?.email,
         countryCode: user?.countryCode,
@@ -60,7 +61,7 @@ const UpdateUserFormModal: FC<Props> = ({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {() => (
+      {(): React.ReactNode => (
         <Form style={{ height: "100%" }}>
           <Box height="100%">
             <Flex
@@ -80,7 +81,7 @@ const UpdateUserFormModal: FC<Props> = ({
 
                 <Flex marginY={6}>
                   <Field name="avatarId">
-                    {({ field, form }) => (
+                    {({ field, form }): React.ReactNode => (
                       <FormControl
                         isInvalid={
                           form.errors.avatarId && form.touched.avatarId
@@ -103,7 +104,7 @@ const UpdateUserFormModal: FC<Props> = ({
 
                 <Flex marginY={3}>
                   <Field name="username">
-                    {({ field, form }) => (
+                    {({ field, form }): React.ReactNode => (
                       <FormControl
                         isInvalid={
                           form.errors.username && form.touched.username
@@ -137,7 +138,7 @@ const UpdateUserFormModal: FC<Props> = ({
 
                 <Flex marginY={3}>
                   <Field name="email">
-                    {({ field, form }) => (
+                    {({ field, form }): React.ReactNode => (
                       <FormControl
                         isInvalid={form.errors.email && form.touched.email}
                       >
@@ -168,7 +169,7 @@ const UpdateUserFormModal: FC<Props> = ({
 
                 <Flex marginY={3}>
                   <Field name="countryCode">
-                    {({ field, form }) => (
+                    {({ field, form }): React.ReactNode => (
                       <FormControl>
                         <FormLabel htmlFor="countryCode" fontWeight="bold">
                           {"Country"}
