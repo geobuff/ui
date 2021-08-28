@@ -1,4 +1,4 @@
-export interface TimeRemaining {
+export interface ExpiryTimestamp {
   minutes: number;
   seconds: number;
 }

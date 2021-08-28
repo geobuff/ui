@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useCallback, FC } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback,
+  FC,
+  ChangeEvent,
+} from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { debounce } from "throttle-debounce";
@@ -42,6 +48,7 @@ import { Quiz } from "../../types/quiz";
 import { Mapping } from "../../types/mapping";
 import { SVGLocation } from "../../types/svg-location";
 import { Map } from "../../types/map";
+import { Result } from "../../types/result";
 
 interface Props {
   quiz?: Quiz;
@@ -53,8 +60,8 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 
-  const [checkedSubmissions, setCheckedSubmissions] = useState([]);
-  const [recentSubmissions, setRecentSubmissions] = useState([]);
+  const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
+  const [recentSubmissions, setRecentSubmissions] = useState<Result[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [hasError, setHasError] = useState(false);
   const [score, setScore] = useState(0);
@@ -74,6 +81,11 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
 
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
+  const quizDateTime = useCallback(
+    () => DateTime.now().plus({ seconds: quiz.time }),
+    [quiz]
+  );
+
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
       const data = JSON.parse(router.query.data[0]);
@@ -91,27 +103,6 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
     }
   }, [isUserLoading, user, router.query]);
 
-  const handleExpire = () => {
-    setTimeout(() => {
-      setHasGameStarted(false);
-      setHasGameStopped(true);
-      onOpen();
-    }, 50);
-  };
-
-  const { seconds, minutes, restart, pause } = useTimer({
-    expiryTimestamp: timeRemaining,
-    onExpire: () => {
-      pause();
-      handleExpire();
-    },
-  });
-
-  const quizDateTime = useCallback(
-    () => DateTime.now().plus({ seconds: quiz.time }),
-    [quiz]
-  );
-
   useEffect(() => {
     if (hasGameStarted) {
       restart(quizDateTime());
@@ -121,7 +112,24 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
     }
   }, [timeRemaining, hasGameStarted]);
 
-  const handleLocationClassName = (location: SVGLocation) => {
+  const handleExpire = (): void => {
+    setTimeout(() => {
+      setHasGameStarted(false);
+      setHasGameStopped(true);
+      onOpen();
+    }, 50);
+  };
+
+  const { seconds, minutes, restart, pause } = useTimer({
+    //@ts-ignore
+    timeRemaining,
+    onExpire: () => {
+      pause();
+      handleExpire();
+    },
+  });
+
+  const handleLocationClassName = (location: SVGLocation): string => {
     if (
       checkedSubmissions.length
         ? checkedSubmissions.find(
@@ -134,7 +142,7 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
     }
   };
 
-  const handleGameStart = () => {
+  const handleGameStart = (): void => {
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
     setScore(0);
@@ -149,25 +157,28 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
     setLeaderboardEntrySubmitted(false);
   };
 
-  const handleGameStop = () => {
+  const handleGameStop = (): void => {
     pause();
     setHasGameStarted(false);
     setHasGameStopped(true);
     onOpen();
   };
 
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const value = event.currentTarget.value;
+    setInputValue(value);
 
-    if (event.target.value?.length >= 2) {
-      handleChangeDebounced(event);
+    if (value?.length >= 2) {
+      handleChangeDebounced(value);
     }
   };
 
-  const handleChangeDebounced = debounce(30, (event) => checkSubmission(event));
+  const handleChangeDebounced = debounce(30, (value: string) =>
+    checkSubmission(value)
+  );
 
-  const checkSubmission = (event) => {
-    const submission = event.target.value.trim();
+  const checkSubmission = (value: string): void => {
+    const submission = value.trim();
 
     if (!submission) {
       setHasError(false);
@@ -200,12 +211,25 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
         { ...matchedSubmission, checked: true },
       ];
 
-      const updatedRecentSubmissions =
+      // Update recent submissions with last 3 answers
+      const topCheckedSubmissions =
         updatedCheckedSubmissions.length > 3
           ? updatedCheckedSubmissions.slice(
               Math.max([...checkedSubmissions, matchedSubmission].length - 3, 1)
             )
           : updatedCheckedSubmissions;
+
+      const updatedRecentSubmissions: Result[] = topCheckedSubmissions.map(
+        (x) => {
+          return {
+            name: x.name,
+            code: x.code,
+            svgName: x.svgName,
+            isHidden: false,
+            isMissedResult: false,
+          };
+        }
+      );
 
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
@@ -217,7 +241,7 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
     }
   };
 
-  const onClearInput = () => {
+  const onClearInput = (): void => {
     setHasError(false);
     setErrorMessage("");
     setInputValue("");
@@ -265,7 +289,7 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
                       quiz={quiz}
                       recents={recentSubmissions}
                       score={score}
-                      timeRemaining={{ seconds, minutes }}
+                      expiryTimestamp={{ seconds, minutes }}
                       errorMessage={errorMessage}
                       hasError={hasError}
                       hasGameRunOnce={hasGameRunOnce}

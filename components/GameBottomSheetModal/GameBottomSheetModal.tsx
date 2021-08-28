@@ -29,7 +29,7 @@ const initialSnap = snapPoints.length - 2;
 interface Props {
   quiz?: Quiz;
   mapping?: Mapping[];
-  checked?: Result[];
+  checked?: Mapping[];
   recents?: Result[];
   codes?: string[];
   hasGameRunOnce?: boolean;

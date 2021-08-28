@@ -5,4 +5,5 @@ export interface Mapping {
   alternativeNames: string[];
   prefixes: string[];
   group: string;
+  checked?: boolean;
 }

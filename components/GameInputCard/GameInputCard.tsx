@@ -21,7 +21,7 @@ import GameInputCardTimer from "./GameInputCardTimer";
 import { QuizType } from "../../types/quiz-type";
 import { Quiz } from "../../types/quiz";
 import { Result } from "../../types/result";
-import { TimeRemaining } from "../../types/time-remaining";
+import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
@@ -29,7 +29,7 @@ interface Props {
   quiz?: Quiz;
   recents?: Result[];
   score?: number;
-  timeRemaining?: TimeRemaining;
+  expiryTimestamp?: ExpiryTimestamp;
   errorMessage?: string;
   hasGameRunOnce?: boolean;
   hasGameStarted?: boolean;
@@ -46,7 +46,7 @@ const GameInputCard: FC<Props> = ({
   quiz = null,
   recents = [],
   score = 0,
-  timeRemaining = { minutes: 0, seconds: 0 },
+  expiryTimestamp = { minutes: 0, seconds: 0 },
   errorMessage = "",
   hasGameRunOnce = false,
   hasGameStarted = false,
@@ -136,7 +136,7 @@ const GameInputCard: FC<Props> = ({
       <Box my={4}>
         <GameInputCardTimer
           totalSeconds={quiz.time}
-          expiryTimestamp={timeRemaining}
+          expiryTimestamp={expiryTimestamp}
           hasGameStarted={hasGameStarted}
           hasGameStopped={hasGameStopped}
         />

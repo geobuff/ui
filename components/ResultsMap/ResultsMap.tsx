@@ -7,7 +7,6 @@ import { getResults } from "../../helpers/results-list";
 
 import VirtualizedSectionList from "../SectionList";
 import ResultsListItem from "../ResultsListItem";
-import { Result } from "../../types/result";
 import { Mapping } from "../../types/mapping";
 
 const HEADER_HEIGHT = 50;
@@ -19,7 +18,7 @@ interface ResultMap {
 
 interface Props {
   map?: ResultMap;
-  checked?: Result[];
+  checked?: Mapping[];
   hasGameStopped?: boolean;
   hasGroupings?: boolean;
   hasFlags?: boolean;

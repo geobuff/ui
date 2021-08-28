@@ -17,13 +17,13 @@ import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 import GameInputBannerTimer from "./GameInputBannerTimer";
 import GameInputBannerError from "./GameInputBannerError";
 import { Quiz } from "../../types/quiz";
-import { TimeRemaining } from "../../types/time-remaining";
+import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 
 interface Props {
   quiz?: Quiz;
   score?: number;
   errorMessage?: string;
-  expiryTimestamp?: TimeRemaining;
+  expiryTimestamp?: ExpiryTimestamp;
   hasError?: boolean;
   hasGameStarted?: boolean;
   hasGameStopped?: boolean;

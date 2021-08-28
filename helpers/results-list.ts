@@ -4,7 +4,7 @@ import { mergeArrayByName } from "./array";
 
 export const getResults = (
   mapping: Mapping[],
-  checked: Result[],
+  checked: Mapping[],
   hasGameStopped: boolean
 ): Result[] => {
   return hasGameStopped

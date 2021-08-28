@@ -3,7 +3,7 @@ import { Box, Text } from "@chakra-ui/react";
 
 import { toMinTwoDigits } from "../../helpers/format-text";
 import { secondsToMinutesString } from "../../helpers/time";
-import { TimeRemaining } from "../../types/time-remaining";
+import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 
 const Timer: FC = ({ children = null }) => (
   <Box>
@@ -16,7 +16,7 @@ const Timer: FC = ({ children = null }) => (
 
 interface Props {
   totalSeconds?: number;
-  expiryTimestamp?: TimeRemaining;
+  expiryTimestamp?: ExpiryTimestamp;
   hasGameStarted: boolean;
   hasGameStopped: boolean;
 }
