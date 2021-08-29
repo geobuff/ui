@@ -13,7 +13,7 @@ interface Props {
 
 const GameFlags: FC<Props> = ({
   codes = [],
-  onCheckSubmission = (submission: string) => {},
+  onCheckSubmission = (submission: string): void => {},
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 

@@ -252,7 +252,10 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
         <Flex height="100%" minHeight="100%" direction="column" flex={1}>
           {isMobile && (
             <GameInputBanner
-              quiz={quiz}
+              type={quiz.type}
+              maxScore={quiz.maxScore}
+              verb={quiz.verb}
+              time={quiz.time}
               score={score}
               errorMessage={errorMessage}
               expiryTimestamp={{ seconds, minutes }}
@@ -274,7 +277,11 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
                 >
                   <Box>
                     <GameInputCard
-                      quiz={quiz}
+                      type={quiz.type}
+                      maxScore={quiz.maxScore}
+                      time={quiz.time}
+                      verb={quiz.verb}
+                      hasFlags={quiz.hasFlags}
                       recents={recentSubmissions}
                       score={score}
                       expiryTimestamp={{ minutes, seconds }}

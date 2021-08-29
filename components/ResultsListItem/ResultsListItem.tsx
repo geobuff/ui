@@ -7,7 +7,7 @@ import CustomFlag from "../CustomFlag";
 
 import Twemoji from "../Twemoji";
 
-interface Props {
+export interface Props {
   code?: string;
   isHidden?: boolean;
   isMissedResult?: boolean;

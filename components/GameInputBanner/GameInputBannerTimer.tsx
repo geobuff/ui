@@ -12,18 +12,18 @@ const Timer: FC = ({ children = null }) => (
   </Text>
 );
 
-interface Props {
+export interface Props {
+  totalSeconds?: number;
   expiryTimestamp?: ExpiryTimestamp;
   hasGameStarted?: boolean;
   hasGameStopped?: boolean;
-  totalSeconds?: number;
 }
 
 const GameInputBannerTimer: FC<Props> = ({
+  totalSeconds = 900,
   expiryTimestamp = { minutes: 0, seconds: 0 },
   hasGameStarted = false,
   hasGameStopped = false,
-  totalSeconds = 900,
 }) => {
   if (hasGameStopped) {
     return (

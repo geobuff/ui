@@ -185,7 +185,8 @@ const GameOverModalContainer: FC<Props> = ({
 
   return (
     <GameOverModal
-      quiz={quiz}
+      quizName={quiz.name}
+      maxScore={quiz.maxScore}
       score={score}
       time={time}
       existingEntry={entry}

@@ -1,35 +1,62 @@
 import React from "react";
-import GameOverModal from "./GameOverModal";
+import { LeaderboardEntry } from "../../types/leaderboard-entry";
+import GameOverModal, { Props } from "./GameOverModal";
 
 export default {
   title: "UI/GameOverModal",
   component: GameOverModal,
 };
 
-const Template = (args) => <GameOverModal {...args} />;
+const Template = (args: Props): React.ReactNode => <GameOverModal {...args} />;
 
 export const Default = Template.bind({});
-Default.args = {
-  isOpen: true,
-  onClose: () => {},
-  time: "15:00",
-  score: 69,
-  total: 197,
-};
-
+export const LoggedIn = Template.bind({});
 export const ExistingEntry = Template.bind({});
 
-ExistingEntry.args = {
-  isOpen: true,
-  onClose: () => {},
-  time: "15:00",
+Default.args = {
+  quizName: "Countries of the World",
+  maxScore: 197,
   score: 69,
-  total: 197,
-  existingEntry: {
-    rank: 22000,
-    score: 103,
-    time: "15:00",
-    username: "PhileasFogg",
-    country: "UK",
-  },
+  time: 900,
+  existingEntry: null,
+  isLoggedIn: false,
+  isLoading: false,
+  isOpen: true,
+  isSubmitting: false,
+};
+
+LoggedIn.args = {
+  quizName: "Countries of the World",
+  maxScore: 197,
+  score: 69,
+  time: 900,
+  existingEntry: null,
+  isLoggedIn: true,
+  isLoading: false,
+  isOpen: true,
+  isSubmitting: false,
+};
+
+const existingEntry: LeaderboardEntry = {
+  id: 1,
+  quizId: 1,
+  userId: 1,
+  username: "mrscrub",
+  countryCode: "nz",
+  score: 7,
+  time: 300,
+  added: new Date(),
+  rank: 1,
+};
+
+ExistingEntry.args = {
+  quizName: "Countries of the World",
+  maxScore: 197,
+  score: 69,
+  time: 900,
+  existingEntry: existingEntry,
+  isLoggedIn: true,
+  isLoading: false,
+  isOpen: true,
+  isSubmitting: false,
 };

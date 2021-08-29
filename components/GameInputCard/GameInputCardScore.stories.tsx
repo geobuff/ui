@@ -1,16 +1,18 @@
 import React from "react";
-import GameInputCardScore from "./GameInputCardScore";
+import GameInputCardScore, { Props } from "./GameInputCardScore";
 
 export default {
   title: "UI/GameInputCardScore",
   component: GameInputCardScore,
 };
 
-const Template = (args) => <GameInputCardScore {...args} />;
+const Template = (args: Props): React.ReactNode => (
+  <GameInputCardScore {...args} />
+);
 
 export const Default = Template.bind({});
+
 Default.args = {
-  quiz: {},
   score: 69,
-  total: 193,
+  maxScore: 197,
 };

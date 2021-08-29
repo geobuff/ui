@@ -6,20 +6,20 @@ import { Result } from "../../types/result";
 
 export interface Props {
   results?: Result[];
-  quizVerb?: string;
+  verb?: string;
   hasFlags?: boolean;
 }
 
 const ResultsList: FC<Props> = ({
   results = [],
-  quizVerb = "",
+  verb = "",
   hasFlags = false,
 }) => {
   if (!results || results.length === 0) {
     return (
       <Box backgroundColor="#F0F0F0" borderRadius={12} p={5}>
         <Text textAlign="center" opacity={0.5} fontWeight={500}>
-          {`No ${quizVerb} to display`}
+          {`No ${verb} to display`}
         </Text>
       </Box>
     );

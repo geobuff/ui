@@ -14,7 +14,7 @@ const Timer: FC = ({ children = null }) => (
   </Box>
 );
 
-interface Props {
+export interface Props {
   totalSeconds?: number;
   expiryTimestamp?: ExpiryTimestamp;
   hasGameStarted: boolean;

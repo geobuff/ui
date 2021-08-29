@@ -1,24 +1,21 @@
 import React from "react";
-import GameInputCardTimer from "./GameInputCardTimer";
+import { useTimer } from "react-timer-hook";
+import GameInputCardTimer, { Props } from "./GameInputCardTimer";
 
 export default {
   title: "UI/GameInputCardTimer",
   component: GameInputCardTimer,
 };
 
-const tenMinutesFromNow = new Date().setSeconds(new Date().getSeconds() + 600);
-const tenSecondsFromNow = new Date().setSeconds(new Date().getSeconds() + 10);
-
-const Template = (args) => <GameInputCardTimer {...args} />;
+const Template = (args: Props): React.ReactNode => (
+  <GameInputCardTimer {...args} />
+);
 
 export const Default = Template.bind({});
-Default.args = {
-  expiryTimestamp: tenMinutesFromNow,
-  onExpire: () => alert("Timers up!"),
-};
 
-export const TenSeconds = Template.bind({});
-TenSeconds.args = {
-  expiryTimestamp: tenSecondsFromNow,
-  onExpire: () => alert("Timers up!"),
+Default.args = {
+  totalSeconds: 900,
+  expiryTimestamp: { minutes: 15, seconds: 0 },
+  hasGameStarted: false,
+  hasGameStopped: false,
 };

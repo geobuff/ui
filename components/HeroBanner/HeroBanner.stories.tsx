@@ -6,12 +6,6 @@ export default {
   component: HeroBanner,
 };
 
-const Template = (args) => <HeroBanner {...args} />;
+const Template = (): React.ReactNode => <HeroBanner />;
 
 export const Default = Template.bind({});
-Default.args = {
-  username: "ScrubLord420",
-};
-
-export const NoName = Template.bind({});
-NoName.args = {};

@@ -21,7 +21,7 @@ import {
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
-import GameBottomSheetModal from "../GameBottomSheetModal";
+import GameBottomSheetModal from "./GameMapQuizBottomSheet";
 import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
@@ -49,6 +49,7 @@ import { Mapping } from "../../types/mapping";
 import { SVGLocation } from "../../types/svg-location";
 import { Map } from "../../types/map";
 import { Result } from "../../types/result";
+import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
 
 interface Props {
   quiz?: Quiz;
@@ -266,7 +267,10 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
       >
         {shouldDisplayOnMobile && (
           <GameInputBanner
-            quiz={quiz}
+            type={quiz.type}
+            maxScore={quiz.maxScore}
+            verb={quiz.verb}
+            time={quiz.time}
             score={score}
             errorMessage={errorMessage}
             expiryTimestamp={{ seconds, minutes }}
@@ -290,7 +294,11 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
                 >
                   <Flex direction="column" height="100%">
                     <GameInputCard
-                      quiz={quiz}
+                      type={quiz.type}
+                      maxScore={quiz.maxScore}
+                      time={quiz.time}
+                      verb={quiz.verb}
+                      hasFlags={quiz.hasFlags}
                       recents={recentSubmissions}
                       score={score}
                       expiryTimestamp={{ seconds, minutes }}
@@ -327,8 +335,13 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
           </Fade>
 
           {shouldDisplayOnMobile && (
-            <GameBottomSheetModal
-              quiz={quiz}
+            <GameMapQuizBottomSheet
+              hasLeaderboard={quiz.hasLeaderboard}
+              id={quiz.id}
+              name={quiz.name}
+              verb={quiz.verb}
+              hasFlags={quiz.hasFlags}
+              hasGrouping={quiz.hasGrouping}
               mapping={mapping}
               checked={checkedSubmissions}
               recents={recentSubmissions}

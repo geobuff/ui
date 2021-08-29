@@ -16,22 +16,24 @@ interface Props {
   quizId?: string;
   quizzes?: Quiz[];
   isLoading?: boolean;
+  onChangeQuiz?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangeRange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onChangeSearchUsers?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   rank?: string;
-  onChangeQuiz?: any;
-  onChangeRange?: any;
-  onChangeSearchUsers?: any;
-  onChangeSearchRank?: any;
+  onChangeSearchRank?: (event: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const LeaderboardFilters: FC<Props> = ({
   quizzes = [],
   quizId = "1",
   isLoading = false,
-  onChangeSearchUsers = () => {},
-  onChangeQuiz = () => {},
-  onChangeRange = () => {},
+  onChangeQuiz = (event: React.ChangeEvent<HTMLSelectElement>): void => {},
+  onChangeRange = (event: React.ChangeEvent<HTMLSelectElement>): void => {},
+  onChangeSearchUsers = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {},
   rank = "",
-  onChangeSearchRank = () => {},
+  onChangeSearchRank = (event: React.ChangeEvent<HTMLInputElement>): void => {},
 }) => {
   const handleSearchUsersDebounced = debounce(250, (event) =>
     onChangeSearchUsers(event)

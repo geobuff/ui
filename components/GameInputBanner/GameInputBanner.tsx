@@ -16,24 +16,29 @@ import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 
 import GameInputBannerTimer from "./GameInputBannerTimer";
 import GameInputBannerError from "./GameInputBannerError";
-import { Quiz } from "../../types/quiz";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 
-interface Props {
-  quiz?: Quiz;
+export interface Props {
+  type?: number;
+  maxScore?: number;
+  verb?: string;
   score?: number;
+  time?: number;
   errorMessage?: string;
   expiryTimestamp?: ExpiryTimestamp;
   hasError?: boolean;
   hasGameStarted?: boolean;
   hasGameStopped?: boolean;
   inputValue?: string;
-  onChange?: any;
-  onClearInput?: any;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClearInput?: () => void;
 }
 
 const GameInputBanner: FC<Props> = ({
-  quiz = null,
+  type = 0,
+  maxScore = 0,
+  verb = "",
+  time = 0,
   score = 0,
   errorMessage = "",
   expiryTimestamp = { minutes: 0, seconds: 0 },
@@ -41,10 +46,10 @@ const GameInputBanner: FC<Props> = ({
   hasGameStarted = false,
   hasGameStopped = false,
   inputValue = "",
-  onChange = () => {},
-  onClearInput = () => {},
+  onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {},
+  onClearInput = (): void => {},
 }) => {
-  const isFlagGame = quiz.type === 2;
+  const isFlagGame = type === 2;
   const inputRef = createRef<HTMLInputElement>();
 
   useEffect(() => {
@@ -53,23 +58,23 @@ const GameInputBanner: FC<Props> = ({
     }
   }, [isFlagGame, hasGameStarted]);
 
-  const handleClearInput = () => {
+  const handleClearInput = (): void => {
     onClearInput();
     inputRef.current.focus();
   };
 
-  const scoreLabel = `${score} of ${quiz.maxScore} ${quiz.verb}`;
+  const scoreLabel = `${score} of ${maxScore} ${verb}`;
 
   const scoreNode = (
     <>
       {scoreLabel?.length > 23 ? (
-        <Tooltip label={quiz.verb}>
+        <Tooltip label={verb}>
           <Box textAlign="center" mr={3}>
             <GameInputBannerTimer
               expiryTimestamp={expiryTimestamp}
               hasGameStarted={hasGameStarted}
               hasGameStopped={hasGameStopped}
-              totalSeconds={quiz.time}
+              totalSeconds={time}
             />
             <Text
               color="white"
@@ -90,7 +95,7 @@ const GameInputBanner: FC<Props> = ({
             expiryTimestamp={expiryTimestamp}
             hasGameStarted={hasGameStarted}
             hasGameStopped={hasGameStopped}
-            totalSeconds={quiz.time}
+            totalSeconds={time}
           />
           <Text
             color="white"
@@ -128,7 +133,7 @@ const GameInputBanner: FC<Props> = ({
               ref={inputRef}
               isDisabled={!hasGameStarted}
               isInvalid={hasError}
-              placeholder={`Enter ${quiz.verb}...`}
+              placeholder={`Enter ${verb}...`}
               onChange={onChange}
               value={inputValue}
             />

@@ -17,7 +17,6 @@ import Modal from "../Modal";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
-import { Quiz } from "../../types/quiz";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
@@ -25,8 +24,9 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 const explainerCloseModal =
   "Feel free to close this modal to view the map and your results. Don’t worry, you’ll still be able to submit your score afterwards!";
 
-interface Props {
-  quiz?: Quiz;
+export interface Props {
+  quizName?: string;
+  maxScore?: number;
   score?: number;
   time?: number;
   existingEntry?: LeaderboardEntry;
@@ -40,7 +40,8 @@ interface Props {
 }
 
 const GameOverModal: FC<Props> = ({
-  quiz = {},
+  quizName = "",
+  maxScore = 0,
   score = 0,
   time = 100,
   isLoggedIn = true,
@@ -48,9 +49,9 @@ const GameOverModal: FC<Props> = ({
   existingEntry = null,
   isOpen = false,
   isSubmitting = false,
-  onClose = () => {},
-  onSubmit = () => {},
-  onRedirectWithScore = () => {},
+  onClose = (): void => {},
+  onSubmit = (existingEntry: LeaderboardEntry): void => {},
+  onRedirectWithScore = (path: string): void => {},
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -61,7 +62,7 @@ const GameOverModal: FC<Props> = ({
   const footer = onSubmit ? (
     <Button
       colorScheme="green"
-      onClick={() => onSubmit(existingEntry)}
+      onClick={(): void => onSubmit(existingEntry)}
       isDisabled={!isLoggedIn || isSubmitting || isLoading}
     >
       {"Submit"}
@@ -107,7 +108,7 @@ const GameOverModal: FC<Props> = ({
           </Text>
 
           <Text color="#828282" fontSize="22px" fontWeight="bold">
-            {quiz.name}
+            {quizName}
           </Text>
         </Box>
 
@@ -135,7 +136,7 @@ const GameOverModal: FC<Props> = ({
                 lineHeight="40px"
                 marginBottom={1}
               >
-                {`/ ${quiz.maxScore}`}
+                {`/ ${maxScore}`}
               </Text>
             </Flex>
           </Box>
