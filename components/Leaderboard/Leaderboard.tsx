@@ -2,9 +2,9 @@ import React, { FC } from "react";
 
 import { Flex, useBreakpointValue } from "@chakra-ui/react";
 
-import LeaderboardHeader from "./LeaderboardHeader";
-import LeaderboardFilters from "./LeaderboardFilters";
-import LeaderboardPaginationControls from "./LeaderboardPaginationControls";
+import LeaderboardHeader from "./LeaderboardHeader/LeaderboardHeader";
+import LeaderboardFilters from "./LeaderboardFilters/LeaderboardFilters";
+import LeaderboardPaginationControls from "./LeaderboardPaginationControls/LeaderboardPaginationControls";
 import LeaderboardTable from "../LeaderboardTable";
 
 import Card from "../Card";
@@ -115,8 +115,8 @@ const Leaderboard: FC<Props> = ({
         quizId={quizId}
         quizzes={quizzes}
         isLoading={isLoading}
-        onChangeRange={handleChangeRange}
         onChangeQuiz={handleChangeQuiz}
+        onChangeRange={handleChangeRange}
         onChangeSearchUsers={handleChangeSearchUsers}
         rank={rank}
         onChangeSearchRank={handleChangeSearchRank}

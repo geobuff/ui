@@ -17,7 +17,7 @@ import {
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import LeaderTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
-import FlagFallback from "../ResultsListItem/FlagFallback";
+import FlagFallback from "../ResultsListItem/FlagFallback/FlagFallback";
 import Twemoji from "../Twemoji";
 import TableCell from "../TableCell";
 
@@ -46,7 +46,7 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
     );
   }
 
-  const getNodeByRank = (rank) => {
+  const getNodeByRank = (rank: number): React.ReactNode => {
     switch (rank) {
       case 1:
         return <Twemoji emoji="🥇" />;
@@ -59,7 +59,11 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
     }
   };
 
-  const getTextNodeByRank = (rank, username, countryCode) => {
+  const getTextNodeByRank = (
+    rank: number,
+    username: string,
+    countryCode: string
+  ): React.ReactNode => {
     const mainContent = (
       <Flex alignItems="center">
         <Box marginRight={3} marginTop="5.5px" alignItems="center">

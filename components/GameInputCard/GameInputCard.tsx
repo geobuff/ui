@@ -16,17 +16,20 @@ import {
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 
 import ResultsList from "../ResultsList";
-import GameInputCardScore from "./GameInputCardScore";
-import GameInputCardTimer from "./GameInputCardTimer";
+import GameInputCardScore from "./GameInputCardScore/GameInputCardScore";
+import GameInputCardTimer from "./GameInputCardTimer/GameInputCardTimer";
 import { QuizType } from "../../types/quiz-type";
-import { Quiz } from "../../types/quiz";
 import { Result } from "../../types/result";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
-interface Props {
-  quiz?: Quiz;
+export interface Props {
+  type?: number;
+  maxScore?: number;
+  verb?: string;
+  time?: number;
+  hasFlags?: boolean;
   recents?: Result[];
   score?: number;
   expiryTimestamp?: ExpiryTimestamp;
@@ -36,14 +39,18 @@ interface Props {
   hasGameStopped?: boolean;
   hasError?: boolean;
   inputValue?: string;
-  onChange?: any;
-  onClearInput?: any;
-  onGameStart?: any;
-  onGameStop?: any;
+  onChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClearInput?: () => void;
+  onGameStart?: () => void;
+  onGameStop?: () => void;
 }
 
 const GameInputCard: FC<Props> = ({
-  quiz = null,
+  type = 0,
+  maxScore = 0,
+  time = 0,
+  verb = "",
+  hasFlags = false,
   recents = [],
   score = 0,
   expiryTimestamp = { minutes: 0, seconds: 0 },
@@ -53,13 +60,13 @@ const GameInputCard: FC<Props> = ({
   hasGameStopped = false,
   hasError = false,
   inputValue = "",
-  onChange = () => {},
-  onClearInput = () => {},
-  onGameStart = () => {},
-  onGameStop = () => {},
+  onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {},
+  onClearInput = (): void => {},
+  onGameStart = (): void => {},
+  onGameStop = (): void => {},
 }) => {
   const inputRef = createRef<HTMLInputElement>();
-  const isFlagGame = quiz.type === QuizType.FLAG;
+  const isFlagGame = type === QuizType.FLAG;
 
   useEffect(() => {
     if (!isFlagGame && hasGameStarted) {
@@ -67,7 +74,7 @@ const GameInputCard: FC<Props> = ({
     }
   }, [hasGameStarted, isFlagGame]);
 
-  const handleClearInput = () => {
+  const handleClearInput = (): void => {
     onClearInput();
     inputRef.current.focus();
   };
@@ -76,7 +83,7 @@ const GameInputCard: FC<Props> = ({
     <Flex backgroundColor="#F0F0F0" borderRadius={12} direction="column" p={5}>
       <Box mb={5}>
         <Text fontWeight="bold">{"SCORE"}</Text>
-        <GameInputCardScore quiz={quiz} score={score} />
+        <GameInputCardScore score={score} maxScore={maxScore} />
       </Box>
       {divider}
       {!isFlagGame && (
@@ -88,7 +95,7 @@ const GameInputCard: FC<Props> = ({
               isDisabled={!hasGameStarted}
               onChange={onChange}
               my={5}
-              placeholder={`Enter ${quiz.verb}...`}
+              placeholder={`Enter ${verb}...`}
               value={inputValue}
             />
             <Fade in={!!errorMessage} unmountOnExit>
@@ -135,7 +142,7 @@ const GameInputCard: FC<Props> = ({
       {!isFlagGame && divider}
       <Box my={4}>
         <GameInputCardTimer
-          totalSeconds={quiz.time}
+          totalSeconds={time}
           expiryTimestamp={expiryTimestamp}
           hasGameStarted={hasGameStarted}
           hasGameStopped={hasGameStopped}
@@ -158,11 +165,7 @@ const GameInputCard: FC<Props> = ({
       {divider}
       <Box mt={4}>
         <Text fontWeight="bold">{"RECENT"}</Text>
-        <ResultsList
-          results={recents}
-          quizVerb={quiz.verb}
-          hasFlags={quiz.hasFlags}
-        />
+        <ResultsList results={recents} verb={verb} hasFlags={hasFlags} />
       </Box>
     </Flex>
   );

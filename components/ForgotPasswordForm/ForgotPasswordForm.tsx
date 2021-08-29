@@ -43,7 +43,7 @@ const ForgotPasswordForm: FC<Props> = ({
   error = "",
   isSuccess = false,
   isSubmitting = false,
-  onSubmit = () => {},
+  onSubmit = (values: ForgotPasswordFormSubmit): void => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
@@ -93,15 +93,15 @@ const ForgotPasswordForm: FC<Props> = ({
       <Formik
         initialValues={{ email: "" }}
         validationSchema={validationSchema}
-        onSubmit={(values, actions) => {
+        onSubmit={(values, actions): void => {
           onSubmit(values);
           actions.setSubmitting(false);
         }}
       >
-        {() => (
+        {(): React.ReactNode => (
           <Form>
             <Field name="email">
-              {({ field, form }) => (
+              {({ field, form }): React.ReactNode => (
                 <FormControl
                   marginY={6}
                   isInvalid={form.errors.email && form.touched.email}

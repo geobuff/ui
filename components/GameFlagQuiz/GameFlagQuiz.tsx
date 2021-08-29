@@ -28,16 +28,36 @@ import FlagDropZone from "../FlagDropZone/FlagDropZone";
 import { groupMapping } from "../../helpers/mapping";
 import { findSubmissionByCode } from "../../helpers/game";
 import GameFlagQuizBottomSheet from "./GameFlagQuizBottomSheet";
-import { Quiz } from "../../types/quiz";
 import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
 
 interface Props {
-  quiz?: Quiz;
+  id?: number;
+  time?: number;
+  name?: string;
+  type?: number;
+  maxScore?: number;
+  verb?: string;
+  route?: string;
+  hasLeaderboard?: boolean;
+  hasFlags?: boolean;
+  hasGrouping?: boolean;
   mapping?: Mapping[];
 }
 
-const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
+const GameFlagQuiz: FC<Props> = ({
+  id = 0,
+  time = 0,
+  name = "",
+  type = 0,
+  maxScore = 0,
+  verb = "",
+  route = "",
+  hasLeaderboard = false,
+  hasFlags = false,
+  hasGrouping = false,
+  mapping = [],
+}) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 
@@ -83,7 +103,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
         .then((response) => {
           const tempScore = response.data;
           setScore(tempScore.score);
-          restart(DateTime.now().plus({ seconds: quiz.time - tempScore.time }));
+          restart(DateTime.now().plus({ seconds: time - tempScore.time }));
           handleGameStop();
         })
         .catch(() => {
@@ -123,8 +143,8 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
   });
 
   const quizDateTime = useCallback(
-    () => DateTime.now().plus({ seconds: quiz.time }),
-    [quiz]
+    () => DateTime.now().plus({ seconds: time }),
+    [time]
   );
 
   const handleGameStart = (): void => {
@@ -246,13 +266,16 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
   return (
     <>
       <Head>
-        <title>{quiz.name} - GeoBuff</title>
+        <title>{name} - GeoBuff</title>
       </Head>
       <Flex flex={1} direction="column">
         <Flex height="100%" minHeight="100%" direction="column" flex={1}>
           {isMobile && (
             <GameInputBanner
-              quiz={quiz}
+              type={type}
+              maxScore={maxScore}
+              verb={verb}
+              time={time}
               score={score}
               errorMessage={errorMessage}
               expiryTimestamp={{ seconds, minutes }}
@@ -268,13 +291,17 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
             {!isMobile && (
               <Box minHeight="100%">
                 <Sidebar
-                  heading={quiz.name}
-                  quizId={quiz.id}
-                  hasLeaderboard={quiz.hasLeaderboard}
+                  heading={name}
+                  quizId={id}
+                  hasLeaderboard={hasLeaderboard}
                 >
                   <Box>
                     <GameInputCard
-                      quiz={quiz}
+                      type={type}
+                      maxScore={maxScore}
+                      time={time}
+                      verb={verb}
+                      hasFlags={hasFlags}
                       recents={recentSubmissions}
                       score={score}
                       expiryTimestamp={{ minutes, seconds }}
@@ -292,8 +319,8 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
                       checked={checkedSubmissions}
                       map={groupMapping(mapping)}
                       hasGameStopped={hasGameStopped}
-                      hasGroupings={quiz.hasGrouping}
-                      hasFlags={quiz.hasFlags}
+                      hasGroupings={hasGrouping}
+                      hasFlags={hasFlags}
                     />
                   </Box>
                 </Sidebar>
@@ -325,7 +352,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
                 {!isMobile && (
                   <GameFlags
                     codes={flagDragItems}
-                    onCheckSubmission={async (submission) =>
+                    onCheckSubmission={async (submission): Promise<void> =>
                       setCurrentSubmission(submission)
                     }
                   />
@@ -338,12 +365,16 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
             <GameFlagQuizBottomSheet
               checkedSubmissions={checkedSubmissions}
               mapping={mapping}
-              quiz={quiz}
+              hasLeaderboard={hasLeaderboard}
+              id={id}
+              name={name}
+              hasGrouping={hasGrouping}
+              hasFlags={hasFlags}
               flagDragItems={flagDragItems}
               hasGameStarted={hasGameStarted}
               hasGameStopped={hasGameStopped}
               hasGameRunOnce={hasGameRunOnce}
-              onCheckSubmission={(submission) =>
+              onCheckSubmission={(submission): void =>
                 setCurrentSubmission(submission)
               }
               onGameStart={handleGameStart}
@@ -361,12 +392,16 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
         </Flex>
 
         <GameOverModalContainer
-          quiz={quiz}
+          id={id}
+          hasLeaderboard={hasLeaderboard}
+          route={route}
+          name={name}
+          maxScore={maxScore}
           score={score}
           time={
             minutes === 0 && seconds === 0
-              ? quiz.time
-              : quiz.time - (seconds + minutes * 60)
+              ? time
+              : time - (seconds + minutes * 60)
           }
           isOpen={isOpen}
           onClose={onClose}

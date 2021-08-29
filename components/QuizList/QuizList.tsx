@@ -58,7 +58,13 @@ const QuizList: FC<Props> = ({ quizzes }) => (
                 _hover={quiz.enabled && { transform: "scale(1.030)" }}
                 opacity={!quiz.enabled ? "0.25" : "1"}
               >
-                <QuizCard quiz={quiz} />
+                <QuizCard
+                  name={quiz.name}
+                  imageUrl={quiz.imageUrl}
+                  time={quiz.time}
+                  maxScore={quiz.maxScore}
+                  verb={quiz.verb}
+                />
               </AspectRatio>
             </Link>
           ))}

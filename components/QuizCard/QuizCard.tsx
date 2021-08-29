@@ -5,19 +5,28 @@ import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import Twemoji from "../Twemoji";
 import Image from "../Image";
 import { secondsToMinutesString } from "../../helpers/time";
-import { Quiz } from "../../types/quiz";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
-interface Props {
-  quiz?: Quiz;
+export interface Props {
+  name?: string;
+  imageUrl?: string;
+  time?: number;
+  maxScore?: number;
+  verb?: string;
 }
 
-const QuizCard: FC<Props> = ({ quiz = {} }) => (
+const QuizCard: FC<Props> = ({
+  name = "",
+  imageUrl = "",
+  time = 0,
+  maxScore = 0,
+  verb = "",
+}) => (
   <Flex
-    aria-label={`game card for ${quiz.name}`}
+    aria-label={`game card for ${name}`}
     role="group"
     direction="column"
     backgroundColor="white"
@@ -27,7 +36,7 @@ const QuizCard: FC<Props> = ({ quiz = {} }) => (
   >
     <Box position="absolute" top={0} left={0} right={0} bottom={0}>
       <Image
-        src={quiz.imageUrl}
+        src={imageUrl}
         maxHeight={{ base: "75px", md: "90px" }}
         minHeight={{ base: "75px", md: "90px" }}
         backgroundColor="#E3E1E1"
@@ -50,7 +59,7 @@ const QuizCard: FC<Props> = ({ quiz = {} }) => (
           noOfLines={3}
           _groupHover={{ textDecoration: "underline" }}
         >
-          {quiz.name}
+          {name}
         </Text>
       </Box>
 
@@ -77,7 +86,7 @@ const QuizCard: FC<Props> = ({ quiz = {} }) => (
               isTruncated
               minWidth="50%"
             >
-              {`${secondsToMinutesString(quiz.time)} mins`}
+              {`${secondsToMinutesString(time)} mins`}
             </Text>
           </Flex>
           <Flex alignItems="center">
@@ -94,7 +103,7 @@ const QuizCard: FC<Props> = ({ quiz = {} }) => (
               maxWidth={{ base: "65px", md: "85px" }}
               isTruncated
             >
-              {`${quiz.maxScore} ${quiz.verb}`}
+              {`${maxScore} ${verb}`}
             </Text>
           </Flex>
         </Flex>

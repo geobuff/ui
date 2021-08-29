@@ -8,17 +8,17 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
-import ArrowRight from "../../Icons/ArrowRight";
+import ArrowLeft from "../../../Icons/ArrowLeft";
+import ArrowRight from "../../../Icons/ArrowRight";
 
 interface Props {
   isLoading?: boolean;
   hasMoreEntries?: boolean;
   page?: number;
   rank?: string;
-  onChangeLimit?: any;
-  onNextPage?: any;
-  onPreviousPage?: any;
+  onChangeLimit?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
+  onNextPage?: () => void;
+  onPreviousPage?: () => void;
 }
 
 const LeaderboardPaginationControls: FC<Props> = ({
@@ -26,9 +26,9 @@ const LeaderboardPaginationControls: FC<Props> = ({
   hasMoreEntries = false,
   page = 0,
   rank = "",
-  onChangeLimit = () => {},
-  onNextPage = () => {},
-  onPreviousPage = () => {},
+  onChangeLimit = (event: React.ChangeEvent<HTMLSelectElement>): void => {},
+  onNextPage = (): void => {},
+  onPreviousPage = (): void => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 

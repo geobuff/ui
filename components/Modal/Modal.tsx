@@ -17,7 +17,7 @@ interface Props {
   header?: string | React.ReactNode;
   footer?: string | React.ReactNode;
   isOpen?: boolean;
-  onClose?: any;
+  onClose?: () => void;
   [x: string]: any;
 }
 
@@ -25,7 +25,7 @@ const Modal: FC<Props> = ({
   header = null,
   footer = null,
   isOpen = false,
-  onClose = () => {},
+  onClose = (): void => {},
   children,
   ...props
 }) => {
