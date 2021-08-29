@@ -332,7 +332,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
                 {!isMobile && (
                   <GameFlags
                     codes={flagDragItems}
-                    onCheckSubmission={async (submission) =>
+                    onCheckSubmission={async (submission): Promise<void> =>
                       setCurrentSubmission(submission)
                     }
                   />
@@ -350,7 +350,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
               hasGameStarted={hasGameStarted}
               hasGameStopped={hasGameStopped}
               hasGameRunOnce={hasGameRunOnce}
-              onCheckSubmission={(submission) =>
+              onCheckSubmission={(submission): void =>
                 setCurrentSubmission(submission)
               }
               onGameStart={handleGameStart}

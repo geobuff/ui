@@ -21,7 +21,6 @@ import {
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
-import GameBottomSheetModal from "./GameMapQuizBottomSheet";
 import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";

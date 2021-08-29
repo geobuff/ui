@@ -42,9 +42,9 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
   hasGameStarted = false,
   hasGameRunOnce = false,
   hasGameStopped = false,
-  onCheckSubmission = () => {},
-  onGameStop = () => {},
-  onGameStart = () => {},
+  onCheckSubmission = (submission: string): void => {},
+  onGameStop = (): void => {},
+  onGameStart = (): void => {},
 }) => {
   const [showResultList, setShowResultsList] = useState(false);
 
@@ -65,14 +65,12 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dragEnd]);
 
-  const handleDrag = (event, info) => {
-    console.log(info.point.x, info.point.y);
-    setDragStart(info.point.x);
+  const handleDrag = (info: PointerEvent): void => {
+    setDragStart(info.x);
   };
 
-  const handleDragEnd = (event, info) => {
-    console.log(info.point.x, info.point.y);
-    setDragEnd(info.point.x);
+  const handleDragEnd = (info: PointerEvent): void => {
+    setDragEnd(info.x);
   };
 
   return (
@@ -159,7 +157,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
                 my={4}
                 isFullWidth
                 variant="outline"
-                onClick={() => setShowResultsList(!showResultList)}
+                onClick={(): void => setShowResultsList(!showResultList)}
               >
                 {"Results"}
               </Button>

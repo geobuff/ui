@@ -1,5 +1,4 @@
 import React from "react";
-import { useTimer } from "react-timer-hook";
 import GameInputCardTimer, { Props } from "./GameInputCardTimer";
 
 export default {

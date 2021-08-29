@@ -9,7 +9,7 @@ import Image from "../Image";
 import useCountries from "../../hooks/useCountries";
 import { FieldProps } from "../../types/field-props";
 
-interface Props {
+export interface Props {
   fieldProps?: FieldProps;
 }
 

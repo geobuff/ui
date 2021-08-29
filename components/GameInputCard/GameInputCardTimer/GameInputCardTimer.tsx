@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 import { Box, Text } from "@chakra-ui/react";
 
-import { toMinTwoDigits } from "../../helpers/format-text";
-import { secondsToMinutesString } from "../../helpers/time";
-import { ExpiryTimestamp } from "../../types/expiry-timestamp";
+import { toMinTwoDigits } from "../../../helpers/format-text";
+import { secondsToMinutesString } from "../../../helpers/time";
+import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
 
 const Timer: FC = ({ children = null }) => (
   <Box>

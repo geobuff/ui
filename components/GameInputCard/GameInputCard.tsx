@@ -16,8 +16,8 @@ import {
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 
 import ResultsList from "../ResultsList";
-import GameInputCardScore from "./GameInputCardScore";
-import GameInputCardTimer from "./GameInputCardTimer";
+import GameInputCardScore from "./GameInputCardScore/GameInputCardScore";
+import GameInputCardTimer from "./GameInputCardTimer/GameInputCardTimer";
 import { QuizType } from "../../types/quiz-type";
 import { Result } from "../../types/result";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";

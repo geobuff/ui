@@ -1,7 +1,7 @@
 import React, { FC, useContext, useEffect } from "react";
 
 import { getFlagUrl } from "@geobuff/flags";
-import { useDrag } from "react-dnd";
+import { DragSourceMonitor, useDrag } from "react-dnd";
 import { Box } from "@chakra-ui/react";
 
 import Image from "../Image";
@@ -9,12 +9,7 @@ import { ItemTypes } from "../../types/item-types";
 
 import { usePreview } from "react-dnd-preview";
 import { FlagGameContext } from "../../context/FlagGameContext";
-
-interface Props {
-  code?: string;
-  checkSubmission?: (submission: string) => void;
-  [x: string]: any;
-}
+import { DragResult } from "../../types/drag-result";
 
 // TODO: add a nice preview for mobile
 const DraggableFlagPreview: FC = () => {
@@ -25,9 +20,20 @@ const DraggableFlagPreview: FC = () => {
   return <div style={style}>{itemType}</div>;
 };
 
+interface CollectResult {
+  isDragging: boolean;
+  handlerId: string | symbol | null;
+}
+
+interface Props {
+  code?: string;
+  checkSubmission?: (submission: string) => void;
+  [x: string]: any;
+}
+
 const DraggableFlag: FC<Props> = ({
   code = "",
-  checkSubmission = (submission: string) => {},
+  checkSubmission = (submission: string): void => {},
   ...props
 }) => {
   const { handleDragging } = useContext(FlagGameContext);
@@ -35,13 +41,13 @@ const DraggableFlag: FC<Props> = ({
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.FLAG,
     item: { name: code },
-    end: (item, monitor) => {
+    end: (item: DragResult, monitor: DragSourceMonitor): void => {
       const dropResult = monitor.getDropResult();
       if (item && dropResult) {
         checkSubmission(item.name);
       }
     },
-    collect: (monitor) => ({
+    collect: (monitor: DragSourceMonitor): CollectResult => ({
       isDragging: monitor.isDragging(),
       handlerId: monitor.getHandlerId(),
     }),

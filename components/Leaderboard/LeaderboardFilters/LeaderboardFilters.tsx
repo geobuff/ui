@@ -9,8 +9,8 @@ import {
   InputLeftElement,
 } from "@chakra-ui/react";
 
-import Search from "../../Icons/Search";
-import { Quiz } from "../../types/quiz";
+import Search from "../../../Icons/Search";
+import { Quiz } from "../../../types/quiz";
 
 interface Props {
   quizId?: string;

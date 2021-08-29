@@ -14,8 +14,8 @@ import {
 
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 
-import GameInputBannerTimer from "./GameInputBannerTimer";
-import GameInputBannerError from "./GameInputBannerError";
+import GameInputBannerTimer from "./GameInputBannerTimer/GameInputBannerTimer";
+import GameInputBannerError from "./GameInputBannerError/GameInputBannerError";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 
 export interface Props {

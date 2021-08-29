@@ -2,9 +2,9 @@ import React, { FC } from "react";
 
 import { Text } from "@chakra-ui/react";
 
-import { toMinTwoDigits } from "../../helpers/format-text";
-import { secondsToMinutesString } from "../../helpers/time";
-import { ExpiryTimestamp } from "../../types/expiry-timestamp";
+import { toMinTwoDigits } from "../../../helpers/format-text";
+import { secondsToMinutesString } from "../../../helpers/time";
+import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
 
 const Timer: FC = ({ children = null }) => (
   <Text lineHeight={1.15} color="white" fontSize="32px" fontWeight={700}>

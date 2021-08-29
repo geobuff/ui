@@ -17,7 +17,7 @@ import {
 
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import LeaderTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
-import FlagFallback from "../ResultsListItem/FlagFallback";
+import FlagFallback from "../ResultsListItem/FlagFallback/FlagFallback";
 import Twemoji from "../Twemoji";
 import TableCell from "../TableCell";
 
