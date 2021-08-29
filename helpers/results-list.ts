@@ -3,10 +3,10 @@ import { Result } from "../types/result";
 import { mergeArrayByName } from "./array";
 
 export const getResults = (
-  mapping: Array<Mapping>,
-  checked: Array<Result>,
+  mapping: Mapping[],
+  checked: Mapping[],
   hasGameStopped: boolean
-): Array<Result> => {
+): Result[] => {
   return hasGameStopped
     ? mapping.map((x) => {
         return {

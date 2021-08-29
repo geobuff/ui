@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Flex,
-  Text,
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -31,18 +30,19 @@ import { findSubmissionByCode } from "../../helpers/game";
 import GameFlagQuizBottomSheet from "./GameFlagQuizBottomSheet";
 import { Quiz } from "../../types/quiz";
 import { Mapping } from "../../types/mapping";
+import { Result } from "../../types/result";
 
 interface Props {
   quiz?: Quiz;
-  mapping?: Array<Mapping>;
+  mapping?: Mapping[];
 }
 
 const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 
-  const [checkedSubmissions, setCheckedSubmissions] = useState([]);
-  const [recentSubmissions, setRecentSubmissions] = useState([]);
+  const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
+  const [recentSubmissions, setRecentSubmissions] = useState<Result[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [hasError, setHasError] = useState(false);
   const [score, setScore] = useState(0);
@@ -61,7 +61,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     )
   );
   const [remainingAnswers, setRemainingAnswers] = useState(() => mapping);
-  const [currentSubmission, setCurrentSubmission] = useState(null);
+  const [currentSubmission, setCurrentSubmission] = useState("");
   const [submissionCorrect, setSubmissionCorrect] = useState(false);
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
 
@@ -92,17 +92,26 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     }
   }, [isUserLoading, user, router.query]);
 
-  const handleExpire = () => {
+  useEffect(() => {
+    checkSubmission(currentSubmission);
+  }, [currentSubmission]);
+
+  useEffect(() => {
+    if (hasGameStarted) {
+      restart(quizDateTime());
+      if (!hasGameRunOnce) {
+        setHasGameRunOnce(true);
+      }
+    }
+  }, [timeRemaining, hasGameStarted]);
+
+  const handleExpire = (): void => {
     setTimeout(() => {
       setHasGameStarted(false);
       setHasGameStopped(true);
       onOpen();
     }, 50);
   };
-
-  useEffect(() => {
-    checkSubmission(currentSubmission);
-  }, [currentSubmission]);
 
   const { seconds, minutes, restart, pause } = useTimer({
     //@ts-ignore
@@ -118,16 +127,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     [quiz]
   );
 
-  useEffect(() => {
-    if (hasGameStarted) {
-      restart(quizDateTime());
-      if (!hasGameRunOnce) {
-        setHasGameRunOnce(true);
-      }
-    }
-  }, [timeRemaining, hasGameStarted]);
-
-  const handleGameStart = () => {
+  const handleGameStart = (): void => {
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
     setScore(0);
@@ -142,7 +142,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     setLeaderboardEntrySubmitted(false);
   };
 
-  const handleGameStop = () => {
+  const handleGameStop = (): void => {
     pause();
     setHasGameStarted(false);
     setHasGameStopped(true);
@@ -176,12 +176,24 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
       ];
 
       // Update recent submissions with last 3 answers
-      const updatedRecentSubmissions =
+      const topCheckedSubmissions =
         updatedCheckedSubmissions.length > 3
           ? updatedCheckedSubmissions.slice(
               Math.max([...checkedSubmissions, matchedSubmission].length - 3, 1)
             )
           : updatedCheckedSubmissions;
+
+      const updatedRecentSubmissions: Result[] = topCheckedSubmissions.map(
+        (x) => {
+          return {
+            name: x.name,
+            code: x.code,
+            svgName: x.svgName,
+            isHidden: false,
+            isMissedResult: false,
+          };
+        }
+      );
 
       // Update the remaining answers excluding most recent
       const updatedRemainingAnswers = remainingAnswers.filter(
@@ -225,7 +237,7 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
     [acceptedFlag, checkedSubmissions, handleGameStop, mapping]
   );
 
-  const onClearInput = () => {
+  const onClearInput = (): void => {
     setHasError(false);
     setErrorMessage("");
     setInputValue("");
@@ -255,13 +267,17 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
           <Flex grow={1} direction="column">
             {!isMobile && (
               <Box minHeight="100%">
-                <Sidebar heading={quiz.name} quiz={quiz}>
+                <Sidebar
+                  heading={quiz.name}
+                  quizId={quiz.id}
+                  hasLeaderboard={quiz.hasLeaderboard}
+                >
                   <Box>
                     <GameInputCard
                       quiz={quiz}
                       recents={recentSubmissions}
                       score={score}
-                      timeRemaining={{ minutes, seconds }}
+                      expiryTimestamp={{ minutes, seconds }}
                       errorMessage={errorMessage}
                       hasError={hasError}
                       hasGameRunOnce={hasGameRunOnce}

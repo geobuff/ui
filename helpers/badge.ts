@@ -3,7 +3,7 @@ import { UserLeaderboardEntry } from "../types/user-leaderboard-entry";
 
 export const isBadgeComplete = (
   badge: Badge,
-  entries: Array<UserLeaderboardEntry>
+  entries: UserLeaderboardEntry[]
 ): boolean => {
   switch (badge.id) {
     case 1:
@@ -17,7 +17,7 @@ export const isBadgeComplete = (
 
 export const getProgress = (
   badge: Badge,
-  entries: Array<UserLeaderboardEntry>
+  entries: UserLeaderboardEntry[]
 ): number => {
   switch (badge.id) {
     case 1:

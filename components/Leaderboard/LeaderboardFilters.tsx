@@ -14,7 +14,7 @@ import { Quiz } from "../../types/quiz";
 
 interface Props {
   quizId?: string;
-  quizzes?: Array<Quiz>;
+  quizzes?: Quiz[];
   isLoading?: boolean;
   rank?: string;
   onChangeQuiz?: any;

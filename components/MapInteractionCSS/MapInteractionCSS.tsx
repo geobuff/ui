@@ -15,8 +15,8 @@ const MapInteractionCSS: FC = ({ children = null, ...props }) => {
 
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
-  const handleReset = () => setValue(defaultValue);
-  const handleChange = (value) => setValue(value);
+  const handleReset = (): void => setValue(defaultValue);
+  const handleChange = (value): void => setValue(value);
 
   // Prevents flickering
   if (isMobile === undefined) {
@@ -92,7 +92,7 @@ const MapInteractionCSS: FC = ({ children = null, ...props }) => {
         }
         {...props}
       >
-        {({ translation, scale }) => {
+        {({ translation, scale }): React.ReactNode => {
           const transform = `translate(${translation.x}px, ${translation.y}px) scale(${scale})`;
 
           return (

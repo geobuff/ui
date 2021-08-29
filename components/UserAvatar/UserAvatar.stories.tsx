@@ -1,13 +1,13 @@
 import React from "react";
 
-import UserAvatar from "./UserAvatar";
+import UserAvatar, { Props } from "./UserAvatar";
 
 export default {
   title: "UI/UserAvatar",
   component: UserAvatar,
 };
 
-const Template = (args) => <UserAvatar {...args} />;
+const Template = (args: Props): React.ReactNode => <UserAvatar {...args} />;
 
 export const Default = Template.bind({});
 

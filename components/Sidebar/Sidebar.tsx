@@ -9,14 +9,19 @@ import {
 } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
-import { Quiz } from "../../types/quiz";
 
-interface Props {
+export interface Props {
   heading?: string;
-  quiz?: Quiz;
+  quizId?: number;
+  hasLeaderboard?: boolean;
 }
 
-const Sidebar: FC<Props> = ({ heading = "", quiz = {}, children = null }) => (
+const Sidebar: FC<Props> = ({
+  heading = "",
+  quizId = 0,
+  hasLeaderboard = false,
+  children = null,
+}) => (
   <Box
     position="absolute"
     top={0}
@@ -42,8 +47,8 @@ const Sidebar: FC<Props> = ({ heading = "", quiz = {}, children = null }) => (
         <>
           <Flex mt={14} justifyContent="center">
             <Heading size="md" textAlign="center">
-              {quiz.hasLeaderboard && (
-                <Link href={`/leaderboard?quizId=${quiz.id}`}>
+              {hasLeaderboard && (
+                <Link href={`/leaderboard?quizId=${quizId}`}>
                   <ChakraLink>
                     <Twemoji
                       emoji="🏆"

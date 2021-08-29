@@ -23,6 +23,7 @@ import ForgotPasswordSuccess from "./ForgotPasswordSuccess";
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
 import Logo from "../Logo";
+import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
 
 const forgotPasswordExplainer =
   "Enter the email address you used when you joined and we’ll send you a link to reset your password.";
@@ -35,7 +36,7 @@ interface Props {
   error?: string;
   isSuccess?: boolean;
   isSubmitting?: boolean;
-  onSubmit?: Function;
+  onSubmit?: (values: ForgotPasswordFormSubmit) => void;
 }
 
 const ForgotPasswordForm: FC<Props> = ({

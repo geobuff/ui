@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, FC } from "react";
 import {
   Box,
   Button,
@@ -18,21 +18,33 @@ import { groupMapping } from "../../../helpers/mapping";
 
 import { motion } from "framer-motion";
 import { FlagGameContext } from "../../../context/FlagGameContext";
+import { Quiz } from "../../../types/quiz";
+import { Mapping } from "../../../types/mapping";
 
-// TODO: Migrate props to interface
-// TODO: Remove with TS migration
-/* eslint-disable react/prop-types */
-const GameFlagQuizBottomSheet = ({
+interface Props {
+  checkedSubmissions?: Mapping[];
+  mapping?: Mapping[];
+  quiz?: Quiz;
+  flagDragItems?: string[];
+  hasGameStarted?: boolean;
+  hasGameRunOnce?: boolean;
+  hasGameStopped?: boolean;
+  onCheckSubmission?: (submission: string) => void;
+  onGameStop?: () => void;
+  onGameStart?: () => void;
+}
+
+const GameFlagQuizBottomSheet: FC<Props> = ({
   checkedSubmissions = [],
-  mapping,
-  quiz,
-  flagDragItems,
-  hasGameStarted,
-  hasGameRunOnce,
-  hasGameStopped,
-  onCheckSubmission,
-  onGameStop,
-  onGameStart,
+  mapping = [],
+  quiz = null,
+  flagDragItems = [],
+  hasGameStarted = false,
+  hasGameRunOnce = false,
+  hasGameStopped = false,
+  onCheckSubmission = () => {},
+  onGameStop = () => {},
+  onGameStart = () => {},
 }) => {
   const [showResultList, setShowResultsList] = useState(false);
 

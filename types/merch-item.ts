@@ -4,8 +4,8 @@ export interface MerchItem {
   description: string;
   price: number;
   disabled: boolean;
-  sizes: Array<MerchSize>;
-  images: Array<MerchImage>;
+  sizes: MerchSize[];
+  images: MerchImage[];
 }
 
 interface MerchSize {

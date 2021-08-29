@@ -28,10 +28,10 @@ const initialSnap = snapPoints.length - 2;
 
 interface Props {
   quiz?: Quiz;
-  mapping?: Array<Mapping>;
-  checked?: Array<Result>;
-  recents?: Array<Result>;
-  codes?: Array<string>;
+  mapping?: Mapping[];
+  checked?: Mapping[];
+  recents?: Result[];
+  codes?: string[];
   hasGameRunOnce?: boolean;
   hasGameStarted?: boolean;
   hasGameStopped?: boolean;
@@ -147,7 +147,11 @@ const GameBottomSheetModal: FC<Props> = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <ResultsList quiz={quiz} results={recents} />
+              <ResultsList
+                results={recents}
+                quizVerb={quiz.verb}
+                hasFlags={quiz.hasFlags}
+              />
             </Box>
 
             <ResultsMap

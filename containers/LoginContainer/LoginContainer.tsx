@@ -7,6 +7,7 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import LoginForm from "../../components/LoginForm";
 import { DecodedToken } from "../../types/decoded-token";
+import { LoginFormSubmit } from "../../types/login-form-submit";
 
 const LoginContainer: FC = () => {
   const router = useRouter();
@@ -21,12 +22,12 @@ const LoginContainer: FC = () => {
     }
   }, [isLoadingUser, user, router]);
 
-  const login = (email, password) => {
+  const handleSubmit = (values: LoginFormSubmit): void => {
     setIsSubmitting(true);
     setError(null);
-    const login = { email, password };
+
     axiosClient
-      .post("/auth/login", login)
+      .post("/auth/login", values)
       .then((response) => {
         const decoded: DecodedToken = jwt_decode(response.data);
         updateUser({
@@ -62,8 +63,6 @@ const LoginContainer: FC = () => {
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
-
-  const handleSubmit = ({ email, password }) => login(email, password);
 
   return (
     <LoginForm

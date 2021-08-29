@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useState, FC } from "react";
 import { useToast, useBreakpointValue, ToastPosition } from "@chakra-ui/react";
 
 import UpdateUserFormModal from "../../components/UpdateUserFormModal";
@@ -6,6 +6,7 @@ import UpdateUserFormModal from "../../components/UpdateUserFormModal";
 import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import { userUpdated } from "../../helpers/toasts";
+import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 
 interface Props {
   isOpen?: boolean;
@@ -14,7 +15,7 @@ interface Props {
 
 const UpdateUserFormContainer: FC<Props> = ({
   isOpen = false,
-  onClose = () => {},
+  onClose = (): void => {},
 }) => {
   const toast = useToast();
   const { user, updateUser, getAuthConfig } = useCurrentUser();
@@ -26,7 +27,7 @@ const UpdateUserFormContainer: FC<Props> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(null);
 
-  const handleSubmit = (values) => {
+  const handleSubmit = (values: UpdateUserFormSubmit): void => {
     setIsSubmitting(true);
     setError(null);
 

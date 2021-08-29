@@ -3,7 +3,7 @@ import { fetcher } from "../helpers/fetcher";
 import { Avatar } from "../types/avatar";
 
 interface Result {
-  avatars: Array<Avatar>;
+  avatars: Avatar[];
   isLoading: boolean;
 }
 

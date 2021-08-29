@@ -7,19 +7,15 @@ import { getResults } from "../../helpers/results-list";
 
 import VirtualizedSectionList from "../SectionList";
 import ResultsListItem from "../ResultsListItem";
-import { Result } from "../../types/result";
 import { Mapping } from "../../types/mapping";
+import { ResultMap } from "../../types/result-map";
 
 const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 28;
 
-interface ResultMap {
-  [x: string]: Array<Mapping>;
-}
-
-interface Props {
+export interface Props {
   map?: ResultMap;
-  checked?: Array<Result>;
+  checked?: Mapping[];
   hasGameStopped?: boolean;
   hasGroupings?: boolean;
   hasFlags?: boolean;
@@ -43,45 +39,39 @@ const ResultsMap: FC<Props> = ({
 
   const resultRows = results[0].data;
 
-  const renderHeader = ({ title, key, style }) => {
-    return (
-      <Box key={key} style={style}>
-        <Box height="100%" marginTop={4}>
-          <Text fontSize="18px" fontWeight="bold" textTransform="uppercase">
-            {title}
-          </Text>
-        </Box>
+  const renderHeader = ({ title, key, style }): React.ReactNode => (
+    <Box key={key} style={style}>
+      <Box height="100%" marginTop={4}>
+        <Text fontSize="18px" fontWeight="bold" textTransform="uppercase">
+          {title}
+        </Text>
       </Box>
-    );
-  };
+    </Box>
+  );
 
-  const renderSectionRow = ({ item, key, style }) => {
-    return (
-      <Box key={key} style={style}>
-        <ResultsListItem
-          code={item.code}
-          svgName={item.svgName}
-          isHidden={item.isHidden}
-          isMissedResult={item.isMissedResult}
-          hasFlag={hasFlags}
-        />
-      </Box>
-    );
-  };
+  const renderSectionRow = ({ item, key, style }): React.ReactNode => (
+    <Box key={key} style={style}>
+      <ResultsListItem
+        code={item.code}
+        svgName={item.svgName}
+        isHidden={item.isHidden}
+        isMissedResult={item.isMissedResult}
+        hasFlag={hasFlags}
+      />
+    </Box>
+  );
 
-  const renderListRow = ({ key, index, style }) => {
-    return (
-      <Box key={key} style={style}>
-        <ResultsListItem
-          code={resultRows[index].code}
-          svgName={resultRows[index].svgName}
-          isHidden={resultRows[index].isHidden}
-          isMissedResult={resultRows[index].isMissedResult}
-          hasFlag={hasFlags}
-        />
-      </Box>
-    );
-  };
+  const renderListRow = ({ key, index, style }): React.ReactNode => (
+    <Box key={key} style={style}>
+      <ResultsListItem
+        code={resultRows[index].code}
+        svgName={resultRows[index].svgName}
+        isHidden={resultRows[index].isHidden}
+        isMissedResult={resultRows[index].isMissedResult}
+        hasFlag={hasFlags}
+      />
+    </Box>
+  );
 
   return (
     <Box textAlign="left" height="100%">
@@ -98,7 +88,7 @@ const ResultsMap: FC<Props> = ({
         <Box flex="1 1 auto">
           {!!results.length && (
             <AutoSizer>
-              {({ height, width }) => (
+              {({ height, width }): React.ReactNode => (
                 <>
                   {hasGroupings ? (
                     <VirtualizedSectionList

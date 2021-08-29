@@ -1,17 +1,17 @@
 import { Box } from "@chakra-ui/react";
 import React from "react";
-import Twemoji from "./Twemoji";
+import Twemoji, { Props } from "./Twemoji";
 
 export default {
   title: "UI/Twemoji",
   component: Twemoji,
 };
 
-const Template = (args) => <Twemoji {...args} />;
+const Template = (args: Props): React.ReactNode => <Twemoji {...args} />;
 
-const GalleryTemplate = (args) => (
+const GalleryTemplate = (args: Props): React.ReactNode => (
   <>
-    {args.emojis.map((emoji, index) => (
+    {args.emojis.map((emoji: string, index: number) => (
       <Box m={10} key={index}>
         <Twemoji emoji={emoji} height="56px" width="56px" />
       </Box>

@@ -2,7 +2,7 @@ import React, { useState, FC } from "react";
 
 import { Box, Image, Skeleton } from "@chakra-ui/react";
 
-interface Props {
+export interface Props {
   borderRadius?: number;
   height?: string;
   width?: string;
@@ -35,7 +35,7 @@ const UserAvatar: FC<Props> = ({
         borderRadius={borderRadius}
         objectFit="cover"
         border="border.primary"
-        onLoad={() => setHasLoaded(true)}
+        onLoad={(): void => setHasLoaded(true)}
       />
       <Skeleton
         borderRadius={borderRadius}

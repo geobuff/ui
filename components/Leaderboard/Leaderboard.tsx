@@ -13,16 +13,16 @@ import { FilterParams } from "../../types/filter-params";
 import { Quiz } from "../../types/quiz";
 
 interface Props {
-  entries?: Array<LeaderboardEntry>;
+  entries?: LeaderboardEntry[];
   hasMoreEntries?: boolean;
   isLoading?: boolean;
   filterParams?: FilterParams;
   quizId?: string;
-  quizzes?: Array<Quiz>;
-  onChangeQuiz?: any;
-  onChangeFilterParams?: any;
+  quizzes?: Quiz[];
+  onChangeQuiz?: React.Dispatch<React.SetStateAction<string>>;
+  onChangeFilterParams?: React.Dispatch<React.SetStateAction<FilterParams>>;
   rank?: string;
-  setRank?: any;
+  setRank?: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const Leaderboard: FC<Props> = ({
@@ -32,44 +32,63 @@ const Leaderboard: FC<Props> = ({
   isLoading = false,
   quizId = "1",
   quizzes = [],
-  onChangeFilterParams = () => {},
-  onChangeQuiz = () => {},
+  onChangeFilterParams = (): void => {},
+  onChangeQuiz = (): void => {},
   rank = "",
-  setRank = () => {},
+  setRank = (): void => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
-  const handleChangeQuiz = (e) => {
-    onChangeQuiz(parseInt(e.target.value));
+  const handleChangeQuiz = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    onChangeQuiz(event.target.value);
     onChangeFilterParams({ ...filterParams, page: 0 });
   };
 
-  const handleChangeRange = (e) => {
-    onChangeFilterParams({ ...filterParams, range: e.target.value, page: 0 });
-  };
-
-  const handleChangeSearchUsers = (e) => {
-    onChangeFilterParams({ ...filterParams, user: e.target.value, page: 0 });
-  };
-
-  const handleChangeSearchRank = (e) => {
-    setRank(e.target.value);
+  const handleChangeRange = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
     onChangeFilterParams({
       ...filterParams,
-      rank: e.target.value ? parseInt(e.target.value) : 0,
+      range: event.target.value,
+      page: 0,
     });
   };
 
-  const handleChangeLimit = (e) => {
-    const limit = parseInt(e.target.value);
+  const handleChangeSearchUsers = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    onChangeFilterParams({
+      ...filterParams,
+      user: event.target.value,
+      page: 0,
+    });
+  };
+
+  const handleChangeSearchRank = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    const rank = event.target.value;
+    setRank(rank);
+    onChangeFilterParams({
+      ...filterParams,
+      rank: rank ? parseInt(rank) : 0,
+    });
+  };
+
+  const handleChangeLimit = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    const limit = parseInt(event.target.value);
     onChangeFilterParams({ ...filterParams, limit: limit, page: 0 });
   };
 
-  const handleNextPage = () => {
+  const handleNextPage = (): void => {
     onChangeFilterParams({ ...filterParams, page: filterParams.page + 1 });
   };
 
-  const handlePreviousPage = () => {
+  const handlePreviousPage = (): void => {
     onChangeFilterParams({ ...filterParams, page: filterParams.page - 1 });
   };
 

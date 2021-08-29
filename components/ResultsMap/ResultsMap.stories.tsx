@@ -1,30 +1,16 @@
 import React from "react";
-import ResultsMap from "./ResultsMap";
+import { Mapping } from "../../types/mapping";
+import { ResultMap } from "../../types/result-map";
+import ResultsMap, { Props } from "./ResultsMap";
 
 export default {
   title: "UI/ResultsMap",
   component: ResultsMap,
 };
 
-const checked = [
-  {
-    code: "AU",
-    svgName: "Australia",
-    isHidden: false,
-  },
-  {
-    code: "NZ",
-    svgName: "New Zealand",
-    isHidden: false,
-  },
-  {
-    code: "AF",
-    svgName: "Afghanistan",
-    isHidden: false,
-  },
-];
+const Template = (args: Props): React.ReactNode => <ResultsMap {...args} />;
 
-const map = {
+const map: ResultMap = {
   asia: [
     {
       name: "afghanistan",
@@ -32,6 +18,7 @@ const map = {
       svgName: "Afghanistan",
       alternativeNames: [],
       prefixes: [],
+      group: "asia",
     },
     {
       name: "armenia",
@@ -39,6 +26,7 @@ const map = {
       svgName: "Armenia",
       alternativeNames: [],
       prefixes: [],
+      group: "asia",
     },
   ],
   oceania: [
@@ -48,6 +36,7 @@ const map = {
       svgName: "Australia",
       alternativeNames: [],
       prefixes: [],
+      group: "oceania",
     },
     {
       name: "fiji",
@@ -55,6 +44,7 @@ const map = {
       svgName: "Fiji",
       alternativeNames: [],
       prefixes: [],
+      group: "oceania",
     },
     {
       name: "new zealand",
@@ -62,15 +52,56 @@ const map = {
       svgName: "New Zealand",
       alternativeNames: [],
       prefixes: [],
+      group: "oceania",
     },
   ],
 };
 
-const Template = (args) => <ResultsMap {...args} />;
+const checked: Mapping[] = [
+  {
+    name: "australia",
+    code: "au",
+    svgName: "Australia",
+    alternativeNames: [],
+    prefixes: [],
+    group: "oceania",
+    checked: true,
+  },
+  {
+    name: "new zealand",
+    code: "nz",
+    svgName: "New Zealand",
+    alternativeNames: [],
+    prefixes: [],
+    group: "oceania",
+    checked: true,
+  },
+  {
+    name: "afghanistan",
+    code: "af",
+    svgName: "Afghanistan",
+    alternativeNames: [],
+    prefixes: [],
+    group: "asia",
+    checked: true,
+  },
+];
 
-export const Default = Template.bind({});
-Default.args = {
-  quiz: {},
-  checked,
+export const InProgress = Template.bind({});
+export const GameOver = Template.bind({});
+
+InProgress.args = {
   map,
+  checked,
+  hasGameStopped: false,
+  hasGroupings: true,
+  hasFlags: true,
+};
+
+GameOver.args = {
+  map,
+  checked,
+  hasGameStopped: true,
+  hasGroupings: true,
+  hasFlags: true,
 };

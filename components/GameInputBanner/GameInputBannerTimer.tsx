@@ -4,7 +4,7 @@ import { Text } from "@chakra-ui/react";
 
 import { toMinTwoDigits } from "../../helpers/format-text";
 import { secondsToMinutesString } from "../../helpers/time";
-import { TimeRemaining } from "../../types/time-remaining";
+import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 
 const Timer: FC = ({ children = null }) => (
   <Text lineHeight={1.15} color="white" fontSize="32px" fontWeight={700}>
@@ -13,7 +13,7 @@ const Timer: FC = ({ children = null }) => (
 );
 
 interface Props {
-  expiryTimestamp?: TimeRemaining;
+  expiryTimestamp?: ExpiryTimestamp;
   hasGameStarted?: boolean;
   hasGameStopped?: boolean;
   totalSeconds?: number;

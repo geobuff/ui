@@ -18,7 +18,7 @@ const UserProfileSummaryContainer: FC = () => {
     }, 50);
   });
 
-  const handleClickManage = () => {
+  const handleClickManage = (): void => {
     const payload = {
       sessionId: user.stripeSessionId,
     };
@@ -28,7 +28,7 @@ const UserProfileSummaryContainer: FC = () => {
     });
   };
 
-  const handleClickUpgrade = () => {
+  const handleClickUpgrade = (): void => {
     const payload = {
       priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
     };

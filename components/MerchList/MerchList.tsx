@@ -7,7 +7,7 @@ import ProductCard from "../ProductCard";
 import { MerchItem } from "../../types/merch-item";
 
 interface Props {
-  merch?: Array<MerchItem>;
+  merch?: MerchItem[];
 }
 
 const MerchList: FC<Props> = ({ merch = [] }) => (

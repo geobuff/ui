@@ -31,7 +31,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
   const avatarSize = isCondensed ? "26px" : { base: "22px", md: "26px" };
   const imageSize = isCondensed ? "13px" : { base: "11px", md: "13px" };
 
-  const logout = () => {
+  const logout = (): void => {
     clearUser();
     router.push("/");
   };
@@ -124,7 +124,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
         </MenuButton>
 
         <MenuList>
-          <MenuItem onClick={() => router.push("/profile")}>
+          <MenuItem onClick={(): Promise<boolean> => router.push("/profile")}>
             {"Profile"}
           </MenuItem>
           <MenuDivider />
@@ -141,13 +141,16 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
           variant="link"
           color="gray.600"
           fontWeight={600}
-          onClick={() => router.push("/login")}
+          onClick={(): Promise<boolean> => router.push("/login")}
           mr={4}
         >
           {"Login"}
         </Button>
         {!isCondensed && (
-          <Button colorScheme="green" onClick={() => router.push("/register")}>
+          <Button
+            colorScheme="green"
+            onClick={(): Promise<boolean> => router.push("/register")}
+          >
             {"Register"}
           </Button>
         )}

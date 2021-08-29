@@ -30,8 +30,8 @@ import LoadingPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder
 
 interface Props {
   isLoading?: boolean;
-  onClickUpgrade?: any;
-  onClickManage?: any;
+  onClickUpgrade?: () => void;
+  onClickManage?: () => void;
   username?: string;
   email?: string;
   countryCode?: string;
@@ -46,8 +46,8 @@ interface Props {
 
 const UserProfileSummary: FC<Props> = ({
   isLoading = false,
-  onClickUpgrade = () => {},
-  onClickManage = () => {},
+  onClickUpgrade = (): void => {},
+  onClickManage = (): void => {},
   username = "",
   email = "",
   countryCode = "",

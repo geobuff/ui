@@ -3,7 +3,7 @@ import { fetcher } from "../helpers/fetcher";
 import { Quiz } from "../types/quiz";
 
 interface Result {
-  quizzes: Array<Quiz>;
+  quizzes: Quiz[];
   isLoading: boolean;
 }
 

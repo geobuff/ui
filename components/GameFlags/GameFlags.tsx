@@ -8,7 +8,7 @@ import DraggableFlag from "../DraggableFlag";
 
 interface Props {
   codes?: string[];
-  onCheckSubmission?: (submission: string) => {};
+  onCheckSubmission?: (submission: string) => void;
 }
 
 const GameFlags: FC<Props> = ({

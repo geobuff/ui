@@ -1,4 +1,4 @@
-import React, { useState, useCallback, FC } from "react";
+import React, { useState, useCallback, FC, ChangeEvent } from "react";
 import { debounce } from "debounce";
 
 import {
@@ -23,20 +23,21 @@ const Home: FC = () => {
   const [filter, setFilter] = useState("");
   const [inputValue, setInputValue] = useState("");
 
-  const handleClearInput = () => {
+  const handleClearInput = (): void => {
     setInputValue("");
     setFilter("");
   };
 
-  const onChange = (value) => {
+  const onChange = (value: string): void => {
     setFilter(value);
   };
 
   const handleDebounceChange = useCallback(debounce(onChange, 500), [onChange]);
 
-  const handleChange = (event) => {
-    setInputValue(event.target.value);
-    handleDebounceChange(event.target.value);
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const value = event.currentTarget.value;
+    setInputValue(value);
+    handleDebounceChange(value);
   };
 
   return (

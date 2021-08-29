@@ -13,7 +13,7 @@ import QuizCard from "../QuizCard";
 import { Quiz } from "../../types/quiz";
 
 interface Props {
-  quizzes?: Array<Quiz>;
+  quizzes?: Quiz[];
 }
 
 const QuizList: FC<Props> = ({ quizzes }) => (

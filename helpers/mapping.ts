@@ -2,7 +2,7 @@
 
 import { Mapping } from "../types/mapping";
 
-export const groupMapping = (mapping: Array<Mapping>): any => {
+export const groupMapping = (mapping: Mapping[]): any => {
   return mapping.reduce((r, a) => {
     r[a.group] = r[a.group] || [];
     r[a.group].push(a);

@@ -87,7 +87,7 @@ const NavigationBar: FC = () => {
     }
   }, [isOpen]);
 
-  const getViewLayout = () => {
+  const getViewLayout = (): React.ReactNode => {
     if (isMobile === undefined) {
       return true;
     }
@@ -131,7 +131,7 @@ const NavigationBar: FC = () => {
       {isMobile && (
         <Drawer
           placement={"top"}
-          onClose={() => setOpen(false)}
+          onClose={(): void => setOpen(false)}
           isOpen={isOpen}
         >
           <DrawerOverlay />
