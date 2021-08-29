@@ -20,7 +20,19 @@ const GameFlagQuizContainer: FC<Props> = ({ quizId }) => {
 
   return (
     <FlagGameContextProvider>
-      <GameFlagQuiz quiz={quiz} mapping={mapping} />
+      <GameFlagQuiz
+        id={quiz.id}
+        time={quiz.time}
+        name={quiz.name}
+        type={quiz.type}
+        maxScore={quiz.maxScore}
+        verb={quiz.verb}
+        route={quiz.route}
+        hasLeaderboard={quiz.hasLeaderboard}
+        hasFlags={quiz.hasFlags}
+        hasGrouping={quiz.hasGrouping}
+        mapping={mapping}
+      />
     </FlagGameContextProvider>
   );
 };

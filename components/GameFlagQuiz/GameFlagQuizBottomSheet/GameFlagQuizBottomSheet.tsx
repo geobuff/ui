@@ -24,7 +24,11 @@ import { Mapping } from "../../../types/mapping";
 interface Props {
   checkedSubmissions?: Mapping[];
   mapping?: Mapping[];
-  quiz?: Quiz;
+  hasLeaderboard?: boolean;
+  id?: number;
+  name?: string;
+  hasGrouping?: boolean;
+  hasFlags?: boolean;
   flagDragItems?: string[];
   hasGameStarted?: boolean;
   hasGameRunOnce?: boolean;
@@ -37,7 +41,11 @@ interface Props {
 const GameFlagQuizBottomSheet: FC<Props> = ({
   checkedSubmissions = [],
   mapping = [],
-  quiz = null,
+  hasLeaderboard = false,
+  id = 0,
+  name = "",
+  hasGrouping = false,
+  hasFlags = false,
   flagDragItems = [],
   hasGameStarted = false,
   hasGameRunOnce = false,
@@ -106,14 +114,14 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
       >
         <Heading pt={2} size="md">
           <Flex justifyContent="center">
-            {quiz.hasLeaderboard && (
-              <Link href={`/leaderboard?quizId=${quiz.id}`}>
+            {hasLeaderboard && (
+              <Link href={`/leaderboard?quizId=${id}`}>
                 <ChakraLink>
                   <Twemoji emoji="🏆" mr={2} />
                 </ChakraLink>
               </Link>
             )}
-            {quiz.name}
+            {name}
           </Flex>
         </Heading>
 
@@ -165,8 +173,8 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
                 checked={checkedSubmissions}
                 map={groupMapping(mapping)}
                 hasGameStopped={hasGameStopped}
-                hasGroupings={quiz.hasGrouping}
-                hasFlags={quiz.hasFlags}
+                hasGroupings={hasGrouping}
+                hasFlags={hasFlags}
               />
             </Fade>
           )}

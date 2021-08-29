@@ -18,7 +18,22 @@ const GameMapQuizContainer: FC<Props> = ({ quizId }) => {
     return <GameSpinner />;
   }
 
-  return <GameMapQuiz quiz={quiz} mapping={mapping} map={Maps[quiz.mapSVG]} />;
+  return (
+    <GameMapQuiz
+      time={quiz.time}
+      name={quiz.name}
+      type={quiz.type}
+      maxScore={quiz.maxScore}
+      verb={quiz.verb}
+      route={quiz.route}
+      id={quiz.id}
+      hasLeaderboard={quiz.hasLeaderboard}
+      hasFlags={quiz.hasFlags}
+      hasGrouping={quiz.hasGrouping}
+      mapping={mapping}
+      map={Maps[quiz.mapSVG]}
+    />
+  );
 };
 
 export default GameMapQuizContainer;
