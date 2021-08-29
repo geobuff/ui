@@ -2,7 +2,7 @@ import React, { useState, FC } from "react";
 
 import { Box, Image, Skeleton } from "@chakra-ui/react";
 
-interface Props {
+export interface Props {
   borderRadius?: number;
   height?: string;
   width?: string;

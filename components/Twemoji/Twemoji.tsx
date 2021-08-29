@@ -3,7 +3,7 @@ import twemoji from "twemoji";
 
 import { Box } from "@chakra-ui/react";
 
-interface Props {
+export interface Props {
   emoji?: string;
   height?: string | number | string[] | object;
   width?: string | number | string[] | object;

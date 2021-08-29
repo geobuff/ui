@@ -267,7 +267,11 @@ const GameFlagQuiz: FC<Props> = ({ quiz = null, mapping = [] }) => {
           <Flex grow={1} direction="column">
             {!isMobile && (
               <Box minHeight="100%">
-                <Sidebar heading={quiz.name} quiz={quiz}>
+                <Sidebar
+                  heading={quiz.name}
+                  quizId={quiz.id}
+                  hasLeaderboard={quiz.hasLeaderboard}
+                >
                   <Box>
                     <GameInputCard
                       quiz={quiz}

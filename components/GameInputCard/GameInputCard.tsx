@@ -158,7 +158,11 @@ const GameInputCard: FC<Props> = ({
       {divider}
       <Box mt={4}>
         <Text fontWeight="bold">{"RECENT"}</Text>
-        <ResultsList quiz={quiz} results={recents} />
+        <ResultsList
+          results={recents}
+          quizVerb={quiz.verb}
+          hasFlags={quiz.hasFlags}
+        />
       </Box>
     </Flex>
   );

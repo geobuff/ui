@@ -147,7 +147,11 @@ const GameBottomSheetModal: FC<Props> = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <ResultsList quiz={quiz} results={recents} />
+              <ResultsList
+                results={recents}
+                quizVerb={quiz.verb}
+                hasFlags={quiz.hasFlags}
+              />
             </Box>
 
             <ResultsMap

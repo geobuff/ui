@@ -283,7 +283,11 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
           {!shouldDisplayOnMobile && (
             <Fade in>
               <Box minHeight="100%">
-                <Sidebar heading={quiz.name} quiz={quiz}>
+                <Sidebar
+                  heading={quiz.name}
+                  quizId={quiz.id}
+                  hasLeaderboard={quiz.hasLeaderboard}
+                >
                   <Flex direction="column" height="100%">
                     <GameInputCard
                       quiz={quiz}

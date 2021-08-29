@@ -18,7 +18,11 @@ const ResultsListWrapper: FC<Props> = ({ quiz, results = [] }) => (
     </Text>
     <Divider my={3} />
     <Box>
-      <ResultsList quiz={quiz} results={results} />
+      <ResultsList
+        results={results}
+        quizVerb={quiz.verb}
+        hasFlags={quiz.hasFlags}
+      />
     </Box>
   </Box>
 );
