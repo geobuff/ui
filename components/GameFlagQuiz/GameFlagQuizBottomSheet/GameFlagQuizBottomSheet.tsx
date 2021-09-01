@@ -18,7 +18,6 @@ import { groupMapping } from "../../../helpers/mapping";
 
 import { motion } from "framer-motion";
 import { FlagGameContext } from "../../../context/FlagGameContext";
-import { Quiz } from "../../../types/quiz";
 import { Mapping } from "../../../types/mapping";
 
 interface Props {
@@ -70,7 +69,6 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
     if (dragEnd - dragStart >= 10 && !isDragging) {
       setShowResultsList(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dragEnd]);
 
   const handleDrag = (info: PointerEvent): void => {
@@ -80,6 +78,18 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
   const handleDragEnd = (info: PointerEvent): void => {
     setDragEnd(info.x);
   };
+
+  const DragIndicator: FC = () => (
+    <Box
+      margin="auto"
+      borderRadius={25}
+      height={"4.35px"}
+      width={8}
+      backgroundColor="#dddddd"
+      mb={1}
+      mt={-1}
+    />
+  );
 
   return (
     <motion.div
@@ -112,6 +122,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
         p={4}
         borderTopRadius={12}
       >
+        <DragIndicator />
         <Heading pt={2} size="md">
           <Flex justifyContent="center">
             {hasLeaderboard && (
