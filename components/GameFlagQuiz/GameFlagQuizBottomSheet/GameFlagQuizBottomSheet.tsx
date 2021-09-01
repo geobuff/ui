@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useState, useEffect, useContext, FC } from "react";
 import {
   Box,
@@ -65,15 +66,27 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dragEnd]);
 
-  const handleDrag = (event, info) => {
+  const handleDrag = (_event, info): void => {
     console.log(info.point.x, info.point.y);
     setDragStart(info.point.x);
   };
 
-  const handleDragEnd = (event, info) => {
+  const handleDragEnd = (_event, info): void => {
     console.log(info.point.x, info.point.y);
     setDragEnd(info.point.x);
   };
+
+  const DragIndicator: FC = () => (
+    <Box
+      margin="auto"
+      borderRadius={25}
+      height={"4.35px"}
+      width={8}
+      backgroundColor="#dddddd"
+      mb={1}
+      mt={-1}
+    />
+  );
 
   return (
     <motion.div
@@ -106,6 +119,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
         p={4}
         borderTopRadius={12}
       >
+        <DragIndicator />
         <Heading pt={2} size="md">
           <Flex justifyContent="center">
             {quiz.hasLeaderboard && (
