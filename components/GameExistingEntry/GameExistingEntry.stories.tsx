@@ -1,17 +1,21 @@
 import React from "react";
-import GameExistingEntry from "./GameExistingEntry";
+import GameExistingEntry, { Props } from "./GameExistingEntry";
 
 export default {
   title: "UI/GameExistingEntry",
   component: GameExistingEntry,
 };
 
-const Template = (args) => <GameExistingEntry {...args} />;
+const Template = (args: Props): React.ReactNode => (
+  <GameExistingEntry {...args} />
+);
 
 export const Default = Template.bind({});
+
 Default.args = {
   rank: 22943,
-  time: "15:00",
   score: 0,
+  time: 900,
   username: "👑 KingKirb",
+  isLoading: false,
 };

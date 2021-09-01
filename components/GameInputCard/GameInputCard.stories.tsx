@@ -1,33 +1,53 @@
 import React from "react";
-import GameInputCard from "./GameInputCard";
+import { Result } from "../../types/result";
+import GameInputCard, { Props } from "./GameInputCard";
 
 export default {
   title: "UI/GameInputCard",
   component: GameInputCard,
 };
 
-const recentCountries = [
+const Template = (args: Props): React.ReactNode => <GameInputCard {...args} />;
+
+export const Default = Template.bind({});
+
+const recents: Result[] = [
   {
+    name: "new zealand",
     code: "NZ",
     svgName: "New Zealand",
+    isHidden: false,
+    isMissedResult: false,
   },
   {
+    name: "brazil",
     code: "BR",
     svgName: "Brasil",
+    isHidden: false,
+    isMissedResult: false,
   },
   {
+    name: "france",
     code: "FR",
     svgName: "France",
+    isHidden: false,
+    isMissedResult: false,
   },
 ];
 
-const Template = (args) => <GameInputCard {...args} />;
-
-export const Default = Template.bind({});
 Default.args = {
-  quiz: {},
+  type: 1,
+  maxScore: 197,
+  verb: "countries",
+  time: 900,
+  hasFlags: true,
+  recents: recents,
   score: 69,
-  total: 193,
-  countries: recentCountries,
-  hasGameStarted: true,
+  expiryTimestamp: { minutes: 0, seconds: 0 },
+  errorMessage: "",
+  hasGameRunOnce: false,
+  hasGameStarted: false,
+  hasGameStopped: false,
+  hasError: false,
+  inputValue: "",
 };

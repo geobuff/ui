@@ -15,7 +15,7 @@ interface Props {
 const GameMap: FC<Props> = ({
   showTooltip = false,
   map = null,
-  onLocationClassName = () => {},
+  onLocationClassName = (location: SVGLocation): string => "",
 }) => {
   const [tooltipText, setTooltipText] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -24,19 +24,19 @@ const GameMap: FC<Props> = ({
 
   const shouldRenderTooltip = useBreakpointValue({ base: false, md: true });
 
-  const mouseOver = (event) => {
+  const mouseOver = (event: React.MouseEvent<SVGElement>): void => {
     if (!showTooltip) return;
-    setTooltipText(event.target.getAttribute("name"));
+    setTooltipText(event.currentTarget.getAttribute("name"));
   };
 
-  const mouseMove = (event) => {
+  const mouseMove = (event: React.MouseEvent<SVGElement>): void => {
     if (!showTooltip || !tooltipText) return;
     setTooltipOpen(true);
     setTooltipTop(event.clientY + 10);
     setTooltipLeft(event.clientX - 100);
   };
 
-  const mouseOut = () => {
+  const mouseOut = (): void => {
     if (!showTooltip) return;
     setTooltipText(null);
     setTooltipOpen(false);

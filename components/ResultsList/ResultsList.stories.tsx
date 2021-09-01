@@ -94,12 +94,12 @@ export const NoFlags = Template.bind({});
 
 HasFlags.args = {
   results,
-  quizVerb: "countries",
+  verb: "countries",
   hasFlags: true,
 };
 
 NoFlags.args = {
   results,
-  quizVerb: "countries",
+  verb: "countries",
   hasFlags: false,
 };

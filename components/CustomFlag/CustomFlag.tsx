@@ -32,7 +32,7 @@ const CustomFlag: FC<Props> = ({
         height={height}
         width={width}
         objectFit="cover"
-        onLoad={() => setHasLoaded(true)}
+        onLoad={(): void => setHasLoaded(true)}
       />
       <Skeleton
         display={hasLoaded ? "none" : "flex"}

@@ -6,7 +6,6 @@ export default {
   component: NavigationBar,
 };
 
-const Template = (args) => <NavigationBar {...args} />;
+const Template = (): React.ReactNode => <NavigationBar />;
 
 export const Default = Template.bind({});
-Default.args = {};

@@ -1,7 +1,7 @@
 import React, { useEffect, useState, FC } from "react";
 import { Image as ChakraImage, Skeleton } from "@chakra-ui/react";
 
-interface Props {
+export interface Props {
   src?: string;
   height?: string;
   width?: string;
@@ -20,7 +20,7 @@ const Image: FC<Props> = ({
     setIsLoading(true);
   }, [src]);
 
-  const handleLoad = () => setIsLoading(false);
+  const handleLoad = (): void => setIsLoading(false);
 
   return (
     <>

@@ -8,17 +8,20 @@ import GameOverModal from "../../components/GameOverModal";
 import axiosClient from "../../axios/axiosClient";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import { getLevel } from "../../helpers/gamification";
+import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
 import {
   entrySubmitted,
   levelUp,
   increaseXP as increaseXPToast,
 } from "../../helpers/toasts";
-import { Quiz } from "../../types/quiz";
-import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
 interface Props {
-  quiz?: Quiz;
+  id?: number;
+  hasLeaderboard?: boolean;
+  route?: string;
+  name?: string;
+  maxScore?: number;
   score?: number;
   time?: number;
   isOpen?: boolean;
@@ -29,7 +32,11 @@ interface Props {
 }
 
 const GameOverModalContainer: FC<Props> = ({
-  quiz = null,
+  id = 0,
+  hasLeaderboard = false,
+  route = "",
+  name = "",
+  maxScore = 0,
   score = 0,
   time = 0,
   isOpen = false,
@@ -66,7 +73,7 @@ const GameOverModalContainer: FC<Props> = ({
       return;
     }
 
-    axiosClient.put(`/plays/${quiz.id}`);
+    axiosClient.put(`/plays/${id}`);
     if (!user || score === 0) {
       setIsLoading(false);
       return;
@@ -77,7 +84,7 @@ const GameOverModalContainer: FC<Props> = ({
       setXPUpdated(true);
     }
 
-    if (!quiz.hasLeaderboard) {
+    if (!hasLeaderboard) {
       setIsLoading(false);
     } else {
       getLeaderboardEntry();
@@ -109,7 +116,7 @@ const GameOverModalContainer: FC<Props> = ({
   };
 
   const getLeaderboardEntry = (): void => {
-    axiosClient.get(`/leaderboard/${quiz.id}/${user.id}`).then((response) => {
+    axiosClient.get(`/leaderboard/${id}/${user.id}`).then((response) => {
       if (response.status !== 200) {
         setIsLoading(false);
         return;
@@ -137,7 +144,7 @@ const GameOverModalContainer: FC<Props> = ({
         pathname: pathname,
         query: {
           data: JSON.stringify({
-            redirect: `/quiz/${quiz.route}`,
+            redirect: `/quiz/${route}`,
             tempScoreId: response.data,
           }),
         },
@@ -150,7 +157,7 @@ const GameOverModalContainer: FC<Props> = ({
       .post(
         `/leaderboard`,
         {
-          quizId: quiz.id,
+          quizId: id,
           userId: user.id,
           score: score,
           time: time,
@@ -185,7 +192,8 @@ const GameOverModalContainer: FC<Props> = ({
 
   return (
     <GameOverModal
-      quiz={quiz}
+      quizName={name}
+      maxScore={maxScore}
       score={score}
       time={time}
       existingEntry={entry}
@@ -194,7 +202,7 @@ const GameOverModalContainer: FC<Props> = ({
       isOpen={isOpen}
       isSubmitting={isSubmitting}
       onClose={onClose}
-      onSubmit={quiz.hasLeaderboard ? handleSubmitEntry : null}
+      onSubmit={hasLeaderboard ? handleSubmitEntry : null}
       onRedirectWithScore={handleRedirectWithScore}
     />
   );

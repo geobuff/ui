@@ -1,8 +1,14 @@
 import React, { FC } from "react";
 import { AspectRatio, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
-import { useDrop } from "react-dnd";
+import { DropTargetMonitor, useDrop } from "react-dnd";
 
 import { ItemTypes } from "../../types/item-types";
+import { DragResult } from "../../types/drag-result";
+
+interface CollectResult {
+  isOver: boolean;
+  canDrop: boolean;
+}
 
 interface Props {
   acceptedFlagName?: string;
@@ -21,8 +27,8 @@ const FlagDropZone: FC<Props> = ({
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.FLAG,
-    drop: () => ({ name: ItemTypes.DROPZONE }),
-    collect: (monitor) => ({
+    drop: (): DragResult => ({ name: ItemTypes.DROPZONE }),
+    collect: (monitor: DropTargetMonitor): CollectResult => ({
       isOver: monitor.isOver(),
       canDrop: monitor.canDrop(),
     }),

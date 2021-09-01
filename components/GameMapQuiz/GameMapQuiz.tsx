@@ -21,7 +21,6 @@ import {
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
-import GameBottomSheetModal from "../GameBottomSheetModal";
 import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
@@ -44,19 +43,41 @@ import {
   findSubmissionByNames,
   findSubmissionsByPrefixes,
 } from "../../helpers/game";
-import { Quiz } from "../../types/quiz";
 import { Mapping } from "../../types/mapping";
 import { SVGLocation } from "../../types/svg-location";
 import { Map } from "../../types/map";
 import { Result } from "../../types/result";
+import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
 
 interface Props {
-  quiz?: Quiz;
+  time?: number;
+  name?: string;
+  type?: number;
+  maxScore?: number;
+  verb?: string;
+  route?: string;
+  id?: number;
+  hasLeaderboard?: boolean;
+  hasFlags?: boolean;
+  hasGrouping?: boolean;
   mapping?: Mapping[];
   map?: Map;
 }
 
-const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
+const GameMapQuiz: FC<Props> = ({
+  time = 0,
+  name = "",
+  type = 0,
+  maxScore = 0,
+  verb = "",
+  route = "",
+  id = 0,
+  hasLeaderboard = false,
+  hasFlags = false,
+  hasGrouping = false,
+  mapping = [],
+  map = null,
+}) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useCurrentUser();
 
@@ -82,8 +103,8 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
   const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const quizDateTime = useCallback(
-    () => DateTime.now().plus({ seconds: quiz.time }),
-    [quiz]
+    () => DateTime.now().plus({ seconds: time }),
+    [time]
   );
 
   useEffect(() => {
@@ -94,7 +115,7 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
         .then((response) => {
           const tempScore = response.data;
           setScore(tempScore.score);
-          restart(DateTime.now().plus({ seconds: quiz.time - tempScore.time }));
+          restart(DateTime.now().plus({ seconds: time - tempScore.time }));
           handleGameStop();
         })
         .catch(() => {
@@ -254,7 +275,7 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
   return (
     <>
       <Head>
-        <title>{quiz.name} - GeoBuff</title>
+        <title>{name} - GeoBuff</title>
       </Head>
 
       <Flex
@@ -266,7 +287,10 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
       >
         {shouldDisplayOnMobile && (
           <GameInputBanner
-            quiz={quiz}
+            type={type}
+            maxScore={maxScore}
+            verb={verb}
+            time={time}
             score={score}
             errorMessage={errorMessage}
             expiryTimestamp={{ seconds, minutes }}
@@ -284,13 +308,17 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
             <Fade in>
               <Box minHeight="100%">
                 <Sidebar
-                  heading={quiz.name}
-                  quizId={quiz.id}
-                  hasLeaderboard={quiz.hasLeaderboard}
+                  heading={name}
+                  quizId={id}
+                  hasLeaderboard={hasLeaderboard}
                 >
                   <Flex direction="column" height="100%">
                     <GameInputCard
-                      quiz={quiz}
+                      type={type}
+                      maxScore={maxScore}
+                      time={time}
+                      verb={verb}
+                      hasFlags={hasFlags}
                       recents={recentSubmissions}
                       score={score}
                       expiryTimestamp={{ seconds, minutes }}
@@ -309,8 +337,8 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
                       checked={checkedSubmissions}
                       map={groupMapping(mapping)}
                       hasGameStopped={hasGameStopped}
-                      hasGroupings={quiz.hasGrouping}
-                      hasFlags={quiz.hasFlags}
+                      hasGroupings={hasGrouping}
+                      hasFlags={hasFlags}
                     />
                   </Flex>
                 </Sidebar>
@@ -327,8 +355,13 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
           </Fade>
 
           {shouldDisplayOnMobile && (
-            <GameBottomSheetModal
-              quiz={quiz}
+            <GameMapQuizBottomSheet
+              hasLeaderboard={hasLeaderboard}
+              id={id}
+              name={name}
+              verb={verb}
+              hasFlags={hasFlags}
+              hasGrouping={hasGrouping}
               mapping={mapping}
               checked={checkedSubmissions}
               recents={recentSubmissions}
@@ -365,12 +398,16 @@ const GameMapQuiz: FC<Props> = ({ quiz = null, mapping = [], map = null }) => {
             </Box>
           )}
           <GameOverModalContainer
-            quiz={quiz}
+            id={id}
+            hasLeaderboard={hasLeaderboard}
+            route={route}
+            name={name}
+            maxScore={maxScore}
             score={score}
             time={
               minutes === 0 && seconds === 0
-                ? quiz.time
-                : quiz.time - (seconds + minutes * 60)
+                ? time
+                : time - (seconds + minutes * 60)
             }
             isOpen={isOpen}
             onClose={onClose}

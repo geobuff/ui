@@ -9,7 +9,6 @@ body,
 #__next {
   /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }

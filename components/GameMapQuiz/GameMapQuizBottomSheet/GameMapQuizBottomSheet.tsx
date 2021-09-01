@@ -12,50 +12,52 @@ import {
 } from "@chakra-ui/react";
 import Sheet from "react-modal-sheet";
 
-import ResultsList from "../ResultsList";
-import ResultsMap from "../ResultsMap";
-import Twemoji from "../Twemoji";
+import ResultsList from "../../ResultsList";
+import ResultsMap from "../../ResultsMap";
+import Twemoji from "../../Twemoji";
 
-import { groupMapping } from "../../helpers/mapping";
-import GameFlags from "../GameFlags/GameFlags";
-import { Quiz } from "../../types/quiz";
-import { Mapping } from "../../types/mapping";
-import { QuizType } from "../../types/quiz-type";
-import { Result } from "../../types/result";
+import { groupMapping } from "../../../helpers/mapping";
+import { Mapping } from "../../../types/mapping";
+import { Result } from "../../../types/result";
 
 const snapPoints = [600, 400, 300, 100];
 const initialSnap = snapPoints.length - 2;
 
-interface Props {
-  quiz?: Quiz;
+export interface Props {
+  hasLeaderboard?: boolean;
+  id?: number;
+  name?: string;
+  verb?: string;
+  hasFlags?: boolean;
+  hasGrouping?: boolean;
   mapping?: Mapping[];
   checked?: Mapping[];
   recents?: Result[];
-  codes?: string[];
   hasGameRunOnce?: boolean;
   hasGameStarted?: boolean;
   hasGameStopped?: boolean;
   isOpen?: boolean;
-  onGameStart?: any;
-  onGameStop?: any;
-  onCheckSubmission?: any;
+  onGameStart?: () => void;
+  onGameStop?: () => void;
 }
 
-const GameBottomSheetModal: FC<Props> = ({
-  quiz = null,
+const GameMapQuizBottomSheet: FC<Props> = ({
+  hasLeaderboard = false,
+  id = 0,
+  name = "",
+  verb = "",
+  hasFlags = false,
+  hasGrouping = false,
   mapping = [],
   checked = [],
   recents = [],
-  codes = [],
   hasGameRunOnce = false,
   hasGameStarted = false,
   hasGameStopped = false,
   isOpen = false,
-  onGameStart = () => {},
-  onGameStop = () => {},
-  onCheckSubmission = () => {},
+  onGameStart = (): void => {},
+  onGameStop = (): void => {},
 }) => {
-  const isFlagQuiz = quiz.type === QuizType.FLAG;
   const ref = createRef<any>();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -66,7 +68,7 @@ const GameBottomSheetModal: FC<Props> = ({
     }
   }, [hasGameStarted, isMobile]);
 
-  const snapTo = (snapIndex) => ref?.current?.snapTo(snapIndex);
+  const snapTo = (snapIndex: number): void => ref?.current?.snapTo(snapIndex);
 
   return (
     <Box
@@ -83,7 +85,7 @@ const GameBottomSheetModal: FC<Props> = ({
         damping: 60,
         mass: 0.2,
       }}
-      onClose={() => {}}
+      onClose={(): void => {}}
     >
       <Sheet.Container style={{ position: "fixed" }}>
         <Box pt={1} height="54px" as={Sheet.Header} />
@@ -99,28 +101,18 @@ const GameBottomSheetModal: FC<Props> = ({
             <Box>
               <Heading pt={0} size="md">
                 <Flex justifyContent="center">
-                  {quiz.hasLeaderboard && (
-                    <Link href={`/leaderboard?quizId=${quiz.id}`}>
+                  {hasLeaderboard && (
+                    <Link href={`/leaderboard?quizId=${id}`}>
                       <ChakraLink>
                         <Twemoji emoji="🏆" mr={2} />
                       </ChakraLink>
                     </Link>
                   )}
-                  {quiz.name}
+                  {name}
                 </Flex>
               </Heading>
 
               <Divider my={4} />
-
-              {isFlagQuiz && (
-                <>
-                  <GameFlags
-                    codes={codes}
-                    onCheckSubmission={onCheckSubmission}
-                  />
-                  <Divider my={4} />
-                </>
-              )}
 
               <Box my={4}>
                 <Button
@@ -147,19 +139,15 @@ const GameBottomSheetModal: FC<Props> = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <ResultsList
-                results={recents}
-                quizVerb={quiz.verb}
-                hasFlags={quiz.hasFlags}
-              />
+              <ResultsList results={recents} verb={verb} hasFlags={hasFlags} />
             </Box>
 
             <ResultsMap
               checked={checked}
               map={groupMapping(mapping)}
               hasGameStopped={hasGameStopped}
-              hasGroupings={quiz.hasGrouping}
-              hasFlags={quiz.hasFlags}
+              hasGroupings={hasGrouping}
+              hasFlags={hasFlags}
             />
           </Flex>
         </Sheet.Content>
@@ -168,4 +156,4 @@ const GameBottomSheetModal: FC<Props> = ({
   );
 };
 
-export default GameBottomSheetModal;
+export default GameMapQuizBottomSheet;

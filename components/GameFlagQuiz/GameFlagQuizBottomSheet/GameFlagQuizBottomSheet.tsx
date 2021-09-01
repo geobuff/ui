@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
 import React, { useState, useEffect, useContext, FC } from "react";
 import {
   Box,
@@ -19,13 +18,16 @@ import { groupMapping } from "../../../helpers/mapping";
 
 import { motion } from "framer-motion";
 import { FlagGameContext } from "../../../context/FlagGameContext";
-import { Quiz } from "../../../types/quiz";
 import { Mapping } from "../../../types/mapping";
 
 interface Props {
   checkedSubmissions?: Mapping[];
   mapping?: Mapping[];
-  quiz?: Quiz;
+  hasLeaderboard?: boolean;
+  id?: number;
+  name?: string;
+  hasGrouping?: boolean;
+  hasFlags?: boolean;
   flagDragItems?: string[];
   hasGameStarted?: boolean;
   hasGameRunOnce?: boolean;
@@ -38,14 +40,18 @@ interface Props {
 const GameFlagQuizBottomSheet: FC<Props> = ({
   checkedSubmissions = [],
   mapping = [],
-  quiz = null,
+  hasLeaderboard = false,
+  id = 0,
+  name = "",
+  hasGrouping = false,
+  hasFlags = false,
   flagDragItems = [],
   hasGameStarted = false,
   hasGameRunOnce = false,
   hasGameStopped = false,
-  onCheckSubmission = () => {},
-  onGameStop = () => {},
-  onGameStart = () => {},
+  onCheckSubmission = (submission: string): void => {},
+  onGameStop = (): void => {},
+  onGameStart = (): void => {},
 }) => {
   const [showResultList, setShowResultsList] = useState(false);
 
@@ -63,17 +69,14 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
     if (dragEnd - dragStart >= 10 && !isDragging) {
       setShowResultsList(true);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [dragEnd]);
 
-  const handleDrag = (_event, info): void => {
-    console.log(info.point.x, info.point.y);
-    setDragStart(info.point.x);
+  const handleDrag = (info: PointerEvent): void => {
+    setDragStart(info.x);
   };
 
-  const handleDragEnd = (_event, info): void => {
-    console.log(info.point.x, info.point.y);
-    setDragEnd(info.point.x);
+  const handleDragEnd = (info: PointerEvent): void => {
+    setDragEnd(info.x);
   };
 
   const DragIndicator: FC = () => (
@@ -122,14 +125,14 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
         <DragIndicator />
         <Heading pt={2} size="md">
           <Flex justifyContent="center">
-            {quiz.hasLeaderboard && (
-              <Link href={`/leaderboard?quizId=${quiz.id}`}>
+            {hasLeaderboard && (
+              <Link href={`/leaderboard?quizId=${id}`}>
                 <ChakraLink>
                   <Twemoji emoji="🏆" mr={2} />
                 </ChakraLink>
               </Link>
             )}
-            {quiz.name}
+            {name}
           </Flex>
         </Heading>
 
@@ -173,7 +176,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
                 my={4}
                 isFullWidth
                 variant="outline"
-                onClick={() => setShowResultsList(!showResultList)}
+                onClick={(): void => setShowResultsList(!showResultList)}
               >
                 {"Results"}
               </Button>
@@ -181,8 +184,8 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
                 checked={checkedSubmissions}
                 map={groupMapping(mapping)}
                 hasGameStopped={hasGameStopped}
-                hasGroupings={quiz.hasGrouping}
-                hasFlags={quiz.hasFlags}
+                hasGroupings={hasGrouping}
+                hasFlags={hasFlags}
               />
             </Fade>
           )}

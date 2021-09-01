@@ -42,8 +42,8 @@ const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
   existingEntry = null,
   isLoggedIn = false,
   isLoading = true,
-  onSubmit = () => {},
-  onRedirectWithScore = () => {},
+  onSubmit = (existingEntry: LeaderboardEntry): void => {},
+  onRedirectWithScore = (path: string): void => {},
 }) => {
   const scoreQuizNotLoggedIn = !onSubmit && !isLoggedIn;
   const scoreQuizLoggedIn = !onSubmit && isLoggedIn;
@@ -58,7 +58,7 @@ const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
         You must{" "}
         <Button
           variant="link"
-          onClick={() => onRedirectWithScore("/login")}
+          onClick={(): void => onRedirectWithScore("/login")}
           fontSize="14px"
           minWidth="0"
         >
@@ -67,7 +67,7 @@ const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
         or{" "}
         <Button
           variant="link"
-          onClick={() => onRedirectWithScore("/register")}
+          onClick={(): void => onRedirectWithScore("/register")}
           fontSize="14px"
           minWidth="0"
         >
@@ -84,7 +84,7 @@ const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
         You must{" "}
         <Button
           variant="link"
-          onClick={() => onRedirectWithScore("/login")}
+          onClick={(): void => onRedirectWithScore("/login")}
           fontSize="14px"
           minWidth="0"
         >
@@ -93,7 +93,7 @@ const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
         or{" "}
         <Button
           variant="link"
-          onClick={() => onRedirectWithScore("/register")}
+          onClick={(): void => onRedirectWithScore("/register")}
           fontSize="14px"
           minWidth="0"
         >
