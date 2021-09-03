@@ -48,6 +48,7 @@ import { SVGLocation } from "../../types/svg-location";
 import { Map } from "../../types/map";
 import { Result } from "../../types/result";
 import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
+import { GameOverRedirect } from "../../types/game-over-redirect";
 
 interface Props {
   time?: number;
@@ -109,7 +110,7 @@ const GameMapQuiz: FC<Props> = ({
 
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
-      const data = JSON.parse(router.query.data[0]);
+      const data: GameOverRedirect = JSON.parse(router.query.data as string);
       axiosClient
         .get(`/tempscores/${data.tempScoreId}`)
         .then((response) => {

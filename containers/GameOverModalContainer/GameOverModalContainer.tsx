@@ -15,6 +15,8 @@ import {
   levelUp,
   increaseXP as increaseXPToast,
 } from "../../helpers/toasts";
+import { GameOverRedirect } from "../../types/game-over-redirect";
+import { TempScore } from "../../types/temp-score";
 
 interface Props {
   id?: number;
@@ -138,15 +140,17 @@ const GameOverModalContainer: FC<Props> = ({
   };
 
   const handleRedirectWithScore = (pathname: string): void => {
-    const tempScore = { score, time };
+    const tempScore: TempScore = { score, time };
     axiosClient.post("/tempscores", tempScore).then((response) => {
+      const redirectData: GameOverRedirect = {
+        redirect: `/quiz/${route}`,
+        tempScoreId: response.data,
+      };
+
       router.push({
         pathname: pathname,
         query: {
-          data: JSON.stringify({
-            redirect: `/quiz/${route}`,
-            tempScoreId: response.data,
-          }),
+          data: JSON.stringify(redirectData),
         },
       });
     });

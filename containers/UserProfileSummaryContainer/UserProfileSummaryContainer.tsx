@@ -4,6 +4,7 @@ import { useStripe } from "@stripe/react-stripe-js";
 import axiosClient from "../../axios/axiosClient";
 import UserProfileSummary from "../../components/UserProfileSummary";
 import useCurrentUser from "../../hooks/UseCurrentUser";
+import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
 
 const UserProfileSummaryContainer: FC = () => {
   const { user } = useCurrentUser();
@@ -42,9 +43,12 @@ const UserProfileSummaryContainer: FC = () => {
       });
   };
 
+  if (isLoading) {
+    return <UserProfileSummaryPlaceholder />;
+  }
+
   return (
     <UserProfileSummary
-      isLoading={isLoading}
       onClickUpgrade={handleClickUpgrade}
       onClickManage={handleClickManage}
       {...user}

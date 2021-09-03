@@ -18,7 +18,7 @@ const Success: FC = () => {
 
   useEffect(() => {
     if (!isUserLoading && user) {
-      const sessionId = router.query.session_id[0];
+      const sessionId = router.query.session_id as string;
       const payload: Payload = {
         userId: user.id,
         sessionId: sessionId,

@@ -26,10 +26,7 @@ import SolidPencil from "../../Icons/SolidPencil";
 import useCountries from "../../hooks/useCountries";
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 
-import LoadingPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
-
 interface Props {
-  isLoading?: boolean;
   onClickUpgrade?: () => void;
   onClickManage?: () => void;
   username?: string;
@@ -45,7 +42,6 @@ interface Props {
 }
 
 const UserProfileSummary: FC<Props> = ({
-  isLoading = false,
   onClickUpgrade = (): void => {},
   onClickManage = (): void => {},
   username = "",
@@ -65,10 +61,6 @@ const UserProfileSummary: FC<Props> = ({
 
   const matchedCountry = countries?.find(({ value }) => value === countryCode)
     ?.label;
-
-  if (isLoading) {
-    return <LoadingPlaceholder />;
-  }
 
   return (
     <>
