@@ -11,8 +11,10 @@ import {
   Center,
 } from "@chakra-ui/react";
 
+import Card from "../../components/Card";
+
 const UserProfileAchievementsPlaceholder: FC = () => (
-  <Box>
+  <Card padding={6}>
     <Skeleton>
       <Heading size="md" mt={6} mb={12}>
         Achievements
@@ -36,7 +38,7 @@ const UserProfileAchievementsPlaceholder: FC = () => (
       <Skeleton height="50px" width="50px" mx={3} />
       <Skeleton height="50px" width="50px" mx={3} />
     </Center>
-  </Box>
+  </Card>
 );
 
 export default UserProfileAchievementsPlaceholder;

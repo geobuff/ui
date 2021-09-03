@@ -12,8 +12,10 @@ import {
   Td,
 } from "@chakra-ui/react";
 
+import Card from "../../components/Card";
+
 const UserProfileLeaderboardEntriesPlaceholder: FC = () => (
-  <Box>
+  <Card padding={6}>
     <Skeleton>
       <Heading size="md" m={6}>
         Leaderboard Entries
@@ -35,7 +37,7 @@ const UserProfileLeaderboardEntriesPlaceholder: FC = () => (
         </Table>
       </Skeleton>
     </Box>
-  </Box>
+  </Card>
 );
 
 export default UserProfileLeaderboardEntriesPlaceholder;
