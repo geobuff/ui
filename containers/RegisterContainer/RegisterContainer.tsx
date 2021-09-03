@@ -9,6 +9,7 @@ import RegisterForm from "../../components/RegisterForm";
 import useCurrentUser from "../../hooks/UseCurrentUser";
 import { DecodedToken } from "../../types/decoded-token";
 import { RegisterFormSubmit } from "../../types/register-form-submit";
+import { GameOverRedirect } from "../../types/game-over-redirect";
 
 const RegisterContainer: FC = () => {
   const router = useRouter();
@@ -66,7 +67,10 @@ const RegisterContainer: FC = () => {
         });
 
         if (router.query.data) {
-          const data = JSON.parse(router.query.data[0]);
+          const data: GameOverRedirect = JSON.parse(
+            router.query.data as string
+          );
+
           router.push({
             pathname: data.redirect,
             query: {

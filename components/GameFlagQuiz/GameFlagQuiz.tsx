@@ -30,6 +30,7 @@ import { findSubmissionByCode } from "../../helpers/game";
 import GameFlagQuizBottomSheet from "./GameFlagQuizBottomSheet";
 import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
+import { GameOverRedirect } from "../../types/game-over-redirect";
 
 interface Props {
   id?: number;
@@ -97,7 +98,7 @@ const GameFlagQuiz: FC<Props> = ({
 
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
-      const data = JSON.parse(router.query.data[0]);
+      const data: GameOverRedirect = JSON.parse(router.query.data as string);
       axiosClient
         .get(`/tempscores/${data.tempScoreId}`)
         .then((response) => {

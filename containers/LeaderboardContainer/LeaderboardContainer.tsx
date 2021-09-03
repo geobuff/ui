@@ -13,7 +13,7 @@ interface Props {
 
 const LeaderboardContainer: FC<Props> = ({
   defaultQuizId = "1",
-  rankParam,
+  rankParam = "",
 }) => {
   const { quizzes, isLoading: isLoadingQuizzes } = useQuizzes();
 

@@ -12,6 +12,12 @@ import {
 import Search from "../../../Icons/Search";
 import { Quiz } from "../../../types/quiz";
 
+enum RangeFilters {
+  All = "All Time",
+  Week = "This Week",
+  Today = "Today",
+}
+
 interface Props {
   quizId?: string;
   quizzes?: Quiz[];
@@ -84,9 +90,9 @@ const LeaderboardFilters: FC<Props> = ({
           onChange={onChangeRange}
           isDisabled={isLoading}
         >
-          <option value={null}>{"All Time"}</option>
-          <option value="week">{"This Week"}</option>
-          <option value="day">{"Today"}</option>
+          <option value={null}>{RangeFilters.All}</option>
+          <option value="week">{RangeFilters.Week}</option>
+          <option value="day">{RangeFilters.Today}</option>
         </Select>
       </Flex>
 

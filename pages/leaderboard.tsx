@@ -16,8 +16,8 @@ const Leaderboard: FC = () => {
       </Head>
       <MainView>
         <LeaderboardContainer
-          defaultQuizId={quizId && quizId[0]}
-          rankParam={rank && rank[0]}
+          defaultQuizId={quizId && (quizId as string)}
+          rankParam={rank && (rank as string)}
         />
       </MainView>
     </>

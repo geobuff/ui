@@ -8,6 +8,7 @@ import useCurrentUser from "../../hooks/UseCurrentUser";
 import LoginForm from "../../components/LoginForm";
 import { DecodedToken } from "../../types/decoded-token";
 import { LoginFormSubmit } from "../../types/login-form-submit";
+import { GameOverRedirect } from "../../types/game-over-redirect";
 
 const LoginContainer: FC = () => {
   const router = useRouter();
@@ -47,7 +48,10 @@ const LoginContainer: FC = () => {
         });
 
         if (router.query.data) {
-          const data = JSON.parse(router.query.data[0]);
+          const data: GameOverRedirect = JSON.parse(
+            router.query.data as string
+          );
+
           router.push({
             pathname: data.redirect,
             query: {

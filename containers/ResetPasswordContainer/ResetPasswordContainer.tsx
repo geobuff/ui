@@ -49,7 +49,7 @@ const ResetPasswordContainer: FC = () => {
     setError(null);
     axiosClient
       .put("/auth", {
-        userId: parseInt(userId[0]),
+        userId: parseInt(userId as string),
         token,
         password: values.password,
       })
