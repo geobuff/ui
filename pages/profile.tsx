@@ -1,10 +1,10 @@
-import React, { useEffect, FC } from "react";
+import React, { useEffect, FC, useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 import UserProfileContainer from "../containers/UserProfileContainer";
 import MainView from "../components/MainView";
-import useCurrentUser from "../hooks/UseCurrentUser";
+import { CurrentUserContext } from "../context/CurrentUserContext";
 
 const Profile: FC = () => {
   const router = useRouter();
@@ -14,7 +14,7 @@ const Profile: FC = () => {
     isLoading: isUserLoading,
     clearUser,
     tokenExpired,
-  } = useCurrentUser();
+  } = useContext(CurrentUserContext);
 
   useEffect(() => {
     if (!isUserLoading && user && tokenExpired(user.token)) {

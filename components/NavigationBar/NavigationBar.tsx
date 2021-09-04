@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, FC, useContext } from "react";
 import dynamic from "next/dynamic";
 
 import {
@@ -18,9 +18,9 @@ import {
 import Link from "next/link";
 
 import { Squash as Hamburger } from "hamburger-react";
-import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import Logo from "../Logo";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
   ssr: false,
@@ -72,7 +72,7 @@ const desktopLayout = (
 
 const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const { user } = useCurrentUser();
+  const { user } = useContext(CurrentUserContext);
 
   const [isOpen, setOpen] = useState(false);
   const [zIndex, setZIndex] = useState(5);

@@ -1,17 +1,17 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, FC, useContext } from "react";
 import { useRouter } from "next/router";
 
 import axiosClient from "../../axios/axiosClient";
-import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import ResetPasswordForm from "../../components/ResetPasswordForm";
 import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const ResetPasswordContainer: FC = () => {
   const router = useRouter();
   const { userId, token } = router.query;
 
-  const { user, isLoading: isLoadingUser } = useCurrentUser();
+  const { user, isLoading: isLoadingUser } = useContext(CurrentUserContext);
 
   const [isLoading, setIsLoading] = useState(true);
 

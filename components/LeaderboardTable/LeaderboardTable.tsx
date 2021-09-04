@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import flag from "country-code-emoji";
 
 import {
@@ -15,7 +15,6 @@ import {
   Tbody,
 } from "@chakra-ui/react";
 
-import useCurrentUser from "../../hooks/UseCurrentUser";
 import LeaderTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
 import FlagFallback from "../ResultsListItem/FlagFallback/FlagFallback";
 import Twemoji from "../Twemoji";
@@ -24,6 +23,7 @@ import TableCell from "../TableCell";
 import { secondsToMinutesString } from "../../helpers/time";
 import Sparkles from "../Sparkles/Sparkles";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -31,7 +31,7 @@ interface Props {
 }
 
 const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
-  const { user } = useCurrentUser();
+  const { user } = useContext(CurrentUserContext);
 
   if (isLoading && !entries.length) {
     return <LeaderTablePlaceholder />;
