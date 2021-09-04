@@ -10,10 +10,15 @@ import { ItemTypes } from "../../types/item-types";
 import { usePreview } from "react-dnd-preview";
 import { FlagGameContext } from "../../context/FlagGameContext";
 import { DragResult } from "../../types/drag-result";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 // TODO: add a nice preview for mobile
 const DraggableFlagPreview: FC = () => {
   const { display, itemType, style } = usePreview();
+  const { userAgent } = useContext(CurrentUserContext);
+
+  console.log(userAgent, "userAgent:flags");
+
   if (!display) {
     return null;
   }

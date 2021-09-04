@@ -8,8 +8,14 @@ import MainView from "../../components/MainView";
 
 import { QuizType } from "../../types/quiz-type";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { useUserAgent } from "next-useragent";
 
-const Quiz: FC = () => {
+interface Props {
+  [x: string]: any;
+}
+
+const Quiz: FC<Props> = ({ ...pageProps }) => {
+  const nextUserAgent = useUserAgent(pageProps?.uaString);
   const { quizzes, isLoading } = useQuizzes();
   const router = useRouter();
   const { id } = router.query;
@@ -19,7 +25,15 @@ const Quiz: FC = () => {
     isLoading: isUserLoading,
     clearUser,
     tokenExpired,
+    userAgent: contextUserAgent,
+    updateUserAgent,
   } = useContext(CurrentUserContext);
+
+  useEffect(() => {
+    if (!contextUserAgent && nextUserAgent) {
+      updateUserAgent(nextUserAgent);
+    }
+  }, [updateUserAgent, nextUserAgent, contextUserAgent]);
 
   useEffect(() => {
     if (!isUserLoading && user && tokenExpired(user.token)) {
@@ -55,5 +69,14 @@ const Quiz: FC = () => {
     </MainView>
   );
 };
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export function getServerSideProps(context) {
+  return {
+    props: {
+      uaString: context.req.headers["user-agent"],
+    },
+  };
+}
 
 export default Quiz;
