@@ -1,13 +1,15 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, FC, useContext } from "react";
 import { useRouter } from "next/router";
 import { Text } from "@chakra-ui/react";
 
-import useCurrentUser from "../../hooks/UseCurrentUser";
 import axiosClient from "../../axios/axiosClient";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const ManageRedirect: FC = () => {
   const router = useRouter();
-  const { user, isLoading: isUserLoading, updateUser } = useCurrentUser();
+  const { user, isLoading: isUserLoading, updateUser } = useContext(
+    CurrentUserContext
+  );
 
   const [isLoading, setIsLoading] = useState(true);
 

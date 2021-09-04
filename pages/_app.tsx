@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import React, { useEffect, FC } from "react";
+import React, { useEffect, FC, useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -14,7 +14,10 @@ import { isMobile } from "react-device-detect";
 import "../styles/globals.css";
 import theme from "../styles/theme";
 
-import useCurrentUser from "../hooks/UseCurrentUser";
+import {
+  CurrentUserContext,
+  CurrentUserContextProvider,
+} from "../context/CurrentUserContext";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
@@ -30,7 +33,7 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
     isLoading: isUserLoading,
     clearUser,
     tokenExpired,
-  } = useCurrentUser();
+  } = useContext(CurrentUserContext);
 
   useEffect(() => {
     if (!isUserLoading && user && tokenExpired(user.token)) {
@@ -93,7 +96,9 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
           options={{ delayTouchStart: 50, ignoreContextMenu: true }}
         >
           <Elements stripe={stripePromise}>
-            <Component {...pageProps} />
+            <CurrentUserContextProvider>
+              <Component {...pageProps} />
+            </CurrentUserContextProvider>
           </Elements>
         </DndProvider>
       </ChakraProvider>

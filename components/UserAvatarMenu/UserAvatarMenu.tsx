@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { useRouter } from "next/router";
 
@@ -17,15 +17,15 @@ import {
   Image,
 } from "@chakra-ui/react";
 
-import useCurrentUser from "../../hooks/UseCurrentUser";
 import SolidChevronDown from "../../Icons/SolidChevronDown";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 interface Props {
   isCondensed?: boolean;
 }
 
 const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
-  const { user, isLoading, clearUser } = useCurrentUser();
+  const { user, isLoading, clearUser } = useContext(CurrentUserContext);
   const router = useRouter();
 
   const avatarSize = isCondensed ? "26px" : { base: "22px", md: "26px" };

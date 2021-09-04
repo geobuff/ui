@@ -1,12 +1,12 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, useContext } from "react";
 import { useToast, useBreakpointValue, ToastPosition } from "@chakra-ui/react";
 
 import UpdateUserFormModal from "../../components/UpdateUserFormModal";
 
 import axiosClient from "../../axios/axiosClient";
-import useCurrentUser from "../../hooks/UseCurrentUser";
 import { userUpdated } from "../../helpers/toasts";
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 interface Props {
   isOpen?: boolean;
@@ -18,7 +18,7 @@ const UpdateUserFormContainer: FC<Props> = ({
   onClose = (): void => {},
 }) => {
   const toast = useToast();
-  const { user, updateUser, getAuthConfig } = useCurrentUser();
+  const { user, updateUser, getAuthConfig } = useContext(CurrentUserContext);
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "top",
     md: "bottom-right",
@@ -47,6 +47,10 @@ const UpdateUserFormContainer: FC<Props> = ({
         updateUser({
           ...user,
           avatarId: response.data.avatarId,
+          avatarName: response.data.avatarName,
+          avatarImageUrl: response.data.avatarImageUrl,
+          avatarBackground: response.data.avatarBackground,
+          avatarBorder: response.data.avatarBorder,
           username: response.data.username,
           email: response.data.email,
           countryCode: response.data.countryCode,

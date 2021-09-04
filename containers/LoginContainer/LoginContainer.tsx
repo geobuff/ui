@@ -1,18 +1,20 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, FC, useContext } from "react";
 import { useRouter } from "next/router";
 import jwt_decode from "jwt-decode";
 
 import axiosClient from "../../axios/axiosClient";
-import useCurrentUser from "../../hooks/UseCurrentUser";
 
 import LoginForm from "../../components/LoginForm";
 import { DecodedToken } from "../../types/decoded-token";
 import { LoginFormSubmit } from "../../types/login-form-submit";
 import { GameOverRedirect } from "../../types/game-over-redirect";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const LoginContainer: FC = () => {
   const router = useRouter();
-  const { user, isLoading: isLoadingUser, updateUser } = useCurrentUser();
+  const { user, isLoading: isLoadingUser, updateUser } = useContext(
+    CurrentUserContext
+  );
 
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);

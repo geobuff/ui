@@ -1,4 +1,4 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { useEffect, useState, FC, useContext } from "react";
 import { useRouter } from "next/router";
 
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
@@ -6,7 +6,6 @@ import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 import GameOverModal from "../../components/GameOverModal";
 
 import axiosClient from "../../axios/axiosClient";
-import useCurrentUser from "../../hooks/UseCurrentUser";
 import { getLevel } from "../../helpers/gamification";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
@@ -17,6 +16,7 @@ import {
 } from "../../helpers/toasts";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { TempScore } from "../../types/temp-score";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 interface Props {
   id?: number;
@@ -55,7 +55,7 @@ const GameOverModalContainer: FC<Props> = ({
     isLoading: isUserLoading,
     updateUser,
     getAuthConfig,
-  } = useCurrentUser();
+  } = useContext(CurrentUserContext);
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "top",
     md: "bottom-right",

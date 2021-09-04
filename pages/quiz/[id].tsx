@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from "react";
+import React, { useEffect, FC, useContext } from "react";
 import { useRouter } from "next/router";
 
 import useQuizzes from "../../hooks/UseQuizzes";
@@ -7,7 +7,7 @@ import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
 import MainView from "../../components/MainView";
 
 import { QuizType } from "../../types/quiz-type";
-import useCurrentUser from "../../hooks/UseCurrentUser";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const Quiz: FC = () => {
   const { quizzes, isLoading } = useQuizzes();
@@ -19,7 +19,7 @@ const Quiz: FC = () => {
     isLoading: isUserLoading,
     clearUser,
     tokenExpired,
-  } = useCurrentUser();
+  } = useContext(CurrentUserContext);
 
   useEffect(() => {
     if (!isUserLoading && user && tokenExpired(user.token)) {

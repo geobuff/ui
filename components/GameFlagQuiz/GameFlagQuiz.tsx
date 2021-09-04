@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, FC } from "react";
+import React, { useState, useEffect, useCallback, FC, useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -19,7 +19,6 @@ import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
 import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
-import useCurrentUser from "../../hooks/UseCurrentUser";
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 import axiosClient from "../../axios/axiosClient";
 import GameFlags from "../GameFlags/GameFlags";
@@ -31,6 +30,7 @@ import GameFlagQuizBottomSheet from "./GameFlagQuizBottomSheet";
 import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
 import { GameOverRedirect } from "../../types/game-over-redirect";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 interface Props {
   id?: number;
@@ -60,7 +60,7 @@ const GameFlagQuiz: FC<Props> = ({
   mapping = [],
 }) => {
   const router = useRouter();
-  const { user, isLoading: isUserLoading } = useCurrentUser();
+  const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
 
   const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
   const [recentSubmissions, setRecentSubmissions] = useState<Result[]>([]);

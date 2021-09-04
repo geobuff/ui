@@ -1,19 +1,23 @@
-import { useState } from "react";
-import jwt_decode from "jwt-decode";
-import { User } from "../types/user";
-import { DecodedToken } from "../types/decoded-token";
 import { AxiosRequestConfig } from "axios";
+import React, { createContext, useState, FC } from "react";
+import { DecodedToken } from "../../types/decoded-token";
+import { User } from "../../types/user";
+import jwt_decode from "jwt-decode";
 
-interface Result {
-  user: User;
-  isLoading: boolean;
-  updateUser: (user: User) => void;
-  clearUser: () => void;
-  tokenExpired: (token: string) => boolean;
-  getAuthConfig: () => AxiosRequestConfig;
-}
+export const CurrentUserContext = createContext({
+  user: null,
+  isLoading: false,
+  updateUser: (user: User): void => {},
+  clearUser: (): void => {},
+  tokenExpired: (token: string): boolean => {
+    return false;
+  },
+  getAuthConfig: (): AxiosRequestConfig => {
+    return null;
+  },
+});
 
-const useCurrentUser = (): Result => {
+export const CurrentUserContextProvider: FC = ({ children = null }) => {
   const [isLoading, setIsLoading] = useState(false);
 
   const [user, setUser] = useState<User>(() => {
@@ -76,14 +80,18 @@ const useCurrentUser = (): Result => {
     };
   };
 
-  return {
-    user,
-    isLoading,
-    updateUser,
-    clearUser,
-    tokenExpired,
-    getAuthConfig,
-  };
+  return (
+    <CurrentUserContext.Provider
+      value={{
+        user,
+        isLoading,
+        updateUser,
+        clearUser,
+        tokenExpired,
+        getAuthConfig,
+      }}
+    >
+      {children}
+    </CurrentUserContext.Provider>
+  );
 };
-
-export default useCurrentUser;

@@ -4,6 +4,7 @@ import React, {
   useCallback,
   FC,
   ChangeEvent,
+  useContext,
 } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
@@ -32,7 +33,6 @@ import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 
-import useCurrentUser from "../../hooks/UseCurrentUser";
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 
 import axiosClient from "../../axios/axiosClient";
@@ -49,6 +49,7 @@ import { Map } from "../../types/map";
 import { Result } from "../../types/result";
 import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
 import { GameOverRedirect } from "../../types/game-over-redirect";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 interface Props {
   time?: number;
@@ -80,7 +81,7 @@ const GameMapQuiz: FC<Props> = ({
   map = null,
 }) => {
   const router = useRouter();
-  const { user, isLoading: isUserLoading } = useCurrentUser();
+  const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
 
   const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
   const [recentSubmissions, setRecentSubmissions] = useState<Result[]>([]);
