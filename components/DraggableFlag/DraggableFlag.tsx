@@ -15,9 +15,6 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 // TODO: add a nice preview for mobile
 const DraggableFlagPreview: FC = () => {
   const { display, itemType, style } = usePreview();
-  const { userAgent } = useContext(CurrentUserContext);
-
-  console.log(userAgent, "userAgent:flags");
 
   if (!display) {
     return null;
@@ -42,6 +39,7 @@ const DraggableFlag: FC<Props> = ({
   ...props
 }) => {
   const { handleDragging } = useContext(FlagGameContext);
+  const { userAgent } = useContext(CurrentUserContext);
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.FLAG,
@@ -64,7 +62,7 @@ const DraggableFlag: FC<Props> = ({
 
   return (
     <>
-      <DraggableFlagPreview />
+      {userAgent?.isMobile && <DraggableFlagPreview />}
       <Box
         ref={drag}
         role="Flag"
