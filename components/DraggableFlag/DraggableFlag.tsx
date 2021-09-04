@@ -48,7 +48,7 @@ const DraggableFlag: FC<Props> = ({
 
   useEffect(() => {
     handleDragging(isDragging);
-  }, [isDragging, handleDragging]);
+  }, [isDragging]);
 
   const shouldShowFlagPreview = isDragging && userAgent?.isMobile;
 
