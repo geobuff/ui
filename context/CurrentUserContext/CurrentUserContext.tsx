@@ -71,7 +71,6 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
   };
 
   const updateUserAgent = (updatedAgent: UserAgent): void => {
-    console.log(updateUserAgent, "setting:::::updateUserAgent");
     setUserAgent(updatedAgent);
   };
 

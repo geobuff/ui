@@ -7,20 +7,10 @@ import { Box } from "@chakra-ui/react";
 import Image from "../Image";
 import { ItemTypes } from "../../types/item-types";
 
-import { usePreview } from "react-dnd-preview";
 import { FlagGameContext } from "../../context/FlagGameContext";
 import { DragResult } from "../../types/drag-result";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-
-// TODO: add a nice preview for mobile
-const DraggableFlagPreview: FC = () => {
-  const { display, itemType, style } = usePreview();
-
-  if (!display) {
-    return null;
-  }
-  return <div style={style}>{itemType}</div>;
-};
+import DraggableFlagPreview from "./DraggableFlagPreview";
 
 interface CollectResult {
   isDragging: boolean;
@@ -58,11 +48,13 @@ const DraggableFlag: FC<Props> = ({
 
   useEffect(() => {
     handleDragging(isDragging);
-  }, [isDragging]);
+  }, [isDragging, handleDragging]);
+
+  const shouldShowFlagPreview = isDragging && userAgent?.isMobile;
 
   return (
     <>
-      {userAgent?.isMobile && <DraggableFlagPreview />}
+      {shouldShowFlagPreview && <DraggableFlagPreview code={code} />}
       <Box
         ref={drag}
         role="Flag"
