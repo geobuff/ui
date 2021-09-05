@@ -66,8 +66,13 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
   };
 
   useEffect(() => {
-    if (dragEnd - dragStart >= 10 && !isDragging) {
-      setShowResultsList(true);
+    const hitsOpenThreshold =
+      dragEnd - dragStart >= 30 && !showResultList && !isDragging;
+    const hitsCloseThreshold =
+      dragEnd - dragStart >= 20 && showResultList && !isDragging;
+
+    if (hitsOpenThreshold || hitsCloseThreshold) {
+      setShowResultsList(!showResultList);
     }
   }, [dragEnd]);
 
@@ -136,8 +141,6 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
           </Flex>
         </Heading>
 
-        <Divider my={4} />
-
         <Box>
           {!showResultList && (
             <Fade in unmountOnExit>
@@ -164,7 +167,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
                 marginTop={5}
                 marginLeft="-5"
                 marginRight="-5"
-                height="400px"
+                height="1000px"
                 backgroundColor="white"
               />
             </Fade>
@@ -172,14 +175,6 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
 
           {showResultList && (
             <Fade in unmountOnExit>
-              <Button
-                my={4}
-                isFullWidth
-                variant="outline"
-                onClick={(): void => setShowResultsList(!showResultList)}
-              >
-                {"Results"}
-              </Button>
               <ResultsMap
                 checked={checkedSubmissions}
                 map={groupMapping(mapping)}
