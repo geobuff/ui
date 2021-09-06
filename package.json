@@ -31,6 +31,7 @@
     "next-transpile-modules": "^4.1.0",
     "next-useragent": "^2.6.0",
     "react": "17.0.1",
+    "react-csv": "^2.0.3",
     "react-device-detect": "^1.17.0",
     "react-div-100vh": "^0.6.0",
     "react-dnd": "^14.0.2",
