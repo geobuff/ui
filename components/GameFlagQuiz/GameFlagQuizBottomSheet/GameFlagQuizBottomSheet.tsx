@@ -2,7 +2,6 @@ import React, { useState, useEffect, useContext, FC } from "react";
 import {
   Box,
   Button,
-  Divider,
   Fade,
   Flex,
   Heading,
@@ -66,12 +65,12 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
   };
 
   useEffect(() => {
-    const hitsOpenThreshold =
-      dragEnd - dragStart >= 30 && !showResultList && !isDragging;
-    const hitsCloseThreshold =
-      dragEnd - dragStart >= 20 && showResultList && !isDragging;
+    const dragDifference = dragEnd - dragStart;
+    console.log(dragDifference, "dragDifference");
+    const hitsOpenThreshold = dragDifference >= 15 && !showResultList;
+    const hitsCloseThreshold = dragEnd - dragStart >= 2 && showResultList;
 
-    if (hitsOpenThreshold || hitsCloseThreshold) {
+    if ((hitsOpenThreshold || hitsCloseThreshold) && !isDragging) {
       setShowResultsList(!showResultList);
     }
   }, [dragEnd]);
