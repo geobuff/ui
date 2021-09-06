@@ -66,7 +66,6 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
 
   useEffect(() => {
     const dragDifference = dragEnd - dragStart;
-    console.log(dragDifference, "dragDifference");
     const hitsOpenThreshold = dragDifference >= 15 && !showResultList;
     const hitsCloseThreshold = dragEnd - dragStart >= 2 && showResultList;
 
