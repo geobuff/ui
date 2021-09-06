@@ -11,9 +11,11 @@ import {
   useDisclosure,
   Checkbox,
   Button,
+  Tooltip,
 } from "@chakra-ui/react";
 
 import { getFlagUrl } from "@geobuff/flags";
+import { CSVLink } from "react-csv";
 
 import Card from "../Card";
 import ErrorAlertBanner from "../ErrorAlertBanner";
@@ -25,6 +27,7 @@ import SolidPencil from "../../Icons/SolidPencil";
 
 import useCountries from "../../hooks/useCountries";
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
+import SaveAlt from "../../Icons/SaveAlt";
 
 interface Props {
   onClickUpgrade?: () => void;
@@ -59,6 +62,8 @@ const UserProfileSummary: FC<Props> = ({
   const { countries } = useCountries();
   const level = getLevel(xp);
 
+  const csvData = [["email"], [email]];
+
   const matchedCountry = countries?.find(({ value }) => value === countryCode)
     ?.label;
 
@@ -66,7 +71,23 @@ const UserProfileSummary: FC<Props> = ({
     <>
       <Card>
         <Box width="100%">
-          <Flex justifyContent="flex-end">
+          <Flex justifyContent="space-between">
+            <CSVLink data={csvData} filename={"data.csv"}>
+              <Tooltip
+                label={`Click here to download personal information collected by GeoBuff. For more information, see our privacy policy.`}
+                placement="top"
+              >
+                <IconButton aria-label="download" backgroundColor="transparent">
+                  <SaveAlt
+                    color="gray.600"
+                    marginLeft="4px"
+                    marginTop="4px"
+                    height="22px"
+                    width="22px"
+                  />
+                </IconButton>
+              </Tooltip>
+            </CSVLink>
             <IconButton
               aria-label="pencil"
               backgroundColor="transparent"
