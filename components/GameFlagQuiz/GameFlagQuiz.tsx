@@ -234,10 +234,10 @@ const GameFlagQuiz: FC<Props> = ({
             Math.floor(Math.random() * updatedRemainingAnswers.length)
           ];
 
-        const nextFlagDragItems = [...updatedRemainingAnswers]
-          .sort(() => 0.5 - Math.random())
-          .slice(0, 11)
-          ?.map((answer) => answer.code);
+        const nextFlagDragItems = getRandomCollectionItems(
+          [...updatedRemainingAnswers],
+          11
+        ).map((answer) => answer.code);
 
         const dragItemsWithNextAnswer = [
           ...nextFlagDragItems,
