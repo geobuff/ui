@@ -31,6 +31,10 @@ import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import {
+  getRandomCollectionItems,
+  getRandomCollectionItem,
+} from "../../helpers/random";
 
 interface Props {
   id?: number;
@@ -77,25 +81,21 @@ const GameFlagQuiz: FC<Props> = ({
   );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [acceptedFlag, setAcceptedFlag] = useState(() =>
-    mapping.find(
-      (x) => !checkedSubmissions.map((sub) => sub.code).includes(x.code)
-    )
+    getRandomCollectionItem(mapping)
   );
   const [remainingAnswers, setRemainingAnswers] = useState(() => mapping);
   const [currentSubmission, setCurrentSubmission] = useState("");
   const [submissionCorrect, setSubmissionCorrect] = useState(false);
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
 
-  const [flagDragItems, setFlagDragItems] = useState(() =>
-    mapping.map((m) => m.code).slice(0, 12)
+  const [flagDragItems, setFlagDragItems] = useState(
+    getRandomCollectionItems(mapping, 12)?.map((c) => c.code)
   );
-
   useWarnIfActiveGame(hasGameStarted);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const isMobile = useBreakpointValue({ base: true, lg: false });
-
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
       const data: GameOverRedirect = JSON.parse(router.query.data as string);
@@ -149,6 +149,13 @@ const GameFlagQuiz: FC<Props> = ({
   );
 
   const handleGameStart = (): void => {
+    const nextDragItems = getRandomCollectionItems(mapping, 12).map(
+      (c) => c.code
+    );
+
+    setFlagDragItems(nextDragItems);
+    setAcceptedFlag(getRandomCollectionItem(mapping));
+    setRemainingAnswers(mapping);
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
     setScore(0);
