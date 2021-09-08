@@ -149,12 +149,14 @@ const GameFlagQuiz: FC<Props> = ({
   );
 
   const handleGameStart = (): void => {
-    const nextDragItems = getRandomCollectionItems(mapping, 12).map(
-      (c) => c.code
-    );
+    if (hasGameRunOnce) {
+      const nextDragItems = getRandomCollectionItems(mapping, 12).map(
+        (c) => c.code
+      );
+      setFlagDragItems(nextDragItems);
+      setAcceptedFlag(getRandomCollectionItem(mapping));
+    }
 
-    setFlagDragItems(nextDragItems);
-    setAcceptedFlag(getRandomCollectionItem(mapping));
     setRemainingAnswers(mapping);
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
