@@ -88,9 +88,10 @@ const GameFlagQuiz: FC<Props> = ({
   const [submissionCorrect, setSubmissionCorrect] = useState(false);
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
 
-  const [flagDragItems, setFlagDragItems] = useState(
-    getRandomCollectionItems(mapping, 12)?.map((c) => c.code)
-  );
+  const [flagDragItems, setFlagDragItems] = useState([]);
+  // const [flagDragItems, setFlagDragItems] = useState(
+  //   getRandomCollectionItems(mapping, 12)?.map((c) => c.code)
+  // );
   useWarnIfActiveGame(hasGameStarted);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -125,6 +126,21 @@ const GameFlagQuiz: FC<Props> = ({
       }
     }
   }, [timeRemaining, hasGameStarted]);
+
+  useEffect(() => {
+    console.log(acceptedFlag, "acceptedFlag");
+    const nextFlagDragItems = getRandomCollectionItems(
+      [...remainingAnswers],
+      11
+    ).map((answer) => answer.code);
+
+    const dragItemsWithNextAnswer = [
+      ...nextFlagDragItems,
+      acceptedFlag.code,
+    ]?.sort(() => 0.5 - Math.random());
+
+    setFlagDragItems(dragItemsWithNextAnswer);
+  }, [acceptedFlag, mapping, remainingAnswers]);
 
   const handleExpire = (): void => {
     setTimeout(() => {
@@ -235,18 +251,6 @@ const GameFlagQuiz: FC<Props> = ({
           updatedRemainingAnswers[
             Math.floor(Math.random() * updatedRemainingAnswers.length)
           ];
-
-        const nextFlagDragItems = getRandomCollectionItems(
-          [...updatedRemainingAnswers],
-          11
-        ).map((answer) => answer.code);
-
-        const dragItemsWithNextAnswer = [
-          ...nextFlagDragItems,
-          nextFlag.code,
-        ]?.sort(() => 0.5 - Math.random());
-
-        setFlagDragItems(dragItemsWithNextAnswer);
         setAcceptedFlag(nextFlag);
       }
 
