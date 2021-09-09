@@ -89,9 +89,6 @@ const GameFlagQuiz: FC<Props> = ({
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
 
   const [flagDragItems, setFlagDragItems] = useState([]);
-  // const [flagDragItems, setFlagDragItems] = useState(
-  //   getRandomCollectionItems(mapping, 12)?.map((c) => c.code)
-  // );
   useWarnIfActiveGame(hasGameStarted);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -128,18 +125,28 @@ const GameFlagQuiz: FC<Props> = ({
   }, [timeRemaining, hasGameStarted]);
 
   useEffect(() => {
-    console.log(acceptedFlag, "acceptedFlag");
     const nextFlagDragItems = getRandomCollectionItems(
       [...remainingAnswers],
       11
     ).map((answer) => answer.code);
 
-    const dragItemsWithNextAnswer = [
-      ...nextFlagDragItems,
-      acceptedFlag.code,
-    ]?.sort(() => 0.5 - Math.random());
+    const dragItemsWithNextAnswer = new Set(
+      [...nextFlagDragItems, acceptedFlag.code]?.sort(() => 0.5 - Math.random())
+    );
 
-    setFlagDragItems(dragItemsWithNextAnswer);
+    const dragItemsLength = Array.from(dragItemsWithNextAnswer).length;
+    console.log(dragItemsLength, "dragItemsLength");
+
+    while (dragItemsLength === 11 && remainingAnswers.length !== 11) {
+      dragItemsWithNextAnswer.add(
+        getRandomCollectionItem(remainingAnswers).code
+      );
+    }
+
+    console.log(nextFlagDragItems, "nextFlagDragItems");
+    console.log(dragItemsWithNextAnswer, "dragItemsWithNextAnswer");
+
+    setFlagDragItems(Array.from(dragItemsWithNextAnswer));
   }, [acceptedFlag, mapping, remainingAnswers]);
 
   const handleExpire = (): void => {
