@@ -130,7 +130,7 @@ const GameFlagQuiz: FC<Props> = ({
       const nextFlagObject = mapping.find((m) => m.code === nextFlagCode);
       setAcceptedFlag(nextFlagObject);
     }
-  }, [flagDragItems]);
+  }, [flagDragItems, mapping]);
 
   const handleExpire = (): void => {
     setTimeout(() => {
