@@ -67,9 +67,12 @@ const DraggableFlag: FC<Props> = ({
       >
         <Image
           src={getFlagUrl(code)}
-          borderRadius={4}
-          height="72px"
-          width="98px"
+          width="100%"
+          maxWidth={{ base: "72px", lg: "100px" }}
+          minWidth={{ base: "72px", lg: "100px" }}
+          height={{ base: "48px", lg: "64px" }}
+          objectFit="cover"
+          borderRadius={6}
         />
       </Box>
     </>
