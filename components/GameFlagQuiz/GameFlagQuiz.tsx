@@ -36,6 +36,8 @@ import {
   getRandomCollectionItem,
 } from "../../helpers/random";
 
+const INCORRECT_ANSWER_THRESHOLD = 3;
+
 interface Props {
   id?: number;
   time?: number;
@@ -209,7 +211,7 @@ const GameFlagQuiz: FC<Props> = ({
 
       if (!isAcceptedAnswer) {
         setSubmissionIncorrect(true);
-        if (incorrectCount + 1 >= 3) {
+        if (incorrectCount + 1 >= INCORRECT_ANSWER_THRESHOLD) {
           setDisableSkipButton(false);
         }
         setIncorrectCount((prev) => ++prev);
@@ -370,7 +372,9 @@ const GameFlagQuiz: FC<Props> = ({
                     hasGameStarted={hasGameStarted}
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}
-                    showSkipQuestion={incorrectCount >= 3}
+                    showSkipQuestion={
+                      incorrectCount >= INCORRECT_ANSWER_THRESHOLD
+                    }
                     isSkipButtonDisabled={disableSkipButton}
                     onSkipQuestion={handleSkipQuestion}
                   />
