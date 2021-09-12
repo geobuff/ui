@@ -1,9 +1,17 @@
 import React, { FC } from "react";
-import { AspectRatio, Flex, Text, useBreakpointValue } from "@chakra-ui/react";
+import {
+  AspectRatio,
+  Fade,
+  Flex,
+  IconButton,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 
 import { ItemTypes } from "../../types/item-types";
 import { DragResult } from "../../types/drag-result";
+import SolidRefresh from "../../Icons/SolidRefresh";
 
 interface CollectResult {
   isOver: boolean;
@@ -15,6 +23,8 @@ interface Props {
   hasGameStarted?: boolean;
   submissionCorrect?: boolean;
   submissionIncorrect?: boolean;
+  showSkipQuestion?: boolean;
+  onSkipQuestion?: () => void;
 }
 
 const FlagDropZone: FC<Props> = ({
@@ -22,6 +32,8 @@ const FlagDropZone: FC<Props> = ({
   hasGameStarted = false,
   submissionCorrect = false,
   submissionIncorrect = false,
+  showSkipQuestion = false,
+  onSkipQuestion = (): void => {},
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
@@ -92,17 +104,44 @@ const FlagDropZone: FC<Props> = ({
         </AspectRatio>
       )}
 
-      <Text
+      <Flex
+        alignItems="center"
         opacity={hasGameStarted ? "1" : "0"}
         transition="200ms ease-in-out"
-        fontSize={{ base: "md", sm: "xl", md: "3xl" }}
-        fontWeight="bold"
-        marginY={5}
-        color="#FFFFFF"
-        minHeight="40px"
       >
-        {acceptedFlagName}
-      </Text>
+        <Text
+          fontSize={{ base: "md", sm: "xl", md: "3xl" }}
+          fontWeight="bold"
+          marginY={5}
+          color="#FFFFFF"
+          minHeight="40px"
+        >
+          {acceptedFlagName}
+        </Text>
+        {showSkipQuestion && (
+          <Fade in unmountOnExit>
+            <IconButton
+              borderRadius={50}
+              ml={1.5}
+              mt={1.5}
+              variant="ghost"
+              aria-label="Skip Question"
+              color="white"
+              opacity={0.9}
+              size="sm"
+              transition="650ms ease-in-out"
+              onClick={onSkipQuestion}
+              _hover={{
+                backgroundColor: "#236175",
+                transform: "rotate(360deg)",
+              }}
+              icon={
+                <SolidRefresh mt="4px" ml="2.5px" height="18px" width="18px" />
+              }
+            />
+          </Fade>
+        )}
+      </Flex>
     </Flex>
   );
 };

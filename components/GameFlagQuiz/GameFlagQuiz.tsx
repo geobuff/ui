@@ -85,6 +85,7 @@ const GameFlagQuiz: FC<Props> = ({
   const [currentSubmission, setCurrentSubmission] = useState("");
   const [submissionCorrect, setSubmissionCorrect] = useState(false);
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
+  const [incorrectCount, setIncorrectCount] = useState(0);
 
   const [flagDragItems, setFlagDragItems] = useState(() =>
     getRandomCollectionItems(mapping, 12).map((c) => c.code)
@@ -200,6 +201,8 @@ const GameFlagQuiz: FC<Props> = ({
 
       if (!isAcceptedAnswer) {
         setSubmissionIncorrect(true);
+        console.log("setting new count");
+        setIncorrectCount((prev) => ++prev);
         setTimeout(() => {
           setSubmissionIncorrect(false);
         }, 500);
@@ -244,6 +247,7 @@ const GameFlagQuiz: FC<Props> = ({
         );
       }
 
+      setIncorrectCount(0);
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
@@ -265,6 +269,13 @@ const GameFlagQuiz: FC<Props> = ({
     setHasError(false);
     setErrorMessage("");
     setInputValue("");
+  };
+
+  const handleSkipQuestion = (): void => {
+    setFlagDragItems(
+      getRandomCollectionItems(remainingAnswers, 12).map((c) => c.code)
+    );
+    setIncorrectCount(0);
   };
 
   return (
@@ -351,6 +362,8 @@ const GameFlagQuiz: FC<Props> = ({
                     hasGameStarted={hasGameStarted}
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}
+                    showSkipQuestion={incorrectCount >= 3}
+                    onSkipQuestion={handleSkipQuestion}
                   />
                 </Flex>
                 {!isMobile && (
