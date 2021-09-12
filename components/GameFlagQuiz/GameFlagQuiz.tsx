@@ -91,7 +91,7 @@ const GameFlagQuiz: FC<Props> = ({
   const [disableSkipButton, setDisableSkipButton] = useState(true);
 
   const [flagDragItems, setFlagDragItems] = useState(() =>
-    getRandomCollectionItems(mapping, 12).map((c) => c.code)
+    getRandomCollectionItems(mapping, 10).map((c) => c.code)
   );
   useWarnIfActiveGame(hasGameStarted);
 
@@ -167,7 +167,7 @@ const GameFlagQuiz: FC<Props> = ({
 
   const handleGameStart = (): void => {
     if (hasGameRunOnce) {
-      const nextDragItems = getRandomCollectionItems(mapping, 12).map(
+      const nextDragItems = getRandomCollectionItems(mapping, 10).map(
         (c) => c.code
       );
       setFlagDragItems(nextDragItems);
@@ -253,7 +253,7 @@ const GameFlagQuiz: FC<Props> = ({
 
       if (updatedRemainingAnswers?.length) {
         setFlagDragItems(
-          getRandomCollectionItems(updatedRemainingAnswers, 12).map(
+          getRandomCollectionItems(updatedRemainingAnswers, 10).map(
             (c) => c.code
           )
         );
@@ -284,7 +284,7 @@ const GameFlagQuiz: FC<Props> = ({
 
   const handleSkipQuestion = (): void => {
     setFlagDragItems(
-      getRandomCollectionItems(remainingAnswers, 12).map((c) => c.code)
+      getRandomCollectionItems(remainingAnswers, 10).map((c) => c.code)
     );
   };
 

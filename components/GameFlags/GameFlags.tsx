@@ -21,11 +21,12 @@ const GameFlags: FC<Props> = ({
     <>
       {isMobile ? (
         <Box as={ScrollingComponent} overflowX="auto">
-          <Box
+          <Flex
             width="1525px"
             position="relative"
             height="100px"
             marginRight={10}
+            alignItems="center"
           >
             {[...Array.from(new Set(codes))]?.map((code) => (
               <DraggableFlag
@@ -35,7 +36,7 @@ const GameFlags: FC<Props> = ({
                 mx={3}
               />
             ))}
-          </Box>
+          </Flex>
         </Box>
       ) : (
         <Flex
@@ -45,9 +46,9 @@ const GameFlags: FC<Props> = ({
           backgroundColor="#236175"
           alignItems="center"
           justifyContent="center"
-          paddingLeft="375px"
+          paddingLeft="390px"
         >
-          <SimpleGrid columns={6} spacingX={10} spacingY={6}>
+          <SimpleGrid columns={5} spacingX={8} spacingY={6}>
             {[...Array.from(new Set(codes))]?.map((code) => (
               <DraggableFlag
                 key={code}
