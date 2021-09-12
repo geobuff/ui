@@ -80,18 +80,15 @@ const GameFlagQuiz: FC<Props> = ({
     false
   );
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
-  const [acceptedFlag, setAcceptedFlag] = useState(() =>
-    getRandomCollectionItem(mapping)
-  );
+  const [acceptedFlag, setAcceptedFlag] = useState(null);
   const [remainingAnswers, setRemainingAnswers] = useState(() => mapping);
   const [currentSubmission, setCurrentSubmission] = useState("");
   const [submissionCorrect, setSubmissionCorrect] = useState(false);
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
 
-  const [flagDragItems, setFlagDragItems] = useState([]);
-  // const [flagDragItems, setFlagDragItems] = useState(
-  //   getRandomCollectionItems(mapping, 12)?.map((c) => c.code)
-  // );
+  const [flagDragItems, setFlagDragItems] = useState(() =>
+    getRandomCollectionItems(mapping, 12).map((c) => c.code)
+  );
   useWarnIfActiveGame(hasGameStarted);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -128,19 +125,12 @@ const GameFlagQuiz: FC<Props> = ({
   }, [timeRemaining, hasGameStarted]);
 
   useEffect(() => {
-    console.log(acceptedFlag, "acceptedFlag");
-    const nextFlagDragItems = getRandomCollectionItems(
-      [...remainingAnswers],
-      11
-    ).map((answer) => answer.code);
-
-    const dragItemsWithNextAnswer = [
-      ...nextFlagDragItems,
-      acceptedFlag.code,
-    ]?.sort(() => 0.5 - Math.random());
-
-    setFlagDragItems(dragItemsWithNextAnswer);
-  }, [acceptedFlag, mapping, remainingAnswers]);
+    if (flagDragItems.length) {
+      const nextFlagCode = getRandomCollectionItem(flagDragItems);
+      const nextFlagObject = mapping.find((m) => m.code === nextFlagCode);
+      setAcceptedFlag(nextFlagObject);
+    }
+  }, [flagDragItems, mapping]);
 
   const handleExpire = (): void => {
     setTimeout(() => {
@@ -170,7 +160,7 @@ const GameFlagQuiz: FC<Props> = ({
         (c) => c.code
       );
       setFlagDragItems(nextDragItems);
-      setAcceptedFlag(getRandomCollectionItem(mapping));
+      setAcceptedFlag(getRandomCollectionItem(nextDragItems));
     }
 
     setRemainingAnswers(mapping);
@@ -247,11 +237,11 @@ const GameFlagQuiz: FC<Props> = ({
       );
 
       if (updatedRemainingAnswers?.length) {
-        const nextFlag =
-          updatedRemainingAnswers[
-            Math.floor(Math.random() * updatedRemainingAnswers.length)
-          ];
-        setAcceptedFlag(nextFlag);
+        setFlagDragItems(
+          getRandomCollectionItems(updatedRemainingAnswers, 12).map(
+            (c) => c.code
+          )
+        );
       }
 
       setScore(updatedCheckedSubmissions.length);
@@ -357,7 +347,7 @@ const GameFlagQuiz: FC<Props> = ({
                   marginTop={10}
                 >
                   <FlagDropZone
-                    acceptedFlagName={acceptedFlag.svgName}
+                    acceptedFlagName={acceptedFlag?.svgName}
                     hasGameStarted={hasGameStarted}
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}
