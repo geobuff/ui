@@ -86,6 +86,7 @@ const GameFlagQuiz: FC<Props> = ({
   const [submissionCorrect, setSubmissionCorrect] = useState(false);
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
   const [incorrectCount, setIncorrectCount] = useState(0);
+  const [disableSkipButton, setDisableSkipButton] = useState(true);
 
   const [flagDragItems, setFlagDragItems] = useState(() =>
     getRandomCollectionItems(mapping, 12).map((c) => c.code)
@@ -132,6 +133,13 @@ const GameFlagQuiz: FC<Props> = ({
       setAcceptedFlag(nextFlagObject);
     }
   }, [flagDragItems, mapping]);
+
+  useEffect(() => {
+    setDisableSkipButton(true);
+    setTimeout(() => {
+      setIncorrectCount(0);
+    }, 750);
+  }, [flagDragItems]);
 
   const handleExpire = (): void => {
     setTimeout(() => {
@@ -201,7 +209,9 @@ const GameFlagQuiz: FC<Props> = ({
 
       if (!isAcceptedAnswer) {
         setSubmissionIncorrect(true);
-        console.log("setting new count");
+        if (incorrectCount + 1 >= 3) {
+          setDisableSkipButton(false);
+        }
         setIncorrectCount((prev) => ++prev);
         setTimeout(() => {
           setSubmissionIncorrect(false);
@@ -247,7 +257,6 @@ const GameFlagQuiz: FC<Props> = ({
         );
       }
 
-      setIncorrectCount(0);
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
       setCheckedSubmissions(updatedCheckedSubmissions);
@@ -275,7 +284,6 @@ const GameFlagQuiz: FC<Props> = ({
     setFlagDragItems(
       getRandomCollectionItems(remainingAnswers, 12).map((c) => c.code)
     );
-    setIncorrectCount(0);
   };
 
   return (
@@ -363,6 +371,7 @@ const GameFlagQuiz: FC<Props> = ({
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}
                     showSkipQuestion={incorrectCount >= 3}
+                    isSkipButtonDisabled={disableSkipButton}
                     onSkipQuestion={handleSkipQuestion}
                   />
                 </Flex>

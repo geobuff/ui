@@ -25,6 +25,7 @@ interface Props {
   submissionIncorrect?: boolean;
   showSkipQuestion?: boolean;
   onSkipQuestion?: () => void;
+  isSkipButtonDisabled?: boolean;
 }
 
 const FlagDropZone: FC<Props> = ({
@@ -33,6 +34,7 @@ const FlagDropZone: FC<Props> = ({
   submissionCorrect = false,
   submissionIncorrect = false,
   showSkipQuestion = false,
+  isSkipButtonDisabled = false,
   onSkipQuestion = (): void => {},
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
@@ -118,29 +120,28 @@ const FlagDropZone: FC<Props> = ({
         >
           {acceptedFlagName}
         </Text>
-        {showSkipQuestion && (
-          <Fade in unmountOnExit>
-            <IconButton
-              borderRadius={50}
-              ml={1.5}
-              mt={1.5}
-              variant="ghost"
-              aria-label="Skip Question"
-              color="white"
-              opacity={0.9}
-              size="sm"
-              transition="650ms ease-in-out"
-              onClick={onSkipQuestion}
-              _hover={{
-                backgroundColor: "#236175",
-                transform: "rotate(360deg)",
-              }}
-              icon={
-                <SolidRefresh mt="4px" ml="2.5px" height="18px" width="18px" />
-              }
-            />
-          </Fade>
-        )}
+        <Fade in={showSkipQuestion} unmountOnExit={!showSkipQuestion}>
+          <IconButton
+            isDisabled={isSkipButtonDisabled}
+            borderRadius={50}
+            ml={1.5}
+            mt={1.5}
+            variant="ghost"
+            aria-label="Skip Question"
+            color="white"
+            opacity={0.9}
+            size="sm"
+            transition="650ms ease-in-out"
+            onClick={onSkipQuestion}
+            _hover={{
+              backgroundColor: "#236175",
+              transform: "rotate(360deg)",
+            }}
+            icon={
+              <SolidRefresh mt="4px" ml="2.5px" height="18px" width="18px" />
+            }
+          />
+        </Fade>
       </Flex>
     </Flex>
   );
