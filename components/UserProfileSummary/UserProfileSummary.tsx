@@ -30,8 +30,6 @@ import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 import SaveAlt from "../../Icons/SaveAlt";
 
 interface Props {
-  onClickUpgrade?: () => void;
-  onClickManage?: () => void;
   username?: string;
   email?: string;
   countryCode?: string;
@@ -45,8 +43,6 @@ interface Props {
 }
 
 const UserProfileSummary: FC<Props> = ({
-  onClickUpgrade = (): void => {},
-  onClickManage = (): void => {},
   username = "",
   email = "",
   countryCode = "",
@@ -149,33 +145,6 @@ const UserProfileSummary: FC<Props> = ({
               <Text color="gray.500" fontWeight={600}>
                 {matchedCountry}
               </Text>
-            </Flex>
-            <Flex
-              marginTop={4}
-              marginBottom={0}
-              alignItems="center"
-              justifyContent="center"
-              width="100%"
-            >
-              <Checkbox size="lg" isChecked={isPremium} isDisabled>
-                {"Premium"}
-              </Checkbox>
-              {!isPremium ? (
-                <Button
-                  backgroundColor="purple.700"
-                  color="white"
-                  onClick={onClickUpgrade}
-                  marginLeft={5}
-                  _hover={{ backgroundColor: "purple.800" }}
-                  disabled={process.env.NODE_ENV === "production"}
-                >
-                  {"Upgrade"}
-                </Button>
-              ) : (
-                <Button marginLeft={5} onClick={onClickManage}>
-                  {"Manage"}
-                </Button>
-              )}
             </Flex>
 
             <Flex marginBottom={3} marginX={6}>

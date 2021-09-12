@@ -4,8 +4,6 @@ import React, { useEffect, FC, useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { ChakraProvider } from "@chakra-ui/react";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
@@ -18,8 +16,6 @@ import {
   CurrentUserContext,
   CurrentUserContextProvider,
 } from "../context/CurrentUserContext";
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 interface Props {
   Component: any;
@@ -95,11 +91,9 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
           backend={isMobile ? TouchBackend : HTML5Backend}
           options={{ delayTouchStart: 50, ignoreContextMenu: true }}
         >
-          <Elements stripe={stripePromise}>
-            <CurrentUserContextProvider>
-              <Component {...pageProps} />
-            </CurrentUserContextProvider>
-          </Elements>
+          <CurrentUserContextProvider>
+            <Component {...pageProps} />
+          </CurrentUserContextProvider>
         </DndProvider>
       </ChakraProvider>
     </>

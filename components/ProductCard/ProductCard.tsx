@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Skeleton, Text } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
 import Image from "../Image";
@@ -32,21 +32,32 @@ const ProductCard: FC<Props> = ({
     boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
   >
     <Box position="absolute" top={0} left={0} right={0} bottom={0}>
-      <Image
-        src={imageUrl}
-        maxHeight={{ base: "140px", md: "160px" }}
-        minHeight={{ base: "140px", md: "160px" }}
-        backgroundColor="#E3E1E1"
-        width="100%"
-        borderTopLeftRadius={12}
-        borderTopRightRadius={12}
-        objectFit="cover"
-        transition="all 150ms ease-out"
-        _groupHover={{
-          maxHeight: { base: "132px", md: "156px" },
-          minHeight: { base: "132px", md: "156px" },
-        }}
-      />
+      <Box position="relative">
+        <Image
+          src={imageUrl}
+          maxHeight={{ base: "140px", md: "160px" }}
+          minHeight={{ base: "140px", md: "160px" }}
+          backgroundColor="#E3E1E1"
+          width="100%"
+          borderTopLeftRadius={12}
+          borderTopRightRadius={12}
+          objectFit="cover"
+          transition="all 150ms ease-out"
+          _groupHover={{
+            maxHeight: { base: "132px", md: "156px" },
+            minHeight: { base: "132px", md: "156px" },
+          }}
+          filter="opacity(0.25)"
+        />
+        <Text
+          position="absolute"
+          top="50%"
+          left="50%"
+          transform="translate(-50%, -50%)"
+        >
+          Coming soon...
+        </Text>
+      </Box>
 
       <Box paddingTop="12px" paddingX="12px">
         <Text
@@ -76,15 +87,17 @@ const ProductCard: FC<Props> = ({
               height={twemojiResponsiveStyles}
               width={twemojiResponsiveStyles}
             />
-            <Text
-              fontSize={{ base: "9px", sm: "9px", md: "11px" }}
-              fontWeight="bold"
-              marginLeft={2}
-              isTruncated
-              minWidth="50%"
-            >
-              {sizes.join(", ")}
-            </Text>
+            <Skeleton ml={2}>
+              <Text
+                fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+                fontWeight="bold"
+                marginLeft={2}
+                isTruncated
+                minWidth="50%"
+              >
+                {sizes.join(", ")}
+              </Text>
+            </Skeleton>
           </Flex>
           <Flex alignItems="center">
             <Twemoji
@@ -92,16 +105,18 @@ const ProductCard: FC<Props> = ({
               height={twemojiResponsiveStyles}
               width={twemojiResponsiveStyles}
             />
-            <Text
-              fontSize={{ base: "9px", sm: "9px", md: "11px" }}
-              fontWeight="bold"
-              marginLeft="2.5px"
-              minWidth="50%"
-              maxWidth={{ base: "65px", md: "85px" }}
-              isTruncated
-            >
-              {price}
-            </Text>
+            <Skeleton ml={1}>
+              <Text
+                fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+                fontWeight="bold"
+                marginLeft="2.5px"
+                minWidth="50%"
+                maxWidth={{ base: "65px", md: "85px" }}
+                isTruncated
+              >
+                {price}
+              </Text>
+            </Skeleton>
           </Flex>
         </Flex>
       </Box>

@@ -41,7 +41,7 @@ const furtherInfoLinks = [
 ];
 
 const footerCopy =
-  "GeoBuff is the world's leading competitive platform for geography based games and quizzes.";
+  "GeoBuff is the world's leading competitive platform for geography-based games and quizzes.";
 
 const simpleFooter = (
   <Flex

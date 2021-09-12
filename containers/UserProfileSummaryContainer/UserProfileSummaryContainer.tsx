@@ -1,14 +1,11 @@
 import React, { useEffect, useState, FC, useContext } from "react";
-import { useStripe } from "@stripe/react-stripe-js";
 
-import axiosClient from "../../axios/axiosClient";
 import UserProfileSummary from "../../components/UserProfileSummary";
 import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const UserProfileSummaryContainer: FC = () => {
   const { user } = useContext(CurrentUserContext);
-  const stripe = useStripe();
 
   const [isLoading, setIsLoading] = useState(true);
 
@@ -19,41 +16,11 @@ const UserProfileSummaryContainer: FC = () => {
     }, 50);
   });
 
-  const handleClickManage = (): void => {
-    const payload = {
-      sessionId: user.stripeSessionId,
-    };
-
-    axiosClient.post("/subscription/manage", payload).then((response) => {
-      window.location.href = response.data.url;
-    });
-  };
-
-  const handleClickUpgrade = (): void => {
-    const payload = {
-      priceId: process.env.NEXT_PUBLIC_STRIPE_PRICE_ID,
-    };
-
-    axiosClient
-      .post("/subscription/create-checkout-session", payload)
-      .then((response) => {
-        stripe.redirectToCheckout({
-          sessionId: response.data.sessionId,
-        });
-      });
-  };
-
   if (isLoading) {
     return <UserProfileSummaryPlaceholder />;
   }
 
-  return (
-    <UserProfileSummary
-      onClickUpgrade={handleClickUpgrade}
-      onClickManage={handleClickManage}
-      {...user}
-    />
-  );
+  return <UserProfileSummary {...user} />;
 };
 
 export default UserProfileSummaryContainer;
