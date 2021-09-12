@@ -127,11 +127,10 @@ const FlagDropZone: FC<Props> = ({
             <IconButton
               position="absolute"
               top={{ base: 6, lg: 8 }}
-              right={-10}
+              right={-9}
               isDisabled={isSkipButtonDisabled}
               borderRadius={50}
-              ml={1.5}
-              mt={{ lg: 1 }}
+              mt={{ base: "1px", lg: "5px" }}
               variant="ghost"
               aria-label="Skip Question"
               color="white"
