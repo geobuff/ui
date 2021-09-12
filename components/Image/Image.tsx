@@ -1,9 +1,13 @@
 import React, { useEffect, useState, FC } from "react";
-import { Image as ChakraImage, Skeleton } from "@chakra-ui/react";
+import {
+  Image as ChakraImage,
+  Skeleton,
+  ImageProps,
+  SkeletonProps,
+} from "@chakra-ui/react";
 
-export interface Props {
+export interface Props extends ImageProps {
   src?: string;
-  height?: string;
   width?: string;
   [x: string]: any;
 }
@@ -24,7 +28,9 @@ const Image: FC<Props> = ({
 
   return (
     <>
-      {isLoading && <Skeleton height={height} width={width} {...props} />}
+      {isLoading && (
+        <Skeleton height={height} width={width} {...(props as SkeletonProps)} />
+      )}
       <ChakraImage
         display={isLoading && "none"}
         src={src}
