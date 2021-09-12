@@ -36,6 +36,8 @@ import {
   getRandomCollectionItem,
 } from "../../helpers/random";
 
+const INCORRECT_ANSWER_THRESHOLD = 3;
+
 interface Props {
   id?: number;
   time?: number;
@@ -85,6 +87,8 @@ const GameFlagQuiz: FC<Props> = ({
   const [currentSubmission, setCurrentSubmission] = useState("");
   const [submissionCorrect, setSubmissionCorrect] = useState(false);
   const [submissionIncorrect, setSubmissionIncorrect] = useState(false);
+  const [incorrectCount, setIncorrectCount] = useState(0);
+  const [disableSkipButton, setDisableSkipButton] = useState(true);
 
   const [flagDragItems, setFlagDragItems] = useState(() =>
     getRandomCollectionItems(mapping, 12).map((c) => c.code)
@@ -131,6 +135,13 @@ const GameFlagQuiz: FC<Props> = ({
       setAcceptedFlag(nextFlagObject);
     }
   }, [flagDragItems, mapping]);
+
+  useEffect(() => {
+    setDisableSkipButton(true);
+    setTimeout(() => {
+      setIncorrectCount(0);
+    }, 750);
+  }, [flagDragItems]);
 
   const handleExpire = (): void => {
     setTimeout(() => {
@@ -200,6 +211,10 @@ const GameFlagQuiz: FC<Props> = ({
 
       if (!isAcceptedAnswer) {
         setSubmissionIncorrect(true);
+        if (incorrectCount + 1 >= INCORRECT_ANSWER_THRESHOLD) {
+          setDisableSkipButton(false);
+        }
+        setIncorrectCount((prev) => ++prev);
         setTimeout(() => {
           setSubmissionIncorrect(false);
         }, 500);
@@ -265,6 +280,12 @@ const GameFlagQuiz: FC<Props> = ({
     setHasError(false);
     setErrorMessage("");
     setInputValue("");
+  };
+
+  const handleSkipQuestion = (): void => {
+    setFlagDragItems(
+      getRandomCollectionItems(remainingAnswers, 12).map((c) => c.code)
+    );
   };
 
   return (
@@ -351,6 +372,11 @@ const GameFlagQuiz: FC<Props> = ({
                     hasGameStarted={hasGameStarted}
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}
+                    showSkipQuestion={
+                      incorrectCount >= INCORRECT_ANSWER_THRESHOLD
+                    }
+                    isSkipButtonDisabled={disableSkipButton}
+                    onSkipQuestion={handleSkipQuestion}
                   />
                 </Flex>
                 {!isMobile && (
