@@ -57,37 +57,39 @@ const MapInteractionCSS: FC = ({ children = null, ...props }) => {
         btnClass="quiz-map-controls"
         plusBtnContents={
           !isMobile && (
-            <Button
-              marginTop="18px"
-              paddingTop="3px"
-              paddingLeft="18px"
+            <OutlinedZoomIn
               height="46px"
               width="44px"
+              marginTop="18px"
+              padding="13px"
               borderTopLeftRadius={8}
               borderTopRightRadius={8}
               borderBottomLeftRadius={0}
               borderBottomRightRadius={0}
               borderBottom="1px solid #E3E1E1"
-            >
-              <OutlinedZoomIn />
-            </Button>
+              background="#EDF2F7"
+              _hover={{
+                background: "#E2E8F0",
+              }}
+            />
           )
         }
         minusBtnContents={
           !isMobile && (
-            <Button
-              paddingTop="3px"
-              paddingLeft="18px"
+            <OutlinedZoomOut
               height="46px"
               width="44px"
+              padding="13px"
               borderTopLeftRadius={0}
               borderTopRightRadius={0}
               borderBottomLeftRadius={8}
               borderBottomRightRadius={8}
               borderTop="1px solid #E3E1E1"
-            >
-              <OutlinedZoomOut />
-            </Button>
+              background="#EDF2F7"
+              _hover={{
+                background: "#E2E8F0",
+              }}
+            />
           )
         }
         {...props}
