@@ -106,7 +106,7 @@ const OurMission: FC = () => (
             />
             <TeamMemberCard
               title="Daniel Marchbank"
-              position="UI Developer"
+              position="Icon Design"
               city="Wellington"
               country="New Zealand"
               imageUrl="/dan.jpg"

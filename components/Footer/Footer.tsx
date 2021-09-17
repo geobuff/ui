@@ -12,8 +12,12 @@ const companyLinks = [
     text: "Our Mission",
   },
   {
-    href: "/careers",
-    text: "Careers",
+    href: "/support",
+    text: "Support",
+  },
+  {
+    href: "/support#faq",
+    text: "F.A.Q",
   },
   {
     href: "/merch",
