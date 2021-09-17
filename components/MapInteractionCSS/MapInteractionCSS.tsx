@@ -32,7 +32,7 @@ const MapInteractionCSS: FC = ({ children = null, ...props }) => {
       right={0}
     >
       <Box
-        zIndex={999}
+        zIndex={1}
         position="fixed"
         top={isMobile ? "144px" : "190px"}
         right="18px"
