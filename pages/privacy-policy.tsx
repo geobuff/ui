@@ -61,19 +61,19 @@ const PrivacyPolicy: FC = () => (
           </Heading>
           <Stack spacing={3} mt={3} mb={6}>
             <Text>
-              Information we collect falls into one of two categories:
-              `&apos;`voluntarily provided`&apos;` information and
-              `&apos;`automatically collected`&apos;` information.{" "}
+              {`Information we collect falls into one of two categories:
+              'voluntarily provided' information and
+              'automatically collected' information.`}
             </Text>
             <Text>
-              `&apos;`Voluntarily provided`&apos;` information refers to any
+              {`'Voluntarily provided' information refers to any
               information you knowingly and actively provide us when using or
-              participating in any of our services and promotions.{" "}
+              participating in any of our services and promotions.`}
             </Text>
             <Text>
-              `&apos;`Automatically collected`&apos;` information refers to any
+              {`'Automatically collected' information refers to any
               information automatically sent by your devices in the course of
-              accessing our products and services.{" "}
+              accessing our products and services.`}
             </Text>
           </Stack>
 
@@ -126,11 +126,11 @@ const PrivacyPolicy: FC = () => (
           </Heading>
           <Stack spacing={3} mt={3} mb={6}>
             <Text>
-              We consider `&apos;`user-generated content`&apos;` to be materials
+              {`We consider 'user-generated content' to be materials
               (text, image and/or video content) voluntarily supplied to us by
               our users for the purpose of publication, processing, or usage on
               our platform. All user-generated content is associated with the
-              account or email address used to submit the materials.{" "}
+              account or email address used to submit the materials.`}
             </Text>
             <Text>
               Please be aware that any content you submit for the purpose of
@@ -197,8 +197,8 @@ const PrivacyPolicy: FC = () => (
           </Text>
           <UnorderedList>
             <ListItem>
-              to provide you with our platform`&apos;`s core features and
-              services
+              {`to provide you with our platform's core features and
+              services`}
             </ListItem>
             <ListItem>to deliver products and/or services to you</ListItem>
             <ListItem>to contact and communicate with you</ListItem>
@@ -431,12 +431,12 @@ const PrivacyPolicy: FC = () => (
           </Heading>
           <Stack spacing={3} mt={3} mb={6}>
             <Text>
-              We use `&apos;`cookies`&apos;` to collect information about you
+              {`We use 'cookies' to collect information about you
               and your activity across our site. A cookie is a small piece of
               data that our website stores on your computer, and accesses each
               time you visit, so we can understand how you use our site. This
               helps us serve you content based on preferences you have
-              specified.{" "}
+              specified.`}
             </Text>
             <Text>
               Please refer to our Cookie Policy for more information.{" "}

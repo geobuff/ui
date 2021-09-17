@@ -165,13 +165,13 @@ const TermsOfService: FC = () => (
           </Heading>
           <Stack spacing={3} mt={3} mb={6}>
             <Text>
-              Our website and the materials on our website are provided on an
-              `&apos;`as is`&apos;` basis. To the extent permitted by law,
+              {`Our website and the materials on our website are provided on an
+              'as is' basis. To the extent permitted by law,
               GeoBuff makes no warranties, expressed or implied, and hereby
               disclaims and negates all other warranties including, without
               limitation, implied warranties or conditions of merchantability,
               fitness for a particular purpose, or non-infringement of
-              intellectual property, or other violation of rights.{" "}
+              intellectual property, or other violation of rights.`}
             </Text>
             <Text>
               In no event shall GeoBuff or its suppliers be liable for any
