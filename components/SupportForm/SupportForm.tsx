@@ -48,8 +48,7 @@ const SupportForm: FC<Props> = ({
     {error && (
       <Alert status="error" borderRadius={6} mt={6}>
         <AlertIcon />
-        We&apos;ve encountered an error while sending your request. Please
-        manually send your message to teamgeobuff@gmail.com.
+        {`We've encountered an error while sending your request. Please manually send your message to teamgeobuff@gmail.com.`}
       </Alert>
     )}
     {submitted ? (

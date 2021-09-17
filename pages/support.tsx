@@ -25,8 +25,8 @@ const Support: FC = () => (
       >
         <Box>
           <Text>
-            Have an issue? Send a message to support and we&apos;ll get back to
-            as soon as we can.
+            {`Have an issue? Send a message to support and we'll get back to
+            as soon as we can.`}
           </Text>
           <SupportFormContainer />
         </Box>
