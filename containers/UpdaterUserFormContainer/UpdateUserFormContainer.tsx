@@ -25,11 +25,11 @@ const UpdateUserFormContainer: FC<Props> = ({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState("");
 
   const handleSubmit = (values: UpdateUserFormSubmit): void => {
     setIsSubmitting(true);
-    setError(null);
+    setError("");
 
     axiosClient
       .put(
