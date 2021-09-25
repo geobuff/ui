@@ -17,12 +17,6 @@ import { SupportFormSubmit } from "../../types/support-form-submit";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import Modal from "../Modal";
 
-const initialValues: SupportFormSubmit = {
-  from: "",
-  subject: "",
-  message: "",
-};
-
 const validationSchema = Yup.object().shape({
   from: Yup.string()
     .required("Please include your email address.")
@@ -37,6 +31,7 @@ interface Props {
   onSubmit?: (values: SupportFormSubmit) => void;
   isSubmitting?: boolean;
   error?: string;
+  from?: string;
 }
 
 const SupportFormModal: FC<Props> = ({
@@ -45,10 +40,15 @@ const SupportFormModal: FC<Props> = ({
   onSubmit = (values: SupportFormSubmit): void => {},
   isSubmitting = false,
   error = "",
+  from = "",
 }) => (
   <Modal isOpen={isOpen} onClose={onClose}>
     <Formik
-      initialValues={initialValues}
+      initialValues={{
+        from: from,
+        subject: "",
+        message: "",
+      }}
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >

@@ -1,6 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import axiosClient from "../../axios";
 import SupportFormModal from "../../components/SupportFormModal";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { SupportFormSubmit } from "../../types/support-form-submit";
 
 interface Props {
@@ -14,6 +15,8 @@ const SupportFormContainer: FC<Props> = ({
   onClose = (): void => {},
   setSubmitted = (): void => {},
 }) => {
+  const { user } = useContext(CurrentUserContext);
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -36,6 +39,7 @@ const SupportFormContainer: FC<Props> = ({
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
       error={error}
+      from={user?.email}
     />
   );
 };
