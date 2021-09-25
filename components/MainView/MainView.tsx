@@ -33,7 +33,9 @@ const MainView: FC<Props> = ({
         {...props}
       >
         {hasNavigationBar && <NavigationBar />}
-        {children}
+        <Flex flex={1} direction="column" marginTop={14}>
+          {children}
+        </Flex>
       </Flex>
       {hasFooter && height && <Footer variant={footerVariant} />}
     </>
