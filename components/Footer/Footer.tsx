@@ -12,11 +12,11 @@ const companyLinks = [
     text: "Our Mission",
   },
   {
-    href: "/support",
+    href: "/help-center",
     text: "Support",
   },
   {
-    href: "/support#faq",
+    href: "/help-center#faq",
     text: "F.A.Q",
   },
   {

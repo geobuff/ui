@@ -9,8 +9,6 @@ import {
   Spacer,
   Progress,
   useDisclosure,
-  Checkbox,
-  Button,
   Tooltip,
 } from "@chakra-ui/react";
 
@@ -34,7 +32,6 @@ interface Props {
   email?: string;
   countryCode?: string;
   xp?: number;
-  isPremium?: boolean;
   avatarName?: string;
   avatarImageUrl?: string;
   avatarBackground?: string;
@@ -47,7 +44,6 @@ const UserProfileSummary: FC<Props> = ({
   email = "",
   countryCode = "",
   xp = 0,
-  isPremium = false,
   avatarName = "",
   avatarImageUrl = "",
   avatarBackground = "",
