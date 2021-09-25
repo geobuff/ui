@@ -17,16 +17,16 @@ import HeroHeader from "../components/HeroHeader";
 import FAQSection from "../components/FAQSection";
 import SupportFormContainer from "../containers/SupportFormContainer";
 
-const Support: FC = () => {
+const HelpCenter: FC = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [submitted, setSubmitted] = useState(false);
 
   return (
     <MainView>
       <Head>
-        <title>Support - GeoBuff</title>
+        <title>Help Center - GeoBuff</title>
       </Head>
-      <HeroHeader heading="Support" />
+      <HeroHeader heading="Help Center" />
       <Box background="white">
         <Flex
           direction="column"
@@ -70,4 +70,4 @@ const Support: FC = () => {
   );
 };
 
-export default Support;
+export default HelpCenter;
