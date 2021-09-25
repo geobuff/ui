@@ -2,12 +2,14 @@
 
 import React, { useEffect, FC, useContext } from "react";
 import Head from "next/head";
-import { useRouter } from "next/router";
+import { Router, useRouter } from "next/router";
 import { ChakraProvider } from "@chakra-ui/react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import { isMobile } from "react-device-detect";
+import NProgress from "nprogress"; //nprogress module
+import "nprogress/nprogress.css"; //styles of nprogress
 
 import "../styles/globals.css";
 import theme from "../styles/theme";
@@ -21,6 +23,13 @@ interface Props {
   Component: any;
   [x: string]: any;
 }
+
+//Binding events.
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
+
+NProgress.configure({ showSpinner: false });
 
 const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
   const router = useRouter();
