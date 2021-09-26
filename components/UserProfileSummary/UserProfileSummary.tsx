@@ -36,7 +36,6 @@ interface Props {
   avatarImageUrl?: string;
   avatarBackground?: string;
   avatarBorder?: string;
-  error?: string;
 }
 
 const UserProfileSummary: FC<Props> = ({
@@ -48,7 +47,6 @@ const UserProfileSummary: FC<Props> = ({
   avatarImageUrl = "",
   avatarBackground = "",
   avatarBorder = "",
-  error = "",
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { countries } = useCountries();
@@ -96,7 +94,6 @@ const UserProfileSummary: FC<Props> = ({
           </Flex>
         </Box>
         <Box mb={6}>
-          <ErrorAlertBanner error={error} />
           <Box textAlign="center">
             <Flex
               alignItems="center"
