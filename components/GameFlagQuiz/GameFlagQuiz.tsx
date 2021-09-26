@@ -105,6 +105,7 @@ const GameFlagQuiz: FC<Props> = ({
         .get(`/tempscores/${data.tempScoreId}`)
         .then((response) => {
           const tempScore = response.data;
+          setHasGameStarted(true);
           setScore(tempScore.score);
           restart(DateTime.now().plus({ seconds: time - tempScore.time }));
           handleGameStop();
