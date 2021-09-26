@@ -12,9 +12,10 @@ const ErrorAlertBanner: FC<Props> = ({ error = "" }) => (
     unmountOnExit
     style={{
       position: "fixed",
+      top: 0,
       left: 0,
       right: 0,
-      zIndex: 1,
+      zIndex: 10,
     }}
   >
     <Box p={1} backgroundColor="red.500" color="white">
