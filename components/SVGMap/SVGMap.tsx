@@ -4,6 +4,7 @@ import { Map } from "../../types/map";
 
 interface Props {
   map?: Map;
+  className?: string;
   getLocationClassName?: (location: SVGLocation) => string;
   onLocationMouseOver?: (event: React.MouseEvent<SVGElement>) => void;
   onLocationMouseMove?: (event: React.MouseEvent<SVGElement>) => void;
@@ -13,6 +14,7 @@ interface Props {
 
 const SVGMap: FC<Props> = ({
   map = null,
+  className = "",
   getLocationClassName = (location: SVGLocation): string => "",
   onLocationMouseOver = (event: React.MouseEvent<SVGElement>): void => {},
   onLocationMouseMove = (event: React.MouseEvent<SVGElement>): void => {},
@@ -21,6 +23,7 @@ const SVGMap: FC<Props> = ({
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
+    className={className}
     viewBox={map.viewBox}
     aria-label={map.label}
     {...props}
