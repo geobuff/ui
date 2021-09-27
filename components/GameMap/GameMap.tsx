@@ -1,10 +1,10 @@
 import React, { useState, FC } from "react";
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
-import { SVGMap } from "react-svg-map";
 
 import MapInteractionCSS from "../MapInteractionCSS";
 import { SVGLocation } from "../../types/svg-location";
 import { Map } from "../../types/map";
+import SVGMapWrapper from "../SVGMapWrapper";
 
 interface Props {
   showTooltip?: boolean;
@@ -22,7 +22,7 @@ const GameMap: FC<Props> = ({
   const [tooltipTop, setTooltipTop] = useState(0);
   const [tooltipLeft, setTooltipLeft] = useState(0);
 
-  const shouldRenderTooltip = useBreakpointValue({ base: false, md: true });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
 
   const mouseOver = (event: React.MouseEvent<SVGElement>): void => {
     if (!showTooltip) return;
@@ -45,7 +45,7 @@ const GameMap: FC<Props> = ({
   return (
     <Box width="100%">
       <Box textAlign="center" height="100%">
-        {shouldRenderTooltip ? (
+        {!isMobile ? (
           <Tooltip
             label={tooltipText}
             position="absolute"
@@ -54,10 +54,9 @@ const GameMap: FC<Props> = ({
             isOpen={tooltipOpen}
           >
             <MapInteractionCSS>
-              <SVGMap
+              <SVGMapWrapper
                 map={map}
-                className="quiz-map"
-                locationClassName={onLocationClassName}
+                getLocationClassName={onLocationClassName}
                 onLocationMouseOver={mouseOver}
                 onLocationMouseMove={mouseMove}
                 onLocationMouseOut={mouseOut}
@@ -66,10 +65,10 @@ const GameMap: FC<Props> = ({
           </Tooltip>
         ) : (
           <MapInteractionCSS>
-            <SVGMap
+            <SVGMapWrapper
+              isMobile
               map={map}
-              className="quiz-map"
-              locationClassName={onLocationClassName}
+              getLocationClassName={onLocationClassName}
               onLocationMouseOver={mouseOver}
               onLocationMouseMove={mouseMove}
               onLocationMouseOut={mouseOut}
