@@ -1,10 +1,10 @@
 import React, { useState, FC } from "react";
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
-import { SVGMap } from "react-svg-map";
 
 import MapInteractionCSS from "../MapInteractionCSS";
 import { SVGLocation } from "../../types/svg-location";
 import { Map } from "../../types/map";
+import SVGMap from "../SVGMap";
 
 interface Props {
   showTooltip?: boolean;
@@ -22,7 +22,14 @@ const GameMap: FC<Props> = ({
   const [tooltipTop, setTooltipTop] = useState(0);
   const [tooltipLeft, setTooltipLeft] = useState(0);
 
-  const shouldRenderTooltip = useBreakpointValue({ base: false, md: true });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
+
+  const mapStyle = {
+    height: isMobile ? "initial" : "90vh",
+    minWidth: isMobile ? "initial" : "100%",
+    fill: "#6dca94",
+    margin: "12px",
+  };
 
   const mouseOver = (event: React.MouseEvent<SVGElement>): void => {
     if (!showTooltip) return;
@@ -45,7 +52,7 @@ const GameMap: FC<Props> = ({
   return (
     <Box width="100%">
       <Box textAlign="center" height="100%">
-        {shouldRenderTooltip ? (
+        {!isMobile ? (
           <Tooltip
             label={tooltipText}
             position="absolute"
@@ -56,11 +63,11 @@ const GameMap: FC<Props> = ({
             <MapInteractionCSS>
               <SVGMap
                 map={map}
-                className="quiz-map"
-                locationClassName={onLocationClassName}
+                getLocationClassName={onLocationClassName}
                 onLocationMouseOver={mouseOver}
                 onLocationMouseMove={mouseMove}
                 onLocationMouseOut={mouseOut}
+                style={mapStyle}
               />
             </MapInteractionCSS>
           </Tooltip>
@@ -68,11 +75,11 @@ const GameMap: FC<Props> = ({
           <MapInteractionCSS>
             <SVGMap
               map={map}
-              className="quiz-map"
-              locationClassName={onLocationClassName}
+              getLocationClassName={onLocationClassName}
               onLocationMouseOver={mouseOver}
               onLocationMouseMove={mouseMove}
               onLocationMouseOut={mouseOut}
+              style={mapStyle}
             />
           </MapInteractionCSS>
         )}
