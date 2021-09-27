@@ -4,7 +4,7 @@ import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 import MapInteractionCSS from "../MapInteractionCSS";
 import { SVGLocation } from "../../types/svg-location";
 import { Map } from "../../types/map";
-import SVGMapWrapper from "../SVGMapWrapper";
+import SVGMap from "../SVGMap";
 
 interface Props {
   showTooltip?: boolean;
@@ -23,6 +23,13 @@ const GameMap: FC<Props> = ({
   const [tooltipLeft, setTooltipLeft] = useState(0);
 
   const isMobile = useBreakpointValue({ base: true, lg: false });
+
+  const mapStyle = {
+    height: isMobile ? "initial" : "90vh",
+    minWidth: isMobile ? "initial" : "100%",
+    fill: "#6dca94",
+    margin: "12px",
+  };
 
   const mouseOver = (event: React.MouseEvent<SVGElement>): void => {
     if (!showTooltip) return;
@@ -54,24 +61,25 @@ const GameMap: FC<Props> = ({
             isOpen={tooltipOpen}
           >
             <MapInteractionCSS>
-              <SVGMapWrapper
+              <SVGMap
                 map={map}
                 getLocationClassName={onLocationClassName}
                 onLocationMouseOver={mouseOver}
                 onLocationMouseMove={mouseMove}
                 onLocationMouseOut={mouseOut}
+                style={mapStyle}
               />
             </MapInteractionCSS>
           </Tooltip>
         ) : (
           <MapInteractionCSS>
-            <SVGMapWrapper
-              isMobile
+            <SVGMap
               map={map}
               getLocationClassName={onLocationClassName}
               onLocationMouseOver={mouseOver}
               onLocationMouseMove={mouseMove}
               onLocationMouseOut={mouseOut}
+              style={mapStyle}
             />
           </MapInteractionCSS>
         )}
