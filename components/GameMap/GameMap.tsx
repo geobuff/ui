@@ -12,11 +12,7 @@ interface Props {
   isPathSelected?: (path: SVGPath) => boolean;
 }
 
-const GameMap: FC<Props> = ({
-  showTooltip = false,
-  map = null,
-  isPathSelected = (path: SVGPath): boolean => false,
-}) => {
+const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
   const [tooltipText, setTooltipText] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [tooltipTop, setTooltipTop] = useState(0);
@@ -29,10 +25,6 @@ const GameMap: FC<Props> = ({
     minWidth: isMobile ? "initial" : "100%",
     fill: "#6dca94",
     margin: "12px",
-  };
-
-  const pathSelectedStyle = {
-    fill: "#27ae60",
   };
 
   const mouseOver = (event: React.MouseEvent<SVGElement>): void => {
@@ -68,8 +60,6 @@ const GameMap: FC<Props> = ({
               <SVGMap
                 map={map}
                 mapStyle={mapStyle}
-                pathSelectedStyle={pathSelectedStyle}
-                isPathSelected={isPathSelected}
                 onPathMouseOver={mouseOver}
                 onPathMouseMove={mouseMove}
                 onPathMouseOut={mouseOut}
@@ -81,8 +71,6 @@ const GameMap: FC<Props> = ({
             <SVGMap
               map={map}
               mapStyle={mapStyle}
-              pathSelectedStyle={pathSelectedStyle}
-              isPathSelected={isPathSelected}
               onPathMouseOver={mouseOver}
               onPathMouseMove={mouseMove}
               onPathMouseOut={mouseOut}

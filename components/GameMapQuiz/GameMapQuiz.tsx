@@ -45,11 +45,14 @@ import {
 } from "../../helpers/game";
 import { Mapping } from "../../types/mapping";
 import { SVGBase } from "../../types/svg-base";
-import { SVGPath } from "../../types/svg-path";
 import { Result } from "../../types/result";
 import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+
+const pathSelectedStyle = {
+  fill: "#27ae60",
+};
 
 interface Props {
   time?: number;
@@ -153,16 +156,12 @@ const GameMapQuiz: FC<Props> = ({
     },
   });
 
-  const isPathSelected = (path: SVGPath): boolean => {
-    return (
-      checkedSubmissions.length &&
-      checkedSubmissions.find(
-        (submission) =>
-          submission.name.toLowerCase() === path.name.toLowerCase()
-      ) !== undefined
-    );
-  };
   const handleGameStart = (): void => {
+    map.paths.map((x) => {
+      x.style = {};
+      return x;
+    });
+
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
     setScore(0);
@@ -250,6 +249,18 @@ const GameMapQuiz: FC<Props> = ({
           };
         }
       );
+
+      map.paths
+        .filter(
+          (x) =>
+            x.name.toLowerCase() === matchedSubmission.svgName.toLowerCase()
+        )
+        .map((x) => {
+          x.style = {
+            fill: pathSelectedStyle,
+          };
+          return x;
+        });
 
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
@@ -346,11 +357,7 @@ const GameMapQuiz: FC<Props> = ({
           )}
 
           <Fade in>
-            <GameMap
-              map={map}
-              showTooltip={!hasGameStarted}
-              isPathSelected={isPathSelected}
-            />
+            <GameMap map={map} showTooltip={!hasGameStarted} />
           </Fade>
 
           {shouldDisplayOnMobile && (

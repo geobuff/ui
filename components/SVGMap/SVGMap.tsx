@@ -1,12 +1,9 @@
 import React, { FC } from "react";
 import { SVGBase } from "../../types/svg-base";
-import { SVGPath } from "../../types/svg-path";
 
 interface Props {
   map?: SVGBase;
   mapStyle?: any;
-  pathSelectedStyle?: any;
-  isPathSelected?: (path: SVGPath) => boolean;
   onPathMouseOver?: (event: React.MouseEvent<SVGElement>) => void;
   onPathMouseMove?: (event: React.MouseEvent<SVGElement>) => void;
   onPathMouseOut?: () => void;
@@ -15,8 +12,6 @@ interface Props {
 const SVGMap: FC<Props> = ({
   map = null,
   mapStyle = {},
-  pathSelectedStyle = {},
-  isPathSelected = (path: SVGPath): boolean => false,
   onPathMouseOver = (event: React.MouseEvent<SVGElement>): void => {},
   onPathMouseMove = (event: React.MouseEvent<SVGElement>): void => {},
   onPathMouseOut = (): void => {},
@@ -37,7 +32,7 @@ const SVGMap: FC<Props> = ({
         onMouseOver={onPathMouseOver}
         onMouseMove={onPathMouseMove}
         onMouseOut={onPathMouseOut}
-        style={isPathSelected(path) ? pathSelectedStyle : {}}
+        style={path.style ? path.style : {}}
       />
     ))}
   </svg>
