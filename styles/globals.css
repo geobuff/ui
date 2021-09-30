@@ -30,8 +30,3 @@ svg * {
   margin-left: 8px;
   margin-right: 8px;
 }
-
-.highlight-on-hover:hover {
-  fill: #27ae60;
-  transition: all 500ms ease-out;
-}

@@ -4,12 +4,10 @@ import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 import MapInteractionCSS from "../MapInteractionCSS";
 import SVGMap from "../SVGMap";
 import { SVGBase } from "../../types/svg-base";
-import { SVGPath } from "../../types/svg-path";
 
 interface Props {
   showTooltip?: boolean;
   map?: SVGBase;
-  isPathSelected?: (path: SVGPath) => boolean;
 }
 
 const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
