@@ -256,9 +256,7 @@ const GameMapQuiz: FC<Props> = ({
             x.name.toLowerCase() === matchedSubmission.svgName.toLowerCase()
         )
         .map((x) => {
-          x.style = {
-            fill: pathSelectedStyle,
-          };
+          x.style = pathSelectedStyle;
           return x;
         });
 
