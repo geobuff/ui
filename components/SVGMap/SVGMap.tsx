@@ -1,24 +1,24 @@
 import React, { FC } from "react";
-import { SVGLocation } from "../../types/svg-location";
-import { Map } from "../../types/map";
+import { SVGBase } from "../../types/svg-base";
+import { SVGPath } from "../../types/svg-path";
 
 interface Props {
-  map?: Map;
+  map?: SVGBase;
   className?: string;
-  getLocationClassName?: (location: SVGLocation) => string;
-  onLocationMouseOver?: (event: React.MouseEvent<SVGElement>) => void;
-  onLocationMouseMove?: (event: React.MouseEvent<SVGElement>) => void;
-  onLocationMouseOut?: () => void;
+  getPathClassName?: (path: SVGPath) => string;
+  onPathMouseOver?: (event: React.MouseEvent<SVGElement>) => void;
+  onPathMouseMove?: (event: React.MouseEvent<SVGElement>) => void;
+  onPathMouseOut?: () => void;
   [x: string]: any;
 }
 
 const SVGMap: FC<Props> = ({
   map = null,
   className = "",
-  getLocationClassName = (location: SVGLocation): string => "",
-  onLocationMouseOver = (event: React.MouseEvent<SVGElement>): void => {},
-  onLocationMouseMove = (event: React.MouseEvent<SVGElement>): void => {},
-  onLocationMouseOut = (): void => {},
+  getPathClassName = (path: SVGPath): string => "",
+  onPathMouseOver = (event: React.MouseEvent<SVGElement>): void => {},
+  onPathMouseMove = (event: React.MouseEvent<SVGElement>): void => {},
+  onPathMouseOut = (): void => {},
   ...props
 }) => (
   <svg
@@ -28,17 +28,17 @@ const SVGMap: FC<Props> = ({
     aria-label={map.label}
     {...props}
   >
-    {map.locations.map((location) => (
+    {map.paths.map((path) => (
       <path
-        key={location.id}
-        id={location.id}
-        name={location.name}
-        d={location.path}
-        aria-label={location.name}
-        className={getLocationClassName(location)}
-        onMouseOver={onLocationMouseOver}
-        onMouseOut={onLocationMouseOut}
-        onMouseMove={onLocationMouseMove}
+        key={path.id}
+        id={path.id}
+        name={path.name}
+        d={path.d}
+        aria-label={path.name}
+        className={getPathClassName(path)}
+        onMouseOver={onPathMouseOver}
+        onMouseMove={onPathMouseMove}
+        onMouseOut={onPathMouseOut}
       />
     ))}
   </svg>

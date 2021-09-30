@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import * as Maps from "@geobuff/maps";
+import * as Maps from "@geobuff/svg-maps";
 
 import GameMapQuiz from "../../components/GameMapQuiz";
 import GameSpinner from "../../components/GameSpinner";

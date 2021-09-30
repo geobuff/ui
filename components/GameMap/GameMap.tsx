@@ -2,20 +2,20 @@ import React, { useState, FC } from "react";
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 
 import MapInteractionCSS from "../MapInteractionCSS";
-import { SVGLocation } from "../../types/svg-location";
-import { Map } from "../../types/map";
 import SVGMap from "../SVGMap";
+import { SVGBase } from "../../types/svg-base";
+import { SVGPath } from "../../types/svg-path";
 
 interface Props {
   showTooltip?: boolean;
-  map?: Map;
-  onLocationClassName?: (location: SVGLocation) => string;
+  map?: SVGBase;
+  onPathClassName?: (path: SVGPath) => string;
 }
 
 const GameMap: FC<Props> = ({
   showTooltip = false,
   map = null,
-  onLocationClassName = (location: SVGLocation): string => "",
+  onPathClassName = (path: SVGPath): string => "",
 }) => {
   const [tooltipText, setTooltipText] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
@@ -63,10 +63,10 @@ const GameMap: FC<Props> = ({
             <MapInteractionCSS>
               <SVGMap
                 map={map}
-                getLocationClassName={onLocationClassName}
-                onLocationMouseOver={mouseOver}
-                onLocationMouseMove={mouseMove}
-                onLocationMouseOut={mouseOut}
+                getPathClassName={onPathClassName}
+                onPathMouseOver={mouseOver}
+                onPathMouseMove={mouseMove}
+                onPathMouseOut={mouseOut}
                 style={mapStyle}
               />
             </MapInteractionCSS>
@@ -75,10 +75,10 @@ const GameMap: FC<Props> = ({
           <MapInteractionCSS>
             <SVGMap
               map={map}
-              getLocationClassName={onLocationClassName}
-              onLocationMouseOver={mouseOver}
-              onLocationMouseMove={mouseMove}
-              onLocationMouseOut={mouseOut}
+              getPathClassName={onPathClassName}
+              onPathMouseOver={mouseOver}
+              onPathMouseMove={mouseMove}
+              onPathMouseOut={mouseOut}
               style={mapStyle}
             />
           </MapInteractionCSS>

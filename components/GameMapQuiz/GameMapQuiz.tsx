@@ -44,8 +44,8 @@ import {
   findSubmissionsByPrefixes,
 } from "../../helpers/game";
 import { Mapping } from "../../types/mapping";
-import { SVGLocation } from "../../types/svg-location";
-import { Map } from "../../types/map";
+import { SVGBase } from "../../types/svg-base";
+import { SVGPath } from "../../types/svg-path";
 import { Result } from "../../types/result";
 import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
 import { GameOverRedirect } from "../../types/game-over-redirect";
@@ -63,7 +63,7 @@ interface Props {
   hasFlags?: boolean;
   hasGrouping?: boolean;
   mapping?: Mapping[];
-  map?: Map;
+  map?: SVGBase;
 }
 
 const GameMapQuiz: FC<Props> = ({
@@ -153,12 +153,12 @@ const GameMapQuiz: FC<Props> = ({
     },
   });
 
-  const handleLocationClassName = (location: SVGLocation): string => {
+  const handlePathClassName = (path: SVGPath): string => {
     if (
       checkedSubmissions.length
         ? checkedSubmissions.find(
             (submission) =>
-              submission.name.toLowerCase() === location.name.toLowerCase()
+              submission.name.toLowerCase() === path.name.toLowerCase()
           )
         : false
     ) {
@@ -353,7 +353,7 @@ const GameMapQuiz: FC<Props> = ({
             <GameMap
               map={map}
               showTooltip={!hasGameStarted}
-              onLocationClassName={handleLocationClassName}
+              onPathClassName={handlePathClassName}
             />
           </Fade>
 
