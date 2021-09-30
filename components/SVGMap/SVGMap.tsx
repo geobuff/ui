@@ -4,29 +4,28 @@ import { SVGPath } from "../../types/svg-path";
 
 interface Props {
   map?: SVGBase;
-  className?: string;
-  getPathClassName?: (path: SVGPath) => string;
+  mapStyle?: any;
+  pathSelectedStyle?: any;
+  isPathSelected?: (path: SVGPath) => boolean;
   onPathMouseOver?: (event: React.MouseEvent<SVGElement>) => void;
   onPathMouseMove?: (event: React.MouseEvent<SVGElement>) => void;
   onPathMouseOut?: () => void;
-  [x: string]: any;
 }
 
 const SVGMap: FC<Props> = ({
   map = null,
-  className = "",
-  getPathClassName = (path: SVGPath): string => "",
+  mapStyle = {},
+  pathSelectedStyle = {},
+  isPathSelected = (path: SVGPath): boolean => false,
   onPathMouseOver = (event: React.MouseEvent<SVGElement>): void => {},
   onPathMouseMove = (event: React.MouseEvent<SVGElement>): void => {},
   onPathMouseOut = (): void => {},
-  ...props
 }) => (
   <svg
     xmlns="http://www.w3.org/2000/svg"
-    className={className}
     viewBox={map.viewBox}
     aria-label={map.label}
-    {...props}
+    style={mapStyle}
   >
     {map.paths.map((path) => (
       <path
@@ -35,10 +34,10 @@ const SVGMap: FC<Props> = ({
         name={path.name}
         d={path.d}
         aria-label={path.name}
-        className={getPathClassName(path)}
         onMouseOver={onPathMouseOver}
         onMouseMove={onPathMouseMove}
         onMouseOut={onPathMouseOut}
+        style={isPathSelected(path) ? pathSelectedStyle : {}}
       />
     ))}
   </svg>

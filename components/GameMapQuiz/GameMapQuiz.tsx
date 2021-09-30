@@ -153,19 +153,15 @@ const GameMapQuiz: FC<Props> = ({
     },
   });
 
-  const handlePathClassName = (path: SVGPath): string => {
-    if (
-      checkedSubmissions.length
-        ? checkedSubmissions.find(
-            (submission) =>
-              submission.name.toLowerCase() === path.name.toLowerCase()
-          )
-        : false
-    ) {
-      return `selected`;
-    }
+  const isPathSelected = (path: SVGPath): boolean => {
+    return (
+      checkedSubmissions.length &&
+      checkedSubmissions.find(
+        (submission) =>
+          submission.name.toLowerCase() === path.name.toLowerCase()
+      ) !== undefined
+    );
   };
-
   const handleGameStart = (): void => {
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
@@ -353,7 +349,7 @@ const GameMapQuiz: FC<Props> = ({
             <GameMap
               map={map}
               showTooltip={!hasGameStarted}
-              onPathClassName={handlePathClassName}
+              isPathSelected={isPathSelected}
             />
           </Fade>
 
