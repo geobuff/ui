@@ -35,7 +35,3 @@ svg * {
   fill: #27ae60;
   transition: all 500ms ease-out;
 }
-
-.selected {
-  fill: #27ae60;
-}

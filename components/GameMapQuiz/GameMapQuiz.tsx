@@ -44,12 +44,15 @@ import {
   findSubmissionsByPrefixes,
 } from "../../helpers/game";
 import { Mapping } from "../../types/mapping";
-import { SVGLocation } from "../../types/svg-location";
-import { Map } from "../../types/map";
+import { SVGBase } from "../../types/svg-base";
 import { Result } from "../../types/result";
 import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+
+const pathSelectedStyle = {
+  fill: "#27ae60",
+};
 
 interface Props {
   time?: number;
@@ -63,7 +66,7 @@ interface Props {
   hasFlags?: boolean;
   hasGrouping?: boolean;
   mapping?: Mapping[];
-  map?: Map;
+  map?: SVGBase;
 }
 
 const GameMapQuiz: FC<Props> = ({
@@ -153,20 +156,12 @@ const GameMapQuiz: FC<Props> = ({
     },
   });
 
-  const handleLocationClassName = (location: SVGLocation): string => {
-    if (
-      checkedSubmissions.length
-        ? checkedSubmissions.find(
-            (submission) =>
-              submission.name.toLowerCase() === location.name.toLowerCase()
-          )
-        : false
-    ) {
-      return `selected`;
-    }
-  };
-
   const handleGameStart = (): void => {
+    map.paths.map((x) => {
+      x.style = {};
+      return x;
+    });
+
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
     setScore(0);
@@ -254,6 +249,18 @@ const GameMapQuiz: FC<Props> = ({
           };
         }
       );
+
+      map.paths
+        .filter(
+          (x) =>
+            x.name.toLowerCase() === matchedSubmission.svgName.toLowerCase()
+        )
+        .map((x) => {
+          x.style = {
+            fill: pathSelectedStyle,
+          };
+          return x;
+        });
 
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
@@ -350,11 +357,7 @@ const GameMapQuiz: FC<Props> = ({
           )}
 
           <Fade in>
-            <GameMap
-              map={map}
-              showTooltip={!hasGameStarted}
-              onLocationClassName={handleLocationClassName}
-            />
+            <GameMap map={map} showTooltip={!hasGameStarted} />
           </Fade>
 
           {shouldDisplayOnMobile && (

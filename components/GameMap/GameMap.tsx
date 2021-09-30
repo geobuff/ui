@@ -2,21 +2,17 @@ import React, { useState, FC } from "react";
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 
 import MapInteractionCSS from "../MapInteractionCSS";
-import { SVGLocation } from "../../types/svg-location";
-import { Map } from "../../types/map";
 import SVGMap from "../SVGMap";
+import { SVGBase } from "../../types/svg-base";
+import { SVGPath } from "../../types/svg-path";
 
 interface Props {
   showTooltip?: boolean;
-  map?: Map;
-  onLocationClassName?: (location: SVGLocation) => string;
+  map?: SVGBase;
+  isPathSelected?: (path: SVGPath) => boolean;
 }
 
-const GameMap: FC<Props> = ({
-  showTooltip = false,
-  map = null,
-  onLocationClassName = (location: SVGLocation): string => "",
-}) => {
+const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
   const [tooltipText, setTooltipText] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [tooltipTop, setTooltipTop] = useState(0);
@@ -63,11 +59,10 @@ const GameMap: FC<Props> = ({
             <MapInteractionCSS>
               <SVGMap
                 map={map}
-                getLocationClassName={onLocationClassName}
-                onLocationMouseOver={mouseOver}
-                onLocationMouseMove={mouseMove}
-                onLocationMouseOut={mouseOut}
-                style={mapStyle}
+                mapStyle={mapStyle}
+                onPathMouseOver={mouseOver}
+                onPathMouseMove={mouseMove}
+                onPathMouseOut={mouseOut}
               />
             </MapInteractionCSS>
           </Tooltip>
@@ -75,11 +70,10 @@ const GameMap: FC<Props> = ({
           <MapInteractionCSS>
             <SVGMap
               map={map}
-              getLocationClassName={onLocationClassName}
-              onLocationMouseOver={mouseOver}
-              onLocationMouseMove={mouseMove}
-              onLocationMouseOut={mouseOut}
-              style={mapStyle}
+              mapStyle={mapStyle}
+              onPathMouseOver={mouseOver}
+              onPathMouseMove={mouseMove}
+              onPathMouseOut={mouseOut}
             />
           </MapInteractionCSS>
         )}
