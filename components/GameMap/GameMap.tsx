@@ -1,8 +1,8 @@
 import React, { useState, FC } from "react";
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
+import { SVGMap } from "@geobuff/svg-map";
 
 import MapInteractionCSS from "../MapInteractionCSS";
-import SVGMap from "../SVGMap";
 import { SVGBase } from "../../types/svg-base";
 
 interface Props {
