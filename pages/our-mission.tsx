@@ -57,8 +57,12 @@ const OurMission: FC = () => (
               mx="auto"
             >
               Share open source{" "}
-              <Link href="https://github.com/geobuff/maps" color="teal.500">
+              <Link href="https://github.com/geobuff/svg-map" color="teal.500">
                 map
+              </Link>
+              ,{" "}
+              <Link href="https://github.com/geobuff/svg-maps" color="teal.500">
+                maps
               </Link>
               ,{" "}
               <Link href="https://github.com/geobuff/mapping" color="teal.500">
