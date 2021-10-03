@@ -9,7 +9,6 @@ body,
 #__next {
   /* mobile viewport bug fix */
   min-height: -webkit-fill-available;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
@@ -27,44 +26,7 @@ svg * {
   transition: all 125ms ease-out;
 }
 
-.quiz-map {
-  height: 90vh;
-  min-width: 100%;
-  fill: #6dca94;
-  margin: 12px;
-}
-
-.quiz-map::before {
-  content: "";
-  width: 1px;
-  margin-left: -1px;
-  float: left;
-  height: 0;
-  padding-top: (9 / 16) * 100%;
-}
-.quiz-map::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
 .quiz-map-controls {
-  margin: 4px 8px;
-  opacity: 0.85;
-}
-
-.highlight-on-hover:hover {
-  fill: #27ae60;
-  transition: all 500ms ease-out;
-}
-
-.selected {
-  fill: #27ae60;
-}
-
-@media only screen and (max-width: 600px) {
-  .quiz-map {
-    height: initial;
-    min-width: initial;
-  }
+  margin-left: 8px;
+  margin-right: 8px;
 }

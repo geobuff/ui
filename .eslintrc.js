@@ -1,11 +1,11 @@
 module.exports = {
   env: {
     browser: true,
-    es2021: true,
+    amd: true,
     node: true,
+    jest: true,
   },
-  extends: ["eslint:recommended", "plugin:react/recommended", "prettier"],
-
+  parser: "@typescript-eslint/parser",
   parserOptions: {
     ecmaFeatures: {
       jsx: true,
@@ -14,8 +14,33 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "react-hooks"],
+  settings: {
+    react: {
+      version: "detect",
+    },
+  },
+  extends: [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:react/recommended",
+    "prettier",
+    "plugin:prettier/recommended",
+  ],
   rules: {
     "react-hooks/exhaustive-deps": "warn",
     "react-hooks/rules-of-hooks": "warn",
+    "react/prop-types": "off",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-empty-function": "off",
+    "@typescript-eslint/ban-types": "off",
+    "@typescript-eslint/ban-ts-comment": "off",
   },
+  overrides: [
+    {
+      files: ["*.ts", "*.tsx"],
+      rules: {
+        "@typescript-eslint/explicit-function-return-type": "error",
+      },
+    },
+  ],
 };
