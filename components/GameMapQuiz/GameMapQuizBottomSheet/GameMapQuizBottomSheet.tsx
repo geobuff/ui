@@ -113,6 +113,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
             css={{
               "&::-webkit-scrollbar": {
                 width: "4px",
+                display: "none",
               },
               "&::-webkit-scrollbar-track": {
                 width: "6px",
