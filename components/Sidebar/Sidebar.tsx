@@ -1,14 +1,8 @@
 import React, { FC } from "react";
-import Link from "next/link";
-import {
-  Box,
-  Divider,
-  Heading,
-  Flex,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
 
-import Twemoji from "../Twemoji";
+import { Box, Divider, Flex } from "@chakra-ui/react";
+
+import GameHeader from "../GameHeader";
 
 export interface Props {
   heading?: string;
@@ -46,22 +40,11 @@ const Sidebar: FC<Props> = ({
       {!!heading && (
         <>
           <Flex mt={14} justifyContent="center">
-            <Heading size="md" textAlign="center">
-              {hasLeaderboard && (
-                <Link href={`/leaderboard?quizId=${quizId}`}>
-                  <ChakraLink>
-                    <Twemoji
-                      emoji="🏆"
-                      height="22px"
-                      width="22px"
-                      pt={1}
-                      mr={2}
-                    />
-                  </ChakraLink>
-                </Link>
-              )}
-              {heading}
-            </Heading>
+            <GameHeader
+              hasLeaderboard={hasLeaderboard}
+              heading={heading}
+              quizId={quizId}
+            />
           </Flex>
           <Divider my={5} borderColor="#E3E1E1" borderWidth={1} />
         </>
