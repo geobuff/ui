@@ -111,9 +111,20 @@ const GameMapQuizBottomSheet: FC<Props> = ({
             direction="column"
             height="100%"
             overflowY="scroll"
-            mx={5}
+            mx={4}
             my={0}
             pb="100px"
+            css={{
+              "&::-webkit-scrollbar": {
+                width: "4px",
+              },
+              "&::-webkit-scrollbar-track": {
+                width: "6px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                borderRadius: "24px",
+              },
+            }}
           >
             <Box>
               <Heading pt={0} size="md">
