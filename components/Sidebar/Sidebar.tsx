@@ -1,14 +1,7 @@
 import React, { FC } from "react";
-import Link from "next/link";
-import {
-  Box,
-  Divider,
-  Heading,
-  Flex,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
 
-import Twemoji from "../Twemoji";
+import { Box, Divider, Flex } from "@chakra-ui/react";
+
 import GameHeader from "../GameHeader";
 
 export interface Props {
