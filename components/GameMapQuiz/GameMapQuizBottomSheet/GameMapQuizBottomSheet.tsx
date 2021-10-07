@@ -70,6 +70,23 @@ const GameMapQuizBottomSheet: FC<Props> = ({
 
   const snapTo = (snapIndex: number): void => ref?.current?.snapTo(snapIndex);
 
+  // Custom DragIndicator Fixes issue with the original package indicator flying around on drag
+  const DragIndicator: FC = () => (
+    <>
+      <Box position="absolute" width="100%" top={5}>
+        <Box
+          margin="auto"
+          borderRadius={25}
+          height={"4.35px"}
+          width={8}
+          backgroundColor="#dddddd"
+          mb={1}
+        />
+      </Box>
+      <Box pt={1} height="44px" as={Sheet.Header} />
+    </>
+  );
+
   return (
     <Box
       ref={ref}
@@ -88,7 +105,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
       onClose={(): void => {}}
     >
       <Sheet.Container style={{ position: "fixed" }}>
-        <Box pt={1} height="54px" as={Sheet.Header} />
+        <DragIndicator />
         <Sheet.Content>
           <Flex
             direction="column"
