@@ -17,7 +17,7 @@ import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
 import { Result } from "../../../types/result";
 
-const snapPoints = [600, 400, 300, 100];
+const snapPoints = [600, 400, 300, 90];
 const initialSnap = snapPoints.length - 2;
 
 export interface Props {
@@ -67,6 +67,29 @@ const GameMapQuizBottomSheet: FC<Props> = ({
 
   const snapTo = (snapIndex: number): void => ref?.current?.snapTo(snapIndex);
 
+  const gameControlButtonText = hasGameStarted
+    ? "GIVE UP"
+    : hasGameRunOnce
+    ? "RETRY"
+    : "START";
+
+  // Custom DragIndicator Fixes issue with the original package indicator flying around on drag
+  const DragIndicator: FC = () => (
+    <>
+      <Box position="absolute" width="100%" top={5}>
+        <Box
+          margin="auto"
+          borderRadius={25}
+          height={"4.35px"}
+          width={8}
+          backgroundColor="#dddddd"
+          mb={1}
+        />
+      </Box>
+      <Box pt={1} height="44px" as={Sheet.Header} />
+    </>
+  );
+
   return (
     <Box
       ref={ref}
@@ -85,47 +108,52 @@ const GameMapQuizBottomSheet: FC<Props> = ({
       onClose={(): void => {}}
     >
       <Sheet.Container style={{ position: "fixed" }}>
-        <Box pt={1} height="54px" as={Sheet.Header} />
+        <DragIndicator />
         <Sheet.Content>
           <Flex
             direction="column"
             height="100%"
             overflowY="scroll"
-            mx={5}
+            mx={4}
             my={0}
             pb="100px"
+            css={{
+              "&::-webkit-scrollbar": {
+                width: "4px",
+              },
+              "&::-webkit-scrollbar-track": {
+                width: "6px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                borderRadius: "24px",
+              },
+            }}
           >
-            <Box>
-              <GameHeader
-                hasLeaderboard={hasLeaderboard}
-                heading={name}
-                quizId={id}
-              />
+            <GameHeader
+              hasLeaderboard={hasLeaderboard}
+              heading={name}
+              quizId={id}
+            />
 
-              <Divider my={4} />
+            <Divider my={4} />
 
-              <Box my={4}>
-                <Button
-                  colorScheme={hasGameStarted ? "red" : "green"}
-                  isFullWidth
-                  onClick={hasGameStarted ? onGameStop : onGameStart}
-                  p={8}
-                  size="md"
-                >
-                  <Text fontWeight="700" fontSize="22px">
-                    {hasGameStarted
-                      ? "GIVE UP"
-                      : hasGameRunOnce
-                      ? "RETRY"
-                      : "START"}
-                  </Text>
-                </Button>
-              </Box>
+            <Box my={2}>
+              <Button
+                colorScheme={hasGameStarted ? "red" : "green"}
+                isFullWidth
+                onClick={hasGameStarted ? onGameStop : onGameStart}
+                p={8}
+                size="md"
+              >
+                <Text fontWeight="700" fontSize="22px">
+                  {gameControlButtonText}
+                </Text>
+              </Button>
             </Box>
 
             <Divider my={4} />
 
-            <Box mt={4}>
+            <Box mt={2} mb={4}>
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
