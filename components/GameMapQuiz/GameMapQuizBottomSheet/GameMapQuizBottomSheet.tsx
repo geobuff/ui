@@ -1,20 +1,17 @@
 import React, { createRef, useEffect, FC } from "react";
-import Link from "next/link";
 import {
   Box,
   Button,
   Divider,
-  Heading,
   Text,
   Flex,
-  Link as ChakraLink,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Sheet from "react-modal-sheet";
 
+import GameHeader from "../../GameHeader";
 import ResultsList from "../../ResultsList";
 import ResultsMap from "../../ResultsMap";
-import Twemoji from "../../Twemoji";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
@@ -132,18 +129,11 @@ const GameMapQuizBottomSheet: FC<Props> = ({
               },
             }}
           >
-            <Heading pt={0} size="md">
-              <Flex justifyContent="center">
-                {hasLeaderboard && (
-                  <Link href={`/leaderboard?quizId=${id}`}>
-                    <ChakraLink>
-                      <Twemoji emoji="🏆" mr={2} />
-                    </ChakraLink>
-                  </Link>
-                )}
-                {name}
-              </Flex>
-            </Heading>
+            <GameHeader
+              hasLeaderboard={hasLeaderboard}
+              heading={name}
+              quizId={id}
+            />
 
             <Divider my={4} />
 

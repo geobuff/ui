@@ -1,22 +1,15 @@
 import React, { useState, useEffect, useContext, FC } from "react";
-import {
-  Box,
-  Button,
-  Fade,
-  Flex,
-  Heading,
-  Text,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
-import Link from "next/link";
 
-import Twemoji from "../../Twemoji";
+import { Box, Button, Fade, Flex, Text } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+
 import ResultsMap from "../../ResultsMap";
 import GameFlags from "../../GameFlags";
-import { groupMapping } from "../../../helpers/mapping";
+import GameHeader from "../../GameHeader";
 
-import { motion } from "framer-motion";
 import { FlagGameContext } from "../../../context/FlagGameContext";
+
+import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
 
 interface Props {
@@ -126,18 +119,13 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
         borderTopRadius={12}
       >
         <DragIndicator />
-        <Heading pt={2} size="md">
-          <Flex justifyContent="center">
-            {hasLeaderboard && (
-              <Link href={`/leaderboard?quizId=${id}`}>
-                <ChakraLink>
-                  <Twemoji emoji="🏆" mr={2} />
-                </ChakraLink>
-              </Link>
-            )}
-            {name}
-          </Flex>
-        </Heading>
+        <GameHeader
+          mt={3}
+          hasLeaderboard={hasLeaderboard}
+          quizId={id}
+          heading={name}
+          shouldTruncateText
+        />
 
         <Box>
           {!showResultList && (
