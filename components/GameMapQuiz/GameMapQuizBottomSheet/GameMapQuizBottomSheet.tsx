@@ -73,23 +73,6 @@ const GameMapQuizBottomSheet: FC<Props> = ({
     ? "RETRY"
     : "START";
 
-  // Custom DragIndicator Fixes issue with the original package indicator flying around on drag
-  const DragIndicator: FC = () => (
-    <>
-      <Box position="absolute" width="100%" top={5}>
-        <Box
-          margin="auto"
-          borderRadius={25}
-          height={"4.35px"}
-          width={8}
-          backgroundColor="#dddddd"
-          mb={1}
-        />
-      </Box>
-      <Box pt={1} height="44px" as={Sheet.Header} />
-    </>
-  );
-
   return (
     <Box
       ref={ref}
@@ -108,7 +91,17 @@ const GameMapQuizBottomSheet: FC<Props> = ({
       onClose={(): void => {}}
     >
       <Sheet.Container style={{ position: "fixed" }}>
-        <DragIndicator />
+        <Box as={Sheet.Header} />
+        <Box
+          margin="auto"
+          borderRadius={25}
+          height={"4.35px"}
+          width={8}
+          backgroundColor="#dddddd"
+          mb={3}
+          marginTop={-4}
+        />
+
         <Sheet.Content>
           <Flex
             direction="column"
@@ -120,6 +113,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
             css={{
               "&::-webkit-scrollbar": {
                 width: "4px",
+                display: "none",
               },
               "&::-webkit-scrollbar-track": {
                 width: "6px",

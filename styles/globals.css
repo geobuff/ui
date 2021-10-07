@@ -32,5 +32,5 @@ svg * {
 }
 
 .react-modal-sheet-drag-indicator {
-  display: none;
+  background-color: transparent !important;
 }
