@@ -16,6 +16,7 @@ const ScrollingComponent = withScrolling("div");
 
 import DraggableFlag from "../DraggableFlag";
 import DraggableFlagPreview from "../DraggableFlag/DraggableFlagPreview";
+import CarouselButton from "../Carousel/CarouselButton";
 
 interface Props {
   codes?: string[];
@@ -55,6 +56,9 @@ const GameFlags: FC<Props> = ({
               infinite
               deviceType={"mobile"}
               customTransition="transform 150ms ease-in-out"
+              //@ts-ignore
+              customLeftArrow={<CarouselButton position="left" />}
+              customRightArrow={<CarouselButton position="right" />}
             >
               {[...Array.from(new Set(codes))]?.map((code) => (
                 <Box key={code}>
