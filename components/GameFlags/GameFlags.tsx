@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import {
   Box,
   Button,
@@ -17,6 +17,7 @@ const ScrollingComponent = withScrolling("div");
 import DraggableFlag from "../DraggableFlag";
 import DraggableFlagPreview from "../DraggableFlag/DraggableFlagPreview";
 import CarouselButton from "../Carousel/CarouselButton";
+import { FlagGameContext } from "../../context/FlagGameContext";
 
 interface Props {
   codes?: string[];
@@ -52,6 +53,8 @@ const GameFlags: FC<Props> = ({
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
+  const { dragItem, isDragging } = useContext(FlagGameContext);
+
   return (
     <>
       {isMobile ? (
@@ -63,7 +66,7 @@ const GameFlags: FC<Props> = ({
             marginRight={10}
             alignItems="center"
           >
-            <DraggableFlagPreview code={"nz"} />
+            {isDragging && <DraggableFlagPreview code={dragItem.code} />}
 
             <Carousel
               ssr
@@ -74,6 +77,7 @@ const GameFlags: FC<Props> = ({
               customTransition="transform 150ms ease-in-out"
               customLeftArrow={<CarouselButton position="left" />}
               customRightArrow={<CarouselButton position="right" />}
+              itemClass="flex align-center"
             >
               {[...Array.from(new Set(codes))]?.map((code) => (
                 <DraggableFlag

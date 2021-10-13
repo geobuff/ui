@@ -47,7 +47,7 @@ const DraggableFlag: FC<Props> = ({
   }));
 
   useEffect(() => {
-    handleDragging(isDragging);
+    handleDragging({ isDragging, code });
   }, [isDragging]);
 
   // TODO: km - remove once added to BottomSheet
@@ -69,7 +69,7 @@ const DraggableFlag: FC<Props> = ({
           width="100%"
           maxWidth={{ base: "76px", lg: "100px" }}
           minWidth={{ base: "76px", lg: "100px" }}
-          height={{ base: "62px", lg: "64px" }}
+          height={{ base: "52px", lg: "64px" }}
           objectFit="cover"
           borderRadius={6}
         />
