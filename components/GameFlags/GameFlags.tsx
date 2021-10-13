@@ -1,15 +1,34 @@
 import React, { FC } from "react";
-import { Box, Flex, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  Flex,
+  SimpleGrid,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import withScrolling from "react-dnd-scrolling";
 
+import Carousel from "react-multi-carousel";
+import "react-multi-carousel/lib/styles.css";
+
+// TODO: km - we do still need this?
 const ScrollingComponent = withScrolling("div");
 
 import DraggableFlag from "../DraggableFlag";
+import DraggableFlagPreview from "../DraggableFlag/DraggableFlagPreview";
 
 interface Props {
   codes?: string[];
   onCheckSubmission?: (submission: string) => void;
 }
+
+const responsive = {
+  mobile: {
+    breakpoint: { max: 1000, min: 0 },
+    items: 4,
+    slidesToSlide: 2,
+  },
+};
 
 const GameFlags: FC<Props> = ({
   codes = [],
@@ -20,7 +39,7 @@ const GameFlags: FC<Props> = ({
   return (
     <>
       {isMobile ? (
-        <Box as={ScrollingComponent} overflowX="auto">
+        <>
           <Flex
             width="100%"
             position="relative"
@@ -28,17 +47,30 @@ const GameFlags: FC<Props> = ({
             marginRight={10}
             alignItems="center"
           >
-            {[...Array.from(new Set(codes))]?.map((code) => (
-              <DraggableFlag
-                key={code}
-                code={code}
-                checkSubmission={onCheckSubmission}
-                mx={3}
-              />
-            ))}
+            <DraggableFlagPreview code={"nz"} />
+
+            <Carousel
+              ssr
+              responsive={responsive}
+              infinite
+              deviceType={"mobile"}
+              customTransition="transform 150ms ease-in-out"
+            >
+              {[...Array.from(new Set(codes))]?.map((code) => (
+                <Box key={code}>
+                  <DraggableFlag
+                    code={code}
+                    checkSubmission={onCheckSubmission}
+                    mx={2}
+                  />
+                </Box>
+              ))}
+            </Carousel>
           </Flex>
-        </Box>
+        </>
       ) : (
+        // </Flex>
+        // </Box>
         <Flex
           minWidth="300px"
           width="100%"

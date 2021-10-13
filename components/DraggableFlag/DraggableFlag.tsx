@@ -10,7 +10,7 @@ import { ItemTypes } from "../../types/item-types";
 import { FlagGameContext } from "../../context/FlagGameContext";
 import { DragResult } from "../../types/drag-result";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import DraggableFlagPreview from "./DraggableFlagPreview";
+// import DraggableFlagPreview from "./DraggableFlagPreview";
 
 interface CollectResult {
   isDragging: boolean;
@@ -50,27 +50,26 @@ const DraggableFlag: FC<Props> = ({
     handleDragging(isDragging);
   }, [isDragging]);
 
-  const shouldShowFlagPreview = isDragging && userAgent?.isMobile;
+  // TODO: km - remove once added to BottomSheet
+  // const shouldShowFlagPreview = isDragging && userAgent?.isMobile;
 
   return (
     <>
-      {shouldShowFlagPreview && <DraggableFlagPreview code={code} />}
       <Box
         ref={drag}
         role="Flag"
         opacity={isDragging ? 0.4 : 1}
         cursor="pointer"
-        {...props}
-        position="relative"
         display="inline-block"
-        float="left"
+        position="relative"
+        {...props}
       >
         <Image
           src={getFlagUrl(code)}
           width="100%"
-          maxWidth={{ base: "72px", lg: "100px" }}
-          minWidth={{ base: "72px", lg: "100px" }}
-          height={{ base: "48px", lg: "64px" }}
+          maxWidth={{ base: "76px", lg: "100px" }}
+          minWidth={{ base: "76px", lg: "100px" }}
+          height={{ base: "62px", lg: "64px" }}
           objectFit="cover"
           borderRadius={6}
         />
