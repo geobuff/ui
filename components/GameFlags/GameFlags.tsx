@@ -24,10 +24,25 @@ interface Props {
 }
 
 const responsive = {
-  mobile: {
-    breakpoint: { max: 1000, min: 0 },
+  tablet: {
+    breakpoint: { max: 1000, min: 600 },
+    items: 5,
+    slidesToSlide: 3,
+  },
+  largerMobile: {
+    breakpoint: { max: 600, min: 500 },
     items: 4,
     slidesToSlide: 2,
+  },
+  mobile: {
+    breakpoint: { max: 500, min: 370 },
+    items: 3,
+    slidesToSlide: 2,
+  },
+  smallMobile: {
+    breakpoint: { max: 370, min: 0 },
+    items: 2,
+    slidesToSlide: 1,
   },
 };
 
@@ -52,22 +67,21 @@ const GameFlags: FC<Props> = ({
 
             <Carousel
               ssr
-              responsive={responsive}
               infinite
+              centerMode
+              responsive={responsive}
               deviceType={"mobile"}
               customTransition="transform 150ms ease-in-out"
-              //@ts-ignore
               customLeftArrow={<CarouselButton position="left" />}
               customRightArrow={<CarouselButton position="right" />}
             >
               {[...Array.from(new Set(codes))]?.map((code) => (
-                <Box key={code}>
-                  <DraggableFlag
-                    code={code}
-                    checkSubmission={onCheckSubmission}
-                    mx={2}
-                  />
-                </Box>
+                <DraggableFlag
+                  key={code}
+                  code={code}
+                  checkSubmission={onCheckSubmission}
+                  mx={2}
+                />
               ))}
             </Carousel>
           </Flex>
