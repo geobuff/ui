@@ -42,3 +42,51 @@ svg * {
 .align-center {
   align-items: center;
 }
+
+.react-multi-carousel-list::before {
+  content: " ";
+  height: 100px;
+  width: 48px;
+  position: absolute;
+  left: -6px;
+  z-index: 1;
+  background: -moz-linear-gradient(
+    left,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.react-multi-carousel-list::after {
+  content: " ";
+  height: 100px;
+  width: 48px;
+  position: absolute;
+  right: -6px;
+  z-index: 1;
+  background: -moz-linear-gradient(
+    right,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: -webkit-linear-gradient(
+    right,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}

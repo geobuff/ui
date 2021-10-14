@@ -2,6 +2,8 @@
 /* eslint-disable @typescript-eslint/explicit-function-return-type */
 import { IconButton } from "@chakra-ui/react";
 import React, { FC } from "react";
+import ArrowLeft from "../../Icons/ArrowLeft";
+import ArrowRight from "../../Icons/ArrowRight";
 import OutlinedArrowCircleLeft from "../../Icons/OutlinedArrowCircleLeft";
 import OutlinedArrowCircleRight from "../../Icons/OutlinedArrowCircleRight";
 
@@ -24,21 +26,23 @@ const CarouselButton: FC<Props> = ({ position = "right", ...props }) => {
       borderRadius="35px"
       zIndex={1000}
       border={0}
-      boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
+      boxShadow={`${
+        isLeft ? "1px" : "-1px"
+      } 4px 4px 2px rgb(179 187 209 / 25%)`}
       background="white"
-      minWidth="43px"
-      minHeight="43px"
+      minWidth="40px"
+      minHeight="36px"
       opacity={1}
       cursor="pointer"
-      left={isLeft ? 1 : "initial"}
-      right={isRight ? 1 : "initial"}
+      left={isLeft ? "3px" : "initial"}
+      right={isRight ? "3px" : "initial"}
       _hover={{ backgroundColor: "white" }}
       {...props}
     >
       {isLeft ? (
-        <OutlinedArrowCircleLeft color="black" height={8} width={8} />
+        <ArrowLeft color="black" height={5} width={5} />
       ) : (
-        <OutlinedArrowCircleRight color="black" height={8} width={8} />
+        <ArrowRight color="black" height={5} width={5} />
       )}
     </IconButton>
   );

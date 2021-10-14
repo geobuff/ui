@@ -54,7 +54,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
 
   const variants = {
     open: { top: "20%" },
-    closed: { top: "calc(100% - 260px)" },
+    closed: { top: "calc(100% - 242px)" },
   };
 
   useEffect(() => {

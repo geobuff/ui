@@ -1,8 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { usePreview } from "react-dnd-preview";
 import { getFlagUrl } from "@geobuff/flags";
 
 import Image from "../../Image";
+import { CurrentUserContext } from "../../../context/CurrentUserContext";
+import { FlagGameContext } from "../../../context/FlagGameContext";
 
 export interface Props {
   code: string;
@@ -11,7 +13,12 @@ export interface Props {
 const DraggableFlagPreview: FC<Props> = ({ code }) => {
   const { display, style } = usePreview();
 
-  if (!display) {
+  const { isDragging } = useContext(FlagGameContext);
+  const { userAgent } = useContext(CurrentUserContext);
+
+  const shouldShowFlagPreview = isDragging && userAgent?.isMobile;
+
+  if (!display || !shouldShowFlagPreview) {
     return null;
   }
   return (

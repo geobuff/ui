@@ -37,6 +37,8 @@ import {
 } from "../../helpers/random";
 
 const INCORRECT_ANSWER_THRESHOLD = 3;
+const NUMBER_OF_FLAGS_DESKTOP = 10;
+const NUMBER_OF_FLAGS_MOBILE = 6;
 
 interface Props {
   id?: number;
@@ -91,7 +93,7 @@ const GameFlagQuiz: FC<Props> = ({
   const [disableSkipButton, setDisableSkipButton] = useState(true);
 
   const [flagDragItems, setFlagDragItems] = useState(() =>
-    getRandomCollectionItems(mapping, 10).map((c) => c.code)
+    getRandomCollectionItems(mapping, NUMBER_OF_FLAGS_MOBILE).map((c) => c.code)
   );
   useWarnIfActiveGame(hasGameStarted);
 
@@ -168,9 +170,10 @@ const GameFlagQuiz: FC<Props> = ({
 
   const handleGameStart = (): void => {
     if (hasGameRunOnce) {
-      const nextDragItems = getRandomCollectionItems(mapping, 10).map(
-        (c) => c.code
-      );
+      const nextDragItems = getRandomCollectionItems(
+        mapping,
+        NUMBER_OF_FLAGS_MOBILE
+      ).map((c) => c.code);
       setFlagDragItems(nextDragItems);
       setAcceptedFlag(getRandomCollectionItem(nextDragItems));
     }
@@ -254,9 +257,10 @@ const GameFlagQuiz: FC<Props> = ({
 
       if (updatedRemainingAnswers?.length) {
         setFlagDragItems(
-          getRandomCollectionItems(updatedRemainingAnswers, 10).map(
-            (c) => c.code
-          )
+          getRandomCollectionItems(
+            updatedRemainingAnswers,
+            NUMBER_OF_FLAGS_MOBILE
+          ).map((c) => c.code)
         );
       }
 
@@ -285,7 +289,9 @@ const GameFlagQuiz: FC<Props> = ({
 
   const handleSkipQuestion = (): void => {
     setFlagDragItems(
-      getRandomCollectionItems(remainingAnswers, 10).map((c) => c.code)
+      getRandomCollectionItems(remainingAnswers, NUMBER_OF_FLAGS_MOBILE).map(
+        (c) => c.code
+      )
     );
   };
 

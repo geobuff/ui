@@ -18,6 +18,7 @@ import DraggableFlag from "../DraggableFlag";
 import DraggableFlagPreview from "../DraggableFlag/DraggableFlagPreview";
 import CarouselButton from "../Carousel/CarouselButton";
 import { FlagGameContext } from "../../context/FlagGameContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 interface Props {
   codes?: string[];
@@ -53,7 +54,7 @@ const GameFlags: FC<Props> = ({
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
 
-  const { dragItem, isDragging } = useContext(FlagGameContext);
+  const { dragItem } = useContext(FlagGameContext);
 
   return (
     <>
@@ -66,7 +67,7 @@ const GameFlags: FC<Props> = ({
             marginRight={10}
             alignItems="center"
           >
-            {isDragging && <DraggableFlagPreview code={dragItem.code} />}
+            <DraggableFlagPreview code={dragItem?.code} />
 
             <Carousel
               ssr
