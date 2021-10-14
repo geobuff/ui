@@ -15,46 +15,75 @@
   // 	],
   // 	"description": "Log output to console"
   // }
-  "reactArrowFunctionalComponent": {
-    "prefix": "react-fc",
+  "ReactTypeScriptComponent": {
+    "prefix": ["react-fc", "fc"],
     "body": [
-      "import React from 'react'",
-      "import { Box } from \"@chakra-ui/react\";",
+      "import React, { FC } from 'react';",
+      "import { Box } from '@chakra-ui/react';",
       "",
-      "const ${1:${TM_FILENAME_BASE}} = () => {",
-      "\treturn (",
-      "\t\t<Box>",
-      "\t\t\t{\"I'm a box 📦\"}",
-      "\t\t</Box>",
-      "\t)",
+      "export interface Props {",
       "}",
       "",
-      "export default ${1:${TM_FILENAME_BASE}}",
-      ""
+      "const ${1:${TM_FILENAME_BASE}}: FC<Props> = () => {",
+      "\treturn (",
+      "\t\t<Box>{\"I'm a 📦\"}</Box>",
+      "\t)",
+      "};",
+      "",
+      "export default ${1:${TM_FILENAME_BASE}};"
     ],
-    "description": "Creates a React Arrow Function Component"
+    "description": "Creates a React TypeScript Functional Component"
   },
-  "reactArrowFunctionalComponentPropTypes": {
-    "prefix": "react-fcp",
+  "StorybookComponentStoryFormat": {
+    "prefix": "story",
     "body": [
-      "import React from 'react'",
-      "import PropTypes from \"prop-types\";",
-      "import { Box } from \"@chakra-ui/react\";",
+      "import { Story } from '@storybook/react';",
+      "import ${TM_FILENAME/^([^.]+).*/$1/}, { Props } from './${TM_FILENAME/^([^.]+).*/$1/}';",
       "",
-      "const ${1:${TM_FILENAME_BASE}} = () => {",
-      "\treturn (",
-      "\t\t<Box>",
-      "\t\t\t{\"I'm a box 📦\"}",
-      "\t\t</Box>",
-      "\t)",
-      "}",
+      "export default {",
+      "\ttitle: 'UI/${TM_FILENAME/^([^.]+).*/$1/}',",
+      "\tcomponent: ${TM_FILENAME/^([^.]+).*/$1/},",
+      "};",
       "",
-      "${1:${TM_FILENAME_BASE}}.propTypes = {}",
-      "${1:${TM_FILENAME_BASE}}.defaultProps = {}",
+      "const Template: Story<Props> = (args) => (",
+      "\t<${TM_FILENAME/^([^.]+).*/$1/} {...args} />",
+      ");",
       "",
-      "export default ${1:${TM_FILENAME_BASE}}",
+      "export const Default = Template.bind({});",
+      "Default.args = {};",
       ""
     ],
-    "description": "Creates a React Arrow Function Component with PropTypes"
+    "description": "Creates a simple CSF story template"
+  },
+  "ReactTest": {
+    "prefix": ["react-test", "test"],
+    "body": [
+      "import { render } from '@testing-library/react';",
+      "import ${TM_FILENAME/^([^.]+).*/$1/}, { Props } from './${TM_FILENAME/^([^.]+).*/$1/}';",
+      "",
+      "describe('${TM_FILENAME/^([^.]+).*/$1/}', () => {",
+      "\tconst buildSubject = (props: Props) => {",
+      "\t\treturn render(<${TM_FILENAME/^([^.]+).*/$1/} {...props} />);",
+      "};",
+      "",
+      "describe('with minimum props', () => {",
+      "\tconst props = {};",
+      "",
+      "\tit('', () => {",
+      "\t\t const { getAllByTestId } = buildSubject(props);",
+      "\t\t});",
+      "\t});",
+      "});",
+      ""
+    ],
+    "description": "Creates a simple RTL test"
+  },
+  "ExportDefault": {
+    "prefix": ["export-d", "ed", "xd"],
+    "body": [
+      "export { default } from './${TM_DIRECTORY/^.+\\/(.*)$/$1/}';",
+      ""
+    ],
+    "description": "Creates a default export for the component"
   }
 }
