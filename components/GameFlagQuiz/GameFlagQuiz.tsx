@@ -37,6 +37,7 @@ import {
 } from "../../helpers/random";
 
 const INCORRECT_ANSWER_THRESHOLD = 3;
+
 const NUMBER_OF_FLAGS_DESKTOP = 10;
 const NUMBER_OF_FLAGS_MOBILE = 6;
 
@@ -70,6 +71,14 @@ const GameFlagQuiz: FC<Props> = ({
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const isMobile = useBreakpointValue({ base: true, lg: false });
+
+  const flagOptionCount = isMobile
+    ? NUMBER_OF_FLAGS_MOBILE
+    : NUMBER_OF_FLAGS_DESKTOP;
+
   const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
   const [recentSubmissions, setRecentSubmissions] = useState<Result[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -93,13 +102,10 @@ const GameFlagQuiz: FC<Props> = ({
   const [disableSkipButton, setDisableSkipButton] = useState(true);
 
   const [flagDragItems, setFlagDragItems] = useState(() =>
-    getRandomCollectionItems(mapping, NUMBER_OF_FLAGS_MOBILE).map((c) => c.code)
+    getRandomCollectionItems(mapping, flagOptionCount).map((c) => c.code)
   );
   useWarnIfActiveGame(hasGameStarted);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const isMobile = useBreakpointValue({ base: true, lg: false });
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
       const data: GameOverRedirect = JSON.parse(router.query.data as string);
@@ -172,7 +178,7 @@ const GameFlagQuiz: FC<Props> = ({
     if (hasGameRunOnce) {
       const nextDragItems = getRandomCollectionItems(
         mapping,
-        NUMBER_OF_FLAGS_MOBILE
+        flagOptionCount
       ).map((c) => c.code);
       setFlagDragItems(nextDragItems);
       setAcceptedFlag(getRandomCollectionItem(nextDragItems));
@@ -259,7 +265,7 @@ const GameFlagQuiz: FC<Props> = ({
         setFlagDragItems(
           getRandomCollectionItems(
             updatedRemainingAnswers,
-            NUMBER_OF_FLAGS_MOBILE
+            flagOptionCount
           ).map((c) => c.code)
         );
       }
@@ -289,7 +295,7 @@ const GameFlagQuiz: FC<Props> = ({
 
   const handleSkipQuestion = (): void => {
     setFlagDragItems(
-      getRandomCollectionItems(remainingAnswers, NUMBER_OF_FLAGS_MOBILE).map(
+      getRandomCollectionItems(remainingAnswers, flagOptionCount).map(
         (c) => c.code
       )
     );
