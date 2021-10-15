@@ -1,14 +1,13 @@
-import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 import React, { FC, useContext, useEffect } from "react";
 
+import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
-import { FlagGameContext } from "../../context/FlagGameContext";
 
+import { FlagGameContext } from "../../context/FlagGameContext";
 import CarouselButton from "../Carousel/CarouselButton";
 import DelayedRender from "../DelayedRender";
 import DraggableFlag from "../DraggableFlag";
-import Twemoji from "../Twemoji";
 
 const responsiveConfig = {
   tablet: {
@@ -77,6 +76,13 @@ const DraggableFlagCarousel: FC<Props> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [codes, carouselThreshold]);
 
+  /**
+   *  The carousel bugs out if you have less flags than the breakpoint config,
+   *  i.e. 2 flags left where the responsiveConfig specifies 3 flags to display.
+   *
+   *  To fix this we render the flags without the carousel if they can fit on the
+   *  given breakpoint.
+   *  */
   if (codes.length <= carouselThreshold) {
     return (
       <Flex
@@ -115,7 +121,7 @@ const DraggableFlagCarousel: FC<Props> = ({
     <Carousel
       ssr
       infinite
-      centerMode={codes.length >= 3}
+      centerMode
       responsive={responsiveConfig}
       deviceType={"mobile"}
       customTransition="transform 150ms ease-in-out"

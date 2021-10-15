@@ -25,7 +25,7 @@ export const FlagGameContextProvider: FC = ({ children = null }) => {
     <FlagGameContext.Provider
       value={{
         dragItem,
-        isDragging: dragItem.isDragging,
+        isDragging: dragItem?.isDragging,
         handleDragging,
       }}
     >

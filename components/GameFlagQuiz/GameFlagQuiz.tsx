@@ -36,7 +36,7 @@ import {
   getRandomCollectionItem,
 } from "../../helpers/random";
 
-const INCORRECT_ANSWER_THRESHOLD = 3;
+const INCORRECT_ANSWER_THRESHOLD = 1;
 
 const NUMBER_OF_FLAGS_DESKTOP = 10;
 const NUMBER_OF_FLAGS_MOBILE = 6;
