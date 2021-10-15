@@ -1,10 +1,11 @@
-import { Flex, useMediaQuery } from "@chakra-ui/react";
+import { Box, Fade, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 import React, { FC } from "react";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 import CarouselButton from "../Carousel/CarouselButton";
+import DelayedRender from "../DelayedRender";
 import DraggableFlag from "../DraggableFlag";
 
 const responsiveConfig = {
@@ -73,14 +74,24 @@ const DraggableFlagCarousel: FC<Props> = ({
         alignItems="center"
         justifyContent="center"
       >
-        {[...Array.from(new Set(codes))]?.map((code) => (
-          <DraggableFlag
-            key={code}
-            code={code}
-            checkSubmission={onCheckSubmission}
-            mx={3}
-          />
-        ))}
+        {codes.length ? (
+          [...Array.from(new Set(codes))]?.map((code) => (
+            <DraggableFlag
+              key={code}
+              code={code}
+              checkSubmission={onCheckSubmission}
+              mx={3}
+            />
+          ))
+        ) : (
+          <DelayedRender shouldFadeIn>
+            <Box paddingBottom={4} width="100%">
+              <Text textAlign="center" opacity={0.5} fontWeight={600}>
+                {`No flags to display`}
+              </Text>
+            </Box>
+          </DelayedRender>
+        )}
       </Flex>
     );
   }
@@ -96,6 +107,7 @@ const DraggableFlagCarousel: FC<Props> = ({
       customLeftArrow={<CarouselButton position="left" />}
       customRightArrow={<CarouselButton position="right" />}
       itemClass="flex center"
+      containerClass="fade-in"
     >
       {[...Array.from(new Set(codes))]?.map((code) => (
         <DraggableFlag

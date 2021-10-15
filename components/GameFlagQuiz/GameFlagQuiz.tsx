@@ -281,6 +281,7 @@ const GameFlagQuiz: FC<Props> = ({
       }, 500);
 
       if (updatedCheckedSubmissions.length === mapping.length) {
+        setFlagDragItems([]);
         handleGameStop();
       }
     },

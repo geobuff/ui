@@ -98,7 +98,7 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
       <ChakraProvider theme={theme}>
         <DndProvider
           backend={isMobile ? TouchBackend : HTML5Backend}
-          options={{ delayTouchStart: 0, ignoreContextMenu: true }}
+          options={{ delayTouchStart: 5, ignoreContextMenu: true }}
         >
           <CurrentUserContextProvider>
             <Component {...pageProps} />
