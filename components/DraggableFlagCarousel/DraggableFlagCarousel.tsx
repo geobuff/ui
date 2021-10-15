@@ -1,12 +1,14 @@
-import { Box, Fade, Flex, Text, useMediaQuery } from "@chakra-ui/react";
-import React, { FC } from "react";
+import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
+import React, { FC, useContext, useEffect } from "react";
 
 import Carousel from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
+import { FlagGameContext } from "../../context/FlagGameContext";
 
 import CarouselButton from "../Carousel/CarouselButton";
 import DelayedRender from "../DelayedRender";
 import DraggableFlag from "../DraggableFlag";
+import Twemoji from "../Twemoji";
 
 const responsiveConfig = {
   tablet: {
@@ -53,6 +55,8 @@ const DraggableFlagCarousel: FC<Props> = ({
   codes = [],
   onCheckSubmission,
 }) => {
+  const { handleDragging } = useContext(FlagGameContext);
+
   const responsiveBreakpoints = useMediaQuery([
     "(max-width: 1000px) and (min-width: 600px)",
     "(max-width: 600px) and (min-width: 500px)",
@@ -64,6 +68,14 @@ const DraggableFlagCarousel: FC<Props> = ({
     responsiveConfig,
     responsiveBreakpoints
   );
+
+  useEffect(() => {
+    if (codes.length <= carouselThreshold) {
+      handleDragging({ code: "", isDragging: false });
+    }
+    // including handleDragging here will cause infinite loop
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [codes, carouselThreshold]);
 
   if (codes.length <= carouselThreshold) {
     return (
@@ -85,9 +97,12 @@ const DraggableFlagCarousel: FC<Props> = ({
           ))
         ) : (
           <DelayedRender shouldFadeIn>
-            <Box paddingBottom={4} width="100%">
-              <Text textAlign="center" opacity={0.5} fontWeight={600}>
-                {`No flags to display`}
+            <Box paddingBottom={4} width="100%" textAlign="center">
+              <Text fontSize="18px" color="gray.500" fontWeight={700} mr={1}>
+                {`Nice work! 🥳`}
+              </Text>
+              <Text fontSize="13px" color="gray.500" fontWeight={600}>
+                {`Drag up to view results`}
               </Text>
             </Box>
           </DelayedRender>
