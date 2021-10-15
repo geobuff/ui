@@ -1,7 +1,7 @@
 import React, { FC, useContext, useEffect } from "react";
 
 import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
-import Carousel from "react-multi-carousel";
+import Carousel, { ResponsiveType } from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
 import { FlagGameContext } from "../../context/FlagGameContext";
@@ -9,7 +9,7 @@ import CarouselButton from "../Carousel/CarouselButton";
 import DelayedRender from "../DelayedRender";
 import DraggableFlag from "../DraggableFlag";
 
-const responsiveConfig = {
+const responsiveConfig: ResponsiveType = {
   tablet: {
     breakpoint: { max: 1000, min: 600 },
     items: 5,
@@ -33,7 +33,7 @@ const responsiveConfig = {
 };
 
 const getCarouselThreshold = (
-  resConfig: any,
+  resConfig: ResponsiveType,
   resBreakpoints: boolean[]
 ): number => {
   const currentBreakpointIndex = resBreakpoints.findIndex(
