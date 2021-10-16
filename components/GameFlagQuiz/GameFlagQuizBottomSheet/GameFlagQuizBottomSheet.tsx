@@ -54,7 +54,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
 
   const variants = {
     open: { top: "20%" },
-    closed: { top: "calc(100% - 260px)" },
+    closed: { top: "calc(100% - 242px)" },
   };
 
   useEffect(() => {
@@ -93,7 +93,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
       variants={variants}
       // @ts-ignore
       drag={isDragging ? "none" : "y"}
-      dragConstraints={{ bottom: 10, top: 0 }}
+      dragConstraints={{ bottom: 0, top: 0 }}
       onDragStart={handleDrag}
       onDragEnd={handleDragEnd}
       transition={{
@@ -105,7 +105,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
         display: "inline-block",
         backgroundColor: "white",
         position: "fixed",
-        bottom: 0,
+        bottom: -1000,
         left: 0,
         right: 0,
         borderTopRightRadius: 10,

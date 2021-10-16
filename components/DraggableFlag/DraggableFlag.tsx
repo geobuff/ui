@@ -2,25 +2,21 @@ import React, { FC, useContext, useEffect } from "react";
 
 import { getFlagUrl } from "@geobuff/flags";
 import { DragSourceMonitor, useDrag } from "react-dnd";
-import { Box } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
 
 import Image from "../Image";
-import { ItemTypes } from "../../types/item-types";
-
 import { FlagGameContext } from "../../context/FlagGameContext";
+import { ItemTypes } from "../../types/item-types";
 import { DragResult } from "../../types/drag-result";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
-import DraggableFlagPreview from "./DraggableFlagPreview";
 
 interface CollectResult {
   isDragging: boolean;
   handlerId: string | symbol | null;
 }
 
-interface Props {
+interface Props extends BoxProps {
   code?: string;
   checkSubmission?: (submission: string) => void;
-  [x: string]: any;
 }
 
 const DraggableFlag: FC<Props> = ({
@@ -29,7 +25,6 @@ const DraggableFlag: FC<Props> = ({
   ...props
 }) => {
   const { handleDragging } = useContext(FlagGameContext);
-  const { userAgent } = useContext(CurrentUserContext);
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.FLAG,
@@ -47,35 +42,29 @@ const DraggableFlag: FC<Props> = ({
   }));
 
   useEffect(() => {
-    handleDragging(isDragging);
+    handleDragging({ isDragging, code });
   }, [isDragging]);
 
-  const shouldShowFlagPreview = isDragging && userAgent?.isMobile;
-
   return (
-    <>
-      {shouldShowFlagPreview && <DraggableFlagPreview code={code} />}
-      <Box
-        ref={drag}
-        role="Flag"
-        opacity={isDragging ? 0.4 : 1}
-        cursor="pointer"
-        {...props}
-        position="relative"
-        display="inline-block"
-        float="left"
-      >
-        <Image
-          src={getFlagUrl(code)}
-          width="100%"
-          maxWidth={{ base: "72px", lg: "100px" }}
-          minWidth={{ base: "72px", lg: "100px" }}
-          height={{ base: "48px", lg: "64px" }}
-          objectFit="cover"
-          borderRadius={6}
-        />
-      </Box>
-    </>
+    <Box
+      ref={drag}
+      role="Flag"
+      opacity={isDragging ? 0.4 : 1}
+      cursor="pointer"
+      display="inline-block"
+      position="relative"
+      {...props}
+    >
+      <Image
+        src={getFlagUrl(code)}
+        width="100%"
+        maxWidth={{ base: "76px", lg: "100px" }}
+        minWidth={{ base: "76px", lg: "100px" }}
+        height={{ base: "52px", lg: "64px" }}
+        objectFit="cover"
+        borderRadius={6}
+      />
+    </Box>
   );
 };
 

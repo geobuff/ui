@@ -36,7 +36,10 @@ import {
   getRandomCollectionItem,
 } from "../../helpers/random";
 
-const INCORRECT_ANSWER_THRESHOLD = 3;
+const INCORRECT_ANSWER_THRESHOLD = 1;
+
+const NUMBER_OF_FLAGS_DESKTOP = 10;
+const NUMBER_OF_FLAGS_MOBILE = 6;
 
 interface Props {
   id?: number;
@@ -68,6 +71,14 @@ const GameFlagQuiz: FC<Props> = ({
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
 
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const isMobile = useBreakpointValue({ base: true, lg: false });
+
+  const flagOptionCount = isMobile
+    ? NUMBER_OF_FLAGS_MOBILE
+    : NUMBER_OF_FLAGS_DESKTOP;
+
   const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
   const [recentSubmissions, setRecentSubmissions] = useState<Result[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -91,13 +102,10 @@ const GameFlagQuiz: FC<Props> = ({
   const [disableSkipButton, setDisableSkipButton] = useState(true);
 
   const [flagDragItems, setFlagDragItems] = useState(() =>
-    getRandomCollectionItems(mapping, 10).map((c) => c.code)
+    getRandomCollectionItems(mapping, flagOptionCount).map((c) => c.code)
   );
   useWarnIfActiveGame(hasGameStarted);
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const isMobile = useBreakpointValue({ base: true, lg: false });
   useEffect(() => {
     if (!isUserLoading && user && router.query.data) {
       const data: GameOverRedirect = JSON.parse(router.query.data as string);
@@ -168,9 +176,10 @@ const GameFlagQuiz: FC<Props> = ({
 
   const handleGameStart = (): void => {
     if (hasGameRunOnce) {
-      const nextDragItems = getRandomCollectionItems(mapping, 10).map(
-        (c) => c.code
-      );
+      const nextDragItems = getRandomCollectionItems(
+        mapping,
+        flagOptionCount
+      ).map((c) => c.code);
       setFlagDragItems(nextDragItems);
       setAcceptedFlag(getRandomCollectionItem(nextDragItems));
     }
@@ -254,9 +263,10 @@ const GameFlagQuiz: FC<Props> = ({
 
       if (updatedRemainingAnswers?.length) {
         setFlagDragItems(
-          getRandomCollectionItems(updatedRemainingAnswers, 10).map(
-            (c) => c.code
-          )
+          getRandomCollectionItems(
+            updatedRemainingAnswers,
+            flagOptionCount
+          ).map((c) => c.code)
         );
       }
 
@@ -271,6 +281,7 @@ const GameFlagQuiz: FC<Props> = ({
       }, 500);
 
       if (updatedCheckedSubmissions.length === mapping.length) {
+        setFlagDragItems([]);
         handleGameStop();
       }
     },
@@ -285,7 +296,9 @@ const GameFlagQuiz: FC<Props> = ({
 
   const handleSkipQuestion = (): void => {
     setFlagDragItems(
-      getRandomCollectionItems(remainingAnswers, 10).map((c) => c.code)
+      getRandomCollectionItems(remainingAnswers, flagOptionCount).map(
+        (c) => c.code
+      )
     );
   };
 
