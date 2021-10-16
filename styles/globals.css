@@ -26,7 +26,81 @@ svg * {
   transition: all 125ms ease-out;
 }
 
+.flex {
+  display: flex;
+}
+
+.center {
+  align-items: center;
+  justify-content: center;
+}
+
+.fade-in {
+  animation: animation-fade-in 0.45s;
+}
+
+@keyframes animation-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .quiz-map-controls {
   margin-left: 8px;
   margin-right: 8px;
+}
+
+.react-modal-sheet-drag-indicator {
+  background-color: transparent !important;
+}
+
+.react-multi-carousel-list::before {
+  content: " ";
+  height: 100px;
+  width: 48px;
+  position: absolute;
+  left: -6px;
+  z-index: 1;
+  background: -moz-linear-gradient(
+    left,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: -webkit-linear-gradient(
+    left,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+}
+
+.react-multi-carousel-list::after {
+  content: " ";
+  height: 100px;
+  width: 48px;
+  position: absolute;
+  right: -6px;
+  z-index: 1;
+  background: -moz-linear-gradient(
+    right,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: -webkit-linear-gradient(
+    right,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  background: linear-gradient(
+    to left,
+    rgba(255, 255, 255, 1) 20%,
+    rgba(255, 255, 255, 0) 100%
+  );
 }

@@ -1,22 +1,15 @@
 import React, { useState, useEffect, useContext, FC } from "react";
-import {
-  Box,
-  Button,
-  Fade,
-  Flex,
-  Heading,
-  Text,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
-import Link from "next/link";
 
-import Twemoji from "../../Twemoji";
+import { Box, Button, Fade, Flex, Text } from "@chakra-ui/react";
+import { motion } from "framer-motion";
+
 import ResultsMap from "../../ResultsMap";
 import GameFlags from "../../GameFlags";
-import { groupMapping } from "../../../helpers/mapping";
+import GameHeader from "../../GameHeader";
 
-import { motion } from "framer-motion";
 import { FlagGameContext } from "../../../context/FlagGameContext";
+
+import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
 
 interface Props {
@@ -61,7 +54,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
 
   const variants = {
     open: { top: "20%" },
-    closed: { top: "calc(100% - 260px)" },
+    closed: { top: "calc(100% - 242px)" },
   };
 
   useEffect(() => {
@@ -100,7 +93,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
       variants={variants}
       // @ts-ignore
       drag={isDragging ? "none" : "y"}
-      dragConstraints={{ bottom: 10, top: 0 }}
+      dragConstraints={{ bottom: 0, top: 0 }}
       onDragStart={handleDrag}
       onDragEnd={handleDragEnd}
       transition={{
@@ -112,7 +105,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
         display: "inline-block",
         backgroundColor: "white",
         position: "fixed",
-        bottom: 0,
+        bottom: -1000,
         left: 0,
         right: 0,
         borderTopRightRadius: 10,
@@ -126,18 +119,13 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
         borderTopRadius={12}
       >
         <DragIndicator />
-        <Heading pt={2} size="md">
-          <Flex justifyContent="center">
-            {hasLeaderboard && (
-              <Link href={`/leaderboard?quizId=${id}`}>
-                <ChakraLink>
-                  <Twemoji emoji="🏆" mr={2} />
-                </ChakraLink>
-              </Link>
-            )}
-            {name}
-          </Flex>
-        </Heading>
+        <GameHeader
+          mt={3}
+          hasLeaderboard={hasLeaderboard}
+          quizId={id}
+          heading={name}
+          shouldTruncateText
+        />
 
         <Box>
           {!showResultList && (

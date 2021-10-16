@@ -1,26 +1,23 @@
 import React, { createRef, useEffect, FC } from "react";
-import Link from "next/link";
 import {
   Box,
   Button,
   Divider,
-  Heading,
   Text,
   Flex,
-  Link as ChakraLink,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Sheet from "react-modal-sheet";
 
+import GameHeader from "../../GameHeader";
 import ResultsList from "../../ResultsList";
 import ResultsMap from "../../ResultsMap";
-import Twemoji from "../../Twemoji";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
 import { Result } from "../../../types/result";
 
-const snapPoints = [600, 400, 300, 100];
+const snapPoints = [600, 400, 300, 90];
 const initialSnap = snapPoints.length - 2;
 
 export interface Props {
@@ -70,6 +67,12 @@ const GameMapQuizBottomSheet: FC<Props> = ({
 
   const snapTo = (snapIndex: number): void => ref?.current?.snapTo(snapIndex);
 
+  const gameControlButtonText = hasGameStarted
+    ? "GIVE UP"
+    : hasGameRunOnce
+    ? "RETRY"
+    : "START";
+
   return (
     <Box
       ref={ref}
@@ -88,54 +91,63 @@ const GameMapQuizBottomSheet: FC<Props> = ({
       onClose={(): void => {}}
     >
       <Sheet.Container style={{ position: "fixed" }}>
-        <Box pt={1} height="54px" as={Sheet.Header} />
+        <Box as={Sheet.Header} />
+        <Box
+          margin="auto"
+          borderRadius={25}
+          height={"4.35px"}
+          width={8}
+          backgroundColor="#dddddd"
+          mb={3}
+          marginTop={-4}
+        />
+
         <Sheet.Content>
           <Flex
             direction="column"
             height="100%"
             overflowY="scroll"
-            mx={5}
+            mx={4}
             my={0}
             pb="100px"
+            css={{
+              "&::-webkit-scrollbar": {
+                width: "4px",
+                display: "none",
+              },
+              "&::-webkit-scrollbar-track": {
+                width: "6px",
+              },
+              "&::-webkit-scrollbar-thumb": {
+                borderRadius: "24px",
+              },
+            }}
           >
-            <Box>
-              <Heading pt={0} size="md">
-                <Flex justifyContent="center">
-                  {hasLeaderboard && (
-                    <Link href={`/leaderboard?quizId=${id}`}>
-                      <ChakraLink>
-                        <Twemoji emoji="🏆" mr={2} />
-                      </ChakraLink>
-                    </Link>
-                  )}
-                  {name}
-                </Flex>
-              </Heading>
+            <GameHeader
+              hasLeaderboard={hasLeaderboard}
+              heading={name}
+              quizId={id}
+            />
 
-              <Divider my={4} />
+            <Divider my={4} />
 
-              <Box my={4}>
-                <Button
-                  colorScheme={hasGameStarted ? "red" : "green"}
-                  isFullWidth
-                  onClick={hasGameStarted ? onGameStop : onGameStart}
-                  p={8}
-                  size="md"
-                >
-                  <Text fontWeight="700" fontSize="22px">
-                    {hasGameStarted
-                      ? "GIVE UP"
-                      : hasGameRunOnce
-                      ? "RETRY"
-                      : "START"}
-                  </Text>
-                </Button>
-              </Box>
+            <Box my={2}>
+              <Button
+                colorScheme={hasGameStarted ? "red" : "green"}
+                isFullWidth
+                onClick={hasGameStarted ? onGameStop : onGameStart}
+                p={8}
+                size="md"
+              >
+                <Text fontWeight="700" fontSize="22px">
+                  {gameControlButtonText}
+                </Text>
+              </Button>
             </Box>
 
             <Divider my={4} />
 
-            <Box mt={4}>
+            <Box mt={2} mb={4}>
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>

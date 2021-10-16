@@ -1,5 +1,6 @@
 import React, { FC, useContext } from "react";
 import flag from "country-code-emoji";
+import { getFlagUrl } from "@geobuff/flags";
 
 import {
   Alert,
@@ -24,6 +25,9 @@ import { secondsToMinutesString } from "../../helpers/time";
 import Sparkles from "../Sparkles/Sparkles";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import CustomFlag from "../CustomFlag";
+
+const adminFlag = "buff";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -59,6 +63,22 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
     }
   };
 
+  const getFlag = (countryCode: string): React.ReactNode => {
+    if (!countryCode) {
+      return (
+        <Box marginY="4px">
+          <FlagFallback />
+        </Box>
+      );
+    }
+
+    return countryCode === adminFlag ? (
+      <CustomFlag url={getFlagUrl(countryCode)} />
+    ) : (
+      <Twemoji emoji={flag(countryCode)} />
+    );
+  };
+
   const getTextNodeByRank = (
     rank: number,
     username: string,
@@ -67,13 +87,7 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
     const mainContent = (
       <Flex alignItems="center">
         <Box marginRight={3} marginTop="5.5px" alignItems="center">
-          {countryCode ? (
-            <Twemoji emoji={flag(countryCode)} />
-          ) : (
-            <Box marginY="4px">
-              <FlagFallback />
-            </Box>
-          )}
+          {getFlag(countryCode)}
         </Box>
         <Text fontWeight="bold">{username}</Text>
         {username === user?.username && (
