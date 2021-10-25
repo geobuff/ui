@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 
 import GameOverModal from "../../components/GameOverModal";
-
 import axiosClient from "../../axios/axiosClient";
 import { getLevel } from "../../helpers/gamification";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
@@ -56,6 +55,7 @@ const GameOverModalContainer: FC<Props> = ({
     updateUser,
     getAuthConfig,
   } = useContext(CurrentUserContext);
+
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "top",
     md: "bottom-right",
@@ -118,15 +118,14 @@ const GameOverModalContainer: FC<Props> = ({
   };
 
   const getLeaderboardEntry = (): void => {
-    axiosClient.get(`/leaderboard/${id}/${user.id}`).then((response) => {
-      if (response.status !== 200) {
-        setIsLoading(false);
-        return;
-      }
-
-      setEntry(response.data);
-      setIsLoading(false);
-    });
+    axiosClient
+      .get(`/leaderboard/${id}/${user.id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          setEntry(response.data);
+        }
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleSubmitEntry = (existingEntry: LeaderboardEntry): void => {
