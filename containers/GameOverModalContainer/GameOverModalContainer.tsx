@@ -17,6 +17,8 @@ import {
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { TempScore } from "../../types/temp-score";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { Mapping } from "../../types/mapping";
+import { Result } from "../../types/result";
 
 interface Props {
   id?: number;
@@ -26,6 +28,8 @@ interface Props {
   maxScore?: number;
   score?: number;
   time?: number;
+  checkedSubmissions?: Mapping[];
+  recentSubmissions?: Result[];
   isOpen?: boolean;
   onClose?: () => void;
   isXPUpdated?: boolean;
@@ -41,6 +45,8 @@ const GameOverModalContainer: FC<Props> = ({
   maxScore = 0,
   score = 0,
   time = 0,
+  checkedSubmissions = [],
+  recentSubmissions = [],
   isOpen = false,
   onClose = (): void => {},
   isXPUpdated = false,
@@ -140,7 +146,12 @@ const GameOverModalContainer: FC<Props> = ({
   };
 
   const handleRedirectWithScore = (pathname: string): void => {
-    const tempScore: TempScore = { score, time };
+    const tempScore: TempScore = {
+      score,
+      time,
+      results: checkedSubmissions.map((x) => x.svgName),
+      recents: recentSubmissions.map((x) => x.svgName),
+    };
     axiosClient.post("/tempscores", tempScore).then((response) => {
       const redirectData: GameOverRedirect = {
         redirect: `/quiz/${route}`,

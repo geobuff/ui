@@ -119,6 +119,26 @@ const GameMapQuiz: FC<Props> = ({
         .get(`/tempscores/${data.tempScoreId}`)
         .then((response) => {
           const tempScore = response.data;
+
+          const checkedSubmissions = mapping.filter((x) =>
+            tempScore.results.includes(x.svgName)
+          );
+
+          const recentSubmissions: Result[] = mapping
+            .filter((x) => tempScore.recents.includes(x.svgName))
+            .map((x) => {
+              return {
+                name: x.name,
+                code: x.code,
+                svgName: x.svgName,
+                isHidden: false,
+                isMissedResult: false,
+              };
+            });
+
+          setCheckedSubmissions(checkedSubmissions);
+          setRecentSubmissions(recentSubmissions);
+
           setHasGameStarted(true);
           setScore(tempScore.score);
           restart(DateTime.now().plus({ seconds: time - tempScore.time }));
@@ -413,6 +433,8 @@ const GameMapQuiz: FC<Props> = ({
                 ? time
                 : time - (seconds + minutes * 60)
             }
+            checkedSubmissions={checkedSubmissions}
+            recentSubmissions={recentSubmissions}
             isOpen={isOpen}
             onClose={onClose}
             isXPUpdated={isXPUpdated}
