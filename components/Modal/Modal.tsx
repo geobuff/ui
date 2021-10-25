@@ -102,7 +102,7 @@ const Modal: FC<Props> = ({
           </Flex>
         </Box>
       ) : (
-        <ChakraModal isOpen={isOpen} onClose={onClose} {...props}>
+        <ChakraModal isOpen={isOpen} onClose={onClose} isCentered {...props}>
           <ModalOverlay />
           <ModalContent borderRadius="12px">
             {!!header && (
