@@ -19,6 +19,8 @@ import {
   CurrentUserContextProvider,
 } from "../context/CurrentUserContext";
 
+const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
+
 interface Props {
   Component: any;
   [x: string]: any;
@@ -52,6 +54,7 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
       <Head>
         <title>GeoBuff - Get Your Geo Flex On</title>
         <link rel="icon" href="/favicon.ico" />
+        {isAppMobile && <meta name="robots" content="noindex" />}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link
