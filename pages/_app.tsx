@@ -23,7 +23,6 @@ const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
 interface Props {
   Component: any;
-  [x: string]: any;
 }
 
 //Binding events.
