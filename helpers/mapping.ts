@@ -3,16 +3,11 @@
 import { Mapping } from "../types/mapping";
 
 export const groupMapping = (mapping: Mapping[]): any => {
-  const unordered = mapping.reduce((r, a) => {
-    r[a.group] = r[a.group] || [];
-    r[a.group].push(a);
-    return r;
-  }, Object.create(null));
-
-  return Object.keys(unordered)
-    .sort()
-    .reduce((obj, key) => {
-      obj[key] = unordered[key];
-      return obj;
-    }, {});
+  return mapping
+    .sort((a, b) => a.group.localeCompare(b.group))
+    .reduce((r, a) => {
+      r[a.group] = r[a.group] || [];
+      r[a.group].push(a);
+      return r;
+    }, Object.create(null));
 };
