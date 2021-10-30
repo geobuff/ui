@@ -144,9 +144,7 @@ const GameMapQuiz: FC<Props> = ({
           restart(DateTime.now().plus({ seconds: time - tempScore.time }));
           handleGameStop();
 
-          if (typeof window !== "undefined") {
-            window.history.replaceState(null, "", `/quiz/${route}`);
-          }
+          router.push(`/quiz/${route}`, undefined, { shallow: true });
         })
         .catch(() => {
           //Ignore invalid tempscore.
