@@ -42,6 +42,7 @@
     "react-map-interaction": "^2.0.0",
     "react-modal-sheet": "^1.1.0",
     "react-multi-carousel": "^2.6.5",
+    "react-swipeable": "^6.2.0",
     "react-timer-hook": "^2.0.7",
     "react-virtualized": "^9.22.3",
     "swr": "^0.4.0",
