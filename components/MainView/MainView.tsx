@@ -29,10 +29,6 @@ const MainView: FC<Props> = ({
     AppContext
   );
 
-  const { userAgent } = useContext(CurrentUserContext);
-
-  console.log(userAgent, "userAgent");
-
   const handlers = useSwipeable({
     onSwipedRight: () => isAppMobile && setIsNavSidebarOpen(!isNavSidebarOpen),
     trackTouch: true,
