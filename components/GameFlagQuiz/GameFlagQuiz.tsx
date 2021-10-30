@@ -107,7 +107,7 @@ const GameFlagQuiz: FC<Props> = ({
   useWarnIfActiveGame(hasGameStarted);
 
   useEffect(() => {
-    if (!isUserLoading && user && router.query.data) {
+    if (score === 0 && !isUserLoading && user && router.query.data) {
       const data: GameOverRedirect = JSON.parse(router.query.data as string);
       axiosClient
         .get(`/tempscores/${data.tempScoreId}`)
@@ -137,12 +137,14 @@ const GameFlagQuiz: FC<Props> = ({
           setScore(tempScore.score);
           restart(DateTime.now().plus({ seconds: time - tempScore.time }));
           handleGameStop();
+
+          router.push(`/quiz/${route}`, undefined, { shallow: true });
         })
         .catch(() => {
           // Ignore invalid tempscore.
         });
     }
-  }, [isUserLoading, user, router.query]);
+  }, [score, isUserLoading, user, router.query]);
 
   useEffect(() => {
     checkSubmission(currentSubmission);
