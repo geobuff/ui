@@ -80,17 +80,19 @@ const NavigationBar: FC = () => {
 
   const [zIndex, setZIndex] = useState(5);
 
-  const { isNavSidebarOpen, setIsNavSidebarOpen } = useContext(AppContext);
+  const { isNavSidebarOpen: isOpen, setIsNavSidebarOpen } = useContext(
+    AppContext
+  );
 
   useEffect(() => {
-    if (isNavSidebarOpen) {
+    if (isOpen) {
       setZIndex(9999);
     } else {
       setTimeout(() => {
         setZIndex(5);
       }, 200);
     }
-  }, [isNavSidebarOpen]);
+  }, [isOpen]);
 
   const getViewLayout = (): React.ReactNode => {
     if (isMobile === undefined) {
@@ -109,11 +111,7 @@ const NavigationBar: FC = () => {
   const mobileLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
       <Flex alignItems="center">
-        <Hamburger
-          size={24}
-          toggled={isNavSidebarOpen}
-          toggle={setIsNavSidebarOpen}
-        />
+        <Hamburger size={24} toggled={isOpen} toggle={setIsNavSidebarOpen} />
       </Flex>
       <Link href="/">
         <ChakraLink _hover={{ textDecoration: "none" }}>
@@ -146,9 +144,9 @@ const NavigationBar: FC = () => {
       </Box>
       {isMobile && (
         <Drawer
-          placement={"left"}
+          placement="left"
           onClose={(): void => setIsNavSidebarOpen(false)}
-          isOpen={isNavSidebarOpen}
+          isOpen={isOpen}
         >
           <DrawerOverlay />
           <DrawerContent>
