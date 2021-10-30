@@ -1,16 +1,19 @@
-import React, { FC } from "react";
-import { Flex } from "@chakra-ui/react";
+import React, { FC, useContext } from "react";
+import { BoxProps, Flex } from "@chakra-ui/react";
 
 import { FooterVariant } from "../../types/footer-variant";
 import NavigationBar from "../NavigationBar";
 import Footer from "../Footer";
 import { use100vh } from "react-div-100vh";
+import { useSwipeable } from "react-swipeable";
+import { AppContext } from "../../context/AppContext";
 
-interface Props {
+const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
+
+interface Props extends BoxProps {
   footerVariant?: FooterVariant;
   hasNavigationBar?: boolean;
   hasFooter?: boolean;
-  [x: string]: any;
 }
 
 const MainView: FC<Props> = ({
@@ -21,6 +24,15 @@ const MainView: FC<Props> = ({
   ...props
 }) => {
   const height = use100vh();
+  const { setIsNavSidebarOpen } = useContext(AppContext);
+
+  const handlers = useSwipeable({
+    onSwipedRight: () => isAppMobile && setIsNavSidebarOpen(true),
+    trackTouch: true,
+    trackMouse: false,
+    rotationAngle: 0,
+  });
+
   return (
     <>
       <Flex
@@ -30,6 +42,7 @@ const MainView: FC<Props> = ({
         width="100%"
         marginX="auto"
         flex={1}
+        {...handlers}
         {...props}
       >
         {hasNavigationBar && <NavigationBar />}

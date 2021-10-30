@@ -21,6 +21,10 @@ import { Squash as Hamburger } from "hamburger-react";
 
 import Logo from "../Logo";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { AppContext } from "../../context/AppContext";
+import { useSwipeable } from "react-swipeable";
+
+const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
 const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
   ssr: false,
@@ -74,8 +78,11 @@ const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { user } = useContext(CurrentUserContext);
 
-  const [isOpen, setOpen] = useState(false);
   const [zIndex, setZIndex] = useState(5);
+
+  const { isNavSidebarOpen: isOpen, setIsNavSidebarOpen } = useContext(
+    AppContext
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -89,15 +96,22 @@ const NavigationBar: FC = () => {
 
   const getViewLayout = (): React.ReactNode => {
     if (isMobile === undefined) {
-      return true;
+      return null;
     }
     return isMobile ? mobileLayout : desktopLayout;
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => isAppMobile && setIsNavSidebarOpen(false),
+    trackTouch: true,
+    trackMouse: false,
+    rotationAngle: 0,
+  });
+
   const mobileLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
       <Flex alignItems="center">
-        <Hamburger size={24} toggled={isOpen} toggle={setOpen} />
+        <Hamburger size={24} toggled={isOpen} toggle={setIsNavSidebarOpen} />
       </Flex>
       <Link href="/">
         <ChakraLink _hover={{ textDecoration: "none" }}>
@@ -128,16 +142,15 @@ const NavigationBar: FC = () => {
       >
         {getViewLayout()}
       </Box>
-
       {isMobile && (
         <Drawer
-          placement={"top"}
-          onClose={(): void => setOpen(false)}
+          placement="left"
+          onClose={(): void => setIsNavSidebarOpen(false)}
           isOpen={isOpen}
         >
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerBody marginTop="72px">
+            <DrawerBody marginTop="72px" {...handlers}>
               <Flex
                 as="nav"
                 direction="column"
