@@ -1,11 +1,8 @@
 import React, { createContext, useState, FC } from "react";
 
-const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
-
 export const AppContext = createContext({
   isNavSidebarOpen: false,
   setIsNavSidebarOpen: (isOpen: boolean) => {},
-  isAppMobile: false,
 });
 
 export const AppContextProvider: FC = ({ children }) => {
@@ -16,7 +13,6 @@ export const AppContextProvider: FC = ({ children }) => {
       value={{
         isNavSidebarOpen,
         setIsNavSidebarOpen,
-        isAppMobile,
       }}
     >
       {children}

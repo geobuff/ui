@@ -14,6 +14,7 @@ import "nprogress/nprogress.css"; //styles of nprogress
 import "../styles/globals.css";
 import theme from "../styles/theme";
 
+import { AppContextProvider } from "../context/AppContext";
 import {
   CurrentUserContext,
   CurrentUserContextProvider,
@@ -102,9 +103,11 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
           backend={isMobile ? TouchBackend : HTML5Backend}
           options={{ delayTouchStart: 5, ignoreContextMenu: true }}
         >
-          <CurrentUserContextProvider>
-            <Component {...pageProps} />
-          </CurrentUserContextProvider>
+          <AppContextProvider>
+            <CurrentUserContextProvider>
+              <Component {...pageProps} />
+            </CurrentUserContextProvider>
+          </AppContextProvider>
         </DndProvider>
       </ChakraProvider>
     </>

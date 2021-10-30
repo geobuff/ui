@@ -24,6 +24,8 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { AppContext } from "../../context/AppContext";
 import { useSwipeable } from "react-swipeable";
 
+const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
+
 const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
   ssr: false,
 });
@@ -78,9 +80,7 @@ const NavigationBar: FC = () => {
 
   const [zIndex, setZIndex] = useState(5);
 
-  const { isNavSidebarOpen, setIsNavSidebarOpen, isAppMobile } = useContext(
-    AppContext
-  );
+  const { isNavSidebarOpen, setIsNavSidebarOpen } = useContext(AppContext);
 
   useEffect(() => {
     if (isNavSidebarOpen) {
