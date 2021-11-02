@@ -29,7 +29,7 @@ const Profile: FC = () => {
         <title>Profile - GeoBuff</title>
       </Head>
       <MainView>
-        <UserProfileContainer />;
+        <UserProfileContainer />
       </MainView>
     </>
   );
