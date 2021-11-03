@@ -14,14 +14,12 @@ import {
 } from "@chakra-ui/react";
 
 import Modal from "../Modal";
-import AvatarSelect from "../AvatarSelect";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import { User } from "../../types/user";
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 
 const validationSchema = Yup.object().shape({
-  avatarId: Yup.number().required("Please select an avatar."),
   username: Yup.string()
     .required("Please include a username.")
     .min(3, "Must be at least 3 characters long.")
@@ -53,7 +51,6 @@ const UpdateUserFormModal: FC<Props> = ({
     <Formik
       enableReinitialize
       initialValues={{
-        avatarId: user?.avatarId.toString(),
         username: user?.username,
         email: user?.email,
         countryCode: user?.countryCode,
@@ -78,29 +75,6 @@ const UpdateUserFormModal: FC<Props> = ({
                 >
                   {"Update Profile"}
                 </Heading>
-
-                <Flex marginY={6}>
-                  <Field name="avatarId">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={
-                          form.errors.avatarId && form.touched.avatarId
-                        }
-                      >
-                        <FormLabel htmlFor="avatarId" fontWeight="bold">
-                          {"Avatar"}
-                        </FormLabel>
-
-                        <AvatarSelect fieldProps={field} />
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.avatarId}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
 
                 <Flex marginY={3}>
                   <Field name="username">
