@@ -16,7 +16,6 @@ import { getFlagUrl } from "@geobuff/flags";
 import { CSVLink } from "react-csv";
 
 import Card from "../Card";
-import ErrorAlertBanner from "../ErrorAlertBanner";
 import Image from "../Image";
 
 import UpdateUserFormContainer from "../../containers/UpdaterUserFormContainer";
@@ -26,6 +25,7 @@ import SolidPencil from "../../Icons/SolidPencil";
 import useCountries from "../../hooks/useCountries";
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 import SaveAlt from "../../Icons/SaveAlt";
+import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContainer";
 
 interface Props {
   username?: string;
@@ -48,7 +48,18 @@ const UserProfileSummary: FC<Props> = ({
   avatarBackground = "",
   avatarBorder = "",
 }) => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isUserModalOpen,
+    onOpen: onUserModalOpen,
+    onClose: onUserModalClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isAvatarModalOpen,
+    onOpen: onAvatarModalOpen,
+    onClose: onAvatarModalClose,
+  } = useDisclosure();
+
   const { countries } = useCountries();
   const level = getLevel(xp);
 
@@ -81,7 +92,7 @@ const UserProfileSummary: FC<Props> = ({
             <IconButton
               aria-label="pencil"
               backgroundColor="transparent"
-              onClick={onOpen}
+              onClick={onUserModalOpen}
             >
               <SolidPencil
                 color="gray.600"
@@ -108,6 +119,8 @@ const UserProfileSummary: FC<Props> = ({
               marginTop="-122px"
               marginBottom={2}
               marginX="auto"
+              cursor="pointer"
+              onClick={onAvatarModalOpen}
             >
               <Image
                 src={avatarImageUrl}
@@ -154,7 +167,14 @@ const UserProfileSummary: FC<Props> = ({
           </Box>
         </Box>
       </Card>
-      <UpdateUserFormContainer isOpen={isOpen} onClose={onClose} />
+      <UpdateAvatarFormContainer
+        isOpen={isAvatarModalOpen}
+        onClose={onAvatarModalClose}
+      />
+      <UpdateUserFormContainer
+        isOpen={isUserModalOpen}
+        onClose={onUserModalClose}
+      />
     </>
   );
 };

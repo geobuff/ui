@@ -1,19 +1,18 @@
-import React, { useState, FC, useContext } from "react";
-import { useToast, useBreakpointValue, ToastPosition } from "@chakra-ui/react";
+import React, { FC, useContext, useState } from "react";
+import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
+import axiosClient from "../../axios";
 
-import UpdateUserFormModal from "../../components/UpdateUserFormModal";
-
-import axiosClient from "../../axios/axiosClient";
-import { userUpdated } from "../../helpers/toasts";
-import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { avatarUpdated } from "../../helpers/toasts";
+import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
+import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
 
 interface Props {
   isOpen?: boolean;
   onClose?: () => void;
 }
 
-const UpdateUserFormContainer: FC<Props> = ({
+const UpdateAvatarFormContainer: FC<Props> = ({
   isOpen = false,
   onClose = (): void => {},
 }) => {
@@ -27,7 +26,7 @@ const UpdateUserFormContainer: FC<Props> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (values: UpdateUserFormSubmit): void => {
+  const handleSubmit = (values: UpdateAvatarFormSubmit): void => {
     setIsSubmitting(true);
     setError("");
 
@@ -35,10 +34,10 @@ const UpdateUserFormContainer: FC<Props> = ({
       .put(
         `/users/${user.id}`,
         {
-          avatarId: parseInt(user.avatarId),
-          username: values.username,
-          email: values.email,
-          countryCode: values.countryCode,
+          avatarId: parseInt(values.avatarId),
+          username: user.username,
+          email: user.email,
+          countryCode: user.countryCode,
           xp: user.xp,
         },
         getAuthConfig()
@@ -46,23 +45,25 @@ const UpdateUserFormContainer: FC<Props> = ({
       .then((response) => {
         updateUser({
           ...user,
-          username: response.data.username,
-          email: response.data.email,
-          countryCode: response.data.countryCode,
+          avatarId: response.data.avatarId,
+          avatarName: response.data.avatarName,
+          avatarImageUrl: response.data.avatarImageUrl,
+          avatarBackground: response.data.avatarBackground,
+          avatarBorder: response.data.avatarBorder,
         });
 
         onClose();
-        toast(userUpdated(toastPosition));
+        toast(avatarUpdated(toastPosition));
       })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
 
   return (
-    <UpdateUserFormModal
+    <UpdateAvatarFormModal
       isOpen={isOpen}
       onClose={onClose}
-      user={user}
+      avatarId={user?.avatarId}
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
       error={error}
@@ -70,4 +71,4 @@ const UpdateUserFormContainer: FC<Props> = ({
   );
 };
 
-export default UpdateUserFormContainer;
+export default UpdateAvatarFormContainer;
