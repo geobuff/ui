@@ -14,6 +14,7 @@ import {
   Tr,
   Th,
   Tbody,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
 import LeaderTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
@@ -35,6 +36,7 @@ interface Props {
 }
 
 const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
+  const isMobile = useBreakpointValue({ base: true, lg: false });
   const { user } = useContext(CurrentUserContext);
 
   if (isLoading && !entries.length) {
@@ -89,7 +91,11 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
         <Box marginRight={3} marginTop="5.5px" alignItems="center">
           {getFlag(countryCode)}
         </Box>
-        <Text fontWeight="bold">{username}</Text>
+        <Text fontWeight="bold">
+          {isMobile && username.length > 15
+            ? `${username.substring(0, 15)}...`
+            : username}
+        </Text>
         {username === user?.username && (
           <Text ml={2} fontWeight={600} color="gray.500">
             {"(You)"}
