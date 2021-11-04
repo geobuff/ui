@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 import Modal from "../Modal";
-import AvatarSelect from "../AvatarSelect";
+import AvatarSelectContainer from "../../containers/AvatarSelectContainer";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
 
@@ -47,7 +47,7 @@ const UpdateAvatarFormModal: FC<Props> = ({
       validationSchema={validationSchema}
       onSubmit={onSubmit}
     >
-      {(): React.ReactNode => (
+      {({ setFieldValue }): React.ReactNode => (
         <Form style={{ height: "100%" }}>
           <Box height="100%">
             <Flex
@@ -73,11 +73,10 @@ const UpdateAvatarFormModal: FC<Props> = ({
                           form.errors.avatarId && form.touched.avatarId
                         }
                       >
-                        <FormLabel htmlFor="avatarId" fontWeight="bold">
-                          {"Avatar"}
-                        </FormLabel>
-
-                        <AvatarSelect fieldProps={field} />
+                        <AvatarSelectContainer
+                          fieldProps={field}
+                          setFieldValue={setFieldValue}
+                        />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
                             {form.errors.avatarId}
