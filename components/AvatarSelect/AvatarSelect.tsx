@@ -1,67 +1,74 @@
 import React, { FC } from "react";
-import { Select } from "@chakra-ui/react";
+import { Flex, Text, Heading, RadioGroup, Radio } from "@chakra-ui/react";
 
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import Image from "../Image";
 
-import useAvatars from "../../hooks/UseAvatars";
 import { FieldProps } from "../../types/field-props";
+import { Avatar } from "../../types/avatar";
 
 interface Props {
   fieldProps?: FieldProps;
+  avatars?: Avatar[];
+  current?: Avatar;
+  setFieldValue?: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-const AvatarSelect: FC<Props> = ({ fieldProps = { value: "" } }) => {
-  const { avatars, isLoading } = useAvatars();
+const AvatarSelect: FC<Props> = ({
+  fieldProps = { value: "" },
+  avatars = [],
+  current = null,
+  setFieldValue = (
+    field: string,
+    value: any,
+    shouldValidate?: boolean
+  ): void => {},
+}) => (
+  <>
+    <Flex direction="column">
+      <Flex
+        alignItems="center"
+        borderRadius={"100%"}
+        backgroundColor={current?.background}
+        borderWidth={10}
+        border="solid 5px"
+        borderColor={current?.border}
+        padding={3}
+        height="130px"
+        width="130px"
+        marginBottom={6}
+        marginX="auto"
+      >
+        <Image
+          src={current?.imageUrl}
+          alt={current?.name}
+          height="70px"
+          width="70px"
+          marginX="auto"
+        />
+      </Flex>
+      <Heading mx="auto" mb={2} size="md">
+        {current?.name}
+      </Heading>
+      <Text mb={12}>
+        {
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fames ac turpis egestas integer eget aliquet nibh praesent."
+        }
+      </Text>
+    </Flex>
 
-  return (
-    <Select
+    <RadioGroup
       {...fieldProps}
       id="avatarId"
-      size="lg"
-      background="#F6F6F6"
-      border="none"
-      borderRadius={6}
-      color={!fieldProps.value ? "gray.500" : "inherit"}
-      fontSize="16px"
-      fontWeight={600}
-      height="40px"
-      _hover={{
-        background: isLoading ? "#F6F6F6" : "#e0e0e0",
-        cursor: isLoading ? "not-allowed" : "inherit",
-      }}
-      _invalid={{
-        border: "2px solid #e56161",
-        color: "#e56161",
-      }}
-      icon={
-        fieldProps.value ? (
-          <Image
-            src={
-              avatars.find((x) => x.id === parseInt(fieldProps?.value))
-                ?.imageUrl
-            }
-            marginRight="16px"
-            minHeight="22px"
-            minWidth="32px"
-            objectFit="cover"
-            borderRadius={5}
-          />
-        ) : (
-          <ChevronDownIcon stroke="black" />
-        )
-      }
+      value={current?.id}
+      onChange={(value): void => setFieldValue("avatarId", value.toString())}
     >
-      <option value="" disabled>
-        {isLoading ? "Loading avatars..." : "Select an avatar..."}
-      </option>
       {avatars?.map((avatar) => (
-        <option key={avatar.id} value={avatar.id}>
+        <Radio key={avatar.id} value={avatar.id}>
           {avatar.name}
-        </option>
+        </Radio>
       ))}
-    </Select>
-  );
-};
+    </RadioGroup>
+  </>
+);
 
 export default AvatarSelect;

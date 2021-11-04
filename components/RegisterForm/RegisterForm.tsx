@@ -19,7 +19,7 @@ import Link from "next/link";
 
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
-import AvatarSelect from "../AvatarSelect";
+import AvatarSelectContainer from "../../containers/AvatarSelectContainer";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import Logo from "../Logo";
@@ -28,7 +28,7 @@ import LoginLink from "./LoginLink";
 import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 const initialValues = {
-  avatarId: "",
+  avatarId: "1",
   username: "",
   email: "",
   countryCode: "",
@@ -92,7 +92,7 @@ const RegisterForm: FC<Props> = ({
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {(): React.ReactNode => (
+        {({ setFieldValue }): React.ReactNode => (
           <Form>
             <Box marginBottom={5}>
               <Flex marginY={6}>
@@ -105,7 +105,10 @@ const RegisterForm: FC<Props> = ({
                         {"Avatar"}
                       </FormLabel>
 
-                      <AvatarSelect fieldProps={field} />
+                      <AvatarSelectContainer
+                        fieldProps={field}
+                        setFieldValue={setFieldValue}
+                      />
                       <Box position="absolute" top="68px" left="2px">
                         <FormErrorMessage fontSize="11px">
                           {form.errors.avatarId}
