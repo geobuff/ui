@@ -53,7 +53,6 @@ const UserProfileAchievements: FC<Props> = ({ badges = [], entries = [] }) => {
                 <Box
                   borderRadius={50}
                   backgroundColor={badge.background || "gray.200"}
-                  borderWidth={10}
                   border="solid 5px"
                   borderColor={badge.border || "gray.600"}
                   padding={3}

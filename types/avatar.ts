@@ -1,7 +1,7 @@
 export interface Avatar {
   id: number;
   name: string;
-  imageUrl: string;
-  background: string;
-  border: string;
+  description: string;
+  primaryImageUrl: string;
+  secondaryImageUrl: string;
 }

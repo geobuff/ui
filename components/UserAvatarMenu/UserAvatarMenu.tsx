@@ -87,16 +87,14 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
             <Flex
               alignItems="center"
               borderRadius={"100%"}
-              backgroundColor={user.avatarBackground}
-              border="solid 3px"
-              borderColor={user.avatarBorder}
+              backgroundColor="#276f86"
+              border="solid 3px #1A202C"
               height={avatarSize}
               width={avatarSize}
               marginX={isCondensed ? 1 : 0}
             >
               <Image
-                src={user.avatarImageUrl}
-                // alt={user.avatarName}
+                src={user.avatarPrimaryImageUrl}
                 height={imageSize}
                 width={imageSize}
                 marginX="auto"
