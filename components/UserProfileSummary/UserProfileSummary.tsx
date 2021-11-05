@@ -33,9 +33,8 @@ interface Props {
   countryCode?: string;
   xp?: number;
   avatarName?: string;
-  avatarImageUrl?: string;
-  avatarBackground?: string;
-  avatarBorder?: string;
+  avatarPrimaryImageUrl?: string;
+  avatarSecondaryImageUrl?: string;
 }
 
 const UserProfileSummary: FC<Props> = ({
@@ -44,9 +43,8 @@ const UserProfileSummary: FC<Props> = ({
   countryCode = "",
   xp = 0,
   avatarName = "",
-  avatarImageUrl = "",
-  avatarBackground = "",
-  avatarBorder = "",
+  avatarPrimaryImageUrl = "",
+  avatarSecondaryImageUrl = "",
 }) => {
   const {
     isOpen: isUserModalOpen,
@@ -109,10 +107,8 @@ const UserProfileSummary: FC<Props> = ({
             <Flex
               alignItems="center"
               borderRadius={"100%"}
-              backgroundColor={avatarBackground}
-              borderWidth={10}
-              border="solid 5px"
-              borderColor={avatarBorder}
+              backgroundColor="#276f86"
+              border="solid 5px #1A202C"
               padding={3}
               height="130px"
               width="130px"
@@ -123,7 +119,7 @@ const UserProfileSummary: FC<Props> = ({
               onClick={onAvatarModalOpen}
             >
               <Image
-                src={avatarImageUrl}
+                src={avatarPrimaryImageUrl}
                 alt={avatarName}
                 height="70px"
                 width="70px"

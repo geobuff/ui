@@ -47,9 +47,9 @@ const UpdateAvatarFormContainer: FC<Props> = ({
           ...user,
           avatarId: response.data.avatarId,
           avatarName: response.data.avatarName,
-          avatarImageUrl: response.data.avatarImageUrl,
-          avatarBackground: response.data.avatarBackground,
-          avatarBorder: response.data.avatarBorder,
+          avatarDescription: response.data.avatarDescription,
+          avatarPrimaryImageUrl: response.data.avatarPrimaryImageUrl,
+          avatarSecondaryImageUrl: response.data.avatarSecondaryImageUrl,
         });
 
         onClose();

@@ -9,8 +9,8 @@ export interface User {
   stripeSessionId?: string;
   picture?: string;
   avatarName?: string;
-  avatarBackground?: string;
-  avatarBorder?: string;
-  avatarImageUrl?: string;
+  avatarDescription?: string;
+  avatarPrimaryImageUrl?: string;
+  avatarSecondaryImageUrl?: string;
   token?: string;
 }

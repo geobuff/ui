@@ -2,9 +2,9 @@ export interface DecodedToken {
   userId: number;
   avatarId: number;
   avatarName: string;
-  avatarImageUrl: string;
-  avatarBackground: string;
-  avatarBorder: string;
+  avatarDescription: string;
+  avatarPrimaryImageUrl: string;
+  avatarSecondaryImageUrl: string;
   username: string;
   email: string;
   countryCode: string;
