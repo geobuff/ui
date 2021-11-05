@@ -22,24 +22,22 @@ const RadioCard: FC<Props> = ({ radio = null, avatar = null }) => {
         cursor="pointer"
         borderRadius="md"
         _checked={{
-          bg: "#CDCCCC",
+          background: "#CDCCCC",
         }}
         p={3}
       >
         <Flex
           alignItems="center"
           borderRadius={"100%"}
-          backgroundColor={avatar.background}
-          borderWidth={10}
-          border="solid 3px"
-          borderColor={avatar.border}
+          backgroundColor="#276f86"
+          border="solid 3px #1A202C"
           padding={3}
           height="58px"
           width="58px"
           marginX="auto"
         >
           <Image
-            src={avatar.imageUrl}
+            src={avatar.primaryImageUrl}
             alt={avatar.name}
             height="30px"
             width="30px"

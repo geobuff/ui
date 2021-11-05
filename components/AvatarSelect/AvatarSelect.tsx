@@ -40,36 +40,33 @@ const AvatarSelect: FC<Props> = ({
 
   return (
     <>
-      <Flex direction="column">
-        <Flex
-          alignItems="center"
-          borderRadius={"100%"}
-          backgroundColor={current?.background}
-          borderWidth={10}
-          border="solid 5px"
-          borderColor={current?.border}
-          padding={3}
-          height="162.5px"
-          width="162.5px"
-          marginBottom={6}
-          marginX="auto"
-        >
-          <Image
-            src={current?.imageUrl}
-            alt={current?.name}
-            height="87.5px"
-            width="87.5px"
+      <Flex>
+        <Flex direction="column" justifyContent="center" mr={6}>
+          <Flex
+            alignItems="center"
+            borderRadius="12px"
+            backgroundColor="#276f86"
+            padding={3}
+            height="130px"
+            width="130px"
+            marginBottom={6}
             marginX="auto"
-          />
+          >
+            <Image
+              src={current?.secondaryImageUrl}
+              alt={current?.name}
+              height="70px"
+              width="70px"
+              marginX="auto"
+            />
+          </Flex>
         </Flex>
-        <Heading mx="auto" mb={2} size="md">
-          {current?.name}
-        </Heading>
-        <Text mb={12}>
-          {
-            "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Fames ac turpis egestas integer eget aliquet nibh praesent."
-          }
-        </Text>
+        <Flex direction="column">
+          <Heading mx="auto" mb={2} size="md">
+            {current?.name}
+          </Heading>
+          <Text mb={12}>{current?.description}</Text>
+        </Flex>
       </Flex>
 
       <SimpleGrid
