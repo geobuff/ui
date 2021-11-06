@@ -5,6 +5,7 @@ export interface MerchItem {
   id: number;
   name: string;
   description: string;
+  sizeGuideImageUrl: NullString;
   price: NullFloat;
   externalLink: NullString;
   sizes: MerchSize[];
