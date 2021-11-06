@@ -15,6 +15,7 @@ import {
   FormErrorMessage,
   Heading,
   Select,
+  SimpleGrid,
   Text,
 } from "@chakra-ui/react";
 
@@ -51,7 +52,7 @@ const MerchSummary: FC<Props> = ({
         height="auto"
         borderRadius="12px"
       />
-      <Flex mt={6}>
+      <SimpleGrid mt={6} columns={{ base: 3, md: 4 }} spacingY={6}>
         {item?.images.map((image) => (
           <Image
             key={image.id}
@@ -61,7 +62,7 @@ const MerchSummary: FC<Props> = ({
             borderRadius="12px"
           />
         ))}
-      </Flex>
+      </SimpleGrid>
     </Flex>
     <Flex
       direction="column"
