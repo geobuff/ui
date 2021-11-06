@@ -5,7 +5,7 @@ interface Props {
   noOfTiles?: number;
 }
 
-const MerchListPlaceholder: FC<Props> = ({ noOfTiles = 2 }) => (
+const MerchListPlaceholder: FC<Props> = ({ noOfTiles = 3 }) => (
   <Box
     width={{ base: "95%", sm: "80%", md: "65%" }}
     maxWidth="1200px"

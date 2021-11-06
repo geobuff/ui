@@ -8,7 +8,7 @@ const MerchContainer: FC = () => {
   const { merch, isLoading: isMerchLoading } = useMerch();
 
   if (isMerchLoading) {
-    return <MerchListPlaceholder noOfTiles={2} />;
+    return <MerchListPlaceholder />;
   }
 
   return <MerchList merch={merch} />;
