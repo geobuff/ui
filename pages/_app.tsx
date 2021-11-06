@@ -19,6 +19,7 @@ import {
   CurrentUserContext,
   CurrentUserContextProvider,
 } from "../context/CurrentUserContext";
+import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -105,7 +106,9 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
         >
           <AppContextProvider>
             <CurrentUserContextProvider>
-              <Component {...pageProps} />
+              <ShoppingCartContextProvider>
+                <Component {...pageProps} />
+              </ShoppingCartContextProvider>
             </CurrentUserContextProvider>
           </AppContextProvider>
         </DndProvider>

@@ -1,5 +1,7 @@
 import React, { useEffect, useState, FC, useContext } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import { Squash as Hamburger } from "hamburger-react";
 
 import {
   Box,
@@ -15,14 +17,13 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import Link from "next/link";
-
-import { Squash as Hamburger } from "hamburger-react";
-
 import Logo from "../Logo";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { AppContext } from "../../context/AppContext";
 import { useSwipeable } from "react-swipeable";
+import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import { MerchItem } from "../../types/merch-item";
+import ShoppingCartLink from "../ShoppingCartLink";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -52,7 +53,7 @@ const popularQuizzes = [
   },
 ];
 
-const desktopLayout = (
+const desktopLayout = (cart: MerchItem[]): React.ReactNode => (
   <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
     <Flex alignItems="center">
       <Link href="/">
@@ -70,7 +71,10 @@ const desktopLayout = (
       </Flex>
     </Flex>
 
-    <UserAvatarMenuNoSSR />
+    <Flex>
+      <ShoppingCartLink cartLength={cart.length} />
+      <UserAvatarMenuNoSSR />
+    </Flex>
   </Flex>
 );
 
@@ -83,6 +87,8 @@ const NavigationBar: FC = () => {
   const { isNavSidebarOpen: isOpen, setIsNavSidebarOpen } = useContext(
     AppContext
   );
+
+  const { cart } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     if (isOpen) {
@@ -98,7 +104,7 @@ const NavigationBar: FC = () => {
     if (isMobile === undefined) {
       return null;
     }
-    return isMobile ? mobileLayout : desktopLayout;
+    return isMobile ? mobileLayout : desktopLayout(cart);
   };
 
   const handlers = useSwipeable({

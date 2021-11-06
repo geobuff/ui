@@ -1,5 +1,5 @@
-import { AxiosRequestConfig } from "axios";
 import React, { createContext, useState, FC } from "react";
+import { AxiosRequestConfig } from "axios";
 import { DecodedToken } from "../../types/decoded-token";
 import { User } from "../../types/user";
 import jwt_decode from "jwt-decode";
