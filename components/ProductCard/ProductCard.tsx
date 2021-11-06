@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Box, Divider, Flex, Skeleton, Text } from "@chakra-ui/react";
+import { Box, Divider, Flex, Tag, Text } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
 import Image from "../Image";
@@ -14,6 +14,8 @@ interface Props {
   imageUrl?: string;
   price?: number;
   sizes?: string[];
+  soldOut?: boolean;
+  isExternal?: boolean;
 }
 
 const ProductCard: FC<Props> = ({
@@ -21,18 +23,22 @@ const ProductCard: FC<Props> = ({
   imageUrl = "",
   price = 0.0,
   sizes = [],
+  soldOut = false,
+  isExternal = false,
 }) => (
   <Flex
     aria-label={`game card for ${name}`}
     role="group"
     direction="column"
-    backgroundColor="white"
-    borderRadius={12}
     width="100%"
-    boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
   >
     <Box position="absolute" top={0} left={0} right={0} bottom={0}>
       <Box position="relative">
+        {!isExternal && soldOut && (
+          <Tag position="absolute" top="2" left="2">
+            Sold Out
+          </Tag>
+        )}
         <Image
           src={imageUrl}
           maxHeight={{ base: "140px", md: "160px" }}
@@ -47,16 +53,7 @@ const ProductCard: FC<Props> = ({
             maxHeight: { base: "132px", md: "156px" },
             minHeight: { base: "132px", md: "156px" },
           }}
-          filter="opacity(0.25)"
         />
-        <Text
-          position="absolute"
-          top="50%"
-          left="50%"
-          transform="translate(-50%, -50%)"
-        >
-          Coming soon...
-        </Text>
       </Box>
 
       <Box paddingTop="12px" paddingX="12px">
@@ -74,20 +71,43 @@ const ProductCard: FC<Props> = ({
       <Box position="absolute" bottom={0} left={0} right={0}>
         {divider}
 
-        <Flex
-          justifyContent="space-between"
-          alignItems="center"
-          marginTop="8px"
-          marginBottom="8px"
-          marginX="12px"
-        >
-          <Flex alignItems="center">
-            <Twemoji
-              emoji="📏"
-              height={twemojiResponsiveStyles}
-              width={twemojiResponsiveStyles}
-            />
-            <Skeleton ml={2}>
+        {isExternal ? (
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            marginTop="8px"
+            marginBottom="8px"
+            marginX="12px"
+          >
+            <Flex alignItems="center">
+              <Twemoji
+                emoji="🔗"
+                height={twemojiResponsiveStyles}
+                width={twemojiResponsiveStyles}
+              />
+              <Text
+                fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+                fontWeight="bold"
+                marginLeft={2}
+              >
+                Sold Externally
+              </Text>
+            </Flex>
+          </Flex>
+        ) : (
+          <Flex
+            justifyContent="space-between"
+            alignItems="center"
+            marginTop="8px"
+            marginBottom="8px"
+            marginX="12px"
+          >
+            <Flex alignItems="center">
+              <Twemoji
+                emoji="📏"
+                height={twemojiResponsiveStyles}
+                width={twemojiResponsiveStyles}
+              />
               <Text
                 fontSize={{ base: "9px", sm: "9px", md: "11px" }}
                 fontWeight="bold"
@@ -97,15 +117,13 @@ const ProductCard: FC<Props> = ({
               >
                 {sizes.join(", ")}
               </Text>
-            </Skeleton>
-          </Flex>
-          <Flex alignItems="center">
-            <Twemoji
-              emoji="💲"
-              height={twemojiResponsiveStyles}
-              width={twemojiResponsiveStyles}
-            />
-            <Skeleton ml={1}>
+            </Flex>
+            <Flex alignItems="center">
+              <Twemoji
+                emoji="💲"
+                height={twemojiResponsiveStyles}
+                width={twemojiResponsiveStyles}
+              />
               <Text
                 fontSize={{ base: "9px", sm: "9px", md: "11px" }}
                 fontWeight="bold"
@@ -116,9 +134,9 @@ const ProductCard: FC<Props> = ({
               >
                 {price}
               </Text>
-            </Skeleton>
+            </Flex>
           </Flex>
-        </Flex>
+        )}
       </Box>
     </Box>
   </Flex>

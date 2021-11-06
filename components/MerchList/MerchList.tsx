@@ -1,7 +1,5 @@
 import React, { FC } from "react";
-import Link from "next/link";
-
-import { AspectRatio, Flex, Alert, AlertIcon } from "@chakra-ui/react";
+import { AspectRatio, Flex, Alert, AlertIcon, Link } from "@chakra-ui/react";
 
 import ProductCard from "../ProductCard";
 import { MerchItem } from "../../types/merch-item";
@@ -36,27 +34,31 @@ const MerchList: FC<Props> = ({ merch = [] }) => (
             maxHeight="260px"
             ratio={3 / 2}
             transition="all 150ms ease-out"
-            opacity={product.disabled ? "0.25" : "1"}
-            _hover={
-              !product.disabled && {
-                transform: "scale(1.030)",
-                cursor: "pointer",
-              }
-            }
+            _hover={{
+              transform: "scale(1.030)",
+              cursor: "pointer",
+            }}
           >
             <Link
               key={product.id}
-              href={!product.disabled ? `/merch/${product.id}` : "/"}
+              href={
+                product.externalLink.Valid
+                  ? product.externalLink.String
+                  : `/merch/${product.id}`
+              }
+              backgroundColor="white"
+              borderRadius={12}
+              boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
             >
               <ProductCard
                 name={product.name}
                 imageUrl={
                   product.images.find((image) => image.isPrimary).imageUrl
                 }
-                price={product.price}
-                sizes={product.sizes
-                  .filter((size) => !size.soldOut)
-                  .map((x) => x.size)}
+                price={product.price.Valid && product.price.Float64}
+                sizes={product.sizes.map((x) => x.size)}
+                soldOut={product.soldOut}
+                isExternal={product.externalLink.Valid}
               />
             </Link>
           </AspectRatio>
