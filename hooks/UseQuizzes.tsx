@@ -8,7 +8,10 @@ interface Result {
 }
 
 const useQuizzes = (filter = ""): Result => {
-  const { data } = useSWR(`/quizzes?filter=${filter}`, fetcher);
+  const { data } = useSWR(`/quizzes?filter=${filter}`, fetcher, {
+    revalidateOnFocus: false,
+    revalidateOnReconnect: false,
+  });
 
   return {
     quizzes: data || [],
