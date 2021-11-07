@@ -100,9 +100,9 @@ const Leaderboard: FC<Props> = ({
   return (
     <Flex
       direction="column"
-      maxWidth={{ base: "100%", sm: "90%", md: "75%" }}
+      maxWidth={{ base: "100%", md: 1300 }}
       marginX="auto"
-      marginBottom={10}
+      marginBottom={14}
       marginTop={{ base: 10, sm: 10, md: 14 }}
       width="100%"
     >
