@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 
 import MerchSummary from "../../components/MerchSummary";
@@ -6,6 +6,7 @@ import { addedToCart } from "../../helpers/toasts";
 import useMerch from "../../hooks/UseMerch";
 import MerchSummaryPlaceholder from "../../placeholders/MerchSummaryPlaceholder";
 import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";
+import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
 interface Props {
   id?: number;
@@ -22,12 +23,13 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
+  const { addToCart } = useContext(ShoppingCartContext);
+
   const handleSubmit = (values: MerchSummaryFormSubmit): void => {
     setIsSubmitting(true);
-    setTimeout(() => {
-      toast(addedToCart(toastPosition));
-      setIsSubmitting(false);
-    }, 2000);
+    addToCart(merch.find((x) => x.id === id));
+    setIsSubmitting(false);
+    toast(addedToCart(toastPosition));
   };
 
   if (isLoading) {
