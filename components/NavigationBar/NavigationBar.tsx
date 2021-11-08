@@ -22,7 +22,6 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { AppContext } from "../../context/AppContext";
 import { useSwipeable } from "react-swipeable";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
-import { MerchItem } from "../../types/merch-item";
 import ShoppingCartLink from "../ShoppingCartLink";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
@@ -53,31 +52,6 @@ const popularQuizzes = [
   },
 ];
 
-const desktopLayout = (cart: MerchItem[]): React.ReactNode => (
-  <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
-    <Flex alignItems="center">
-      <Link href="/">
-        <ChakraLink _hover={{ textDecoration: "none" }}>
-          <Logo />
-        </ChakraLink>
-      </Link>
-
-      <Flex marginLeft={6} marginTop="2px" as="nav">
-        <Link href="/leaderboard">
-          <ChakraLink fontSize="16px" fontWeight={600} color="gray.600">
-            {"Leaderboard"}
-          </ChakraLink>
-        </Link>
-      </Flex>
-    </Flex>
-
-    <Flex>
-      <ShoppingCartLink cartLength={cart.length} />
-      <UserAvatarMenuNoSSR />
-    </Flex>
-  </Flex>
-);
-
 const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { user } = useContext(CurrentUserContext);
@@ -104,7 +78,7 @@ const NavigationBar: FC = () => {
     if (isMobile === undefined) {
       return null;
     }
-    return isMobile ? mobileLayout : desktopLayout(cart);
+    return isMobile ? mobileLayout : desktopLayout;
   };
 
   const handlers = useSwipeable({
@@ -113,6 +87,31 @@ const NavigationBar: FC = () => {
     trackMouse: false,
     rotationAngle: 0,
   });
+
+  const desktopLayout = (
+    <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
+      <Flex alignItems="center">
+        <Link href="/">
+          <ChakraLink _hover={{ textDecoration: "none" }}>
+            <Logo />
+          </ChakraLink>
+        </Link>
+
+        <Flex marginLeft={6} marginTop="2px" as="nav">
+          <Link href="/leaderboard">
+            <ChakraLink fontSize="16px" fontWeight={600} color="gray.600">
+              {"Leaderboard"}
+            </ChakraLink>
+          </Link>
+        </Flex>
+      </Flex>
+
+      <Flex>
+        {cart.length > 0 && <ShoppingCartLink cartLength={cart.length} />}
+        <UserAvatarMenuNoSSR />
+      </Flex>
+    </Flex>
+  );
 
   const mobileLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
