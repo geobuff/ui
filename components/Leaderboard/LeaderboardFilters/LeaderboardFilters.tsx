@@ -169,10 +169,11 @@ const LeaderboardFilters: FC<Props> = ({
                 minWidth="22px"
                 backgroundColor="transparent"
                 borderRadius={25}
-                onClick={handleClearSearchRank}
+                isDisabled={isLoading}
                 color="#a6a6a6"
                 fontWeight="bold"
                 _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+                onClick={handleClearSearchRank}
               >
                 <SolidCloseCircle height={5} width={5} padding={0} />
               </IconButton>
