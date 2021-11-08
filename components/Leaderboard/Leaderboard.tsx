@@ -110,6 +110,7 @@ const Leaderboard: FC<Props> = ({
       marginX="auto"
       marginBottom={14}
       marginTop={{ base: 10, sm: 10, md: 14 }}
+      paddingX={3}
       width="100%"
     >
       <LeaderboardHeader
@@ -135,7 +136,6 @@ const Leaderboard: FC<Props> = ({
           minHeight="750px"
           paddingTop={2}
           paddingBottom={{ base: 1, md: 3 }}
-          paddingX={{ base: 0, md: 3 }}
         >
           <LeaderboardTable entries={entries} isLoading={isLoading} />
 

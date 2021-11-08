@@ -68,7 +68,6 @@ const LeaderboardFilters: FC<Props> = ({
       marginBottom={{ base: 3, md: 1 }}
       justifyContent="space-between"
       flexWrap="wrap"
-      paddingX={{ base: 2.5, sm: 0, md: 0 }}
     >
       <Flex
         flexGrow={4}
