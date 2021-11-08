@@ -74,7 +74,7 @@ const Leaderboard: FC<Props> = ({
       router.replace("/leaderboard", undefined, { shallow: true });
     }
 
-    const updatedRank = event.target.value;
+    const updatedRank = event?.target?.value || "0";
 
     setRank(updatedRank);
     onChangeFilterParams({

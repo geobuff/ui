@@ -7,10 +7,14 @@ import {
   Input,
   InputGroup,
   InputLeftElement,
+  InputRightElement,
+  Fade,
+  IconButton,
 } from "@chakra-ui/react";
 
 import Search from "../../../Icons/Search";
 import { Quiz } from "../../../types/quiz";
+import SolidCloseCircle from "../../../Icons/SolidCloseCircle";
 
 enum RangeFilters {
   All = "All Time",
@@ -52,6 +56,11 @@ const LeaderboardFilters: FC<Props> = ({
   const handleChangeSearchRank = (event): void => {
     setRankValue(event.target.value);
     handleChangeSearchRankDebounced(event);
+  };
+
+  const handleClearSearchRank = (): void => {
+    setRankValue("");
+    onChangeSearchRank(null);
   };
 
   return (
@@ -134,21 +143,43 @@ const LeaderboardFilters: FC<Props> = ({
             _hover={{ border: "1px solid #CBD5E0" }}
           />
         </InputGroup>
-        <Input
-          type="number"
-          value={rankValue}
-          background="#FFFFFF"
-          boxShadow="0px 3px 4px rgba(226, 227, 227, 0.5)"
-          borderRadius={8}
-          height="42px"
-          marginLeft={3}
-          placeholder="Enter rank..."
-          onChange={handleChangeSearchRank}
-          isDisabled={isLoading}
-          _disabled={{ backgroundColor: "transparent", opacity: 0.4 }}
-          _placeholder={{ color: "gray.500" }}
-          _hover={{ border: "1px solid #CBD5E0" }}
-        />
+        <InputGroup>
+          <Input
+            type="number"
+            value={rankValue}
+            background="#FFFFFF"
+            boxShadow="0px 3px 4px rgba(226, 227, 227, 0.5)"
+            borderRadius={8}
+            height="42px"
+            marginLeft={3}
+            placeholder="Enter rank..."
+            onChange={handleChangeSearchRank}
+            isDisabled={isLoading}
+            _disabled={{ backgroundColor: "transparent", opacity: 0.4 }}
+            _placeholder={{ color: "gray.500" }}
+            _hover={{ border: "1px solid #CBD5E0" }}
+          />
+          <InputRightElement>
+            <Fade in={rankValue?.length > 0}>
+              <IconButton
+                aria-label="close circle"
+                position="absolute"
+                top="11px"
+                right={3}
+                maxHeight="22px"
+                minWidth="22px"
+                backgroundColor="transparent"
+                borderRadius={25}
+                onClick={handleClearSearchRank}
+                color="#a6a6a6"
+                fontWeight="bold"
+                _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+              >
+                <SolidCloseCircle height={5} width={5} padding={0} />
+              </IconButton>
+            </Fade>
+          </InputRightElement>
+        </InputGroup>
       </Flex>
     </Flex>
   );
