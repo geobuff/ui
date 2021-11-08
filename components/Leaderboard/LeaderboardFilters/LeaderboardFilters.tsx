@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import { debounce } from "throttle-debounce";
 
 import {
@@ -22,28 +22,37 @@ interface Props {
   quizId?: string;
   quizzes?: Quiz[];
   isLoading?: boolean;
-  onChangeQuiz?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onChangeRange?: (event: React.ChangeEvent<HTMLSelectElement>) => void;
-  onChangeSearchUsers?: (event: React.ChangeEvent<HTMLInputElement>) => void;
   rank?: string;
-  onChangeSearchRank?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onChangeQuiz?: (event: ChangeEvent<HTMLSelectElement>) => void;
+  onChangeRange?: (event: ChangeEvent<HTMLSelectElement>) => void;
+  onChangeSearchUsers?: (event: ChangeEvent<HTMLInputElement>) => void;
+  onChangeSearchRank?: (event: ChangeEvent<HTMLInputElement>) => void;
 }
 
 const LeaderboardFilters: FC<Props> = ({
   quizzes = [],
   quizId = "1",
   isLoading = false,
-  onChangeQuiz = (event: React.ChangeEvent<HTMLSelectElement>): void => {},
-  onChangeRange = (event: React.ChangeEvent<HTMLSelectElement>): void => {},
-  onChangeSearchUsers = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ): void => {},
   rank = "",
-  onChangeSearchRank = (event: React.ChangeEvent<HTMLInputElement>): void => {},
+  onChangeQuiz = (event: ChangeEvent<HTMLSelectElement>): void => {},
+  onChangeRange = (event: ChangeEvent<HTMLSelectElement>): void => {},
+  onChangeSearchUsers = (event: ChangeEvent<HTMLInputElement>): void => {},
+  onChangeSearchRank = (event: ChangeEvent<HTMLInputElement>): void => {},
 }) => {
+  const [rankValue, setRankValue] = useState(rank);
+
+  const handleChangeSearchRankDebounced = debounce(500, (event) => {
+    onChangeSearchRank(event);
+  });
+
   const handleSearchUsersDebounced = debounce(250, (event) =>
     onChangeSearchUsers(event)
   );
+
+  const handleChangeSearchRank = (event): void => {
+    setRankValue(event.target.value);
+    handleChangeSearchRankDebounced(event);
+  };
 
   return (
     <Flex
@@ -127,14 +136,14 @@ const LeaderboardFilters: FC<Props> = ({
         </InputGroup>
         <Input
           type="number"
-          value={rank}
+          value={rankValue}
           background="#FFFFFF"
           boxShadow="0px 3px 4px rgba(226, 227, 227, 0.5)"
           borderRadius={8}
           height="42px"
           marginLeft={3}
           placeholder="Enter rank..."
-          onChange={onChangeSearchRank}
+          onChange={handleChangeSearchRank}
           isDisabled={isLoading}
           _disabled={{ backgroundColor: "transparent", opacity: 0.4 }}
           _placeholder={{ color: "gray.500" }}

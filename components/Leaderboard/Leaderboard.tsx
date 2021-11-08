@@ -11,6 +11,7 @@ import Card from "../Card";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import { FilterParams } from "../../types/filter-params";
 import { Quiz } from "../../types/quiz";
+import router from "next/router";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -69,11 +70,16 @@ const Leaderboard: FC<Props> = ({
   const handleChangeSearchRank = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    const rank = event.target.value;
-    setRank(rank);
+    if (rank) {
+      router.replace("/leaderboard", undefined, { shallow: true });
+    }
+
+    const updatedRank = event.target.value;
+
+    setRank(updatedRank);
     onChangeFilterParams({
       ...filterParams,
-      rank: rank ? parseInt(rank) : 0,
+      rank: updatedRank ? parseInt(updatedRank) : 0,
     });
   };
 
