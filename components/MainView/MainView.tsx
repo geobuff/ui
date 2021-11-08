@@ -49,8 +49,8 @@ const MainView: FC<Props> = ({
         <Flex flex={1} direction="column" marginTop={14}>
           {children}
         </Flex>
+        {hasFooter && height && <Footer variant={footerVariant} />}
       </Flex>
-      {hasFooter && height && <Footer variant={footerVariant} />}
     </>
   );
 };
