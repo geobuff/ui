@@ -27,7 +27,17 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
 
   const handleSubmit = (values: MerchSummaryFormSubmit): void => {
     setIsSubmitting(true);
-    addToCart(merch.find((x) => x.id === id));
+
+    const item = merch.find((x) => x.id === id);
+    addToCart({
+      id: item.id,
+      name: item.name,
+      description: item.description,
+      price: item.price.Float64,
+      size: item.sizes.find((x) => x.id === parseInt(values.size)).size,
+      imageUrl: item.images.find((x) => x.isPrimary).imageUrl,
+    });
+
     setIsSubmitting(false);
     toast(addedToCart(toastPosition));
   };
