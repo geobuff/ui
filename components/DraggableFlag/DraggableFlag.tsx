@@ -56,6 +56,7 @@ const DraggableFlag: FC<Props> = ({
       {...props}
     >
       <Image
+        draggable="false"
         src={getFlagUrl(code)}
         width="100%"
         maxWidth={{ base: "76px", lg: "100px" }}
