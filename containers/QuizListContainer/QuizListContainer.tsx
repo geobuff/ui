@@ -31,8 +31,6 @@ const QuizListContainer: FC<Props> = ({ filter = "" }) => {
   const height = use100vh();
   const noOfTiles = getNumberOfTilesByHeight(height);
 
-  console.log(height, "height");
-
   if (isLoading) {
     return <QuizListPlaceholder noOfTiles={noOfTiles} />;
   }
