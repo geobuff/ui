@@ -3,9 +3,15 @@ import ShoppingCart from "../../components/ShoppingCart";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
 const ShoppingCartContainer: FC = () => {
-  const { cart } = useContext(ShoppingCartContext);
+  const { cart, updateQuantity, removeItem } = useContext(ShoppingCartContext);
 
-  return <ShoppingCart cart={cart} />;
+  return (
+    <ShoppingCart
+      cart={cart}
+      updateQuantity={updateQuantity}
+      removeItem={removeItem}
+    />
+  );
 };
 
 export default ShoppingCartContainer;
