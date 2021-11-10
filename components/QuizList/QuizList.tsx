@@ -18,12 +18,13 @@ interface Props {
 
 const QuizList: FC<Props> = ({ quizzes }) => (
   <Box
-    width={{ base: "95%", sm: "80%", md: "65%" }}
-    maxWidth="1200px"
+    width="100%"
+    maxWidth={1300}
     marginTop="32px"
     marginBottom={10}
     marginLeft="auto"
     marginRight="auto"
+    paddingX={{ base: 3, md: 10 }}
     _hover={{
       cursor: "pointer",
     }}
@@ -37,7 +38,7 @@ const QuizList: FC<Props> = ({ quizzes }) => (
       <>
         <SimpleGrid
           justifyContent="center"
-          minChildWidth={{ base: "140px", sm: "185px", md: "200px" }}
+          minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
           spacing={{ base: "16px", md: "24px" }}
         >
           {quizzes.map((quiz) => (
@@ -50,9 +51,9 @@ const QuizList: FC<Props> = ({ quizzes }) => (
               }
             >
               <AspectRatio
-                maxW="260px"
-                minHeight="200px"
-                maxHeight="220px"
+                maxWidth="260px"
+                minHeight={{ base: "180px", sm: "206px", md: "216px" }}
+                maxHeight="230px"
                 ratio={3 / 2}
                 transition="all 150ms ease-out"
                 _hover={quiz.enabled && { transform: "scale(1.030)" }}
