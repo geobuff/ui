@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 
 import {
   Box,
@@ -57,6 +57,8 @@ const UserProfileSummary: FC<Props> = ({
     onOpen: onAvatarModalOpen,
     onClose: onAvatarModalClose,
   } = useDisclosure();
+
+  const [imageUrl, setImageUrl] = useState(avatarPrimaryImageUrl);
 
   const { countries } = useCountries();
   const level = getLevel(xp);
@@ -119,8 +121,10 @@ const UserProfileSummary: FC<Props> = ({
               onClick={onAvatarModalOpen}
             >
               <Image
-                src={avatarPrimaryImageUrl}
+                src={imageUrl}
                 alt={avatarName}
+                onMouseEnter={(): void => setImageUrl(avatarSecondaryImageUrl)}
+                onMouseOut={(): void => setImageUrl(avatarPrimaryImageUrl)}
                 height="70px"
                 width="70px"
                 marginX="auto"
