@@ -7,16 +7,17 @@ interface Props {
 
 const QuizListPlaceholder: FC<Props> = ({ noOfTiles = 8 }) => (
   <Box
-    width={{ base: "95%", sm: "80%", md: "65%" }}
-    maxWidth="1200px"
+    width="100%"
+    maxWidth={1300}
     marginTop="32px"
     marginLeft="auto"
     marginRight="auto"
+    paddingX={{ base: 3, md: 10 }}
   >
     <SimpleGrid
       justifyContent="center"
       marginBottom="72px"
-      minChildWidth={{ base: "140px", sm: "185px", md: "200px" }}
+      minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
       spacing={{ base: "16px", md: "24px" }}
     >
       {[...Array(noOfTiles)].map((_, i) => (
