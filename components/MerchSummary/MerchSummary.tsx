@@ -19,6 +19,7 @@ import Image from "../Image";
 import Modal from "../Modal";
 import { MerchItem } from "../../types/merch-item";
 import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";
+import MapInteractionCSS from "../MapInteractionCSS";
 
 const validationSchema = Yup.object().shape({
   size: Yup.string().required("Please choose an available size."),
@@ -48,12 +49,14 @@ const MerchSummary: FC<Props> = ({
       >
         <Flex justifyContent="center">
           <Flex direction="column">
-            <Image
-              src={item?.images.find((x) => x.isPrimary).imageUrl}
-              width="500px"
-              height="auto"
-              borderRadius="12px"
-            />
+            <MapInteractionCSS>
+              <Image
+                src={item?.images.find((x) => x.isPrimary).imageUrl}
+                width="500px"
+                height="auto"
+                borderRadius="12px"
+              />
+            </MapInteractionCSS>
             <SimpleGrid mt={6} columns={{ base: 3, md: 4 }} spacingY={6}>
               {item?.images.map((image) => (
                 <Image

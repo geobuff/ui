@@ -8,15 +8,16 @@ import { SVGBase } from "../../types/svg-base";
 interface Props {
   showTooltip?: boolean;
   map?: SVGBase;
+  [x: string]: any;
 }
 
-const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
+const GameMap: FC<Props> = ({ showTooltip = false, map = null, ...props }) => {
   const [tooltipText, setTooltipText] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [tooltipTop, setTooltipTop] = useState(0);
   const [tooltipLeft, setTooltipLeft] = useState(0);
 
-  const isMobile = useBreakpointValue({ base: true, lg: false });
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const mapStyle = {
     height: isMobile ? "initial" : "90vh",
@@ -44,27 +45,15 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
   };
 
   return (
-    <Box width="100%">
-      <Box textAlign="center" height="100%">
-        {!isMobile ? (
-          <Tooltip
-            label={tooltipText}
-            position="absolute"
-            top={tooltipTop}
-            left={tooltipLeft}
-            isOpen={tooltipOpen}
-          >
-            <MapInteractionCSS>
-              <SVGMap
-                map={map}
-                mapStyle={mapStyle}
-                onPathMouseOver={mouseOver}
-                onPathMouseMove={mouseMove}
-                onPathMouseOut={mouseOut}
-              />
-            </MapInteractionCSS>
-          </Tooltip>
-        ) : (
+    <Box {...props}>
+      {!isMobile ? (
+        <Tooltip
+          label={tooltipText}
+          position="absolute"
+          top={tooltipTop}
+          left={tooltipLeft}
+          isOpen={tooltipOpen}
+        >
           <MapInteractionCSS>
             <SVGMap
               map={map}
@@ -74,8 +63,18 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
               onPathMouseOut={mouseOut}
             />
           </MapInteractionCSS>
-        )}
-      </Box>
+        </Tooltip>
+      ) : (
+        <MapInteractionCSS>
+          <SVGMap
+            map={map}
+            mapStyle={mapStyle}
+            onPathMouseOver={mouseOver}
+            onPathMouseMove={mouseMove}
+            onPathMouseOut={mouseOut}
+          />
+        </MapInteractionCSS>
+      )}
     </Box>
   );
 };

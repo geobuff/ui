@@ -377,7 +377,11 @@ const GameMapQuiz: FC<Props> = ({
           )}
 
           <Fade in>
-            <GameMap map={map} showTooltip={!hasGameStarted} />
+            <GameMap
+              map={map}
+              showTooltip={!hasGameStarted}
+              ml={{ base: 0, md: "375px" }}
+            />
           </Fade>
 
           {shouldDisplayOnMobile && (
