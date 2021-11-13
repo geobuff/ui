@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 
@@ -37,6 +37,9 @@ const MerchSummary: FC<Props> = ({
   onSubmit = (values: MerchSummaryFormSubmit): void => {},
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [currentImage, setCurrentImage] = useState(
+    item?.images.find((x) => x.isPrimary).imageUrl
+  );
 
   return (
     <>
@@ -49,9 +52,9 @@ const MerchSummary: FC<Props> = ({
       >
         <Flex justifyContent="center">
           <Flex direction="column">
-            <MapInteractionCSS>
+            <MapInteractionCSS background="#F0F0F0" borderRadius="12px">
               <Image
-                src={item?.images.find((x) => x.isPrimary).imageUrl}
+                src={currentImage}
                 width="500px"
                 height="auto"
                 borderRadius="12px"
@@ -62,9 +65,11 @@ const MerchSummary: FC<Props> = ({
                 <Image
                   key={image.id}
                   src={image.imageUrl}
+                  onClick={(): void => setCurrentImage(image.imageUrl)}
                   width="100px"
                   height="auto"
                   borderRadius="12px"
+                  cursor="pointer"
                 />
               ))}
             </SimpleGrid>

@@ -10,7 +10,11 @@ import OutlinedZoomOut from "../../Icons/OutlinedZoomOut";
 
 const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 
-const MapInteractionCSS: FC = ({ children = null, ...props }) => {
+interface Props {
+  [x: string]: any;
+}
+
+const MapInteractionCSS: FC<Props> = ({ children = null, ...props }) => {
   const [value, setValue] = useState(defaultValue);
 
   const isMobile = useBreakpointValue({ base: true, lg: false });
@@ -24,7 +28,7 @@ const MapInteractionCSS: FC = ({ children = null, ...props }) => {
   }
 
   return (
-    <Box position="relative">
+    <Box position="relative" {...props}>
       <Box
         zIndex={1}
         position="absolute"
