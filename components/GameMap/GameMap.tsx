@@ -2,22 +2,21 @@ import React, { useState, FC } from "react";
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
 
-import MapInteractionCSS from "../MapInteractionCSS";
+import GameMapInteraction from "../GameMapInteraction";
 import { SVGBase } from "../../types/svg-base";
 
 interface Props {
   showTooltip?: boolean;
   map?: SVGBase;
-  [x: string]: any;
 }
 
-const GameMap: FC<Props> = ({ showTooltip = false, map = null, ...props }) => {
+const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
   const [tooltipText, setTooltipText] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [tooltipTop, setTooltipTop] = useState(0);
   const [tooltipLeft, setTooltipLeft] = useState(0);
 
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
 
   const mapStyle = {
     height: isMobile ? "initial" : "90vh",
@@ -45,16 +44,28 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null, ...props }) => {
   };
 
   return (
-    <Box {...props}>
-      {!isMobile ? (
-        <Tooltip
-          label={tooltipText}
-          position="absolute"
-          top={tooltipTop}
-          left={tooltipLeft}
-          isOpen={tooltipOpen}
-        >
-          <MapInteractionCSS>
+    <Box width="100%">
+      <Box textAlign="center" height="100%">
+        {!isMobile ? (
+          <Tooltip
+            label={tooltipText}
+            position="absolute"
+            top={tooltipTop}
+            left={tooltipLeft}
+            isOpen={tooltipOpen}
+          >
+            <GameMapInteraction>
+              <SVGMap
+                map={map}
+                mapStyle={mapStyle}
+                onPathMouseOver={mouseOver}
+                onPathMouseMove={mouseMove}
+                onPathMouseOut={mouseOut}
+              />
+            </GameMapInteraction>
+          </Tooltip>
+        ) : (
+          <GameMapInteraction>
             <SVGMap
               map={map}
               mapStyle={mapStyle}
@@ -62,19 +73,9 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null, ...props }) => {
               onPathMouseMove={mouseMove}
               onPathMouseOut={mouseOut}
             />
-          </MapInteractionCSS>
-        </Tooltip>
-      ) : (
-        <MapInteractionCSS>
-          <SVGMap
-            map={map}
-            mapStyle={mapStyle}
-            onPathMouseOver={mouseOver}
-            onPathMouseMove={mouseMove}
-            onPathMouseOut={mouseOut}
-          />
-        </MapInteractionCSS>
-      )}
+          </GameMapInteraction>
+        )}
+      </Box>
     </Box>
   );
 };

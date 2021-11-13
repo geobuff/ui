@@ -13,17 +13,17 @@ import {
   Heading,
   ModalCloseButton,
   Button,
+  BoxProps,
 } from "@chakra-ui/react";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 
-interface Props {
+interface Props extends BoxProps {
   header?: string | React.ReactNode;
   footer?: string | React.ReactNode;
   isOpen?: boolean;
   onClose?: () => void;
   hasCloseIcon?: boolean;
-  [x: string]: any;
 }
 
 const Modal: FC<Props> = ({
