@@ -2,10 +2,10 @@ import React, { FC } from "react";
 import { Box, SimpleGrid, Skeleton } from "@chakra-ui/react";
 
 interface Props {
-  noOfTiles?: number;
+  noOfTiles: number;
 }
 
-const QuizListPlaceholder: FC<Props> = ({ noOfTiles = 8 }) => (
+const QuizListPlaceholder: FC<Props> = ({ noOfTiles }) => (
   <Box
     width="100%"
     maxWidth={1300}

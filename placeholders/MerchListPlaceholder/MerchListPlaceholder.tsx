@@ -1,36 +1,33 @@
 import React, { FC } from "react";
-import { Box, SimpleGrid, Skeleton, Flex } from "@chakra-ui/react";
+import { Box, SimpleGrid, Skeleton } from "@chakra-ui/react";
 
 interface Props {
-  noOfTiles?: number;
+  noOfTiles: number;
 }
 
-const MerchListPlaceholder: FC<Props> = ({ noOfTiles = 3 }) => (
+const MerchListPlaceholder: FC<Props> = ({ noOfTiles }) => (
   <Box
-    width={{ base: "95%", sm: "80%", md: "65%" }}
-    maxWidth="1200px"
+    width="100%"
+    maxWidth={1300}
     marginTop="32px"
     marginLeft="auto"
     marginRight="auto"
+    paddingX={{ base: 3, md: 10 }}
   >
     <SimpleGrid
       justifyContent="center"
       marginBottom="72px"
-      minChildWidth={{ base: "140px", sm: "185px", md: "200px" }}
+      minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
       spacing={{ base: "16px", md: "24px" }}
     >
-      <Flex justifyContent="center">
-        {[...Array(noOfTiles)].map((_, i) => (
-          <Skeleton
-            key={i}
-            width="300px"
-            minHeight={{ base: "220px", md: "260px" }}
-            maxHeight="260px"
-            marginX={{ base: 1, md: 5 }}
-            borderRadius={12}
-          />
-        ))}
-      </Flex>
+      {[...Array(noOfTiles)].map((_, i) => (
+        <Skeleton
+          key={i}
+          width={{ base: "180px", md: "220px" }}
+          height={{ base: "225px", md: "250px" }}
+          borderRadius={12}
+        ></Skeleton>
+      ))}
     </SimpleGrid>
   </Box>
 );
