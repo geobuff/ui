@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import Link from "next/link";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 
@@ -29,12 +30,14 @@ interface Props {
   item?: MerchItem;
   isSubmitting?: boolean;
   onSubmit?: (values: MerchSummaryFormSubmit) => void;
+  submitted?: boolean;
 }
 
 const MerchSummary: FC<Props> = ({
   item = null,
   isSubmitting = false,
   onSubmit = (values: MerchSummaryFormSubmit): void => {},
+  submitted = false,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentImage, setCurrentImage] = useState(
@@ -144,6 +147,13 @@ const MerchSummary: FC<Props> = ({
               </Form>
             )}
           </Formik>
+          {submitted && (
+            <Link href="/shopping-cart">
+              <Button width="100%" mt={3}>
+                View Cart
+              </Button>
+            </Link>
+          )}
         </Flex>
       </Flex>
       <Modal isOpen={isOpen} onClose={onClose} header="Size Guide" hasCloseIcon>
