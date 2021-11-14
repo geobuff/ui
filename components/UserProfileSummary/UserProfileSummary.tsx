@@ -30,6 +30,7 @@ import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContaine
 import CustomFlag from "../CustomFlag";
 import Twemoji from "../Twemoji";
 import FlagFallback from "../ResultsListItem/FlagFallback";
+import ProfileUserAvatar from "../ProfileUserAvatar";
 
 interface Props {
   username?: string;
@@ -132,30 +133,13 @@ const UserProfileSummary: FC<Props> = ({
         </Box>
         <Box mb={6}>
           <Box textAlign="center">
-            <Flex
-              alignItems="center"
-              borderRadius={"100%"}
-              backgroundColor="#276f86"
-              border="solid 5px #1A202C"
-              padding={3}
-              height="130px"
-              width="130px"
+            <ProfileUserAvatar
               marginTop="-122px"
-              marginBottom={2}
-              marginX="auto"
-              cursor="pointer"
+              primaryImageUrl={avatarPrimaryImageUrl}
+              secondaryImageUrl={avatarSecondaryImageUrl}
+              name={avatarName}
               onClick={onAvatarModalOpen}
-            >
-              <Image
-                src={imageUrl}
-                alt={avatarName}
-                onMouseEnter={(): void => setImageUrl(avatarSecondaryImageUrl)}
-                onMouseOut={(): void => setImageUrl(avatarPrimaryImageUrl)}
-                height="70px"
-                width="70px"
-                marginX="auto"
-              />
-            </Flex>
+            />
             <Heading fontSize="32px">{username}</Heading>
             <Text color="gray.500" fontWeight={600} marginY={1}>
               {email}
