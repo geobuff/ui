@@ -1,7 +1,7 @@
 import React, { FC, useState, MouseEventHandler } from "react";
-import { Flex, Image } from "@chakra-ui/react";
+import { Flex, FlexProps, Image } from "@chakra-ui/react";
 
-export interface Props {
+export interface Props extends FlexProps {
   primaryImageUrl?: string;
   secondaryImageUrl?: string;
   name?: string;
@@ -13,6 +13,7 @@ const ProfileUserAvatar: FC<Props> = ({
   primaryImageUrl,
   secondaryImageUrl,
   name,
+  ...props
 }) => {
   const [shouldShowSecondary, setShouldShowSecondary] = useState(false);
 
@@ -25,7 +26,6 @@ const ProfileUserAvatar: FC<Props> = ({
       padding={3}
       height="130px"
       width="130px"
-      marginTop="-122px"
       marginBottom={2}
       overflow="hidden"
       marginX="auto"
@@ -33,6 +33,7 @@ const ProfileUserAvatar: FC<Props> = ({
       onMouseEnter={(): void => setShouldShowSecondary(true)}
       onMouseOut={(): void => setShouldShowSecondary(false)}
       onClick={onClick}
+      {...props}
     >
       <Image
         display={shouldShowSecondary ? "none" : "inherit"}

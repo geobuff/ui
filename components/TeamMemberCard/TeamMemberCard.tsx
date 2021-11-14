@@ -1,12 +1,14 @@
 import React, { FC } from "react";
-import { Link, Image, Box, Text } from "@chakra-ui/react";
+import { Link, Box, Text } from "@chakra-ui/react";
+import ProfileUserAvatar from "../ProfileUserAvatar";
 
 interface Props {
   title?: string;
   position?: string;
   city?: string;
   country?: string;
-  imageUrl?: string;
+  primaryImageUrl?: string;
+  secondaryImageUrl?: string;
   link?: string;
 }
 
@@ -15,17 +17,16 @@ const TeamMemberCard: FC<Props> = ({
   position = "",
   city = "",
   country = "",
-  imageUrl = "",
+  primaryImageUrl = "",
+  secondaryImageUrl = "",
   link = "",
 }) => (
   <Box textAlign="center">
     <Link href={link}>
-      <Image
-        src={imageUrl}
-        height="160px"
-        width="160px"
-        borderRadius="100%"
-        mx="auto"
+      <ProfileUserAvatar
+        primaryImageUrl={primaryImageUrl}
+        secondaryImageUrl={secondaryImageUrl}
+        name={title}
       />
     </Link>
     <Box>

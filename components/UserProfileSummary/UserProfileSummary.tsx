@@ -134,9 +134,11 @@ const UserProfileSummary: FC<Props> = ({
         <Box mb={6}>
           <Box textAlign="center">
             <ProfileUserAvatar
+              marginTop="-122px"
               primaryImageUrl={avatarPrimaryImageUrl}
               secondaryImageUrl={avatarSecondaryImageUrl}
               name={avatarName}
+              onClick={onAvatarModalOpen}
             />
             <Heading fontSize="32px">{username}</Heading>
             <Text color="gray.500" fontWeight={600} marginY={1}>
