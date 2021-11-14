@@ -1,9 +1,14 @@
 import React, { FC } from "react";
-import Link from "next/link";
+import {
+  AspectRatio,
+  Alert,
+  AlertIcon,
+  Link,
+  Box,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
-import { AspectRatio, Flex, Alert, AlertIcon } from "@chakra-ui/react";
-
-import ProductCard from "../ProductCard";
+import MerchCard from "../MerchCard";
 import { MerchItem } from "../../types/merch-item";
 
 interface Props {
@@ -11,13 +16,17 @@ interface Props {
 }
 
 const MerchList: FC<Props> = ({ merch = [] }) => (
-  <Flex
-    width={{ base: "95%", sm: "85%", md: "65%" }}
-    maxWidth="1200px"
+  <Box
+    width="100%"
+    maxWidth={1300}
     marginTop="32px"
     marginBottom={10}
     marginLeft="auto"
     marginRight="auto"
+    paddingX={{ base: 3, md: 10 }}
+    _hover={{
+      cursor: "pointer",
+    }}
   >
     {merch.length === 0 ? (
       <Alert status="info" borderRadius={6} p={5} mt={5}>
@@ -25,45 +34,43 @@ const MerchList: FC<Props> = ({ merch = [] }) => (
         {"No merch to display."}
       </Alert>
     ) : (
-      <Flex direction="row" width="100%" justifyContent="center">
+      <SimpleGrid
+        minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
+        spacing={{ base: "16px", md: "24px" }}
+      >
         {merch.map((product) => (
-          <AspectRatio
+          <Link
             key={product.id}
-            width="100%"
-            marginX={{ base: 1, md: 5 }}
-            maxWidth="300px"
-            minHeight={{ base: "220px", md: "260px" }}
-            maxHeight="260px"
-            ratio={3 / 2}
-            transition="all 150ms ease-out"
-            opacity={product.disabled ? "0.25" : "1"}
-            _hover={
-              !product.disabled && {
-                transform: "scale(1.030)",
-                cursor: "pointer",
-              }
+            href={
+              product.externalLink.Valid
+                ? product.externalLink.String
+                : `/merch/${product.id}`
             }
           >
-            <Link
-              key={product.id}
-              href={!product.disabled ? `/merch/${product.id}` : "/"}
+            <AspectRatio
+              maxWidth="260px"
+              minHeight={{ base: "225px", md: "250px" }}
+              maxHeight="250px"
+              ratio={1}
+              transition="all 150ms ease-out"
+              _hover={{ transform: "scale(1.030)" }}
             >
-              <ProductCard
+              <MerchCard
                 name={product.name}
                 imageUrl={
                   product.images.find((image) => image.isPrimary).imageUrl
                 }
-                price={product.price}
-                sizes={product.sizes
-                  .filter((size) => !size.soldOut)
-                  .map((x) => x.size)}
+                price={product.price.Valid && product.price.Float64}
+                sizes={product.sizes.map((x) => x.size)}
+                soldOut={product.soldOut}
+                isExternal={product.externalLink.Valid}
               />
-            </Link>
-          </AspectRatio>
+            </AspectRatio>
+          </Link>
         ))}
-      </Flex>
+      </SimpleGrid>
     )}
-  </Flex>
+  </Box>
 );
 
 export default MerchList;

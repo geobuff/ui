@@ -56,7 +56,7 @@ const QuizCard: FC<Props> = ({
           fontWeight="bold"
           fontSize="18px"
           marginBottom="16px"
-          noOfLines={3}
+          noOfLines={2}
           _groupHover={{ textDecoration: "underline" }}
         >
           {name}

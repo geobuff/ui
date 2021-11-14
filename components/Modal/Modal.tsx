@@ -11,14 +11,19 @@ import {
   ModalOverlay,
   useBreakpointValue,
   Heading,
+  ModalCloseButton,
+  Button,
+  BoxProps,
 } from "@chakra-ui/react";
 
-interface Props {
+import ArrowLeft from "../../Icons/ArrowLeft";
+
+interface Props extends BoxProps {
   header?: string | React.ReactNode;
   footer?: string | React.ReactNode;
   isOpen?: boolean;
   onClose?: () => void;
-  [x: string]: any;
+  hasCloseIcon?: boolean;
 }
 
 const Modal: FC<Props> = ({
@@ -26,6 +31,7 @@ const Modal: FC<Props> = ({
   footer = null,
   isOpen = false,
   onClose = (): void => {},
+  hasCloseIcon = false,
   children,
   ...props
 }) => {
@@ -80,6 +86,21 @@ const Modal: FC<Props> = ({
             width="100%"
           >
             <Box height="100%">
+              {hasCloseIcon && (
+                <Button
+                  alignItems="center"
+                  backgroundColor="transparent"
+                  marginTop={2}
+                  marginLeft={2}
+                  _hover={{
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                  onClick={onClose}
+                >
+                  <ArrowLeft height={5} width={5} marginRight={1} />
+                </Button>
+              )}
               {!!header && (
                 <>
                   {React.isValidElement(header) ? (
@@ -91,7 +112,6 @@ const Modal: FC<Props> = ({
                   )}
                 </>
               )}
-
               {children}
             </Box>
             {!!footer && (
@@ -102,7 +122,7 @@ const Modal: FC<Props> = ({
           </Flex>
         </Box>
       ) : (
-        <ChakraModal isOpen={isOpen} onClose={onClose} {...props}>
+        <ChakraModal isOpen={isOpen} onClose={onClose} isCentered {...props}>
           <ModalOverlay />
           <ModalContent borderRadius="12px">
             {!!header && (
@@ -114,7 +134,7 @@ const Modal: FC<Props> = ({
                 )}
               </>
             )}
-
+            {hasCloseIcon && <ModalCloseButton />}
             <ModalBody padding={0}>{children}</ModalBody>
             {!!footer && <ModalFooter marginBottom={1}>{footer}</ModalFooter>}
           </ModalContent>

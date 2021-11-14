@@ -1,7 +1,7 @@
 import React, { useState, FC } from "react";
 import { MapInteraction } from "react-map-interaction";
 
-import { Box, Button, useBreakpointValue } from "@chakra-ui/react";
+import { Box, BoxProps, Button, useBreakpointValue } from "@chakra-ui/react";
 
 import SolidRefresh from "../../Icons/SolidRefresh";
 
@@ -10,7 +10,7 @@ import OutlinedZoomOut from "../../Icons/OutlinedZoomOut";
 
 const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 
-const MapInteractionCSS: FC = ({ children = null, ...props }) => {
+const MapInteractionCSS: FC<BoxProps> = ({ children = null, ...props }) => {
   const [value, setValue] = useState(defaultValue);
 
   const isMobile = useBreakpointValue({ base: true, lg: false });
@@ -24,17 +24,11 @@ const MapInteractionCSS: FC = ({ children = null, ...props }) => {
   }
 
   return (
-    <Box
-      position="absolute"
-      top={{ base: 126, lg: "50px" }}
-      left={{ base: 0, lg: "375px" }}
-      bottom={0}
-      right={0}
-    >
+    <Box position="relative" {...props}>
       <Box
         zIndex={1}
-        position="fixed"
-        top={isMobile ? "144px" : "190px"}
+        position="absolute"
+        top={isMobile ? "18px" : "140px"}
         right="18px"
       >
         <Button

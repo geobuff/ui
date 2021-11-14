@@ -19,7 +19,7 @@ import Link from "next/link";
 
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
-import AvatarSelect from "../AvatarSelect";
+import AvatarSelectContainer from "../../containers/AvatarSelectContainer";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import Logo from "../Logo";
@@ -28,7 +28,7 @@ import LoginLink from "./LoginLink";
 import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 const initialValues = {
-  avatarId: "",
+  avatarId: "1",
   username: "",
   email: "",
   countryCode: "",
@@ -40,7 +40,7 @@ const validationSchema = Yup.object().shape({
   username: Yup.string()
     .required("Please include a username.")
     .min(3, "Must be at least 3 characters long.")
-    .max(30, "Must be less than 30 characters long.")
+    .max(20, "Must be 20 or less characters long.")
     .matches(/^\S*$/, "Cannot contain spaces."),
   countryCode: Yup.string().required("Please select a country."),
   email: Yup.string()
@@ -92,7 +92,7 @@ const RegisterForm: FC<Props> = ({
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {(): React.ReactNode => (
+        {({ setFieldValue }): React.ReactNode => (
           <Form>
             <Box marginBottom={5}>
               <Flex marginY={6}>
@@ -105,7 +105,10 @@ const RegisterForm: FC<Props> = ({
                         {"Avatar"}
                       </FormLabel>
 
-                      <AvatarSelect fieldProps={field} />
+                      <AvatarSelectContainer
+                        fieldProps={field}
+                        setFieldValue={setFieldValue}
+                      />
                       <Box position="absolute" top="68px" left="2px">
                         <FormErrorMessage fontSize="11px">
                           {form.errors.avatarId}

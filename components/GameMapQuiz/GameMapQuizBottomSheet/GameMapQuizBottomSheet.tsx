@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, FC } from "react";
+import React, { createRef, useEffect, FC, useContext } from "react";
 import {
   Box,
   Button,
@@ -16,6 +16,7 @@ import ResultsMap from "../../ResultsMap";
 import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
 import { Result } from "../../../types/result";
+import { AppContext } from "../../../context/AppContext";
 
 const snapPoints = [600, 400, 300, 90];
 const initialSnap = snapPoints.length - 2;
@@ -57,6 +58,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
 }) => {
   const ref = createRef<any>();
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const { isNavSidebarOpen } = useContext(AppContext);
 
   // Push modal down on game start
   useEffect(() => {
@@ -77,7 +79,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
     <Box
       ref={ref}
       as={Sheet}
-      isOpen={isOpen}
+      isOpen={isOpen && !isNavSidebarOpen}
       snapPoints={snapPoints}
       initialSnap={initialSnap}
       mt="120px"

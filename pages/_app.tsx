@@ -14,14 +14,17 @@ import "nprogress/nprogress.css"; //styles of nprogress
 import "../styles/globals.css";
 import theme from "../styles/theme";
 
+import { AppContextProvider } from "../context/AppContext";
 import {
   CurrentUserContext,
   CurrentUserContextProvider,
 } from "../context/CurrentUserContext";
+import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
+
+const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
 interface Props {
   Component: any;
-  [x: string]: any;
 }
 
 //Binding events.
@@ -52,6 +55,7 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
       <Head>
         <title>GeoBuff - Get Your Geo Flex On</title>
         <link rel="icon" href="/favicon.ico" />
+        {isAppMobile && <meta name="robots" content="noindex" />}
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link
@@ -100,9 +104,13 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
           backend={isMobile ? TouchBackend : HTML5Backend}
           options={{ delayTouchStart: 5, ignoreContextMenu: true }}
         >
-          <CurrentUserContextProvider>
-            <Component {...pageProps} />
-          </CurrentUserContextProvider>
+          <AppContextProvider>
+            <CurrentUserContextProvider>
+              <ShoppingCartContextProvider>
+                <Component {...pageProps} />
+              </ShoppingCartContextProvider>
+            </CurrentUserContextProvider>
+          </AppContextProvider>
         </DndProvider>
       </ChakraProvider>
     </>

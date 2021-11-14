@@ -35,7 +35,7 @@ const UpdateUserFormContainer: FC<Props> = ({
       .put(
         `/users/${user.id}`,
         {
-          avatarId: parseInt(values.avatarId),
+          avatarId: parseInt(user.avatarId),
           username: values.username,
           email: values.email,
           countryCode: values.countryCode,
@@ -46,11 +46,6 @@ const UpdateUserFormContainer: FC<Props> = ({
       .then((response) => {
         updateUser({
           ...user,
-          avatarId: response.data.avatarId,
-          avatarName: response.data.avatarName,
-          avatarImageUrl: response.data.avatarImageUrl,
-          avatarBackground: response.data.avatarBackground,
-          avatarBorder: response.data.avatarBorder,
           username: response.data.username,
           email: response.data.email,
           countryCode: response.data.countryCode,

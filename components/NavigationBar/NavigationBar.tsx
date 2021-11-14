@@ -1,5 +1,7 @@
 import React, { useEffect, useState, FC, useContext } from "react";
 import dynamic from "next/dynamic";
+import Link from "next/link";
+import { Squash as Hamburger } from "hamburger-react";
 
 import {
   Box,
@@ -15,12 +17,14 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import Link from "next/link";
-
-import { Squash as Hamburger } from "hamburger-react";
-
 import Logo from "../Logo";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { AppContext } from "../../context/AppContext";
+import { useSwipeable } from "react-swipeable";
+import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import ShoppingCartLink from "../ShoppingCartLink";
+
+const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
 const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
   ssr: false,
@@ -48,34 +52,17 @@ const popularQuizzes = [
   },
 ];
 
-const desktopLayout = (
-  <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
-    <Flex alignItems="center">
-      <Link href="/">
-        <ChakraLink _hover={{ textDecoration: "none" }}>
-          <Logo />
-        </ChakraLink>
-      </Link>
-
-      <Flex marginLeft={6} marginTop="2px" as="nav">
-        <Link href="/leaderboard">
-          <ChakraLink fontSize="16px" fontWeight={600} color="gray.600">
-            {"Leaderboard"}
-          </ChakraLink>
-        </Link>
-      </Flex>
-    </Flex>
-
-    <UserAvatarMenuNoSSR />
-  </Flex>
-);
-
 const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { user } = useContext(CurrentUserContext);
 
-  const [isOpen, setOpen] = useState(false);
   const [zIndex, setZIndex] = useState(5);
+
+  const { isNavSidebarOpen: isOpen, setIsNavSidebarOpen } = useContext(
+    AppContext
+  );
+
+  const { cart } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     if (isOpen) {
@@ -89,15 +76,47 @@ const NavigationBar: FC = () => {
 
   const getViewLayout = (): React.ReactNode => {
     if (isMobile === undefined) {
-      return true;
+      return null;
     }
     return isMobile ? mobileLayout : desktopLayout;
   };
 
+  const handlers = useSwipeable({
+    onSwipedLeft: () => isAppMobile && setIsNavSidebarOpen(false),
+    trackTouch: true,
+    trackMouse: false,
+    rotationAngle: 0,
+  });
+
+  const desktopLayout = (
+    <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
+      <Flex alignItems="center">
+        <Link href="/">
+          <ChakraLink _hover={{ textDecoration: "none" }}>
+            <Logo />
+          </ChakraLink>
+        </Link>
+
+        <Flex marginLeft={6} marginTop="2px" as="nav">
+          <Link href="/leaderboard">
+            <ChakraLink fontSize="16px" fontWeight={600} color="gray.600">
+              {"Leaderboard"}
+            </ChakraLink>
+          </Link>
+        </Flex>
+      </Flex>
+
+      <Flex>
+        {cart.length > 0 && <ShoppingCartLink cartLength={cart.length} />}
+        <UserAvatarMenuNoSSR />
+      </Flex>
+    </Flex>
+  );
+
   const mobileLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
       <Flex alignItems="center">
-        <Hamburger size={24} toggled={isOpen} toggle={setOpen} />
+        <Hamburger size={24} toggled={isOpen} toggle={setIsNavSidebarOpen} />
       </Flex>
       <Link href="/">
         <ChakraLink _hover={{ textDecoration: "none" }}>
@@ -128,16 +147,15 @@ const NavigationBar: FC = () => {
       >
         {getViewLayout()}
       </Box>
-
       {isMobile && (
         <Drawer
-          placement={"top"}
-          onClose={(): void => setOpen(false)}
+          placement="left"
+          onClose={(): void => setIsNavSidebarOpen(false)}
           isOpen={isOpen}
         >
           <DrawerOverlay />
           <DrawerContent>
-            <DrawerBody marginTop="72px">
+            <DrawerBody marginTop="72px" {...handlers}>
               <Flex
                 as="nav"
                 direction="column"

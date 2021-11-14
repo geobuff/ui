@@ -11,6 +11,7 @@ import Card from "../Card";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import { FilterParams } from "../../types/filter-params";
 import { Quiz } from "../../types/quiz";
+import router from "next/router";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -69,11 +70,16 @@ const Leaderboard: FC<Props> = ({
   const handleChangeSearchRank = (
     event: React.ChangeEvent<HTMLInputElement>
   ): void => {
-    const rank = event.target.value;
-    setRank(rank);
+    if (rank) {
+      router.replace("/leaderboard", undefined, { shallow: true });
+    }
+
+    const updatedRank = event?.target?.value || "0";
+
+    setRank(updatedRank);
     onChangeFilterParams({
       ...filterParams,
-      rank: rank ? parseInt(rank) : 0,
+      rank: updatedRank ? parseInt(updatedRank) : 0,
     });
   };
 
@@ -100,10 +106,11 @@ const Leaderboard: FC<Props> = ({
   return (
     <Flex
       direction="column"
-      maxWidth={{ base: "100%", sm: "90%", md: "75%" }}
+      maxWidth={{ base: "100%", md: 1300 }}
       marginX="auto"
-      marginBottom={10}
+      marginBottom={14}
       marginTop={{ base: 10, sm: 10, md: 14 }}
+      paddingX={3}
       width="100%"
     >
       <LeaderboardHeader
@@ -129,7 +136,6 @@ const Leaderboard: FC<Props> = ({
           minHeight="750px"
           paddingTop={2}
           paddingBottom={{ base: 1, md: 3 }}
-          paddingX={{ base: 0, md: 3 }}
         >
           <LeaderboardTable entries={entries} isLoading={isLoading} />
 

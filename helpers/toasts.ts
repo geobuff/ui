@@ -46,3 +46,25 @@ export const userUpdated = (
   duration: 9000,
   isClosable: true,
 });
+
+export const avatarUpdated = (
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Avatar Updated",
+  description: "Successfully updated user avatar.",
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});
+
+export const addedToCart = (
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Item Added to Cart",
+  description: "Successfully added item to cart.",
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});

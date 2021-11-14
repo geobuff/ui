@@ -48,9 +48,6 @@ const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
   const scoreQuizNotLoggedIn = !onSubmit && !isLoggedIn;
   const scoreQuizLoggedIn = !onSubmit && isLoggedIn;
   const leaderboardQuizNotLoggedIn = onSubmit && !isLoggedIn;
-  const noExistingEntry = onSubmit && isLoggedIn && !existingEntry;
-
-  const shouldShowExistingEntry = onSubmit && isLoggedIn && !!existingEntry;
 
   if (scoreQuizNotLoggedIn) {
     return (
@@ -108,25 +105,21 @@ const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
     return <ExplainerText> {explainerScoreQuizLoggedIn}</ExplainerText>;
   }
 
-  if (noExistingEntry) {
+  if (!isLoading && !existingEntry) {
     return <ExplainerText> {explainerNoExistingEntry}</ExplainerText>;
   }
 
-  if (shouldShowExistingEntry) {
-    return (
-      <Box>
-        <ExplainerText textAlign="left" fontWeight="bold" color="black">
-          {"EXISTING ENTRY"}
-        </ExplainerText>
-        <Box marginY={3}>
-          <GameExistingEntry isLoading={isLoading} {...existingEntry} />
-        </Box>
-        <ExplainerText marginTop={2}>{explainerExistingEntry}</ExplainerText>
+  return (
+    <Box>
+      <ExplainerText textAlign="left" fontWeight="bold" color="black">
+        {"EXISTING ENTRY"}
+      </ExplainerText>
+      <Box marginY={3}>
+        <GameExistingEntry isLoading={isLoading} {...existingEntry} />
       </Box>
-    );
-  }
-
-  return null;
+      <ExplainerText marginTop={2}>{explainerExistingEntry}</ExplainerText>
+    </Box>
+  );
 };
 
 export default GameOverModalExplainerText;

@@ -107,22 +107,44 @@ const GameFlagQuiz: FC<Props> = ({
   useWarnIfActiveGame(hasGameStarted);
 
   useEffect(() => {
-    if (!isUserLoading && user && router.query.data) {
+    if (score === 0 && !isUserLoading && user && router.query.data) {
       const data: GameOverRedirect = JSON.parse(router.query.data as string);
       axiosClient
         .get(`/tempscores/${data.tempScoreId}`)
         .then((response) => {
           const tempScore = response.data;
+
+          const checkedSubmissions = mapping.filter((x) =>
+            tempScore.results.includes(x.svgName)
+          );
+
+          const recentSubmissions: Result[] = mapping
+            .filter((x) => tempScore.recents.includes(x.svgName))
+            .map((x) => {
+              return {
+                name: x.name,
+                code: x.code,
+                svgName: x.svgName,
+                isHidden: false,
+                isMissedResult: false,
+              };
+            });
+
+          setCheckedSubmissions(checkedSubmissions);
+          setRecentSubmissions(recentSubmissions);
+
           setHasGameStarted(true);
           setScore(tempScore.score);
           restart(DateTime.now().plus({ seconds: time - tempScore.time }));
           handleGameStop();
+
+          router.push(`/quiz/${route}`, undefined, { shallow: true });
         })
         .catch(() => {
           // Ignore invalid tempscore.
         });
     }
-  }, [isUserLoading, user, router.query]);
+  }, [score, isUserLoading, user, router.query]);
 
   useEffect(() => {
     checkSubmission(currentSubmission);
@@ -447,6 +469,8 @@ const GameFlagQuiz: FC<Props> = ({
               ? time
               : time - (seconds + minutes * 60)
           }
+          checkedSubmissions={checkedSubmissions}
+          recentSubmissions={recentSubmissions}
           isOpen={isOpen}
           onClose={onClose}
           isXPUpdated={isXPUpdated}

@@ -1,66 +1,77 @@
 import React, { FC } from "react";
-import { Select } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Heading,
+  useRadioGroup,
+  SimpleGrid,
+} from "@chakra-ui/react";
 
-import { ChevronDownIcon } from "@chakra-ui/icons";
 import Image from "../Image";
 
-import useAvatars from "../../hooks/UseAvatars";
 import { FieldProps } from "../../types/field-props";
+import { Avatar } from "../../types/avatar";
+import RadioCard from "./RadioCard";
+import ProfileUserAvatar from "../ProfileUserAvatar";
 
 interface Props {
   fieldProps?: FieldProps;
+  avatars?: Avatar[];
+  current?: Avatar;
+  setFieldValue?: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-const AvatarSelect: FC<Props> = ({ fieldProps = { value: "" } }) => {
-  const { avatars, isLoading } = useAvatars();
+const AvatarSelect: FC<Props> = ({
+  fieldProps = { value: "" },
+  avatars = [],
+  current = null,
+  setFieldValue = (
+    field: string,
+    value: any,
+    shouldValidate?: boolean
+  ): void => {},
+}) => {
+  const { getRootProps, getRadioProps } = useRadioGroup({
+    name: "avatarId",
+    defaultValue: fieldProps?.value,
+    onChange: (value: number) => setFieldValue("avatarId", value.toString()),
+  });
+
+  const group = getRootProps();
 
   return (
-    <Select
-      {...fieldProps}
-      id="avatarId"
-      size="lg"
-      background="#F6F6F6"
-      border="none"
-      borderRadius={6}
-      color={!fieldProps.value ? "gray.500" : "inherit"}
-      fontSize="16px"
-      fontWeight={600}
-      height="40px"
-      _hover={{
-        background: isLoading ? "#F6F6F6" : "#e0e0e0",
-        cursor: isLoading ? "not-allowed" : "inherit",
-      }}
-      _invalid={{
-        border: "2px solid #e56161",
-        color: "#e56161",
-      }}
-      icon={
-        fieldProps.value ? (
-          <Image
-            src={
-              avatars.find((x) => x.id === parseInt(fieldProps?.value))
-                ?.imageUrl
-            }
-            marginRight="16px"
-            minHeight="22px"
-            minWidth="32px"
-            objectFit="cover"
-            borderRadius={5}
+    <>
+      <Flex>
+        <Flex direction="column" justifyContent="center" mr={6}>
+          <ProfileUserAvatar
+            shape="square"
+            primaryImageUrl={current?.secondaryImageUrl}
+            secondaryImageUrl={current?.primaryImageUrl}
+            hasBorder={false}
           />
-        ) : (
-          <ChevronDownIcon stroke="black" />
-        )
-      }
-    >
-      <option value="" disabled>
-        {isLoading ? "Loading avatars..." : "Select an avatar..."}
-      </option>
-      {avatars?.map((avatar) => (
-        <option key={avatar.id} value={avatar.id}>
-          {avatar.name}
-        </option>
-      ))}
-    </Select>
+        </Flex>
+        <Flex direction="column">
+          <Heading mx="auto" mb={2} size="md">
+            {current?.name}
+          </Heading>
+          <Text mb={12}>{current?.description}</Text>
+        </Flex>
+      </Flex>
+
+      <SimpleGrid
+        {...group}
+        background="#F0F0F0"
+        borderRadius="12px"
+        columns={3}
+      >
+        {avatars.map((avatar) => {
+          const fieldProps = { value: avatar.id.toString() };
+          // @ts-expect-error
+          const radio = getRadioProps(fieldProps);
+          return <RadioCard key={avatar.id} radio={radio} avatar={avatar} />;
+        })}
+      </SimpleGrid>
+    </>
   );
 };
 

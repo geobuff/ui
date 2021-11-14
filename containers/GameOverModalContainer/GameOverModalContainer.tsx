@@ -4,7 +4,6 @@ import { useRouter } from "next/router";
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 
 import GameOverModal from "../../components/GameOverModal";
-
 import axiosClient from "../../axios/axiosClient";
 import { getLevel } from "../../helpers/gamification";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
@@ -17,6 +16,8 @@ import {
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { TempScore } from "../../types/temp-score";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { Mapping } from "../../types/mapping";
+import { Result } from "../../types/result";
 
 interface Props {
   id?: number;
@@ -26,6 +27,8 @@ interface Props {
   maxScore?: number;
   score?: number;
   time?: number;
+  checkedSubmissions?: Mapping[];
+  recentSubmissions?: Result[];
   isOpen?: boolean;
   onClose?: () => void;
   isXPUpdated?: boolean;
@@ -41,6 +44,8 @@ const GameOverModalContainer: FC<Props> = ({
   maxScore = 0,
   score = 0,
   time = 0,
+  checkedSubmissions = [],
+  recentSubmissions = [],
   isOpen = false,
   onClose = (): void => {},
   isXPUpdated = false,
@@ -56,6 +61,7 @@ const GameOverModalContainer: FC<Props> = ({
     updateUser,
     getAuthConfig,
   } = useContext(CurrentUserContext);
+
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "top",
     md: "bottom-right",
@@ -118,15 +124,14 @@ const GameOverModalContainer: FC<Props> = ({
   };
 
   const getLeaderboardEntry = (): void => {
-    axiosClient.get(`/leaderboard/${id}/${user.id}`).then((response) => {
-      if (response.status !== 200) {
-        setIsLoading(false);
-        return;
-      }
-
-      setEntry(response.data);
-      setIsLoading(false);
-    });
+    axiosClient
+      .get(`/leaderboard/${id}/${user.id}`)
+      .then((response) => {
+        if (response.status === 200) {
+          setEntry(response.data);
+        }
+      })
+      .finally(() => setIsLoading(false));
   };
 
   const handleSubmitEntry = (existingEntry: LeaderboardEntry): void => {
@@ -140,7 +145,12 @@ const GameOverModalContainer: FC<Props> = ({
   };
 
   const handleRedirectWithScore = (pathname: string): void => {
-    const tempScore: TempScore = { score, time };
+    const tempScore: TempScore = {
+      score,
+      time,
+      results: checkedSubmissions.map((x) => x.svgName),
+      recents: recentSubmissions.map((x) => x.svgName),
+    };
     axiosClient.post("/tempscores", tempScore).then((response) => {
       const redirectData: GameOverRedirect = {
         redirect: `/quiz/${route}`,

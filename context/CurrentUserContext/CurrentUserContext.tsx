@@ -1,5 +1,5 @@
-import { AxiosRequestConfig } from "axios";
 import React, { createContext, useState, FC } from "react";
+import { AxiosRequestConfig } from "axios";
 import { DecodedToken } from "../../types/decoded-token";
 import { User } from "../../types/user";
 import jwt_decode from "jwt-decode";
@@ -37,9 +37,15 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
       id: parseInt(window.localStorage.getItem("geobuff.id")),
       avatarId: parseInt(window.localStorage.getItem("geobuff.avatarId")),
       avatarName: window.localStorage.getItem("geobuff.avatarName"),
-      avatarImageUrl: window.localStorage.getItem("geobuff.avatarImageUrl"),
-      avatarBackground: window.localStorage.getItem("geobuff.avatarBackground"),
-      avatarBorder: window.localStorage.getItem("geobuff.avatarBorder"),
+      avatarDescription: window.localStorage.getItem(
+        "geobuff.avatarDescription"
+      ),
+      avatarPrimaryImageUrl: window.localStorage.getItem(
+        "geobuff.avatarPrimaryImageUrl"
+      ),
+      avatarSecondaryImageUrl: window.localStorage.getItem(
+        "geobuff.avatarSecondaryImageUrl"
+      ),
       username: window.localStorage.getItem("geobuff.username"),
       email: window.localStorage.getItem("geobuff.email"),
       countryCode: window.localStorage.getItem("geobuff.countryCode"),
