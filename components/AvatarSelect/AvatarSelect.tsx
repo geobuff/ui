@@ -12,6 +12,7 @@ import Image from "../Image";
 import { FieldProps } from "../../types/field-props";
 import { Avatar } from "../../types/avatar";
 import RadioCard from "./RadioCard";
+import ProfileUserAvatar from "../ProfileUserAvatar";
 
 interface Props {
   fieldProps?: FieldProps;
@@ -42,24 +43,12 @@ const AvatarSelect: FC<Props> = ({
     <>
       <Flex>
         <Flex direction="column" justifyContent="center" mr={6}>
-          <Flex
-            alignItems="center"
-            borderRadius="12px"
-            backgroundColor="#276f86"
-            padding={3}
-            height="130px"
-            width="130px"
-            marginBottom={6}
-            marginX="auto"
-          >
-            <Image
-              src={current?.secondaryImageUrl}
-              alt={current?.name}
-              height="70px"
-              width="70px"
-              marginX="auto"
-            />
-          </Flex>
+          <ProfileUserAvatar
+            shape="square"
+            primaryImageUrl={current?.secondaryImageUrl}
+            secondaryImageUrl={current?.primaryImageUrl}
+            hasBorder={false}
+          />
         </Flex>
         <Flex direction="column">
           <Heading mx="auto" mb={2} size="md">

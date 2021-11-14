@@ -1,37 +1,48 @@
 import React, { FC, useState, MouseEventHandler } from "react";
-import { Flex, FlexProps, Image } from "@chakra-ui/react";
+import { Box, BoxProps, Image } from "@chakra-ui/react";
 
-export interface Props extends FlexProps {
+export interface Props extends BoxProps {
   primaryImageUrl?: string;
   secondaryImageUrl?: string;
   name?: string;
+  height?: number;
+  width?: number;
   onClick?: MouseEventHandler<HTMLDivElement>;
+  shape?: "circle" | "square";
+  hasBorder?: boolean;
 }
 
 const ProfileUserAvatar: FC<Props> = ({
-  onClick,
   primaryImageUrl,
   secondaryImageUrl,
+  onClick,
   name,
+  height = 130,
+  width = 130,
+  shape = "circle",
+  hasBorder = true,
   ...props
 }) => {
   const [shouldShowSecondary, setShouldShowSecondary] = useState(false);
 
+  const isSquare = shape === "square";
+
   return (
-    <Flex
+    <Box
       alignItems="center"
-      borderRadius="100%"
+      borderRadius={isSquare ? "8px" : "100%"}
       backgroundColor="#276f86"
-      border="solid 5px #1A202C"
+      border={hasBorder ? "solid 5px #1A202C" : "none"}
       padding={3}
-      height="130px"
-      width="130px"
+      height={height}
+      width={width}
       marginBottom={2}
       overflow="hidden"
       marginX="auto"
       cursor="pointer"
       onMouseEnter={(): void => setShouldShowSecondary(true)}
       onMouseOut={(): void => setShouldShowSecondary(false)}
+      zIndex={2}
       onClick={onClick}
       {...props}
     >
@@ -39,22 +50,18 @@ const ProfileUserAvatar: FC<Props> = ({
         display={shouldShowSecondary ? "none" : "inherit"}
         src={primaryImageUrl}
         alt={`${name} avatar looking away`}
-        height="110px"
-        width="110px"
-        marginX="auto"
-        marginTop={2}
-        onMouseEnter={(): void => setShouldShowSecondary(true)}
+        height={height - 24}
+        width={width - 24}
       />
       <Image
         display={shouldShowSecondary ? "inherit" : "none"}
         src={secondaryImageUrl}
         alt={`${name} avatar looking dead in the eyes`}
-        height="110px"
-        width="110px"
-        marginX="auto"
-        marginTop={2}
+        height={height - 24}
+        width={width - 24}
+        onMouseEnter={(): void => setShouldShowSecondary(true)}
       />
-    </Flex>
+    </Box>
   );
 };
 
