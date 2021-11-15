@@ -1,7 +1,8 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { FC, ReactNode, useEffect, useState } from "react";
 
 import {
   Box,
+  CloseButton,
   Flex,
   Modal as ChakraModal,
   ModalBody,
@@ -9,39 +10,35 @@ import {
   ModalFooter,
   ModalHeader,
   ModalOverlay,
+  ModalProps as ChakraModalProps,
   useBreakpointValue,
   Heading,
-  ModalCloseButton,
   Button,
-  BoxProps,
 } from "@chakra-ui/react";
-
 import ArrowLeft from "../../Icons/ArrowLeft";
 
-interface Props extends BoxProps {
-  header?: string | React.ReactNode;
-  footer?: string | React.ReactNode;
-  isOpen?: boolean;
-  onClose?: () => void;
-  hasCloseIcon?: boolean;
+export interface ModalProps extends ChakraModalProps {
+  header?: string | ReactNode;
+  body?: ReactNode;
+  footer?: ReactNode;
+  hasCloseButton?: boolean;
 }
 
-const Modal: FC<Props> = ({
-  header = null,
-  footer = null,
-  isOpen = false,
-  onClose = (): void => {},
-  hasCloseIcon = false,
+const Modal: FC<ModalProps> = ({
+  header,
+  body,
   children,
+  footer,
+  hasCloseButton = false,
+  isOpen,
+  onClose,
   ...props
 }) => {
   const [shouldAnimate, setShouldAnimate] = useState(false);
-  const [isOpenDelayed, setIsOpenDelayed] = useState(false);
+  const [shouldDisplay, setShouldDisplay] = useState(false);
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  // TODO: km - consider renaming props to
-  // properly reflect their purpose
   useEffect(() => {
     setTimeout(() => {
       setShouldAnimate(isOpen);
@@ -51,14 +48,14 @@ const Modal: FC<Props> = ({
   useEffect(() => {
     if (!isOpen) {
       setTimeout(() => {
-        setIsOpenDelayed(false);
+        setShouldDisplay(false);
       }, 1000);
     } else {
-      setIsOpenDelayed(true);
+      setShouldDisplay(true);
     }
   }, [isOpen]);
 
-  //   Prevent flickering on load
+  // Prevent layout shifts on load
   if (isMobile === undefined) {
     return null;
   }
@@ -67,7 +64,7 @@ const Modal: FC<Props> = ({
     <>
       {isMobile ? (
         <Box
-          display={!isOpenDelayed ? "none" : "inherit"}
+          display={!shouldDisplay ? "none" : "inherit"}
           backgroundColor="white"
           position="fixed"
           top={0}
@@ -77,20 +74,19 @@ const Modal: FC<Props> = ({
           zIndex={1000}
           opacity={shouldAnimate ? 1 : 0}
           transition="all 250ms ease-in-out"
-          {...props}
         >
           <Flex
             direction="column"
             justifyContent="space-between"
             height="100%"
             width="100%"
+            overflowY="scroll"
           >
-            <Box height="100%">
-              {hasCloseIcon && (
+            <Box height="100%" overflowY="scroll">
+              {hasCloseButton && (
                 <Button
                   alignItems="center"
                   backgroundColor="transparent"
-                  marginTop={2}
                   marginLeft={2}
                   _hover={{
                     textDecoration: "underline",
@@ -98,7 +94,7 @@ const Modal: FC<Props> = ({
                   }}
                   onClick={onClose}
                 >
-                  <ArrowLeft height={5} width={5} marginRight={1} />
+                  <ArrowLeft height={5} width={5} />
                 </Button>
               )}
               {!!header && (
@@ -106,18 +102,46 @@ const Modal: FC<Props> = ({
                   {React.isValidElement(header) ? (
                     header
                   ) : (
-                    <Heading fontWeight="bold" margin={6}>
-                      {header}
-                    </Heading>
+                    <>
+                      {hasCloseButton ? (
+                        <Flex
+                          alignItems="center"
+                          justifyContent="space-between"
+                          mb={10}
+                        >
+                          <Heading size="md" fontWeight="bold">
+                            {header}
+                          </Heading>
+                          <CloseButton onClick={onClose} />
+                        </Flex>
+                      ) : (
+                        <Heading fontWeight="bold" m={6}>
+                          {header}
+                        </Heading>
+                      )}
+                    </>
                   )}
                 </>
               )}
-              {children}
+
+              {children || body}
             </Box>
             {!!footer && (
-              <Flex margin={6} justifyContent="flex-end">
-                {footer}
-              </Flex>
+              <>
+                <Box height="90px" />
+                <Box
+                  position="fixed"
+                  left={0}
+                  right={0}
+                  bottom={0}
+                  backgroundColor="white"
+                  borderTop="2px solid"
+                  borderColor="gray.100"
+                  p={5}
+                >
+                  <Flex justifyContent="flex-end">{footer}</Flex>
+                </Box>
+              </>
             )}
           </Flex>
         </Box>
@@ -134,9 +158,9 @@ const Modal: FC<Props> = ({
                 )}
               </>
             )}
-            {hasCloseIcon && <ModalCloseButton />}
-            <ModalBody padding={0}>{children}</ModalBody>
-            {!!footer && <ModalFooter marginBottom={1}>{footer}</ModalFooter>}
+
+            <ModalBody padding={0}>{children || body}</ModalBody>
+            {!!footer && <ModalFooter mb={2}>{footer}</ModalFooter>}
           </ModalContent>
         </ChakraModal>
       )}

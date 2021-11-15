@@ -156,7 +156,12 @@ const MerchSummary: FC<Props> = ({
           )}
         </Flex>
       </Flex>
-      <Modal isOpen={isOpen} onClose={onClose} header="Size Guide" hasCloseIcon>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        header="Size Guide"
+        hasCloseButton
+      >
         <Flex justifyContent="center" margin={6}>
           <Image
             src={item?.sizeGuideImageUrl.String}
