@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, ReactNode, useEffect, useState } from "react";
 
 import {
   Box,
@@ -18,9 +18,9 @@ import {
 import ArrowLeft from "../../Icons/ArrowLeft";
 
 export interface ModalProps extends ChakraModalProps {
-  header?: string | React.ReactElement;
-  body?: React.ReactElement;
-  footer?: React.ReactElement;
+  header?: string | ReactNode;
+  body?: ReactNode;
+  footer?: ReactNode;
   hasCloseButton?: boolean;
 }
 
