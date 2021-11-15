@@ -22,7 +22,7 @@ export interface Props {
   onUserModalOpen: () => void;
 }
 
-const userProfileSummaryMenu: FC<Props> = ({
+const UserProfileSummaryMenu: FC<Props> = ({
   onUserModalOpen,
   downloadData = [],
 }) => {
@@ -69,4 +69,4 @@ const userProfileSummaryMenu: FC<Props> = ({
   );
 };
 
-export default userProfileSummaryMenu;
+export default UserProfileSummaryMenu;

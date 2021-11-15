@@ -1,1 +1,1 @@
-export { default } from "./userProfileSummaryMenu";
+export { default } from "./UserProfileSummaryMenu";
