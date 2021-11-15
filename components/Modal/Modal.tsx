@@ -32,6 +32,7 @@ const Modal: FC<ModalProps> = ({
   hasCloseButton = false,
   isOpen,
   onClose,
+  ...props
 }) => {
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [shouldDisplay, setShouldDisplay] = useState(false);
