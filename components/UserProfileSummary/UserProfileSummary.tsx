@@ -65,7 +65,7 @@ const UserProfileSummary: FC<Props> = ({
   const matchedCountry = countries?.find(({ value }) => value === countryCode)
     ?.label;
 
-  const getFlag = (): React.ReactNode => {
+  const getFlagNode = (): React.ReactNode => {
     if (!countryCode) {
       return (
         <Box marginY="4px">
@@ -86,6 +86,8 @@ const UserProfileSummary: FC<Props> = ({
 
     return <Twemoji emoji={flag(countryCode)} />;
   };
+
+  const flagNode = getFlagNode();
 
   return (
     <>
@@ -116,7 +118,7 @@ const UserProfileSummary: FC<Props> = ({
               marginY={2}
             >
               <Flex direction="column" justifyContent="center" mr={2}>
-                {getFlag()}
+                {flagNode}
               </Flex>
 
               <Text color="gray.500" fontWeight={600}>
