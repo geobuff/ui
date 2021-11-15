@@ -1,36 +1,30 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import flag from "country-code-emoji";
 
 import {
   Box,
   Heading,
   Flex,
-  IconButton,
   Text,
   Spacer,
   Progress,
   useDisclosure,
-  Tooltip,
 } from "@chakra-ui/react";
 
 import { getFlagUrl } from "@geobuff/flags";
-import { CSVLink } from "react-csv";
 
 import Card from "../Card";
-import Image from "../Image";
 
 import UpdateUserFormContainer from "../../containers/UpdaterUserFormContainer";
 
-import SolidPencil from "../../Icons/SolidPencil";
-
 import useCountries from "../../hooks/useCountries";
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
-import SaveAlt from "../../Icons/SaveAlt";
 import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContainer";
 import CustomFlag from "../CustomFlag";
 import Twemoji from "../Twemoji";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import ProfileUserAvatar from "../ProfileUserAvatar";
+import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 
 interface Props {
   username?: string;
@@ -63,12 +57,10 @@ const UserProfileSummary: FC<Props> = ({
     onClose: onAvatarModalClose,
   } = useDisclosure();
 
-  const [imageUrl, setImageUrl] = useState(avatarPrimaryImageUrl);
-
   const { countries } = useCountries();
   const level = getLevel(xp);
 
-  const csvData = [["email"], [email]];
+  const downloadData = [["email"], [email]];
 
   const matchedCountry = countries?.find(({ value }) => value === countryCode)
     ?.label;
@@ -98,39 +90,12 @@ const UserProfileSummary: FC<Props> = ({
   return (
     <>
       <Card>
-        <Box width="100%">
-          <Flex justifyContent="space-between">
-            <CSVLink data={csvData} filename={"data.csv"}>
-              <Tooltip
-                label={`Click here to download personal information collected by GeoBuff. For more information, see our privacy policy.`}
-                placement="top"
-              >
-                <IconButton aria-label="download" backgroundColor="transparent">
-                  <SaveAlt
-                    color="gray.600"
-                    marginLeft="4px"
-                    marginTop="4px"
-                    height="22px"
-                    width="22px"
-                  />
-                </IconButton>
-              </Tooltip>
-            </CSVLink>
-            <IconButton
-              aria-label="pencil"
-              backgroundColor="transparent"
-              onClick={onUserModalOpen}
-            >
-              <SolidPencil
-                color="gray.600"
-                marginLeft="4px"
-                marginTop="4px"
-                height="22px"
-                width="22px"
-              />
-            </IconButton>
-          </Flex>
-        </Box>
+        <Flex justifyContent="flex-end" width="100%">
+          <UserProfileSummaryMenu
+            onUserModalOpen={onUserModalOpen}
+            downloadData={downloadData}
+          />
+        </Flex>
         <Box mb={6}>
           <Box textAlign="center">
             <ProfileUserAvatar
@@ -153,6 +118,7 @@ const UserProfileSummary: FC<Props> = ({
               <Flex direction="column" justifyContent="center" mr={2}>
                 {getFlag()}
               </Flex>
+
               <Text color="gray.500" fontWeight={600}>
                 {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG
                   ? "GeoBuff HQ"
