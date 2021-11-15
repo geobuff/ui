@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+import flag from "country-code-emoji";
 
 import {
   Box,
@@ -26,6 +27,10 @@ import useCountries from "../../hooks/useCountries";
 import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 import SaveAlt from "../../Icons/SaveAlt";
 import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContainer";
+import CustomFlag from "../CustomFlag";
+import Twemoji from "../Twemoji";
+import FlagFallback from "../ResultsListItem/FlagFallback";
+import ProfileUserAvatar from "../ProfileUserAvatar";
 
 interface Props {
   username?: string;
@@ -68,6 +73,28 @@ const UserProfileSummary: FC<Props> = ({
   const matchedCountry = countries?.find(({ value }) => value === countryCode)
     ?.label;
 
+  const getFlag = (): React.ReactNode => {
+    if (!countryCode) {
+      return (
+        <Box marginY="4px">
+          <FlagFallback />
+        </Box>
+      );
+    }
+
+    if (countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG) {
+      return (
+        <CustomFlag
+          url={getFlagUrl(countryCode)}
+          boxSizing="border-box"
+          border="2px solid #dae2ea"
+        />
+      );
+    }
+
+    return <Twemoji emoji={flag(countryCode)} />;
+  };
+
   return (
     <>
       <Card>
@@ -106,30 +133,13 @@ const UserProfileSummary: FC<Props> = ({
         </Box>
         <Box mb={6}>
           <Box textAlign="center">
-            <Flex
-              alignItems="center"
-              borderRadius={"100%"}
-              backgroundColor="#276f86"
-              border="solid 5px #1A202C"
-              padding={3}
-              height="130px"
-              width="130px"
+            <ProfileUserAvatar
               marginTop="-122px"
-              marginBottom={2}
-              marginX="auto"
-              cursor="pointer"
+              primaryImageUrl={avatarPrimaryImageUrl}
+              secondaryImageUrl={avatarSecondaryImageUrl}
+              name={avatarName}
               onClick={onAvatarModalOpen}
-            >
-              <Image
-                src={imageUrl}
-                alt={avatarName}
-                onMouseEnter={(): void => setImageUrl(avatarSecondaryImageUrl)}
-                onMouseOut={(): void => setImageUrl(avatarPrimaryImageUrl)}
-                height="70px"
-                width="70px"
-                marginX="auto"
-              />
-            </Flex>
+            />
             <Heading fontSize="32px">{username}</Heading>
             <Text color="gray.500" fontWeight={600} marginY={1}>
               {email}
@@ -140,16 +150,13 @@ const UserProfileSummary: FC<Props> = ({
               alignItems="center"
               marginY={2}
             >
-              <Image
-                marginRight="8px"
-                height="17px"
-                width="23.5px"
-                objectFit="cover"
-                src={getFlagUrl(countryCode)}
-                borderRadius={4}
-              />
+              <Flex direction="column" justifyContent="center" mr={2}>
+                {getFlag()}
+              </Flex>
               <Text color="gray.500" fontWeight={600}>
-                {matchedCountry}
+                {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG
+                  ? "GeoBuff HQ"
+                  : matchedCountry}
               </Text>
             </Flex>
 

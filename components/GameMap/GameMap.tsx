@@ -2,7 +2,7 @@ import React, { useState, FC } from "react";
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
 
-import MapInteractionCSS from "../MapInteractionCSS";
+import GameMapInteraction from "../GameMapInteraction";
 import { SVGBase } from "../../types/svg-base";
 
 interface Props {
@@ -54,7 +54,7 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
             left={tooltipLeft}
             isOpen={tooltipOpen}
           >
-            <MapInteractionCSS>
+            <GameMapInteraction>
               <SVGMap
                 map={map}
                 mapStyle={mapStyle}
@@ -62,10 +62,10 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
                 onPathMouseMove={mouseMove}
                 onPathMouseOut={mouseOut}
               />
-            </MapInteractionCSS>
+            </GameMapInteraction>
           </Tooltip>
         ) : (
-          <MapInteractionCSS>
+          <GameMapInteraction>
             <SVGMap
               map={map}
               mapStyle={mapStyle}
@@ -73,7 +73,7 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
               onPathMouseMove={mouseMove}
               onPathMouseOut={mouseOut}
             />
-          </MapInteractionCSS>
+          </GameMapInteraction>
         )}
       </Box>
     </Box>

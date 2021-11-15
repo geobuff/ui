@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Head from "next/head";
 
 import MainView from "../../components/MainView";
-import MerchContainer from "../../containers/MerchContainer";
+import MerchListContainer from "../../containers/MerchListContainer";
 import HeroHeader from "../../components/HeroHeader";
 
 const Merch: FC = () => (
@@ -12,7 +12,7 @@ const Merch: FC = () => (
     </Head>
     <MainView>
       <HeroHeader heading="Merch" />
-      <MerchContainer />
+      <MerchListContainer />
     </MainView>
   </>
 );

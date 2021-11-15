@@ -22,6 +22,7 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitted, setSubmitted] = useState(false);
 
   const { addToCart } = useContext(ShoppingCartContext);
 
@@ -39,6 +40,7 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
     });
 
     setIsSubmitting(false);
+    setSubmitted(true);
     toast(addedToCart(toastPosition));
   };
 
@@ -51,6 +53,7 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
       item={merch.find((x) => x.id === id)}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
+      submitted={submitted}
     />
   );
 };

@@ -97,7 +97,8 @@ const OurMission: FC = () => (
               position="Founder"
               city="Wellington"
               country="New Zealand"
-              imageUrl="/ash.jpg"
+              primaryImageUrl="/commando-one-primary.svg"
+              secondaryImageUrl="/commando-one-secondary.svg"
               link="https://github.com/ashmidgley"
             />
             <TeamMemberCard
@@ -105,7 +106,8 @@ const OurMission: FC = () => (
               position="Founder"
               city="Melbourne"
               country="Australia"
-              imageUrl="/kirby.jpeg"
+              primaryImageUrl="/traveller-one-primary.svg"
+              secondaryImageUrl="/traveller-one-secondary.svg"
               link="https://github.com/KirbyMcKenzie"
             />
             <TeamMemberCard
@@ -113,7 +115,8 @@ const OurMission: FC = () => (
               position="Designer"
               city="Wellington"
               country="New Zealand"
-              imageUrl="/dan.jpg"
+              primaryImageUrl="/researcher-two-primary.svg"
+              secondaryImageUrl="/researcher-two-secondary.svg"
               link="https://github.com/danielmarchbank"
             />
           </SimpleGrid>

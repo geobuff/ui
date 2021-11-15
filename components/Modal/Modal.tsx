@@ -6,15 +6,18 @@ import {
   Flex,
   Modal as ChakraModal,
   ModalBody,
-  ModalCloseButton,
   ModalContent,
+  ModalCloseButton,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
   ModalProps as ChakraModalProps,
   useBreakpointValue,
   Heading,
+  Button,
+  BoxProps,
 } from "@chakra-ui/react";
+import ArrowLeft from "../../Icons/ArrowLeft";
 
 export interface ModalProps extends ChakraModalProps {
   header?: string | React.ReactElement;
@@ -26,12 +29,11 @@ export interface ModalProps extends ChakraModalProps {
 const Modal: FC<ModalProps> = ({
   header,
   body,
+  children,
   footer,
   hasCloseButton = true,
   isOpen,
   onClose,
-  children,
-  ...props
 }) => {
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [shouldDisplay, setShouldDisplay] = useState(false);
@@ -82,6 +84,20 @@ const Modal: FC<ModalProps> = ({
             overflowY="scroll"
           >
             <Box height="100%" overflowY="scroll">
+              {hasCloseButton && (
+                <Button
+                  alignItems="center"
+                  backgroundColor="transparent"
+                  marginLeft={2}
+                  _hover={{
+                    textDecoration: "underline",
+                    cursor: "pointer",
+                  }}
+                  onClick={onClose}
+                >
+                  <ArrowLeft height={5} width={5} />
+                </Button>
+              )}
               {!!header && (
                 <>
                   {React.isValidElement(header) ? (

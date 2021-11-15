@@ -27,8 +27,6 @@ import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import CustomFlag from "../CustomFlag";
 
-const adminFlag = "buff";
-
 interface Props {
   entries?: LeaderboardEntry[];
   isLoading?: boolean;
@@ -63,22 +61,6 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
     }
   };
 
-  const getFlag = (countryCode: string): React.ReactNode => {
-    if (!countryCode) {
-      return (
-        <Box marginY="4px">
-          <FlagFallback />
-        </Box>
-      );
-    }
-
-    return countryCode === adminFlag ? (
-      <CustomFlag url={getFlagUrl(countryCode)} />
-    ) : (
-      <Twemoji emoji={flag(countryCode)} />
-    );
-  };
-
   const getTextNodeByRank = (
     rank: number,
     username: string,
@@ -87,7 +69,15 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
     const mainContent = (
       <Flex alignItems="center">
         <Box marginRight={3} marginTop="5.5px" alignItems="center">
-          {getFlag(countryCode)}
+          {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG ? (
+            <CustomFlag
+              url={getFlagUrl(countryCode)}
+              boxSizing="border-box"
+              border="2px solid #dae2ea"
+            />
+          ) : (
+            <Twemoji emoji={flag(countryCode)} />
+          )}
         </Box>
         <Text fontWeight="bold">{username}</Text>
         {username === user?.username && (

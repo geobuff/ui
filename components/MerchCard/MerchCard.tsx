@@ -18,7 +18,7 @@ interface Props {
   isExternal?: boolean;
 }
 
-const ProductCard: FC<Props> = ({
+const MerchCard: FC<Props> = ({
   name = "",
   imageUrl = "",
   price = 0.0,
@@ -27,10 +27,13 @@ const ProductCard: FC<Props> = ({
   isExternal = false,
 }) => (
   <Flex
-    aria-label={`game card for ${name}`}
+    aria-label={`merch card for ${name}`}
     role="group"
     direction="column"
+    backgroundColor="white"
+    borderRadius={12}
     width="100%"
+    boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
   >
     <Box position="absolute" top={0} left={0} right={0} bottom={0}>
       <Box position="relative">
@@ -142,4 +145,4 @@ const ProductCard: FC<Props> = ({
   </Flex>
 );
 
-export default React.memo(ProductCard);
+export default React.memo(MerchCard);

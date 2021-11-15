@@ -35,42 +35,40 @@ const QuizList: FC<Props> = ({ quizzes }) => (
         {"No quizzes to display."}
       </Alert>
     ) : (
-      <>
-        <SimpleGrid
-          justifyContent="center"
-          minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
-          spacing={{ base: "16px", md: "24px" }}
-        >
-          {quizzes.map((quiz) => (
-            <Link
-              key={quiz.id}
-              href={
-                quiz.enabled
-                  ? `/quiz/${quiz.name.replaceAll(" ", "-").toLowerCase()}`
-                  : "/"
-              }
+      <SimpleGrid
+        justifyContent="center"
+        minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
+        spacing={{ base: "16px", md: "24px" }}
+      >
+        {quizzes.map((quiz) => (
+          <Link
+            key={quiz.id}
+            href={
+              quiz.enabled
+                ? `/quiz/${quiz.name.replaceAll(" ", "-").toLowerCase()}`
+                : "/"
+            }
+          >
+            <AspectRatio
+              maxWidth="260px"
+              minHeight={{ base: "180px", sm: "206px", md: "216px" }}
+              maxHeight="230px"
+              ratio={3 / 2}
+              transition="all 150ms ease-out"
+              _hover={quiz.enabled && { transform: "scale(1.030)" }}
+              opacity={!quiz.enabled ? "0.25" : "1"}
             >
-              <AspectRatio
-                maxWidth="260px"
-                minHeight={{ base: "180px", sm: "206px", md: "216px" }}
-                maxHeight="230px"
-                ratio={3 / 2}
-                transition="all 150ms ease-out"
-                _hover={quiz.enabled && { transform: "scale(1.030)" }}
-                opacity={!quiz.enabled ? "0.25" : "1"}
-              >
-                <QuizCard
-                  name={quiz.name}
-                  imageUrl={quiz.imageUrl}
-                  time={quiz.time}
-                  maxScore={quiz.maxScore}
-                  verb={quiz.verb}
-                />
-              </AspectRatio>
-            </Link>
-          ))}
-        </SimpleGrid>
-      </>
+              <QuizCard
+                name={quiz.name}
+                imageUrl={quiz.imageUrl}
+                time={quiz.time}
+                maxScore={quiz.maxScore}
+                verb={quiz.verb}
+              />
+            </AspectRatio>
+          </Link>
+        ))}
+      </SimpleGrid>
     )}
   </Box>
 );

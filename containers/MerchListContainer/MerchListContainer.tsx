@@ -4,14 +4,14 @@ import useMerch from "../../hooks/UseMerch";
 import MerchList from "../../components/MerchList";
 import MerchListPlaceholder from "../../placeholders/MerchListPlaceholder";
 
-const MerchContainer: FC = () => {
+const MerchListContainer: FC = () => {
   const { merch, isLoading: isMerchLoading } = useMerch();
 
   if (isMerchLoading) {
-    return <MerchListPlaceholder />;
+    return <MerchListPlaceholder noOfTiles={8} />;
   }
 
   return <MerchList merch={merch} />;
 };
 
-export default MerchContainer;
+export default MerchListContainer;
