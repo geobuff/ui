@@ -50,13 +50,15 @@ const ProfileUserAvatar: FC<Props> = ({
         display={shouldShowSecondary ? "none" : "inherit"}
         src={primaryImageUrl}
         alt={`${name} avatar looking away`}
+        marginTop={0.5}
         height={height - 24}
         width={width - 24}
       />
       <Image
         display={shouldShowSecondary ? "inherit" : "none"}
         src={secondaryImageUrl}
-        alt={`${name} avatar looking dead in the eyes`}
+        alt={`${name} avatar looking dead straight`}
+        marginTop={0.5}
         height={height - 24}
         width={width - 24}
         onMouseEnter={(): void => setShouldShowSecondary(true)}
