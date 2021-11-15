@@ -7,7 +7,6 @@ import {
   Modal as ChakraModal,
   ModalBody,
   ModalContent,
-  ModalCloseButton,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
@@ -15,7 +14,6 @@ import {
   useBreakpointValue,
   Heading,
   Button,
-  BoxProps,
 } from "@chakra-ui/react";
 import ArrowLeft from "../../Icons/ArrowLeft";
 
@@ -31,7 +29,7 @@ const Modal: FC<ModalProps> = ({
   body,
   children,
   footer,
-  hasCloseButton = true,
+  hasCloseButton = false,
   isOpen,
   onClose,
 }) => {
