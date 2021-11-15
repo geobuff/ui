@@ -101,7 +101,7 @@ const GameOverModal: FC<Props> = ({
         </Tooltip>
       </Button>
 
-      <Box padding={8}>
+      <Box padding={{ base: 4, md: 8 }}>
         <Box textAlign="center">
           <Text fontSize="46px" fontWeight="black">
             {"GAME OVER"}
