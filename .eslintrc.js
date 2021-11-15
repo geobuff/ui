@@ -21,7 +21,6 @@ module.exports = {
   },
   extends: [
     "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
     "plugin:react/recommended",
     "prettier",
     "plugin:prettier/recommended",
@@ -34,6 +33,7 @@ module.exports = {
     "@typescript-eslint/no-empty-function": "off",
     "@typescript-eslint/ban-types": "off",
     "@typescript-eslint/ban-ts-comment": "off",
+    "no-unused-vars": "off",
   },
   overrides: [
     {
