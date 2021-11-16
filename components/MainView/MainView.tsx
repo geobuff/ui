@@ -1,5 +1,5 @@
 import React, { FC, useContext } from "react";
-import { BoxProps, Flex } from "@chakra-ui/react";
+import { Box, BoxProps, Flex } from "@chakra-ui/react";
 
 import { FooterVariant } from "../../types/footer-variant";
 import NavigationBar from "../NavigationBar";
@@ -42,9 +42,17 @@ const MainView: FC<Props> = ({
         width="100%"
         marginX="auto"
         flex={1}
-        {...handlers}
         {...props}
       >
+        <Box
+          position="fixed"
+          width={6}
+          top={0}
+          left={0}
+          bottom={0}
+          zIndex={2}
+          {...handlers}
+        />
         {hasNavigationBar && <NavigationBar />}
         <Flex flex={1} direction="column" marginTop={14}>
           {children}
