@@ -1,4 +1,5 @@
 import React, { createContext, useState, FC } from "react";
+import { Router } from "next/router";
 
 export const AppContext = createContext({
   isNavSidebarOpen: false,
@@ -7,6 +8,10 @@ export const AppContext = createContext({
 
 export const AppContextProvider: FC = ({ children }) => {
   const [isNavSidebarOpen, setIsNavSidebarOpen] = useState(false);
+
+  Router.events.on("routeChangeStart", () => {
+    setIsNavSidebarOpen(false);
+  });
 
   return (
     <AppContext.Provider
