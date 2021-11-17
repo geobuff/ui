@@ -26,6 +26,8 @@ import FlagFallback from "../ResultsListItem/FlagFallback";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 
+const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
+
 interface Props {
   username?: string;
   email?: string;
@@ -60,7 +62,7 @@ const UserProfileSummary: FC<Props> = ({
   const { countries } = useCountries();
   const level = getLevel(xp);
 
-  const downloadData = [["email"], [email]];
+  const downloadData = isAppMobile ? [] : [["email"], [email]];
 
   const matchedCountry = countries?.find(({ value }) => value === countryCode)
     ?.label;
