@@ -107,7 +107,7 @@ const NavigationBar: FC = () => {
       </Flex>
 
       <Flex>
-        {cart.length > 0 && <ShoppingCartLink cartLength={cart.length} />}
+        {cart?.length > 0 && <ShoppingCartLink cartLength={cart.length} />}
         <UserAvatarMenuNoSSR />
       </Flex>
     </Flex>

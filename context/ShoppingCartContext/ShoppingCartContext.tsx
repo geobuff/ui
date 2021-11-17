@@ -2,7 +2,7 @@ import React, { createContext, useState, FC } from "react";
 import { CartItem } from "../../types/cart-item";
 
 export const ShoppingCartContext = createContext({
-  cart: null,
+  cart: [],
   addToCart: (item: CartItem): void => {},
   updateQuantity: (id: number, size: string, value: number): void => {},
   removeItem: (id: number, size: string): void => {},
