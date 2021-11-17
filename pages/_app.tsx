@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-
 import React, { useEffect, FC, useContext } from "react";
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
@@ -55,7 +53,16 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
       <Head>
         <title>GeoBuff - Get Your Geo Flex On</title>
         <link rel="icon" href="/favicon.ico" />
-        {isAppMobile && <meta name="robots" content="noindex" />}
+        {isAppMobile && (
+          <>
+            <meta name="robots" content="noindex" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1"
+            />
+          </>
+        )}
+
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link
