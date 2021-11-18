@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext, FC } from "react";
 
-import { Box, Button, Fade, Flex, Text } from "@chakra-ui/react";
+import { Box, Button, Divider, Fade, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 import ResultsMap from "../../ResultsMap";
@@ -11,6 +11,7 @@ import { FlagGameContext } from "../../../context/FlagGameContext";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
+import { ChevronUpIcon } from "@chakra-ui/icons";
 
 interface Props {
   checkedSubmissions?: Mapping[];
@@ -54,58 +55,58 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
 
   const variants = {
     open: { top: "20%" },
-    closed: { top: "calc(100% - 242px)" },
+    closed: { top: "calc(100% - 280px)" },
+    isDragging: { top: "calc(100% - 220px)" },
   };
 
-  useEffect(() => {
-    const dragDifference = dragEnd - dragStart;
-    const hitsOpenThreshold = dragDifference >= 15 && !showResultList;
-    const hitsCloseThreshold = dragEnd - dragStart >= 2 && showResultList;
-
-    if ((hitsOpenThreshold || hitsCloseThreshold) && !isDragging) {
-      setShowResultsList(!showResultList);
+  const getAnimationVariant = () => {
+    if (isDragging) {
+      return "isDragging";
     }
-  }, [dragEnd]);
 
-  const handleDrag = (info: PointerEvent): void => {
-    setDragStart(info.x);
+    return showResultList ? "open" : "closed";
   };
 
-  const handleDragEnd = (info: PointerEvent): void => {
-    setDragEnd(info.x);
-  };
+  const animate = getAnimationVariant();
 
-  const DragIndicator: FC = () => (
+  const resultHeaderButton = (
     <Box
-      margin="auto"
-      borderRadius={25}
-      height={"4.35px"}
-      width={8}
-      backgroundColor="#dddddd"
-      mb={1}
-      mt={-1}
-    />
+      marginTop={showResultList ? 4 : 3}
+      marginBottom={3}
+      onClick={() => setShowResultsList(!showResultList)}
+    >
+      <Divider />
+      <Flex alignItems="center" justifyContent="space-between">
+        <Text
+          margin={2}
+          fontSize={showResultList ? "large" : "medium"}
+          fontWeight="semibold"
+        >
+          {"Results"}
+        </Text>
+        <ChevronUpIcon
+          transform={showResultList && "rotate(180deg)"}
+          height={8}
+          width={8}
+        />
+      </Flex>
+      <Divider />
+    </Box>
   );
 
   return (
     <motion.div
-      animate={showResultList ? "open" : "closed"}
+      animate={animate}
       variants={variants}
-      // @ts-ignore
-      drag={isDragging ? "none" : "y"}
-      dragConstraints={{ bottom: 0, top: 0 }}
-      onDragStart={handleDrag}
-      onDragEnd={handleDragEnd}
       transition={{
         type: "spring",
         damping: 50,
         stiffness: 400,
       }}
       style={{
-        display: "inline-block",
         backgroundColor: "white",
         position: "fixed",
-        bottom: -1000,
+        bottom: 0,
         left: 0,
         right: 0,
         borderTopRightRadius: 10,
@@ -118,7 +119,6 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
         p={4}
         borderTopRadius={12}
       >
-        <DragIndicator />
         <GameHeader
           mt={3}
           hasLeaderboard={hasLeaderboard}
@@ -149,23 +149,19 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
                     : "START"}
                 </Text>
               </Button>
-              <Box
-                marginTop={5}
-                marginLeft="-5"
-                marginRight="-5"
-                height="1000px"
-                backgroundColor="white"
-              />
+              {resultHeaderButton}
             </Fade>
           )}
 
           {showResultList && (
             <Fade in unmountOnExit>
+              {resultHeaderButton}
               <ResultsMap
                 checked={checkedSubmissions}
                 map={groupMapping(mapping)}
                 hasGameStopped={hasGameStopped}
                 hasGroupings={hasGrouping}
+                hasHeader={false}
                 hasFlags={hasFlags}
               />
             </Fade>
