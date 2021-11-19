@@ -41,8 +41,13 @@ const AvatarSelect: FC<Props> = ({
 
   return (
     <>
-      <Flex>
-        <Flex direction="column" justifyContent="center" mr={6}>
+      <Flex direction={{ base: "column", md: "row" }}>
+        <Flex
+          direction="column"
+          justifyContent="center"
+          mr={{ base: 0, md: 6 }}
+          mb={{ base: 6, md: 0 }}
+        >
           <ProfileUserAvatar
             shape="square"
             primaryImageUrl={current?.secondaryImageUrl}
