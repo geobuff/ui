@@ -5,12 +5,10 @@ import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 
 import GameOverModal from "../../components/GameOverModal";
 import axiosClient from "../../axios/axiosClient";
-import { getLevel } from "../../helpers/gamification";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
 import {
   entrySubmitted,
-  levelUp,
   increaseXP as increaseXPToast,
 } from "../../helpers/toasts";
 import { GameOverRedirect } from "../../types/game-over-redirect";
@@ -88,7 +86,7 @@ const GameOverModalContainer: FC<Props> = ({
     }
 
     if (!isXPUpdated) {
-      increaseXP(10);
+      increaseXP();
       setXPUpdated(true);
     }
 
@@ -99,7 +97,7 @@ const GameOverModalContainer: FC<Props> = ({
     }
   }, [isOpen, isUserLoading, user]);
 
-  const increaseXP = (increase: number): void => {
+  const increaseXP = (increase = 1): void => {
     const update = {
       avatarId: user.avatarId,
       username: user.username,
@@ -109,12 +107,7 @@ const GameOverModalContainer: FC<Props> = ({
     };
 
     axiosClient.put(`/users/${user.id}`, update, getAuthConfig()).then(() => {
-      toast(increaseXPToast(increase, toastPosition));
-
-      const newLevel = getLevel(update.xp);
-      if (newLevel > getLevel(user.xp)) {
-        toast(levelUp(newLevel, toastPosition));
-      }
+      toast(increaseXPToast(toastPosition));
 
       updateUser({
         ...user,
