@@ -62,7 +62,7 @@ const NavigationBar: FC = () => {
     AppContext
   );
 
-  const { cart } = useContext(ShoppingCartContext);
+  const { cart, getItemCount } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     if (isOpen) {
@@ -107,7 +107,7 @@ const NavigationBar: FC = () => {
       </Flex>
 
       <Flex>
-        {cart?.length > 0 && <ShoppingCartLink cartLength={cart.length} />}
+        {cart?.length > 0 && <ShoppingCartLink itemCount={getItemCount()} />}
         <UserAvatarMenuNoSSR />
       </Flex>
     </Flex>
