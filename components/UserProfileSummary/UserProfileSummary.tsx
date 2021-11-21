@@ -22,6 +22,13 @@ import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
+const geocoinExplainerText = (
+  <Text padding={2}>
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua.
+  </Text>
+);
+
 interface Props {
   username?: string;
   email?: string;
@@ -84,13 +91,6 @@ const UserProfileSummary: FC<Props> = ({
 
   const flagNode = getFlagNode();
 
-  const geocoinExplainerText = (
-    <Text padding={2}>
-      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.
-    </Text>
-  );
-
   return (
     <>
       <Card>
@@ -130,7 +130,7 @@ const UserProfileSummary: FC<Props> = ({
                 </Text>
               </Flex>
               <Tooltip label={geocoinExplainerText}>
-                <Flex justifyContent="center">
+                <Flex justifyContent="center" cursor="pointer">
                   <Twemoji emoji="🪙" mr={1} />
                   <Text color="gray.500" fontWeight={600}>
                     {xp}
