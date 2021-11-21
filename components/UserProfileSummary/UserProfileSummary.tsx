@@ -1,24 +1,18 @@
 import React, { FC } from "react";
+import { getFlagUrl } from "@geobuff/flags";
 import flag from "country-code-emoji";
-
 import {
   Box,
   Heading,
   Flex,
   Text,
-  Spacer,
-  Progress,
   useDisclosure,
+  Tooltip,
 } from "@chakra-ui/react";
 
-import { getFlagUrl } from "@geobuff/flags";
-
 import Card from "../Card";
-
 import UpdateUserFormContainer from "../../containers/UpdaterUserFormContainer";
-
 import useCountries from "../../hooks/useCountries";
-import { getLevel, getLevelCompletion } from "../../helpers/gamification";
 import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContainer";
 import CustomFlag from "../CustomFlag";
 import Twemoji from "../Twemoji";
@@ -60,7 +54,6 @@ const UserProfileSummary: FC<Props> = ({
   } = useDisclosure();
 
   const { countries } = useCountries();
-  const level = getLevel(xp);
 
   const downloadData = isAppMobile ? [] : [["email"], [email]];
 
@@ -91,6 +84,13 @@ const UserProfileSummary: FC<Props> = ({
 
   const flagNode = getFlagNode();
 
+  const geocoinExplainerText = (
+    <Text padding={2}>
+      Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+      tempor incididunt ut labore et dolore magna aliqua.
+    </Text>
+  );
+
   return (
     <>
       <Card>
@@ -119,28 +119,25 @@ const UserProfileSummary: FC<Props> = ({
               alignItems="center"
               marginY={2}
             >
-              <Flex direction="column" justifyContent="center" mr={2}>
-                {flagNode}
+              <Flex mr={2}>
+                <Flex direction="column" justifyContent="center" mr={2}>
+                  {flagNode}
+                </Flex>
+                <Text color="gray.500" fontWeight={600}>
+                  {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG
+                    ? "GeoBuff HQ"
+                    : matchedCountry}
+                </Text>
               </Flex>
-
-              <Text color="gray.500" fontWeight={600}>
-                {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG
-                  ? "GeoBuff HQ"
-                  : matchedCountry}
-              </Text>
+              <Tooltip label={geocoinExplainerText}>
+                <Flex justifyContent="center">
+                  <Twemoji emoji="🪙" mr={1} />
+                  <Text color="gray.500" fontWeight={600}>
+                    {xp}
+                  </Text>
+                </Flex>
+              </Tooltip>
             </Flex>
-
-            <Flex marginBottom={3} marginX={6}>
-              <Text fontWeight="bold">{level}</Text>
-              <Spacer />
-              <Text fontWeight="bold">{level + 1}</Text>
-            </Flex>
-            <Progress
-              size="lg"
-              value={getLevelCompletion(xp)}
-              colorScheme="blue"
-              marginX={6}
-            />
           </Box>
         </Box>
       </Card>

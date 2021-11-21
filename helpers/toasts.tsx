@@ -1,4 +1,6 @@
-import { ToastPosition, UseToastOptions } from "@chakra-ui/react";
+import React from "react";
+import { ToastPosition, UseToastOptions, Text, Flex } from "@chakra-ui/react";
+import Twemoji from "../components/Twemoji";
 
 const defaultPosition: ToastPosition = "bottom-right";
 
@@ -14,23 +16,17 @@ export const entrySubmitted = (
 });
 
 export const increaseXP = (
-  increase: number,
   position: ToastPosition = defaultPosition
 ): UseToastOptions => ({
   position: position,
-  description: `+${increase} XP`,
-  status: "info",
-  duration: 9000,
-  isClosable: true,
-});
-
-export const levelUp = (
-  newLevel: number,
-  position: ToastPosition = defaultPosition
-): UseToastOptions => ({
-  position: position,
-  title: "Congratulations!",
-  description: `You've reached level ${newLevel}.`,
+  description: (
+    <Flex direction="column" justifyContent="center">
+      <Flex>
+        <Text mr={1}>+1</Text>
+        <Twemoji emoji="🪙" />
+      </Flex>
+    </Flex>
+  ),
   status: "info",
   duration: 9000,
   isClosable: true,
