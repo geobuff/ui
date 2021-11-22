@@ -15,6 +15,7 @@ import {
   Link as ChakraLink,
   Text,
   useBreakpointValue,
+  Skeleton,
 } from "@chakra-ui/react";
 
 import Logo from "../Logo";
@@ -62,7 +63,9 @@ const NavigationBar: FC = () => {
     AppContext
   );
 
-  const { cart } = useContext(ShoppingCartContext);
+  const { cart, isLoading: isCartLoading, getItemCount } = useContext(
+    ShoppingCartContext
+  );
 
   useEffect(() => {
     if (isOpen) {
@@ -107,7 +110,17 @@ const NavigationBar: FC = () => {
       </Flex>
 
       <Flex>
-        {cart?.length > 0 && <ShoppingCartLink cartLength={cart.length} />}
+        {isCartLoading ? (
+          <Flex direction="column" justifyContent="center" mr={6}>
+            <Skeleton width="30px" height="30px" />
+          </Flex>
+        ) : (
+          <>
+            {cart?.length > 0 && (
+              <ShoppingCartLink itemCount={getItemCount()} />
+            )}
+          </>
+        )}
         <UserAvatarMenuNoSSR />
       </Flex>
     </Flex>

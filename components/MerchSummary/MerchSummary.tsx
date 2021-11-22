@@ -112,8 +112,13 @@ const MerchSummary: FC<Props> = ({
                               Select a size...
                             </option>
                             {item?.sizes.map((size) => (
-                              <option key={size.id} value={size.id}>
-                                {size.size}
+                              <option
+                                key={size.id}
+                                value={size.id}
+                                disabled={size.quantity === 0}
+                              >
+                                {size.size}{" "}
+                                {size.quantity === 0 && " - Sold Out"}
                               </option>
                             ))}
                           </Select>
@@ -126,13 +131,15 @@ const MerchSummary: FC<Props> = ({
                       )}
                     </Field>
                   </Flex>
-                  <Flex
-                    direction="column"
-                    justifyContent="center"
-                    mt={{ base: 9, xl: 0 }}
-                  >
-                    <Button onClick={onOpen}>Size Guide</Button>
-                  </Flex>
+                  {item?.sizeGuideImageUrl.Valid && (
+                    <Flex
+                      direction="column"
+                      justifyContent="center"
+                      mt={{ base: 9, xl: 0 }}
+                    >
+                      <Button onClick={onOpen}>Size Guide</Button>
+                    </Flex>
+                  )}
                 </Flex>
 
                 <Button
