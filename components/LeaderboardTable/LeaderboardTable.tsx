@@ -17,7 +17,6 @@ import {
 } from "@chakra-ui/react";
 
 import LeaderTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
-import FlagFallback from "../ResultsListItem/FlagFallback/FlagFallback";
 import Twemoji from "../Twemoji";
 import TableCell from "../TableCell";
 

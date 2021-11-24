@@ -4,7 +4,7 @@ import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 import ShoppingCartPlaceholder from "../../placeholders/ShoppingCartPlaceholder";
 
 const ShoppingCartContainer: FC = () => {
-  const { cart, isLoading, updateQuantity, removeItem } = useContext(
+  const { cart, isLoading, updateQuantity, removeItem, getTotal } = useContext(
     ShoppingCartContext
   );
 
@@ -15,8 +15,9 @@ const ShoppingCartContainer: FC = () => {
   return (
     <ShoppingCart
       cart={cart}
-      updateQuantity={updateQuantity}
-      removeItem={removeItem}
+      onUpdateQuantity={updateQuantity}
+      onRemoveItem={removeItem}
+      onGetTotal={getTotal}
     />
   );
 };

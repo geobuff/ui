@@ -2,7 +2,6 @@ import React, { FC } from "react";
 import { Box, Flex, useRadio, UseRadioProps } from "@chakra-ui/react";
 import { Avatar } from "../../types/avatar";
 import Image from "../Image";
-import ProfileUserAvatar from "../ProfileUserAvatar";
 
 interface Props {
   radio?: UseRadioProps;
