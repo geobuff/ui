@@ -4,7 +4,7 @@ import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 import ShoppingCartPlaceholder from "../../placeholders/ShoppingCartPlaceholder";
 
 const ShoppingCartContainer: FC = () => {
-  const { cart, isLoading, updateQuantity, removeItem } = useContext(
+  const { cart, isLoading, updateQuantity, removeItem, getTotal } = useContext(
     ShoppingCartContext
   );
 
@@ -17,6 +17,7 @@ const ShoppingCartContainer: FC = () => {
       cart={cart}
       updateQuantity={updateQuantity}
       removeItem={removeItem}
+      getTotal={getTotal}
     />
   );
 };

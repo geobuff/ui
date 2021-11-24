@@ -8,6 +8,7 @@ export const ShoppingCartContext = createContext({
   updateQuantity: (id: number, size: string, value: number): void => {},
   removeItem: (id: number, size: string): void => {},
   getItemCount: (): number => 0,
+  getTotal: (): number => 0,
 });
 
 export const ShoppingCartContextProvider: FC = ({ children = null }) => {
@@ -69,6 +70,14 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
   const getItemCount = (): number =>
     cart.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
 
+  const getTotal = (): number => {
+    let total = 0;
+    for (var i = 0; i < cart.length; i++) {
+      total += cart[i].quantity * cart[i].price;
+    }
+    return total;
+  };
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -78,6 +87,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         updateQuantity,
         removeItem,
         getItemCount,
+        getTotal,
       }}
     >
       {children}
