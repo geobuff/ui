@@ -166,54 +166,55 @@ const ShoppingCart: FC<Props> = ({
             ))}
           </Tbody>
         </Table>
-        {cart.length === 0 && (
+        {cart.length === 0 ? (
           <Alert status="info" borderRadius={6} mt={6}>
             <AlertIcon />
             {"Your cart is empty."}
           </Alert>
-        )}
-        <Flex justifyContent="flex-end" my={6}>
-          <Flex w="50%">
-            <FormControl marginY={6} mr={6}>
-              <FormLabel htmlFor="discount">{"Discount code"}</FormLabel>
-              <Input
-                placeholder="Enter code..."
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                size="lg"
-                fontSize="16px"
-                background="#F6F6F6"
-                borderRadius={6}
-                _placeholder={{ color: "gray.500" }}
-                _hover={{ background: "#e0e0e0" }}
-                disabled={discountSuccess}
-              />
-              {discountError && (
-                <Box position="absolute" top="83px" left="2px">
-                  <Text fontSize="11px" color="red.500">
-                    Invalid discount code. Please try again.
-                  </Text>
-                </Box>
-              )}
-              {discountSuccess && (
-                <Box position="absolute" top="83px" left="2px">
-                  <Text fontSize="11px" color="green.500">
-                    Successfully applied discount code.
-                  </Text>
-                </Box>
-              )}
-            </FormControl>
-            <Flex direction="column" justifyContent="center" px={6}>
-              <Button
-                isLoading={checkingDiscount}
-                onClick={applyDiscount}
-                disabled={discountSuccess}
-              >
-                Apply
-              </Button>
+        ) : (
+          <Flex justifyContent="flex-end" my={6}>
+            <Flex w="50%">
+              <FormControl marginY={6} mr={6}>
+                <FormLabel htmlFor="discount">{"Discount code"}</FormLabel>
+                <Input
+                  placeholder="Enter code..."
+                  value={inputValue}
+                  onChange={(e) => setInputValue(e.target.value)}
+                  size="lg"
+                  fontSize="16px"
+                  background="#F6F6F6"
+                  borderRadius={6}
+                  _placeholder={{ color: "gray.500" }}
+                  _hover={{ background: "#e0e0e0" }}
+                  disabled={discountSuccess}
+                />
+                {discountError && (
+                  <Box position="absolute" top="83px" left="2px">
+                    <Text fontSize="11px" color="red.500">
+                      Invalid discount code. Please try again.
+                    </Text>
+                  </Box>
+                )}
+                {discountSuccess && (
+                  <Box position="absolute" top="83px" left="2px">
+                    <Text fontSize="11px" color="green.500">
+                      Successfully applied discount code.
+                    </Text>
+                  </Box>
+                )}
+              </FormControl>
+              <Flex direction="column" justifyContent="center" px={6}>
+                <Button
+                  isLoading={checkingDiscount}
+                  onClick={applyDiscount}
+                  disabled={discountSuccess}
+                >
+                  Apply
+                </Button>
+              </Flex>
             </Flex>
           </Flex>
-        </Flex>
+        )}
       </Card>
       {cart.length > 0 && (
         <Flex justifyContent="flex-end" paddingX={6} mt={12}>
