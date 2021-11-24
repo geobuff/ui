@@ -1,3 +1,6 @@
+import React, { FC, useState } from "react";
+import Link from "next/link";
+
 import {
   Flex,
   Table,
@@ -19,8 +22,9 @@ import {
   FormControl,
   FormLabel,
   Box,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
-import React, { FC, useState } from "react";
+
 import { CartItem } from "../../types/cart-item";
 import TableCell from "../TableCell";
 import Image from "../Image";
@@ -114,18 +118,22 @@ const ShoppingCart: FC<Props> = ({
             {cart.map((item, i) => (
               <Tr key={i} fontWeight={600}>
                 <TableCell paddingY={3} paddingX={6} minWidth="400px">
-                  <Flex>
-                    <Image
-                      src={item.imageUrl}
-                      width="150px"
-                      height="150px"
-                      borderRadius="12px"
-                      mr={6}
-                    />
-                    <Flex direction="column" justifyContent="center">
-                      <Text>{`${item.name} - ${item.size}`}</Text>
-                    </Flex>
-                  </Flex>
+                  <Link href={`/merch/${item.id}`}>
+                    <ChakraLink>
+                      <Flex>
+                        <Image
+                          src={item.imageUrl}
+                          width="150px"
+                          height="150px"
+                          borderRadius="12px"
+                          mr={6}
+                        />
+                        <Flex direction="column" justifyContent="center">
+                          <Text>{`${item.name} - ${item.size}`}</Text>
+                        </Flex>
+                      </Flex>
+                    </ChakraLink>
+                  </Link>
                 </TableCell>
                 <TableCell isNumeric paddingY={3} paddingX={6}>
                   {`$${item.price}`}
