@@ -15,9 +15,9 @@ const ShoppingCartContainer: FC = () => {
   return (
     <ShoppingCart
       cart={cart}
-      updateQuantity={updateQuantity}
-      removeItem={removeItem}
-      getTotal={getTotal}
+      onUpdateQuantity={updateQuantity}
+      onRemoveItem={removeItem}
+      onGetTotal={getTotal}
     />
   );
 };

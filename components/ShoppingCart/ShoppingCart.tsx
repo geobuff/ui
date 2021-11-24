@@ -34,18 +34,18 @@ import { useRouter } from "next/router";
 
 export interface Props {
   cart?: CartItem[];
-  updateQuantity?: (id: number, size: string, value: number) => void;
-  removeItem?: (id: number, size: string) => void;
-  getTotal?: () => number;
-  shipping?: number;
+  onUpdateQuantity?: (id: number, size: string, value: number) => void;
+  onRemoveItem?: (id: number, size: string) => void;
+  onGetTotal?: () => number;
+  shippingPrice?: number;
 }
 
 const ShoppingCart: FC<Props> = ({
   cart = [],
-  updateQuantity = (id: number, size: string, value: number): void => {},
-  removeItem = (id: number, size: string): void => {},
-  getTotal = (): number => 0,
-  shipping = 5,
+  onUpdateQuantity = (id: number, size: string, value: number): void => {},
+  onRemoveItem = (id: number, size: string): void => {},
+  onGetTotal = (): number => 0,
+  shippingPrice = 5,
 }) => {
   const router = useRouter();
 
@@ -145,7 +145,7 @@ const ShoppingCart: FC<Props> = ({
                       min={1}
                       max={5}
                       onChange={(value: string): void =>
-                        updateQuantity(item.id, item.size, parseInt(value))
+                        onUpdateQuantity(item.id, item.size, parseInt(value))
                       }
                       maxWidth="75px"
                     >
@@ -164,7 +164,7 @@ const ShoppingCart: FC<Props> = ({
                   <Flex justifyContent="center">
                     <Button
                       colorScheme="red"
-                      onClick={(): void => removeItem(item.id, item.size)}
+                      onClick={(): void => onRemoveItem(item.id, item.size)}
                     >
                       Remove
                     </Button>
@@ -230,11 +230,11 @@ const ShoppingCart: FC<Props> = ({
             <Stack mb={12}>
               <Flex justifyContent="space-between">
                 <Text>Subtotal:</Text>
-                <Text>{`$${getTotal()}`}</Text>
+                <Text>{`$${onGetTotal()}`}</Text>
               </Flex>
               <Flex justifyContent="space-between">
                 <Text>Shipping:</Text>
-                <Text>{`$${shipping}`}</Text>
+                <Text>{`$${shippingPrice}`}</Text>
               </Flex>
               {discount > 0 && (
                 <Flex justifyContent="space-between">
@@ -245,7 +245,8 @@ const ShoppingCart: FC<Props> = ({
               <Flex justifyContent="space-between" fontWeight="bold">
                 <Text>Total:</Text>
                 <Text>{`$${
-                  Math.round((getTotal() + shipping - discount) * 100) / 100
+                  Math.round((onGetTotal() + shippingPrice - discount) * 100) /
+                  100
                 }`}</Text>
               </Flex>
             </Stack>

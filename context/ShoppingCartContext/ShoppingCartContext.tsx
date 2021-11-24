@@ -70,13 +70,8 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
   const getItemCount = (): number =>
     cart.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
 
-  const getTotal = (): number => {
-    let total = 0;
-    for (var i = 0; i < cart.length; i++) {
-      total += cart[i].quantity * cart[i].price;
-    }
-    return total;
-  };
+  const getTotal = (): number =>
+    cart.reduce((prev, curr) => (prev += curr.quantity * curr.price), 0);
 
   return (
     <ShoppingCartContext.Provider
