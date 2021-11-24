@@ -14,10 +14,13 @@ import {
   Button,
   Alert,
   AlertIcon,
-  Box,
   Stack,
+  Input,
+  FormControl,
+  FormLabel,
+  Box,
 } from "@chakra-ui/react";
-import React, { FC, useContext } from "react";
+import React, { FC, useState } from "react";
 import { CartItem } from "../../types/cart-item";
 import TableCell from "../TableCell";
 import Image from "../Image";
@@ -41,6 +44,32 @@ const ShoppingCart: FC<Props> = ({
   shipping = 5,
 }) => {
   const router = useRouter();
+
+  const [discount, setDiscount] = useState(0);
+  const [checkingDiscount, setCheckingDiscount] = useState(false);
+  const [discountSuccess, setDiscountSuccess] = useState(false);
+  const [discountError, setDiscountError] = useState(false);
+  const [inputValue, setInputValue] = useState("");
+
+  const applyDiscount = (): void => {
+    setCheckingDiscount(true);
+    setDiscountSuccess(false);
+    setDiscountError(false);
+    if (inputValue === "NOSHIP420") {
+      setTimeout(() => {
+        setDiscount(5);
+        setCheckingDiscount(false);
+        setDiscountSuccess(true);
+        setInputValue("");
+      }, 2000);
+    } else {
+      setTimeout(() => {
+        setCheckingDiscount(false);
+        setDiscountError(true);
+        setInputValue("");
+      }, 2000);
+    }
+  };
 
   return (
     <Flex
@@ -143,6 +172,48 @@ const ShoppingCart: FC<Props> = ({
             {"Your cart is empty."}
           </Alert>
         )}
+        <Flex justifyContent="flex-end" my={6}>
+          <Flex w="50%">
+            <FormControl marginY={6} mr={6}>
+              <FormLabel htmlFor="discount">{"Discount code"}</FormLabel>
+              <Input
+                placeholder="Enter code..."
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+                size="lg"
+                fontSize="16px"
+                background="#F6F6F6"
+                borderRadius={6}
+                _placeholder={{ color: "gray.500" }}
+                _hover={{ background: "#e0e0e0" }}
+                disabled={discountSuccess}
+              />
+              {discountError && (
+                <Box position="absolute" top="83px" left="2px">
+                  <Text fontSize="11px" color="red.500">
+                    Invalid discount code. Please try again.
+                  </Text>
+                </Box>
+              )}
+              {discountSuccess && (
+                <Box position="absolute" top="83px" left="2px">
+                  <Text fontSize="11px" color="green.500">
+                    Successfully applied discount code.
+                  </Text>
+                </Box>
+              )}
+            </FormControl>
+            <Flex direction="column" justifyContent="center" px={6}>
+              <Button
+                isLoading={checkingDiscount}
+                onClick={applyDiscount}
+                disabled={discountSuccess}
+              >
+                Apply
+              </Button>
+            </Flex>
+          </Flex>
+        </Flex>
       </Card>
       {cart.length > 0 && (
         <Flex justifyContent="flex-end" paddingX={6} mt={12}>
@@ -156,10 +227,16 @@ const ShoppingCart: FC<Props> = ({
                 <Text>Shipping:</Text>
                 <Text>{`$${shipping}`}</Text>
               </Flex>
+              {discount > 0 && (
+                <Flex justifyContent="space-between">
+                  <Text>Discount:</Text>
+                  <Text>{`-$${discount}`}</Text>
+                </Flex>
+              )}
               <Flex justifyContent="space-between" fontWeight="bold">
                 <Text>Total:</Text>
                 <Text>{`$${
-                  Math.round((getTotal() + shipping) * 100) / 100
+                  Math.round((getTotal() + shipping - discount) * 100) / 100
                 }`}</Text>
               </Flex>
             </Stack>
