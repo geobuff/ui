@@ -104,85 +104,90 @@ const ShoppingCart: FC<Props> = ({
         </Button>
       </Flex>
       <Card>
-        <Table size="md" variant="striped" colorscheme="gray">
-          <Thead>
-            <Tr>
-              <Th textAlign="left">{"ITEM DETAILS"} </Th>
-              <Th textAlign="right">{"PRICE"}</Th>
-              <Th textAlign="right">{"QUANTITY"}</Th>
-              <Th textAlign="right">{"TOTAL"}</Th>
-              <Th></Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            {cart.map((item, i) => (
-              <Tr key={i} fontWeight={600}>
-                <TableCell paddingY={3} paddingX={6} minWidth="400px">
-                  <Link href={`/merch/${item.id}`}>
-                    <ChakraLink>
-                      <Flex>
-                        <Image
-                          src={item.imageUrl}
-                          width="150px"
-                          height="150px"
-                          borderRadius="12px"
-                          mr={6}
-                        />
-                        <Flex direction="column" justifyContent="center">
-                          <Text>{`${item.name} - ${item.size}`}</Text>
-                        </Flex>
-                      </Flex>
-                    </ChakraLink>
-                  </Link>
-                </TableCell>
-                <TableCell isNumeric paddingY={3} paddingX={6}>
-                  {`$${item.price}`}
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  <Flex justifyContent="right">
-                    <NumberInput
-                      value={item.quantity}
-                      min={1}
-                      max={5}
-                      onChange={(value: string): void =>
-                        onUpdateQuantity(item.id, item.size, parseInt(value))
-                      }
-                      maxWidth="75px"
-                    >
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </Flex>
-                </TableCell>
-                <TableCell isNumeric paddingY={3} paddingX={6}>
-                  {`$${item.price * item.quantity}`}
-                </TableCell>
-                <TableCell>
-                  <Flex justifyContent="center">
-                    <Button
-                      colorScheme="red"
-                      onClick={(): void => onRemoveItem(item.id, item.size)}
-                    >
-                      Remove
-                    </Button>
-                  </Flex>
-                </TableCell>
+        <Box overflow="auto">
+          <Table size="md" variant="striped" colorscheme="gray">
+            <Thead>
+              <Tr>
+                <Th textAlign="left">{"ITEM DETAILS"} </Th>
+                <Th textAlign="right">{"PRICE"}</Th>
+                <Th textAlign="right">{"QUANTITY"}</Th>
+                <Th textAlign="right">{"TOTAL"}</Th>
+                <Th></Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+            <Tbody>
+              {cart.map((item, i) => (
+                <Tr key={i} fontWeight={600}>
+                  <TableCell paddingY={3} paddingX={6} minWidth="400px">
+                    <Link href={`/merch/${item.id}`}>
+                      <ChakraLink>
+                        <Flex>
+                          <Image
+                            src={item.imageUrl}
+                            width="150px"
+                            height="150px"
+                            borderRadius="12px"
+                            mr={6}
+                          />
+                          <Flex direction="column" justifyContent="center">
+                            <Text>{`${item.name} - ${item.size}`}</Text>
+                          </Flex>
+                        </Flex>
+                      </ChakraLink>
+                    </Link>
+                  </TableCell>
+                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                    {`$${item.price}`}
+                  </TableCell>
+                  <TableCell paddingY={3} paddingX={6}>
+                    <Flex justifyContent="right">
+                      <NumberInput
+                        value={item.quantity}
+                        min={1}
+                        max={5}
+                        onChange={(value: string): void =>
+                          onUpdateQuantity(item.id, item.size, parseInt(value))
+                        }
+                        maxWidth="75px"
+                      >
+                        <NumberInputField />
+                        <NumberInputStepper>
+                          <NumberIncrementStepper />
+                          <NumberDecrementStepper />
+                        </NumberInputStepper>
+                      </NumberInput>
+                    </Flex>
+                  </TableCell>
+                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                    {`$${item.price * item.quantity}`}
+                  </TableCell>
+                  <TableCell>
+                    <Flex justifyContent="center">
+                      <Button
+                        colorScheme="red"
+                        onClick={(): void => onRemoveItem(item.id, item.size)}
+                      >
+                        Remove
+                      </Button>
+                    </Flex>
+                  </TableCell>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
         {cart.length === 0 ? (
           <Alert status="info" borderRadius={6} mt={6}>
             <AlertIcon />
             {"Your cart is empty."}
           </Alert>
         ) : (
-          <Flex justifyContent="flex-end" my={6}>
-            <Flex w="50%">
-              <FormControl marginY={6} mr={6}>
+          <Flex justifyContent={{ base: "center", md: "flex-end" }} my={6}>
+            <Flex
+              width={{ base: "100%", md: "50%" }}
+              direction={{ base: "column", md: "row" }}
+            >
+              <FormControl marginY={6} mr={{ base: 0, md: 6 }}>
                 <FormLabel htmlFor="discount">{"Discount code"}</FormLabel>
                 <Input
                   placeholder="Enter code..."
@@ -211,7 +216,12 @@ const ShoppingCart: FC<Props> = ({
                   </Box>
                 )}
               </FormControl>
-              <Flex direction="column" justifyContent="center" px={6}>
+              <Flex
+                direction="column"
+                justifyContent="center"
+                px={{ base: 0, md: 6 }}
+                mt={{ base: 3, md: 0 }}
+              >
                 <Button
                   isLoading={checkingDiscount}
                   onClick={applyDiscount}
@@ -225,8 +235,12 @@ const ShoppingCart: FC<Props> = ({
         )}
       </Card>
       {cart.length > 0 && (
-        <Flex justifyContent="flex-end" paddingX={6} mt={12}>
-          <Flex direction="column" width="25%">
+        <Flex
+          justifyContent={{ base: "center", md: "flex-end" }}
+          paddingX={6}
+          mt={12}
+        >
+          <Flex direction="column" width={{ base: "100%", md: "25%" }}>
             <Stack mb={12}>
               <Flex justifyContent="space-between">
                 <Text>Subtotal:</Text>
@@ -250,7 +264,7 @@ const ShoppingCart: FC<Props> = ({
                 }`}</Text>
               </Flex>
             </Stack>
-            <Button>Proceed To Checkout</Button>
+            <Button colorScheme="teal">Proceed To Checkout</Button>
           </Flex>
         </Flex>
       )}
