@@ -21,13 +21,13 @@ import ArrowLeft from "../../Icons/ArrowLeft";
 import { useRouter } from "next/router";
 import ShoppingCartItem from "./ShoppingCartItem";
 import DiscountFooter from "./DiscountFooter";
+import PriceSummary from "./PriceSummary";
 
 export interface Props {
   cart?: CartItem[];
   onUpdateQuantity?: (id: number, size: string, value: number) => void;
   onRemoveItem?: (id: number, size: string) => void;
   onGetTotal?: () => number;
-  shippingPrice?: number;
 }
 
 const ShoppingCart: FC<Props> = ({
@@ -35,7 +35,6 @@ const ShoppingCart: FC<Props> = ({
   onUpdateQuantity = (id: number, size: string, value: number): void => {},
   onRemoveItem = (id: number, size: string): void => {},
   onGetTotal = (): number => 0,
-  shippingPrice = 5,
 }) => {
   const router = useRouter();
   const [discount, setDiscount] = useState(0);
@@ -108,38 +107,7 @@ const ShoppingCart: FC<Props> = ({
         )}
       </Card>
       {cart.length > 0 && (
-        <Flex
-          justifyContent={{ base: "center", md: "flex-end" }}
-          paddingX={6}
-          mt={12}
-        >
-          <Flex direction="column" width={{ base: "100%", md: "25%" }}>
-            <Stack mb={12}>
-              <Flex justifyContent="space-between">
-                <Text>Subtotal:</Text>
-                <Text>{`$${onGetTotal()}`}</Text>
-              </Flex>
-              <Flex justifyContent="space-between">
-                <Text>Shipping:</Text>
-                <Text>{`$${shippingPrice}`}</Text>
-              </Flex>
-              {discount > 0 && (
-                <Flex justifyContent="space-between">
-                  <Text>Discount:</Text>
-                  <Text>{`-$${discount}`}</Text>
-                </Flex>
-              )}
-              <Flex justifyContent="space-between" fontWeight="bold">
-                <Text>Total:</Text>
-                <Text>{`$${
-                  Math.round((onGetTotal() + shippingPrice - discount) * 100) /
-                  100
-                }`}</Text>
-              </Flex>
-            </Stack>
-            <Button colorScheme="teal">Proceed To Checkout</Button>
-          </Flex>
-        </Flex>
+        <PriceSummary discount={discount} onGetTotal={onGetTotal} />
       )}
     </Flex>
   );
