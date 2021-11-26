@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import Link from "next/link";
 
 import {
   Flex,
@@ -9,11 +8,6 @@ import {
   Th,
   Tbody,
   Text,
-  NumberInput,
-  NumberInputField,
-  NumberIncrementStepper,
-  NumberInputStepper,
-  NumberDecrementStepper,
   Button,
   Alert,
   AlertIcon,
@@ -22,15 +16,13 @@ import {
   FormControl,
   FormLabel,
   Box,
-  Link as ChakraLink,
 } from "@chakra-ui/react";
 
 import { CartItem } from "../../types/cart-item";
-import TableCell from "../TableCell";
-import Image from "../Image";
 import Card from "../Card";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import { useRouter } from "next/router";
+import ShoppingCartItem from "./ShoppingCartItem";
 
 export interface Props {
   cart?: CartItem[];
@@ -118,59 +110,16 @@ const ShoppingCart: FC<Props> = ({
             <Tbody>
               {cart.map((item, i) => (
                 <Tr key={i} fontWeight={600}>
-                  <TableCell paddingY={3} paddingX={6} minWidth="400px">
-                    <Link href={`/merch/${item.id}`}>
-                      <ChakraLink>
-                        <Flex>
-                          <Image
-                            src={item.imageUrl}
-                            width="150px"
-                            height="150px"
-                            borderRadius="12px"
-                            mr={6}
-                          />
-                          <Flex direction="column" justifyContent="center">
-                            <Text>{`${item.name} - ${item.size}`}</Text>
-                          </Flex>
-                        </Flex>
-                      </ChakraLink>
-                    </Link>
-                  </TableCell>
-                  <TableCell isNumeric paddingY={3} paddingX={6}>
-                    {`$${item.price}`}
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    <Flex justifyContent="right">
-                      <NumberInput
-                        value={item.quantity}
-                        min={1}
-                        max={5}
-                        onChange={(value: string): void =>
-                          onUpdateQuantity(item.id, item.size, parseInt(value))
-                        }
-                        maxWidth="75px"
-                      >
-                        <NumberInputField />
-                        <NumberInputStepper>
-                          <NumberIncrementStepper />
-                          <NumberDecrementStepper />
-                        </NumberInputStepper>
-                      </NumberInput>
-                    </Flex>
-                  </TableCell>
-                  <TableCell isNumeric paddingY={3} paddingX={6}>
-                    {`$${item.price * item.quantity}`}
-                  </TableCell>
-                  <TableCell>
-                    <Flex justifyContent="center">
-                      <Button
-                        colorScheme="red"
-                        onClick={(): void => onRemoveItem(item.id, item.size)}
-                      >
-                        Remove
-                      </Button>
-                    </Flex>
-                  </TableCell>
+                  <ShoppingCartItem
+                    id={item.id}
+                    imageUrl={item.imageUrl}
+                    name={item.name}
+                    size={item.size}
+                    price={item.price}
+                    quantity={item.quantity}
+                    onUpdateQuantity={onUpdateQuantity}
+                    onRemoveItem={onRemoveItem}
+                  />
                 </Tr>
               ))}
             </Tbody>
