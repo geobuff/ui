@@ -21,6 +21,7 @@ import Modal from "../Modal";
 import { MerchItem } from "../../types/merch-item";
 import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";
 import MapInteractionCSS from "../MapInteractionCSS";
+import { useRouter } from "next/router";
 
 const validationSchema = Yup.object().shape({
   size: Yup.string().required("Please choose an available size."),
@@ -39,6 +40,7 @@ const MerchSummary: FC<Props> = ({
   onSubmit = (values: MerchSummaryFormSubmit): void => {},
   submitted = false,
 }) => {
+  const router = useRouter();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [currentImage, setCurrentImage] = useState(
     item?.images.find((x) => x.isPrimary).imageUrl
@@ -143,6 +145,13 @@ const MerchSummary: FC<Props> = ({
                 </Flex>
 
                 <Button
+                  width="100%"
+                  mt={3}
+                  onClick={() => router.push("/merch")}
+                >
+                  {"Continue Shopping"}
+                </Button>
+                <Button
                   colorScheme="green"
                   width="100%"
                   type="submit"
@@ -156,7 +165,7 @@ const MerchSummary: FC<Props> = ({
           </Formik>
           {submitted && (
             <Link href="/shopping-cart">
-              <Button width="100%" mt={3}>
+              <Button colorScheme="teal" width="100%" mt={3}>
                 View Cart
               </Button>
             </Link>
