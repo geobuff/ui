@@ -11,7 +11,6 @@ import {
   Button,
   Alert,
   AlertIcon,
-  Stack,
   Box,
 } from "@chakra-ui/react";
 
@@ -103,7 +102,10 @@ const ShoppingCart: FC<Props> = ({
             {"Your cart is empty."}
           </Alert>
         ) : (
-          <DiscountFooter setDiscount={setDiscount} />
+          <DiscountFooter
+            merchIds={cart.map((x) => x.id)}
+            setDiscount={setDiscount}
+          />
         )}
       </Card>
       {cart.length > 0 && (

@@ -9,34 +9,52 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+import axiosClient from "../../../axios";
+import { Discount } from "../../../types/discount";
+
 export interface Props {
+  merchIds?: number[];
   setDiscount?: React.Dispatch<React.SetStateAction<number>>;
 }
 
-const DiscountFooter: FC<Props> = ({ setDiscount = (): void => {} }) => {
+const DiscountFooter: FC<Props> = ({
+  merchIds = [],
+  setDiscount = (): void => {},
+}) => {
   const [checkingDiscount, setCheckingDiscount] = useState(false);
-  const [discountSuccess, setDiscountSuccess] = useState(false);
-  const [discountError, setDiscountError] = useState(false);
   const [inputValue, setInputValue] = useState("");
+  const [success, setSuccess] = useState("");
+  const [error, setError] = useState("");
 
   const applyDiscount = (): void => {
     setCheckingDiscount(true);
-    setDiscountSuccess(false);
-    setDiscountError(false);
-    if (inputValue === "NOSHIP420") {
-      setTimeout(() => {
-        setDiscount(5);
+    setError("");
+
+    axiosClient
+      .get(`/discounts/${inputValue}`)
+      .then((response) => {
+        if (response.status === 204) {
+          setError("Invalid discount code. Please try again.");
+        } else {
+          const discount: Discount = response.data;
+          if (
+            discount.merchId.Valid &&
+            merchIds.find((x) => x === discount.merchId.Int64) === undefined
+          ) {
+            setError(
+              "Discount code does not apply to any of the items in this cart. Please try again."
+            );
+          } else {
+            setDiscount(discount.amount);
+            setSuccess(`Successfully applied discount code ${discount.code}.`);
+          }
+        }
+      })
+      .catch(() => setError("Error applying discount code. Please try again."))
+      .finally(() => {
         setCheckingDiscount(false);
-        setDiscountSuccess(true);
         setInputValue("");
-      }, 2000);
-    } else {
-      setTimeout(() => {
-        setCheckingDiscount(false);
-        setDiscountError(true);
-        setInputValue("");
-      }, 2000);
-    }
+      });
   };
 
   return (
@@ -57,19 +75,19 @@ const DiscountFooter: FC<Props> = ({ setDiscount = (): void => {} }) => {
             borderRadius={6}
             _placeholder={{ color: "gray.500" }}
             _hover={{ background: "#e0e0e0" }}
-            disabled={discountSuccess}
+            disabled={!!success}
           />
-          {discountError && (
+          {error && (
             <Box position="absolute" top="83px" left="2px">
               <Text fontSize="11px" color="red.500">
-                Invalid discount code. Please try again.
+                {error}
               </Text>
             </Box>
           )}
-          {discountSuccess && (
+          {success && (
             <Box position="absolute" top="83px" left="2px">
               <Text fontSize="11px" color="green.500">
-                Successfully applied discount code.
+                {success}
               </Text>
             </Box>
           )}
@@ -83,7 +101,7 @@ const DiscountFooter: FC<Props> = ({ setDiscount = (): void => {} }) => {
           <Button
             isLoading={checkingDiscount}
             onClick={applyDiscount}
-            disabled={discountSuccess}
+            disabled={!!success}
           >
             Apply
           </Button>
