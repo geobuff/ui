@@ -14,7 +14,7 @@ import {
 import Link from "next/link";
 
 const FAQSection: FC = () => (
-  <Accordion>
+  <Accordion allowMultiple>
     <AccordionItem>
       <h2>
         <AccordionButton>
@@ -99,6 +99,23 @@ const FAQSection: FC = () => (
       <AccordionPanel pb={4}>
         Please submit a support request above specifying the quiz name and the
         the amendment you believe we should make to the results.
+      </AccordionPanel>
+    </AccordionItem>
+
+    <AccordionItem>
+      <h2>
+        <AccordionButton>
+          <Box flex="1" textAlign="left">
+            {"What is GeoCoin?"}
+          </Box>
+          <AccordionIcon />
+        </AccordionButton>
+      </h2>
+      <AccordionPanel pb={4}>
+        GeoCoin is our in game currency that allows you to purchase items,
+        avatars and subscriptions. You earn GeoCoin each time you score greater
+        than 0 on a quiz. The amount of coins you earn scales based on how well
+        you do in comparison to the max score for the quiz.
       </AccordionPanel>
     </AccordionItem>
   </Accordion>
