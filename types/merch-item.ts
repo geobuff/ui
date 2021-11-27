@@ -13,14 +13,14 @@ export interface MerchItem {
   soldOut: boolean;
 }
 
-interface MerchSize {
+export interface MerchSize {
   id: number;
   merchId: number;
   size: string;
   quantity: number;
 }
 
-interface MerchImage {
+export interface MerchImage {
   id: number;
   merchId: number;
   imageUrl: string;
