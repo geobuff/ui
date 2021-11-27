@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   Box,
   Button,
@@ -9,53 +9,28 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import axiosClient from "../../../axios";
-import { Discount } from "../../../types/discount";
-
 export interface Props {
   merchIds?: number[];
-  setDiscount?: React.Dispatch<React.SetStateAction<number>>;
+  checkingDiscount?: boolean;
+  discountSuccess?: string;
+  discountError?: string;
+  applyDiscount?: (code: string, merchIds: number[]) => void;
 }
 
 const DiscountFooter: FC<Props> = ({
   merchIds = [],
-  setDiscount = (): void => {},
+  checkingDiscount = false,
+  discountSuccess = "",
+  discountError = "",
+  applyDiscount = (code: string, merchIds: number[]): void => {},
 }) => {
-  const [checkingDiscount, setCheckingDiscount] = useState(false);
   const [inputValue, setInputValue] = useState("");
-  const [success, setSuccess] = useState("");
-  const [error, setError] = useState("");
 
-  const applyDiscount = (): void => {
-    setCheckingDiscount(true);
-    setError("");
-
-    axiosClient
-      .get(`/discounts/${inputValue}`)
-      .then((response) => {
-        if (response.status === 204) {
-          setError("Invalid discount code. Please try again.");
-        } else {
-          const discount: Discount = response.data;
-          if (
-            discount.merchId.Valid &&
-            merchIds.find((x) => x === discount.merchId.Int64) === undefined
-          ) {
-            setError(
-              "Discount code does not apply to any of the items in this cart. Please try again."
-            );
-          } else {
-            setDiscount(discount.amount);
-            setSuccess(`Successfully applied discount code ${discount.code}.`);
-          }
-        }
-      })
-      .catch(() => setError("Error applying discount code. Please try again."))
-      .finally(() => {
-        setCheckingDiscount(false);
-        setInputValue("");
-      });
-  };
+  useEffect(() => {
+    if (discountError || discountSuccess) {
+      setInputValue("");
+    }
+  }, [discountSuccess, discountError]);
 
   return (
     <Flex justifyContent={{ base: "center", md: "flex-end" }} my={6}>
@@ -75,19 +50,19 @@ const DiscountFooter: FC<Props> = ({
             borderRadius={6}
             _placeholder={{ color: "gray.500" }}
             _hover={{ background: "#e0e0e0" }}
-            disabled={!!success}
+            disabled={!!discountSuccess}
           />
-          {error && (
+          {discountError && (
             <Box position="absolute" top="83px" left="2px">
               <Text fontSize="11px" color="red.500">
-                {error}
+                {discountError}
               </Text>
             </Box>
           )}
-          {success && (
+          {discountSuccess && (
             <Box position="absolute" top="83px" left="2px">
               <Text fontSize="11px" color="green.500">
-                {success}
+                {discountSuccess}
               </Text>
             </Box>
           )}
@@ -100,8 +75,8 @@ const DiscountFooter: FC<Props> = ({
         >
           <Button
             isLoading={checkingDiscount}
-            onClick={applyDiscount}
-            disabled={!!success}
+            onClick={() => applyDiscount(inputValue, merchIds)}
+            disabled={!!discountSuccess}
           >
             Apply
           </Button>
