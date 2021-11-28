@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 
 import {
   Flex,
@@ -27,6 +27,11 @@ export interface Props {
   onUpdateQuantity?: (id: number, size: string, value: number) => void;
   onRemoveItem?: (id: number, size: string) => void;
   onGetTotal?: () => number;
+  discountAmount?: number;
+  checkingDiscount?: boolean;
+  discountSuccess?: string;
+  discountError?: string;
+  applyDiscount?: (code: string, merchIds: number[]) => void;
 }
 
 const ShoppingCart: FC<Props> = ({
@@ -34,9 +39,13 @@ const ShoppingCart: FC<Props> = ({
   onUpdateQuantity = (id: number, size: string, value: number): void => {},
   onRemoveItem = (id: number, size: string): void => {},
   onGetTotal = (): number => 0,
+  discountAmount = 0,
+  checkingDiscount = false,
+  discountSuccess = "",
+  discountError = "",
+  applyDiscount = (code: string, merchIds: number[]): void => {},
 }) => {
   const router = useRouter();
-  const [discount, setDiscount] = useState(0);
 
   return (
     <Flex
@@ -104,12 +113,15 @@ const ShoppingCart: FC<Props> = ({
         ) : (
           <DiscountFooter
             merchIds={cart.map((x) => x.id)}
-            setDiscount={setDiscount}
+            checkingDiscount={checkingDiscount}
+            discountSuccess={discountSuccess}
+            discountError={discountError}
+            applyDiscount={applyDiscount}
           />
         )}
       </Card>
       {cart.length > 0 && (
-        <PriceSummary discount={discount} onGetTotal={onGetTotal} />
+        <PriceSummary discount={discountAmount} onGetTotal={onGetTotal} />
       )}
     </Flex>
   );
