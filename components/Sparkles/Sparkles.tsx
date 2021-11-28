@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-
 import { Box, keyframes } from "@chakra-ui/react";
 
 import useRandomInterval from "../../hooks/useRandomInterval";
@@ -24,7 +23,7 @@ interface SparkleStyle {
   left: string;
 }
 
-interface Sparkle {
+interface SparkleBase {
   id: string;
   createdAt: number;
   color: string;
@@ -32,7 +31,7 @@ interface Sparkle {
   style: SparkleStyle;
 }
 
-const generateSparkle = (color: string): Sparkle => {
+const generateSparkle = (color: string): SparkleBase => {
   return {
     id: String(random(10000, 99999)),
     createdAt: Date.now(),
