@@ -2,6 +2,7 @@ import Head from "next/head";
 import React, { FC } from "react";
 import HeroHeader from "../components/HeroHeader";
 import MainView from "../components/MainView";
+import CheckoutFormContainer from "../containers/CheckoutFormContainer";
 
 const Checkout: FC = () => (
   <>
@@ -10,7 +11,7 @@ const Checkout: FC = () => (
     </Head>
     <MainView>
       <HeroHeader heading="Checkout" />
-      Testing
+      <CheckoutFormContainer />
     </MainView>
   </>
 );
