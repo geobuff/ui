@@ -38,19 +38,14 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
 export interface Props {
   email?: string;
+  onSubmit?: (values: CheckoutFormSubmit) => void;
 }
 
-const CheckoutForm: FC<Props> = ({ email = "" }) => {
+const CheckoutForm: FC<Props> = ({
+  email = "",
+  onSubmit = (values: CheckoutFormSubmit): void => {},
+}) => {
   const router = useRouter();
-  const [isSubmitting, setIsSubmitting] = useState(false);
-
-  const onSubmit = (values: CheckoutFormSubmit): void => {
-    setIsSubmitting(true);
-    setTimeout(() => {
-      console.log(values);
-      setIsSubmitting(false);
-    }, 2000);
-  };
 
   return (
     <Flex
@@ -94,7 +89,7 @@ const CheckoutForm: FC<Props> = ({ email = "" }) => {
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {(): React.ReactNode => (
+          {({ dirty, isValid }): React.ReactNode => (
             <Form>
               <Flex direction="column" marginX={6}>
                 <Heading size="md" mt={6} mb={3}>
@@ -362,7 +357,7 @@ const CheckoutForm: FC<Props> = ({ email = "" }) => {
                       colorScheme="teal"
                       width="100%"
                       type="submit"
-                      isLoading={isSubmitting}
+                      disabled={!dirty || !isValid}
                     >
                       {"Continue To Payment"}
                     </Button>

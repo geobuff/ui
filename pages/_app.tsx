@@ -1,6 +1,8 @@
 import React, { useEffect, FC, useContext } from "react";
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
 import { ChakraProvider } from "@chakra-ui/react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -18,6 +20,8 @@ import {
   CurrentUserContextProvider,
 } from "../context/CurrentUserContext";
 import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -107,18 +111,20 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
         />
       </Head>
       <ChakraProvider theme={theme}>
-        <DndProvider
-          backend={isMobile ? TouchBackend : HTML5Backend}
-          options={{ delayTouchStart: 5, ignoreContextMenu: true }}
-        >
-          <AppContextProvider>
-            <CurrentUserContextProvider>
-              <ShoppingCartContextProvider>
-                <Component {...pageProps} />
-              </ShoppingCartContextProvider>
-            </CurrentUserContextProvider>
-          </AppContextProvider>
-        </DndProvider>
+        <Elements stripe={stripePromise}>
+          <DndProvider
+            backend={isMobile ? TouchBackend : HTML5Backend}
+            options={{ delayTouchStart: 5, ignoreContextMenu: true }}
+          >
+            <AppContextProvider>
+              <CurrentUserContextProvider>
+                <ShoppingCartContextProvider>
+                  <Component {...pageProps} />
+                </ShoppingCartContextProvider>
+              </CurrentUserContextProvider>
+            </AppContextProvider>
+          </DndProvider>
+        </Elements>
       </ChakraProvider>
     </>
   );
