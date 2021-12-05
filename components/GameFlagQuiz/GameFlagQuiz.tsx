@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Flex,
+  Text,
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -13,7 +14,6 @@ import {
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
-import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
@@ -332,20 +332,37 @@ const GameFlagQuiz: FC<Props> = ({
       <Flex flex={1} direction="column">
         <Flex height="100%" minHeight="100%" direction="column" flex={1}>
           {isMobile && (
-            <GameInputBanner
-              type={type}
-              maxScore={maxScore}
-              verb={verb}
-              time={time}
-              score={score}
-              errorMessage={errorMessage}
-              expiryTimestamp={{ seconds, minutes }}
-              hasError={hasError}
-              hasGameStarted={hasGameStarted}
-              hasGameStopped={hasGameStopped}
-              inputValue={inputValue}
-              onClearInput={onClearInput}
-            />
+            // <GameInputBanner
+            //   type={type}
+            //   maxScore={maxScore}
+            //   verb={verb}
+            //   time={time}
+            //   score={score}
+            //   errorMessage={errorMessage}
+            //   expiryTimestamp={{ seconds, minutes }}
+            //   hasError={hasError}
+            //   hasGameStarted={hasGameStarted}
+            //   hasGameStopped={hasGameStopped}
+            //   inputValue={inputValue}
+            //   onClearInput={onClearInput}
+            // />
+            <Button
+              colorScheme={hasGameStarted ? "red" : "green"}
+              isFullWidth
+              onClick={hasGameStarted ? handleGameStop : handleGameStart}
+              boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
+              padding={7}
+              borderRadius={0}
+              size="md"
+            >
+              <Text fontWeight="700" fontSize="22px">
+                {hasGameStarted
+                  ? "GIVE UP"
+                  : hasGameRunOnce
+                  ? "RETRY"
+                  : "START"}
+              </Text>
+            </Button>
           )}
 
           <Flex grow={1} direction="column">
@@ -436,15 +453,14 @@ const GameFlagQuiz: FC<Props> = ({
               name={name}
               hasGrouping={hasGrouping}
               hasFlags={hasFlags}
-              flagDragItems={flagDragItems}
               hasGameStarted={hasGameStarted}
               hasGameStopped={hasGameStopped}
-              hasGameRunOnce={hasGameRunOnce}
+              expiryTimestamp={{ minutes, seconds }}
+              timeRemaining={time}
+              flagDragItems={flagDragItems}
               onCheckSubmission={(submission): void =>
                 setCurrentSubmission(submission)
               }
-              onGameStart={handleGameStart}
-              onGameStop={handleGameStop}
             />
           )}
 

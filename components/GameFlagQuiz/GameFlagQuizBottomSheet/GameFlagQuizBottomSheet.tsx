@@ -7,11 +7,14 @@ import ResultsMap from "../../ResultsMap";
 import GameFlags from "../../GameFlags";
 import GameHeader from "../../GameHeader";
 
-import { FlagGameContext } from "../../../context/FlagGameContext";
+// import { FlagGameContext } from "../../../context/FlagGameContext";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
 import { ChevronUpIcon } from "@chakra-ui/icons";
+import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
+import GameInputBannerTimer from "../../GameInputBanner/GameInputBannerTimer";
+import GameInputCardTimer from "../../GameInputCard/GameInputCardTimer";
 
 interface Props {
   checkedSubmissions?: Mapping[];
@@ -20,14 +23,13 @@ interface Props {
   id?: number;
   name?: string;
   hasGrouping?: boolean;
+  hasGameStarted?: boolean;
+  hasGameStopped?: boolean;
   hasFlags?: boolean;
   flagDragItems?: string[];
-  hasGameStarted?: boolean;
-  hasGameRunOnce?: boolean;
-  hasGameStopped?: boolean;
+  timeRemaining?: number;
+  expiryTimestamp?: ExpiryTimestamp;
   onCheckSubmission?: (submission: string) => void;
-  onGameStop?: () => void;
-  onGameStart?: () => void;
 }
 
 const GameFlagQuizBottomSheet: FC<Props> = ({
@@ -37,32 +39,33 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
   id = 0,
   name = "",
   hasGrouping = false,
+  hasGameStarted = false,
+  hasGameStopped = false,
   hasFlags = false,
   flagDragItems = [],
-  hasGameStarted = false,
-  hasGameRunOnce = false,
-  hasGameStopped = false,
+  timeRemaining = 0,
+  expiryTimestamp = { minutes: 0, seconds: 0 },
   onCheckSubmission = (submission: string): void => {},
-  onGameStop = (): void => {},
-  onGameStart = (): void => {},
 }) => {
   const [showResultList, setShowResultsList] = useState(false);
 
-  const [dragStart, setDragStart] = useState(null);
-  const [dragEnd, setDragEnd] = useState(null);
-
-  const { isDragging } = useContext(FlagGameContext);
+  // const { isDragging } = useContext(FlagGameContext);
 
   const variants = {
     open: { top: "20%" },
     closed: { top: "calc(100% - 280px)" },
-    isDragging: { top: "calc(100% - 220px)" },
+    /**
+     * Pulls sheet down when dragging, may reintroduce later
+     * for smaller devices
+     */
+    // isDragging: { top: "calc(100% - 220px)" },
   };
 
   const getAnimationVariant = () => {
-    if (isDragging) {
-      return "isDragging";
-    }
+    // See comment in variants above
+    // if (isDragging) {
+    //   return "isDragging";
+    // }
 
     return showResultList ? "open" : "closed";
   };
@@ -88,6 +91,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
           transform={showResultList && "rotate(180deg)"}
           height={8}
           width={8}
+          color="gray.800"
         />
       </Flex>
       <Divider />
@@ -116,11 +120,20 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
       <Flex
         direction="column"
         backgroundColor="white"
-        p={4}
+        paddingX={4}
+        paddingY={2}
         borderTopRadius={12}
       >
+        <Flex alignItems="center" justifyContent="center" width="100%">
+          <GameInputCardTimer
+            shouldShowTitle={false}
+            expiryTimestamp={expiryTimestamp}
+            hasGameStarted={hasGameStarted}
+            hasGameStopped={hasGameStopped}
+            totalSeconds={timeRemaining}
+          />
+        </Flex>
         <GameHeader
-          mt={3}
           hasLeaderboard={hasLeaderboard}
           quizId={id}
           heading={name}
@@ -134,21 +147,6 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
                 codes={flagDragItems}
                 onCheckSubmission={onCheckSubmission}
               />
-              <Button
-                colorScheme={hasGameStarted ? "red" : "green"}
-                isFullWidth
-                onClick={hasGameStarted ? onGameStop : onGameStart}
-                p={7}
-                size="md"
-              >
-                <Text fontWeight="700" fontSize="22px">
-                  {hasGameStarted
-                    ? "GIVE UP"
-                    : hasGameRunOnce
-                    ? "RETRY"
-                    : "START"}
-                </Text>
-              </Button>
               {resultHeaderButton}
             </Fade>
           )}
