@@ -9,10 +9,14 @@ export interface TimerProps extends BoxProps {
   shouldShowTitle: boolean;
 }
 
-const Timer: FC<TimerProps> = ({ children = null, shouldShowTitle = true }) => (
-  <Box>
+const Timer: FC<TimerProps> = ({
+  children = null,
+  shouldShowTitle = true,
+  ...props
+}) => (
+  <Box {...props}>
     {shouldShowTitle && <Text fontWeight="bold">{"TIME REMAINING"}</Text>}
-    <Text fontWeight={800} fontSize="36px">
+    <Text fontWeight={800} fontSize={props?.fontSize || "36px"}>
       {children}
     </Text>
   </Box>
@@ -34,8 +38,6 @@ const GameInputCardTimer: FC<Props> = ({
   shouldShowTitle = true,
   ...props
 }) => {
-  console.log(expiryTimestamp, "expiryTimestamp");
-
   if (hasGameStopped) {
     return (
       <Timer shouldShowTitle={shouldShowTitle} {...props}>

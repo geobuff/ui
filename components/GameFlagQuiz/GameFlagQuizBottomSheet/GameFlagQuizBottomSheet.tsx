@@ -53,7 +53,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
 
   const variants = {
     open: { top: "20%" },
-    closed: { top: "calc(100% - 280px)" },
+    closed: { top: "calc(100% - 260px)" },
     /**
      * Pulls sheet down when dragging, may reintroduce later
      * for smaller devices
@@ -131,6 +131,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
             hasGameStarted={hasGameStarted}
             hasGameStopped={hasGameStopped}
             totalSeconds={timeRemaining}
+            fontSize="32px"
           />
         </Flex>
         <GameHeader
