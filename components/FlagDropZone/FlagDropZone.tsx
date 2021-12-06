@@ -41,6 +41,7 @@ const FlagDropZone: FC<Props> = ({
   onSkipQuestion = (): void => {},
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
+  const iconButtonSize = useBreakpointValue({ base: "xs", md: "sm" });
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.FLAG,
@@ -116,7 +117,7 @@ const FlagDropZone: FC<Props> = ({
         transition="200ms ease-in-out"
         marginY={5}
       >
-        <Box position="relative">
+        <Flex alignItems="center">
           <Text
             fontSize={{ base: "md", sm: "xl", md: "3xl" }}
             fontWeight="bold"
@@ -124,33 +125,30 @@ const FlagDropZone: FC<Props> = ({
           >
             {acceptedFlagName}
           </Text>
-          <Fade in={showSkipQuestion} unmountOnExit={!showSkipQuestion}>
-            <IconButton
-              position="absolute"
-              top={{ base: -1, lg: 8 }}
-              right={-9}
-              isDisabled={isSkipButtonDisabled}
-              borderRadius={50}
-              mt={{ base: "1px", lg: "5px" }}
-              variant="ghost"
-              aria-label="Skip Question"
-              color="white"
-              opacity={0.9}
-              size="sm"
-              transition="650ms ease-in-out"
-              onClick={onSkipQuestion}
-              _hover={{
+          <IconButton
+            isDisabled={isSkipButtonDisabled}
+            borderRadius={50}
+            mt={{ base: "2px", lg: "5px" }}
+            marginLeft={1}
+            variant="ghost"
+            aria-label="Skip Question"
+            color="white"
+            size={iconButtonSize}
+            transition="650ms ease-in-out"
+            onClick={onSkipQuestion}
+            _hover={
+              !isSkipButtonDisabled && {
                 backgroundColor: "#236175",
                 transform: "rotate(360deg)",
-              }}
-              icon={
-                <SolidRefresh mt="4px" ml="2.5px" height="18px" width="18px" />
               }
-            />
-          </Fade>
-        </Box>
+            }
+            icon={
+              <SolidRefresh mt="4px" ml="2.5px" height="18px" width="18px" />
+            }
+          />
+        </Flex>
 
-        {subtitle && (
+        {isMobile && subtitle && (
           <Text
             textAlign="center"
             color="white"
