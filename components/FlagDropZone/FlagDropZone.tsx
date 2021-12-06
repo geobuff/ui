@@ -21,6 +21,7 @@ interface CollectResult {
 
 interface Props {
   acceptedFlagName?: string;
+  subtitle?: string;
   hasGameStarted?: boolean;
   submissionCorrect?: boolean;
   submissionIncorrect?: boolean;
@@ -31,6 +32,7 @@ interface Props {
 
 const FlagDropZone: FC<Props> = ({
   acceptedFlagName = "",
+  subtitle,
   hasGameStarted = false,
   submissionCorrect = false,
   submissionIncorrect = false,
@@ -109,24 +111,23 @@ const FlagDropZone: FC<Props> = ({
 
       <Flex
         alignItems="center"
+        direction="column"
         opacity={hasGameStarted ? "1" : "0"}
         transition="200ms ease-in-out"
+        marginY={5}
       >
         <Box position="relative">
           <Text
             fontSize={{ base: "md", sm: "xl", md: "3xl" }}
-            lineHeight="2"
             fontWeight="bold"
-            marginY={5}
             color="#FFFFFF"
-            minHeight="40px"
           >
             {acceptedFlagName}
           </Text>
           <Fade in={showSkipQuestion} unmountOnExit={!showSkipQuestion}>
             <IconButton
               position="absolute"
-              top={{ base: 6, lg: 8 }}
+              top={{ base: -1, lg: 8 }}
               right={-9}
               isDisabled={isSkipButtonDisabled}
               borderRadius={50}
@@ -148,6 +149,18 @@ const FlagDropZone: FC<Props> = ({
             />
           </Fade>
         </Box>
+
+        {subtitle && (
+          <Text
+            textAlign="center"
+            color="white"
+            marginTop={1}
+            fontWeight="semibold"
+            fontSize="small"
+          >
+            {subtitle}
+          </Text>
+        )}
       </Flex>
     </Flex>
   );

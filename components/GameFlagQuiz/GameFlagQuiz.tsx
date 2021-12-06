@@ -419,9 +419,11 @@ const GameFlagQuiz: FC<Props> = ({
                   height="100%"
                   width="100%"
                   marginTop={10}
+                  justifyContent="center"
                 >
                   <FlagDropZone
                     acceptedFlagName={acceptedFlag?.svgName}
+                    subtitle={`${score} of ${maxScore} ${verb}`}
                     hasGameStarted={hasGameStarted}
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}
