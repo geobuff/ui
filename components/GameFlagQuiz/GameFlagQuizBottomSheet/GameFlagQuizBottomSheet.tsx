@@ -1,20 +1,27 @@
-import React, { useState, useEffect, useContext, FC } from "react";
+import React, { useState, FC } from "react";
 
-import { Box, Button, Divider, Fade, Flex, Text } from "@chakra-ui/react";
+import { Box, Divider, Fade, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 import ResultsMap from "../../ResultsMap";
 import GameFlags from "../../GameFlags";
 import GameHeader from "../../GameHeader";
 
-// import { FlagGameContext } from "../../../context/FlagGameContext";
-
 import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
 import { ChevronUpIcon } from "@chakra-ui/icons";
 import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
-import GameInputBannerTimer from "../../GameInputBanner/GameInputBannerTimer";
 import GameInputCardTimer from "../../GameInputCard/GameInputCardTimer";
+
+const motionDivStyles: Record<string, any> = {
+  backgroundColor: "white",
+  position: "fixed",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  borderTopRightRadius: 10,
+  borderTopLeftRadius: 10,
+};
 
 interface Props {
   checkedSubmissions?: Mapping[];
@@ -102,19 +109,11 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
     <motion.div
       animate={animate}
       variants={variants}
+      style={motionDivStyles}
       transition={{
         type: "spring",
         damping: 50,
         stiffness: 400,
-      }}
-      style={{
-        backgroundColor: "white",
-        position: "fixed",
-        bottom: 0,
-        left: 0,
-        right: 0,
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
       }}
     >
       <Flex
