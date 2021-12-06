@@ -1,6 +1,7 @@
 import React, { createContext, useState, FC } from "react";
 import axiosClient from "../../axios";
 import { CartItem } from "../../types/cart-item";
+import { CheckoutItem } from "../../types/checkout-payload";
 import { Discount } from "../../types/discount";
 
 export const ShoppingCartContext = createContext({
@@ -9,6 +10,7 @@ export const ShoppingCartContext = createContext({
   addToCart: (item: CartItem): void => {},
   updateQuantity: (id: number, size: string, value: number): void => {},
   removeItem: (id: number, size: string): void => {},
+  clearCart: (): void => {},
   getItemCount: (): number => 0,
   getTotal: (): number => 0,
   discountAmount: 0,
@@ -17,6 +19,9 @@ export const ShoppingCartContext = createContext({
   discountSuccess: "",
   discountError: "",
   applyDiscount: (code: string, merchIds: number[]): void => {},
+  toLineItems: (): CheckoutItem[] => {
+    return null;
+  },
 });
 
 export const ShoppingCartContextProvider: FC = ({ children = null }) => {
@@ -40,6 +45,10 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
 
   const updateCartLocalStorage = (cart: CartItem[]): void => {
     window.localStorage.setItem("geobuff.cart", JSON.stringify(cart));
+  };
+
+  const removeCartLocalStorage = (): void => {
+    window.localStorage.removeItem("geobuff.cart");
   };
 
   const updateDiscountLocalStorage = (code: string): void => {
@@ -88,6 +97,14 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     items.splice(index, 1);
     setCart(items);
     updateCartLocalStorage(items);
+    setIsLoading(false);
+  };
+
+  const clearCart = (): void => {
+    setIsLoading(true);
+    setCart(null);
+    removeCartLocalStorage();
+    removeDiscountLocalStorage();
     setIsLoading(false);
   };
 
@@ -147,6 +164,12 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     );
   });
 
+  const toLineItems = (): CheckoutItem[] => {
+    return cart.map((x) => {
+      return { id: x.id, size: x.size, quantity: x.quantity };
+    });
+  };
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -155,6 +178,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         addToCart,
         updateQuantity,
         removeItem,
+        clearCart,
         getItemCount,
         getTotal,
         discountAmount,
@@ -163,6 +187,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         discountSuccess,
         discountError,
         applyDiscount,
+        toLineItems,
       }}
     >
       {children}
