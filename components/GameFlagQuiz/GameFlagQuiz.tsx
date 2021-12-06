@@ -6,6 +6,7 @@ import {
   Box,
   Button,
   Flex,
+  Text,
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
@@ -13,7 +14,6 @@ import {
 import { useTimer } from "react-timer-hook";
 import { DateTime } from "luxon";
 
-import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
 import ResultsMap from "../ResultsMap";
@@ -35,6 +35,7 @@ import {
   getRandomCollectionItems,
   getRandomCollectionItem,
 } from "../../helpers/random";
+import GameBannerButton from "../GameBannerButton";
 
 const INCORRECT_ANSWER_THRESHOLD = 1;
 
@@ -332,19 +333,11 @@ const GameFlagQuiz: FC<Props> = ({
       <Flex flex={1} direction="column">
         <Flex height="100%" minHeight="100%" direction="column" flex={1}>
           {isMobile && (
-            <GameInputBanner
-              type={type}
-              maxScore={maxScore}
-              verb={verb}
-              time={time}
-              score={score}
-              errorMessage={errorMessage}
-              expiryTimestamp={{ seconds, minutes }}
-              hasError={hasError}
+            <GameBannerButton
+              hasGameRunOnce={hasGameRunOnce}
               hasGameStarted={hasGameStarted}
-              hasGameStopped={hasGameStopped}
-              inputValue={inputValue}
-              onClearInput={onClearInput}
+              onGameStart={handleGameStart}
+              onGameStop={handleGameStop}
             />
           )}
 
@@ -402,9 +395,11 @@ const GameFlagQuiz: FC<Props> = ({
                   height="100%"
                   width="100%"
                   marginTop={10}
+                  justifyContent="center"
                 >
                   <FlagDropZone
                     acceptedFlagName={acceptedFlag?.svgName}
+                    subtitle={`${score} of ${maxScore} ${verb}`}
                     hasGameStarted={hasGameStarted}
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}
@@ -436,15 +431,14 @@ const GameFlagQuiz: FC<Props> = ({
               name={name}
               hasGrouping={hasGrouping}
               hasFlags={hasFlags}
-              flagDragItems={flagDragItems}
               hasGameStarted={hasGameStarted}
               hasGameStopped={hasGameStopped}
-              hasGameRunOnce={hasGameRunOnce}
+              expiryTimestamp={{ minutes, seconds }}
+              timeRemaining={time}
+              flagDragItems={flagDragItems}
               onCheckSubmission={(submission): void =>
                 setCurrentSubmission(submission)
               }
-              onGameStart={handleGameStart}
-              onGameStop={handleGameStop}
             />
           )}
 

@@ -1,16 +1,27 @@
-import React, { useState, useEffect, useContext, FC } from "react";
+import React, { useState, FC } from "react";
 
-import { Box, Button, Fade, Flex, Text } from "@chakra-ui/react";
+import { Box, Divider, Fade, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
 import ResultsMap from "../../ResultsMap";
 import GameFlags from "../../GameFlags";
 import GameHeader from "../../GameHeader";
 
-import { FlagGameContext } from "../../../context/FlagGameContext";
-
 import { groupMapping } from "../../../helpers/mapping";
 import { Mapping } from "../../../types/mapping";
+import { ChevronUpIcon } from "@chakra-ui/icons";
+import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
+import GameInputCardTimer from "../../GameInputCard/GameInputCardTimer";
+
+const motionDivStyles: Record<string, any> = {
+  backgroundColor: "white",
+  position: "fixed",
+  bottom: 0,
+  left: 0,
+  right: 0,
+  borderTopRightRadius: 10,
+  borderTopLeftRadius: 10,
+};
 
 interface Props {
   checkedSubmissions?: Mapping[];
@@ -19,14 +30,13 @@ interface Props {
   id?: number;
   name?: string;
   hasGrouping?: boolean;
+  hasGameStarted?: boolean;
+  hasGameStopped?: boolean;
   hasFlags?: boolean;
   flagDragItems?: string[];
-  hasGameStarted?: boolean;
-  hasGameRunOnce?: boolean;
-  hasGameStopped?: boolean;
+  timeRemaining?: number;
+  expiryTimestamp?: ExpiryTimestamp;
   onCheckSubmission?: (submission: string) => void;
-  onGameStop?: () => void;
-  onGameStart?: () => void;
 }
 
 const GameFlagQuizBottomSheet: FC<Props> = ({
@@ -36,91 +46,94 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
   id = 0,
   name = "",
   hasGrouping = false,
+  hasGameStarted = false,
+  hasGameStopped = false,
   hasFlags = false,
   flagDragItems = [],
-  hasGameStarted = false,
-  hasGameRunOnce = false,
-  hasGameStopped = false,
+  timeRemaining = 0,
+  expiryTimestamp = { minutes: 0, seconds: 0 },
   onCheckSubmission = (submission: string): void => {},
-  onGameStop = (): void => {},
-  onGameStart = (): void => {},
 }) => {
   const [showResultList, setShowResultsList] = useState(false);
 
-  const [dragStart, setDragStart] = useState(null);
-  const [dragEnd, setDragEnd] = useState(null);
-
-  const { isDragging } = useContext(FlagGameContext);
+  // const { isDragging } = useContext(FlagGameContext);
 
   const variants = {
     open: { top: "20%" },
-    closed: { top: "calc(100% - 242px)" },
+    closed: { top: "calc(100% - 260px)" },
+    /**
+     * Pulls sheet down when dragging, may reintroduce later
+     * for smaller devices
+     */
+    // isDragging: { top: "calc(100% - 220px)" },
   };
 
-  useEffect(() => {
-    const dragDifference = dragEnd - dragStart;
-    const hitsOpenThreshold = dragDifference >= 15 && !showResultList;
-    const hitsCloseThreshold = dragEnd - dragStart >= 2 && showResultList;
+  const getAnimationVariant = () => {
+    // See comment in variants above
+    // if (isDragging) {
+    //   return "isDragging";
+    // }
 
-    if ((hitsOpenThreshold || hitsCloseThreshold) && !isDragging) {
-      setShowResultsList(!showResultList);
-    }
-  }, [dragEnd]);
-
-  const handleDrag = (info: PointerEvent): void => {
-    setDragStart(info.x);
+    return showResultList ? "open" : "closed";
   };
 
-  const handleDragEnd = (info: PointerEvent): void => {
-    setDragEnd(info.x);
-  };
+  const animate = getAnimationVariant();
 
-  const DragIndicator: FC = () => (
+  const resultHeaderButton = (
     <Box
-      margin="auto"
-      borderRadius={25}
-      height={"4.35px"}
-      width={8}
-      backgroundColor="#dddddd"
-      mb={1}
-      mt={-1}
-    />
+      marginTop={showResultList ? 4 : 3}
+      marginBottom={3}
+      onClick={() => setShowResultsList(!showResultList)}
+    >
+      <Divider />
+      <Flex alignItems="center" justifyContent="space-between">
+        <Text
+          margin={2}
+          fontSize={showResultList ? "large" : "medium"}
+          fontWeight="semibold"
+        >
+          {"Results"}
+        </Text>
+        <ChevronUpIcon
+          transform={showResultList && "rotate(180deg)"}
+          height={8}
+          width={8}
+          color="gray.800"
+        />
+      </Flex>
+      <Divider />
+    </Box>
   );
 
   return (
     <motion.div
-      animate={showResultList ? "open" : "closed"}
+      animate={animate}
       variants={variants}
-      // @ts-ignore
-      drag={isDragging ? "none" : "y"}
-      dragConstraints={{ bottom: 0, top: 0 }}
-      onDragStart={handleDrag}
-      onDragEnd={handleDragEnd}
+      style={motionDivStyles}
       transition={{
         type: "spring",
         damping: 50,
         stiffness: 400,
       }}
-      style={{
-        display: "inline-block",
-        backgroundColor: "white",
-        position: "fixed",
-        bottom: -1000,
-        left: 0,
-        right: 0,
-        borderTopRightRadius: 10,
-        borderTopLeftRadius: 10,
-      }}
     >
       <Flex
         direction="column"
         backgroundColor="white"
-        p={4}
+        paddingX={4}
+        paddingY={2}
         borderTopRadius={12}
       >
-        <DragIndicator />
+        <Flex alignItems="center" justifyContent="center" width="100%">
+          <GameInputCardTimer
+            shouldShowTitle={false}
+            expiryTimestamp={expiryTimestamp}
+            hasGameStarted={hasGameStarted}
+            hasGameStopped={hasGameStopped}
+            totalSeconds={timeRemaining}
+            fontSize="32px"
+          />
+        </Flex>
         <GameHeader
-          mt={3}
           hasLeaderboard={hasLeaderboard}
           quizId={id}
           heading={name}
@@ -134,38 +147,19 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
                 codes={flagDragItems}
                 onCheckSubmission={onCheckSubmission}
               />
-              <Button
-                colorScheme={hasGameStarted ? "red" : "green"}
-                isFullWidth
-                onClick={hasGameStarted ? onGameStop : onGameStart}
-                p={7}
-                size="md"
-              >
-                <Text fontWeight="700" fontSize="22px">
-                  {hasGameStarted
-                    ? "GIVE UP"
-                    : hasGameRunOnce
-                    ? "RETRY"
-                    : "START"}
-                </Text>
-              </Button>
-              <Box
-                marginTop={5}
-                marginLeft="-5"
-                marginRight="-5"
-                height="1000px"
-                backgroundColor="white"
-              />
+              {resultHeaderButton}
             </Fade>
           )}
 
           {showResultList && (
             <Fade in unmountOnExit>
+              {resultHeaderButton}
               <ResultsMap
                 checked={checkedSubmissions}
                 map={groupMapping(mapping)}
                 hasGameStopped={hasGameStopped}
                 hasGroupings={hasGrouping}
+                hasHeader={false}
                 hasFlags={hasFlags}
               />
             </Fade>
