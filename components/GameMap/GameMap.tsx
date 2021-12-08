@@ -1,4 +1,4 @@
-import React, { useState, FC } from "react";
+import React, { useState, FC, useMemo } from "react";
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
 
@@ -43,6 +43,10 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
     setTooltipOpen(false);
   };
 
+  const mapPaths = useMemo(() => {
+    return map;
+  }, [map]);
+
   return (
     <Box width="100%">
       <Box textAlign="center" height="100%">
@@ -56,7 +60,7 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
           >
             <GameMapInteraction>
               <SVGMap
-                map={map}
+                map={mapPaths}
                 mapStyle={mapStyle}
                 onPathMouseOver={mouseOver}
                 onPathMouseMove={mouseMove}
@@ -67,7 +71,7 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
         ) : (
           <GameMapInteraction>
             <SVGMap
-              map={map}
+              map={mapPaths}
               mapStyle={mapStyle}
               onPathMouseOver={mouseOver}
               onPathMouseMove={mouseMove}
