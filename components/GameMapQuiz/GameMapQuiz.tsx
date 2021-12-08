@@ -200,9 +200,9 @@ const GameMapQuiz: FC<Props> = ({
 
   const handleGameStop = (): void => {
     pause();
+    onOpen();
     setHasGameStarted(false);
     setHasGameStopped(true);
-    onOpen();
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
