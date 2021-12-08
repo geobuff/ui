@@ -134,7 +134,7 @@ const FlagDropZone: FC<Props> = ({
     >
       {isSmallMobile && titleAndScoreNode}
 
-      {hasGameStarted && !submissionCorrect && !submissionIncorrect && (
+      <Fade in={hasGameStarted && !submissionCorrect && !submissionIncorrect}>
         <Text
           color="#9FC7D9"
           fontWeight="medium"
@@ -143,7 +143,7 @@ const FlagDropZone: FC<Props> = ({
         >
           {canDrop && isOver ? "Release to drop..." : "Drag a flag here..."}
         </Text>
-      )}
+      </Fade>
     </Flex>
   );
 
