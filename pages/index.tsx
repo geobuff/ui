@@ -1,4 +1,5 @@
 import React, { useState, useCallback, FC, ChangeEvent } from "react";
+import type { AppProps } from "next/app";
 import { debounce } from "debounce";
 
 import {
@@ -14,12 +15,11 @@ import {
 import MainView from "../components/MainView";
 import HeroBanner from "../components/HeroBanner";
 
-import QuizListContainer from "../containers/QuizListContainer";
-
 import Search from "../Icons/Search";
 import SolidCloseCircle from "../Icons/SolidCloseCircle";
+import QuizList from "../components/QuizList";
 
-const Home: FC = () => {
+const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
   const [inputValue, setInputValue] = useState("");
 
@@ -39,6 +39,17 @@ const Home: FC = () => {
     setInputValue(value);
     handleDebounceChange(value);
   };
+
+  const getFilteredQuizzes = () => {
+    if (filter) {
+      return pageProps.quizzes.filter((quiz) =>
+        quiz.name.toLowerCase().includes(filter.toLocaleLowerCase())
+      );
+    }
+    return pageProps?.quizzes;
+  };
+
+  const filteredQuizzes = getFilteredQuizzes();
 
   return (
     <MainView>
@@ -99,9 +110,24 @@ const Home: FC = () => {
         </Box>
       </Box>
 
-      <QuizListContainer filter={filter} />
+      <QuizList quizzes={filteredQuizzes} />
     </MainView>
   );
 };
+
+export async function getStaticProps() {
+  const res = await fetch(`https://geobuff-dev.ts.r.appspot.com/api/quizzes`);
+  const quizzes = await res.json();
+
+  if (!quizzes) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { quizzes },
+  };
+}
 
 export default Home;

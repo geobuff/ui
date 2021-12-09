@@ -16,38 +16,38 @@ interface Props {
   quizzes?: Quiz[];
 }
 
-const QuizList: FC<Props> = ({ quizzes }) => (
-  <Box
-    width="100%"
-    maxWidth={1300}
-    marginTop="32px"
-    marginBottom={10}
-    marginLeft="auto"
-    marginRight="auto"
-    paddingX={{ base: 3, md: 10 }}
-    _hover={{
-      cursor: "pointer",
-    }}
-  >
-    {quizzes.length === 0 ? (
+const QuizList: FC<Props> = ({ quizzes = [] }) => {
+  if (!quizzes.length) {
+    return (
       <Alert status="info" borderRadius={6} p={5} mt={5}>
         <AlertIcon />
         {"No quizzes to display."}
       </Alert>
-    ) : (
+    );
+  }
+
+  return (
+    <Box
+      width="100%"
+      maxWidth={1300}
+      marginTop="32px"
+      marginBottom={10}
+      marginLeft="auto"
+      marginRight="auto"
+      paddingX={{ base: 3, md: 10 }}
+      _hover={{
+        cursor: "pointer",
+      }}
+    >
       <SimpleGrid
         justifyContent="center"
         minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
         spacing={{ base: "16px", md: "24px" }}
       >
-        {quizzes.map((quiz) => (
+        {quizzes?.map((quiz) => (
           <Link
             key={quiz.id}
-            href={
-              quiz.enabled
-                ? `/quiz/${quiz.name.replaceAll(" ", "-").toLowerCase()}`
-                : "/"
-            }
+            href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
           >
             <AspectRatio
               maxWidth="260px"
@@ -69,8 +69,8 @@ const QuizList: FC<Props> = ({ quizzes }) => (
           </Link>
         ))}
       </SimpleGrid>
-    )}
-  </Box>
-);
+    </Box>
+  );
+};
 
 export default QuizList;
