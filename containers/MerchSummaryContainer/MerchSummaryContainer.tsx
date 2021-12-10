@@ -30,12 +30,14 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
     setIsSubmitting(true);
 
     const item = merch.find((x) => x.id === id);
+    const size = item.sizes.find((x) => x.id === parseInt(values.size));
     addToCart({
       id: item.id,
       name: item.name,
       description: item.description,
       price: item.price.Float64,
-      size: item.sizes.find((x) => x.id === parseInt(values.size)).size,
+      sizeId: size.id,
+      sizeName: size.size,
       imageUrl: item.images.find((x) => x.isPrimary).imageUrl,
     });
 
