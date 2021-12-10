@@ -15,7 +15,7 @@ const Success: FC = () => {
     }, 2000);
 
     setTimeout(() => {
-      router.push("/");
+      router.push("/orders");
     }, 2000);
   }, [router]);
 

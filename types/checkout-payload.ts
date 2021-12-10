@@ -7,6 +7,7 @@ export interface CheckoutPayload {
 
 export interface CheckoutItem {
   id: number;
-  size: string;
+  sizeId: number;
+  sizeName: string;
   quantity: number;
 }

@@ -24,8 +24,8 @@ import PriceSummary from "./PriceSummary";
 
 export interface Props {
   cart?: CartItem[];
-  onUpdateQuantity?: (id: number, size: string, value: number) => void;
-  onRemoveItem?: (id: number, size: string) => void;
+  onUpdateQuantity?: (id: number, sizeId: number, value: number) => void;
+  onRemoveItem?: (id: number, sizeId: number) => void;
   onGetTotal?: () => number;
   discountAmount?: number;
   checkingDiscount?: boolean;
@@ -36,8 +36,8 @@ export interface Props {
 
 const ShoppingCart: FC<Props> = ({
   cart = [],
-  onUpdateQuantity = (id: number, size: string, value: number): void => {},
-  onRemoveItem = (id: number, size: string): void => {},
+  onUpdateQuantity = (id: number, sizeId: number, value: number): void => {},
+  onRemoveItem = (id: number, sizeId: number): void => {},
   onGetTotal = (): number => 0,
   discountAmount = 0,
   checkingDiscount = false,
@@ -94,7 +94,8 @@ const ShoppingCart: FC<Props> = ({
                     id={item.id}
                     imageUrl={item.imageUrl}
                     name={item.name}
-                    size={item.size}
+                    sizeId={item.sizeId}
+                    sizeName={item.sizeName}
                     price={item.price}
                     quantity={item.quantity}
                     onUpdateQuantity={onUpdateQuantity}

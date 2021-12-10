@@ -8,8 +8,8 @@ export const ShoppingCartContext = createContext({
   cart: [],
   isLoading: false,
   addToCart: (item: CartItem): void => {},
-  updateQuantity: (id: number, size: string, value: number): void => {},
-  removeItem: (id: number, size: string): void => {},
+  updateQuantity: (id: number, sizeId: number, value: number): void => {},
+  removeItem: (id: number, sizeId: number): void => {},
   clearCart: (): void => {},
   getItemCount: (): number => 0,
   getTotal: (): number => 0,
@@ -61,7 +61,9 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
 
   const addToCart = (item: CartItem): void => {
     setIsLoading(true);
-    const match = cart.find((x) => x.id === item.id && x.size === item.size);
+    const match = cart.find(
+      (x) => x.id === item.id && x.sizeId === item.sizeId
+    );
     if (match !== undefined) {
       const items = [...cart];
       const index = cart.indexOf(match);
@@ -78,9 +80,9 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     setIsLoading(false);
   };
 
-  const updateQuantity = (id: number, size: string, value: number): void => {
+  const updateQuantity = (id: number, sizeId: number, value: number): void => {
     setIsLoading(true);
-    const item = cart.find((x) => x.id === id && x.size === size);
+    const item = cart.find((x) => x.id === id && x.sizeId === sizeId);
     const index = cart.indexOf(item);
     const items = [...cart];
     items[index].quantity = value;
@@ -89,9 +91,9 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     setIsLoading(false);
   };
 
-  const removeItem = (id: number, size: string): void => {
+  const removeItem = (id: number, sizeId: number): void => {
     setIsLoading(true);
-    const item = cart.find((x) => x.id === id && x.size === size);
+    const item = cart.find((x) => x.id === id && x.sizeId === sizeId);
     const index = cart.indexOf(item);
     const items = [...cart];
     items.splice(index, 1);
@@ -166,7 +168,12 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
 
   const toLineItems = (): CheckoutItem[] => {
     return cart.map((x) => {
-      return { id: x.id, size: x.size, quantity: x.quantity };
+      return {
+        id: x.id,
+        sizeId: x.sizeId,
+        sizeName: x.sizeName,
+        quantity: x.quantity,
+      };
     });
   };
 
