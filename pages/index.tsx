@@ -116,7 +116,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch(`https://geobuff-dev.ts.r.appspot.com/api/quizzes`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes`);
   const quizzes = await res.json();
 
   if (!quizzes) {
