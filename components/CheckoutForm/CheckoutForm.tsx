@@ -38,11 +38,13 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
 export interface Props {
   email?: string;
+  isLoading?: boolean;
   onSubmit?: (values: CheckoutFormSubmit) => void;
 }
 
 const CheckoutForm: FC<Props> = ({
   email = "",
+  isLoading = false,
   onSubmit = (values: CheckoutFormSubmit): void => {},
 }) => {
   const router = useRouter();
@@ -357,7 +359,8 @@ const CheckoutForm: FC<Props> = ({
                       colorScheme="teal"
                       width="100%"
                       type="submit"
-                      disabled={!dirty || !isValid}
+                      isLoading={isLoading}
+                      disabled={!dirty || !isValid || isLoading}
                     >
                       {"Continue To Payment"}
                     </Button>

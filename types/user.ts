@@ -6,7 +6,6 @@ export interface User {
   countryCode: string;
   xp: number;
   isPremium?: boolean;
-  stripeSessionId?: string;
   picture?: string;
   avatarName?: string;
   avatarDescription?: string;

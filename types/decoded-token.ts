@@ -10,6 +10,5 @@ export interface DecodedToken {
   countryCode: string;
   xp: number;
   isPremium: boolean;
-  stripeSessionId: string;
   exp: number;
 }

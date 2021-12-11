@@ -1,5 +1,5 @@
 import { useStripe } from "@stripe/react-stripe-js";
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useState } from "react";
 import axiosClient from "../../axios";
 import CheckoutForm from "../../components/CheckoutForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
@@ -9,11 +9,13 @@ import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { CheckoutPayload } from "../../types/checkout-payload";
 
 const CheckoutFormContainer: FC = () => {
-  const { user, isLoading } = useContext(CurrentUserContext);
+  const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
   const { toLineItems } = useContext(ShoppingCartContext);
+  const [isLoading, setIsLoading] = useState(false);
   const stripe = useStripe();
 
   const handleSubmit = (values: CheckoutFormSubmit): void => {
+    setIsLoading(true);
     const payload: CheckoutPayload = {
       items: toLineItems(),
       customer: values,
@@ -28,11 +30,17 @@ const CheckoutFormContainer: FC = () => {
       });
   };
 
-  if (isLoading) {
+  if (isUserLoading) {
     return <CheckoutFormPlaceholder />;
   }
 
-  return <CheckoutForm email={user?.email} onSubmit={handleSubmit} />;
+  return (
+    <CheckoutForm
+      email={user?.email}
+      isLoading={isLoading}
+      onSubmit={handleSubmit}
+    />
+  );
 };
 
 export default CheckoutFormContainer;

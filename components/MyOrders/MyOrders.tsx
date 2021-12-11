@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Alert, AlertIcon, Box, Flex } from "@chakra-ui/react";
 import { Order } from "../../types/order";
 import Card from "../Card";
 import OrderItem from "../OrderTile";
@@ -19,11 +19,20 @@ const MyOrders: FC<Props> = ({ orders = [] }) => (
     width="100%"
   >
     <Card>
-      {orders.map((order, i) => (
-        <Box my={6} key={i}>
-          <OrderItem order={order} />
-        </Box>
-      ))}
+      {orders.length === 0 ? (
+        <Alert status="info" borderRadius={6}>
+          <AlertIcon />
+          No orders to display.
+        </Alert>
+      ) : (
+        <>
+          {orders.map((order, i) => (
+            <Box my={6} key={i}>
+              <OrderItem order={order} />
+            </Box>
+          ))}
+        </>
+      )}
     </Card>
   </Flex>
 );
