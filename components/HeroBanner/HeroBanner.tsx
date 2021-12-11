@@ -13,14 +13,16 @@ const actions: SubHeaderAction[] = [
     value: "compete with players from all over the globe!",
   },
   {
-    link: "/help-center#faq",
+    link: "/help-center?faqIndex=4",
     value: "collect GeoCoin each time you complete a quiz",
   },
   { link: "/merch", value: "cop an item from our summer collection" },
 ];
 
 const HeroBanner: FC = () => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = useState(
+    Math.floor(Math.random() * actions.length)
+  );
 
   setTimeout(() => {
     const update = index === actions.length - 1 ? 0 : index + 1;
