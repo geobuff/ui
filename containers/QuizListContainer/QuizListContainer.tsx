@@ -10,6 +10,10 @@ interface Props {
   filter?: string;
 }
 
+/**
+ * @deprecated this component is no longer used, but I think we
+ * should keep as it could be used somewhere else in future
+ */
 const QuizListContainer: FC<Props> = ({ filter = "" }) => {
   const { quizzes, isLoading } = useQuizzes(filter);
 

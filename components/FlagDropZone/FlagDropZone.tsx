@@ -13,6 +13,7 @@ import { DropTargetMonitor, useDrop } from "react-dnd";
 import { ItemTypes } from "../../types/item-types";
 import { DragResult } from "../../types/drag-result";
 import SolidRefresh from "../../Icons/SolidRefresh";
+import { use100vh } from "react-div-100vh";
 
 interface CollectResult {
   isOver: boolean;
@@ -21,6 +22,7 @@ interface CollectResult {
 
 interface Props {
   acceptedFlagName?: string;
+  subtitle?: string;
   hasGameStarted?: boolean;
   submissionCorrect?: boolean;
   submissionIncorrect?: boolean;
@@ -31,6 +33,7 @@ interface Props {
 
 const FlagDropZone: FC<Props> = ({
   acceptedFlagName = "",
+  subtitle,
   hasGameStarted = false,
   submissionCorrect = false,
   submissionIncorrect = false,
@@ -39,6 +42,11 @@ const FlagDropZone: FC<Props> = ({
   onSkipQuestion = (): void => {},
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
+  const iconButtonSize = useBreakpointValue({ base: "xs", md: "sm" });
+
+  const height = use100vh();
+
+  const isSmallMobile = isMobile && height <= 624;
 
   const [{ canDrop, isOver }, drop] = useDrop(() => ({
     accept: ItemTypes.FLAG,
@@ -49,9 +57,61 @@ const FlagDropZone: FC<Props> = ({
     }),
   }));
 
+  const titleAndScoreNode = (
+    <Flex
+      alignItems="center"
+      direction="column"
+      opacity={hasGameStarted ? "1" : "0"}
+      transition="200ms ease-in-out"
+      marginY={5}
+    >
+      <Flex alignItems="center">
+        <Text
+          fontSize={{ base: "md", sm: "xl", md: "3xl" }}
+          fontWeight="bold"
+          color="#FFFFFF"
+        >
+          {acceptedFlagName}
+        </Text>
+        <IconButton
+          isDisabled={isSkipButtonDisabled}
+          borderRadius={50}
+          mt={{ base: "2px", lg: "5px" }}
+          marginLeft={1}
+          variant="ghost"
+          aria-label="Skip Question"
+          color="white"
+          size={iconButtonSize}
+          transition="650ms ease-in-out"
+          onClick={onSkipQuestion}
+          _hover={
+            !isSkipButtonDisabled && {
+              backgroundColor: "#236175",
+              transform: "rotate(360deg)",
+            }
+          }
+          icon={<SolidRefresh mt="4px" ml="2.5px" height="18px" width="18px" />}
+        />
+      </Flex>
+
+      {isMobile && subtitle && (
+        <Text
+          textAlign="center"
+          color="white"
+          marginTop={1}
+          fontWeight="semibold"
+          fontSize="small"
+        >
+          {subtitle}
+        </Text>
+      )}
+    </Flex>
+  );
+
   const dropZoneNode = (
     <Flex
       flex={1}
+      direction="column"
       justifyContent="center"
       alignItems="center"
       ref={drop}
@@ -72,11 +132,18 @@ const FlagDropZone: FC<Props> = ({
           : "#236175"
       }
     >
-      {hasGameStarted && !submissionCorrect && !submissionIncorrect && (
-        <Text color="white">
+      {isSmallMobile && titleAndScoreNode}
+
+      <Fade in={hasGameStarted && !submissionCorrect && !submissionIncorrect}>
+        <Text
+          color="#9FC7D9"
+          fontWeight="medium"
+          fontSize="sm"
+          marginBottom={isSmallMobile ? 5 : 0}
+        >
           {canDrop && isOver ? "Release to drop..." : "Drag a flag here..."}
         </Text>
-      )}
+      </Fade>
     </Flex>
   );
 
@@ -106,49 +173,7 @@ const FlagDropZone: FC<Props> = ({
           {dropZoneNode}
         </AspectRatio>
       )}
-
-      <Flex
-        alignItems="center"
-        opacity={hasGameStarted ? "1" : "0"}
-        transition="200ms ease-in-out"
-      >
-        <Box position="relative">
-          <Text
-            fontSize={{ base: "md", sm: "xl", md: "3xl" }}
-            lineHeight="2"
-            fontWeight="bold"
-            marginY={5}
-            color="#FFFFFF"
-            minHeight="40px"
-          >
-            {acceptedFlagName}
-          </Text>
-          <Fade in={showSkipQuestion} unmountOnExit={!showSkipQuestion}>
-            <IconButton
-              position="absolute"
-              top={{ base: 6, lg: 8 }}
-              right={-9}
-              isDisabled={isSkipButtonDisabled}
-              borderRadius={50}
-              mt={{ base: "1px", lg: "5px" }}
-              variant="ghost"
-              aria-label="Skip Question"
-              color="white"
-              opacity={0.9}
-              size="sm"
-              transition="650ms ease-in-out"
-              onClick={onSkipQuestion}
-              _hover={{
-                backgroundColor: "#236175",
-                transform: "rotate(360deg)",
-              }}
-              icon={
-                <SolidRefresh mt="4px" ml="2.5px" height="18px" width="18px" />
-              }
-            />
-          </Fade>
-        </Box>
-      </Flex>
+      {!isSmallMobile && titleAndScoreNode}
     </Flex>
   );
 };

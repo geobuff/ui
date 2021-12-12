@@ -1,24 +1,33 @@
 import React, { FC } from "react";
-import { Box, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Text } from "@chakra-ui/react";
 
 import { toMinTwoDigits } from "../../../helpers/format-text";
 import { secondsToMinutesString } from "../../../helpers/time";
 import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
 
-const Timer: FC = ({ children = null }) => (
-  <Box>
-    <Text fontWeight="bold">{"TIME REMAINING"}</Text>
-    <Text fontWeight={800} fontSize="36px">
+export interface TimerProps extends BoxProps {
+  shouldShowTitle: boolean;
+}
+
+const Timer: FC<TimerProps> = ({
+  children = null,
+  shouldShowTitle = true,
+  ...props
+}) => (
+  <Box {...props}>
+    {shouldShowTitle && <Text fontWeight="bold">{"TIME REMAINING"}</Text>}
+    <Text fontWeight={800} fontSize={props?.fontSize || "36px"}>
       {children}
     </Text>
   </Box>
 );
 
-export interface Props {
+export interface Props extends BoxProps {
   totalSeconds?: number;
   expiryTimestamp?: ExpiryTimestamp;
   hasGameStarted: boolean;
   hasGameStopped: boolean;
+  shouldShowTitle?: boolean;
 }
 
 const GameInputCardTimer: FC<Props> = ({
@@ -26,10 +35,12 @@ const GameInputCardTimer: FC<Props> = ({
   expiryTimestamp = { minutes: 0, seconds: 0 },
   hasGameStarted = false,
   hasGameStopped = false,
+  shouldShowTitle = true,
+  ...props
 }) => {
   if (hasGameStopped) {
     return (
-      <Timer>
+      <Timer shouldShowTitle={shouldShowTitle} {...props}>
         {`${toMinTwoDigits(expiryTimestamp.minutes)}:${toMinTwoDigits(
           expiryTimestamp.seconds
         )}`}
@@ -38,13 +49,19 @@ const GameInputCardTimer: FC<Props> = ({
   }
 
   if (!hasGameStarted) {
-    return <Timer>{secondsToMinutesString(totalSeconds)}</Timer>;
+    return (
+      <Timer shouldShowTitle={shouldShowTitle} {...props}>
+        {secondsToMinutesString(totalSeconds)}
+      </Timer>
+    );
   }
 
   return (
-    <Timer>{`${toMinTwoDigits(expiryTimestamp.minutes)}:${toMinTwoDigits(
-      expiryTimestamp.seconds
-    )}`}</Timer>
+    <Timer shouldShowTitle={shouldShowTitle} {...props}>
+      {`${toMinTwoDigits(expiryTimestamp.minutes)}:${toMinTwoDigits(
+        expiryTimestamp.seconds
+      )}`}
+    </Timer>
   );
 };
 

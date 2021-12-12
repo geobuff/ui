@@ -1,14 +1,17 @@
 import React, { createContext, useState, FC } from "react";
 import axiosClient from "../../axios";
+import { toTwoDecimalPlaces } from "../../helpers/number";
 import { CartItem } from "../../types/cart-item";
+import { CheckoutItem } from "../../types/checkout-payload";
 import { Discount } from "../../types/discount";
 
 export const ShoppingCartContext = createContext({
   cart: [],
   isLoading: false,
   addToCart: (item: CartItem): void => {},
-  updateQuantity: (id: number, size: string, value: number): void => {},
-  removeItem: (id: number, size: string): void => {},
+  updateQuantity: (id: number, sizeId: number, value: number): void => {},
+  removeItem: (id: number, sizeId: number): void => {},
+  clearCart: (): void => {},
   getItemCount: (): number => 0,
   getTotal: (): number => 0,
   discountAmount: 0,
@@ -17,6 +20,9 @@ export const ShoppingCartContext = createContext({
   discountSuccess: "",
   discountError: "",
   applyDiscount: (code: string, merchIds: number[]): void => {},
+  toLineItems: (): CheckoutItem[] => {
+    return null;
+  },
 });
 
 export const ShoppingCartContextProvider: FC = ({ children = null }) => {
@@ -42,6 +48,10 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     window.localStorage.setItem("geobuff.cart", JSON.stringify(cart));
   };
 
+  const removeCartLocalStorage = (): void => {
+    window.localStorage.removeItem("geobuff.cart");
+  };
+
   const updateDiscountLocalStorage = (code: string): void => {
     window.localStorage.setItem("geobuff.discountCode", code);
   };
@@ -52,7 +62,9 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
 
   const addToCart = (item: CartItem): void => {
     setIsLoading(true);
-    const match = cart.find((x) => x.id === item.id && x.size === item.size);
+    const match = cart.find(
+      (x) => x.id === item.id && x.sizeId === item.sizeId
+    );
     if (match !== undefined) {
       const items = [...cart];
       const index = cart.indexOf(match);
@@ -69,9 +81,9 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     setIsLoading(false);
   };
 
-  const updateQuantity = (id: number, size: string, value: number): void => {
+  const updateQuantity = (id: number, sizeId: number, value: number): void => {
     setIsLoading(true);
-    const item = cart.find((x) => x.id === id && x.size === size);
+    const item = cart.find((x) => x.id === id && x.sizeId === sizeId);
     const index = cart.indexOf(item);
     const items = [...cart];
     items[index].quantity = value;
@@ -80,9 +92,9 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     setIsLoading(false);
   };
 
-  const removeItem = (id: number, size: string): void => {
+  const removeItem = (id: number, sizeId: number): void => {
     setIsLoading(true);
-    const item = cart.find((x) => x.id === id && x.size === size);
+    const item = cart.find((x) => x.id === id && x.sizeId === sizeId);
     const index = cart.indexOf(item);
     const items = [...cart];
     items.splice(index, 1);
@@ -91,11 +103,24 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     setIsLoading(false);
   };
 
+  const clearCart = (): void => {
+    setIsLoading(true);
+    setCart(null);
+    removeCartLocalStorage();
+    removeDiscountLocalStorage();
+    setIsLoading(false);
+  };
+
   const getItemCount = (): number =>
     cart.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
 
-  const getTotal = (): number =>
-    cart.reduce((prev, curr) => (prev += curr.quantity * curr.price), 0);
+  const getTotal = (): number => {
+    const result = cart.reduce(
+      (prev, curr) => (prev += curr.quantity * curr.price),
+      0
+    );
+    return toTwoDecimalPlaces(result);
+  };
 
   const applyDiscount = (code: string, merchIds: number[]): void => {
     setCheckingDiscount(true);
@@ -147,6 +172,17 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     );
   });
 
+  const toLineItems = (): CheckoutItem[] => {
+    return cart.map((x) => {
+      return {
+        id: x.id,
+        sizeId: x.sizeId,
+        sizeName: x.sizeName,
+        quantity: x.quantity,
+      };
+    });
+  };
+
   return (
     <ShoppingCartContext.Provider
       value={{
@@ -155,6 +191,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         addToCart,
         updateQuantity,
         removeItem,
+        clearCart,
         getItemCount,
         getTotal,
         discountAmount,
@@ -163,6 +200,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         discountSuccess,
         discountError,
         applyDiscount,
+        toLineItems,
       }}
     >
       {children}

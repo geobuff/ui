@@ -14,27 +14,30 @@ import {
 
 import Image from "../../Image";
 import TableCell from "../../TableCell";
+import { toTwoDecimalPlaces } from "../../../helpers/number";
 
 export interface Props {
   id?: number;
   imageUrl?: string;
   name?: string;
-  size?: string;
+  sizeId?: number;
+  sizeName?: string;
   price?: number;
   quantity?: number;
-  onUpdateQuantity?: (id: number, size: string, value: number) => void;
-  onRemoveItem?: (id: number, size: string) => void;
+  onUpdateQuantity?: (id: number, sizeId: number, value: number) => void;
+  onRemoveItem?: (id: number, sizeId: number) => void;
 }
 
 const ShoppingCartItem: FC<Props> = ({
   id = 0,
   imageUrl = "",
   name = "",
-  size = "",
+  sizeId = 0,
+  sizeName = "",
   price = 0,
   quantity = 0,
-  onUpdateQuantity = (id: number, size: string, value: number): void => {},
-  onRemoveItem = (id: number, size: string): void => {},
+  onUpdateQuantity = (id: number, sizeId: number, value: number): void => {},
+  onRemoveItem = (id: number, sizeId: number): void => {},
 }) => (
   <>
     <TableCell paddingY={3} paddingX={6} minWidth="400px">
@@ -49,7 +52,7 @@ const ShoppingCartItem: FC<Props> = ({
               mr={6}
             />
             <Flex direction="column" justifyContent="center">
-              <Text>{`${name} - ${size}`}</Text>
+              <Text>{`${name} - ${sizeName}`}</Text>
             </Flex>
           </Flex>
         </ChakraLink>
@@ -65,7 +68,7 @@ const ShoppingCartItem: FC<Props> = ({
           min={1}
           max={5}
           onChange={(value: string): void =>
-            onUpdateQuantity(id, size, parseInt(value))
+            onUpdateQuantity(id, sizeId, parseInt(value))
           }
           maxWidth="75px"
         >
@@ -78,11 +81,14 @@ const ShoppingCartItem: FC<Props> = ({
       </Flex>
     </TableCell>
     <TableCell isNumeric paddingY={3} paddingX={6}>
-      {`$${price * quantity}`}
+      {`$${toTwoDecimalPlaces(price * quantity)}`}
     </TableCell>
     <TableCell>
       <Flex justifyContent="center">
-        <Button colorScheme="red" onClick={(): void => onRemoveItem(id, size)}>
+        <Button
+          colorScheme="red"
+          onClick={(): void => onRemoveItem(id, sizeId)}
+        >
           Remove
         </Button>
       </Flex>

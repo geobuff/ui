@@ -92,6 +92,7 @@ const GameInputBanner: FC<Props> = ({
       ) : (
         <Box textAlign="center" mr={3}>
           <GameInputBannerTimer
+            fontSize={isFlagGame ? "24px" : "32px"}
             expiryTimestamp={expiryTimestamp}
             hasGameStarted={hasGameStarted}
             hasGameStopped={hasGameStopped}

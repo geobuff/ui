@@ -16,6 +16,7 @@ const ROW_HEIGHT = 28;
 export interface Props {
   map?: ResultMap;
   checked?: Mapping[];
+  hasHeader?: boolean;
   hasGameStopped?: boolean;
   hasGroupings?: boolean;
   hasFlags?: boolean;
@@ -24,6 +25,7 @@ export interface Props {
 const ResultsMap: FC<Props> = ({
   map = {},
   checked = [],
+  hasHeader = true,
   hasGameStopped = false,
   hasGroupings = false,
   hasFlags = false,
@@ -75,11 +77,16 @@ const ResultsMap: FC<Props> = ({
 
   return (
     <Box textAlign="left" height="100%">
-      <Divider my={3} />
-      <Text fontSize="xl" fontWeight="bold">
-        {"Results"}
-      </Text>
-      <Divider my={3} />
+      {hasHeader && (
+        <>
+          <Divider my={3} />
+          <Text fontSize="xl" fontWeight="bold">
+            {"Results"}
+          </Text>
+          <Divider my={3} />
+        </>
+      )}
+
       <Flex
         direction="column"
         height={{ base: "100%", sm: "75%" }}

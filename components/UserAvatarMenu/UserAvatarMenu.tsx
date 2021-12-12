@@ -125,6 +125,9 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
           <MenuItem onClick={(): Promise<boolean> => router.push("/profile")}>
             {"Profile"}
           </MenuItem>
+          <MenuItem onClick={(): Promise<boolean> => router.push("/orders")}>
+            {"My Orders"}
+          </MenuItem>
           <MenuDivider />
           <MenuItem onClick={logout}>{"Logout"}</MenuItem>
         </MenuList>
