@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Text, Tag, Flex, SimpleGrid, FlexProps } from "@chakra-ui/react";
+import { Text, Tag, Flex, SimpleGrid } from "@chakra-ui/react";
 import { Order } from "../../types/order";
 import OrderTileItem from "./OrderTileItem";
 

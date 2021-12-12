@@ -39,9 +39,7 @@ const PriceSummary: FC<Props> = ({
           )}
           <Flex justifyContent="space-between" fontWeight="bold">
             <Text>Total:</Text>
-            <Text>{`$${
-              Math.round((onGetTotal() + shippingPrice - discount) * 100) / 100
-            }`}</Text>
+            <Text>{`$${onGetTotal() + shippingPrice - discount}`}</Text>
           </Flex>
         </Stack>
         <Button colorScheme="teal" onClick={() => router.push("/checkout")}>

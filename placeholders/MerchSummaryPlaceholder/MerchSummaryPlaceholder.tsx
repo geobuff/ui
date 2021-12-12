@@ -13,7 +13,7 @@ interface Props {
   imageCount?: number;
 }
 
-const MerchSummaryPlaceholder: FC<Props> = ({ imageCount = 3 }) => (
+const MerchSummaryPlaceholder: FC<Props> = ({ imageCount = 2 }) => (
   <Flex
     direction={{ base: "column", lg: "row" }}
     width="100%"
