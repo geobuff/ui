@@ -1,5 +1,6 @@
 import React, { createContext, useState, FC } from "react";
 import axiosClient from "../../axios";
+import { toTwoDecimalPlaces } from "../../helpers/number";
 import { CartItem } from "../../types/cart-item";
 import { CheckoutItem } from "../../types/checkout-payload";
 import { Discount } from "../../types/discount";
@@ -113,8 +114,13 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
   const getItemCount = (): number =>
     cart.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
 
-  const getTotal = (): number =>
-    cart.reduce((prev, curr) => (prev += curr.quantity * curr.price), 0);
+  const getTotal = (): number => {
+    const result = cart.reduce(
+      (prev, curr) => (prev += curr.quantity * curr.price),
+      0
+    );
+    return toTwoDecimalPlaces(result);
+  };
 
   const applyDiscount = (code: string, merchIds: number[]): void => {
     setCheckingDiscount(true);

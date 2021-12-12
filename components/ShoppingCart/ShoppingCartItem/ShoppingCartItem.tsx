@@ -14,6 +14,7 @@ import {
 
 import Image from "../../Image";
 import TableCell from "../../TableCell";
+import { toTwoDecimalPlaces } from "../../../helpers/number";
 
 export interface Props {
   id?: number;
@@ -80,7 +81,7 @@ const ShoppingCartItem: FC<Props> = ({
       </Flex>
     </TableCell>
     <TableCell isNumeric paddingY={3} paddingX={6}>
-      {`$${price * quantity}`}
+      {`$${toTwoDecimalPlaces(price * quantity)}`}
     </TableCell>
     <TableCell>
       <Flex justifyContent="center">
