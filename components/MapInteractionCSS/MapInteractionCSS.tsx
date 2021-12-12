@@ -96,6 +96,7 @@ const MapInteractionCSS: FC<BoxProps> = ({ children = null, ...props }) => {
               style={{
                 height: "100%",
                 width: "100%",
+                borderRadius: "12px",
                 position: "relative",
                 overflow: "hidden",
                 touchAction: "none",

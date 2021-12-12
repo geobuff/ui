@@ -13,8 +13,12 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-const FAQSection: FC = () => (
-  <Accordion allowMultiple>
+interface Props {
+  index?: string;
+}
+
+const FAQSection: FC<Props> = ({ index = "" }) => (
+  <Accordion defaultIndex={index ? [parseInt(index)] : []} allowMultiple>
     <AccordionItem>
       <h2>
         <AccordionButton>

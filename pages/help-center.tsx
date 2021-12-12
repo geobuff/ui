@@ -16,8 +16,12 @@ import MainView from "../components/MainView";
 import HeroHeader from "../components/HeroHeader";
 import FAQSection from "../components/FAQSection";
 import SupportFormContainer from "../containers/SupportFormContainer";
+import { useRouter } from "next/router";
 
 const HelpCenter: FC = () => {
+  const router = useRouter();
+  const { faqIndex } = router.query;
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [submitted, setSubmitted] = useState(false);
 
@@ -63,7 +67,7 @@ const HelpCenter: FC = () => {
             </Text>
           </Link>
           <Divider mb={12} />
-          <FAQSection />
+          <FAQSection index={faqIndex as string} />
         </Flex>
       </Box>
     </MainView>

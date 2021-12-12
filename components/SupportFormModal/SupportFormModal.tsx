@@ -91,6 +91,7 @@ const SupportFormModal: FC<Props> = ({
                           borderRadius={6}
                           _placeholder={{ color: "gray.500" }}
                           _hover={{ background: "#e0e0e0" }}
+                          disabled={!!from}
                         />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
