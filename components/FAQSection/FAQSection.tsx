@@ -33,11 +33,7 @@ const FAQSection: FC<Props> = ({ index = "" }) => (
           <ListItem>Ensure you are logged in.</ListItem>
           <ListItem>
             Navigate to your user profile by using the navigation drop down and
-            selecting profile (or{" "}
-            <Link href="/profile">
-              <ChakraLink>click here</ChakraLink>
-            </Link>
-            ).
+            selecting profile.
           </ListItem>
           <ListItem>
             Select the pencil icon at the top right of the first tile.

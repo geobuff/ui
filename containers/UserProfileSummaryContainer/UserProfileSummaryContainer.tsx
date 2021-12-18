@@ -1,26 +1,32 @@
-import React, { useEffect, useState, FC, useContext } from "react";
+import React, { useEffect, useState, FC } from "react";
 
 import UserProfileSummary from "../../components/UserProfileSummary";
 import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { User } from "../../types/user";
 
-const UserProfileSummaryContainer: FC = () => {
-  const { user } = useContext(CurrentUserContext);
+interface Props {
+  isCurrentUser?: boolean;
+  user?: User;
+}
 
+const UserProfileSummaryContainer: FC<Props> = ({
+  isCurrentUser = false,
+  user = null,
+}) => {
   const [isLoading, setIsLoading] = useState(true);
 
   // Fix issue where user does not load in time
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 50);
+    }, 200);
   });
 
   if (isLoading) {
     return <UserProfileSummaryPlaceholder />;
   }
 
-  return <UserProfileSummary {...user} />;
+  return <UserProfileSummary isCurrentUser={isCurrentUser} {...user} />;
 };
 
 export default UserProfileSummaryContainer;
