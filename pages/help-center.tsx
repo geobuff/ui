@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
 import {
@@ -20,10 +20,17 @@ import { useRouter } from "next/router";
 
 const HelpCenter: FC = () => {
   const router = useRouter();
-  const { faqIndex } = router.query;
-
+  const [faqIndex, setFaqIndex] = useState("");
+  const [isLoading, setIsLoading] = useState(true);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [submitted, setSubmitted] = useState(false);
+
+  useEffect(() => {
+    if (router.asPath !== router.route) {
+      setFaqIndex(router.query.faqIndex as string);
+      setIsLoading(false);
+    }
+  }, [router]);
 
   return (
     <MainView>
@@ -67,7 +74,7 @@ const HelpCenter: FC = () => {
             </Text>
           </Link>
           <Divider mb={12} />
-          <FAQSection index={faqIndex as string} />
+          {isLoading ? null : <FAQSection index={faqIndex} />}
         </Flex>
       </Box>
     </MainView>

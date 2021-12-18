@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC, MutableRefObject, useContext, useEffect } from "react";
 import { Box, BoxProps, Flex } from "@chakra-ui/react";
 
 import { FooterVariant } from "../../types/footer-variant";
@@ -14,6 +14,7 @@ interface Props extends BoxProps {
   footerVariant?: FooterVariant;
   hasNavigationBar?: boolean;
   hasFooter?: boolean;
+  innerRef?: MutableRefObject<any>;
 }
 
 const MainView: FC<Props> = ({
@@ -21,6 +22,7 @@ const MainView: FC<Props> = ({
   footerVariant = FooterVariant.EXTENDED,
   hasNavigationBar = true,
   hasFooter = true,
+  innerRef = null,
   ...props
 }) => {
   const height = use100vh();
@@ -33,9 +35,16 @@ const MainView: FC<Props> = ({
     rotationAngle: 0,
   });
 
+  useEffect(() => {
+    if (innerRef) {
+      innerRef.current.scrollIntoView();
+    }
+  }, [innerRef]);
+
   return (
     <>
       <Flex
+        ref={innerRef}
         as="main"
         direction="column"
         minHeight={height}
