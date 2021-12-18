@@ -10,7 +10,7 @@ export interface Props {
 
 const PriceSummary: FC<Props> = ({
   discount = 0,
-  shippingPrice = 5,
+  shippingPrice = 4.99,
   onGetTotal = (): number => 0,
 }) => {
   const router = useRouter();
