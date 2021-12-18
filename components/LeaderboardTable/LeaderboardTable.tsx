@@ -1,4 +1,5 @@
 import React, { FC, useContext } from "react";
+import Link from "next/link";
 import flag from "country-code-emoji";
 import { getFlagUrl } from "@geobuff/flags";
 
@@ -14,6 +15,7 @@ import {
   Tr,
   Th,
   Tbody,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 
 import LeaderTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
@@ -62,6 +64,7 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
 
   const getTextNodeByRank = (
     rank: number,
+    userId: number,
     username: string,
     countryCode: string
   ): React.ReactNode => {
@@ -78,7 +81,11 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
             <Twemoji emoji={flag(countryCode)} />
           )}
         </Box>
-        <Text fontWeight="bold">{username}</Text>
+        <Link href={`/profile/${userId}`}>
+          <ChakraLink>
+            <Text fontWeight="bold">{username}</Text>
+          </ChakraLink>
+        </Link>
         {username === user?.username && (
           <Text ml={2} fontWeight={600} color="gray.500">
             {"(You)"}
@@ -119,6 +126,7 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
               <TableCell paddingY={3} paddingX={6} minWidth="200px">
                 {getTextNodeByRank(
                   entry.rank,
+                  entry.userId,
                   entry.username,
                   entry.countryCode
                 )}

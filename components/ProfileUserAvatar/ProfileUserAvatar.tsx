@@ -10,6 +10,7 @@ export interface Props extends BoxProps {
   onClick?: MouseEventHandler<HTMLDivElement>;
   shape?: "circle" | "square";
   hasBorder?: boolean;
+  isClickable?: boolean;
 }
 
 const ProfileUserAvatar: FC<Props> = ({
@@ -21,6 +22,7 @@ const ProfileUserAvatar: FC<Props> = ({
   width = 130,
   shape = "circle",
   hasBorder = true,
+  isClickable = true,
   ...props
 }) => {
   const [shouldShowSecondary, setShouldShowSecondary] = useState(false);
@@ -39,7 +41,7 @@ const ProfileUserAvatar: FC<Props> = ({
       marginBottom={2}
       overflow="hidden"
       marginX="auto"
-      cursor="pointer"
+      cursor={isClickable && "pointer"}
       onMouseEnter={(): void => setShouldShowSecondary(true)}
       onMouseOut={(): void => setShouldShowSecondary(false)}
       zIndex={2}
