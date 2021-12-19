@@ -37,7 +37,7 @@ interface Props {
   email?: string;
   countryCode?: string;
   xp?: number;
-  joined?: Date;
+  joined?: string;
   avatarName?: string;
   avatarPrimaryImageUrl?: string;
   avatarSecondaryImageUrl?: string;
@@ -49,7 +49,7 @@ const UserProfileSummary: FC<Props> = ({
   email = "",
   countryCode = "",
   xp = 0,
-  joined = new Date(),
+  joined = "",
   avatarName = "",
   avatarPrimaryImageUrl = "",
   avatarSecondaryImageUrl = "",
@@ -160,7 +160,7 @@ const UserProfileSummary: FC<Props> = ({
               <Text
                 color="gray.500"
                 fontWeight={600}
-              >{`Member since ${DateTime.fromObject(joined).toLocaleString(
+              >{`Member since ${DateTime.fromISO(joined).toLocaleString(
                 DateTime.DATE_MED
               )}`}</Text>
             </Flex>
