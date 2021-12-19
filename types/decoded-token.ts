@@ -10,5 +10,6 @@ export interface DecodedToken {
   countryCode: string;
   xp: number;
   isPremium: boolean;
+  joined: Date;
   exp: number;
 }

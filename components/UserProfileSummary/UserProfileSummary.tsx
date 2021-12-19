@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { getFlagUrl } from "@geobuff/flags";
+import { DateTime } from "luxon";
 import flag from "country-code-emoji";
+
 import {
   Box,
   Heading,
@@ -35,6 +37,7 @@ interface Props {
   email?: string;
   countryCode?: string;
   xp?: number;
+  joined?: Date;
   avatarName?: string;
   avatarPrimaryImageUrl?: string;
   avatarSecondaryImageUrl?: string;
@@ -46,6 +49,7 @@ const UserProfileSummary: FC<Props> = ({
   email = "",
   countryCode = "",
   xp = 0,
+  joined = new Date(),
   avatarName = "",
   avatarPrimaryImageUrl = "",
   avatarSecondaryImageUrl = "",
@@ -146,6 +150,19 @@ const UserProfileSummary: FC<Props> = ({
                   </Flex>
                 </Tooltip>
               )}
+            </Flex>
+            <Flex
+              width="100%"
+              justifyContent="center"
+              alignItems="center"
+              marginY={2}
+            >
+              <Text
+                color="gray.500"
+                fontWeight={600}
+              >{`Member since ${DateTime.fromObject(joined).toLocaleString(
+                DateTime.DATE_MED
+              )}`}</Text>
             </Flex>
           </Box>
         </Box>

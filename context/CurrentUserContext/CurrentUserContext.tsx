@@ -52,6 +52,7 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
       xp: parseInt(window.localStorage.getItem("geobuff.xp")),
       isPremium: window.localStorage.getItem("geobuff.isPremium") === "true",
       token: window.localStorage.getItem("geobuff.token"),
+      joined: new Date(window.localStorage.getItem("geobuff.joined")),
     };
   });
 
