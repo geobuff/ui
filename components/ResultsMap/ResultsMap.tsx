@@ -39,7 +39,7 @@ const ResultsMap: FC<Props> = ({
     [map, checked, hasGameStopped]
   );
 
-  const resultRows = results[0].data;
+  const resultRows = results[0]?.data;
 
   const renderHeader = ({ title, key, style }): React.ReactNode => (
     <Box key={key} style={style}>
