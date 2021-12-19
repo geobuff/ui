@@ -64,6 +64,7 @@ const RegisterContainer: FC = () => {
           countryCode: decoded.countryCode,
           xp: decoded.xp,
           isPremium: decoded.isPremium,
+          joined: decoded.joined,
           token: response?.data,
         });
 

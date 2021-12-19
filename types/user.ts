@@ -12,4 +12,5 @@ export interface User {
   avatarPrimaryImageUrl?: string;
   avatarSecondaryImageUrl?: string;
   token?: string;
+  joined?: string;
 }
