@@ -2,25 +2,13 @@ import React, { useEffect, FC, useContext } from "react";
 import { useRouter } from "next/router";
 import * as Maps from "@geobuff/svg-maps";
 
-import useQuizzes from "../../hooks/UseQuizzes";
-import GameMapQuizContainer from "../../containers/GameMapQuizContainer";
-import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
 import MainView from "../../components/MainView";
 
 import { QuizType } from "../../types/quiz-type";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import { useUserAgent } from "next-useragent";
 import GameMapQuiz from "../../components/GameMapQuiz";
 import GameFlagQuiz from "../../components/GameFlagQuiz";
 import { FlagGameContextProvider } from "../../context/FlagGameContext";
-
-interface ServerSideProps {
-  props: {
-    uaString: string;
-  };
-}
-
-type Context = { [x: string]: any };
 
 interface Props {
   [x: string]: any;
@@ -29,28 +17,15 @@ interface Props {
 const Quiz: FC<Props> = ({ ...pageProps }) => {
   const quiz = pageProps.pageProps.quiz;
   const mapping = pageProps.pageProps.mapping;
-  // console.log(quiz, "quiz:pageProps");
-  // console.log(mapping, "quiz:mapping");
 
-  const nextUserAgent = useUserAgent(pageProps?.uaString);
-  // const { quizzes, isLoading } = useQuizzes();
   const router = useRouter();
-  const { id } = router.query;
 
   const {
     user,
     isLoading: isUserLoading,
     clearUser,
     tokenExpired,
-    userAgent: contextUserAgent,
-    updateUserAgent,
   } = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    if (!contextUserAgent && nextUserAgent) {
-      updateUserAgent(nextUserAgent);
-    }
-  }, [updateUserAgent, nextUserAgent, contextUserAgent]);
 
   useEffect(() => {
     if (!isUserLoading && user && tokenExpired(user.token)) {
@@ -58,10 +33,6 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
       router.push("/login");
     }
   }, [isUserLoading, user, tokenExpired, clearUser, router]);
-
-  // if (isLoading) {
-  //   return null;
-  // }
 
   const getQuizComponent = (): React.ReactNode => {
     switch (quiz.type) {
@@ -74,8 +45,8 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
             maxScore={quiz?.maxScore}
             verb={quiz?.verb}
             route={quiz?.route}
-            id={quiz?.id || "1"}
-            mapping={mapping || []}
+            id={quiz?.id}
+            mapping={mapping}
             map={Maps[`${quiz.mapSVG}`]}
             hasLeaderboard={quiz?.hasLeaderboard}
             hasFlags={quiz?.hasFlags}
@@ -115,8 +86,6 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
 export async function getStaticProps({ params }) {
   const { id } = params;
 
-  // console.log(id, "params");
-
   const quizzesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes`);
   const quizzes = await quizzesRes.json();
 
@@ -134,7 +103,17 @@ export async function getStaticProps({ params }) {
     const mapping = await mappingRes.json();
 
     return {
-      props: { quiz, mapping },
+      props: {
+        quiz,
+        mapping:
+          mapping?.map((mapping) => ({
+            ...mapping,
+            alternativeNames: mapping.alternativeNames.map((altName) =>
+              altName.toLowerCase()
+            ),
+            prefixes: mapping.prefixes.map((prefix) => prefix.toLowerCase()),
+          })) || [],
+      },
     };
   }
 
