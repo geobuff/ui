@@ -1,47 +1,64 @@
 import React, { useEffect, FC, useContext } from "react";
 import { useRouter } from "next/router";
+import * as Maps from "@geobuff/svg-maps";
 
-import useQuizzes from "../../hooks/UseQuizzes";
-import GameMapQuizContainer from "../../containers/GameMapQuizContainer";
-import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
 import MainView from "../../components/MainView";
 
 import { QuizType } from "../../types/quiz-type";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import { useUserAgent } from "next-useragent";
+import GameMapQuiz from "../../components/GameMapQuiz";
+import GameFlagQuiz from "../../components/GameFlagQuiz";
+import { FlagGameContextProvider } from "../../context/FlagGameContext";
 
-interface ServerSideProps {
-  props: {
-    uaString: string;
-  };
-}
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
-type Context = { [x: string]: any };
+const getQuizData = async (id: string) => {
+  const quizzesRes = await fetch(`${baseUrl}/quizzes`);
+  const quizzes = await quizzesRes.json();
+
+  const matchedQuiz = quizzes.find((x) => x.route === id);
+
+  if (matchedQuiz) {
+    const quizRes = await fetch(`${baseUrl}/quizzes/${matchedQuiz.id}`);
+    const mappingRes = await fetch(
+      `${baseUrl}/mappings/${matchedQuiz.apiPath}`
+    );
+
+    const quiz = await quizRes.json();
+    const mapping = await mappingRes.json();
+
+    return {
+      quiz,
+      mapping:
+        mapping?.map((mapping) => ({
+          ...mapping,
+          alternativeNames: mapping.alternativeNames.map((altName) =>
+            altName.toLowerCase()
+          ),
+          prefixes: mapping.prefixes.map((prefix) => prefix.toLowerCase()),
+        })) || [],
+    };
+  } else {
+    return undefined;
+  }
+};
 
 interface Props {
   [x: string]: any;
 }
 
 const Quiz: FC<Props> = ({ ...pageProps }) => {
-  const nextUserAgent = useUserAgent(pageProps?.uaString);
-  const { quizzes, isLoading } = useQuizzes();
+  const quiz = pageProps.pageProps.quiz;
+  const mapping = pageProps.pageProps.mapping;
+
   const router = useRouter();
-  const { id } = router.query;
 
   const {
     user,
     isLoading: isUserLoading,
     clearUser,
     tokenExpired,
-    userAgent: contextUserAgent,
-    updateUserAgent,
   } = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    if (!contextUserAgent && nextUserAgent) {
-      updateUserAgent(nextUserAgent);
-    }
-  }, [updateUserAgent, nextUserAgent, contextUserAgent]);
 
   useEffect(() => {
     if (!isUserLoading && user && tokenExpired(user.token)) {
@@ -50,22 +67,43 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
     }
   }, [isUserLoading, user, tokenExpired, clearUser, router]);
 
-  if (isLoading) {
-    return null;
-  }
-
-  const matchedQuiz = quizzes.find((x) => x.route === id);
-
-  if (!matchedQuiz) {
-    return null;
-  }
-
   const getQuizComponent = (): React.ReactNode => {
-    switch (matchedQuiz.type) {
+    switch (quiz.type) {
       case QuizType.MAP:
-        return <GameMapQuizContainer quizId={matchedQuiz.id} />;
+        return (
+          <GameMapQuiz
+            time={quiz?.time}
+            name={quiz?.name}
+            type={quiz?.type}
+            maxScore={quiz?.maxScore}
+            verb={quiz?.verb}
+            route={quiz?.route}
+            id={quiz?.id}
+            mapping={mapping}
+            map={Maps[`${quiz.mapSVG}`]}
+            hasLeaderboard={quiz?.hasLeaderboard}
+            hasFlags={quiz?.hasFlags}
+            hasGrouping={quiz?.hasGrouping}
+          />
+        );
       case QuizType.FLAG:
-        return <GameFlagQuizContainer quizId={matchedQuiz.id} />;
+        return (
+          <FlagGameContextProvider>
+            <GameFlagQuiz
+              id={quiz.id}
+              time={quiz.time}
+              name={quiz.name}
+              type={quiz.type}
+              maxScore={quiz.maxScore}
+              verb={quiz.verb}
+              route={quiz.route}
+              hasLeaderboard={quiz.hasLeaderboard}
+              hasFlags={quiz.hasFlags}
+              hasGrouping={quiz.hasGrouping}
+              mapping={mapping}
+            />
+          </FlagGameContextProvider>
+        );
       default:
         return null;
     }
@@ -78,12 +116,33 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
   );
 };
 
-export const getServerSideProps = (context: Context): ServerSideProps => {
+export async function getStaticProps({ params }) {
+  const { id } = params;
+
+  const { quiz, mapping } = await getQuizData(id);
+
   return {
     props: {
-      uaString: context.req.headers["user-agent"],
+      quiz,
+      mapping,
     },
   };
-};
+}
+
+export async function getStaticPaths() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes`);
+  const quizzes = await res.json();
+
+  const paths = quizzes.map((quiz) => ({
+    params: {
+      id: quiz.route,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+}
 
 export default Quiz;
