@@ -10,6 +10,39 @@ import GameMapQuiz from "../../components/GameMapQuiz";
 import GameFlagQuiz from "../../components/GameFlagQuiz";
 import { FlagGameContextProvider } from "../../context/FlagGameContext";
 
+const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+
+const getQuizData = async (id: string) => {
+  const quizzesRes = await fetch(`${baseUrl}/quizzes`);
+  const quizzes = await quizzesRes.json();
+
+  const matchedQuiz = quizzes.find((x) => x.route === id);
+
+  if (matchedQuiz) {
+    const quizRes = await fetch(`${baseUrl}/quizzes/${matchedQuiz.id}`);
+    const mappingRes = await fetch(
+      `${baseUrl}/mappings/${matchedQuiz.apiPath}`
+    );
+
+    const quiz = await quizRes.json();
+    const mapping = await mappingRes.json();
+
+    return {
+      quiz,
+      mapping:
+        mapping?.map((mapping) => ({
+          ...mapping,
+          alternativeNames: mapping.alternativeNames.map((altName) =>
+            altName.toLowerCase()
+          ),
+          prefixes: mapping.prefixes.map((prefix) => prefix.toLowerCase()),
+        })) || [],
+    };
+  } else {
+    return undefined;
+  }
+};
+
 interface Props {
   [x: string]: any;
 }
@@ -86,39 +119,13 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
 export async function getStaticProps({ params }) {
   const { id } = params;
 
-  const quizzesRes = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes`);
-  const quizzes = await quizzesRes.json();
-
-  const matchedQuiz = quizzes.find((x) => x.route === id);
-
-  if (matchedQuiz) {
-    const quizRes = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/quizzes/${matchedQuiz.id}`
-    );
-    const mappingRes = await fetch(
-      `${process.env.NEXT_PUBLIC_API_URL}/mappings/${matchedQuiz.apiPath}`
-    );
-
-    const quiz = await quizRes.json();
-    const mapping = await mappingRes.json();
-
-    return {
-      props: {
-        quiz,
-        mapping:
-          mapping?.map((mapping) => ({
-            ...mapping,
-            alternativeNames: mapping.alternativeNames.map((altName) =>
-              altName.toLowerCase()
-            ),
-            prefixes: mapping.prefixes.map((prefix) => prefix.toLowerCase()),
-          })) || [],
-      },
-    };
-  }
+  const { quiz, mapping } = await getQuizData(id);
 
   return {
-    props: { quiz: null, mapping: [] },
+    props: {
+      quiz,
+      mapping,
+    },
   };
 }
 
@@ -137,13 +144,5 @@ export async function getStaticPaths() {
     fallback: false,
   };
 }
-
-// export const getServerSideProps = (context: Context): ServerSideProps => {
-//   return {
-//     props: {
-//       uaString: context.req.headers["user-agent"],
-//     },
-//   };
-// };
 
 export default Quiz;
