@@ -3,11 +3,9 @@ import { AxiosRequestConfig } from "axios";
 import { DecodedToken } from "../../types/decoded-token";
 import { User } from "../../types/user";
 import jwt_decode from "jwt-decode";
-import { UserAgent } from "next-useragent";
 
 export const CurrentUserContext = createContext({
   user: null,
-  userAgent: null,
   isLoading: false,
   updateUser: (user: User): void => {},
   clearUser: (): void => {},
@@ -17,13 +15,11 @@ export const CurrentUserContext = createContext({
   getAuthConfig: (): AxiosRequestConfig => {
     return null;
   },
-  updateUserAgent: (userAgent: UserAgent): void => {},
 });
 
 export const CurrentUserContextProvider: FC = ({ children = null }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [userAgent, setUserAgent] = useState<UserAgent>(null);
   const [user, setUser] = useState<User>(() => {
     if (typeof window === "undefined") {
       return null;
@@ -75,10 +71,6 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
     });
   };
 
-  const updateUserAgent = (updatedAgent: UserAgent): void => {
-    setUserAgent(updatedAgent);
-  };
-
   const tokenExpired = (token: string): boolean => {
     const decoded: DecodedToken = jwt_decode(token);
     const seconds = Math.round(new Date().getTime() / 1000);
@@ -102,8 +94,6 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
         clearUser,
         tokenExpired,
         getAuthConfig,
-        userAgent,
-        updateUserAgent,
       }}
     >
       {children}
