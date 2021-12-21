@@ -12,6 +12,7 @@ import { Mapping } from "../../../types/mapping";
 import { ChevronUpIcon } from "@chakra-ui/icons";
 import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
 import GameInputCardTimer from "../../GameInputCard/GameInputCardTimer";
+import DelayedRender from "../../DelayedRender";
 
 const motionDivStyles: Record<string, any> = {
   backgroundColor: "white",
@@ -106,67 +107,69 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
   );
 
   return (
-    <motion.div
-      animate={animate}
-      variants={variants}
-      style={motionDivStyles}
-      transition={{
-        type: "spring",
-        damping: 50,
-        stiffness: 400,
-      }}
-    >
-      <Flex
-        direction="column"
-        backgroundColor="white"
-        paddingX={4}
-        paddingY={2}
-        borderTopRadius={12}
+    <DelayedRender waitBeforeShow={75} shouldFadeIn>
+      <motion.div
+        animate={animate}
+        variants={variants}
+        style={motionDivStyles}
+        transition={{
+          type: "spring",
+          damping: 50,
+          stiffness: 400,
+        }}
       >
-        <Flex alignItems="center" justifyContent="center" width="100%">
-          <GameInputCardTimer
-            shouldShowTitle={false}
-            expiryTimestamp={expiryTimestamp}
-            hasGameStarted={hasGameStarted}
-            hasGameStopped={hasGameStopped}
-            totalSeconds={timeRemaining}
-            fontSize="32px"
+        <Flex
+          direction="column"
+          backgroundColor="white"
+          paddingX={4}
+          paddingY={2}
+          borderTopRadius={12}
+        >
+          <Flex alignItems="center" justifyContent="center" width="100%">
+            <GameInputCardTimer
+              shouldShowTitle={false}
+              expiryTimestamp={expiryTimestamp}
+              hasGameStarted={hasGameStarted}
+              hasGameStopped={hasGameStopped}
+              totalSeconds={timeRemaining}
+              fontSize="32px"
+            />
+          </Flex>
+          <GameHeader
+            hasLeaderboard={hasLeaderboard}
+            quizId={id}
+            heading={name}
+            shouldTruncateText
           />
+
+          <Box>
+            {!showResultList && (
+              <Fade in unmountOnExit>
+                <GameFlags
+                  codes={flagDragItems}
+                  onCheckSubmission={onCheckSubmission}
+                />
+                {resultHeaderButton}
+              </Fade>
+            )}
+
+            {showResultList && (
+              <Fade in unmountOnExit>
+                {resultHeaderButton}
+                <ResultsMap
+                  checked={checkedSubmissions}
+                  map={groupMapping(mapping)}
+                  hasGameStopped={hasGameStopped}
+                  hasGroupings={hasGrouping}
+                  hasHeader={false}
+                  hasFlags={hasFlags}
+                />
+              </Fade>
+            )}
+          </Box>
         </Flex>
-        <GameHeader
-          hasLeaderboard={hasLeaderboard}
-          quizId={id}
-          heading={name}
-          shouldTruncateText
-        />
-
-        <Box>
-          {!showResultList && (
-            <Fade in unmountOnExit>
-              <GameFlags
-                codes={flagDragItems}
-                onCheckSubmission={onCheckSubmission}
-              />
-              {resultHeaderButton}
-            </Fade>
-          )}
-
-          {showResultList && (
-            <Fade in unmountOnExit>
-              {resultHeaderButton}
-              <ResultsMap
-                checked={checkedSubmissions}
-                map={groupMapping(mapping)}
-                hasGameStopped={hasGameStopped}
-                hasGroupings={hasGrouping}
-                hasHeader={false}
-                hasFlags={hasFlags}
-              />
-            </Fade>
-          )}
-        </Box>
-      </Flex>
-    </motion.div>
+      </motion.div>
+    </DelayedRender>
   );
 };
 
