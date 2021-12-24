@@ -33,16 +33,16 @@ const GameDailyTrivia: FC<Props> = () => {
         {"If I’m visiting the ancient city of Petra, which country am I in?"}
       </Heading>
       <Flex
-        width="100%"
         direction="column"
         marginTop="auto"
         marginBottom={{ base: 0, md: 4 }}
+        width="100%"
       >
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
           <GameTriviaButton text="Peru" flagCode="pe" />
           <GameTriviaButton text="United Arab Emirates" flagCode="ae" />
           <GameTriviaButton text="Jordan" flagCode="jo" />
-          <GameTriviaButton text="Jeff Bezos" flagCode="sz" />
+          <GameTriviaButton text="Jeff Bezos" flagCode="us" />
         </SimpleGrid>
       </Flex>
     </Flex>
