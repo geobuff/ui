@@ -1,21 +1,20 @@
 import React, { FC } from "react";
 import {
-  Box,
-  Button,
-  Divider,
   Flex,
   Heading,
   SimpleGrid,
-  Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
 import GameDailyTriviaHeader from "./GameDailyTriviaHeader";
-import CustomFlag from "../CustomFlag";
 import GameTriviaButton from "../GameTriviaButton";
+import GameDailyTriviaContent from "./GameDailyTriviaContent";
 
 export interface Props {}
 
 const GameDailyTrivia: FC<Props> = () => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  if (isMobile === undefined) return null;
   return (
     <Flex
       flex={1}
@@ -29,9 +28,10 @@ const GameDailyTrivia: FC<Props> = () => {
     >
       <GameDailyTriviaHeader marginY={4} />
 
-      <Heading color="white">
-        {"If I’m visiting the ancient city of Petra, which country am I in?"}
-      </Heading>
+      {/* <GameDailyTriviaContent type="map" /> */}
+      <GameDailyTriviaContent type="flag" />
+      {/* <GameDailyTriviaContent /> */}
+
       <Flex
         direction="column"
         marginTop="auto"

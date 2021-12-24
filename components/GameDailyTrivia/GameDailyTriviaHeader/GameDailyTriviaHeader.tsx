@@ -4,11 +4,17 @@ import {
   Flex,
   FlexProps,
   Text,
+  TextProps,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-const HeaderText: FC = ({ children }) => (
-  <Text color="white" fontSize={{ base: "sm", md: "lg" }} fontWeight="semibold">
+const HeaderText: FC<TextProps> = ({ children, ...props }) => (
+  <Text
+    color="white"
+    fontSize={{ base: "sm", md: "lg" }}
+    fontWeight="bold"
+    {...props}
+  >
     {children}
   </Text>
 );
