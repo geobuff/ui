@@ -1,5 +1,7 @@
 import React, { FC, useState } from "react";
 import {
+  Button,
+  Fade,
   Flex,
   Heading,
   SimpleGrid,
@@ -64,16 +66,31 @@ const questions = [
   },
 ];
 
+const getTriviaButtonColor = (selectedAnswer, answer: any) => {
+  if (selectedAnswer.text !== answer.text) {
+    return answer.isCorrect ? "green.500" : "#236175";
+  }
+
+  return selectedAnswer.isCorrect ? "green.500" : "red.500";
+};
+
 const GameDailyTrivia: FC<Props> = () => {
   // const [remainingQuestions, setRemainingQuestions] = useState(questions);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
   const [questionNumber, setQuestionNumber] = useState(1);
+  const [hasAnswered, setHasAnswered] = useState(false);
+  const [selectedAnswer, setSelectedAnswer] = useState(null);
 
-  console.log(questionNumber, "questionNumber");
+  const handleAnswer = (answer: any) => {
+    answer.isCorrect ? console.log("correct!") : console.log("nope!!! >:(");
 
-  const handleAnswer = (isCorrect: boolean) => {
-    isCorrect ? console.log("correct!") : console.log("nope!!! >:(");
+    setSelectedAnswer(answer);
+    setHasAnswered(true);
+  };
 
+  const handleNextQuestion = () => {
+    setSelectedAnswer(null);
+    setHasAnswered(false);
     setCurrentQuestion(questions[1]);
     setQuestionNumber(2);
   };
@@ -102,22 +119,32 @@ const GameDailyTrivia: FC<Props> = () => {
         text={currentQuestion.question}
       />
 
-      <Flex
-        direction="column"
-        marginTop="auto"
-        marginBottom={{ base: 0, md: 4 }}
-        width="100%"
-      >
+      <Flex direction="column" marginTop="auto" width="100%">
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
           {currentQuestion.answers.map((answer) => (
             <GameTriviaButton
+              // TODO: move to function
+              backgroundColor={
+                hasAnswered
+                  ? getTriviaButtonColor(selectedAnswer, answer)
+                  : "#236175"
+              }
               key={answer?.text}
               text={answer.text}
               flagCode={answer?.flagCode}
-              onClick={() => handleAnswer(answer.isCorrect)}
+              onClick={() => handleAnswer(answer)}
+              isDisabled={hasAnswered}
+              _disabled={{ opacity: "1", cursor: "not-allowed" }}
             />
           ))}
         </SimpleGrid>
+        <Flex justifyContent="flex-end">
+          <Fade in={hasAnswered}>
+            <Button marginY={5} onClick={handleNextQuestion}>
+              {"Next Question"}
+            </Button>
+          </Fade>
+        </Flex>
       </Flex>
     </Flex>
   );
