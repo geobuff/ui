@@ -1,15 +1,15 @@
 import React, { FC } from "react";
-import { Box, Button, Flex } from "@chakra-ui/react";
+import { Box, Button, ButtonProps, Flex } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 
 import CustomFlag from "../CustomFlag";
 
-export interface Props {
+export interface Props extends ButtonProps {
   text: string | number;
   flagCode?: string;
 }
 
-const GameTriviaButton: FC<Props> = ({ flagCode, text }) => (
+const GameTriviaButton: FC<Props> = ({ flagCode, text, ...props }) => (
   <Button
     paddingY={8}
     paddingX={6}
@@ -19,6 +19,7 @@ const GameTriviaButton: FC<Props> = ({ flagCode, text }) => (
     _hover={{
       backgroundColor: "#1d5061",
     }}
+    {...props}
   >
     <Flex alignItems="center" textAlign="center" width="100%">
       {flagCode && (
