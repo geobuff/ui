@@ -1,11 +1,7 @@
 import React, { FC } from "react";
-import { Icon } from "@chakra-ui/react";
+import { Icon, IconProps } from "@chakra-ui/react";
 
-interface Props {
-  [x: string]: any;
-}
-
-const ArrowRight: FC<Props> = ({ ...props }) => (
+const ArrowRight: FC<IconProps> = ({ ...props }) => (
   <Icon {...props}>
     <path
       d="M19 12l-6-6m6 6l-6 6m6-6H5"

@@ -13,6 +13,7 @@ import GameTriviaButton from "../GameTriviaButton";
 import GameDailyTriviaContent from "./GameDailyTriviaContent";
 
 import { NewZealandRegions } from "@geobuff/svg-maps";
+import ArrowRight from "../../Icons/ArrowRight";
 
 export interface Props {}
 
@@ -66,12 +67,12 @@ const questions = [
   },
 ];
 
-const getTriviaButtonColor = (selectedAnswer, answer: any) => {
+const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
   if (selectedAnswer.text !== answer.text) {
-    return answer.isCorrect ? "green.500" : "#236175";
+    return answer.isCorrect ? "outlined" : "idle";
   }
 
-  return selectedAnswer.isCorrect ? "green.500" : "red.500";
+  return selectedAnswer.isCorrect ? "correct" : "incorrect";
 };
 
 const GameDailyTrivia: FC<Props> = () => {
@@ -124,10 +125,10 @@ const GameDailyTrivia: FC<Props> = () => {
           {currentQuestion.answers.map((answer) => (
             <GameTriviaButton
               // TODO: move to function
-              backgroundColor={
-                hasAnswered
-                  ? getTriviaButtonColor(selectedAnswer, answer)
-                  : "#236175"
+              status={
+                (hasAnswered &&
+                  getTriviaButtonStatus(selectedAnswer, answer)) ||
+                "idle"
               }
               key={answer?.text}
               text={answer.text}
@@ -140,7 +141,15 @@ const GameDailyTrivia: FC<Props> = () => {
         </SimpleGrid>
         <Flex justifyContent="flex-end">
           <Fade in={hasAnswered}>
-            <Button marginY={5} onClick={handleNextQuestion}>
+            <Button
+              marginY={5}
+              onClick={handleNextQuestion}
+              variant="ghost"
+              color="white"
+              rightIcon={<ArrowRight strokeWidth={"20px"} />}
+              iconSpacing={1}
+              _hover={{ backgroundColor: "#236175", transform: "scale(1.05)" }}
+            >
               {"Next Question"}
             </Button>
           </Fade>
