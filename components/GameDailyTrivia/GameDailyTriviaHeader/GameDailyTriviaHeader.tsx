@@ -8,6 +8,11 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
+export interface Props extends FlexProps {
+  questionNumber: number;
+  maxQuestionNumber?: number;
+}
+
 const HeaderText: FC<TextProps> = ({ children, ...props }) => (
   <Text
     color="white"
@@ -19,7 +24,11 @@ const HeaderText: FC<TextProps> = ({ children, ...props }) => (
   </Text>
 );
 
-const GameDailyTriviaHeader: FC<FlexProps> = ({ ...props }) => {
+const GameDailyTriviaHeader: FC<Props> = ({
+  questionNumber = 1,
+  maxQuestionNumber = 10,
+  ...props
+}) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   if (isMobile === undefined) return null;
@@ -28,7 +37,11 @@ const GameDailyTriviaHeader: FC<FlexProps> = ({ ...props }) => {
     <Flex direction="column" {...props}>
       <Flex justifyContent="space-between">
         <HeaderText>{"Daily Trivia - 24th December"}</HeaderText>
-        <HeaderText>{`${!isMobile ? "Question" : ""} 1 of 10`}</HeaderText>
+        <HeaderText>
+          {`${
+            !isMobile ? "Question" : ""
+          } ${questionNumber} of ${maxQuestionNumber}`}
+        </HeaderText>
       </Flex>
 
       <Divider borderColor="white" opacity={1} borderWidth={1} marginY={3} />

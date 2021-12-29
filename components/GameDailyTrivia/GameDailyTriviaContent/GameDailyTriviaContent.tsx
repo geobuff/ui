@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, ReactNode } from "react";
 import { Flex, Heading } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 import { SVGMap } from "@geobuff/svg-map";
@@ -11,6 +11,7 @@ export type TriviaContentType = "flag" | "map" | "image";
 
 export interface Props {
   type?: TriviaContentType;
+  text: string;
 }
 
 const mapStyles = {
@@ -32,7 +33,7 @@ const getContentByType = (type: TriviaContentType) => {
   }
 };
 
-const GameDailyTriviaContent: FC<Props> = ({ type }) => {
+const GameDailyTriviaContent: FC<Props> = ({ type, text }) => {
   const contentNode = getContentByType(type);
   return (
     <Flex
@@ -43,9 +44,7 @@ const GameDailyTriviaContent: FC<Props> = ({ type }) => {
       marginBottom={5}
     >
       {contentNode}
-      <Heading color="white">
-        {"If I’m visiting the ancient city of Petra, which country am I in?"}
-      </Heading>
+      <Heading color="white">{text}</Heading>
     </Flex>
   );
 };
