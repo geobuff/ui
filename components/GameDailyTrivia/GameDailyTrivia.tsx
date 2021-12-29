@@ -18,65 +18,101 @@ import { getRandomCollectionItem } from "../../helpers/random";
 
 export interface Props {}
 
-const answers = [
-  {
-    text: "Peru",
-    flagCode: "pe",
-    isCorrect: false,
-  },
-  {
-    text: "United Arab Emirates",
-    flagCode: "ae",
-    isCorrect: false,
-  },
-  {
-    text: "Jordan",
-    flagCode: "jp",
-    isCorrect: true,
-  },
-  {
-    text: "Jeff Bezos",
-    flagCode: "us",
-    isCorrect: false,
-  },
-];
-
-const trueFalseAnswers = [
-  {
-    text: "True",
-  },
-  {
-    text: "False",
-  },
-];
-
 const questions = [
   {
     id: 1,
     type: "text",
     question:
       "If I’m visiting the ancient city of Petra, which country am I in?",
-    answers,
+    answers: [
+      {
+        text: "Peru",
+        flagCode: "pe",
+        isCorrect: false,
+      },
+      {
+        text: "United Arab Emirates",
+        flagCode: "ae",
+        isCorrect: false,
+      },
+      {
+        text: "Jordan",
+        flagCode: "jo",
+        isCorrect: true,
+      },
+      {
+        text: "Jeff Bezos",
+        flagCode: "us",
+        isCorrect: false,
+      },
+    ],
   },
   {
     id: 2,
     type: "flag",
     question: "What country does this flag belong to?",
     flagCode: "nz",
-    answers,
+    answers: [
+      {
+        text: "Peru",
+        isCorrect: false,
+      },
+      {
+        text: "United Arab Emirates",
+        isCorrect: false,
+      },
+      {
+        text: "Jordan",
+        isCorrect: false,
+      },
+      {
+        text: "New Zealand",
+        isCorrect: true,
+      },
+    ],
   },
   {
     id: 3,
     type: "map",
     question: "What Country is this?",
     map: NewZealandRegions,
-    answers,
+    answers: [
+      {
+        text: "Peru",
+        flagCode: "pe",
+        isCorrect: false,
+      },
+      {
+        text: "United Arab Emirates",
+        flagCode: "ae",
+        isCorrect: false,
+      },
+      {
+        text: "New Zealand",
+        flagCode: "nz",
+        isCorrect: true,
+      },
+      {
+        text: "Jeff Bezos",
+        flagCode: "us",
+        isCorrect: false,
+      },
+    ],
   },
   {
     id: 4,
     type: "text",
     question: "Is Australia Real?",
-    answers: trueFalseAnswers,
+    answers: [
+      {
+        text: "True",
+        isCorrect: true,
+      },
+      {
+        text: "False",
+        isCorrect: false,
+      },
+    ],
   },
 ];
 
@@ -90,14 +126,16 @@ const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
 
 const GameDailyTrivia: FC<Props> = () => {
   const [remainingQuestions, setRemainingQuestions] = useState(questions);
-  const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
+  const [currentQuestion, setCurrentQuestion] = useState(
+    getRandomCollectionItem(questions)
+  );
+  const [score, setScore] = useState(0);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [hasAnswered, setHasAnswered] = useState(false);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
 
   const handleAnswer = (answer: any) => {
-    answer.isCorrect ? console.log("correct!") : console.log("nope!!! >:(");
-
+    answer.isCorrect && setScore(score + 1);
     setSelectedAnswer(answer);
     setHasAnswered(true);
   };
@@ -138,13 +176,13 @@ const GameDailyTrivia: FC<Props> = () => {
       />
 
       <GameDailyTriviaContent
-        type={currentQuestion.type as any}
-        text={currentQuestion.question}
+        type={currentQuestion?.type as any}
+        text={currentQuestion?.question}
       />
 
       <Flex direction="column" marginTop="auto" width="100%">
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-          {currentQuestion.answers.map((answer) => (
+          {currentQuestion?.answers?.map((answer) => (
             <GameTriviaButton
               // TODO: move to function
               status={
