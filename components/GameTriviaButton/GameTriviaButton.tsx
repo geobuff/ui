@@ -28,7 +28,6 @@ const getStylesByStatus = (status: TriviaButtonStatus) => {
         fontWeight: "bold",
         boxShadow:
           "inset 0px 0px 0px 2px #27ae60, 0px 0px 8px 3px rgb(39 174 96 / 50%)",
-        transition: "all 375ms ease-in",
         _hover: {},
       };
 

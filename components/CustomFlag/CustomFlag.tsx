@@ -27,7 +27,7 @@ const CustomFlag: FC<Props> = ({
       <Image
         display={hasLoaded ? "flex" : "none"}
         src={url}
-        alt={"Custom flag."}
+        alt={"Custom flag"}
         borderRadius={4}
         height={height}
         width={width}

@@ -14,6 +14,7 @@ import GameDailyTriviaContent from "./GameDailyTriviaContent";
 
 import { NewZealandRegions } from "@geobuff/svg-maps";
 import ArrowRight from "../../Icons/ArrowRight";
+import { getRandomCollectionItem } from "../../helpers/random";
 
 export interface Props {}
 
@@ -40,30 +41,42 @@ const answers = [
   },
 ];
 
+const trueFalseAnswers = [
+  {
+    text: "True",
+  },
+  {
+    text: "False",
+  },
+];
+
 const questions = [
   {
+    id: 1,
     type: "text",
     question:
       "If I’m visiting the ancient city of Petra, which country am I in?",
     answers,
   },
   {
+    id: 2,
     type: "flag",
     question: "What country does this flag belong to?",
     flagCode: "nz",
     answers,
   },
   {
+    id: 3,
     type: "map",
     question: "What Country is this?",
     map: NewZealandRegions,
     answers,
   },
   {
+    id: 4,
     type: "text",
-    question:
-      "If I’m visiting the ancient city of Petra, which country am I in?",
-    answers,
+    question: "Is Australia Real?",
+    answers: trueFalseAnswers,
   },
 ];
 
@@ -76,7 +89,7 @@ const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
 };
 
 const GameDailyTrivia: FC<Props> = () => {
-  // const [remainingQuestions, setRemainingQuestions] = useState(questions);
+  const [remainingQuestions, setRemainingQuestions] = useState(questions);
   const [currentQuestion, setCurrentQuestion] = useState(questions[0]);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [hasAnswered, setHasAnswered] = useState(false);
@@ -92,10 +105,19 @@ const GameDailyTrivia: FC<Props> = () => {
   const handleNextQuestion = () => {
     setSelectedAnswer(null);
     setHasAnswered(false);
-    setCurrentQuestion(questions[1]);
-    setQuestionNumber(2);
+
+    const updatedRemainingQuestions = remainingQuestions.filter(
+      (question) => question.id !== currentQuestion.id
+    );
+
+    const nextQuestion = getRandomCollectionItem(updatedRemainingQuestions);
+
+    setRemainingQuestions(updatedRemainingQuestions);
+    setCurrentQuestion(nextQuestion);
+    setQuestionNumber(questionNumber + 1);
   };
 
+  const isLastQuestion = remainingQuestions.length === 1;
   const isMobile = useBreakpointValue({ base: true, md: false });
   if (isMobile === undefined) return null;
   return (
@@ -150,7 +172,7 @@ const GameDailyTrivia: FC<Props> = () => {
               iconSpacing={1}
               _hover={{ backgroundColor: "#236175", transform: "scale(1.05)" }}
             >
-              {"Next Question"}
+              {isLastQuestion ? "Finish" : "Next Question"}
             </Button>
           </Fade>
         </Flex>
