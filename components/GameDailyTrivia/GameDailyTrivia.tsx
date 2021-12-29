@@ -125,14 +125,12 @@ const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
 };
 
 const GameDailyTrivia: FC<Props> = () => {
-  const [remainingQuestions, setRemainingQuestions] = useState(questions);
-  const [currentQuestion, setCurrentQuestion] = useState(
-    getRandomCollectionItem(questions)
-  );
-  const [score, setScore] = useState(0);
-  const [questionNumber, setQuestionNumber] = useState(1);
   const [hasAnswered, setHasAnswered] = useState(false);
+  const [remainingQuestions, setRemainingQuestions] = useState(questions);
+  const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
+  const [question, setQuestion] = useState(getRandomCollectionItem(questions));
+  const [questionNumber, setQuestionNumber] = useState(1);
 
   const handleAnswer = (answer: any) => {
     answer.isCorrect && setScore(score + 1);
@@ -145,13 +143,13 @@ const GameDailyTrivia: FC<Props> = () => {
     setHasAnswered(false);
 
     const updatedRemainingQuestions = remainingQuestions.filter(
-      (question) => question.id !== currentQuestion.id
+      (question) => question.id !== question.id
     );
 
     const nextQuestion = getRandomCollectionItem(updatedRemainingQuestions);
 
     setRemainingQuestions(updatedRemainingQuestions);
-    setCurrentQuestion(nextQuestion);
+    setQuestion(nextQuestion);
     setQuestionNumber(questionNumber + 1);
   };
 
@@ -176,13 +174,13 @@ const GameDailyTrivia: FC<Props> = () => {
       />
 
       <GameDailyTriviaContent
-        type={currentQuestion?.type as any}
-        text={currentQuestion?.question}
+        type={question?.type as any}
+        text={question?.question}
       />
 
       <Flex direction="column" marginTop="auto" width="100%">
         <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-          {currentQuestion?.answers?.map((answer) => (
+          {question?.answers?.map((answer) => (
             <GameTriviaButton
               // TODO: move to function
               status={
