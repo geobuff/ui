@@ -1,18 +1,12 @@
-import React, { FC, ReactNode } from "react";
+import React, { FC } from "react";
 import { Flex, Heading } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 import { SVGMap } from "@geobuff/svg-map";
-
-import { NewZealandRegions } from "@geobuff/svg-maps";
+import * as Maps from "@geobuff/svg-maps";
 
 import CustomFlag from "../../CustomFlag";
-
-export type TriviaContentType = "flag" | "map" | "image";
-
-export interface Props {
-  type?: TriviaContentType;
-  text: string;
-}
+import Image from "../../Image";
+import { DailyTriviaQuestionType } from "../../../types/daily-trivia-question-type";
 
 const mapStyles = {
   height: "250px",
@@ -21,20 +15,43 @@ const mapStyles = {
   fill: "#27AE60",
 };
 
-const getContentByType = (type: TriviaContentType) => {
+const getContentByType = (
+  type: DailyTriviaQuestionType,
+  map: string,
+  flagCode: string,
+  imageUrl: string
+) => {
   switch (type) {
     case "flag":
-      return <CustomFlag url={getFlagUrl("NZ")} height="250px" width="250px" />;
+      return (
+        <CustomFlag url={getFlagUrl(flagCode)} height="250px" width="250px" />
+      );
     case "map":
-      return <SVGMap map={NewZealandRegions} mapStyle={mapStyles} />;
-
+      return <SVGMap map={Maps[map]} mapStyle={mapStyles} />;
+    case "image":
+      return <Image src={imageUrl} height="250px" width="250px" />;
     default:
       return null;
   }
 };
 
-const GameDailyTriviaContent: FC<Props> = ({ type, text }) => {
-  const contentNode = getContentByType(type);
+export interface Props {
+  text: string;
+  type?: DailyTriviaQuestionType;
+  map?: string;
+  flagCode?: string;
+  imageUrl?: string;
+}
+
+const GameDailyTriviaContent: FC<Props> = ({
+  text,
+  type = "text",
+  map = "",
+  flagCode = "",
+  imageUrl = "",
+}) => {
+  const contentNode = getContentByType(type, map, flagCode, imageUrl);
+
   return (
     <Flex
       direction="column"
