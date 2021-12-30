@@ -3,7 +3,6 @@ import {
   Button,
   Fade,
   Flex,
-  Heading,
   SimpleGrid,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -12,109 +11,14 @@ import GameDailyTriviaHeader from "./GameDailyTriviaHeader";
 import GameTriviaButton from "../GameTriviaButton";
 import GameDailyTriviaContent from "./GameDailyTriviaContent";
 
-import { NewZealandRegions } from "@geobuff/svg-maps";
 import ArrowRight from "../../Icons/ArrowRight";
 import { getRandomCollectionItem } from "../../helpers/random";
+import { DailyTriviaQuestion } from "../../types/daily-trivia-questions";
+import { DailyTriviaAnswer } from "../../types/daily-trivia-answer";
 
-export interface Props {}
-
-const questions = [
-  {
-    id: 1,
-    type: "text",
-    question:
-      "If I’m visiting the ancient city of Petra, which country am I in?",
-    answers: [
-      {
-        text: "Peru",
-        flagCode: "pe",
-        isCorrect: false,
-      },
-      {
-        text: "United Arab Emirates",
-        flagCode: "ae",
-        isCorrect: false,
-      },
-      {
-        text: "Jordan",
-        flagCode: "jo",
-        isCorrect: true,
-      },
-      {
-        text: "Jeff Bezos",
-        flagCode: "us",
-        isCorrect: false,
-      },
-    ],
-  },
-  {
-    id: 2,
-    type: "flag",
-    question: "What country does this flag belong to?",
-    flagCode: "nz",
-    answers: [
-      {
-        text: "Peru",
-        isCorrect: false,
-      },
-      {
-        text: "United Arab Emirates",
-        isCorrect: false,
-      },
-      {
-        text: "Jordan",
-        isCorrect: false,
-      },
-      {
-        text: "New Zealand",
-        isCorrect: true,
-      },
-    ],
-  },
-  {
-    id: 3,
-    type: "map",
-    question: "What Country is this?",
-    map: NewZealandRegions,
-    answers: [
-      {
-        text: "Peru",
-        flagCode: "pe",
-        isCorrect: false,
-      },
-      {
-        text: "United Arab Emirates",
-        flagCode: "ae",
-        isCorrect: false,
-      },
-      {
-        text: "New Zealand",
-        flagCode: "nz",
-        isCorrect: true,
-      },
-      {
-        text: "Jeff Bezos",
-        flagCode: "us",
-        isCorrect: false,
-      },
-    ],
-  },
-  {
-    id: 4,
-    type: "text",
-    question: "Is Australia Real?",
-    answers: [
-      {
-        text: "True",
-        isCorrect: true,
-      },
-      {
-        text: "False",
-        isCorrect: false,
-      },
-    ],
-  },
-];
+export interface Props {
+  questions: DailyTriviaQuestion[];
+}
 
 const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
   if (selectedAnswer.text !== answer.text) {
@@ -124,26 +28,28 @@ const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
   return selectedAnswer.isCorrect ? "correct" : "incorrect";
 };
 
-const GameDailyTrivia: FC<Props> = () => {
+const GameDailyTrivia: FC<Props> = ({ questions }) => {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [remainingQuestions, setRemainingQuestions] = useState(questions);
   const [score, setScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [question, setQuestion] = useState(getRandomCollectionItem(questions));
+  const [selectedAnswer, setSelectedAnswer] = useState<DailyTriviaAnswer>();
+  const [question, setQuestion] = useState<DailyTriviaQuestion>(
+    getRandomCollectionItem(questions)
+  );
   const [questionNumber, setQuestionNumber] = useState(1);
 
-  const handleAnswer = (answer: any) => {
+  const handleAnswer = (answer: DailyTriviaAnswer): void => {
     answer.isCorrect && setScore(score + 1);
     setSelectedAnswer(answer);
     setHasAnswered(true);
   };
 
-  const handleNextQuestion = () => {
+  const handleNextQuestion = (): void => {
     setSelectedAnswer(null);
     setHasAnswered(false);
 
     const updatedRemainingQuestions = remainingQuestions.filter(
-      (question) => question.id !== question.id
+      (x) => x.id !== question.id
     );
 
     const nextQuestion = getRandomCollectionItem(updatedRemainingQuestions);
@@ -155,7 +61,9 @@ const GameDailyTrivia: FC<Props> = () => {
 
   const isLastQuestion = remainingQuestions.length === 1;
   const isMobile = useBreakpointValue({ base: true, md: false });
+
   if (isMobile === undefined) return null;
+
   return (
     <Flex
       flex={1}
@@ -174,8 +82,11 @@ const GameDailyTrivia: FC<Props> = () => {
       />
 
       <GameDailyTriviaContent
-        type={question?.type as any}
         text={question?.question}
+        type={question?.type}
+        map={question?.map}
+        flagCode={question?.flagCode}
+        imageUrl={question?.imageUrl}
       />
 
       <Flex direction="column" marginTop="auto" width="100%">
