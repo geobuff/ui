@@ -1,4 +1,4 @@
-name: dev-cron-create-daily-trivia
+name: cron-create-daily-trivia
 on:
   schedule:
     - cron: '*/5 * * * *'
@@ -11,7 +11,8 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: https://discord.com/api/webhooks/927094486260154418/BjAaAvQDK3GFAoTFBKF04Kq-GHAjeuPbZJ1V-aXwQPFDL2glaUtCsmY8VrcWaX_XOUCY
+          DISCORD_AVATAR: https://i.guim.co.uk/img/media/470513f37bcacf045d006841311af6bfb24c9422/0_335_5019_3011/master/5019.jpg?width=1200&height=1200&quality=85&auto=format&fit=crop&s=417df3459afaf38cb5f775e17f0e3359
         uses: Ilshidur/action-discord@master  
         with:
-            args: 'Daily trivia has been published'
+            args: 'Daily trivia for `r format(Sys.Date(), "%Y-%m-%d")` has been successfully published'
 
