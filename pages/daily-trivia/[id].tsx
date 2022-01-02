@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import Head from "next/head";
 
-import MainView from "../../../components/MainView";
-import GameDailyTriviaContainer from "../../../containers/GameDailyTriviaContainer";
+import MainView from "../../components/MainView";
+import GameDailyTriviaContainer from "../../containers/GameDailyTriviaContainer";
 
 const DailyTrivia: FC = () => {
   return (
