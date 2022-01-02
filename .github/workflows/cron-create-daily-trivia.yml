@@ -1,7 +1,7 @@
 name: dev-cron-create-daily-trivia
 on:
   schedule:
-    - cron: '* * * * *'
+    - cron: '*/5 * * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
