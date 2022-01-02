@@ -1,0 +1,12 @@
+name: dev-cron-create-daily-trivia
+on:
+  schedule:
+    - cron: '1 * * * *'
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: post /api/daily-trivia
+        run: |
+          curl --request POST \
+          --url 'https://geobuff-dev.ts.r.appspot.com/api/daily-trivia'
