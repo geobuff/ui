@@ -10,6 +10,10 @@ interface Props {
   quizId: number;
 }
 
+/**
+ * @deprecated this component is no longer used, but we
+ * should keep as it could be used somewhere else in future
+ */
 const GameFlagQuizContainer: FC<Props> = ({ quizId }) => {
   const { quiz, isLoading: isLoadingQuiz } = useQuiz(quizId);
   const { mapping, isLoading: isLoadingMapping } = useMapping(quizId);

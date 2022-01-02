@@ -122,7 +122,11 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
         </MenuButton>
 
         <MenuList>
-          <MenuItem onClick={(): Promise<boolean> => router.push("/profile")}>
+          <MenuItem
+            onClick={(): Promise<boolean> =>
+              router.push(`/profile/${user?.id}`)
+            }
+          >
             {"Profile"}
           </MenuItem>
           <MenuItem onClick={(): Promise<boolean> => router.push("/orders")}>

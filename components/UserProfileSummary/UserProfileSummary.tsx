@@ -1,6 +1,8 @@
 import React, { FC } from "react";
 import { getFlagUrl } from "@geobuff/flags";
+import { DateTime } from "luxon";
 import flag from "country-code-emoji";
+
 import {
   Box,
   Heading,
@@ -30,20 +32,24 @@ const geocoinExplainerText = (
 );
 
 interface Props {
+  isCurrentUser?: boolean;
   username?: string;
   email?: string;
   countryCode?: string;
   xp?: number;
+  joined?: string;
   avatarName?: string;
   avatarPrimaryImageUrl?: string;
   avatarSecondaryImageUrl?: string;
 }
 
 const UserProfileSummary: FC<Props> = ({
+  isCurrentUser = false,
   username = "",
   email = "",
   countryCode = "",
   xp = 0,
+  joined = "",
   avatarName = "",
   avatarPrimaryImageUrl = "",
   avatarSecondaryImageUrl = "",
@@ -94,12 +100,14 @@ const UserProfileSummary: FC<Props> = ({
   return (
     <>
       <Card>
-        <Flex justifyContent="flex-end" width="100%">
-          <UserProfileSummaryMenu
-            onUserModalOpen={onUserModalOpen}
-            downloadData={downloadData}
-          />
-        </Flex>
+        {isCurrentUser && (
+          <Flex justifyContent="flex-end" width="100%">
+            <UserProfileSummaryMenu
+              onUserModalOpen={onUserModalOpen}
+              downloadData={downloadData}
+            />
+          </Flex>
+        )}
         <Box mb={6}>
           <Box textAlign="center">
             <ProfileUserAvatar
@@ -107,19 +115,22 @@ const UserProfileSummary: FC<Props> = ({
               primaryImageUrl={avatarPrimaryImageUrl}
               secondaryImageUrl={avatarSecondaryImageUrl}
               name={avatarName}
-              onClick={onAvatarModalOpen}
+              onClick={isCurrentUser ? onAvatarModalOpen : undefined}
+              isClickable={isCurrentUser}
             />
             <Heading fontSize="32px">{username}</Heading>
-            <Text color="gray.500" fontWeight={600} marginY={1}>
-              {email}
-            </Text>
+            {isCurrentUser && (
+              <Text color="gray.500" fontWeight={600} marginY={1}>
+                {email}
+              </Text>
+            )}
             <Flex
               width="100%"
               justifyContent="center"
               alignItems="center"
               marginY={2}
             >
-              <Flex mr={2}>
+              <Flex mr={isCurrentUser && 2}>
                 <Flex direction="column" justifyContent="center" mr={2}>
                   {flagNode}
                 </Flex>
@@ -129,14 +140,29 @@ const UserProfileSummary: FC<Props> = ({
                     : matchedCountry}
                 </Text>
               </Flex>
-              <Tooltip label={geocoinExplainerText}>
-                <Flex justifyContent="center" cursor="pointer">
-                  <Twemoji emoji="🪙" mr={1} />
-                  <Text color="gray.500" fontWeight={600}>
-                    {xp}
-                  </Text>
-                </Flex>
-              </Tooltip>
+              {isCurrentUser && (
+                <Tooltip label={geocoinExplainerText}>
+                  <Flex justifyContent="center" cursor="pointer">
+                    <Twemoji emoji="🪙" mr={1} />
+                    <Text color="gray.500" fontWeight={600}>
+                      {xp}
+                    </Text>
+                  </Flex>
+                </Tooltip>
+              )}
+            </Flex>
+            <Flex
+              width="100%"
+              justifyContent="center"
+              alignItems="center"
+              marginY={2}
+            >
+              <Text
+                color="gray.500"
+                fontWeight={600}
+              >{`Member since ${DateTime.fromISO(joined).toLocaleString(
+                DateTime.DATE_MED
+              )}`}</Text>
             </Flex>
           </Box>
         </Box>
