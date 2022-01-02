@@ -7,6 +7,7 @@ export interface DailyTriviaQuestion {
   question: string;
   answers: DailyTriviaAnswer[];
   map?: string;
+  highlighted?: string;
   flagCode?: string;
   imageUrl?: string;
 }
