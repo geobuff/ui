@@ -107,6 +107,13 @@ const NavigationBar: FC = () => {
             </ChakraLink>
           </Link>
         </Flex>
+        <Flex marginLeft={3} marginTop="2px" as="nav">
+          <Link href="/dailys">
+            <ChakraLink fontSize="16px" fontWeight={600} color="gray.600">
+              {"Dailys"}
+            </ChakraLink>
+          </Link>
+        </Flex>
       </Flex>
 
       <Flex>
