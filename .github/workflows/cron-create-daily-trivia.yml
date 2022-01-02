@@ -8,3 +8,9 @@ jobs:
     steps:
       - name: post /api/daily-trivia
         run: curl -X POST https://geobuff-dev.ts.r.appspot.com/api/daily-trivia
+      - name: Discord notification
+        env:
+          DISCORD_WEBHOOK: https://discord.com/api/webhooks/927094486260154418/BjAaAvQDK3GFAoTFBKF04Kq-GHAjeuPbZJ1V-aXwQPFDL2glaUtCsmY8VrcWaX_XOUCY
+        with:
+            args: 'Daily trivia has been published'
+
