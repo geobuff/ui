@@ -11,7 +11,7 @@ const GameDailyTriviaContainer: FC = () => {
     return null;
   }
 
-  return <GameDailyTrivia questions={data} />;
+  return <GameDailyTrivia trivia={data} />;
 };
 
 export default GameDailyTriviaContainer;

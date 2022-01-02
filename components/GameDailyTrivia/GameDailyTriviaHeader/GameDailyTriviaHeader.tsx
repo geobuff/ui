@@ -9,7 +9,8 @@ import {
 } from "@chakra-ui/react";
 
 export interface Props extends FlexProps {
-  questionNumber: number;
+  name?: string;
+  questionNumber?: number;
   maxQuestionNumber?: number;
 }
 
@@ -25,6 +26,7 @@ const HeaderText: FC<TextProps> = ({ children, ...props }) => (
 );
 
 const GameDailyTriviaHeader: FC<Props> = ({
+  name = "",
   questionNumber = 1,
   maxQuestionNumber = 10,
   ...props
@@ -36,7 +38,7 @@ const GameDailyTriviaHeader: FC<Props> = ({
   return (
     <Flex direction="column" {...props}>
       <Flex justifyContent="space-between">
-        <HeaderText>{"Daily Trivia - 24th December"}</HeaderText>
+        <HeaderText>{name}</HeaderText>
         <HeaderText>
           {`${
             !isMobile ? "Question" : ""

@@ -1,3 +1,4 @@
+/* eslint-disable no-case-declarations */
 import React, { FC } from "react";
 import { Flex, Heading } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
@@ -12,12 +13,17 @@ const mapStyles = {
   height: "250px",
   width: "250px",
   marginBottom: "24px",
-  fill: "#27AE60",
+  fill: "#6dca94",
+};
+
+const hightlightedStyling = {
+  fill: "red",
 };
 
 const getContentByType = (
   type: DailyTriviaQuestionType,
   map: string,
+  highlighted: string,
   flagCode: string,
   imageUrl: string
 ) => {
@@ -27,7 +33,20 @@ const getContentByType = (
         <CustomFlag url={getFlagUrl(flagCode)} height="250px" width="250px" />
       );
     case "map":
-      return <SVGMap map={Maps[map]} mapStyle={mapStyles} />;
+      let svgMap = Maps[map];
+      if (highlighted) {
+        svgMap = {
+          ...svgMap,
+          paths: svgMap.paths.map((x) => {
+            if (x.name.toLowerCase() === highlighted.toLowerCase()) {
+              x.style = hightlightedStyling;
+            }
+            return x;
+          }),
+        };
+      }
+
+      return <SVGMap map={svgMap} mapStyle={mapStyles} />;
     case "image":
       return <Image src={imageUrl} height="250px" width="250px" />;
     default:
@@ -39,6 +58,7 @@ export interface Props {
   text: string;
   type?: DailyTriviaQuestionType;
   map?: string;
+  highlighted?: string;
   flagCode?: string;
   imageUrl?: string;
 }
@@ -47,10 +67,17 @@ const GameDailyTriviaContent: FC<Props> = ({
   text,
   type = "text",
   map = "",
+  highlighted = "",
   flagCode = "",
   imageUrl = "",
 }) => {
-  const contentNode = getContentByType(type, map, flagCode, imageUrl);
+  const contentNode = getContentByType(
+    type,
+    map,
+    highlighted,
+    flagCode,
+    imageUrl
+  );
 
   return (
     <Flex

@@ -15,9 +15,10 @@ import ArrowRight from "../../Icons/ArrowRight";
 import { getRandomCollectionItem } from "../../helpers/random";
 import { DailyTriviaQuestion } from "../../types/daily-trivia-questions";
 import { DailyTriviaAnswer } from "../../types/daily-trivia-answer";
+import { DailyTrivia } from "../../types/daily-trivia";
 
 export interface Props {
-  questions: DailyTriviaQuestion[];
+  trivia: DailyTrivia;
 }
 
 const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
@@ -28,13 +29,15 @@ const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
   return selectedAnswer.isCorrect ? "correct" : "incorrect";
 };
 
-const GameDailyTrivia: FC<Props> = ({ questions }) => {
+const GameDailyTrivia: FC<Props> = ({ trivia }) => {
   const [hasAnswered, setHasAnswered] = useState(false);
-  const [remainingQuestions, setRemainingQuestions] = useState(questions);
+  const [remainingQuestions, setRemainingQuestions] = useState(
+    trivia.questions
+  );
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<DailyTriviaAnswer>();
   const [question, setQuestion] = useState<DailyTriviaQuestion>(
-    getRandomCollectionItem(questions)
+    getRandomCollectionItem(trivia.questions)
   );
   const [questionNumber, setQuestionNumber] = useState(1);
 
@@ -76,6 +79,7 @@ const GameDailyTrivia: FC<Props> = ({ questions }) => {
       marginRight="auto"
     >
       <GameDailyTriviaHeader
+        name={trivia.name}
         questionNumber={questionNumber}
         maxQuestionNumber={10}
         marginY={4}
@@ -85,6 +89,7 @@ const GameDailyTrivia: FC<Props> = ({ questions }) => {
         text={question?.question}
         type={question?.type}
         map={question?.map}
+        highlighted={question?.highlighted}
         flagCode={question?.flagCode}
         imageUrl={question?.imageUrl}
       />
