@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import Head from "next/head";
 
 import HeroHeader from "../../components/HeroHeader";
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import MainView from "../../components/MainView";
 import DailyTriviaListContainer from "../../containers/DailyTriviaListContainer";
 
@@ -14,18 +14,17 @@ const DailyTrivia: FC = () => {
       </Head>
       <MainView>
         <HeroHeader heading="Daily Trivia" />
-        <Box background="white">
+        <Flex flex={1} width="100%" backgroundColor="white">
           <Flex
             direction="column"
-            maxWidth={{ base: "80%", md: "50%" }}
-            mx="auto"
-            py={9}
-            fontSize={{ base: "12px", md: "inherit" }}
-            justifyContent="center"
+            padding={9}
+            maxWidth={1400}
+            width="100%"
+            marginX="auto"
           >
             <DailyTriviaListContainer />
           </Flex>
-        </Box>
+        </Flex>
       </MainView>
     </>
   );
