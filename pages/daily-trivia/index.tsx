@@ -1,19 +1,19 @@
 import React, { FC } from "react";
 import Head from "next/head";
 
-import DailysContainer from "../containers/DailysContainer";
-import HeroHeader from "../components/HeroHeader";
+import HeroHeader from "../../components/HeroHeader";
 import { Box, Flex } from "@chakra-ui/react";
-import MainView from "../components/MainView";
+import MainView from "../../components/MainView";
+import DailyTriviaListContainer from "../../containers/DailyTriviaListContainer";
 
-const Dailys: FC = () => {
+const DailyTrivia: FC = () => {
   return (
     <>
       <Head>
-        <title> {"Dailys - GeoBuff"}</title>
+        <title> {"Daily Trivia - GeoBuff"}</title>
       </Head>
       <MainView>
-        <HeroHeader heading="Dailys" />
+        <HeroHeader heading="Daily Trivia" />
         <Box background="white">
           <Flex
             direction="column"
@@ -23,7 +23,7 @@ const Dailys: FC = () => {
             fontSize={{ base: "12px", md: "inherit" }}
             justifyContent="center"
           >
-            <DailysContainer />
+            <DailyTriviaListContainer />
           </Flex>
         </Box>
       </MainView>
@@ -31,4 +31,4 @@ const Dailys: FC = () => {
   );
 };
 
-export default Dailys;
+export default DailyTrivia;
