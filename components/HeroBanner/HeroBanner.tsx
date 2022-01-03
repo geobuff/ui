@@ -1,6 +1,9 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import { Box, Fade, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
+
+const NEXT_ACTION_DELAY = 10000;
+const FADE_OUT_DELAY = 1000;
 
 interface SubHeaderAction {
   link: string;
@@ -19,15 +22,34 @@ const actions: SubHeaderAction[] = [
   { link: "/merch", value: "cop an item from our summer collection" },
 ];
 
-const HeroBanner: FC = () => {
-  const [index, setIndex] = useState(
-    Math.floor(Math.random() * actions.length)
-  );
+const initialIndex = Math.floor(Math.random() * actions.length);
 
-  setTimeout(() => {
-    const update = index === actions.length - 1 ? 0 : index + 1;
-    setIndex(update);
-  }, 10000);
+const HeroBanner: FC = () => {
+  const [index, setIndex] = useState(initialIndex);
+  const [shouldFadeOut, setShouldFadeOut] = useState(false);
+
+  const delayedSetFadeOut = () =>
+    setTimeout(() => {
+      setShouldFadeOut(true);
+    }, NEXT_ACTION_DELAY);
+
+  useEffect(() => {
+    delayedSetFadeOut();
+  }, []);
+
+  useEffect(() => {
+    delayedSetFadeOut();
+  }, [index]);
+
+  useEffect(() => {
+    if (shouldFadeOut) {
+      setTimeout(() => {
+        setIndex(index === actions.length - 1 ? 0 : index + 1);
+        setShouldFadeOut(false);
+      }, FADE_OUT_DELAY);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [shouldFadeOut]);
 
   return (
     <Box
@@ -65,6 +87,7 @@ const HeroBanner: FC = () => {
               marginY={5}
               marginX="auto"
               maxWidth={{ sm: "400px", md: "450px" }}
+              className={shouldFadeOut ? "fade-out" : "fade-in"}
             >
               <Text
                 color="white"
