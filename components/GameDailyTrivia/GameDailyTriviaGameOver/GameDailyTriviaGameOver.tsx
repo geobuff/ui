@@ -1,9 +1,15 @@
 import React, { FC } from "react";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 
-// export interface Props {}
+export interface Props {
+  score: number;
+  maxQuestionNumber: number;
+}
 
-const GameDailyTriviaGameOver: FC = () => {
+const GameDailyTriviaGameOver: FC<Props> = ({
+  score = 0,
+  maxQuestionNumber = 10,
+}) => {
   return (
     <Flex
       flex={1}
@@ -19,7 +25,7 @@ const GameDailyTriviaGameOver: FC = () => {
 
         <Box marginY={10}>
           <Text fontSize="64px" fontWeight="bold" letterSpacing="2px">
-            {"6/10"}
+            {`${score}/${maxQuestionNumber}`}
           </Text>
           <Text fontSize="36px" fontWeight="bold">
             {"Not a bad effort!"}
