@@ -6,9 +6,6 @@ jobs:
   cron:
     runs-on: ubuntu-latest
     steps:
-      - name: Get current date
-        id: date
-        run: echo "::set-output name=date::$(date +'%Y-%m-%d')"
       - name: create dev trivia questions
         run: curl -X POST https://geobuff-dev.ts.r.appspot.com/api/daily-trivia
       - name: create prod trivia questions
@@ -16,8 +13,8 @@ jobs:
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: https://discord.com/api/webhooks/927094486260154418/BjAaAvQDK3GFAoTFBKF04Kq-GHAjeuPbZJ1V-aXwQPFDL2glaUtCsmY8VrcWaX_XOUCY
-          DISCORD_AVATAR: https://botmywork.com/wp-content/uploads/2018/09/facebook-messenger-bot-feature-images.jpg
+          DISCORD_AVATAR: https://is4-ssl.mzstatic.com/image/thumb/Purple124/v4/1c/64/40/1c64402b-336e-a06a-e89f-67c8796409ae/source/512x512bb.jpg
         uses: Ilshidur/action-discord@master  
         with:
-            args: 'Daily trivia for ${{ steps.date.outputs.date }} has been successfully published.'
+            args: 'Daily trivia for today has been successfully published.'
 
