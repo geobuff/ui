@@ -47,6 +47,9 @@ const furtherInfoLinks = [
 const footerCopy =
   "GeoBuff is the world's leading competitive platform for geography-based games and quizzes.";
 
+const currentYear = new Date().getFullYear();
+const footerLegal = `© ${currentYear} GeoBuff. All rights reserved.`;
+
 const simpleFooter = (
   <Flex
     as="footer"
@@ -57,7 +60,7 @@ const simpleFooter = (
   >
     <Flex alignSelf="center">
       <Text color="gray.500" fontSize={{ base: "11px", md: "14px" }}>
-        {"© 2021 GeoBuff. All rights reserved."}
+        {footerLegal}
       </Text>
     </Flex>
   </Flex>
@@ -176,7 +179,7 @@ const extendedFooter = (
       paddingX={{ base: 2, md: 10 }}
     >
       <Text color="#B0B0B0" fontSize="14px" marginBottom={{ base: 2, md: 0 }}>
-        {"© 2021 GeoBuff. All rights reserved."}
+        {footerLegal}
       </Text>
       <FooterPlaysContainer />
     </Flex>
