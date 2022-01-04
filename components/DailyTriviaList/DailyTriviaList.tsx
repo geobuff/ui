@@ -52,7 +52,7 @@ const DailyTriviaList: FC<Props> = ({ dailyTrivias = [] }) => {
               transition="all 150ms ease-out"
               _hover={{ transform: "scale(1.030)" }}
             >
-              <DailyTriviaCard name={quiz.name} imageUrl={quiz.imageUrl} />
+              <DailyTriviaCard name={quiz.name} />
             </AspectRatio>
           </Link>
         ))}

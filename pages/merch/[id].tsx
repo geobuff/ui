@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -8,7 +8,16 @@ import HeroHeader from "../../components/HeroHeader";
 
 const Summary: FC = () => {
   const router = useRouter();
-  const { id } = router.query;
+  const [merchId, setMerchId] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    if (router.asPath !== router.route) {
+      const merchId = router.query.id as string;
+      setMerchId(parseInt(merchId));
+      setIsLoading(false);
+    }
+  }, [router]);
 
   return (
     <>
@@ -17,7 +26,7 @@ const Summary: FC = () => {
       </Head>
       <MainView>
         <HeroHeader heading="Merch" />
-        <MerchSummaryContainer id={parseInt(id as string)} />
+        {isLoading ? null : <MerchSummaryContainer id={merchId} />}
       </MainView>
     </>
   );
