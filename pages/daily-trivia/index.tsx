@@ -14,7 +14,7 @@ const DailyTrivia: FC = () => {
       </Head>
       <MainView>
         <HeroHeader heading="Daily Trivia" />
-        <Flex flex={1} width="100%" backgroundColor="white">
+        <Flex flex={1} width="100%">
           <Flex
             direction="column"
             padding={9}
