@@ -1,11 +1,7 @@
 import React, { FC } from "react";
-import { Icon } from "@chakra-ui/react";
+import { Icon, IconProps } from "@chakra-ui/react";
 
-interface Props {
-  [x: string]: any;
-}
-
-const Share: FC<Props> = ({ ...props }) => (
+const Share: FC<IconProps> = ({ ...props }) => (
   <Icon {...props}>
     <path
       fill="currentColor"
