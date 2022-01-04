@@ -10,8 +10,8 @@ import GameDailyTriviaAnswers from "./GameDailyTriviaAnswers";
 
 import { getRandomCollectionItem } from "../../helpers/random";
 
-import { DailyTriviaQuestion } from "../../types/daily-trivia-questions";
-import { DailyTriviaAnswer } from "../../types/daily-trivia-answer";
+import { DailyTriviaQuestion as Question } from "../../types/daily-trivia-questions";
+import { DailyTriviaAnswer as Answer } from "../../types/daily-trivia-answer";
 import { DailyTrivia } from "../../types/daily-trivia";
 
 export interface Props {
@@ -24,14 +24,14 @@ const GameDailyTrivia: FC<Props> = ({ trivia }) => {
     trivia.questions
   );
   const [score, setScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<DailyTriviaAnswer>();
+  const [selectedAnswer, setSelectedAnswer] = useState<Answer>();
 
-  const [question, setQuestion] = useState<DailyTriviaQuestion>(
+  const [question, setQuestion] = useState<Question>(
     getRandomCollectionItem(trivia.questions)
   );
   const [questionNumber, setQuestionNumber] = useState(1);
 
-  const handleAnswer = (answer: DailyTriviaAnswer): void => {
+  const handleAnswer = (answer: Answer): void => {
     answer.isCorrect && setScore(score + 1);
     setSelectedAnswer(answer);
     setHasAnswered(true);
