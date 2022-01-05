@@ -17,7 +17,7 @@ const mapStyles = {
 };
 
 const highlightedStyling = {
-  fill: "red",
+  fill: "#e24f4f",
 };
 
 const getContentByType = (

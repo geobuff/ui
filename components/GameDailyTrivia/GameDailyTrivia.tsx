@@ -12,7 +12,6 @@ import GameTriviaButton from "../GameTriviaButton";
 import GameDailyTriviaContent from "./GameDailyTriviaContent";
 
 import ArrowRight from "../../Icons/ArrowRight";
-import { getRandomCollectionItem } from "../../helpers/random";
 import { DailyTriviaQuestion } from "../../types/daily-trivia-questions";
 import { DailyTriviaAnswer } from "../../types/daily-trivia-answer";
 import { DailyTrivia } from "../../types/daily-trivia";
@@ -33,13 +32,10 @@ const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
 
 const GameDailyTrivia: FC<Props> = ({ trivia }) => {
   const [hasAnswered, setHasAnswered] = useState(false);
-  const [remainingQuestions, setRemainingQuestions] = useState(
-    trivia.questions
-  );
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<DailyTriviaAnswer>();
   const [question, setQuestion] = useState<DailyTriviaQuestion>(
-    getRandomCollectionItem(trivia.questions)
+    trivia.questions[0]
   );
   const [questionNumber, setQuestionNumber] = useState(1);
 
@@ -52,19 +48,11 @@ const GameDailyTrivia: FC<Props> = ({ trivia }) => {
   const handleNextQuestion = (): void => {
     setSelectedAnswer(null);
     setHasAnswered(false);
-
-    const updatedRemainingQuestions = remainingQuestions.filter(
-      (x) => x.id !== question.id
-    );
-
-    const nextQuestion = getRandomCollectionItem(updatedRemainingQuestions);
-
-    setRemainingQuestions(updatedRemainingQuestions);
-    setQuestion(nextQuestion);
+    setQuestion(trivia.questions[questionNumber]);
     setQuestionNumber(questionNumber + 1);
   };
 
-  const isLastQuestion = remainingQuestions.length === 1;
+  const isLastQuestion = questionNumber === trivia.questions.length;
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   if (isMobile === undefined) return null;
