@@ -1,10 +1,10 @@
 import React, { FC } from "react";
+import Link from "next/link";
 import {
   Alert,
   AlertIcon,
   AspectRatio,
   Box,
-  Link,
   SimpleGrid,
 } from "@chakra-ui/react";
 import { DailyTrivia } from "../../types/daily-trivia";
