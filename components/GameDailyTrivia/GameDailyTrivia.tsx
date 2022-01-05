@@ -8,8 +8,6 @@ import GameDailyTriviaHeader from "./GameDailyTriviaHeader";
 import GameDailyTriviaContent from "./GameDailyTriviaContent";
 import GameDailyTriviaAnswers from "./GameDailyTriviaAnswers";
 
-import { getRandomCollectionItem } from "../../helpers/random";
-
 import { DailyTriviaQuestion as Question } from "../../types/daily-trivia-questions";
 import { DailyTriviaAnswer as Answer } from "../../types/daily-trivia-answer";
 import { DailyTrivia } from "../../types/daily-trivia";
@@ -20,15 +18,9 @@ export interface Props {
 
 const GameDailyTrivia: FC<Props> = ({ trivia }) => {
   const [hasAnswered, setHasAnswered] = useState(false);
-  const [remainingQuestions, setRemainingQuestions] = useState(
-    trivia.questions
-  );
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<Answer>();
-
-  const [question, setQuestion] = useState<Question>(
-    getRandomCollectionItem(trivia.questions)
-  );
+  const [question, setQuestion] = useState<Question>(trivia.questions[0]);
   const [questionNumber, setQuestionNumber] = useState(1);
 
   const handleAnswer = (answer: Answer): void => {
@@ -40,19 +32,11 @@ const GameDailyTrivia: FC<Props> = ({ trivia }) => {
   const handleNextQuestion = (): void => {
     setSelectedAnswer(null);
     setHasAnswered(false);
-
-    const updatedRemainingQuestions = remainingQuestions.filter(
-      (x) => x.id !== question.id
-    );
-
-    const nextQuestion = getRandomCollectionItem(updatedRemainingQuestions);
-
-    setRemainingQuestions(updatedRemainingQuestions);
-    setQuestion(nextQuestion);
+    setQuestion(trivia.questions[questionNumber]);
     setQuestionNumber(questionNumber + 1);
   };
 
-  const isLastQuestion = remainingQuestions.length === 1;
+  const isLastQuestion = questionNumber === trivia.questions.length;
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   if (isMobile === undefined) return null;

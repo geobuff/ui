@@ -7,10 +7,12 @@ import GameSpinner from "../../components/GameSpinner";
 import MainView from "../../components/MainView";
 import useDailyTrivia from "../../hooks/UseDailyTrivia";
 
-const GameDailyTriviaContainer: FC = () => {
-  const { data, isLoading } = useDailyTrivia(
-    new Date().toISOString().split("T")[0]
-  );
+interface Props {
+  date: string;
+}
+
+const GameDailyTriviaContainer: FC<Props> = ({ date }) => {
+  const { data, isLoading } = useDailyTrivia(date);
 
   // TODO: Remove loading logic when converting page to static
   if (isLoading) {
