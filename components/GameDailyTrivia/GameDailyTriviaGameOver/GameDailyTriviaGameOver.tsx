@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useCallback, useMemo } from "react";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { getRandomCollectionItem } from "../../../helpers/random";
 import { SCORE_RESPONSES } from "./constants";
@@ -29,7 +29,12 @@ const GameDailyTriviaGameOver: FC<Props> = ({
   maxQuestionNumber = 10,
   onPlayAgain = () => {},
 }) => {
-  const scoreSubtitle = getScoreSubtitle(score, maxQuestionNumber);
+  // useMemo prevents getScoreSubtitle from
+  // getting different values on each render
+  const scoreSubtitle = useMemo(
+    () => getScoreSubtitle(score, maxQuestionNumber),
+    [score, maxQuestionNumber]
+  );
 
   return (
     <Flex
