@@ -12,8 +12,9 @@ export interface Props {
   selectedAnswer: Answer;
   hasAnswered: boolean;
   isLastQuestion: boolean;
-  onHandleAnswer: (answer: Answer) => void;
-  onHandleNextQuestion: () => void;
+  onAnswerQuestion: (answer: Answer) => void;
+  onNextQuestion: () => void;
+  onGameStop: () => void;
 }
 
 const getTriviaButtonStatus = (selectedAnswer: Answer, answer: Answer) => {
@@ -29,8 +30,9 @@ const GameDailyTriviaAnswers: FC<Props> = ({
   hasAnswered = false,
   selectedAnswer,
   isLastQuestion = false,
-  onHandleAnswer = () => {},
-  onHandleNextQuestion = () => {},
+  onAnswerQuestion = () => {},
+  onNextQuestion = () => {},
+  onGameStop = () => {},
 }) => {
   return (
     <Flex direction="column" marginTop="auto" width="100%">
@@ -44,7 +46,7 @@ const GameDailyTriviaAnswers: FC<Props> = ({
             key={answer?.text}
             text={answer.text}
             flagCode={answer?.flagCode}
-            onClick={() => onHandleAnswer(answer)}
+            onClick={() => onAnswerQuestion(answer)}
             isDisabled={hasAnswered}
             _disabled={{ opacity: "1", cursor: "not-allowed" }}
           />
@@ -58,7 +60,7 @@ const GameDailyTriviaAnswers: FC<Props> = ({
             marginY={5}
             rightIcon={<ArrowRight strokeWidth={"20px"} />}
             iconSpacing={1}
-            onClick={onHandleNextQuestion}
+            onClick={isLastQuestion ? onGameStop : onNextQuestion}
             _hover={{
               backgroundColor: "#236175",
               transform: "scale(1.05)",
