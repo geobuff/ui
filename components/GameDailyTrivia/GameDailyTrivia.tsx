@@ -42,6 +42,15 @@ const GameDailyTrivia: FC<Props> = ({ trivia }) => {
     setHasGameStopped(true);
   };
 
+  const handlePlayAgain = () => {
+    setSelectedAnswer(null);
+    setHasAnswered(false);
+    setQuestion(trivia.questions[0]);
+    setQuestionNumber(1);
+    setScore(0);
+    setHasGameStopped(false);
+  };
+
   const isLastQuestion = questionNumber === trivia.questions.length;
   const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -74,6 +83,7 @@ const GameDailyTrivia: FC<Props> = ({ trivia }) => {
             <GameDailyTriviaGameOver
               score={score}
               maxQuestionNumber={trivia.questions?.length}
+              onPlayAgain={handlePlayAgain}
             />
           ) : (
             <>
