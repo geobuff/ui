@@ -1,5 +1,22 @@
 import React, { FC } from "react";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+import { getRandomCollectionItem } from "../../../helpers/random";
+import { SCORE_RESPONSES } from "./constants";
+
+const getScoreSubtitle = (score: number, max: number): string => {
+  const percent = (100 * score) / max;
+
+  switch (true) {
+    case percent >= 100:
+      return getRandomCollectionItem(SCORE_RESPONSES["PERFECT"]);
+    case percent < 100 && percent >= 80:
+      return getRandomCollectionItem(SCORE_RESPONSES["GOOD"]);
+    case percent < 80 && percent >= 60:
+      return getRandomCollectionItem(SCORE_RESPONSES["OKAY"]);
+    default:
+      return getRandomCollectionItem(SCORE_RESPONSES["POOR"]);
+  }
+};
 
 export interface Props {
   score: number;
@@ -12,6 +29,8 @@ const GameDailyTriviaGameOver: FC<Props> = ({
   maxQuestionNumber = 10,
   onPlayAgain = () => {},
 }) => {
+  const scoreSubtitle = getScoreSubtitle(score, maxQuestionNumber);
+
   return (
     <Flex
       flex={1}
@@ -30,8 +49,8 @@ const GameDailyTriviaGameOver: FC<Props> = ({
           <Text fontSize="64px" fontWeight="bold" letterSpacing="4px">
             {`${score}/${maxQuestionNumber}`}
           </Text>
-          <Text fontSize="36px" fontWeight="bold">
-            {"Not a bad effort!"}
+          <Text fontSize="30px" fontWeight="medium">
+            {scoreSubtitle}
           </Text>
         </Box>
 

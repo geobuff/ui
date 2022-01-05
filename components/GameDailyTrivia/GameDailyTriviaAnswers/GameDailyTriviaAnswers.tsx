@@ -52,25 +52,24 @@ const GameDailyTriviaAnswers: FC<Props> = ({
           />
         ))}
       </SimpleGrid>
-      <Flex justifyContent="flex-end">
-        <Box height="80px">
-          <Fade in={hasAnswered} unmountOnExit>
-            <Button
-              variant="ghost"
-              color="white"
-              marginY={5}
-              rightIcon={<ArrowRight strokeWidth={"20px"} />}
-              iconSpacing={1}
-              onClick={isLastQuestion ? onGameStop : onNextQuestion}
-              _hover={{
-                backgroundColor: "#236175",
-                transform: "scale(1.05)",
-              }}
-            >
-              {isLastQuestion ? "Finish" : "Next Question"}
-            </Button>
-          </Fade>
-        </Box>
+
+      <Flex justifyContent="flex-end" height="80px">
+        <Fade in={hasAnswered} unmountOnExit>
+          <Button
+            variant="ghost"
+            color="white"
+            marginY={5}
+            rightIcon={<ArrowRight strokeWidth={"20px"} />}
+            iconSpacing={1}
+            onClick={isLastQuestion ? onGameStop : onNextQuestion}
+            _hover={{
+              backgroundColor: "#236175",
+              transform: "scale(1.05)",
+            }}
+          >
+            {isLastQuestion ? "Finish" : "Next Question"}
+          </Button>
+        </Fade>
       </Flex>
     </Flex>
   );
