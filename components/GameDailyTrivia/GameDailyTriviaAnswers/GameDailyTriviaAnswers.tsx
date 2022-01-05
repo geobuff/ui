@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Button, Fade, Flex, SimpleGrid } from "@chakra-ui/react";
+import { Box, Button, Fade, Flex, SimpleGrid } from "@chakra-ui/react";
 
 import ArrowRight from "../../../Icons/ArrowRight";
 import GameTriviaButton from "../../GameTriviaButton";
@@ -53,22 +53,24 @@ const GameDailyTriviaAnswers: FC<Props> = ({
         ))}
       </SimpleGrid>
       <Flex justifyContent="flex-end">
-        <Fade in={hasAnswered}>
-          <Button
-            variant="ghost"
-            color="white"
-            marginY={5}
-            rightIcon={<ArrowRight strokeWidth={"20px"} />}
-            iconSpacing={1}
-            onClick={isLastQuestion ? onGameStop : onNextQuestion}
-            _hover={{
-              backgroundColor: "#236175",
-              transform: "scale(1.05)",
-            }}
-          >
-            {isLastQuestion ? "Finish" : "Next Question"}
-          </Button>
-        </Fade>
+        <Box height="80px">
+          <Fade in={hasAnswered} unmountOnExit>
+            <Button
+              variant="ghost"
+              color="white"
+              marginY={5}
+              rightIcon={<ArrowRight strokeWidth={"20px"} />}
+              iconSpacing={1}
+              onClick={isLastQuestion ? onGameStop : onNextQuestion}
+              _hover={{
+                backgroundColor: "#236175",
+                transform: "scale(1.05)",
+              }}
+            >
+              {isLastQuestion ? "Finish" : "Next Question"}
+            </Button>
+          </Fade>
+        </Box>
       </Flex>
     </Flex>
   );
