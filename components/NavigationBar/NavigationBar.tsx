@@ -107,10 +107,10 @@ const NavigationBar: FC = () => {
             </ChakraLink>
           </Link>
         </Flex>
-        <Flex marginLeft={3} marginTop="2px" as="nav">
-          <Link href="/dailys">
+        <Flex marginLeft={4} marginTop="2px" as="nav">
+          <Link href="/daily-trivia">
             <ChakraLink fontSize="16px" fontWeight={600} color="gray.600">
-              {"Dailys"}
+              {"Daily Trivia"}
             </ChakraLink>
           </Link>
         </Flex>
@@ -196,6 +196,14 @@ const NavigationBar: FC = () => {
                     <Link href="/leaderboard">
                       <ChakraLink fontSize="20px" fontWeight={600}>
                         {"Leaderboard"}
+                      </ChakraLink>
+                    </Link>
+
+                    <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />
+
+                    <Link href="/daily-trivia">
+                      <ChakraLink fontSize="20px" fontWeight={600}>
+                        {"Daily Trivia"}
                       </ChakraLink>
                     </Link>
                   </Box>

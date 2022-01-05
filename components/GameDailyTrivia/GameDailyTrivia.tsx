@@ -1,47 +1,31 @@
 import React, { FC, useState } from "react";
-import {
-  Button,
-  Fade,
-  Flex,
-  SimpleGrid,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import Head from "next/head";
+import { Flex, useBreakpointValue } from "@chakra-ui/react";
+
+import MainView from "../MainView";
 
 import GameDailyTriviaHeader from "./GameDailyTriviaHeader";
-import GameTriviaButton from "../GameTriviaButton";
 import GameDailyTriviaContent from "./GameDailyTriviaContent";
+import GameDailyTriviaAnswers from "./GameDailyTriviaAnswers";
 
-import ArrowRight from "../../Icons/ArrowRight";
-import { getRandomCollectionItem } from "../../helpers/random";
-import { DailyTriviaQuestion } from "../../types/daily-trivia-questions";
-import { DailyTriviaAnswer } from "../../types/daily-trivia-answer";
+import { DailyTriviaQuestion as Question } from "../../types/daily-trivia-questions";
+import { DailyTriviaAnswer as Answer } from "../../types/daily-trivia-answer";
 import { DailyTrivia } from "../../types/daily-trivia";
+import GameDailyTriviaGameOver from "./GameDailyTriviaGameOver";
 
 export interface Props {
   trivia: DailyTrivia;
 }
 
-const getTriviaButtonStatus = (selectedAnswer, answer: any) => {
-  if (selectedAnswer.text !== answer.text) {
-    return answer.isCorrect ? "outlined" : "idle";
-  }
-
-  return selectedAnswer.isCorrect ? "correct" : "incorrect";
-};
-
 const GameDailyTrivia: FC<Props> = ({ trivia }) => {
   const [hasAnswered, setHasAnswered] = useState(false);
-  const [remainingQuestions, setRemainingQuestions] = useState(
-    trivia.questions
-  );
   const [score, setScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<DailyTriviaAnswer>();
-  const [question, setQuestion] = useState<DailyTriviaQuestion>(
-    getRandomCollectionItem(trivia.questions)
-  );
+  const [selectedAnswer, setSelectedAnswer] = useState<Answer>();
+  const [question, setQuestion] = useState<Question>(trivia.questions[0]);
   const [questionNumber, setQuestionNumber] = useState(1);
+  const [hasGameStopped, setHasGameStopped] = useState(false);
 
-  const handleAnswer = (answer: DailyTriviaAnswer): void => {
+  const handleAnswerQuestion = (answer: Answer): void => {
     answer.isCorrect && setScore(score + 1);
     setSelectedAnswer(answer);
     setHasAnswered(true);
@@ -50,86 +34,81 @@ const GameDailyTrivia: FC<Props> = ({ trivia }) => {
   const handleNextQuestion = (): void => {
     setSelectedAnswer(null);
     setHasAnswered(false);
-
-    const updatedRemainingQuestions = remainingQuestions.filter(
-      (x) => x.id !== question.id
-    );
-
-    const nextQuestion = getRandomCollectionItem(updatedRemainingQuestions);
-
-    setRemainingQuestions(updatedRemainingQuestions);
-    setQuestion(nextQuestion);
+    setQuestion(trivia.questions[questionNumber]);
     setQuestionNumber(questionNumber + 1);
   };
 
-  const isLastQuestion = remainingQuestions.length === 1;
+  const handleGameStop = () => {
+    setHasGameStopped(true);
+  };
+
+  const handlePlayAgain = () => {
+    setSelectedAnswer(null);
+    setHasAnswered(false);
+    setQuestion(trivia.questions[0]);
+    setQuestionNumber(1);
+    setScore(0);
+    setHasGameStopped(false);
+  };
+
+  const isLastQuestion = questionNumber === trivia.questions.length;
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   if (isMobile === undefined) return null;
 
   return (
-    <Flex
-      flex={1}
-      direction="column"
-      height="100%"
-      width="100%"
-      maxWidth={1300}
-      padding={5}
-      marginLeft="auto"
-      marginRight="auto"
-    >
-      <GameDailyTriviaHeader
-        name={trivia.name}
-        questionNumber={questionNumber}
-        maxQuestionNumber={10}
-        marginY={4}
-      />
+    <>
+      <Head>
+        <title> {`${trivia.name} - GeoBuff`}</title>
+      </Head>
+      <MainView hasFooter={false} backgroundColor="#276F86">
+        <Flex
+          flex={1}
+          direction="column"
+          height="100%"
+          width="100%"
+          maxWidth={1300}
+          padding={5}
+          marginLeft="auto"
+          marginRight="auto"
+        >
+          <GameDailyTriviaHeader
+            name={trivia.name}
+            questionNumber={questionNumber}
+            maxQuestionNumber={10}
+            marginY={4}
+          />
 
-      <GameDailyTriviaContent
-        text={question?.question}
-        type={question?.type}
-        map={question?.map}
-        highlighted={question?.highlighted}
-        flagCode={question?.flagCode}
-        imageUrl={question?.imageUrl}
-      />
-
-      <Flex direction="column" marginTop="auto" width="100%">
-        <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
-          {question?.answers?.map((answer) => (
-            <GameTriviaButton
-              // TODO: move to function
-              status={
-                (hasAnswered &&
-                  getTriviaButtonStatus(selectedAnswer, answer)) ||
-                "idle"
-              }
-              key={answer?.text}
-              text={answer.text}
-              flagCode={answer?.flagCode}
-              onClick={() => handleAnswer(answer)}
-              isDisabled={hasAnswered}
-              _disabled={{ opacity: "1", cursor: "not-allowed" }}
+          {hasGameStopped ? (
+            <GameDailyTriviaGameOver
+              score={score}
+              maxQuestionNumber={trivia.questions?.length}
+              onPlayAgain={handlePlayAgain}
             />
-          ))}
-        </SimpleGrid>
-        <Flex justifyContent="flex-end">
-          <Fade in={hasAnswered}>
-            <Button
-              marginY={5}
-              onClick={handleNextQuestion}
-              variant="ghost"
-              color="white"
-              rightIcon={<ArrowRight strokeWidth={"20px"} />}
-              iconSpacing={1}
-              _hover={{ backgroundColor: "#236175", transform: "scale(1.05)" }}
-            >
-              {isLastQuestion ? "Finish" : "Next Question"}
-            </Button>
-          </Fade>
+          ) : (
+            <>
+              <GameDailyTriviaContent
+                text={question?.question}
+                type={question?.type}
+                map={question?.map}
+                highlighted={question?.highlighted}
+                flagCode={question?.flagCode}
+                imageUrl={question?.imageUrl}
+              />
+              <GameDailyTriviaAnswers
+                question={question}
+                hasAnswered={hasAnswered}
+                selectedAnswer={selectedAnswer}
+                isLastQuestion={isLastQuestion}
+                onAnswerQuestion={handleAnswerQuestion}
+                onNextQuestion={handleNextQuestion}
+                onGameStop={handleGameStop}
+              />
+            </>
+          )}
         </Flex>
-      </Flex>
-    </Flex>
+      </MainView>
+    </>
   );
 };
 

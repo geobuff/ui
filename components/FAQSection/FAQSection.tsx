@@ -123,10 +123,19 @@ const FAQSection: FC<Props> = ({ index = "" }) => {
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          GeoCoin is our in game currency that allows you to purchase items,
-          avatars and subscriptions. You earn GeoCoin each time you score
-          greater than 0 on a quiz. The amount of coins you earn scales based on
-          how well you do in comparison to the max score for the quiz.
+          <Text>
+            {`GeoCoin is our in-game currency that you earn each time you score
+            greater than zero on a quiz. The amount of coins you earn scales based
+            on how well you perform.`}
+          </Text>
+          <Text mt={3}>
+            {`Currently, we haven't implemented any features to allow you to spend
+            your well-earned GeoCoin. The team is hard at work adding features
+            to allow you to purchase special avatar items, subscriptions and
+            more using your piggybank. In the meantime, if you're
+            interested in how we are progressing, keep an eye on our roadmap or social media for more
+            details!`}
+          </Text>
         </AccordionPanel>
       </AccordionItem>
     </Accordion>

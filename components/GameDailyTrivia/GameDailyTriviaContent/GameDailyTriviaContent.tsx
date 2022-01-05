@@ -16,8 +16,8 @@ const mapStyles = {
   fill: "#6dca94",
 };
 
-const hightlightedStyling = {
-  fill: "red",
+const highlightedStyling = {
+  fill: "#e24f4f",
 };
 
 const getContentByType = (
@@ -39,7 +39,7 @@ const getContentByType = (
           ...svgMap,
           paths: svgMap.paths.map((x) => {
             if (x.name.toLowerCase() === highlighted.toLowerCase()) {
-              x.style = hightlightedStyling;
+              x.style = highlightedStyling;
             }
             return x;
           }),
