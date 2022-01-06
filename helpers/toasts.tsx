@@ -16,13 +16,14 @@ export const entrySubmitted = (
 });
 
 export const increaseXP = (
+  increase: number,
   position: ToastPosition = defaultPosition
 ): UseToastOptions => ({
   position: position,
   description: (
     <Flex direction="column" justifyContent="center">
       <Flex>
-        <Text mr={1}>+1</Text>
+        <Text mr={1}>{`+${increase}`}</Text>
         <Twemoji emoji="🪙" />
       </Flex>
     </Flex>

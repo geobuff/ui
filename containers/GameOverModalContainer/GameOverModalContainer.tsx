@@ -16,6 +16,7 @@ import { TempScore } from "../../types/temp-score";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
+import { calculateIncrease } from "../../helpers/geocoin";
 
 interface Props {
   id?: number;
@@ -86,7 +87,8 @@ const GameOverModalContainer: FC<Props> = ({
     }
 
     if (!isXPUpdated) {
-      increaseXP();
+      const increase = calculateIncrease(score, maxScore);
+      increaseXP(increase);
       setXPUpdated(true);
     }
 
@@ -97,7 +99,7 @@ const GameOverModalContainer: FC<Props> = ({
     }
   }, [isOpen, isUserLoading, user]);
 
-  const increaseXP = (increase = 1): void => {
+  const increaseXP = (increase: number): void => {
     const update = {
       avatarId: user.avatarId,
       username: user.username,
@@ -107,7 +109,7 @@ const GameOverModalContainer: FC<Props> = ({
     };
 
     axiosClient.put(`/users/${user.id}`, update, getAuthConfig()).then(() => {
-      toast(increaseXPToast(toastPosition));
+      toast(increaseXPToast(increase, toastPosition));
 
       updateUser({
         ...user,
