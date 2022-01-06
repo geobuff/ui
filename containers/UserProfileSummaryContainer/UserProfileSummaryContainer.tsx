@@ -2,11 +2,11 @@ import React, { useEffect, useState, FC } from "react";
 
 import UserProfileSummary from "../../components/UserProfileSummary";
 import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
-import { User } from "../../types/user";
+import { UserDto } from "../../types/user-dto";
 
 interface Props {
   isCurrentUser?: boolean;
-  user?: User;
+  user?: UserDto;
 }
 
 const UserProfileSummaryContainer: FC<Props> = ({
