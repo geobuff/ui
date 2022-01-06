@@ -30,9 +30,12 @@ const FAQ: FC = () => {
       <Box background="white">
         <Flex
           direction="column"
-          maxWidth={{ base: "80%", md: "50%" }}
+          height="100%"
+          width="100%"
+          maxWidth={800}
           mx="auto"
           py={9}
+          px={5}
           fontSize={{ base: "12px", md: "inherit" }}
           justifyContent="center"
         >
