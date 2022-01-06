@@ -25,10 +25,13 @@ import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
 const geocoinExplainerText = (
-  <Text padding={2}>
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-    tempor incididunt ut labore et dolore magna aliqua.
-  </Text>
+  <Box padding={2}>
+    <Text>
+      {`GeoCoin is our in-game currency that you earn each time you score
+      greater than zero on a quiz. The amount of coins you earn scales based
+      on how well you perform.`}
+    </Text>
+  </Box>
 );
 
 interface Props {
