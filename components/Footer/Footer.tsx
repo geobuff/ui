@@ -12,11 +12,11 @@ const companyLinks = [
     text: "Our Mission",
   },
   {
-    href: "/help-center",
+    href: "https://discord.gg/W8DY8zn2Vt",
     text: "Support",
   },
   {
-    href: "/help-center#faq",
+    href: "/faq",
     text: "F.A.Q",
   },
   {
@@ -97,7 +97,7 @@ const extendedFooter = (
           </Text>
           <Flex direction="column">
             {companyLinks.map(({ href, text }) => (
-              <Link key={href} href={href}>
+              <Link key={href} href={href} passHref>
                 <ChakraLink
                   color="#B0B0B0"
                   fontSize="14px"
