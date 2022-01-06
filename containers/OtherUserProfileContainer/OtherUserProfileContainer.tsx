@@ -1,14 +1,14 @@
 import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import UserProfile from "../../components/UserProfile";
-import { User } from "../../types/user";
+import { UserDto } from "../../types/user-dto";
 
 export interface Props {
   userId: number;
 }
 
 const OtherUserProfileContainer: FC<Props> = ({ userId }) => {
-  const [user, setUser] = useState<User>();
+  const [user, setUser] = useState<UserDto>();
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState("");
 

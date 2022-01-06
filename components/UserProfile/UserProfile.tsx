@@ -5,13 +5,13 @@ import HeroHeader from "../HeroHeader";
 
 import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer";
 import UserProfileAchievementsContainer from "../../containers/UserProfileAchievementsContainer";
-import { User } from "../../types/user";
+import { UserDto } from "../../types/user-dto";
 import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
 
 const divider = <Divider borderColor="transparent" my={3} />;
 
 interface Props {
-  user?: User;
+  user?: UserDto;
   isCurrentUser?: boolean;
   error?: string;
 }
