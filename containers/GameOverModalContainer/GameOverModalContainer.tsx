@@ -16,7 +16,7 @@ import { TempScore } from "../../types/temp-score";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
-import { calculateIncrease } from "../../helpers/geocoin";
+import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
 
 interface Props {
   id?: number;
@@ -87,8 +87,7 @@ const GameOverModalContainer: FC<Props> = ({
     }
 
     if (!isXPUpdated) {
-      const increase = calculateIncrease(score, maxScore);
-      increaseXP(increase);
+      increaseXP();
       setXPUpdated(true);
     }
 
@@ -99,23 +98,23 @@ const GameOverModalContainer: FC<Props> = ({
     }
   }, [isOpen, isUserLoading, user]);
 
-  const increaseXP = (increase: number): void => {
-    const update = {
-      avatarId: user.avatarId,
-      username: user.username,
-      email: user.email,
-      countryCode: user.countryCode,
-      xp: user.xp + increase,
+  const increaseXP = (): void => {
+    const payload: IncreaseUserXPPayload = {
+      score: score,
+      maxScore: maxScore,
     };
 
-    axiosClient.put(`/users/${user.id}`, update, getAuthConfig()).then(() => {
-      toast(increaseXPToast(increase, toastPosition));
+    axiosClient
+      .put(`/users/xp/${user.id}`, payload, getAuthConfig())
+      .then((response) => {
+        const increase = response.data;
+        toast(increaseXPToast(increase, toastPosition));
 
-      updateUser({
-        ...user,
-        xp: update.xp,
+        updateUser({
+          ...user,
+          xp: user.xp + increase,
+        });
       });
-    });
   };
 
   const getLeaderboardEntry = (): void => {
