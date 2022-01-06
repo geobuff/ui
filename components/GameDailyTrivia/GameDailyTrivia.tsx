@@ -15,9 +15,13 @@ import GameDailyTriviaGameOver from "./GameDailyTriviaGameOver";
 
 export interface Props {
   trivia: DailyTrivia;
+  onIncrementPlays?: (triviaId: number) => void;
 }
 
-const GameDailyTrivia: FC<Props> = ({ trivia }) => {
+const GameDailyTrivia: FC<Props> = ({
+  trivia,
+  onIncrementPlays = (): void => {},
+}) => {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<Answer>();
@@ -39,6 +43,7 @@ const GameDailyTrivia: FC<Props> = ({ trivia }) => {
   };
 
   const handleGameStop = () => {
+    onIncrementPlays(trivia.id);
     setHasGameStopped(true);
   };
 
