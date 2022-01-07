@@ -50,16 +50,23 @@ const AvatarSelect: FC<Props> = ({
         >
           <ProfileUserAvatar
             shape="square"
+            height={100}
+            width={100}
             primaryImageUrl={current?.secondaryImageUrl}
             secondaryImageUrl={current?.primaryImageUrl}
             hasBorder={false}
           />
-        </Flex>
-        <Flex direction="column">
           <Heading mx="auto" mb={2} size="md">
             {current?.name}
           </Heading>
-          <Text mb={12}>{current?.description}</Text>
+          <Text
+            color="gray.500"
+            fontSize="small"
+            fontWeight="medium"
+            marginBottom={3}
+          >
+            {current?.description}
+          </Text>
         </Flex>
       </Flex>
 

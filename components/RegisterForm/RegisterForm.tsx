@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import * as Yup from "yup";
 
 import {
@@ -19,13 +19,15 @@ import Link from "next/link";
 
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
-import AvatarSelectContainer from "../../containers/AvatarSelectContainer";
-import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import Logo from "../Logo";
 
 import LoginLink from "./LoginLink";
 import { RegisterFormSubmit } from "../../types/register-form-submit";
+
+import RegisterFormStepOne from "./RegisterFormStepOne";
+import RegisterFormStepTwo from "./RegisterFormStepTwo";
+import RegisterFormStepThree from "./RegisterFormStepThree";
 
 const initialValues = {
   avatarId: "1",
@@ -65,7 +67,26 @@ const RegisterForm: FC<Props> = ({
   onSubmit = (values: RegisterFormSubmit): void => {},
   isSubmitting = false,
 }) => {
+  const [currentStep, setCurrentStep] = useState(1);
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
+
+  const handleNextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
+
+  const getCurrentStepComponent = (props) => {
+    switch (currentStep) {
+      case 1:
+        return <RegisterFormStepOne />;
+      case 2:
+        return <RegisterFormStepTwo {...props} />;
+      case 3:
+        return <RegisterFormStepThree />;
+
+      default:
+        break;
+    }
+  };
 
   const mainContent = (
     <>
@@ -95,154 +116,7 @@ const RegisterForm: FC<Props> = ({
         {({ setFieldValue }): React.ReactNode => (
           <Form>
             <Box marginBottom={5}>
-              <Flex marginY={6}>
-                <Field name="avatarId">
-                  {({ field, form }): React.ReactNode => (
-                    <FormControl
-                      isInvalid={form.errors.avatarId && form.touched.avatarId}
-                    >
-                      <FormLabel htmlFor="avatarId" fontWeight="bold">
-                        {"Avatar"}
-                      </FormLabel>
-
-                      <AvatarSelectContainer
-                        fieldProps={field}
-                        setFieldValue={setFieldValue}
-                      />
-                      <Box position="absolute" top="68px" left="2px">
-                        <FormErrorMessage fontSize="11px">
-                          {form.errors.avatarId}
-                        </FormErrorMessage>
-                      </Box>
-                    </FormControl>
-                  )}
-                </Field>
-              </Flex>
-
-              <Flex marginY={6}>
-                <Field name="username">
-                  {({ field, form }): React.ReactNode => (
-                    <FormControl
-                      isInvalid={form.errors.username && form.touched.username}
-                    >
-                      <FormLabel fontWeight="bold" htmlFor="username">
-                        {"Username"}
-                      </FormLabel>
-                      <Input
-                        {...field}
-                        id="username"
-                        autoComplete="off"
-                        placeholder="Enter username..."
-                        type="text"
-                        size="lg"
-                        height="40px"
-                        fontSize="16px"
-                        background="#F6F6F6"
-                        borderRadius={6}
-                        _placeholder={{ color: "gray.500" }}
-                        _hover={{ background: "#e0e0e0" }}
-                      />
-                      <Box position="absolute" top="68px" left="2px">
-                        <FormErrorMessage fontSize="11px">
-                          {form.errors.username}
-                        </FormErrorMessage>
-                      </Box>
-                    </FormControl>
-                  )}
-                </Field>
-              </Flex>
-
-              <Flex marginY={6}>
-                <Field name="countryCode">
-                  {({ field, form }): React.ReactNode => (
-                    <FormControl
-                      isInvalid={
-                        form.errors.countryCode && form.touched.countryCode
-                      }
-                    >
-                      <FormLabel htmlFor="countryCode" fontWeight="bold">
-                        {"Country"}
-                      </FormLabel>
-
-                      <CountrySelect fieldProps={field} />
-                      <Box position="absolute" top="68px" left="2px">
-                        <FormErrorMessage fontSize="11px">
-                          {form.errors.countryCode}
-                        </FormErrorMessage>
-                      </Box>
-                    </FormControl>
-                  )}
-                </Field>
-              </Flex>
-
-              <Flex marginY={6}>
-                <Field name="email">
-                  {({ field, form }): React.ReactNode => (
-                    <FormControl
-                      isInvalid={form.errors.email && form.touched.email}
-                    >
-                      <FormLabel htmlFor="email" fontWeight="bold">
-                        {"Email"}
-                      </FormLabel>
-                      <Input
-                        {...field}
-                        id="email"
-                        type="email"
-                        size="lg"
-                        placeholder="Enter email..."
-                        height="40px"
-                        fontSize="16px"
-                        background="#F6F6F6"
-                        borderRadius={6}
-                        _placeholder={{ color: "gray.500" }}
-                        _hover={{ background: "#e0e0e0" }}
-                      />
-                      <Box position="absolute" top="68px" left="2px">
-                        <FormErrorMessage fontSize="11px">
-                          {form.errors.email}
-                        </FormErrorMessage>
-                      </Box>
-                    </FormControl>
-                  )}
-                </Field>
-              </Flex>
-
-              <Flex marginY={6}>
-                <Field name="password">
-                  {({ field, form }): React.ReactNode => (
-                    <FormControl
-                      isInvalid={form.errors.password && form.touched.password}
-                    >
-                      <FormLabel htmlFor="password" fontWeight="bold">
-                        {"Password"}
-                      </FormLabel>
-                      <Input
-                        {...field}
-                        id="password"
-                        type="password"
-                        autoComplete="new-password"
-                        placeholder="Enter password..."
-                        size="lg"
-                        height="40px"
-                        fontSize="16px"
-                        background="#F6F6F6"
-                        borderRadius={6}
-                        _placeholder={{ color: "gray.500" }}
-                        _hover={{ background: "#e0e0e0" }}
-                      />
-                      <Box position="absolute" top="68px" left="2px">
-                        <FormErrorMessage
-                          fontSize={
-                            form.errors.password?.length > 26 ? "10px" : "11px"
-                          }
-                        >
-                          {form.errors.password}
-                        </FormErrorMessage>
-                      </Box>
-                    </FormControl>
-                  )}
-                </Field>
-              </Flex>
+              {getCurrentStepComponent(setFieldValue)}
 
               <Flex marginTop="44px" marginBottom={0}>
                 <Button
@@ -250,9 +124,10 @@ const RegisterForm: FC<Props> = ({
                   colorScheme="green"
                   width="100%"
                   type="submit"
-                  isLoading={isSubmitting}
+                  // isLoading={isSubmitting}
+                  onClick={handleNextStep}
                 >
-                  {"Create Account"}
+                  {"Next"}
                 </Button>
               </Flex>
             </Box>
@@ -272,10 +147,10 @@ const RegisterForm: FC<Props> = ({
             <LoginLink />
           </Box>
 
-          <AuthView marginTop="64px" height="100%">
+          <AuthView marginTop="32px" height="100%">
             <AuthCard
               marginX="auto"
-              marginY={5}
+              marginY={4}
               height="100%"
               width={420}
               zIndex={2}
