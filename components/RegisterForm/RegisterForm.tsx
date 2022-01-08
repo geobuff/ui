@@ -67,12 +67,12 @@ const RegisterForm: FC<Props> = ({
   onSubmit = (values: RegisterFormSubmit): void => {},
   isSubmitting = false,
 }) => {
-  const [currentStep, setCurrentStep] = useState(1);
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
-  const handleNextStep = () => {
-    setCurrentStep(currentStep + 1);
-  };
+  const [currentStep, setCurrentStep] = useState(1);
+
+  const handleNextStep = () => setCurrentStep(currentStep + 1);
+  const handlePreviousStep = () => setCurrentStep(currentStep - 1);
 
   const getCurrentStepComponent = (props) => {
     switch (currentStep) {
@@ -81,7 +81,7 @@ const RegisterForm: FC<Props> = ({
       case 2:
         return <RegisterFormStepTwo {...props} />;
       case 3:
-        return <RegisterFormStepThree />;
+        return <RegisterFormStepThree {...props} />;
 
       default:
         break;
@@ -90,24 +90,6 @@ const RegisterForm: FC<Props> = ({
 
   const mainContent = (
     <>
-      <Flex
-        justifyContent="center"
-        marginTop={3}
-        marginBottom={5}
-        height="100%"
-        _hover={{ cursor: "pointer" }}
-      >
-        <Link href="/">
-          <ChakraLink>
-            <Logo height="42px" width="200px" />
-          </ChakraLink>
-        </Link>
-      </Flex>
-
-      <Text fontSize="26px" marginY={1} fontWeight="800">
-        {"Create an Account"}
-      </Text>
-
       <Formik
         initialValues={initialValues}
         validationSchema={validationSchema}
@@ -116,7 +98,10 @@ const RegisterForm: FC<Props> = ({
         {({ setFieldValue }): React.ReactNode => (
           <Form>
             <Box marginBottom={5}>
-              {getCurrentStepComponent(setFieldValue)}
+              {getCurrentStepComponent({
+                setFieldValue,
+                onPreviousStep: handlePreviousStep,
+              })}
 
               <Flex marginTop="44px" marginBottom={0}>
                 <Button

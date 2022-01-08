@@ -6,15 +6,36 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Link as ChakraLink,
   Input,
+  Text,
 } from "@chakra-ui/react";
 import { Field } from "formik";
+import Link from "next/link";
+import Logo from "../../Logo";
 
 // export interface Props {}
 
 const RegisterFormStepOne: FC = () => {
   return (
     <Box>
+      <Flex
+        justifyContent="center"
+        marginTop={3}
+        marginBottom={5}
+        height="100%"
+        _hover={{ cursor: "pointer" }}
+      >
+        <Link href="/">
+          <ChakraLink>
+            <Logo height="42px" width="200px" />
+          </ChakraLink>
+        </Link>
+      </Flex>
+
+      <Text fontSize="26px" marginY={1} fontWeight="800">
+        {"Create an Account"}
+      </Text>
       <Flex marginY={6}>
         <Field name="username">
           {({ field, form }): React.ReactNode => (

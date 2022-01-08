@@ -5,17 +5,36 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Heading,
   Input,
 } from "@chakra-ui/react";
 import { Field } from "formik";
 import CountrySelect from "../../CountrySelect";
+import RegisterFormBackButton from "../RegisterFormBackButton";
+import ProfileUserAvatar from "../../ProfileUserAvatar";
 
-// export interface Props {}
+export interface Props {
+  onPreviousStep: () => void;
+}
 
-const RegisterFormStepThree: FC = () => {
+const RegisterFormStepThree: FC<Props> = ({ onPreviousStep = () => {} }) => {
   return (
     <Box>
-      <Flex marginY={6}>
+      <RegisterFormBackButton onClick={onPreviousStep}>
+        {"Pick Your Username"}
+      </RegisterFormBackButton>
+      <Flex direction="column" marginY={6}>
+        <ProfileUserAvatar
+          shape="square"
+          height={100}
+          width={100}
+          primaryImageUrl="/commando-one-secondary.svg"
+          secondaryImageUrl="/commando-one-primary.svg"
+          hasBorder={false}
+        />
+        <Heading mx="auto" mb={2} size="md">
+          {"Sarg"}
+        </Heading>
         <Field name="username">
           {({ field, form }): React.ReactNode => (
             <FormControl

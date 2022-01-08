@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import {
   Box,
+  Button,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -9,14 +10,24 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 import AvatarSelectContainer from "../../../containers/AvatarSelectContainer";
+import ArrowLeft from "../../../Icons/ArrowLeft";
+import RegisterFormBackButton from "../RegisterFormBackButton";
 
 export interface Props {
+  onPreviousStep: () => void;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-const RegisterFormStepTwo: FC<Props> = ({ setFieldValue = () => {} }) => {
+const RegisterFormStepTwo: FC<Props> = ({
+  setFieldValue = () => {},
+  onPreviousStep = () => {},
+}) => {
   return (
     <Box>
+      <RegisterFormBackButton onClick={onPreviousStep}>
+        {"Select Your Avatar"}
+      </RegisterFormBackButton>
+
       <Flex marginY={6}>
         <Field name="avatarId">
           {({ field, form }): React.ReactNode => (

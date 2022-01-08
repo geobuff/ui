@@ -45,7 +45,6 @@ const AvatarSelect: FC<Props> = ({
         <Flex
           direction="column"
           justifyContent="center"
-          mr={{ base: 0, md: 6 }}
           mb={{ base: 6, md: 0 }}
         >
           <ProfileUserAvatar
