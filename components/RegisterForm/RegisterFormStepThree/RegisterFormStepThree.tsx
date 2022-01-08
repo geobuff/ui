@@ -4,6 +4,7 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Heading,
   Input,
@@ -12,6 +13,9 @@ import { Field } from "formik";
 import CountrySelect from "../../CountrySelect";
 import RegisterFormBackButton from "../RegisterFormBackButton";
 import ProfileUserAvatar from "../../ProfileUserAvatar";
+
+const usernameHelperText =
+  "Pick a unique name for your avatar. If you change your mind you can change this later in your profile.";
 
 export interface Props {
   onPreviousStep: () => void;
@@ -57,11 +61,15 @@ const RegisterFormStepThree: FC<Props> = ({ onPreviousStep = () => {} }) => {
                 _placeholder={{ color: "gray.500" }}
                 _hover={{ background: "#e0e0e0" }}
               />
-              <Box position="absolute" top="68px" left="2px">
-                <FormErrorMessage fontSize="11px">
+              {form.errors.username && form.touched.username ? (
+                <FormErrorMessage fontSize="12px">
                   {form.errors.username}
                 </FormErrorMessage>
-              </Box>
+              ) : (
+                <FormHelperText fontSize="12px" lineHeight={"1.45"}>
+                  {usernameHelperText}
+                </FormHelperText>
+              )}
             </FormControl>
           )}
         </Field>
@@ -79,7 +87,7 @@ const RegisterFormStepThree: FC<Props> = ({ onPreviousStep = () => {} }) => {
 
               <CountrySelect fieldProps={field} />
               <Box position="absolute" top="68px" left="2px">
-                <FormErrorMessage fontSize="11px">
+                <FormErrorMessage fontSize="12px">
                   {form.errors.countryCode}
                 </FormErrorMessage>
               </Box>

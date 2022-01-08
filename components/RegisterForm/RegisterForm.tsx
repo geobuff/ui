@@ -28,6 +28,7 @@ import { RegisterFormSubmit } from "../../types/register-form-submit";
 import RegisterFormStepOne from "./RegisterFormStepOne";
 import RegisterFormStepTwo from "./RegisterFormStepTwo";
 import RegisterFormStepThree from "./RegisterFormStepThree";
+import RegisterFormStepOneContainer from "../../containers/RegisterContainer/RegisterFormStepOneContainer";
 
 const initialValues = {
   avatarId: "1",
@@ -37,24 +38,30 @@ const initialValues = {
   password: "",
 };
 
-const validationSchema = Yup.object().shape({
-  avatarId: Yup.number().required("Please select an avatar."),
-  username: Yup.string()
-    .required("Please include a username.")
-    .min(3, "Must be at least 3 characters long.")
-    .max(20, "Must be 20 or less characters long.")
-    .matches(/^\S*$/, "Cannot contain spaces."),
-  countryCode: Yup.string().required("Please select a country."),
-  email: Yup.string()
-    .required("Please include an email.")
-    .email("Must be a valid email address."),
-  password: Yup.string()
-    .required("Please include a password.")
-    .matches(
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-      "Must contain at least 8 characters, one uppercase letter, one lowercase letter and one number."
-    ),
-});
+const validationSchema = [
+  Yup.object().shape({
+    email: Yup.string()
+      .required("Please include an email.")
+      .email("Must be a valid email address."),
+    password: Yup.string()
+      .required("Please include a password.")
+      .matches(
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+        "Must contain at least 8 characters, one uppercase letter, one lowercase letter and one number."
+      ),
+  }),
+  Yup.object().shape({
+    avatarId: Yup.number().required("Please select an avatar."),
+  }),
+  Yup.object().shape({
+    username: Yup.string()
+      .required("Please include a username.")
+      .min(3, "Must be at least 3 characters long.")
+      .max(20, "Must be 20 or less characters long.")
+      .matches(/^\S*$/, "Cannot contain spaces."),
+    countryCode: Yup.string().required("Please select a country."),
+  }),
+];
 
 interface Props {
   error?: string;
@@ -69,18 +76,20 @@ const RegisterForm: FC<Props> = ({
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
-  const [currentStep, setCurrentStep] = useState(1);
+  const [currentStep, setCurrentStep] = useState(0);
 
-  const handleNextStep = () => setCurrentStep(currentStep + 1);
+  const handleNextStep = () => {
+    setCurrentStep(currentStep + 1);
+  };
   const handlePreviousStep = () => setCurrentStep(currentStep - 1);
 
   const getCurrentStepComponent = (props) => {
     switch (currentStep) {
+      case 0:
+        return <RegisterFormStepOneContainer />;
       case 1:
-        return <RegisterFormStepOne />;
-      case 2:
         return <RegisterFormStepTwo {...props} />;
-      case 3:
+      case 2:
         return <RegisterFormStepThree {...props} />;
 
       default:
@@ -88,14 +97,23 @@ const RegisterForm: FC<Props> = ({
     }
   };
 
+  // TODO: Wire back up to container
+  const handleSubmit = (values: any) => {
+    console.log(values, "values");
+  };
+
+  const currentValidationScheme = validationSchema[currentStep];
+  const isLastStep = currentStep === 3;
+
   const mainContent = (
     <>
       <Formik
         initialValues={initialValues}
-        validationSchema={validationSchema}
-        onSubmit={onSubmit}
+        validationSchema={currentValidationScheme}
+        // onSubmit={onSubmit}
+        onSubmit={handleSubmit}
       >
-        {({ setFieldValue }): React.ReactNode => (
+        {({ setFieldValue, isValid }): React.ReactNode => (
           <Form>
             <Box marginBottom={5}>
               {getCurrentStepComponent({
@@ -108,9 +126,12 @@ const RegisterForm: FC<Props> = ({
                   size="lg"
                   colorScheme="green"
                   width="100%"
-                  type="submit"
-                  // isLoading={isSubmitting}
-                  onClick={handleNextStep}
+                  type={isLastStep ? "submit" : "button"}
+                  isLoading={isSubmitting}
+                  isDisabled={isSubmitting}
+                  onClick={
+                    isLastStep ? undefined : () => isValid && handleNextStep()
+                  }
                 >
                   {"Next"}
                 </Button>
