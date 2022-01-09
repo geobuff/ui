@@ -9,17 +9,18 @@ import {
   FormLabel,
   Heading,
   Input,
-  InputGroup,
-  InputRightElement,
-  Spinner,
 } from "@chakra-ui/react";
 import { Field } from "formik";
 import CountrySelect from "../../CountrySelect";
 import RegisterFormBackButton from "../RegisterFormBackButton";
 import ProfileUserAvatar from "../../ProfileUserAvatar";
+import useAvatars from "../../../hooks/UseAvatars";
 
 const usernameHelperText =
   "Pick a unique name for your avatar. If you change your mind you can change this later in your profile.";
+
+const countryCodeHelperText =
+  "Select the country you'd like to represent on the leaderboard.";
 
 export interface Props {
   values: any;
@@ -38,8 +39,11 @@ const RegisterFormStepThree: FC<Props> = ({
   onCheckUsernameValidity = () => {},
   onPreviousStep = () => {},
 }) => {
-  const hasUsernameValue = values?.username;
-  const isDisabled = isValidating || (hasUsernameValue && !isValidUsername);
+  const { avatars } = useAvatars();
+
+  const currentAvatar = avatars?.find(
+    (x) => x.id === parseInt(values?.avatarId)
+  );
 
   return (
     <Box>
@@ -51,8 +55,8 @@ const RegisterFormStepThree: FC<Props> = ({
           shape="square"
           height={100}
           width={100}
-          primaryImageUrl="/commando-one-secondary.svg"
-          secondaryImageUrl="/commando-one-primary.svg"
+          primaryImageUrl={currentAvatar.secondaryImageUrl}
+          secondaryImageUrl={currentAvatar.primaryImageUrl}
           hasBorder={false}
         />
         <Heading mx="auto" mb={2} size="md">
@@ -66,34 +70,23 @@ const RegisterFormStepThree: FC<Props> = ({
               <FormLabel fontWeight="bold" htmlFor="username">
                 {"Username"}
               </FormLabel>
-              <InputGroup>
-                <Input
-                  {...field}
-                  id="username"
-                  autoComplete="off"
-                  placeholder="Enter username..."
-                  type="text"
-                  size="lg"
-                  height="40px"
-                  fontSize="16px"
-                  background="#F6F6F6"
-                  borderRadius={6}
-                  onBlur={() => onCheckUsernameValidity(values?.username)}
-                  _placeholder={{ color: "gray.500" }}
-                  _hover={{ background: "#e0e0e0" }}
-                />
-                <InputRightElement>
-                  {isValidating && (
-                    <Spinner
-                      size="sm"
-                      color="blue.500"
-                      marginRight={2}
-                      marginTop={1}
-                    />
-                  )}
-                </InputRightElement>
-              </InputGroup>
-              {form.errors.username && form.touched.username ? (
+              <Input
+                {...field}
+                id="username"
+                autoComplete="off"
+                placeholder="Enter username..."
+                type="text"
+                size="lg"
+                height="40px"
+                fontSize="16px"
+                background="#F6F6F6"
+                borderRadius={6}
+                // onBlur={() => onCheckUsernameValidity(values?.username)}
+                _placeholder={{ color: "gray.500" }}
+                _hover={{ background: "#e0e0e0" }}
+              />
+
+              {form.errors.username ? (
                 <FormErrorMessage fontSize="12px">
                   {form.errors.username}
                 </FormErrorMessage>
@@ -118,9 +111,15 @@ const RegisterFormStepThree: FC<Props> = ({
               </FormLabel>
 
               <CountrySelect fieldProps={field} />
-              <FormErrorMessage fontSize="12px">
-                {form.errors.countryCode}
-              </FormErrorMessage>
+              {form.errors.countryCode && form.touched.countryCode ? (
+                <FormErrorMessage fontSize="12px">
+                  {form.errors.countryCode}
+                </FormErrorMessage>
+              ) : (
+                <FormHelperText fontSize="12px" lineHeight={"1.45"}>
+                  {countryCodeHelperText}
+                </FormHelperText>
+              )}
             </FormControl>
           )}
         </Field>
@@ -130,8 +129,9 @@ const RegisterFormStepThree: FC<Props> = ({
         colorScheme="green"
         width="100%"
         type={isValidUsername ? "submit" : "button"}
-        isDisabled={isDisabled}
+        isDisabled={isValidating}
         isLoading={isSubmitting}
+        onClick={() => onCheckUsernameValidity(values?.username)}
       >
         {"Create Account"}
       </Button>

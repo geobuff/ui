@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { debounce } from "throttle-debounce";
 
 import {
   Box,
@@ -10,9 +9,6 @@ import {
   Link as ChakraLink,
   Input,
   Text,
-  InputGroup,
-  InputRightElement,
-  Spinner,
   Button,
 } from "@chakra-ui/react";
 import { Field } from "formik";
@@ -20,6 +16,7 @@ import Link from "next/link";
 import Logo from "../../Logo";
 
 export interface Props {
+  errors: any;
   values: any; // TODO: Add type
   isValidating: boolean;
   isValidEmail: boolean;
@@ -27,6 +24,7 @@ export interface Props {
 }
 
 const RegisterFormStepOne: FC<Props> = ({
+  errors = {},
   values = {},
   onCheckEmailValidity = () => {},
   isValidating = false,
@@ -77,12 +75,6 @@ const RegisterFormStepOne: FC<Props> = ({
               <FormErrorMessage fontSize="11px">
                 {form.errors.email}
               </FormErrorMessage>
-
-              {!isValidEmail && (
-                <Box fontSize="11px">
-                  {`Account with email ${form.values.email} already exists.`}
-                </Box>
-              )}
             </FormControl>
           )}
         </Field>
@@ -125,7 +117,9 @@ const RegisterFormStepOne: FC<Props> = ({
         width="100%"
         type="button"
         isLoading={isValidating}
-        onClick={() => onCheckEmailValidity(values.email)}
+        onClick={() =>
+          values?.email && !errors?.email && onCheckEmailValidity(values?.email)
+        }
       >
         {"Next"}
       </Button>

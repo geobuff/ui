@@ -3,12 +3,16 @@ import axiosClient from "../../../axios";
 import RegisterFormStepOne from "../../../components/RegisterForm/RegisterFormStepOne";
 
 export interface Props {
+  errors: any;
   values: any;
+  setFieldError: (field: string, message: string) => void;
   onNextStep: () => void;
 }
 
 const RegisterFormStepOneContainer: FC<Props> = ({
+  errors,
   values,
+  setFieldError = () => {},
   onNextStep = () => {},
 }) => {
   const [isValidating, setIsValidating] = useState(false);
@@ -24,15 +28,18 @@ const RegisterFormStepOneContainer: FC<Props> = ({
 
     if (!data) {
       onNextStep();
+    } else {
+      setFieldError("email", `An account with email ${email} already exists.`);
     }
   };
 
   return (
     <RegisterFormStepOne
-      onCheckEmailValidity={handleCheckEmailValidity}
+      errors={errors}
+      values={values}
       isValidating={isValidating}
       isValidEmail={isValidEmail}
-      values={values}
+      onCheckEmailValidity={handleCheckEmailValidity}
     />
   );
 };

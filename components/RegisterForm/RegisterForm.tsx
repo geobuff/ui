@@ -94,16 +94,24 @@ const RegisterForm: FC<Props> = ({
       <Formik
         initialValues={initialValues}
         validationSchema={currentValidationScheme}
-        // onSubmit={onSubmit}
-        onSubmit={handleSubmit}
+        // TODO: check if theres a better way to do this
+        onSubmit={null}
       >
-        {({ setFieldValue, values }): React.ReactNode => (
+        {({
+          errors,
+          values,
+          setFieldValue,
+          setFieldError,
+        }): React.ReactNode => (
           <Form>
             <Box marginBottom={5}>
               {getCurrentStepComponent({
+                errors,
                 values,
                 isSubmitting,
                 setFieldValue,
+                setFieldError,
+                onSubmit: handleSubmit,
                 onPreviousStep: handlePreviousStep,
                 onNextStep: handleNextStep,
               })}
