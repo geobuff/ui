@@ -63,6 +63,7 @@ const RegisterContainer: FC = () => {
           email: decoded.email,
           countryCode: decoded.countryCode,
           xp: decoded.xp,
+          isAdmin: decoded.isAdmin,
           isPremium: decoded.isPremium,
           joined: decoded.joined,
           token: response?.data,

@@ -9,6 +9,7 @@ export interface DecodedToken {
   email: string;
   countryCode: string;
   xp: number;
+  isAdmin: boolean;
   isPremium: boolean;
   joined: string;
   exp: number;
