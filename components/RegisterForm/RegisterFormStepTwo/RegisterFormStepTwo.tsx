@@ -10,17 +10,18 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 import AvatarSelectContainer from "../../../containers/AvatarSelectContainer";
-import ArrowLeft from "../../../Icons/ArrowLeft";
 import RegisterFormBackButton from "../RegisterFormBackButton";
 
 export interface Props {
   onPreviousStep: () => void;
+  onNextStep: () => void;
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
 const RegisterFormStepTwo: FC<Props> = ({
   setFieldValue = () => {},
   onPreviousStep = () => {},
+  onNextStep = () => {},
 }) => {
   return (
     <Box>
@@ -51,6 +52,15 @@ const RegisterFormStepTwo: FC<Props> = ({
           )}
         </Field>
       </Flex>
+      <Button
+        size="lg"
+        colorScheme="green"
+        width="100%"
+        type="button"
+        onClick={onNextStep}
+      >
+        {"Next"}
+      </Button>
     </Box>
   );
 };

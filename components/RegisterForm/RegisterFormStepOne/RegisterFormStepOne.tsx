@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { debounce } from "throttle-debounce";
 
 import {
   Box,
@@ -9,14 +10,28 @@ import {
   Link as ChakraLink,
   Input,
   Text,
+  InputGroup,
+  InputRightElement,
+  Spinner,
+  Button,
 } from "@chakra-ui/react";
 import { Field } from "formik";
 import Link from "next/link";
 import Logo from "../../Logo";
 
-// export interface Props {}
+export interface Props {
+  values: any; // TODO: Add type
+  isValidating: boolean;
+  isValidEmail: boolean;
+  onCheckEmailValidity: (email: string) => void;
+}
 
-const RegisterFormStepOne: FC = () => {
+const RegisterFormStepOne: FC<Props> = ({
+  values = {},
+  onCheckEmailValidity = () => {},
+  isValidating = false,
+  isValidEmail = true,
+}) => {
   return (
     <Box>
       <Flex
@@ -37,20 +52,19 @@ const RegisterFormStepOne: FC = () => {
         {"Create an Account"}
       </Text>
       <Flex marginY={6}>
-        <Field name="username">
+        <Field name="email">
           {({ field, form }): React.ReactNode => (
-            <FormControl
-              isInvalid={form.errors.username && form.touched.username}
-            >
-              <FormLabel fontWeight="bold" htmlFor="username">
-                {"Username"}
+            <FormControl isInvalid={form.errors.email}>
+              <FormLabel fontWeight="bold" htmlFor="email">
+                {"Email"}
               </FormLabel>
               <Input
                 {...field}
-                id="username"
+                isDisabled={isValidating}
+                id="email"
                 autoComplete="off"
-                placeholder="Enter username..."
-                type="text"
+                placeholder="Enter email..."
+                type="email"
                 size="lg"
                 height="40px"
                 fontSize="16px"
@@ -59,11 +73,16 @@ const RegisterFormStepOne: FC = () => {
                 _placeholder={{ color: "gray.500" }}
                 _hover={{ background: "#e0e0e0" }}
               />
-              <Box position="absolute" top="68px" left="2px">
-                <FormErrorMessage fontSize="11px">
-                  {form.errors.username}
-                </FormErrorMessage>
-              </Box>
+
+              <FormErrorMessage fontSize="11px">
+                {form.errors.email}
+              </FormErrorMessage>
+
+              {!isValidEmail && (
+                <Box fontSize="11px">
+                  {`Account with email ${form.values.email} already exists.`}
+                </Box>
+              )}
             </FormControl>
           )}
         </Field>
@@ -91,17 +110,25 @@ const RegisterFormStepOne: FC = () => {
                 _placeholder={{ color: "gray.500" }}
                 _hover={{ background: "#e0e0e0" }}
               />
-              <Box position="absolute" top="68px" left="2px">
-                <FormErrorMessage
-                  fontSize={form.errors.password?.length > 26 ? "10px" : "11px"}
-                >
+              {form.errors.password && (
+                <FormErrorMessage fontSize="12px">
                   {form.errors.password}
                 </FormErrorMessage>
-              </Box>
+              )}
             </FormControl>
           )}
         </Field>
       </Flex>
+      <Button
+        size="lg"
+        colorScheme="green"
+        width="100%"
+        type="button"
+        isLoading={isValidating}
+        onClick={() => onCheckEmailValidity(values.email)}
+      >
+        {"Next"}
+      </Button>
     </Box>
   );
 };

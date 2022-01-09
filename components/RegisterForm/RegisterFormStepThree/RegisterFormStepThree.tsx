@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import {
   Box,
+  Button,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -18,10 +19,14 @@ const usernameHelperText =
   "Pick a unique name for your avatar. If you change your mind you can change this later in your profile.";
 
 export interface Props {
+  isSubmitting: boolean;
   onPreviousStep: () => void;
 }
 
-const RegisterFormStepThree: FC<Props> = ({ onPreviousStep = () => {} }) => {
+const RegisterFormStepThree: FC<Props> = ({
+  isSubmitting,
+  onPreviousStep = () => {},
+}) => {
   return (
     <Box>
       <RegisterFormBackButton onClick={onPreviousStep}>
@@ -95,6 +100,15 @@ const RegisterFormStepThree: FC<Props> = ({ onPreviousStep = () => {} }) => {
           )}
         </Field>
       </Flex>
+      <Button
+        size="lg"
+        colorScheme="green"
+        width="100%"
+        type="submit"
+        isLoading={isSubmitting}
+      >
+        {"Create Account"}
+      </Button>
     </Box>
   );
 };

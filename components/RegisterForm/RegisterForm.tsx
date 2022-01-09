@@ -86,7 +86,7 @@ const RegisterForm: FC<Props> = ({
   const getCurrentStepComponent = (props) => {
     switch (currentStep) {
       case 0:
-        return <RegisterFormStepOneContainer />;
+        return <RegisterFormStepOneContainer {...props} />;
       case 1:
         return <RegisterFormStepTwo {...props} />;
       case 2:
@@ -103,7 +103,6 @@ const RegisterForm: FC<Props> = ({
   };
 
   const currentValidationScheme = validationSchema[currentStep];
-  const isLastStep = currentStep === 3;
 
   const mainContent = (
     <>
@@ -113,29 +112,16 @@ const RegisterForm: FC<Props> = ({
         // onSubmit={onSubmit}
         onSubmit={handleSubmit}
       >
-        {({ setFieldValue, isValid }): React.ReactNode => (
+        {({ setFieldValue, values }): React.ReactNode => (
           <Form>
             <Box marginBottom={5}>
               {getCurrentStepComponent({
+                values,
+                isSubmitting,
                 setFieldValue,
                 onPreviousStep: handlePreviousStep,
+                onNextStep: handleNextStep,
               })}
-
-              <Flex marginTop="44px" marginBottom={0}>
-                <Button
-                  size="lg"
-                  colorScheme="green"
-                  width="100%"
-                  type={isLastStep ? "submit" : "button"}
-                  isLoading={isSubmitting}
-                  isDisabled={isSubmitting}
-                  onClick={
-                    isLastStep ? undefined : () => isValid && handleNextStep()
-                  }
-                >
-                  {"Next"}
-                </Button>
-              </Flex>
             </Box>
           </Form>
         )}
