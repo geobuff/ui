@@ -4,10 +4,10 @@ import UserProfileAchievements from "../../components/UserProfileAchievements";
 import useBadges from "../../hooks/UseBadges";
 import useUserLeaderboardEntries from "../../hooks/UseUserLeaderboardEntries";
 import UserProfileAchievementsPlaceholder from "../../placeholders/UserProfileAchievementsPlaceholder";
-import { User } from "../../types/user";
+import { UserDto } from "../../types/user-dto";
 
 interface Props {
-  user?: User;
+  user?: UserDto;
 }
 
 const UserProfileAchievementsContainer: FC<Props> = ({ user = null }) => {

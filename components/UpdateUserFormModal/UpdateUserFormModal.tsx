@@ -16,7 +16,7 @@ import {
 import Modal from "../Modal";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
-import { User } from "../../types/user";
+import { UserDto } from "../../types/user-dto";
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 
 const validationSchema = Yup.object().shape({
@@ -31,7 +31,7 @@ const validationSchema = Yup.object().shape({
 });
 
 interface Props {
-  user?: User;
+  user?: UserDto;
   isOpen?: boolean;
   onClose?: () => void;
   onSubmit?: (values: UpdateUserFormSubmit) => void;

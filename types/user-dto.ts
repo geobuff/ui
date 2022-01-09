@@ -1,5 +1,5 @@
-export interface DecodedToken {
-  userId: number;
+export interface UserDto {
+  id: number;
   avatarId: number;
   avatarName: string;
   avatarDescription: string;
@@ -8,9 +8,5 @@ export interface DecodedToken {
   username: string;
   email: string;
   countryCode: string;
-  xp: number;
-  isAdmin: boolean;
-  isPremium: boolean;
   joined: string;
-  exp: number;
 }

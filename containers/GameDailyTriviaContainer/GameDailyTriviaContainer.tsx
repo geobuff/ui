@@ -6,6 +6,7 @@ import GameDailyTrivia from "../../components/GameDailyTrivia";
 import GameSpinner from "../../components/GameSpinner";
 import MainView from "../../components/MainView";
 import useDailyTrivia from "../../hooks/UseDailyTrivia";
+import axiosClient from "../../axios";
 
 interface Props {
   date: string;
@@ -13,6 +14,10 @@ interface Props {
 
 const GameDailyTriviaContainer: FC<Props> = ({ date }) => {
   const { data, isLoading } = useDailyTrivia(date);
+
+  const handleIncrementPlays = (triviaId: number): void => {
+    axiosClient.put(`/daily-trivia/plays/${triviaId}`);
+  };
 
   // TODO: Remove loading logic when converting page to static
   if (isLoading) {
@@ -39,7 +44,9 @@ const GameDailyTriviaContainer: FC<Props> = ({ date }) => {
     );
   }
 
-  return <GameDailyTrivia trivia={data} />;
+  return (
+    <GameDailyTrivia trivia={data} onIncrementPlays={handleIncrementPlays} />
+  );
 };
 
 export default GameDailyTriviaContainer;

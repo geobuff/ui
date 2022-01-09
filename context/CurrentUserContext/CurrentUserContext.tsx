@@ -1,13 +1,13 @@
 import React, { createContext, useState, FC } from "react";
 import { AxiosRequestConfig } from "axios";
 import { DecodedToken } from "../../types/decoded-token";
-import { User } from "../../types/user";
+import { AuthUser } from "../../types/auth-user";
 import jwt_decode from "jwt-decode";
 
 export const CurrentUserContext = createContext({
   user: null,
   isLoading: false,
-  updateUser: (user: User): void => {},
+  updateUser: (user: AuthUser): void => {},
   clearUser: (): void => {},
   tokenExpired: (token: string): boolean => {
     return false;
@@ -20,7 +20,7 @@ export const CurrentUserContext = createContext({
 export const CurrentUserContextProvider: FC = ({ children = null }) => {
   const [isLoading, setIsLoading] = useState(false);
 
-  const [user, setUser] = useState<User>(() => {
+  const [user, setUser] = useState<AuthUser>(() => {
     if (typeof window === "undefined") {
       return null;
     }
@@ -46,13 +46,14 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
       email: window.localStorage.getItem("geobuff.email"),
       countryCode: window.localStorage.getItem("geobuff.countryCode"),
       xp: parseInt(window.localStorage.getItem("geobuff.xp")),
+      isAdmin: window.localStorage.getItem("geobuff.isAdmin") === "true",
       isPremium: window.localStorage.getItem("geobuff.isPremium") === "true",
       token: window.localStorage.getItem("geobuff.token"),
       joined: window.localStorage.getItem("geobuff.joined"),
     };
   });
 
-  const updateUser = (user: User): void => {
+  const updateUser = (user: AuthUser): void => {
     setIsLoading(true);
     setUser(user);
     updateLocalStorage(user);
@@ -66,7 +67,7 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
     setUser(null);
   };
 
-  const updateLocalStorage = (user: User): void => {
+  const updateLocalStorage = (user: AuthUser): void => {
     Object.entries(user).forEach(([key, value]) => {
       window.localStorage.setItem(`geobuff.${key}`, value);
     });

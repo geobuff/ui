@@ -19,6 +19,7 @@ import {
 
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import Twemoji from "../Twemoji";
 
 interface Props {
   isCondensed?: boolean;
@@ -122,6 +123,14 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
         </MenuButton>
 
         <MenuList>
+          {user.isAdmin && (
+            <>
+              <MenuItem onClick={(): Promise<boolean> => router.push(`/admin`)}>
+                <Twemoji emoji="👑" width={5} mr={2} /> {"Admin Dashboard"}
+              </MenuItem>
+              <MenuDivider />
+            </>
+          )}
           <MenuItem
             onClick={(): Promise<boolean> =>
               router.push(`/profile/${user?.id}`)
