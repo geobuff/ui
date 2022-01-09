@@ -1,34 +1,19 @@
 import React, { FC, useState } from "react";
 import * as Yup from "yup";
 
-import {
-  Button,
-  Box,
-  Flex,
-  FormControl,
-  FormErrorMessage,
-  FormLabel,
-  Input,
-  Link as ChakraLink,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-import { Formik, Field, Form } from "formik";
-
-import Link from "next/link";
+import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Formik, Form } from "formik";
 
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
 import ErrorAlertBanner from "../ErrorAlertBanner";
-import Logo from "../Logo";
 
 import LoginLink from "./LoginLink";
 import { RegisterFormSubmit } from "../../types/register-form-submit";
 
-import RegisterFormStepOne from "./RegisterFormStepOne";
 import RegisterFormStepTwo from "./RegisterFormStepTwo";
-import RegisterFormStepThree from "./RegisterFormStepThree";
 import RegisterFormStepOneContainer from "../../containers/RegisterContainer/RegisterFormStepOneContainer";
+import RegisterFormStepThreeContainer from "../../containers/RegisterContainer/RegisterFormStepThreeContainer";
 
 const initialValues = {
   avatarId: "1",
@@ -90,7 +75,7 @@ const RegisterForm: FC<Props> = ({
       case 1:
         return <RegisterFormStepTwo {...props} />;
       case 2:
-        return <RegisterFormStepThree {...props} />;
+        return <RegisterFormStepThreeContainer {...props} />;
 
       default:
         break;
