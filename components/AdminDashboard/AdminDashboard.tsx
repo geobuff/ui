@@ -119,6 +119,39 @@ const AdminDashboard: FC<Props> = ({ data = null, error = false }) => {
           </Box>
         </Flex>
       </Flex>
+
+      <Flex
+        margin={6}
+        background="white"
+        borderRadius={12}
+        justifyContent="center"
+      >
+        <Flex direction="column" justifyContent="center">
+          <Box overflow="auto" my={6}>
+            <Table size="md" variant="striped" colorscheme="gray">
+              <Thead>
+                <Tr>
+                  <Th textAlign="left">{"TRIVIA"} </Th>
+                  <Th textAlign="left">{"PLAYS"}</Th>
+                </Tr>
+              </Thead>
+
+              <Tbody>
+                {data?.triviaPlays.map((entry, index) => (
+                  <Tr key={index} fontWeight={600}>
+                    <TableCell paddingY={3} paddingX={6}>
+                      {entry.name}
+                    </TableCell>
+                    <TableCell isNumeric paddingY={3} paddingX={6}>
+                      {entry.plays}
+                    </TableCell>
+                  </Tr>
+                ))}
+              </Tbody>
+            </Table>
+          </Box>
+        </Flex>
+      </Flex>
     </SimpleGrid>
   );
 };

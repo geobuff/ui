@@ -9,4 +9,5 @@ export interface AdminDashboardData {
   userCount: number;
   discounts: Discount[];
   quizPlays: PlaysDto[];
+  triviaPlays: PlaysDto[];
 }
