@@ -5,12 +5,12 @@ export interface AuthUser {
   email: string;
   countryCode: string;
   xp: number;
-  isPremium?: boolean;
-  picture?: string;
-  avatarName?: string;
-  avatarDescription?: string;
-  avatarPrimaryImageUrl?: string;
-  avatarSecondaryImageUrl?: string;
-  token?: string;
-  joined?: string;
+  isAdmin: boolean;
+  isPremium: boolean;
+  avatarName: string;
+  avatarDescription: string;
+  avatarPrimaryImageUrl: string;
+  avatarSecondaryImageUrl: string;
+  token: string;
+  joined: string;
 }
