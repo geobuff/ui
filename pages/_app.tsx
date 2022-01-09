@@ -13,6 +13,7 @@ import "nprogress/nprogress.css"; //styles of nprogress
 
 import "../styles/globals.css";
 import theme from "../styles/theme";
+import * as gtag from "../helpers/gtag";
 
 import { AppContextProvider } from "../context/AppContext";
 import {
@@ -51,6 +52,16 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
       router.push("/login");
     }
   }, [isUserLoading, user, tokenExpired, clearUser, router]);
+
+  useEffect(() => {
+    const handleRouteChange = (url: URL) => {
+      gtag.pageview(url);
+    };
+    router.events.on("routeChangeComplete", handleRouteChange);
+    return () => {
+      router.events.off("routeChangeComplete", handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <>
