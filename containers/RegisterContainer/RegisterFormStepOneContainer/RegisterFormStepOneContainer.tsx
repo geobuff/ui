@@ -24,7 +24,9 @@ const RegisterFormStepOneContainer: FC<Props> = ({
     const { data: emailExists } = await axiosClient.get(`/auth/email/${email}`);
 
     if (!emailExists) {
-      onNextStep();
+      setTimeout(() => {
+        onNextStep();
+      }, 20);
     } else {
       setFieldError("email", `An account with email ${email} already exists.`);
     }

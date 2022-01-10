@@ -67,7 +67,7 @@ const RegisterFormStepThree: FC<Props> = ({
           hasBorder={false}
         />
         <Heading mx="auto" mb={2} size="md">
-          {"Sarg"}
+          {currentAvatar.name}
         </Heading>
         <Field name="username">
           {({ field, form }): React.ReactNode => (
@@ -131,7 +131,7 @@ const RegisterFormStepThree: FC<Props> = ({
         </Field>
       </Flex>
 
-      <Checkbox marginY={4} colorScheme="green" onChange={handleChange}>
+      <Checkbox marginY={4} color="#276f86" onChange={handleChange}>
         <Text color="gray.500" fontSize="small">
           {"I agree to the"}
           <Link
