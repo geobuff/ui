@@ -21,9 +21,9 @@ const RegisterFormStepOneContainer: FC<Props> = ({
   const handleCheckEmailValidity = async (email: string) => {
     setIsValidating(true);
 
-    const { data } = await axiosClient.get(`/auth/email/${email}`);
+    const { data: emailExists } = await axiosClient.get(`/auth/email/${email}`);
 
-    if (!data) {
+    if (!emailExists) {
       onNextStep();
     } else {
       setFieldError("email", `An account with email ${email} already exists.`);

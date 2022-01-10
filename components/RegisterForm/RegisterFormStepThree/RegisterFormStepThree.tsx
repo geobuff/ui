@@ -1,7 +1,8 @@
-import React, { FC } from "react";
+import React, { ChangeEvent, FC, useState } from "react";
 import {
   Box,
   Button,
+  Checkbox,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -9,6 +10,8 @@ import {
   FormLabel,
   Heading,
   Input,
+  Link,
+  Text,
 } from "@chakra-ui/react";
 import { Field } from "formik";
 import CountrySelect from "../../CountrySelect";
@@ -39,11 +42,15 @@ const RegisterFormStepThree: FC<Props> = ({
   onCheckUsernameValidity = () => {},
   onPreviousStep = () => {},
 }) => {
+  const [hasAgreedToGeoTerms, setHasAgreedToGeoTerms] = useState(false);
   const { avatars } = useAvatars();
 
   const currentAvatar = avatars?.find(
     (x) => x.id === parseInt(values?.avatarId)
   );
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>) =>
+    setHasAgreedToGeoTerms(event.target.checked);
 
   return (
     <Box>
@@ -81,7 +88,6 @@ const RegisterFormStepThree: FC<Props> = ({
                 fontSize="16px"
                 background="#F6F6F6"
                 borderRadius={6}
-                // onBlur={() => onCheckUsernameValidity(values?.username)}
                 _placeholder={{ color: "gray.500" }}
                 _hover={{ background: "#e0e0e0" }}
               />
@@ -124,14 +130,41 @@ const RegisterFormStepThree: FC<Props> = ({
           )}
         </Field>
       </Flex>
+
+      <Checkbox marginY={4} colorScheme="green" onChange={handleChange}>
+        <Text color="gray.500" fontSize="small">
+          {"I agree to the"}
+          <Link
+            marginX={1}
+            fontWeight="medium"
+            href="/terms-of-service"
+            isExternal
+          >
+            {"Terms of Service"}
+          </Link>
+          {"&"}
+          <Link
+            marginLeft={1}
+            fontWeight="medium"
+            href="/privacy-policy"
+            isExternal
+          >
+            {"Privacy Policy"}
+          </Link>
+          {"."}
+        </Text>
+      </Checkbox>
+
       <Button
         size="lg"
         colorScheme="green"
         width="100%"
         type={isValidUsername ? "submit" : "button"}
-        isDisabled={isValidating}
+        isDisabled={isValidating || !hasAgreedToGeoTerms}
         isLoading={isSubmitting}
-        onClick={() => onCheckUsernameValidity(values?.username)}
+        onClick={() =>
+          values?.username && onCheckUsernameValidity(values?.username)
+        }
       >
         {"Create Account"}
       </Button>

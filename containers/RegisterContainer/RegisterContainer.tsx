@@ -19,6 +19,7 @@ const RegisterContainer: FC = () => {
 
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     if (!router.query.data && !isLoadingUser && user) {
@@ -47,52 +48,47 @@ const RegisterContainer: FC = () => {
       password: values.password,
     };
 
-    console.log(values, "values");
+    axiosClient
+      .post("/auth/register", payload)
+      .then((response) => {
+        const decoded: DecodedToken = jwt_decode(response.data);
 
-    setTimeout(() => {
-      setIsSubmitting(false);
-    }, 2500);
+        updateUser({
+          id: decoded.userId,
+          avatarId: decoded.avatarId,
+          avatarName: decoded.avatarName,
+          avatarDescription: decoded.avatarDescription,
+          avatarPrimaryImageUrl: decoded.avatarPrimaryImageUrl,
+          avatarSecondaryImageUrl: decoded.avatarSecondaryImageUrl,
+          username: decoded.username,
+          email: decoded.email,
+          countryCode: decoded.countryCode,
+          xp: decoded.xp,
+          isPremium: decoded.isPremium,
+          joined: decoded.joined,
+          token: response?.data,
+        });
 
-    // axiosClient
-    //   .post("/auth/register", payload)
-    //   .then((response) => {
-    //     const decoded: DecodedToken = jwt_decode(response.data);
+        if (router.query.data) {
+          const data: GameOverRedirect = JSON.parse(
+            router.query.data as string
+          );
 
-    //     updateUser({
-    //       id: decoded.userId,
-    //       avatarId: decoded.avatarId,
-    //       avatarName: decoded.avatarName,
-    //       avatarDescription: decoded.avatarDescription,
-    //       avatarPrimaryImageUrl: decoded.avatarPrimaryImageUrl,
-    //       avatarSecondaryImageUrl: decoded.avatarSecondaryImageUrl,
-    //       username: decoded.username,
-    //       email: decoded.email,
-    //       countryCode: decoded.countryCode,
-    //       xp: decoded.xp,
-    //       isPremium: decoded.isPremium,
-    //       joined: decoded.joined,
-    //       token: response?.data,
-    //     });
-
-    //     if (router.query.data) {
-    //       const data: GameOverRedirect = JSON.parse(
-    //         router.query.data as string
-    //       );
-
-    //       router.push({
-    //         pathname: data.redirect,
-    //         query: {
-    //           data: JSON.stringify({
-    //             tempScoreId: data.tempScoreId,
-    //           }),
-    //         },
-    //       });
-    //     } else {
-    //       router.push("/");
-    //     }
-    //   })
-    //   .catch((error) => setError(error.response.data))
-    //   .finally(() => setIsSubmitting(false));
+          router.push({
+            pathname: data.redirect,
+            query: {
+              data: JSON.stringify({
+                tempScoreId: data.tempScoreId,
+              }),
+            },
+          });
+        } else {
+          setIsSuccess(true);
+          router.push("/");
+        }
+      })
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSubmitting(false));
   };
 
   return (
@@ -100,6 +96,7 @@ const RegisterContainer: FC = () => {
       error={error}
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
+      isSuccess={isSuccess}
     />
   );
 };

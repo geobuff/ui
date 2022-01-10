@@ -25,14 +25,14 @@ const RegisterFormStepThreeContainer: FC<Props> = ({
   const handleCheckUsernameValidity = async (username: string) => {
     setIsValidating(true);
 
-    const { data } = await axiosClient.get(`/auth/username/${username}`);
+    const { data: usernameExists } = await axiosClient.get(
+      `/auth/username/${username}`
+    );
 
-    setIsValidUsername(!data);
+    setIsValidUsername(!usernameExists);
     setIsValidating(false);
-    console.log(data, "data");
 
-    if (data) {
-      console.log("setting error!!");
+    if (usernameExists) {
       setFieldError(
         "username",
         "That username already exists. Pick something else!"

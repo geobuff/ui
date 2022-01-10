@@ -5,7 +5,11 @@ import Link from "next/link";
 
 const LoginLink: FC = () => {
   return (
-    <Flex direction="row" margin={{ sm: 3, md: 5 }}>
+    <Flex
+      direction="row"
+      marginTop={{ base: 3, md: 5 }}
+      marginRight={{ base: 0, md: 5 }}
+    >
       <Text fontSize="14px" marginRight={1} fontWeight="500">
         {"Already signed up?"}
       </Text>

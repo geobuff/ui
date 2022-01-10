@@ -126,7 +126,7 @@ const RegisterForm: FC<Props> = ({
             <LoginLink />
           </Box>
 
-          <AuthView marginTop="32px" height="100%">
+          <AuthView marginTop={16} height="100%">
             <AuthCard
               marginX="auto"
               marginY={4}

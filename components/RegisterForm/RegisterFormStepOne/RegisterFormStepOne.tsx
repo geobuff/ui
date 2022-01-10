@@ -16,6 +16,9 @@ import Link from "next/link";
 import Logo from "../../Logo";
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
 
+const welcomeHelperText =
+  "Thanks for signing up to GeoBuff! Let's get started by entering your email and password, these will be used to sign you in.";
+
 export interface Props {
   errors: Record<string, string>;
   values: RegisterFormSubmit;
@@ -33,8 +36,8 @@ const RegisterFormStepOne: FC<Props> = ({
     <Box>
       <Flex
         justifyContent="center"
-        marginTop={3}
-        marginBottom={5}
+        marginTop={{ base: 0, md: 3 }}
+        marginBottom={8}
         height="100%"
         _hover={{ cursor: "pointer" }}
       >
@@ -49,9 +52,7 @@ const RegisterFormStepOne: FC<Props> = ({
         {"Create an Account"}
       </Text>
       <Text fontSize="12px" marginY={1} color="gray.500">
-        {
-          "Welcome to GeoBuff! Let's get started by entering your email and password. These will be used to sign you in."
-        }
+        {welcomeHelperText}
       </Text>
       <Box marginTop={10} marginBottom={16}>
         <Flex marginY={6}>
