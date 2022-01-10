@@ -63,7 +63,7 @@ const MainView: FC<Props> = ({
           {...handlers}
         />
         {hasNavigationBar && <NavigationBar />}
-        <Flex flex={1} direction="column" marginTop={14}>
+        <Flex flex={1} direction="column" marginTop={hasNavigationBar ? 14 : 0}>
           {children}
         </Flex>
         {hasFooter && height && <Footer variant={footerVariant} />}
