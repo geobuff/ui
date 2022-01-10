@@ -47,46 +47,52 @@ const RegisterContainer: FC = () => {
       password: values.password,
     };
 
-    axiosClient
-      .post("/auth/register", payload)
-      .then((response) => {
-        const decoded: DecodedToken = jwt_decode(response.data);
+    console.log(values, "values");
 
-        updateUser({
-          id: decoded.userId,
-          avatarId: decoded.avatarId,
-          avatarName: decoded.avatarName,
-          avatarDescription: decoded.avatarDescription,
-          avatarPrimaryImageUrl: decoded.avatarPrimaryImageUrl,
-          avatarSecondaryImageUrl: decoded.avatarSecondaryImageUrl,
-          username: decoded.username,
-          email: decoded.email,
-          countryCode: decoded.countryCode,
-          xp: decoded.xp,
-          isPremium: decoded.isPremium,
-          joined: decoded.joined,
-          token: response?.data,
-        });
+    setTimeout(() => {
+      setIsSubmitting(false);
+    }, 2500);
 
-        if (router.query.data) {
-          const data: GameOverRedirect = JSON.parse(
-            router.query.data as string
-          );
+    // axiosClient
+    //   .post("/auth/register", payload)
+    //   .then((response) => {
+    //     const decoded: DecodedToken = jwt_decode(response.data);
 
-          router.push({
-            pathname: data.redirect,
-            query: {
-              data: JSON.stringify({
-                tempScoreId: data.tempScoreId,
-              }),
-            },
-          });
-        } else {
-          router.push("/");
-        }
-      })
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsSubmitting(false));
+    //     updateUser({
+    //       id: decoded.userId,
+    //       avatarId: decoded.avatarId,
+    //       avatarName: decoded.avatarName,
+    //       avatarDescription: decoded.avatarDescription,
+    //       avatarPrimaryImageUrl: decoded.avatarPrimaryImageUrl,
+    //       avatarSecondaryImageUrl: decoded.avatarSecondaryImageUrl,
+    //       username: decoded.username,
+    //       email: decoded.email,
+    //       countryCode: decoded.countryCode,
+    //       xp: decoded.xp,
+    //       isPremium: decoded.isPremium,
+    //       joined: decoded.joined,
+    //       token: response?.data,
+    //     });
+
+    //     if (router.query.data) {
+    //       const data: GameOverRedirect = JSON.parse(
+    //         router.query.data as string
+    //       );
+
+    //       router.push({
+    //         pathname: data.redirect,
+    //         query: {
+    //           data: JSON.stringify({
+    //             tempScoreId: data.tempScoreId,
+    //           }),
+    //         },
+    //       });
+    //     } else {
+    //       router.push("/");
+    //     }
+    //   })
+    //   .catch((error) => setError(error.response.data))
+    //   .finally(() => setIsSubmitting(false));
   };
 
   return (

@@ -56,7 +56,7 @@ interface Props {
 
 const RegisterForm: FC<Props> = ({
   error = "",
-  onSubmit = (values: RegisterFormSubmit): void => {},
+  onSubmit = (): void => {},
   isSubmitting = false,
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
@@ -82,11 +82,6 @@ const RegisterForm: FC<Props> = ({
     }
   };
 
-  // TODO: Wire back up to container
-  const handleSubmit = (values: any) => {
-    console.log(values, "values");
-  };
-
   const currentValidationScheme = validationSchema[currentStep];
 
   const mainContent = (
@@ -94,7 +89,6 @@ const RegisterForm: FC<Props> = ({
       <Formik
         initialValues={initialValues}
         validationSchema={currentValidationScheme}
-        // TODO: check if theres a better way to do this
         onSubmit={null}
       >
         {({
@@ -104,14 +98,14 @@ const RegisterForm: FC<Props> = ({
           setFieldError,
         }): React.ReactNode => (
           <Form>
-            <Box marginBottom={5}>
+            <Box marginBottom={1}>
               {getCurrentStepComponent({
                 errors,
                 values,
                 isSubmitting,
                 setFieldValue,
                 setFieldError,
-                onSubmit: handleSubmit,
+                onSubmit: onSubmit,
                 onPreviousStep: handlePreviousStep,
                 onNextStep: handleNextStep,
               })}

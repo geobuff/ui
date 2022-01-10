@@ -61,8 +61,8 @@ const AvatarSelect: FC<Props> = ({
           <Text
             color="gray.500"
             fontSize="small"
-            fontWeight="medium"
             marginBottom={3}
+            lineHeight={1.5}
           >
             {current?.description}
           </Text>

@@ -1,12 +1,14 @@
 import React, { FC, useState } from "react";
+
 import axiosClient from "../../../axios";
 import RegisterFormStepThree from "../../../components/RegisterForm/RegisterFormStepThree";
+import { RegisterFormSubmit } from "../../../types/register-form-submit";
 
 export interface Props {
-  values: any;
+  values: RegisterFormSubmit;
   isSubmitting: boolean;
   setFieldError: (field: string, message: string) => void;
-  onSubmit: () => void;
+  onSubmit: (values: RegisterFormSubmit) => void;
   onPreviousStep: () => void;
 }
 

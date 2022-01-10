@@ -43,11 +43,9 @@ const RegisterFormStepTwo: FC<Props> = ({
                 fieldProps={field}
                 setFieldValue={setFieldValue}
               />
-              <Box position="absolute" top="68px" left="2px">
-                <FormErrorMessage fontSize="11px">
-                  {form.errors.avatarId}
-                </FormErrorMessage>
-              </Box>
+              <FormErrorMessage fontSize="11px">
+                {form.errors.avatarId}
+              </FormErrorMessage>
             </FormControl>
           )}
         </Field>
