@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useMemo, useState } from "react";
 import * as Yup from "yup";
 
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
@@ -56,10 +56,10 @@ interface Props {
 
 const RegisterForm: FC<Props> = ({
   error = "",
-  onSubmit = (): void => {},
+  onSubmit = () => {},
   isSubmitting = false,
 }) => {
-  const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const [currentStep, setCurrentStep] = useState(0);
 
@@ -67,6 +67,8 @@ const RegisterForm: FC<Props> = ({
     setCurrentStep(currentStep + 1);
   };
   const handlePreviousStep = () => setCurrentStep(currentStep - 1);
+
+  const handleFirstStep = () => setCurrentStep(0);
 
   const getCurrentStepComponent = (props) => {
     switch (currentStep) {
@@ -83,70 +85,68 @@ const RegisterForm: FC<Props> = ({
   };
 
   const currentValidationScheme = validationSchema[currentStep];
+  const isFirstStep = currentStep === 0;
 
-  const mainContent = (
-    <>
-      <Formik
-        initialValues={initialValues}
-        validationSchema={currentValidationScheme}
-        onSubmit={null}
-      >
-        {({
-          errors,
-          values,
-          setFieldValue,
-          setFieldError,
-        }): React.ReactNode => (
-          <Form>
-            <Box marginBottom={1}>
-              {getCurrentStepComponent({
-                errors,
-                values,
-                isSubmitting,
-                setFieldValue,
-                setFieldError,
-                onSubmit: onSubmit,
-                onPreviousStep: handlePreviousStep,
-                onNextStep: handleNextStep,
-              })}
-            </Box>
-          </Form>
-        )}
-      </Formik>
-    </>
-  );
+  const getMainContent = () => {
+    return (
+      <>
+        <Formik
+          enableReinitialize
+          initialValues={initialValues}
+          validationSchema={currentValidationScheme}
+          onSubmit={onSubmit}
+        >
+          {({
+            errors,
+            values,
+            setFieldValue,
+            setFieldError,
+          }): React.ReactNode => (
+            <Form>
+              <Box marginBottom={1}>
+                {getCurrentStepComponent({
+                  errors,
+                  values,
+                  isSubmitting,
+                  setFieldValue,
+                  setFieldError,
+                  onFirstStep: handleFirstStep,
+                  onPreviousStep: handlePreviousStep,
+                  onNextStep: handleNextStep,
+                })}
+              </Box>
+            </Form>
+          )}
+        </Formik>
+      </>
+    );
+  };
+
+  const mainContent = getMainContent();
 
   return (
     <>
-      {shouldRenderOnMobile ? (
-        <>
-          <ErrorAlertBanner error={error} />
+      <ErrorAlertBanner error={error} />
 
-          <Box position="absolute" top={0} right={0}>
-            <LoginLink />
-          </Box>
-
-          <AuthView marginTop={16} height="100%">
-            <AuthCard
-              marginX="auto"
-              marginY={4}
-              height="100%"
-              width={420}
-              zIndex={2}
-            >
-              {mainContent}
-            </AuthCard>
-          </AuthView>
-        </>
-      ) : (
-        <>
-          <ErrorAlertBanner error={error} />
-          <Flex direction="column" padding={5}>
-            {mainContent}
-            <LoginLink />
-          </Flex>
-        </>
+      {!isMobile && (
+        <Box position="absolute" top={0} right={0}>
+          <LoginLink />
+        </Box>
       )}
+
+      <AuthView marginTop={{ base: 0, md: 16 }} height="100%">
+        <AuthCard
+          marginX="auto"
+          marginY={4}
+          height="100%"
+          maxWidth={{ base: "100%", md: 420 }}
+          width="100%"
+          zIndex={2}
+        >
+          {mainContent}
+          {isMobile && isFirstStep && <LoginLink />}
+        </AuthCard>
+      </AuthView>
     </>
   );
 };
