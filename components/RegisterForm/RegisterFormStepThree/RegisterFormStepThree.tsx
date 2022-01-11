@@ -14,7 +14,7 @@ import {
   SlideFade,
   Text,
 } from "@chakra-ui/react";
-import { Field } from "formik";
+import { Field, FormikConsumer } from "formik";
 import CountrySelect from "../../CountrySelect";
 import RegisterFormBackButton from "../RegisterFormBackButton";
 import ProfileUserAvatar from "../../ProfileUserAvatar";
@@ -95,7 +95,7 @@ const RegisterFormStepThree: FC<Props> = ({
                 _hover={{ background: "#e0e0e0" }}
               />
 
-              {form.errors.username ? (
+              {form.errors.username && form.touched.username ? (
                 <FormErrorMessage fontSize="12px">
                   {form.errors.username}
                 </FormErrorMessage>

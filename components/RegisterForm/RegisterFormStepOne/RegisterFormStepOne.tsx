@@ -59,7 +59,7 @@ const RegisterFormStepOne: FC<Props> = ({
         <Flex marginY={6}>
           <Field name="email">
             {({ field, form }): React.ReactNode => (
-              <FormControl isInvalid={form.errors.email}>
+              <FormControl isInvalid={form.errors.email && form.touched.email}>
                 <FormLabel fontWeight="bold" htmlFor="email">
                   {"Email"}
                 </FormLabel>
@@ -77,9 +77,8 @@ const RegisterFormStepOne: FC<Props> = ({
                   borderRadius={6}
                   _placeholder={{ color: "gray.500" }}
                   _hover={{ background: "#e0e0e0" }}
-                  _disabled={{ opacity: 0.2 }}
+                  _disabled={{ opacity: 0.2, cursor: "not-allowed" }}
                 />
-
                 <FormErrorMessage fontSize="11px">
                   {form.errors.email}
                 </FormErrorMessage>
@@ -110,7 +109,7 @@ const RegisterFormStepOne: FC<Props> = ({
                   borderRadius={6}
                   _placeholder={{ color: "gray.500" }}
                   _hover={{ background: "#e0e0e0" }}
-                  _disabled={{ opacity: 0.2 }}
+                  _disabled={{ opacity: 0.2, cursor: "not-allowed" }}
                 />
                 {form.errors.password && (
                   <FormErrorMessage fontSize="12px">
