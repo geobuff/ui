@@ -10,6 +10,7 @@ import {
   Input,
   Text,
   Button,
+  Fade,
 } from "@chakra-ui/react";
 import { Field } from "formik";
 import Link from "next/link";
@@ -17,7 +18,7 @@ import Logo from "../../Logo";
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
 
 const welcomeHelperText =
-  "Thanks for signing up to GeoBuff! Let's get started by entering your email and password, these will be used to sign you in.";
+  "Cheers for your interest in signing up! Let's get started by entering your email and password. These will be used to sign you in.";
 
 export interface Props {
   errors: Record<string, string>;
@@ -33,7 +34,7 @@ const RegisterFormStepOne: FC<Props> = ({
   isValidating = false,
 }) => {
   return (
-    <Box>
+    <Fade in>
       <Flex
         justifyContent="center"
         marginTop={{ base: 0, md: 3 }}
@@ -76,6 +77,7 @@ const RegisterFormStepOne: FC<Props> = ({
                   borderRadius={6}
                   _placeholder={{ color: "gray.500" }}
                   _hover={{ background: "#e0e0e0" }}
+                  _disabled={{ opacity: 0.2 }}
                 />
 
                 <FormErrorMessage fontSize="11px">
@@ -96,6 +98,7 @@ const RegisterFormStepOne: FC<Props> = ({
                 </FormLabel>
                 <Input
                   {...field}
+                  isDisabled={isValidating}
                   id="password"
                   type="password"
                   autoComplete="new-password"
@@ -107,6 +110,7 @@ const RegisterFormStepOne: FC<Props> = ({
                   borderRadius={6}
                   _placeholder={{ color: "gray.500" }}
                   _hover={{ background: "#e0e0e0" }}
+                  _disabled={{ opacity: 0.2 }}
                 />
                 {form.errors.password && (
                   <FormErrorMessage fontSize="12px">
@@ -130,7 +134,7 @@ const RegisterFormStepOne: FC<Props> = ({
       >
         {"Next"}
       </Button>
-    </Box>
+    </Fade>
   );
 };
 

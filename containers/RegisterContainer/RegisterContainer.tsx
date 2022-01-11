@@ -19,7 +19,6 @@ const RegisterContainer: FC = () => {
 
   const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSuccess, setIsSuccess] = useState(false);
 
   useEffect(() => {
     if (!router.query.data && !isLoadingUser && user) {
@@ -83,7 +82,6 @@ const RegisterContainer: FC = () => {
             },
           });
         } else {
-          setIsSuccess(true);
           router.push("/");
         }
       })
@@ -96,7 +94,6 @@ const RegisterContainer: FC = () => {
       error={error}
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
-      isSuccess={isSuccess}
     />
   );
 };

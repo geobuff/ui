@@ -2,10 +2,13 @@ import React, { FC } from "react";
 import {
   Box,
   Button,
+  Fade,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  SlideFade,
+  useBreakpointValue,
   VisuallyHidden,
 } from "@chakra-ui/react";
 import { Field } from "formik";
@@ -24,7 +27,8 @@ const RegisterFormStepTwo: FC<Props> = ({
   onNextStep = () => {},
 }) => {
   return (
-    <Box>
+    <Fade in>
+      {/* <SlideFade in offsetX={"-36px"} offsetY={0}> */}
       <RegisterFormBackButton onClick={onPreviousStep}>
         {"Select Your Avatar"}
       </RegisterFormBackButton>
@@ -59,7 +63,7 @@ const RegisterFormStepTwo: FC<Props> = ({
       >
         {"Next"}
       </Button>
-    </Box>
+    </Fade>
   );
 };
 

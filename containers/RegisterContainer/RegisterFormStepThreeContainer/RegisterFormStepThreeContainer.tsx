@@ -1,3 +1,4 @@
+import { useFormikContext } from "formik";
 import React, { FC, useState } from "react";
 
 import axiosClient from "../../../axios";
@@ -8,7 +9,6 @@ export interface Props {
   values: RegisterFormSubmit;
   isSubmitting: boolean;
   setFieldError: (field: string, message: string) => void;
-  onSubmit: (values: RegisterFormSubmit) => void;
   onPreviousStep: () => void;
 }
 
@@ -16,9 +16,10 @@ const RegisterFormStepThreeContainer: FC<Props> = ({
   values,
   isSubmitting = false,
   setFieldError = () => {},
-  onSubmit = () => {},
   onPreviousStep = () => {},
 }) => {
+  const { submitForm } = useFormikContext();
+
   const [isValidating, setIsValidating] = useState(false);
   const [isValidUsername, setIsValidUsername] = useState(true);
 
@@ -38,7 +39,9 @@ const RegisterFormStepThreeContainer: FC<Props> = ({
         "That username already exists. Pick something else!"
       );
     } else {
-      onSubmit(values);
+      setTimeout(() => {
+        submitForm();
+      }, 20);
     }
   };
 

@@ -1,8 +1,8 @@
 import React, { ChangeEvent, FC, useState } from "react";
 import {
-  Box,
   Button,
   Checkbox,
+  Fade,
   Flex,
   FormControl,
   FormErrorMessage,
@@ -11,6 +11,7 @@ import {
   Heading,
   Input,
   Link,
+  SlideFade,
   Text,
 } from "@chakra-ui/react";
 import { Field } from "formik";
@@ -20,7 +21,7 @@ import ProfileUserAvatar from "../../ProfileUserAvatar";
 import useAvatars from "../../../hooks/UseAvatars";
 
 const usernameHelperText =
-  "Pick a unique name for your avatar. If you change your mind you can change this later in your profile.";
+  "Pick a unique name for your account. If you change your mind you can update this later in your profile.";
 
 const countryCodeHelperText =
   "Select the country you'd like to represent on the leaderboard.";
@@ -53,7 +54,7 @@ const RegisterFormStepThree: FC<Props> = ({
     setHasAgreedToGeoTerms(event.target.checked);
 
   return (
-    <Box>
+    <Fade in>
       <RegisterFormBackButton onClick={onPreviousStep}>
         {"Pick Your Username"}
       </RegisterFormBackButton>
@@ -80,6 +81,7 @@ const RegisterFormStepThree: FC<Props> = ({
               <Input
                 {...field}
                 id="username"
+                isDisabled={isSubmitting || isValidating}
                 autoComplete="off"
                 placeholder="Enter username..."
                 type="text"
@@ -88,6 +90,7 @@ const RegisterFormStepThree: FC<Props> = ({
                 fontSize="16px"
                 background="#F6F6F6"
                 borderRadius={6}
+                _disabled={{ opacity: 0.2 }}
                 _placeholder={{ color: "gray.500" }}
                 _hover={{ background: "#e0e0e0" }}
               />
@@ -116,7 +119,10 @@ const RegisterFormStepThree: FC<Props> = ({
                 {"Country"}
               </FormLabel>
 
-              <CountrySelect fieldProps={field} />
+              <CountrySelect
+                fieldProps={field}
+                isDisabled={isSubmitting || isValidating}
+              />
               {form.errors.countryCode && form.touched.countryCode ? (
                 <FormErrorMessage fontSize="12px">
                   {form.errors.countryCode}
@@ -131,7 +137,12 @@ const RegisterFormStepThree: FC<Props> = ({
         </Field>
       </Flex>
 
-      <Checkbox marginY={4} color="#276f86" onChange={handleChange}>
+      <Checkbox
+        color="#276f86"
+        marginLeft={1}
+        marginY={4}
+        onChange={handleChange}
+      >
         <Text color="gray.500" fontSize="small">
           {"I agree to the"}
           <Link
@@ -168,7 +179,7 @@ const RegisterFormStepThree: FC<Props> = ({
       >
         {"Create Account"}
       </Button>
-    </Box>
+    </Fade>
   );
 };
 

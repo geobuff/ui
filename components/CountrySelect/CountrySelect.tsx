@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 import { getFlagUrl } from "@geobuff/flags";
-import { Select } from "@chakra-ui/react";
+import { Select, SelectProps } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import Image from "../Image";
@@ -9,11 +9,11 @@ import Image from "../Image";
 import useCountries from "../../hooks/useCountries";
 import { FieldProps } from "../../types/field-props";
 
-export interface Props {
+export interface Props extends SelectProps {
   fieldProps?: FieldProps;
 }
 
-const CountrySelect: FC<Props> = ({ fieldProps = { value: "" } }) => {
+const CountrySelect: FC<Props> = ({ fieldProps = { value: "" }, ...props }) => {
   const { countries, isLoading } = useCountries();
 
   return (
@@ -28,6 +28,7 @@ const CountrySelect: FC<Props> = ({ fieldProps = { value: "" } }) => {
       fontSize="16px"
       fontWeight={600}
       height="40px"
+      _disabled={{ opacity: 0.2 }}
       _hover={{
         background: isLoading ? "#F6F6F6" : "#e0e0e0",
         cursor: isLoading ? "not-allowed" : "inherit",
@@ -50,6 +51,7 @@ const CountrySelect: FC<Props> = ({ fieldProps = { value: "" } }) => {
           <ChevronDownIcon stroke="black" />
         )
       }
+      {...props}
     >
       <option value="" disabled>
         {isLoading ? "Loading countries..." : "Select a country..."}

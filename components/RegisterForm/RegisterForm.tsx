@@ -68,8 +68,6 @@ const RegisterForm: FC<Props> = ({
   };
   const handlePreviousStep = () => setCurrentStep(currentStep - 1);
 
-  const handleFirstStep = () => setCurrentStep(0);
-
   const getCurrentStepComponent = (props) => {
     switch (currentStep) {
       case 0:
@@ -87,42 +85,37 @@ const RegisterForm: FC<Props> = ({
   const currentValidationScheme = validationSchema[currentStep];
   const isFirstStep = currentStep === 0;
 
-  const getMainContent = () => {
-    return (
-      <>
-        <Formik
-          enableReinitialize
-          initialValues={initialValues}
-          validationSchema={currentValidationScheme}
-          onSubmit={onSubmit}
-        >
-          {({
-            errors,
-            values,
-            setFieldValue,
-            setFieldError,
-          }): React.ReactNode => (
-            <Form>
-              <Box marginBottom={1}>
-                {getCurrentStepComponent({
-                  errors,
-                  values,
-                  isSubmitting,
-                  setFieldValue,
-                  setFieldError,
-                  onFirstStep: handleFirstStep,
-                  onPreviousStep: handlePreviousStep,
-                  onNextStep: handleNextStep,
-                })}
-              </Box>
-            </Form>
-          )}
-        </Formik>
-      </>
-    );
-  };
-
-  const mainContent = getMainContent();
+  const formContent = (
+    <>
+      <Formik
+        enableReinitialize
+        initialValues={initialValues}
+        validationSchema={currentValidationScheme}
+        onSubmit={onSubmit}
+      >
+        {({
+          errors,
+          values,
+          setFieldValue,
+          setFieldError,
+        }): React.ReactNode => (
+          <Form>
+            <Box marginBottom={1}>
+              {getCurrentStepComponent({
+                errors,
+                values,
+                isSubmitting,
+                setFieldValue,
+                setFieldError,
+                onPreviousStep: handlePreviousStep,
+                onNextStep: handleNextStep,
+              })}
+            </Box>
+          </Form>
+        )}
+      </Formik>
+    </>
+  );
 
   return (
     <>
@@ -143,7 +136,7 @@ const RegisterForm: FC<Props> = ({
           width="100%"
           zIndex={2}
         >
-          {mainContent}
+          {formContent}
           {isMobile && isFirstStep && <LoginLink />}
         </AuthCard>
       </AuthView>
