@@ -7,5 +7,4 @@ export interface Badge {
   border: string;
   progress: number;
   total: number;
-  isComplete: boolean;
 }

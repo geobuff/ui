@@ -60,7 +60,7 @@ const UserProfileAchievements: FC<Props> = ({ badges = [] }) => {
                     marginX="auto"
                   />
                 </Box>
-                {!badge.isComplete && (
+                {badge.progress !== badge.total && (
                   <Box
                     position="absolute"
                     borderRadius={50}
