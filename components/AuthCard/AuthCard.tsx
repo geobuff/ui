@@ -1,10 +1,9 @@
 import React, { FC } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, FlexProps } from "@chakra-ui/react";
 
-interface Props {
+interface Props extends FlexProps {
   height?: string | number | string[] | object;
   width?: string | number | string[] | object;
-  [x: string]: any;
 }
 
 const AuthCard: FC<Props> = ({

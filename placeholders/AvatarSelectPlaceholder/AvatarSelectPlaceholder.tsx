@@ -13,20 +13,15 @@ interface Props {
 
 const AvatarSelectPlaceholder: FC<Props> = ({ avatarCount = 6 }) => (
   <>
-    <Flex>
-      <Flex direction="column" justifyContent="center" mr={6}>
-        <Skeleton
-          borderRadius="12px"
-          height="130px"
-          width="130px"
-          marginBottom={6}
-          marginX="auto"
-        />
-      </Flex>
-      <Flex direction="column" width="100%">
-        <Skeleton mx="auto" mb={2} height="20px" width="100px" />
-        <SkeletonText mb={12} noOfLines={6} mt={3} />
-      </Flex>
+    <Flex direction="column">
+      <Skeleton
+        borderRadius="12px"
+        height="100px"
+        width="100px"
+        marginX="auto"
+      />
+      <Skeleton mx="auto" marginY={4} height="20px" width="100px" />
+      <SkeletonText mb={6} noOfLines={6} />
     </Flex>
 
     <SimpleGrid background="#F0F0F0" borderRadius="12px" columns={3}>
