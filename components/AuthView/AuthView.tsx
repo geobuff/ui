@@ -1,22 +1,12 @@
 import React, { FC } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Flex, FlexProps } from "@chakra-ui/react";
 
-interface Props {
-  height?: string | number | string[] | object;
-  marginTop?: string | number | string[] | object;
-}
-
-const AuthView: FC<Props> = ({
-  height = "80vh",
-  marginTop = 6,
-  children,
-  ...props
-}) => (
+const AuthView: FC<FlexProps> = ({ children, ...props }) => (
   <Flex
-    marginTop={marginTop}
-    height={height}
+    flex={1}
     direction="column"
-    justifyContent="center"
+    justifyContent="flex-start"
+    paddingTop={{ base: 0, md: "2%" }}
     {...props}
   >
     {children}
