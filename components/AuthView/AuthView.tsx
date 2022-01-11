@@ -6,7 +6,7 @@ const AuthView: FC<FlexProps> = ({ children, ...props }) => (
     flex={1}
     direction="column"
     justifyContent="flex-start"
-    paddingTop="2%"
+    paddingTop={{ base: 0, md: "2%" }}
     {...props}
   >
     {children}

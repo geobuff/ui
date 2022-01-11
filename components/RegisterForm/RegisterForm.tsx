@@ -126,7 +126,7 @@ const RegisterForm: FC<Props> = ({
         </Box>
       )}
 
-      <AuthView marginTop={{ base: 6, md: 16 }}>
+      <AuthView marginTop={{ base: 0, md: 16 }}>
         <AuthCard
           marginX="auto"
           marginY={4}
