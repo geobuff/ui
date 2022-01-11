@@ -86,7 +86,7 @@ const RegisterForm: FC<Props> = ({
   const isFirstStep = currentStep === 0;
 
   const formContent = (
-    <>
+    <Box height="100%">
       <Formik
         enableReinitialize
         initialValues={initialValues}
@@ -114,7 +114,7 @@ const RegisterForm: FC<Props> = ({
           </Form>
         )}
       </Formik>
-    </>
+    </Box>
   );
 
   return (
@@ -127,11 +127,10 @@ const RegisterForm: FC<Props> = ({
         </Box>
       )}
 
-      <AuthView marginTop={{ base: 0, md: 16 }} height="100%">
+      <AuthView marginTop={{ base: 6, md: 16 }}>
         <AuthCard
           marginX="auto"
           marginY={4}
-          height="100%"
           maxWidth={{ base: "100%", md: 420 }}
           width="100%"
           zIndex={2}

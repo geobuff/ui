@@ -6,17 +6,12 @@ interface Props {
   marginTop?: string | number | string[] | object;
 }
 
-const AuthView: FC<Props> = ({
-  height = "80vh",
-  marginTop = 6,
-  children,
-  ...props
-}) => (
+const AuthView: FC<Props> = ({ children, ...props }) => (
   <Flex
-    marginTop={marginTop}
-    height={height}
+    flex={1}
     direction="column"
-    justifyContent="center"
+    justifyContent="flex-start"
+    paddingTop="2%"
     {...props}
   >
     {children}
