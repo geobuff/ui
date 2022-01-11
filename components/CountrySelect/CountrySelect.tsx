@@ -11,9 +11,14 @@ import { FieldProps } from "../../types/field-props";
 
 export interface Props extends SelectProps {
   fieldProps?: FieldProps;
+  isDisabled?: boolean;
 }
 
-const CountrySelect: FC<Props> = ({ fieldProps = { value: "" }, ...props }) => {
+const CountrySelect: FC<Props> = ({
+  fieldProps = { value: "" },
+  isDisabled = false,
+  ...props
+}) => {
   const { countries, isLoading } = useCountries();
 
   return (
@@ -28,7 +33,7 @@ const CountrySelect: FC<Props> = ({ fieldProps = { value: "" }, ...props }) => {
       fontSize="16px"
       fontWeight={600}
       height="40px"
-      _disabled={{ opacity: 0.2 }}
+      _disabled={{ opacity: 0.2, cursor: "not-allowed" }}
       _hover={{
         background: isLoading ? "#F6F6F6" : "#e0e0e0",
         cursor: isLoading ? "not-allowed" : "inherit",
@@ -45,6 +50,7 @@ const CountrySelect: FC<Props> = ({ fieldProps = { value: "" }, ...props }) => {
             minWidth="32px"
             objectFit="cover"
             src={getFlagUrl(fieldProps?.value)}
+            opacity={isDisabled ? 0.2 : 1}
             borderRadius={5}
           />
         ) : (

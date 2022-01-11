@@ -114,6 +114,7 @@ const RegisterFormStepThree: FC<Props> = ({
           {({ field, form }): React.ReactNode => (
             <FormControl
               isInvalid={form.errors.countryCode && form.touched.countryCode}
+              isDisabled={isSubmitting || isValidating}
             >
               <FormLabel htmlFor="countryCode" fontWeight="bold">
                 {"Country"}
