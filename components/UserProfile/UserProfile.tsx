@@ -46,7 +46,7 @@ const UserProfile: FC<Props> = ({
             user={user}
           />
           {divider}
-          <UserProfileAchievementsContainer user={user} />
+          <UserProfileAchievementsContainer userId={user?.id} />
           {divider}
           <UserProfileLeaderboardEntriesContainer userId={user?.id} />
         </>

@@ -2,25 +2,20 @@ import React, { FC } from "react";
 
 import UserProfileAchievements from "../../components/UserProfileAchievements";
 import useBadges from "../../hooks/UseBadges";
-import useUserLeaderboardEntries from "../../hooks/UseUserLeaderboardEntries";
 import UserProfileAchievementsPlaceholder from "../../placeholders/UserProfileAchievementsPlaceholder";
-import { UserDto } from "../../types/user-dto";
 
 interface Props {
-  user?: UserDto;
+  userId?: number;
 }
 
-const UserProfileAchievementsContainer: FC<Props> = ({ user = null }) => {
-  const { badges, isLoading: badgesLoading } = useBadges();
-  const { entries, isLoading: entriesLoading } = useUserLeaderboardEntries(
-    user?.id
-  );
+const UserProfileAchievementsContainer: FC<Props> = ({ userId = 0 }) => {
+  const { badges, isLoading: badgesLoading } = useBadges(userId);
 
-  if (badgesLoading || entriesLoading || !user) {
+  if (badgesLoading) {
     return <UserProfileAchievementsPlaceholder />;
   }
 
-  return <UserProfileAchievements badges={badges} entries={entries} />;
+  return <UserProfileAchievements badges={badges} />;
 };
 
 export default UserProfileAchievementsContainer;
