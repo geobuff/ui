@@ -1,17 +1,15 @@
 import React, { FC } from "react";
 import {
-  Box,
   Button,
   Fade,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
-  SlideFade,
-  useBreakpointValue,
   VisuallyHidden,
 } from "@chakra-ui/react";
 import { Field } from "formik";
+
 import AvatarSelectContainer from "../../../containers/AvatarSelectContainer";
 import RegisterFormBackButton from "../RegisterFormBackButton";
 

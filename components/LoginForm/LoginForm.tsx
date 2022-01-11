@@ -49,7 +49,7 @@ interface Props {
 
 const LoginForm: FC<Props> = ({
   error = null,
-  onSubmit = (values: LoginFormSubmit): void => {},
+  onSubmit = () => {},
   isSubmitting = false,
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });

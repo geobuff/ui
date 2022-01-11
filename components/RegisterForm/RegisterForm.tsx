@@ -1,19 +1,18 @@
-import React, { FC, useMemo, useState } from "react";
+import React, { FC, useState } from "react";
 import * as Yup from "yup";
 
-import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Box, useBreakpointValue } from "@chakra-ui/react";
 import { Formik, Form } from "formik";
 
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
 import ErrorAlertBanner from "../ErrorAlertBanner";
-
 import LoginLink from "./LoginLink";
-import { RegisterFormSubmit } from "../../types/register-form-submit";
-
 import RegisterFormStepTwo from "./RegisterFormStepTwo";
 import RegisterFormStepOneContainer from "../../containers/RegisterContainer/RegisterFormStepOneContainer";
 import RegisterFormStepThreeContainer from "../../containers/RegisterContainer/RegisterFormStepThreeContainer";
+
+import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 const initialValues = {
   avatarId: "1",

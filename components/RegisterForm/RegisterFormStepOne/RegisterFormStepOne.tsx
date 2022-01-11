@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import Link from "next/link";
 
 import {
   Box,
@@ -13,7 +14,7 @@ import {
   Fade,
 } from "@chakra-ui/react";
 import { Field } from "formik";
-import Link from "next/link";
+
 import Logo from "../../Logo";
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
 

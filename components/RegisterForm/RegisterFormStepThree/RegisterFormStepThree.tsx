@@ -11,13 +11,14 @@ import {
   Heading,
   Input,
   Link,
-  SlideFade,
   Text,
 } from "@chakra-ui/react";
-import { Field, FormikConsumer } from "formik";
+import { Field } from "formik";
+
 import CountrySelect from "../../CountrySelect";
 import RegisterFormBackButton from "../RegisterFormBackButton";
 import ProfileUserAvatar from "../../ProfileUserAvatar";
+
 import useAvatars from "../../../hooks/UseAvatars";
 
 const usernameHelperText =
