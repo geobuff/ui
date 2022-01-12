@@ -11,25 +11,19 @@ import {
 
 import Card from "../Card";
 
-import { isBadgeComplete, getProgress } from "../../helpers/badge";
-
 import SolidLock from "../../Icons/SolidLock";
 import { Badge } from "../../types/badge";
-import { UserLeaderboardEntry } from "../../types/user-leaderboard-entry";
 
 interface Props {
   badges?: Badge[];
-  entries?: UserLeaderboardEntry[];
 }
 
-const UserProfileAchievements: FC<Props> = ({ badges = [], entries = [] }) => {
+const UserProfileAchievements: FC<Props> = ({ badges = [] }) => {
   const getLabel = (badge: Badge): React.ReactNode => (
     <Box>
       <Heading size="md">{badge.name}</Heading>
       <Text my={2}>{badge.description}</Text>
-      <Text mb={2}>{`Progress: ${getProgress(badge, entries)}/${
-        badge.total
-      }`}</Text>
+      <Text mb={2}>{`Progress: ${badge.progress}/${badge.total}`}</Text>
     </Box>
   );
 
@@ -66,7 +60,7 @@ const UserProfileAchievements: FC<Props> = ({ badges = [], entries = [] }) => {
                     marginX="auto"
                   />
                 </Box>
-                {!isBadgeComplete(badge, entries) && (
+                {badge.progress !== badge.total && (
                   <Box
                     position="absolute"
                     borderRadius={50}

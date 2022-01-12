@@ -7,8 +7,8 @@ interface Result {
   isLoading: boolean;
 }
 
-const useBadges = (): Result => {
-  const { data } = useSWR(`/badges`, fetcher);
+const useBadges = (userId: number): Result => {
+  const { data } = useSWR(`/badges/${userId}`, fetcher);
 
   return {
     badges: data ?? [],
