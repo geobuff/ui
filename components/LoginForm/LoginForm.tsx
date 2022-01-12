@@ -49,7 +49,7 @@ interface Props {
 
 const LoginForm: FC<Props> = ({
   error = null,
-  onSubmit = (values: LoginFormSubmit): void => {},
+  onSubmit = () => {},
   isSubmitting = false,
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
@@ -181,7 +181,7 @@ const LoginForm: FC<Props> = ({
           <Box position="absolute" top={0} right={0}>
             <RegisterLink />
           </Box>
-          <AuthView>
+          <AuthView marginTop={{ base: 6, md: 16 }}>
             <AuthCard
               marginX="auto"
               marginTop={5}
