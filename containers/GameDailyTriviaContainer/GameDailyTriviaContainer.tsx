@@ -16,7 +16,7 @@ const GameDailyTriviaContainer: FC<Props> = ({ date }) => {
   const { data, isLoading } = useDailyTrivia(date);
 
   const handleIncrementPlays = (triviaId: number): void => {
-    axiosClient.put(`/daily-trivia/plays/${triviaId}`);
+    axiosClient.put(`/trivia-plays/${triviaId}`);
   };
 
   // TODO: Remove loading logic when converting page to static

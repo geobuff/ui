@@ -80,7 +80,7 @@ const GameOverModalContainer: FC<Props> = ({
       return;
     }
 
-    axiosClient.put(`/plays/${id}`);
+    axiosClient.put(`/quiz-plays/${id}`);
     if (!user || score === 0) {
       setIsLoading(false);
       return;
