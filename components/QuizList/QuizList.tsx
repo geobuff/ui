@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Link from "next/link";
+import { DateTime } from "luxon";
 
 import {
   AspectRatio,
@@ -13,6 +14,9 @@ import {
 
 import QuizCard from "../QuizCard";
 import { Quiz } from "../../types/quiz";
+
+const formattedDate = DateTime.now().toFormat("yyyy-MM-dd");
+const dailyTriviaLink = `/daily-trivia/${formattedDate}`;
 
 const dailyTriviaBanner = (
   <Alert
@@ -31,7 +35,7 @@ const dailyTriviaBanner = (
       {
         "Keen to test your knowledge with ten randomly generated questions?  Try out"
       }
-      <Link href="/daily-trivia">
+      <Link href={dailyTriviaLink}>
         <ChakraLink
           mx={1}
           fontWeight="semibold"
@@ -39,7 +43,7 @@ const dailyTriviaBanner = (
           transition="all 150ms ease-out"
           _hover={{ color: "blue.800" }}
         >
-          {"Daily Trivia"}
+          {"today's Daily Trivia"}
         </ChakraLink>
       </Link>
     </AlertDescription>
