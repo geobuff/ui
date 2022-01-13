@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import React, { FC } from "react";
-import { Flex, Heading } from "@chakra-ui/react";
+import { AspectRatio, Flex, Heading } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
@@ -10,9 +10,8 @@ import Image from "../../Image";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
 
 const mapStyles = {
-  height: "250px",
-  width: "250px",
-  marginBottom: "24px",
+  height: "100%",
+  width: "100%",
   fill: "#6dca94",
 };
 
@@ -30,7 +29,18 @@ const getContentByType = (
   switch (type) {
     case "Flag":
       return (
-        <CustomFlag url={getFlagUrl(flagCode)} height="250px" width="250px" />
+        <AspectRatio
+          ratio={8 / 5}
+          maxWidth={{ base: "60%", md: "300px" }}
+          width="100%"
+        >
+          <CustomFlag
+            url={getFlagUrl(flagCode)}
+            height="100%"
+            maxHeight="200px"
+            width="100%"
+          />
+        </AspectRatio>
       );
     case "Map":
       let svgMap = Maps[map];
@@ -48,7 +58,7 @@ const getContentByType = (
 
       return <SVGMap map={svgMap} mapStyle={mapStyles} />;
     case "Image":
-      return <Image src={imageUrl} height="250px" width="250px" />;
+      return <Image src={imageUrl} height="100%" width="100%" />;
     default:
       return null;
   }
@@ -79,16 +89,26 @@ const GameDailyTriviaContent: FC<Props> = ({
     imageUrl
   );
 
+  const isTextQuestion = type === "Text";
+
   return (
     <Flex
       direction="column"
       flex={1}
       justifyContent="center"
       alignItems="center"
-      marginBottom={5}
+      marginY={5}
+      overflow="hidden"
     >
       {contentNode}
-      <Heading color="white">{text}</Heading>
+      <Heading
+        color="white"
+        marginTop={5}
+        marginBottom={{ base: 0, md: 5 }}
+        fontSize={{ base: isTextQuestion ? "2xl" : "xl", md: "3xl" }}
+      >
+        {text}
+      </Heading>
     </Flex>
   );
 };

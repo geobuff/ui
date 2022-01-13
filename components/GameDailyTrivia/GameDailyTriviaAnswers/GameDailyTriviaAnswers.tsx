@@ -39,7 +39,7 @@ const GameDailyTriviaAnswers: FC<Props> = ({
 }) => {
   return (
     <Flex direction="column" marginTop="auto" width="100%">
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 2, md: 4 }}>
         {question?.answers?.map((answer) => (
           <GameTriviaButton
             status={
@@ -56,12 +56,18 @@ const GameDailyTriviaAnswers: FC<Props> = ({
         ))}
       </SimpleGrid>
 
-      <Flex justifyContent="flex-end" height="80px">
+      <Flex
+        justifyContent="flex-end"
+        marginTop={{ base: -2, md: 0 }}
+        height={{ base: "52px", md: "60px" }}
+      >
         <Fade in={hasAnswered} unmountOnExit>
           <Button
             variant="ghost"
             color="white"
-            marginY={5}
+            fontSize={{ base: "sm", md: "md" }}
+            marginTop={5}
+            marginRight={{ base: 0, md: 1 }}
             rightIcon={<ArrowRight strokeWidth={"20px"} />}
             iconSpacing={1}
             onClick={isLastQuestion ? onGameStop : onNextQuestion}
