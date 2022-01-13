@@ -10,7 +10,7 @@ const DailyTriviaListContainer: FC = () => {
     return <QuizListPlaceholder noOfTiles={20} />;
   }
 
-  return <DailyTriviaList trivias={data} />;
+  return <DailyTriviaList trivia={data} />;
 };
 
 export default DailyTriviaListContainer;

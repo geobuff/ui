@@ -11,11 +11,11 @@ import { Trivia } from "../../types/trivia";
 import DailyTriviaCard from "../DailyTriviaCard";
 
 export interface Props {
-  trivias?: Trivia[];
+  trivia?: Trivia[];
 }
 
-const DailyTriviaList: FC<Props> = ({ trivias = [] }) => {
-  if (trivias.length === 0) {
+const DailyTriviaList: FC<Props> = ({ trivia = [] }) => {
+  if (trivia.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
         <AlertIcon />
@@ -42,7 +42,7 @@ const DailyTriviaList: FC<Props> = ({ trivias = [] }) => {
         minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
         spacing={{ base: "16px", md: "24px" }}
       >
-        {trivias?.map((quiz) => (
+        {trivia?.map((quiz) => (
           <Link key={quiz.id} href={`/daily-trivia/${quiz.date}`}>
             <AspectRatio
               maxWidth="260px"
