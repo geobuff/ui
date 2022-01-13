@@ -43,7 +43,7 @@ const getContentByType = (
         </AspectRatio>
       );
     case "Map":
-      let svgMap = Maps[map];
+      let svgMap = JSON.parse(JSON.stringify(Maps[map]));
       if (highlighted) {
         svgMap = {
           ...svgMap,
