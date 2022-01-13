@@ -1,4 +1,4 @@
-import React, { FC, useCallback, useMemo } from "react";
+import React, { FC, useMemo } from "react";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { getRandomCollectionItem } from "../../../helpers/random";
 import { SCORE_RESPONSES } from "./constants";
@@ -41,38 +41,55 @@ const GameDailyTriviaGameOver: FC<Props> = ({
       flex={1}
       height="100%"
       direction="column"
-      justifyContent="center"
+      justifyContent={{ base: "flex-start", md: "center" }}
       alignItems="center"
+      textAlign="center"
       color="white"
+      width="100%"
+      marginY={{ base: 5, md: 16 }}
     >
-      <Box textAlign="center">
-        <Heading fontSize="72px" fontWeight="extrabold" marginBottom={16}>
+      <Flex flex={1} direction="column" width="100%" textAlign="center">
+        <Heading
+          as="h1"
+          fontSize={{ base: "46px", md: "72px" }}
+          fontWeight="extrabold"
+        >
           {"GAME OVER"}
         </Heading>
 
-        <Box marginY={16}>
-          <Text fontSize="64px" fontWeight="bold" letterSpacing="4px">
-            {`${score}/${maxQuestionNumber}`}
-          </Text>
-          <Text fontSize="30px" fontWeight="medium">
-            {scoreSubtitle}
-          </Text>
-        </Box>
+        <Box maxWidth={500} marginX="auto">
+          <Box marginY={16}>
+            <Text
+              fontSize={{ base: "42px", md: "64px" }}
+              fontWeight="bold"
+              letterSpacing="3px"
+            >
+              {`${score}/${maxQuestionNumber}`}
+            </Text>
+            <Text
+              fontSize={{ base: "24px", md: "32px" }}
+              fontWeight="medium"
+              color="#9FC7D9"
+            >
+              {scoreSubtitle}
+            </Text>
+          </Box>
 
-        <Button
-          colorScheme="green"
-          marginY={6}
-          paddingY={8}
-          paddingX={6}
-          borderRadius={12}
-          size="lg"
-          fontWeight="bold"
-          isFullWidth
-          onClick={onPlayAgain}
-        >
-          {"Play Again"}
-        </Button>
-      </Box>
+          <Button
+            colorScheme="green"
+            marginTop="auto"
+            paddingY={8}
+            paddingX={6}
+            borderRadius={12}
+            size="lg"
+            fontWeight="bold"
+            isFullWidth
+            onClick={onPlayAgain}
+          >
+            {"Play Again"}
+          </Button>
+        </Box>
+      </Flex>
     </Flex>
   );
 };

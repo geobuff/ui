@@ -1,5 +1,11 @@
 import React, { FC } from "react";
-import { Box, Button, ButtonProps, Flex } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  ButtonProps,
+  Flex,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 
 import CustomFlag from "../CustomFlag";
@@ -54,13 +60,13 @@ const GameTriviaButton: FC<Props> = ({
 
   return (
     <Button
-      paddingY={8}
-      paddingX={6}
+      paddingY={{ base: 6, md: 8 }}
+      paddingX={{ base: 5, md: 6 }}
       backgroundColor="#236175"
       borderRadius={12}
       color="white"
       transition="all 400ms ease-in-out"
-      size="lg"
+      fontSize={{ base: "sm", md: "lg" }}
       _hover={{
         backgroundColor: "#1d5061",
       }}
@@ -69,7 +75,7 @@ const GameTriviaButton: FC<Props> = ({
     >
       <Flex alignItems="center" textAlign="center" width="100%">
         {flagCode && (
-          <Box marginRight={5}>
+          <Box marginRight={4}>
             <CustomFlag url={getFlagUrl(flagCode)} />
           </Box>
         )}

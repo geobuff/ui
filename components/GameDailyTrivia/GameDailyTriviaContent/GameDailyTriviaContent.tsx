@@ -1,6 +1,6 @@
 /* eslint-disable no-case-declarations */
 import React, { FC } from "react";
-import { Flex, Heading } from "@chakra-ui/react";
+import { AspectRatio, Flex, Heading } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
@@ -29,7 +29,18 @@ const getContentByType = (
   switch (type) {
     case "flag":
       return (
-        <CustomFlag url={getFlagUrl(flagCode)} height="250px" width="250px" />
+        <AspectRatio
+          ratio={8 / 5}
+          maxWidth={{ base: "75%", md: "300px" }}
+          width="100%"
+        >
+          <CustomFlag
+            url={getFlagUrl(flagCode)}
+            height="100%"
+            maxHeight="200px"
+            width="100%"
+          />
+        </AspectRatio>
       );
     case "map":
       let svgMap = Maps[map];
@@ -47,7 +58,7 @@ const getContentByType = (
 
       return <SVGMap map={svgMap} mapStyle={mapStyles} />;
     case "image":
-      return <Image src={imageUrl} height="250px" width="250px" />;
+      return <Image src={imageUrl} height="100%" width="100%" />;
     default:
       return null;
   }
@@ -85,6 +96,7 @@ const GameDailyTriviaContent: FC<Props> = ({
       justifyContent="center"
       alignItems="center"
       marginY={5}
+      overflow="hidden"
     >
       {contentNode}
       <Heading color="white" marginY={5}>
