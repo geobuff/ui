@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Badge, Box, Divider, Flex, Text } from "@chakra-ui/react";
 
 import Image from "../Image";
 import Twemoji from "../Twemoji";
@@ -62,7 +62,7 @@ const DailyTriviaCard: FC<Props> = ({ name = "" }) => (
           marginX="12px"
         >
           <Flex alignItems="center">
-            <Share
+            {/* <Share
               height={twemojiResponsiveStyles}
               width={twemojiResponsiveStyles}
             />
@@ -74,7 +74,8 @@ const DailyTriviaCard: FC<Props> = ({ name = "" }) => (
               minWidth="50%"
             >
               {"Share Quiz"}
-            </Text>
+            </Text> */}
+            <Badge>{"Beta"}</Badge>
           </Flex>
           <Flex alignItems="center">
             <Twemoji

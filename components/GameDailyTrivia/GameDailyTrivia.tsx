@@ -8,13 +8,13 @@ import GameDailyTriviaHeader from "./GameDailyTriviaHeader";
 import GameDailyTriviaContent from "./GameDailyTriviaContent";
 import GameDailyTriviaAnswers from "./GameDailyTriviaAnswers";
 
-import { DailyTriviaQuestion as Question } from "../../types/daily-trivia-questions";
-import { DailyTriviaAnswer as Answer } from "../../types/daily-trivia-answer";
-import { DailyTrivia } from "../../types/daily-trivia";
+import { TriviaQuestion } from "../../types/trivia-questions";
+import { TriviaAnswer } from "../../types/trivia-answer";
+import { Trivia } from "../../types/trivia";
 import GameDailyTriviaGameOver from "./GameDailyTriviaGameOver";
 
 export interface Props {
-  trivia: DailyTrivia;
+  trivia: Trivia;
   onIncrementPlays?: (triviaId: number) => void;
 }
 
@@ -24,12 +24,12 @@ const GameDailyTrivia: FC<Props> = ({
 }) => {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [score, setScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<Answer>();
-  const [question, setQuestion] = useState<Question>(trivia.questions[0]);
+  const [selectedAnswer, setSelectedAnswer] = useState<TriviaAnswer>();
+  const [question, setQuestion] = useState<TriviaQuestion>(trivia.questions[0]);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [hasGameStopped, setHasGameStopped] = useState(false);
 
-  const handleAnswerQuestion = (answer: Answer): void => {
+  const handleAnswerQuestion = (answer: TriviaAnswer): void => {
     answer.isCorrect && setScore(score + 1);
     setSelectedAnswer(answer);
     setHasAnswered(true);

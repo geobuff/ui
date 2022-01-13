@@ -1,23 +1,26 @@
 import React, { FC } from "react";
-import { Box, Button, Fade, Flex, SimpleGrid } from "@chakra-ui/react";
+import { Button, Fade, Flex, SimpleGrid } from "@chakra-ui/react";
 
 import ArrowRight from "../../../Icons/ArrowRight";
 import GameTriviaButton from "../../GameTriviaButton";
 
-import { DailyTriviaQuestion as Question } from "../../../types/daily-trivia-questions";
-import { DailyTriviaAnswer as Answer } from "../../../types/daily-trivia-answer";
+import { TriviaQuestion } from "../../../types/trivia-questions";
+import { TriviaAnswer } from "../../../types/trivia-answer";
 
 export interface Props {
-  question: Question;
-  selectedAnswer: Answer;
+  question: TriviaQuestion;
+  selectedAnswer: TriviaAnswer;
   hasAnswered: boolean;
   isLastQuestion: boolean;
-  onAnswerQuestion: (answer: Answer) => void;
+  onAnswerQuestion: (answer: TriviaAnswer) => void;
   onNextQuestion: () => void;
   onGameStop: () => void;
 }
 
-const getTriviaButtonStatus = (selectedAnswer: Answer, answer: Answer) => {
+const getTriviaButtonStatus = (
+  selectedAnswer: TriviaAnswer,
+  answer: TriviaAnswer
+) => {
   if (selectedAnswer.text !== answer.text) {
     return answer.isCorrect ? "outlined" : "idle";
   }
