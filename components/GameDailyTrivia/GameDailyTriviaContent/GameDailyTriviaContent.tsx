@@ -10,9 +10,8 @@ import Image from "../../Image";
 import { DailyTriviaQuestionType } from "../../../types/daily-trivia-question-type";
 
 const mapStyles = {
-  height: "250px",
-  width: "250px",
-  marginBottom: "24px",
+  height: "100%",
+  width: "100%",
   fill: "#6dca94",
 };
 
@@ -85,10 +84,12 @@ const GameDailyTriviaContent: FC<Props> = ({
       flex={1}
       justifyContent="center"
       alignItems="center"
-      marginBottom={5}
+      marginY={5}
     >
       {contentNode}
-      <Heading color="white">{text}</Heading>
+      <Heading color="white" marginY={5}>
+        {text}
+      </Heading>
     </Flex>
   );
 };
