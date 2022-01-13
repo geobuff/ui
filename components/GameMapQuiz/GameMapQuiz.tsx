@@ -57,7 +57,7 @@ const pathSelectedStyle = {
 interface Props {
   time?: number;
   name?: string;
-  type?: number;
+  typeId?: number;
   maxScore?: number;
   verb?: string;
   route?: string;
@@ -72,7 +72,7 @@ interface Props {
 const GameMapQuiz: FC<Props> = ({
   time = 0,
   name = "",
-  type = 0,
+  typeId = 0,
   maxScore = 0,
   verb = "",
   route = "",
@@ -317,7 +317,7 @@ const GameMapQuiz: FC<Props> = ({
       >
         {shouldDisplayOnMobile && (
           <GameInputBanner
-            type={type}
+            typeId={typeId}
             maxScore={maxScore}
             verb={verb}
             time={time}
@@ -344,7 +344,7 @@ const GameMapQuiz: FC<Props> = ({
                 >
                   <Flex direction="column" height="100%">
                     <GameInputCard
-                      type={type}
+                      typeId={typeId}
                       maxScore={maxScore}
                       time={time}
                       verb={verb}

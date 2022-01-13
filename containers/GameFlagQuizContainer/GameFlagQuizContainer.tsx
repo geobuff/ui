@@ -28,7 +28,7 @@ const GameFlagQuizContainer: FC<Props> = ({ quizId }) => {
         id={quiz.id}
         time={quiz.time}
         name={quiz.name}
-        type={quiz.type}
+        typeId={quiz.typeId}
         maxScore={quiz.maxScore}
         verb={quiz.verb}
         route={quiz.route}

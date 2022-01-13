@@ -25,7 +25,7 @@ import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
 export interface Props {
-  type?: number;
+  typeId?: number;
   maxScore?: number;
   verb?: string;
   time?: number;
@@ -46,7 +46,7 @@ export interface Props {
 }
 
 const GameInputCard: FC<Props> = ({
-  type = 0,
+  typeId = 0,
   maxScore = 0,
   time = 0,
   verb = "",
@@ -66,7 +66,7 @@ const GameInputCard: FC<Props> = ({
   onGameStop = (): void => {},
 }) => {
   const inputRef = createRef<HTMLInputElement>();
-  const isFlagGame = type === QuizType.FLAG;
+  const isFlagGame = typeId === QuizType.FLAG;
 
   useEffect(() => {
     if (!isFlagGame && hasGameStarted) {

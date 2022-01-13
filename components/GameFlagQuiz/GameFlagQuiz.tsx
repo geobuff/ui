@@ -46,7 +46,7 @@ interface Props {
   id?: number;
   time?: number;
   name?: string;
-  type?: number;
+  typeId?: number;
   maxScore?: number;
   verb?: string;
   route?: string;
@@ -60,7 +60,7 @@ const GameFlagQuiz: FC<Props> = ({
   id = 0,
   time = 0,
   name = "",
-  type = 0,
+  typeId = 0,
   maxScore = 0,
   verb = "",
   route = "",
@@ -355,7 +355,7 @@ const GameFlagQuiz: FC<Props> = ({
                 >
                   <Box>
                     <GameInputCard
-                      type={type}
+                      typeId={typeId}
                       maxScore={maxScore}
                       time={time}
                       verb={verb}
