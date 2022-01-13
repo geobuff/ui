@@ -28,7 +28,9 @@ const dailyTriviaBanner = (
     mx="auto"
   >
     <AlertDescription>
-      {"Introducing the"}
+      {
+        "Keen to test your knowledge with ten randomly generated questions?  Try out"
+      }
       <Link href="/daily-trivia">
         <ChakraLink
           mx={1}
@@ -40,9 +42,6 @@ const dailyTriviaBanner = (
           {"Daily Trivia"}
         </ChakraLink>
       </Link>
-      {
-        "beta! Test your knowledge with ten geography questions to start your day"
-      }
     </AlertDescription>
   </Alert>
 );
