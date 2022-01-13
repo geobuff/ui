@@ -67,7 +67,7 @@ const GameDailyTriviaAnswers: FC<Props> = ({
             color="white"
             fontSize={{ base: "sm", md: "md" }}
             marginTop={5}
-            marginRight={1}
+            marginRight={{ base: 0, md: 1 }}
             rightIcon={<ArrowRight strokeWidth={"20px"} />}
             iconSpacing={1}
             onClick={isLastQuestion ? onGameStop : onNextQuestion}

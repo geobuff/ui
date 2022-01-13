@@ -6,7 +6,6 @@ import {
   Box,
   Button,
   Flex,
-  Text,
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";

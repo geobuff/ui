@@ -31,7 +31,7 @@ const getContentByType = (
       return (
         <AspectRatio
           ratio={8 / 5}
-          maxWidth={{ base: "75%", md: "300px" }}
+          maxWidth={{ base: "60%", md: "300px" }}
           width="100%"
         >
           <CustomFlag
@@ -103,7 +103,7 @@ const GameDailyTriviaContent: FC<Props> = ({
       {contentNode}
       <Heading
         color="white"
-        marginTop={{ base: 3, md: 5 }}
+        marginTop={5}
         marginBottom={{ base: 0, md: 5 }}
         fontSize={{ base: isTextQuestion ? "2xl" : "xl", md: "3xl" }}
       >
