@@ -57,38 +57,37 @@ const GameDailyTriviaGameOver: FC<Props> = ({
           {"GAME OVER"}
         </Heading>
 
-        <Box maxWidth={500} marginX="auto">
-          <Box marginY={16}>
-            <Text
-              fontSize={{ base: "42px", md: "64px" }}
-              fontWeight="bold"
-              letterSpacing="3px"
-            >
-              {`${score}/${maxQuestionNumber}`}
-            </Text>
-            <Text
-              fontSize={{ base: "24px", md: "32px" }}
-              fontWeight="medium"
-              color="#9FC7D9"
-            >
-              {scoreSubtitle}
-            </Text>
-          </Box>
-
-          <Button
-            colorScheme="green"
-            marginTop="auto"
-            paddingY={8}
-            paddingX={6}
-            borderRadius={12}
-            size="lg"
-            fontWeight="bold"
-            isFullWidth
-            onClick={onPlayAgain}
+        <Box marginY={16}>
+          <Text
+            fontSize={{ base: "42px", md: "64px" }}
+            fontWeight="extrabold"
+            letterSpacing="3px"
           >
-            {"Play Again"}
-          </Button>
+            {`${score}/${maxQuestionNumber}`}
+          </Text>
+          <Text
+            fontSize={{ base: "24px", md: "32px" }}
+            fontWeight="medium"
+            color="#9FC7D9"
+          >
+            {scoreSubtitle}
+          </Text>
         </Box>
+
+        <Button
+          colorScheme="green"
+          paddingY={8}
+          paddingX={6}
+          borderRadius={12}
+          size="lg"
+          fontWeight="bold"
+          maxWidth={420}
+          marginX="auto"
+          isFullWidth
+          onClick={onPlayAgain}
+        >
+          {"Play Again"}
+        </Button>
       </Flex>
     </Flex>
   );
