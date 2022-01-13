@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: create dev trivia questions
-        run: curl -X POST https://geobuff-dev.ts.r.appspot.com/api/daily-trivia
+        run: curl -X POST https://geobuff-dev.ts.r.appspot.com/api/trivia
       - name: create prod trivia questions
-        run: curl -X POST https://geobuff-prod-317101.ts.r.appspot.com/api/daily-trivia
+        run: curl -X POST https://geobuff-prod-317101.ts.r.appspot.com/api/trivia
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: https://discord.com/api/webhooks/927094486260154418/BjAaAvQDK3GFAoTFBKF04Kq-GHAjeuPbZJ1V-aXwQPFDL2glaUtCsmY8VrcWaX_XOUCY

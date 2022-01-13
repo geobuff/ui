@@ -7,7 +7,7 @@ import * as Maps from "@geobuff/svg-maps";
 
 import CustomFlag from "../../CustomFlag";
 import Image from "../../Image";
-import { DailyTriviaQuestionType } from "../../../types/daily-trivia-question-type";
+import { TriviaQuestionType } from "../../../types/trivia-question-type";
 
 const mapStyles = {
   height: "250px",
@@ -21,18 +21,18 @@ const highlightedStyling = {
 };
 
 const getContentByType = (
-  type: DailyTriviaQuestionType,
+  type: TriviaQuestionType,
   map: string,
   highlighted: string,
   flagCode: string,
   imageUrl: string
 ) => {
   switch (type) {
-    case "flag":
+    case "Flag":
       return (
         <CustomFlag url={getFlagUrl(flagCode)} height="250px" width="250px" />
       );
-    case "map":
+    case "Map":
       let svgMap = Maps[map];
       if (highlighted) {
         svgMap = {
@@ -47,7 +47,7 @@ const getContentByType = (
       }
 
       return <SVGMap map={svgMap} mapStyle={mapStyles} />;
-    case "image":
+    case "Image":
       return <Image src={imageUrl} height="250px" width="250px" />;
     default:
       return null;
@@ -56,7 +56,7 @@ const getContentByType = (
 
 export interface Props {
   text: string;
-  type?: DailyTriviaQuestionType;
+  type?: TriviaQuestionType;
   map?: string;
   highlighted?: string;
   flagCode?: string;
@@ -65,7 +65,7 @@ export interface Props {
 
 const GameDailyTriviaContent: FC<Props> = ({
   text,
-  type = "text",
+  type = "Text",
   map = "",
   highlighted = "",
   flagCode = "",
