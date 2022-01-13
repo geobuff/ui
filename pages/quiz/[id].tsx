@@ -68,13 +68,13 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
   }, [isUserLoading, user, tokenExpired, clearUser, router]);
 
   const getQuizComponent = (): React.ReactNode => {
-    switch (quiz.type) {
+    switch (quiz.typeId) {
       case QuizType.MAP:
         return (
           <GameMapQuiz
             time={quiz?.time}
             name={quiz?.name}
-            type={quiz?.type}
+            typeId={quiz?.typeId}
             maxScore={quiz?.maxScore}
             verb={quiz?.verb}
             route={quiz?.route}
@@ -93,7 +93,7 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
               id={quiz.id}
               time={quiz.time}
               name={quiz.name}
-              type={quiz.type}
+              typeId={quiz.typeId}
               maxScore={quiz.maxScore}
               verb={quiz.verb}
               route={quiz.route}
