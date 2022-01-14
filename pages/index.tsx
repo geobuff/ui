@@ -10,6 +10,10 @@ import {
   InputRightElement,
   Fade,
   IconButton,
+  Button,
+  useToast,
+  Flex,
+  Text,
 } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
@@ -19,9 +23,14 @@ import Search from "../Icons/Search";
 import SolidCloseCircle from "../Icons/SolidCloseCircle";
 import QuizList from "../components/QuizList";
 
+import Lottie from "react-lottie-player";
+import animationData from "../lotties/coin-spin.json";
+
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
   const [inputValue, setInputValue] = useState("");
+
+  const toast = useToast();
 
   const handleClearInput = (): void => {
     setInputValue("");
@@ -109,6 +118,34 @@ const Home: FC<AppProps> = ({ pageProps }) => {
           </InputGroup>
         </Box>
       </Box>
+
+      <Button
+        onClick={() =>
+          toast({
+            isClosable: true,
+            // render: () => (
+            description: (
+              <Flex
+                // background="yellow.300"
+                // color="yellow.700"
+                // padding={3}
+                // fontWeight="semibold"
+                borderRadius="6px"
+              >
+                <Lottie
+                  loop
+                  animationData={animationData}
+                  play
+                  style={{ width: "24px", height: "24px" }}
+                />
+                <Text marginLeft={2}>{"5 coins added to your account"}</Text>
+              </Flex>
+            ),
+          })
+        }
+      >
+        {"Toasty"}
+      </Button>
 
       <QuizList quizzes={filteredQuizzes} />
     </MainView>
