@@ -119,34 +119,6 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         </Box>
       </Box>
 
-      <Button
-        onClick={() =>
-          toast({
-            isClosable: true,
-            // render: () => (
-            description: (
-              <Flex
-                // background="yellow.300"
-                // color="yellow.700"
-                // padding={3}
-                // fontWeight="semibold"
-                borderRadius="6px"
-              >
-                <Lottie
-                  loop
-                  animationData={animationData}
-                  play
-                  style={{ width: "24px", height: "24px" }}
-                />
-                <Text marginLeft={2}>{"5 coins added to your account"}</Text>
-              </Flex>
-            ),
-          })
-        }
-      >
-        {"Toasty"}
-      </Button>
-
       <QuizList quizzes={filteredQuizzes} />
     </MainView>
   );
