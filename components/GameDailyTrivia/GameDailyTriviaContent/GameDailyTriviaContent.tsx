@@ -1,18 +1,17 @@
 /* eslint-disable no-case-declarations */
 import React, { FC } from "react";
-import { Flex, Heading } from "@chakra-ui/react";
+import { AspectRatio, Flex, Heading } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
 
 import CustomFlag from "../../CustomFlag";
 import Image from "../../Image";
-import { DailyTriviaQuestionType } from "../../../types/daily-trivia-question-type";
+import { TriviaQuestionType } from "../../../types/trivia-question-type";
 
 const mapStyles = {
-  height: "250px",
-  width: "250px",
-  marginBottom: "24px",
+  height: "100%",
+  width: "100%",
   fill: "#6dca94",
 };
 
@@ -21,19 +20,30 @@ const highlightedStyling = {
 };
 
 const getContentByType = (
-  type: DailyTriviaQuestionType,
+  type: TriviaQuestionType,
   map: string,
   highlighted: string,
   flagCode: string,
   imageUrl: string
 ) => {
   switch (type) {
-    case "flag":
+    case "Flag":
       return (
-        <CustomFlag url={getFlagUrl(flagCode)} height="250px" width="250px" />
+        <AspectRatio
+          ratio={8 / 5}
+          maxWidth={{ base: "60%", md: "300px" }}
+          width="100%"
+        >
+          <CustomFlag
+            url={getFlagUrl(flagCode)}
+            height="100%"
+            maxHeight="200px"
+            width="100%"
+          />
+        </AspectRatio>
       );
-    case "map":
-      let svgMap = Maps[map];
+    case "Map":
+      let svgMap = JSON.parse(JSON.stringify(Maps[map]));
       if (highlighted) {
         svgMap = {
           ...svgMap,
@@ -47,8 +57,8 @@ const getContentByType = (
       }
 
       return <SVGMap map={svgMap} mapStyle={mapStyles} />;
-    case "image":
-      return <Image src={imageUrl} height="250px" width="250px" />;
+    case "Image":
+      return <Image src={imageUrl} height="100%" width="100%" />;
     default:
       return null;
   }
@@ -56,7 +66,7 @@ const getContentByType = (
 
 export interface Props {
   text: string;
-  type?: DailyTriviaQuestionType;
+  type?: TriviaQuestionType;
   map?: string;
   highlighted?: string;
   flagCode?: string;
@@ -65,7 +75,7 @@ export interface Props {
 
 const GameDailyTriviaContent: FC<Props> = ({
   text,
-  type = "text",
+  type = "Text",
   map = "",
   highlighted = "",
   flagCode = "",
@@ -79,16 +89,26 @@ const GameDailyTriviaContent: FC<Props> = ({
     imageUrl
   );
 
+  const isTextQuestion = type === "Text";
+
   return (
     <Flex
       direction="column"
       flex={1}
       justifyContent="center"
       alignItems="center"
-      marginBottom={5}
+      marginY={5}
+      overflow="hidden"
     >
       {contentNode}
-      <Heading color="white">{text}</Heading>
+      <Heading
+        color="white"
+        marginTop={5}
+        marginBottom={{ base: 0, md: 5 }}
+        fontSize={{ base: isTextQuestion ? "2xl" : "xl", md: "3xl" }}
+      >
+        {text}
+      </Heading>
     </Flex>
   );
 };

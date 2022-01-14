@@ -5,7 +5,7 @@ import { Flex } from "@chakra-ui/react";
 import GameDailyTrivia from "../../components/GameDailyTrivia";
 import GameSpinner from "../../components/GameSpinner";
 import MainView from "../../components/MainView";
-import useDailyTrivia from "../../hooks/UseDailyTrivia";
+import useTrivia from "../../hooks/UseTrivia";
 import axiosClient from "../../axios";
 
 interface Props {
@@ -13,10 +13,10 @@ interface Props {
 }
 
 const GameDailyTriviaContainer: FC<Props> = ({ date }) => {
-  const { data, isLoading } = useDailyTrivia(date);
+  const { data, isLoading } = useTrivia(date);
 
   const handleIncrementPlays = (triviaId: number): void => {
-    axiosClient.put(`/daily-trivia/plays/${triviaId}`);
+    axiosClient.put(`/trivia-plays/${triviaId}`);
   };
 
   // TODO: Remove loading logic when converting page to static

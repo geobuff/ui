@@ -7,7 +7,7 @@ interface Result {
 }
 
 const useAllPlays = (): Result => {
-  const { data } = useSWR("/plays", fetcher);
+  const { data } = useSWR("/quiz-plays", fetcher);
 
   return {
     plays: data,

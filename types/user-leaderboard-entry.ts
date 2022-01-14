@@ -2,7 +2,7 @@ export interface UserLeaderboardEntry {
   id: number;
   userId: number;
   quizId: number;
-  badgeGroup: number;
+  badgeId: number;
   quizName: string;
   quizImageUrl: string;
   quizMaxScore: number;

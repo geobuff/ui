@@ -1,6 +1,6 @@
 import React, { FC, useState } from "react";
 import Head from "next/head";
-import { Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
 
 import MainView from "../MainView";
 
@@ -8,13 +8,13 @@ import GameDailyTriviaHeader from "./GameDailyTriviaHeader";
 import GameDailyTriviaContent from "./GameDailyTriviaContent";
 import GameDailyTriviaAnswers from "./GameDailyTriviaAnswers";
 
-import { DailyTriviaQuestion as Question } from "../../types/daily-trivia-questions";
-import { DailyTriviaAnswer as Answer } from "../../types/daily-trivia-answer";
-import { DailyTrivia } from "../../types/daily-trivia";
+import { TriviaQuestion } from "../../types/trivia-questions";
+import { TriviaAnswer } from "../../types/trivia-answer";
+import { Trivia } from "../../types/trivia";
 import GameDailyTriviaGameOver from "./GameDailyTriviaGameOver";
 
 export interface Props {
-  trivia: DailyTrivia;
+  trivia: Trivia;
   onIncrementPlays?: (triviaId: number) => void;
 }
 
@@ -24,12 +24,12 @@ const GameDailyTrivia: FC<Props> = ({
 }) => {
   const [hasAnswered, setHasAnswered] = useState(false);
   const [score, setScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<Answer>();
-  const [question, setQuestion] = useState<Question>(trivia.questions[0]);
+  const [selectedAnswer, setSelectedAnswer] = useState<TriviaAnswer>();
+  const [question, setQuestion] = useState<TriviaQuestion>(trivia.questions[0]);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [hasGameStopped, setHasGameStopped] = useState(false);
 
-  const handleAnswerQuestion = (answer: Answer): void => {
+  const handleAnswerQuestion = (answer: TriviaAnswer): void => {
     answer.isCorrect && setScore(score + 1);
     setSelectedAnswer(answer);
     setHasAnswered(true);
@@ -67,51 +67,52 @@ const GameDailyTrivia: FC<Props> = ({
         <title> {`${trivia.name} - GeoBuff`}</title>
       </Head>
       <MainView hasFooter={false} backgroundColor="#276F86">
-        <Flex
-          flex={1}
-          direction="column"
-          height="100%"
-          width="100%"
-          maxWidth={1300}
-          padding={5}
-          marginLeft="auto"
-          marginRight="auto"
-        >
-          <GameDailyTriviaHeader
-            name={trivia.name}
-            questionNumber={questionNumber}
-            maxQuestionNumber={10}
-            marginY={4}
-          />
-
-          {hasGameStopped ? (
-            <GameDailyTriviaGameOver
-              score={score}
-              maxQuestionNumber={trivia.questions?.length}
-              onPlayAgain={handlePlayAgain}
+        <Box position="fixed" top="56px" left={0} right={0} bottom={0}>
+          <Flex
+            flex={1}
+            direction="column"
+            height="100%"
+            width="100%"
+            maxWidth={1300}
+            padding={5}
+            marginLeft="auto"
+            marginRight="auto"
+          >
+            <GameDailyTriviaHeader
+              name={trivia.name}
+              questionNumber={questionNumber}
+              maxQuestionNumber={10}
             />
-          ) : (
-            <>
-              <GameDailyTriviaContent
-                text={question?.question}
-                type={question?.type}
-                map={question?.map}
-                highlighted={question?.highlighted}
-                flagCode={question?.flagCode}
-                imageUrl={question?.imageUrl}
+
+            {hasGameStopped ? (
+              <GameDailyTriviaGameOver
+                score={score}
+                maxQuestionNumber={trivia.questions?.length}
+                onPlayAgain={handlePlayAgain}
               />
-              <GameDailyTriviaAnswers
-                question={question}
-                hasAnswered={hasAnswered}
-                selectedAnswer={selectedAnswer}
-                isLastQuestion={isLastQuestion}
-                onAnswerQuestion={handleAnswerQuestion}
-                onNextQuestion={handleNextQuestion}
-                onGameStop={handleGameStop}
-              />
-            </>
-          )}
-        </Flex>
+            ) : (
+              <>
+                <GameDailyTriviaContent
+                  text={question?.question}
+                  type={question?.type}
+                  map={question?.map}
+                  highlighted={question?.highlighted}
+                  flagCode={question?.flagCode}
+                  imageUrl={question?.imageUrl}
+                />
+                <GameDailyTriviaAnswers
+                  question={question}
+                  hasAnswered={hasAnswered}
+                  selectedAnswer={selectedAnswer}
+                  isLastQuestion={isLastQuestion}
+                  onAnswerQuestion={handleAnswerQuestion}
+                  onNextQuestion={handleNextQuestion}
+                  onGameStop={handleGameStop}
+                />
+              </>
+            )}
+          </Flex>
+        </Box>
       </MainView>
     </>
   );

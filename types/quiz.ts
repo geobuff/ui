@@ -1,6 +1,12 @@
+import { NullInt } from "./null-int";
+
 export interface Quiz {
   id: number;
-  type: number;
+  typeId: number;
+  badgeId: number;
+  continentId: NullInt;
+  country: string;
+  singular: string;
   name: string;
   maxScore: number;
   time: number;

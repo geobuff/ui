@@ -1,23 +1,26 @@
 import React, { FC } from "react";
-import { Box, Button, Fade, Flex, SimpleGrid } from "@chakra-ui/react";
+import { Button, Fade, Flex, SimpleGrid } from "@chakra-ui/react";
 
 import ArrowRight from "../../../Icons/ArrowRight";
 import GameTriviaButton from "../../GameTriviaButton";
 
-import { DailyTriviaQuestion as Question } from "../../../types/daily-trivia-questions";
-import { DailyTriviaAnswer as Answer } from "../../../types/daily-trivia-answer";
+import { TriviaQuestion } from "../../../types/trivia-questions";
+import { TriviaAnswer } from "../../../types/trivia-answer";
 
 export interface Props {
-  question: Question;
-  selectedAnswer: Answer;
+  question: TriviaQuestion;
+  selectedAnswer: TriviaAnswer;
   hasAnswered: boolean;
   isLastQuestion: boolean;
-  onAnswerQuestion: (answer: Answer) => void;
+  onAnswerQuestion: (answer: TriviaAnswer) => void;
   onNextQuestion: () => void;
   onGameStop: () => void;
 }
 
-const getTriviaButtonStatus = (selectedAnswer: Answer, answer: Answer) => {
+const getTriviaButtonStatus = (
+  selectedAnswer: TriviaAnswer,
+  answer: TriviaAnswer
+) => {
   if (selectedAnswer.text !== answer.text) {
     return answer.isCorrect ? "outlined" : "idle";
   }
@@ -36,7 +39,7 @@ const GameDailyTriviaAnswers: FC<Props> = ({
 }) => {
   return (
     <Flex direction="column" marginTop="auto" width="100%">
-      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={4}>
+      <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 2, md: 4 }}>
         {question?.answers?.map((answer) => (
           <GameTriviaButton
             status={
@@ -53,12 +56,18 @@ const GameDailyTriviaAnswers: FC<Props> = ({
         ))}
       </SimpleGrid>
 
-      <Flex justifyContent="flex-end" height="80px">
+      <Flex
+        justifyContent="flex-end"
+        marginTop={{ base: -2, md: 0 }}
+        height={{ base: "52px", md: "60px" }}
+      >
         <Fade in={hasAnswered} unmountOnExit>
           <Button
             variant="ghost"
             color="white"
-            marginY={5}
+            fontSize={{ base: "sm", md: "md" }}
+            marginTop={5}
+            marginRight={{ base: 0, md: 1 }}
             rightIcon={<ArrowRight strokeWidth={"20px"} />}
             iconSpacing={1}
             onClick={isLastQuestion ? onGameStop : onNextQuestion}
