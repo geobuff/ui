@@ -33,7 +33,7 @@ const GeoCoinToast: FC<Props> = ({
         />
         <Text marginLeft={2}>{`${increase} GeoCoin${
           increase > 1 ? "s" : ""
-        } added to your account.`}</Text>
+        } added to your wallet.`}</Text>
       </Flex>
       <IconButton
         marginLeft={-1}
