@@ -10,6 +10,10 @@ import {
   InputRightElement,
   Fade,
   IconButton,
+  Button,
+  useToast,
+  Flex,
+  Text,
 } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
@@ -19,9 +23,14 @@ import Search from "../Icons/Search";
 import SolidCloseCircle from "../Icons/SolidCloseCircle";
 import QuizList from "../components/QuizList";
 
+import Lottie from "react-lottie-player";
+import animationData from "../lotties/coin-spin.json";
+
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
   const [inputValue, setInputValue] = useState("");
+
+  const toast = useToast();
 
   const handleClearInput = (): void => {
     setInputValue("");

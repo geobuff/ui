@@ -1,6 +1,7 @@
 import React from "react";
-import { ToastPosition, UseToastOptions, Text, Flex } from "@chakra-ui/react";
-import Twemoji from "../components/Twemoji";
+import { ToastPosition, UseToastOptions } from "@chakra-ui/react";
+
+import GeoCoinToast from "../components/GeoCoinToast";
 
 const defaultPosition: ToastPosition = "bottom-right";
 
@@ -20,17 +21,10 @@ export const increaseXP = (
   position: ToastPosition = defaultPosition
 ): UseToastOptions => ({
   position: position,
-  description: (
-    <Flex direction="column" justifyContent="center">
-      <Flex>
-        <Text mr={1}>{`+${increase}`}</Text>
-        <Twemoji emoji="🪙" />
-      </Flex>
-    </Flex>
-  ),
-  status: "info",
   duration: 9000,
-  isClosable: true,
+  render: ({ onClose }) => (
+    <GeoCoinToast onClose={onClose} increase={increase} />
+  ),
 });
 
 export const userUpdated = (
