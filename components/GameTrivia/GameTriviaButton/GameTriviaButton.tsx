@@ -1,14 +1,8 @@
 import React, { FC } from "react";
-import {
-  Box,
-  Button,
-  ButtonProps,
-  Flex,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, Button, ButtonProps, Flex } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 
-import CustomFlag from "../CustomFlag";
+import CustomFlag from "../../CustomFlag";
 
 const getStylesByStatus = (status: TriviaButtonStatus) => {
   switch (status) {

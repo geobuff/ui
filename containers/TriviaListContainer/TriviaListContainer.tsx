@@ -1,16 +1,16 @@
 import React, { FC } from "react";
-import DailyTriviaList from "../../components/DailyTriviaList";
+import TriviaList from "../../components/TriviaList";
 import useAllTrivia from "../../hooks/UseAllTrivia";
 import QuizListPlaceholder from "../../placeholders/QuizListPlaceholder";
 
-const DailyTriviaListContainer: FC = () => {
+const TriviaListContainer: FC = () => {
   const { data, isLoading } = useAllTrivia();
 
   if (isLoading) {
     return <QuizListPlaceholder noOfTiles={20} />;
   }
 
-  return <DailyTriviaList trivia={data} />;
+  return <TriviaList trivia={data} />;
 };
 
-export default DailyTriviaListContainer;
+export default TriviaListContainer;

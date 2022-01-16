@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import Head from "next/head";
-
 import { Flex } from "@chakra-ui/react";
-import GameDailyTrivia from "../../components/GameDailyTrivia";
+
+import GameTrivia from "../../components/GameTrivia";
 import GameSpinner from "../../components/GameSpinner";
 import MainView from "../../components/MainView";
 import useTrivia from "../../hooks/UseTrivia";
@@ -12,7 +12,7 @@ interface Props {
   date: string;
 }
 
-const GameDailyTriviaContainer: FC<Props> = ({ date }) => {
+const GameTriviaContainer: FC<Props> = ({ date }) => {
   const { data, isLoading } = useTrivia(date);
 
   const handleIncrementPlays = (triviaId: number): void => {
@@ -44,9 +44,7 @@ const GameDailyTriviaContainer: FC<Props> = ({ date }) => {
     );
   }
 
-  return (
-    <GameDailyTrivia trivia={data} onIncrementPlays={handleIncrementPlays} />
-  );
+  return <GameTrivia trivia={data} onIncrementPlays={handleIncrementPlays} />;
 };
 
-export default GameDailyTriviaContainer;
+export default GameTriviaContainer;
