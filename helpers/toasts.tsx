@@ -10,7 +10,11 @@ export const entrySubmitted = (
 ): UseToastOptions => ({
   position: position,
   title: "Leaderboard Entry Submitted",
-  description: "Your leaderboard entry was submitted successfully.",
+  // Disable description on mobile as having both title
+  // and description clashes with the retry button
+  description:
+    position !== "bottom" &&
+    "Your leaderboard entry was submitted successfully.",
   status: "success",
   duration: 9000,
   isClosable: true,

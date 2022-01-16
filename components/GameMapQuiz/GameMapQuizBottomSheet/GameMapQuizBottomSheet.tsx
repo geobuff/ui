@@ -85,7 +85,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
       mt="120px"
       top="100% !important"
       minHeight="92vh"
-      zIndex={"1000 !important;"}
+      zIndex="1000 !important"
       springConfig={{
         stiffness: 600,
         damping: 60,

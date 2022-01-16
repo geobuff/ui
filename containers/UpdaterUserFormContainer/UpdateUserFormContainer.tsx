@@ -20,7 +20,7 @@ const UpdateUserFormContainer: FC<Props> = ({
   const toast = useToast();
   const { user, updateUser, getAuthConfig } = useContext(CurrentUserContext);
   const toastPosition: ToastPosition = useBreakpointValue({
-    base: "top",
+    base: "bottom",
     md: "bottom-right",
   });
 
