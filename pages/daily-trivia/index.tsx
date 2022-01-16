@@ -17,7 +17,7 @@ const DailyTrivia: FC = () => {
         <Flex flex={1} width="100%">
           <Flex
             direction="column"
-            padding={9}
+            padding={{ base: 0, md: 9 }}
             maxWidth={1400}
             width="100%"
             marginX="auto"
