@@ -22,7 +22,7 @@ const PriceSummary: FC<Props> = ({
   return (
     <Flex
       justifyContent={{ base: "center", md: "flex-end" }}
-      paddingX={6}
+      paddingX={{ base: 3, md: 0 }}
       mt={12}
     >
       <Flex direction="column" width={{ base: "100%", md: "25%" }}>

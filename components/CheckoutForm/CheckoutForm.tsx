@@ -93,16 +93,18 @@ const CheckoutForm: FC<Props> = ({
         >
           {({ dirty, isValid }): React.ReactNode => (
             <Form>
-              <Flex direction="column" marginX={6}>
-                <Heading size="md" mt={6} mb={3}>
-                  Delivery Method
+              <Flex direction="column" marginX={{ base: 1, md: 6 }}>
+                <Heading size="md" mt={{ base: 1, md: 6 }} mb={3}>
+                  {"Delivery Method"}
                 </Heading>
                 <Flex marginY={6}>
                   <RadioGroup value={"0"}>
                     <Radio value="0">
                       <Box ml={3}>
-                        <Text fontWeight="bold">NZ-wide standard shipping</Text>
-                        <Text>$5 - Expect delivery in 5-7 days</Text>
+                        <Text fontWeight="bold">
+                          {"NZ-wide standard shipping"}
+                        </Text>
+                        <Text>{"$5 - Expect delivery in 5-7 days"}</Text>
                       </Box>
                     </Radio>
                   </RadioGroup>
@@ -353,7 +355,7 @@ const CheckoutForm: FC<Props> = ({
                     direction="row"
                     marginTop="44px"
                     marginBottom={6}
-                    marginRight={6}
+                    marginRight={{ base: 0, md: 6 }}
                   >
                     <Button
                       colorScheme="teal"
