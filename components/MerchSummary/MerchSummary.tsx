@@ -27,37 +27,45 @@ const MerchSummary: FC<Props> = ({
     <>
       <Flex
         background="white"
-        direction={{ base: "column", lg: "row" }}
         width="100%"
         justifyContent="center"
         padding={12}
       >
-        <Flex justifyContent="center">
-          <Flex direction="column">
-            <MerchSummaryShowcase images={item?.images} />
+        <Flex
+          direction={{ base: "column", lg: "row" }}
+          justifyContent="center"
+          width="100%"
+          maxWidth={1400}
+          marginX="auto"
+        >
+          <Flex justifyContent="center">
+            <Flex direction="column">
+              <MerchSummaryShowcase images={item?.images} />
+            </Flex>
+          </Flex>
+          <Flex
+            direction="column"
+            width={{ base: "100%", lg: "45%" }}
+            px={{ base: 0, lg: 12 }}
+            mt={{ base: 12, lg: 0 }}
+          >
+            <MerchSummaryDetails
+              name={item?.name}
+              price={item?.price.Float64}
+              description={item?.description}
+              sizeGuideImageUrl={
+                item?.sizeGuideImageUrl.Valid && item?.sizeGuideImageUrl.String
+              }
+              sizes={item?.sizes}
+              onSubmit={onSubmit}
+              isSubmitting={isSubmitting}
+              submitted={submitted}
+              onOpen={onOpen}
+            />
           </Flex>
         </Flex>
-        <Flex
-          direction="column"
-          width={{ base: "100%", lg: "40%" }}
-          px={{ base: 0, lg: 12 }}
-          mt={{ base: 12, lg: 0 }}
-        >
-          <MerchSummaryDetails
-            name={item?.name}
-            price={item?.price.Float64}
-            description={item?.description}
-            sizeGuideImageUrl={
-              item?.sizeGuideImageUrl.Valid && item?.sizeGuideImageUrl.String
-            }
-            sizes={item?.sizes}
-            onSubmit={onSubmit}
-            isSubmitting={isSubmitting}
-            submitted={submitted}
-            onOpen={onOpen}
-          />
-        </Flex>
       </Flex>
+
       <Modal
         isOpen={isOpen}
         onClose={onClose}
