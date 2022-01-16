@@ -36,24 +36,24 @@ export interface Props {
 
 const ShoppingCart: FC<Props> = ({
   cart = [],
-  onUpdateQuantity = (id: number, sizeId: number, value: number): void => {},
-  onRemoveItem = (id: number, sizeId: number): void => {},
+  onUpdateQuantity = () => {},
+  onRemoveItem = () => {},
   onGetTotal = (): number => 0,
   discountAmount = 0,
   checkingDiscount = false,
   discountSuccess = "",
   discountError = "",
-  applyDiscount = (code: string, merchIds: number[]): void => {},
+  applyDiscount = () => {},
 }) => {
   const router = useRouter();
 
   return (
     <Flex
       direction="column"
-      maxWidth={{ base: "100%", md: 1300 }}
+      maxWidth={1300}
       marginX="auto"
       marginBottom={14}
-      marginTop={{ base: 10, sm: 10, md: 14 }}
+      marginTop={{ base: 3, sm: 10, md: 14 }}
       paddingX={3}
       width="100%"
     >

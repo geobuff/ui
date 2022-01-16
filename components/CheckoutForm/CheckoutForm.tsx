@@ -55,7 +55,7 @@ const CheckoutForm: FC<Props> = ({
       maxWidth={{ base: "100%", md: "50%" }}
       marginX="auto"
       marginBottom={14}
-      marginTop={{ base: 10, sm: 10, md: 14 }}
+      marginTop={{ base: 3, sm: 10, md: 14 }}
       paddingX={3}
       width="100%"
     >

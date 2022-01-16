@@ -18,7 +18,7 @@ interface Props {
 const MerchSummary: FC<Props> = ({
   item = null,
   isSubmitting = false,
-  onSubmit = (values: MerchSummaryFormSubmit): void => {},
+  onSubmit = () => {},
   submitted = false,
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -29,7 +29,7 @@ const MerchSummary: FC<Props> = ({
         background="white"
         width="100%"
         justifyContent="center"
-        padding={12}
+        padding={{ base: 6, md: 12 }}
       >
         <Flex
           direction={{ base: "column", lg: "row" }}
