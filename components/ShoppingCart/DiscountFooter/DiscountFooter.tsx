@@ -57,9 +57,9 @@ const DiscountFooter: FC<Props> = ({
               onChange={(e) => setInputValue(e.target.value)}
             />
             <Button
-              marginLeft={2}
+              marginLeft={3}
               height="44px"
-              width="130px"
+              width="150px"
               isLoading={checkingDiscount}
               onClick={() => applyDiscount(inputValue, merchIds)}
               disabled={!!discountSuccess}

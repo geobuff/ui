@@ -48,7 +48,7 @@ const MerchSummaryDetails: FC<Props> = ({
   return (
     <>
       <Heading>{name}</Heading>
-      <Text mt={3}>{`$${price}`}</Text>
+      <Text mt={1} color="gray.500" fontSize="xl">{`$${price}`}</Text>
       <Text mt={3}>{description}</Text>
       <Formik
         initialValues={{
@@ -64,7 +64,7 @@ const MerchSummaryDetails: FC<Props> = ({
               justifyContent={{ base: "center", xl: "space-between" }}
               marginY={6}
             >
-              <Flex minWidth={sizeGuideImageUrl && "65%"}>
+              <Flex minWidth="100%" marginRight={4} marginTop={2}>
                 <Field name="size">
                   {({ field, form }): React.ReactNode => (
                     <FormControl
@@ -92,16 +92,14 @@ const MerchSummaryDetails: FC<Props> = ({
                     </FormControl>
                   )}
                 </Field>
+                {sizeGuideImageUrl && (
+                  <Flex direction="column" justifyContent="center">
+                    <Button onClick={onOpen} marginLeft={2}>
+                      Size Guide
+                    </Button>
+                  </Flex>
+                )}
               </Flex>
-              {sizeGuideImageUrl && (
-                <Flex
-                  direction="column"
-                  justifyContent="center"
-                  mt={{ base: 9, xl: 0 }}
-                >
-                  <Button onClick={onOpen}>Size Guide</Button>
-                </Flex>
-              )}
             </Flex>
 
             <Button width="100%" mt={3} onClick={() => router.push("/merch")}>
