@@ -23,7 +23,7 @@ const MerchListPlaceholder: FC<Props> = ({ noOfTiles }) => (
       {[...Array(noOfTiles)].map((_, i) => (
         <Skeleton
           key={i}
-          width={{ base: "180px", md: "220px" }}
+          width={{ base: "225px", md: "250px" }}
           height={{ base: "225px", md: "250px" }}
           borderRadius={12}
         ></Skeleton>
