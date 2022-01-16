@@ -15,6 +15,8 @@ export interface Props {
 }
 
 const DailyTriviaList: FC<Props> = ({ trivia = [] }) => {
+  const containerMaxWidth = trivia.length < 5 ? 1000 : 1400;
+
   if (trivia.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
@@ -27,7 +29,7 @@ const DailyTriviaList: FC<Props> = ({ trivia = [] }) => {
   return (
     <Box
       width="100%"
-      maxWidth={1300}
+      maxWidth={containerMaxWidth}
       marginTop="32px"
       marginBottom={10}
       marginLeft="auto"
@@ -38,9 +40,10 @@ const DailyTriviaList: FC<Props> = ({ trivia = [] }) => {
       }}
     >
       <SimpleGrid
+        column={3}
         justifyContent="center"
         minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
-        spacing={{ base: "16px", md: "24px" }}
+        spacing={{ base: "12px", md: "24px" }}
       >
         {trivia?.map((quiz) => (
           <Link key={quiz.id} href={`/daily-trivia/${quiz.date}`}>
