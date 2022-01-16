@@ -7,6 +7,7 @@ import {
   FormLabel,
   Input,
   Text,
+  VisuallyHidden,
 } from "@chakra-ui/react";
 
 export interface Props {
@@ -22,7 +23,7 @@ const DiscountFooter: FC<Props> = ({
   checkingDiscount = false,
   discountSuccess = "",
   discountError = "",
-  applyDiscount = (code: string, merchIds: number[]): void => {},
+  applyDiscount = () => {},
 }) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -33,31 +34,44 @@ const DiscountFooter: FC<Props> = ({
   }, [discountSuccess, discountError]);
 
   return (
-    <Flex justifyContent={{ base: "center", md: "flex-end" }} my={6}>
-      <Flex
-        width={{ base: "100%", md: "50%" }}
-        direction={{ base: "column", md: "row" }}
-      >
-        <FormControl marginY={6} mr={{ base: 0, md: 6 }}>
-          <FormLabel htmlFor="discount">{"Discount code"}</FormLabel>
-          <Input
-            placeholder="Enter code..."
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-            size="lg"
-            fontSize="16px"
-            background="#F6F6F6"
-            borderRadius={6}
-            _placeholder={{ color: "gray.500" }}
-            _hover={{ background: "#e0e0e0" }}
-            disabled={!!discountSuccess}
-          />
+    <Flex justifyContent="flex-end" my={6}>
+      <Flex direction="column" marginY={2}>
+        <Text fontWeight="medium" marginBottom={2}>
+          {"Discount Code"}
+        </Text>
+        <FormControl mr={{ base: 0, md: 6 }}>
+          <VisuallyHidden>
+            <FormLabel htmlFor="discount">{"Discount code"}</FormLabel>
+          </VisuallyHidden>
+          <Flex width="100%" direction="row">
+            <Input
+              value={inputValue}
+              isDisabled={!!discountSuccess}
+              placeholder="Enter code..."
+              size="lg"
+              fontSize="16px"
+              background="#F6F6F6"
+              borderRadius={6}
+              _placeholder={{ color: "gray.500" }}
+              _hover={{ background: "#e0e0e0" }}
+              onChange={(e) => setInputValue(e.target.value)}
+            />
+            <Button
+              marginLeft={2}
+              height="44px"
+              width="130px"
+              isLoading={checkingDiscount}
+              onClick={() => applyDiscount(inputValue, merchIds)}
+              disabled={!!discountSuccess}
+            >
+              {"Apply"}
+            </Button>
+          </Flex>
+
           {discountError && (
-            <Box position="absolute" top="83px" left="2px">
-              <Text fontSize="11px" color="red.500">
-                {discountError}
-              </Text>
-            </Box>
+            <Text fontSize="11px" color="red.500" marginTop={2}>
+              {discountError}
+            </Text>
           )}
           {discountSuccess && (
             <Box position="absolute" top="83px" left="2px">
@@ -67,20 +81,6 @@ const DiscountFooter: FC<Props> = ({
             </Box>
           )}
         </FormControl>
-        <Flex
-          direction="column"
-          justifyContent="center"
-          px={{ base: 0, md: 6 }}
-          mt={{ base: 3, md: 0 }}
-        >
-          <Button
-            isLoading={checkingDiscount}
-            onClick={() => applyDiscount(inputValue, merchIds)}
-            disabled={!!discountSuccess}
-          >
-            Apply
-          </Button>
-        </Flex>
       </Flex>
     </Flex>
   );
