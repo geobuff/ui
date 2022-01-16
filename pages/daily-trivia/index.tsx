@@ -4,7 +4,7 @@ import Head from "next/head";
 import HeroHeader from "../../components/HeroHeader";
 import { Flex } from "@chakra-ui/react";
 import MainView from "../../components/MainView";
-import DailyTriviaListContainer from "../../containers/DailyTriviaListContainer";
+import TriviaListContainer from "../../containers/TriviaListContainer";
 
 const DailyTrivia: FC = () => {
   return (
@@ -22,7 +22,7 @@ const DailyTrivia: FC = () => {
             width="100%"
             marginX="auto"
           >
-            <DailyTriviaListContainer />
+            <TriviaListContainer />
           </Flex>
         </Flex>
       </MainView>

@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Button, Fade, Flex, SimpleGrid } from "@chakra-ui/react";
 
 import ArrowRight from "../../../Icons/ArrowRight";
-import GameTriviaButton from "../../GameTriviaButton";
+import GameTriviaButton from "../GameTriviaButton";
 
 import { TriviaQuestion } from "../../../types/trivia-questions";
 import { TriviaAnswer } from "../../../types/trivia-answer";
@@ -28,7 +28,7 @@ const getTriviaButtonStatus = (
   return selectedAnswer.isCorrect ? "correct" : "incorrect";
 };
 
-const GameDailyTriviaAnswers: FC<Props> = ({
+const GameTriviaAnswers: FC<Props> = ({
   question,
   hasAnswered = false,
   selectedAnswer,
@@ -84,4 +84,4 @@ const GameDailyTriviaAnswers: FC<Props> = ({
   );
 };
 
-export default GameDailyTriviaAnswers;
+export default GameTriviaAnswers;

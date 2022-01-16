@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
 
-import GameDailyTriviaContainer from "../../containers/GameDailyTriviaContainer";
+import GameTriviaContainer from "../../containers/GameTriviaContainer";
 
 const DailyTriviaQuiz: FC = () => {
   const router = useRouter();
@@ -20,7 +20,7 @@ const DailyTriviaQuiz: FC = () => {
     return null;
   }
 
-  return <GameDailyTriviaContainer date={date} />;
+  return <GameTriviaContainer date={date} />;
 };
 
 export default DailyTriviaQuiz;

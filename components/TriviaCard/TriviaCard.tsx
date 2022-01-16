@@ -3,7 +3,6 @@ import { Badge, Box, Divider, Flex, Text } from "@chakra-ui/react";
 
 import Image from "../Image";
 import Twemoji from "../Twemoji";
-import Share from "../../Icons/Share";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
@@ -13,7 +12,7 @@ export interface Props {
   name?: string;
 }
 
-const DailyTriviaCard: FC<Props> = ({ name = "" }) => (
+const TriviaCard: FC<Props> = ({ name = "" }) => (
   <Flex
     aria-label={`trivia card for ${name}`}
     role="group"
@@ -100,4 +99,4 @@ const DailyTriviaCard: FC<Props> = ({ name = "" }) => (
   </Flex>
 );
 
-export default React.memo(DailyTriviaCard);
+export default React.memo(TriviaCard);
