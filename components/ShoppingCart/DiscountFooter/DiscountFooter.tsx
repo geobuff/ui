@@ -74,11 +74,9 @@ const DiscountFooter: FC<Props> = ({
             </Text>
           )}
           {discountSuccess && (
-            <Box position="absolute" top="83px" left="2px">
-              <Text fontSize="11px" color="green.500">
-                {discountSuccess}
-              </Text>
-            </Box>
+            <Text fontSize="11px" color="green.500" marginTop={2}>
+              {discountSuccess}
+            </Text>
           )}
         </FormControl>
       </Flex>

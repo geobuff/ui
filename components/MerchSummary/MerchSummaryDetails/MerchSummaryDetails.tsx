@@ -94,8 +94,8 @@ const MerchSummaryDetails: FC<Props> = ({
                 </Field>
                 {sizeGuideImageUrl && (
                   <Flex direction="column" justifyContent="center">
-                    <Button onClick={onOpen} marginLeft={2}>
-                      Size Guide
+                    <Button onClick={onOpen} marginLeft={3}>
+                      {"Size Guide"}
                     </Button>
                   </Flex>
                 )}
@@ -120,7 +120,7 @@ const MerchSummaryDetails: FC<Props> = ({
       {submitted && (
         <Link href="/shopping-cart">
           <Button colorScheme="teal" width="100%" mt={3}>
-            View Cart
+            {" View Cart"}
           </Button>
         </Link>
       )}
