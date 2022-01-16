@@ -24,7 +24,7 @@ export interface Props {
   onPlayAgain: () => void;
 }
 
-const GameDailyTriviaGameOver: FC<Props> = ({
+const GameTriviaGameOver: FC<Props> = ({
   score = 0,
   maxQuestionNumber = 10,
   onPlayAgain = () => {},
@@ -93,4 +93,4 @@ const GameDailyTriviaGameOver: FC<Props> = ({
   );
 };
 
-export default GameDailyTriviaGameOver;
+export default GameTriviaGameOver;

@@ -25,7 +25,7 @@ const HeaderText: FC<TextProps> = ({ children, ...props }) => (
   </Text>
 );
 
-const GameDailyTriviaHeader: FC<Props> = ({
+const GameTriviaHeader: FC<Props> = ({
   name = "",
   questionNumber = 1,
   maxQuestionNumber = 10,
@@ -51,4 +51,4 @@ const GameDailyTriviaHeader: FC<Props> = ({
   );
 };
 
-export default GameDailyTriviaHeader;
+export default GameTriviaHeader;

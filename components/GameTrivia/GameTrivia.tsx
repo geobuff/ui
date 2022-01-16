@@ -4,21 +4,21 @@ import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
 
 import MainView from "../MainView";
 
-import GameDailyTriviaHeader from "./GameDailyTriviaHeader";
-import GameDailyTriviaContent from "./GameDailyTriviaContent";
-import GameDailyTriviaAnswers from "./GameDailyTriviaAnswers";
+import GameTriviaHeader from "./GameTriviaHeader";
+import GameTriviaContent from "./GameTriviaContent";
+import GameTriviaAnswers from "./GameTriviaAnswers";
+import GameTriviaGameOver from "./GameTriviaGameOver";
 
 import { TriviaQuestion } from "../../types/trivia-questions";
 import { TriviaAnswer } from "../../types/trivia-answer";
 import { Trivia } from "../../types/trivia";
-import GameDailyTriviaGameOver from "./GameDailyTriviaGameOver";
 
 export interface Props {
   trivia: Trivia;
   onIncrementPlays?: (triviaId: number) => void;
 }
 
-const GameDailyTrivia: FC<Props> = ({
+const GameTrivia: FC<Props> = ({
   trivia,
   onIncrementPlays = (): void => {},
 }) => {
@@ -78,21 +78,21 @@ const GameDailyTrivia: FC<Props> = ({
             marginLeft="auto"
             marginRight="auto"
           >
-            <GameDailyTriviaHeader
+            <GameTriviaHeader
               name={trivia.name}
               questionNumber={questionNumber}
               maxQuestionNumber={10}
             />
 
             {hasGameStopped ? (
-              <GameDailyTriviaGameOver
+              <GameTriviaGameOver
                 score={score}
                 maxQuestionNumber={trivia.questions?.length}
                 onPlayAgain={handlePlayAgain}
               />
             ) : (
               <>
-                <GameDailyTriviaContent
+                <GameTriviaContent
                   text={question?.question}
                   type={question?.type}
                   map={question?.map}
@@ -100,7 +100,7 @@ const GameDailyTrivia: FC<Props> = ({
                   flagCode={question?.flagCode}
                   imageUrl={question?.imageUrl}
                 />
-                <GameDailyTriviaAnswers
+                <GameTriviaAnswers
                   question={question}
                   hasAnswered={hasAnswered}
                   selectedAnswer={selectedAnswer}
@@ -118,4 +118,4 @@ const GameDailyTrivia: FC<Props> = ({
   );
 };
 
-export default GameDailyTrivia;
+export default GameTrivia;

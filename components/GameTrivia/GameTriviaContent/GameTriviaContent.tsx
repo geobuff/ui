@@ -73,7 +73,7 @@ export interface Props {
   imageUrl?: string;
 }
 
-const GameDailyTriviaContent: FC<Props> = ({
+const GameTriviaContent: FC<Props> = ({
   text,
   type = "Text",
   map = "",
@@ -113,4 +113,4 @@ const GameDailyTriviaContent: FC<Props> = ({
   );
 };
 
-export default GameDailyTriviaContent;
+export default GameTriviaContent;

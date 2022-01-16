@@ -7,14 +7,17 @@ import {
   Box,
   SimpleGrid,
 } from "@chakra-ui/react";
+
 import { Trivia } from "../../types/trivia";
-import DailyTriviaCard from "../DailyTriviaCard";
+import TriviaCard from "../TriviaCard";
 
 export interface Props {
   trivia?: Trivia[];
 }
 
-const DailyTriviaList: FC<Props> = ({ trivia = [] }) => {
+const TriviaList: FC<Props> = ({ trivia = [] }) => {
+  const containerMaxWidth = trivia.length < 5 ? 1000 : 1400;
+
   if (trivia.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
@@ -27,7 +30,7 @@ const DailyTriviaList: FC<Props> = ({ trivia = [] }) => {
   return (
     <Box
       width="100%"
-      maxWidth={1300}
+      maxWidth={containerMaxWidth}
       marginTop="32px"
       marginBottom={10}
       marginLeft="auto"
@@ -38,9 +41,10 @@ const DailyTriviaList: FC<Props> = ({ trivia = [] }) => {
       }}
     >
       <SimpleGrid
+        column={3}
         justifyContent="center"
         minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
-        spacing={{ base: "16px", md: "24px" }}
+        spacing={{ base: "12px", md: "24px" }}
       >
         {trivia?.map((quiz) => (
           <Link key={quiz.id} href={`/daily-trivia/${quiz.date}`}>
@@ -52,7 +56,7 @@ const DailyTriviaList: FC<Props> = ({ trivia = [] }) => {
               transition="all 150ms ease-out"
               _hover={{ transform: "scale(1.030)" }}
             >
-              <DailyTriviaCard name={quiz.name} />
+              <TriviaCard name={quiz.name} />
             </AspectRatio>
           </Link>
         ))}
@@ -61,4 +65,4 @@ const DailyTriviaList: FC<Props> = ({ trivia = [] }) => {
   );
 };
 
-export default DailyTriviaList;
+export default TriviaList;

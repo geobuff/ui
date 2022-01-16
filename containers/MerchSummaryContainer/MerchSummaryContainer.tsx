@@ -17,7 +17,7 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
   const toast = useToast();
 
   const toastPosition: ToastPosition = useBreakpointValue({
-    base: "top",
+    base: "bottom",
     md: "bottom-right",
   });
 
