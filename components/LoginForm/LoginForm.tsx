@@ -156,7 +156,7 @@ const LoginForm: FC<Props> = ({
               </Field>
             </Flex>
 
-            <Flex marginTop={{ base: "46px", md: "115px" }} marginBottom={5}>
+            <Flex marginTop={{ base: "46px", md: "115px" }} marginBottom={1}>
               <Button
                 size="lg"
                 colorScheme="green"
@@ -164,7 +164,7 @@ const LoginForm: FC<Props> = ({
                 type="submit"
                 isLoading={isSubmitting}
               >
-                {"Submit"}
+                {"Login"}
               </Button>
             </Flex>
           </Form>
@@ -182,13 +182,7 @@ const LoginForm: FC<Props> = ({
             <RegisterLink />
           </Box>
           <AuthView marginTop={{ base: 6, md: 16 }}>
-            <AuthCard
-              marginX="auto"
-              marginTop={5}
-              marginBottom={3}
-              width={375}
-              height={560}
-            >
+            <AuthCard marginX="auto" marginTop={5} marginBottom={3} width={375}>
               {mainContent}
             </AuthCard>
           </AuthView>

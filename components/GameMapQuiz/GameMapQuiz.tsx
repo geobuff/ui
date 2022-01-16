@@ -402,6 +402,27 @@ const GameMapQuiz: FC<Props> = ({
         </Flex>
       </Flex>
 
+      <GameOverModalContainer
+        id={id}
+        hasLeaderboard={hasLeaderboard}
+        route={route}
+        name={name}
+        maxScore={maxScore}
+        score={score}
+        time={
+          minutes === 0 && seconds === 0
+            ? time
+            : time - (seconds + minutes * 60)
+        }
+        checkedSubmissions={checkedSubmissions}
+        recentSubmissions={recentSubmissions}
+        isOpen={isOpen}
+        onClose={onClose}
+        isXPUpdated={isXPUpdated}
+        setXPUpdated={setXPUpdated}
+        setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
+      />
+
       {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
         <>
           {shouldDisplayOnMobile ? (
@@ -423,26 +444,6 @@ const GameMapQuiz: FC<Props> = ({
               </Button>
             </Box>
           )}
-          <GameOverModalContainer
-            id={id}
-            hasLeaderboard={hasLeaderboard}
-            route={route}
-            name={name}
-            maxScore={maxScore}
-            score={score}
-            time={
-              minutes === 0 && seconds === 0
-                ? time
-                : time - (seconds + minutes * 60)
-            }
-            checkedSubmissions={checkedSubmissions}
-            recentSubmissions={recentSubmissions}
-            isOpen={isOpen}
-            onClose={onClose}
-            isXPUpdated={isXPUpdated}
-            setXPUpdated={setXPUpdated}
-            setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
-          />
         </>
       )}
     </>
