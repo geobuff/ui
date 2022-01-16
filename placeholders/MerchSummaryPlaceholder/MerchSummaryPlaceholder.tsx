@@ -27,7 +27,7 @@ const MerchSummaryPlaceholder: FC<Props> = ({ imageCount = 2 }) => (
           height={{ base: "300px", md: "500px" }}
           borderRadius="12px"
         />
-        <SimpleGrid mt={6} columns={{ base: 3, md: 4 }} spacingY={6}>
+        <SimpleGrid mt={6} columns={{ base: 3, md: 4 }} spacing={2}>
           {[...Array(imageCount)].map((_, i) => (
             <Skeleton
               key={i}
