@@ -83,20 +83,6 @@ const Modal: FC<ModalProps> = ({
             overflowY="scroll"
           >
             <Box height="100%" overflowY="scroll">
-              {hasCloseButton && (
-                <Button
-                  alignItems="center"
-                  backgroundColor="transparent"
-                  marginLeft={2}
-                  _hover={{
-                    textDecoration: "underline",
-                    cursor: "pointer",
-                  }}
-                  onClick={onClose}
-                >
-                  <ArrowLeft height={5} width={5} />
-                </Button>
-              )}
               {!!header && (
                 <>
                   {React.isValidElement(header) ? (
@@ -107,15 +93,26 @@ const Modal: FC<ModalProps> = ({
                         <Flex
                           alignItems="center"
                           justifyContent="space-between"
-                          mb={10}
+                          marginTop={4}
+                          marginLeft={4}
+                          marginBottom={10}
                         >
-                          <Heading size="md" fontWeight="bold">
-                            {header}
-                          </Heading>
-                          <CloseButton onClick={onClose} />
+                          <Button
+                            variant="link"
+                            leftIcon={<ArrowLeft height={5} width={5} />}
+                            paddingX={10}
+                            fontWeight="bold"
+                            color="black"
+                            onClick={onClose}
+                            {...props}
+                          >
+                            <Heading size="md" fontWeight="bold">
+                              {header}
+                            </Heading>
+                          </Button>
                         </Flex>
                       ) : (
-                        <Heading fontWeight="bold" m={6}>
+                        <Heading fontWeight="bold" p={6}>
                           {header}
                         </Heading>
                       )}
