@@ -40,6 +40,7 @@
     "react-dnd-preview": "^6.0.2",
     "react-dnd-touch-backend": "^14.0.0",
     "react-dom": "17.0.1",
+    "react-lottie-player": "^1.4.1",
     "react-map-interaction": "^2.0.0",
     "react-modal-sheet": "^1.1.0",
     "react-multi-carousel": "^2.6.5",

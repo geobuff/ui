@@ -62,7 +62,7 @@ const GameOverModalContainer: FC<Props> = ({
   } = useContext(CurrentUserContext);
 
   const toastPosition: ToastPosition = useBreakpointValue({
-    base: "top",
+    base: "bottom",
     md: "bottom-right",
   });
 

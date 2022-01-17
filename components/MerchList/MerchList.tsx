@@ -1,9 +1,10 @@
 import React, { FC } from "react";
+import Link from "next/link";
+
 import {
   AspectRatio,
   Alert,
   AlertIcon,
-  Link,
   Box,
   SimpleGrid,
 } from "@chakra-ui/react";

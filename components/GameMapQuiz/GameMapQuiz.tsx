@@ -57,7 +57,7 @@ const pathSelectedStyle = {
 interface Props {
   time?: number;
   name?: string;
-  type?: number;
+  typeId?: number;
   maxScore?: number;
   verb?: string;
   route?: string;
@@ -72,7 +72,7 @@ interface Props {
 const GameMapQuiz: FC<Props> = ({
   time = 0,
   name = "",
-  type = 0,
+  typeId = 0,
   maxScore = 0,
   verb = "",
   route = "",
@@ -317,7 +317,7 @@ const GameMapQuiz: FC<Props> = ({
       >
         {shouldDisplayOnMobile && (
           <GameInputBanner
-            type={type}
+            typeId={typeId}
             maxScore={maxScore}
             verb={verb}
             time={time}
@@ -344,7 +344,7 @@ const GameMapQuiz: FC<Props> = ({
                 >
                   <Flex direction="column" height="100%">
                     <GameInputCard
-                      type={type}
+                      typeId={typeId}
                       maxScore={maxScore}
                       time={time}
                       verb={verb}
@@ -402,6 +402,27 @@ const GameMapQuiz: FC<Props> = ({
         </Flex>
       </Flex>
 
+      <GameOverModalContainer
+        id={id}
+        hasLeaderboard={hasLeaderboard}
+        route={route}
+        name={name}
+        maxScore={maxScore}
+        score={score}
+        time={
+          minutes === 0 && seconds === 0
+            ? time
+            : time - (seconds + minutes * 60)
+        }
+        checkedSubmissions={checkedSubmissions}
+        recentSubmissions={recentSubmissions}
+        isOpen={isOpen}
+        onClose={onClose}
+        isXPUpdated={isXPUpdated}
+        setXPUpdated={setXPUpdated}
+        setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
+      />
+
       {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
         <>
           {shouldDisplayOnMobile ? (
@@ -423,26 +444,6 @@ const GameMapQuiz: FC<Props> = ({
               </Button>
             </Box>
           )}
-          <GameOverModalContainer
-            id={id}
-            hasLeaderboard={hasLeaderboard}
-            route={route}
-            name={name}
-            maxScore={maxScore}
-            score={score}
-            time={
-              minutes === 0 && seconds === 0
-                ? time
-                : time - (seconds + minutes * 60)
-            }
-            checkedSubmissions={checkedSubmissions}
-            recentSubmissions={recentSubmissions}
-            isOpen={isOpen}
-            onClose={onClose}
-            isXPUpdated={isXPUpdated}
-            setXPUpdated={setXPUpdated}
-            setLeaderboardEntrySubmitted={setLeaderboardEntrySubmitted}
-          />
         </>
       )}
     </>
