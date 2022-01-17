@@ -70,7 +70,7 @@ const UpdateUserFormModal: FC<Props> = ({
                 <Heading
                   marginTop={6}
                   marginBottom={4}
-                  fontSize="32px"
+                  fontSize={{ base: "24px", md: "32px" }}
                   fontWeight="bold"
                 >
                   {"Update Profile"}
