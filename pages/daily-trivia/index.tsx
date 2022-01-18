@@ -1,12 +1,14 @@
 import React, { FC } from "react";
+import type { AppProps } from "next/app";
 import Head from "next/head";
+import { Flex } from "@chakra-ui/react";
 
 import HeroHeader from "../../components/HeroHeader";
-import { Flex } from "@chakra-ui/react";
 import MainView from "../../components/MainView";
-import TriviaListContainer from "../../containers/TriviaListContainer";
 
-const DailyTrivia: FC = () => {
+import TriviaList from "../../components/TriviaList";
+
+const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
   return (
     <>
       <Head>
@@ -22,12 +24,27 @@ const DailyTrivia: FC = () => {
             width="100%"
             marginX="auto"
           >
-            <TriviaListContainer />
+            <TriviaList trivia={pageProps?.trivia} />
           </Flex>
         </Flex>
       </MainView>
     </>
   );
 };
+
+export async function getStaticProps() {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/trivia`);
+  const trivia = await res.json();
+
+  if (!trivia) {
+    return {
+      notFound: true,
+    };
+  }
+
+  return {
+    props: { trivia },
+  };
+}
 
 export default DailyTrivia;
