@@ -11,6 +11,9 @@ const activeLinkStyles = {
   textDecoration: "underline",
   color: "gray.700",
   fontWeight: "bold",
+  _hover: {
+    color: "gray.600",
+  },
 };
 
 // These need to be separate to the styles above as Chakra doesn't support
@@ -26,7 +29,7 @@ const NavigationBarLink: FC<Props> = ({
   ...props
 }) => {
   return (
-    <Flex marginLeft={6} marginTop="2px" as="nav" {...props}>
+    <Flex marginLeft={6} as="nav" {...props}>
       <Link href={href}>
         <ChakraLink
           fontSize="16px"

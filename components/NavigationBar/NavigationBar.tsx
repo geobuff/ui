@@ -26,6 +26,7 @@ import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 import ShoppingCartLink from "../ShoppingCartLink";
 import { useRouter } from "next/router";
 import NavigationBarLink from "./NavigationBarLink";
+import Twemoji from "../Twemoji";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -54,13 +55,6 @@ const popularQuizzes = [
     label: "US States",
   },
 ];
-
-const activeLinkStyles = {
-  textDecoration: "underline",
-  color: "gray.700",
-  fontWeight: "bold",
-  textDecorationThickness: "8px",
-};
 
 const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -196,7 +190,10 @@ const NavigationBar: FC = () => {
                   <Box>
                     <Link href="/">
                       <ChakraLink fontSize="20px" fontWeight={600}>
-                        {"Home"}
+                        <Flex alignItems="center">
+                          <Twemoji height="22px" width="22px" emoji="🏡" />
+                          <Text ml={2}>{"Home"}</Text>
+                        </Flex>
                       </ChakraLink>
                     </Link>
 
@@ -204,7 +201,10 @@ const NavigationBar: FC = () => {
 
                     <Link href="/leaderboard">
                       <ChakraLink fontSize="20px" fontWeight={600}>
-                        {"Leaderboard"}
+                        <Flex alignItems="center">
+                          <Twemoji height="22px" width="22px" emoji="🏆" />
+                          <Text ml={2}>{"Leaderboard"}</Text>
+                        </Flex>
                       </ChakraLink>
                     </Link>
 
@@ -212,7 +212,32 @@ const NavigationBar: FC = () => {
 
                     <Link href="/daily-trivia">
                       <ChakraLink fontSize="20px" fontWeight={600}>
-                        {"Daily Trivia"}
+                        <Flex alignItems="center">
+                          <Twemoji height="22px" width="22px" emoji="❓" />
+                          <Text ml={2}>{"Daily Trivia"}</Text>
+                        </Flex>
+                      </ChakraLink>
+                    </Link>
+
+                    <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />
+
+                    <Link href="/map-games">
+                      <ChakraLink fontSize="20px" fontWeight={600}>
+                        <Flex alignItems="center">
+                          <Twemoji height="22px" width="22px" emoji="🗺" />
+                          <Text ml={2}>{"Map Games"}</Text>
+                        </Flex>
+                      </ChakraLink>
+                    </Link>
+
+                    <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />
+
+                    <Link href="/flag-games">
+                      <ChakraLink fontSize="20px" fontWeight={600}>
+                        <Flex alignItems="center">
+                          <Twemoji height="22px" width="22px" emoji="🎌" />
+                          <Text ml={2}>{"Flag Games"}</Text>
+                        </Flex>
                       </ChakraLink>
                     </Link>
                   </Box>
@@ -249,7 +274,7 @@ const NavigationBar: FC = () => {
                 </Flex>
 
                 {!user && (
-                  <Flex width="100%" direction="column" marginTop={10}>
+                  <Flex width="100%" direction="column" marginY={2}>
                     <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />
                     <Text
                       marginY={4}
