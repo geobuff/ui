@@ -44,7 +44,7 @@ const RegisterContainer: FC = () => {
       username: values.username,
       email: values.email,
       countryCode: values.countryCode,
-      password: values.password,
+      password: values.password.replace(/\s/g, ""),
     };
 
     axiosClient
