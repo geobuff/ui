@@ -13,6 +13,7 @@ import { CSVLink } from "react-csv";
 import SaveAlt from "../../../Icons/SaveAlt";
 import SolidDotsVertical from "../../../Icons/SolidDotsVertical";
 import SolidPencil from "../../../Icons/SolidPencil";
+import User from "../../../Icons/User";
 
 const downloadDataExplainer =
   "Downloads all personal information collected by GeoBuff.";
@@ -20,10 +21,12 @@ const downloadDataExplainer =
 export interface Props {
   downloadData?: string[][];
   onUserModalOpen: () => void;
+  onAvatarModalOpen: () => void;
 }
 
 const UserProfileSummaryMenu: FC<Props> = ({
-  onUserModalOpen,
+  onUserModalOpen = () => {},
+  onAvatarModalOpen = () => {},
   downloadData = [],
 }) => {
   return (
@@ -42,6 +45,19 @@ const UserProfileSummaryMenu: FC<Props> = ({
               width={4}
             />
             {"Edit Profile"}
+          </Flex>
+        </MenuItem>
+        <MenuItem onClick={onAvatarModalOpen}>
+          <Flex alignItems="center">
+            <User
+              fill="gray.600"
+              color="gray.600"
+              marginTop={0.5}
+              marginRight={1.5}
+              height={4}
+              width={4}
+            />
+            {"Edit Avatar"}
           </Flex>
         </MenuItem>
 
