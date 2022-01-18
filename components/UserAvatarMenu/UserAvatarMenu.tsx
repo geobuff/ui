@@ -14,8 +14,9 @@ import {
   Skeleton,
   SkeletonCircle,
   Text,
-  Image,
 } from "@chakra-ui/react";
+
+import Image from "../Image";
 
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
@@ -89,7 +90,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
               alignItems="center"
               borderRadius={"100%"}
               backgroundColor="#276f86"
-              border="solid 3px #1A202C"
+              border="solid 2px #1A202C"
               height={avatarSize}
               width={avatarSize}
               marginX={isCondensed ? 1 : 0}
@@ -98,6 +99,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
                 src={user.avatarPrimaryImageUrl}
                 height={imageSize}
                 width={imageSize}
+                hasSkeleton={false}
                 marginX="auto"
               />
             </Flex>
