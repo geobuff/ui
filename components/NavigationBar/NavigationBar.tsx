@@ -24,6 +24,8 @@ import { AppContext } from "../../context/AppContext";
 import { useSwipeable } from "react-swipeable";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 import ShoppingCartLink from "../ShoppingCartLink";
+import { useRouter } from "next/router";
+import NavigationBarLink from "./NavigationBarLink";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -53,9 +55,17 @@ const popularQuizzes = [
   },
 ];
 
+const activeLinkStyles = {
+  textDecoration: "underline",
+  color: "gray.700",
+  fontWeight: "bold",
+  textDecorationThickness: "8px",
+};
+
 const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { user } = useContext(CurrentUserContext);
+  const { route } = useRouter();
 
   const [zIndex, setZIndex] = useState(5);
 
@@ -100,20 +110,19 @@ const NavigationBar: FC = () => {
           </ChakraLink>
         </Link>
 
-        <Flex marginLeft={6} marginTop="2px" as="nav">
-          <Link href="/leaderboard">
-            <ChakraLink fontSize="16px" fontWeight={600} color="gray.600">
-              {"Leaderboard"}
-            </ChakraLink>
-          </Link>
-        </Flex>
-        <Flex marginLeft={4} marginTop="2px" as="nav">
-          <Link href="/daily-trivia">
-            <ChakraLink fontSize="16px" fontWeight={600} color="gray.600">
-              {"Daily Trivia"}
-            </ChakraLink>
-          </Link>
-        </Flex>
+        <NavigationBarLink
+          href="/leaderboard"
+          isActive={route === "/leaderboard"}
+        >
+          {"Leaderboard"}
+        </NavigationBarLink>
+
+        <NavigationBarLink
+          href="/daily-trivia"
+          isActive={route === "/daily-trivia"}
+        >
+          {"Daily Trivia"}
+        </NavigationBarLink>
       </Flex>
 
       <Flex>
