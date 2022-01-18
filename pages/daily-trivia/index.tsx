@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import type { AppProps } from "next/app";
+import { GetStaticProps } from "next";
 import Head from "next/head";
 import { Flex } from "@chakra-ui/react";
 
@@ -32,7 +33,7 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
   );
 };
 
-export async function getStaticProps() {
+export const getStaticProps: GetStaticProps = async () => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/trivia`);
   const trivia = await res.json();
 
@@ -45,6 +46,6 @@ export async function getStaticProps() {
   return {
     props: { trivia },
   };
-}
+};
 
 export default DailyTrivia;
