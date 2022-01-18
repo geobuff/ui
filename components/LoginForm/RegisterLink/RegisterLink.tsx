@@ -4,7 +4,7 @@ import Link from "next/link";
 import { Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
 
 const RegisterLink: FC = () => (
-  <Flex direction="row" margin={{ sm: 3, md: 5 }}>
+  <Flex direction="row" margin={{ sm: 3, md: 5 }} marginTop={{ base: 2 }}>
     <Text fontSize="14px" marginRight={1} fontWeight="500">
       {"Don't have an account?"}
     </Text>
