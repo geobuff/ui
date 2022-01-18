@@ -1,10 +1,11 @@
 import React, { FC } from "react";
-import { Flex, Link as ChakraLink } from "@chakra-ui/react";
+import { Flex, FlexProps, Link as ChakraLink } from "@chakra-ui/react";
 import Link from "next/link";
 
-export interface Props {
+export interface Props extends FlexProps {
   href: string;
   isActive?: boolean;
+  label: string;
 }
 
 const activeLinkStyles = {
@@ -19,17 +20,17 @@ const activeLinkStyles = {
 // These need to be separate to the styles above as Chakra doesn't support
 const textDecorationStyles = {
   textDecorationThickness: "2px",
-  textUnderlineOffset: "1px",
+  textUnderlineOffset: "0.5px",
 };
 
 const NavigationBarLink: FC<Props> = ({
   href,
   isActive = false,
-  children,
+  label,
   ...props
 }) => {
   return (
-    <Flex marginLeft={6} as="nav" {...props}>
+    <Flex as="nav" {...props}>
       <Link href={href}>
         <ChakraLink
           fontSize="16px"
@@ -40,7 +41,7 @@ const NavigationBarLink: FC<Props> = ({
             ...(isActive ? textDecorationStyles : {}),
           }}
         >
-          {children}
+          {label}
         </ChakraLink>
       </Link>
     </Flex>
