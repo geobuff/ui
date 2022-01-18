@@ -1,7 +1,7 @@
 name: cron-create-daily-trivia
 on:
   schedule:
-    - cron: '0 11 * * *'
+    - cron: "0 11 * * *"
 jobs:
   cron:
     runs-on: ubuntu-latest
@@ -10,11 +10,16 @@ jobs:
         run: curl -X POST https://geobuff-dev.ts.r.appspot.com/api/trivia
       - name: create prod trivia questions
         run: curl -X POST https://geobuff-prod-317101.ts.r.appspot.com/api/trivia
+      - name: deploy dev UI
+        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_tXmBeayQ5RRnX5hOwAXP9ku7umj6/F7H8SzRacv
+      - name: deploy prod UI
+        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_tXmBeayQ5RRnX5hOwAXP9ku7umj6/Uf3kCVGnvt
+      - name: deploy mobile prod UI
+        run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_2rE8TIefxXI47eAKuXEfuNDnOpWq/Kd2O4gC6YI
       - name: Discord notification
         env:
           DISCORD_WEBHOOK: https://discord.com/api/webhooks/927094486260154418/BjAaAvQDK3GFAoTFBKF04Kq-GHAjeuPbZJ1V-aXwQPFDL2glaUtCsmY8VrcWaX_XOUCY
           DISCORD_AVATAR: https://is4-ssl.mzstatic.com/image/thumb/Purple124/v4/1c/64/40/1c64402b-336e-a06a-e89f-67c8796409ae/source/512x512bb.jpg
-        uses: Ilshidur/action-discord@master  
+        uses: Ilshidur/action-discord@master
         with:
-            args: 'Daily trivia for today has been successfully published.'
-
+          args: "Daily trivia for today has been successfully published."
