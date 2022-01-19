@@ -12,6 +12,9 @@ import { DateTime } from "luxon";
 import { Trivia } from "../../types/trivia";
 import TriviaCard from "../TriviaCard";
 
+const formatDate = (date: string) =>
+  DateTime.fromISO(date).toFormat("yyyy-MM-dd");
+
 export interface Props {
   trivia?: Trivia[];
 }
@@ -48,12 +51,7 @@ const TriviaList: FC<Props> = ({ trivia = [] }) => {
         spacing={{ base: "12px", md: "24px" }}
       >
         {trivia?.map((quiz) => (
-          <Link
-            key={quiz.id}
-            href={`/daily-trivia/${DateTime.fromISO(quiz.date).toFormat(
-              "yyyy-MM-dd"
-            )}`}
-          >
+          <Link key={quiz.id} href={`/daily-trivia/${formatDate(quiz.date)}`}>
             <AspectRatio
               maxWidth="260px"
               minHeight={{ base: "180px", sm: "206px", md: "216px" }}
