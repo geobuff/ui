@@ -1,26 +1,55 @@
-import { useRouter } from "next/router";
-import React, { FC, useEffect, useState } from "react";
+import { GetStaticPaths, GetStaticProps } from "next";
+import React, { FC } from "react";
+import { DateTime } from "luxon";
 
-import GameTriviaContainer from "../../containers/GameTriviaContainer";
+import axiosClient from "../../axios";
+import { Trivia } from "../../types/trivia";
 
-const DailyTriviaQuiz: FC = () => {
-  const router = useRouter();
-  const [date, setDate] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+import GameTrivia from "../../components/GameTrivia";
 
-  useEffect(() => {
-    if (router.asPath !== router.route) {
-      const date = router.query.date as string;
-      setDate(date);
-      setIsLoading(false);
-    }
-  }, [router]);
+export interface Props {
+  pageProps: {
+    trivia: Trivia;
+  };
+}
 
-  if (isLoading) {
-    return null;
-  }
+const DailyTriviaQuiz: FC<Props> = ({ pageProps }) => {
+  const trivia = pageProps.trivia;
 
-  return <GameTriviaContainer date={date} />;
+  const handleIncrementPlays = (triviaId: number): void => {
+    axiosClient.put(`/trivia-plays/${triviaId}`);
+  };
+
+  return <GameTrivia trivia={trivia} onIncrementPlays={handleIncrementPlays} />;
+};
+
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  const { date } = params;
+
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/trivia/${date}`);
+  const trivia = await res.json();
+
+  return {
+    props: {
+      trivia,
+    },
+  };
+};
+
+export const getStaticPaths: GetStaticPaths = async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/trivia`);
+  const trivia = await res.json();
+
+  const paths = trivia.map(({ date }) => ({
+    params: {
+      date,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
 };
 
 export default DailyTriviaQuiz;
