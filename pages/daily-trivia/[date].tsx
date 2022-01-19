@@ -1,9 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import React, { FC } from "react";
-import { DateTime } from "luxon";
 
 import axiosClient from "../../axios";
 import { Trivia } from "../../types/trivia";
+import { DateTime } from "luxon";
 
 import GameTrivia from "../../components/GameTrivia";
 
@@ -42,7 +42,7 @@ export const getStaticPaths: GetStaticPaths = async () => {
 
   const paths = trivia.map(({ date }) => ({
     params: {
-      date,
+      date: DateTime.fromISO(date).toFormat("yyyy-MM-dd"),
     },
   }));
 
