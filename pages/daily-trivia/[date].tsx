@@ -1,9 +1,9 @@
 import { GetStaticPaths, GetStaticProps } from "next";
 import React, { FC } from "react";
+import { DateTime } from "luxon";
 
 import axiosClient from "../../axios";
 import { Trivia } from "../../types/trivia";
-import { DateTime } from "luxon";
 
 import GameTrivia from "../../components/GameTrivia";
 

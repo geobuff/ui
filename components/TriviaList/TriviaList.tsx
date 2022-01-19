@@ -7,6 +7,7 @@ import {
   Box,
   SimpleGrid,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
 import { Trivia } from "../../types/trivia";
 import TriviaCard from "../TriviaCard";
@@ -47,7 +48,12 @@ const TriviaList: FC<Props> = ({ trivia = [] }) => {
         spacing={{ base: "12px", md: "24px" }}
       >
         {trivia?.map((quiz) => (
-          <Link key={quiz.id} href={`/daily-trivia/${quiz.date}`}>
+          <Link
+            key={quiz.id}
+            href={`/daily-trivia/${DateTime.fromISO(quiz.date).toFormat(
+              "yyyy-MM-dd"
+            )}`}
+          >
             <AspectRatio
               maxWidth="260px"
               minHeight={{ base: "180px", sm: "206px", md: "216px" }}
