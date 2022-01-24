@@ -11,6 +11,7 @@ const Template = (args: Props): React.ReactNode => <Twemoji {...args} />;
 
 const GalleryTemplate = (args: Props): React.ReactNode => (
   <>
+    {/* @ts-ignore */}
     {args.emojis.map((emoji: string, index: number) => (
       <Box m={10} key={index}>
         <Twemoji emoji={emoji} height="56px" width="56px" />

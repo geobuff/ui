@@ -1,6 +1,11 @@
 /* eslint-disable no-case-declarations */
 import React, { FC } from "react";
-import { AspectRatio, Flex, Heading } from "@chakra-ui/react";
+import {
+  AspectRatio,
+  Flex,
+  Heading,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
@@ -81,6 +86,8 @@ const GameTriviaContent: FC<Props> = ({
   flagCode = "",
   imageUrl = "",
 }) => {
+  const isMobile = useBreakpointValue({ base: false, md: true });
+
   const contentNode = getContentByType(
     type,
     map,
@@ -90,6 +97,8 @@ const GameTriviaContent: FC<Props> = ({
   );
 
   const isTextQuestion = type === "Text";
+
+  if (isMobile === undefined) return null;
 
   return (
     <Flex

@@ -1,13 +1,12 @@
 import React, { FC } from "react";
 import twemoji from "twemoji";
 
-import { Box } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
 
-export interface Props {
+export interface Props extends BoxProps {
   emoji?: string;
   height?: string | number | string[] | object;
   width?: string | number | string[] | object;
-  [x: string]: any;
 }
 
 const Twemoji: FC<Props> = ({

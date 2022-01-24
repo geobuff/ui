@@ -107,6 +107,7 @@ const UserProfileSummary: FC<Props> = ({
           <Flex justifyContent="flex-end" width="100%">
             <UserProfileSummaryMenu
               onUserModalOpen={onUserModalOpen}
+              onAvatarModalOpen={onAvatarModalOpen}
               downloadData={downloadData}
             />
           </Flex>

@@ -4,18 +4,20 @@ import {
   Skeleton,
   ImageProps,
   SkeletonProps,
+  BoxProps,
+  Box,
 } from "@chakra-ui/react";
 
 export interface Props extends ImageProps {
   src?: string;
-  width?: string;
-  [x: string]: any;
+  hasSkeleton?: boolean;
 }
 
 const Image: FC<Props> = ({
   src = "",
   height = "100px",
   width = "100px",
+  hasSkeleton = true,
   ...props
 }) => {
   const [isLoading, setIsLoading] = useState(true);
@@ -26,11 +28,19 @@ const Image: FC<Props> = ({
 
   const handleLoad = (): void => setIsLoading(false);
 
+  const loadingNode = (
+    <>
+      {hasSkeleton ? (
+        <Skeleton height={height} width={width} {...(props as SkeletonProps)} />
+      ) : (
+        <Box height={height} width={width} {...(props as BoxProps)} />
+      )}
+    </>
+  );
+
   return (
     <>
-      {isLoading && (
-        <Skeleton height={height} width={width} {...(props as SkeletonProps)} />
-      )}
+      {isLoading && loadingNode}
       <ChakraImage
         display={isLoading && "none"}
         src={src}

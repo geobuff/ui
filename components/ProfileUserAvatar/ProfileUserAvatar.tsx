@@ -1,5 +1,7 @@
 import React, { FC, useState, MouseEventHandler } from "react";
-import { Box, BoxProps, Image } from "@chakra-ui/react";
+import { Box, BoxProps } from "@chakra-ui/react";
+
+import Image from "../Image";
 
 export interface Props extends BoxProps {
   primaryImageUrl?: string;
@@ -55,6 +57,7 @@ const ProfileUserAvatar: FC<Props> = ({
         marginTop={0.5}
         height={height - 24}
         width={width - 24}
+        hasSkeleton={false}
       />
       <Image
         display={shouldShowSecondary ? "inherit" : "none"}
@@ -64,6 +67,7 @@ const ProfileUserAvatar: FC<Props> = ({
         height={height - 24}
         width={width - 24}
         onMouseEnter={(): void => setShouldShowSecondary(true)}
+        hasSkeleton={false}
       />
     </Box>
   );
