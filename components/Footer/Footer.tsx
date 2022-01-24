@@ -12,7 +12,7 @@ const companyLinks = [
     text: "Our Mission",
   },
   {
-    href: "https://discord.gg/W8DY8zn2Vt",
+    href: process.env.NEXT_PUBLIC_DISCORD_LINK,
     text: "Support",
   },
   {
