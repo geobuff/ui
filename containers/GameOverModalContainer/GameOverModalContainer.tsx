@@ -95,13 +95,15 @@ const GameOverModalContainer: FC<Props> = ({
       increaseXP();
       setXPUpdated(true);
     }
+  }, [isOpen, isUserLoading, user]);
 
-    if (!hasLeaderboard) {
-      setIsLoading(false);
-    } else {
+  // When user loads in or modal is opened,
+  // get a fresh leaderboard entry
+  useEffect(() => {
+    if (user) {
       getLeaderboardEntry();
     }
-  }, [isOpen, isUserLoading, user]);
+  }, [isOpen, user]);
 
   const increaseXP = (): void => {
     const payload: IncreaseUserXPPayload = {
