@@ -55,15 +55,6 @@ interface Props {
 }
 
 const QuizList: FC<Props> = ({ quizzes = [] }) => {
-  if (!quizzes.length) {
-    return (
-      <Alert status="info" borderRadius={6} p={5} mt={5}>
-        <AlertIcon />
-        {"No quizzes to display."}
-      </Alert>
-    );
-  }
-
   return (
     <Box
       width="100%"
@@ -77,37 +68,46 @@ const QuizList: FC<Props> = ({ quizzes = [] }) => {
         cursor: "pointer",
       }}
     >
-      {dailyTriviaBanner}
-      <SimpleGrid
-        justifyContent="center"
-        minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
-        spacing={{ base: "16px", md: "24px" }}
-      >
-        {quizzes?.map((quiz) => (
-          <Link
-            key={quiz.id}
-            href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+      {!quizzes.length ? (
+        <Alert status="info" borderRadius={6} p={5} mt={5}>
+          <AlertIcon />
+          {"No quizzes to display."}
+        </Alert>
+      ) : (
+        <>
+          {dailyTriviaBanner}
+          <SimpleGrid
+            justifyContent="center"
+            minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
+            spacing={{ base: "16px", md: "24px" }}
           >
-            <AspectRatio
-              maxWidth="260px"
-              minHeight={{ base: "180px", sm: "206px", md: "216px" }}
-              maxHeight="230px"
-              ratio={3 / 2}
-              transition="all 150ms ease-out"
-              _hover={quiz.enabled && { transform: "scale(1.030)" }}
-              opacity={!quiz.enabled ? "0.25" : "1"}
-            >
-              <QuizCard
-                name={quiz.name}
-                imageUrl={quiz.imageUrl}
-                time={quiz.time}
-                maxScore={quiz.maxScore}
-                verb={quiz.verb}
-              />
-            </AspectRatio>
-          </Link>
-        ))}
-      </SimpleGrid>
+            {quizzes?.map((quiz) => (
+              <Link
+                key={quiz.id}
+                href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+              >
+                <AspectRatio
+                  maxWidth="260px"
+                  minHeight={{ base: "180px", sm: "206px", md: "216px" }}
+                  maxHeight="230px"
+                  ratio={3 / 2}
+                  transition="all 150ms ease-out"
+                  _hover={quiz.enabled && { transform: "scale(1.030)" }}
+                  opacity={!quiz.enabled ? "0.25" : "1"}
+                >
+                  <QuizCard
+                    name={quiz.name}
+                    imageUrl={quiz.imageUrl}
+                    time={quiz.time}
+                    maxScore={quiz.maxScore}
+                    verb={quiz.verb}
+                  />
+                </AspectRatio>
+              </Link>
+            ))}
+          </SimpleGrid>
+        </>
+      )}
     </Box>
   );
 };
