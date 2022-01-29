@@ -1,7 +1,13 @@
+import { SimpleGrid } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { FC } from "react";
 import MainView from "../components/MainView";
-import AdminDashboardContainer from "../containers/AdminDashboardContainer";
+import AdminQuizzesContainer from "../containers/AdminQuizzesContainer";
+import AdminUsersContainer from "../containers/AdminUsersContainer";
+import AdminTotalUserCountContainer from "../containers/AdminTotalUserCountContainer";
+import AdminDiscountsContainer from "../containers/AdminDiscountsContainer";
+import AdminTopFiveQuizPlaysContainer from "../containers/AdminTopFiveQuizPlaysContainer";
+import AdminLastFiveTriviaPlaysContainer from "../containers/AdminLastFiveTriviaPlaysContainer";
 
 const Admin: FC = () => (
   <>
@@ -9,7 +15,14 @@ const Admin: FC = () => (
       <title>{"Admin Dashboard - GeoBuff"}</title>
     </Head>
     <MainView>
-      <AdminDashboardContainer />
+      <SimpleGrid columns={{ base: 1, lg: 2 }}>
+        <AdminTotalUserCountContainer />
+        <AdminDiscountsContainer />
+        <AdminTopFiveQuizPlaysContainer />
+        <AdminLastFiveTriviaPlaysContainer />
+        <AdminUsersContainer />
+        <AdminQuizzesContainer />
+      </SimpleGrid>
     </MainView>
   </>
 );
