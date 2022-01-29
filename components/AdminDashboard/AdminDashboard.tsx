@@ -33,7 +33,7 @@ const AdminDashboard: FC<Props> = ({ data = null, error = false }) => {
   }
 
   return (
-    <SimpleGrid columns={2}>
+    <SimpleGrid columns={{ base: 1, lg: 2 }}>
       <Flex
         margin={6}
         background="white"
@@ -52,39 +52,37 @@ const AdminDashboard: FC<Props> = ({ data = null, error = false }) => {
         borderRadius={12}
         justifyContent="center"
       >
-        <Flex direction="column" justifyContent="center">
-          <Box overflow="auto" my={6}>
-            <Table size="md" variant="striped" colorscheme="gray">
-              <Thead>
-                <Tr>
-                  <Th textAlign="left">{"ID"} </Th>
-                  <Th textAlign="left">{"MERCH ID"}</Th>
-                  <Th textAlign="right">{"CODE"}</Th>
-                  <Th textAlign="right">{"AMOUNT"}</Th>
-                </Tr>
-              </Thead>
+        <Box overflow="auto" m={6}>
+          <Table size="md" variant="striped" colorscheme="gray">
+            <Thead>
+              <Tr>
+                <Th textAlign="left">{"ID"} </Th>
+                <Th textAlign="left">{"MERCH ID"}</Th>
+                <Th textAlign="right">{"CODE"}</Th>
+                <Th textAlign="right">{"AMOUNT"}</Th>
+              </Tr>
+            </Thead>
 
-              <Tbody>
-                {data?.discounts.map((entry, index) => (
-                  <Tr key={index} fontWeight={600}>
-                    <TableCell isNumeric paddingY={3} paddingX={6}>
-                      {entry.id}
-                    </TableCell>
-                    <TableCell isNumeric paddingY={3} paddingX={6}>
-                      {entry.merchId.Valid && entry.merchId.Int64}
-                    </TableCell>
-                    <TableCell paddingY={3} paddingX={6}>
-                      {entry.code}
-                    </TableCell>
-                    <TableCell isNumeric paddingY={3} paddingX={6}>
-                      {entry.amount}
-                    </TableCell>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </Box>
-        </Flex>
+            <Tbody>
+              {data?.discounts.map((entry, index) => (
+                <Tr key={index} fontWeight={600}>
+                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                    {entry.id}
+                  </TableCell>
+                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                    {entry.merchId.Valid && entry.merchId.Int64}
+                  </TableCell>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {entry.code}
+                  </TableCell>
+                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                    {entry.amount}
+                  </TableCell>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
       </Flex>
 
       <Flex
@@ -93,31 +91,29 @@ const AdminDashboard: FC<Props> = ({ data = null, error = false }) => {
         borderRadius={12}
         justifyContent="center"
       >
-        <Flex direction="column" justifyContent="center">
-          <Box overflow="auto" my={6}>
-            <Table size="md" variant="striped" colorscheme="gray">
-              <Thead>
-                <Tr>
-                  <Th textAlign="left">{"QUIZ"} </Th>
-                  <Th textAlign="left">{"PLAYS"}</Th>
-                </Tr>
-              </Thead>
+        <Box overflow="auto" m={6}>
+          <Table size="md" variant="striped" colorscheme="gray">
+            <Thead>
+              <Tr>
+                <Th textAlign="left">{"QUIZ"} </Th>
+                <Th textAlign="left">{"PLAYS"}</Th>
+              </Tr>
+            </Thead>
 
-              <Tbody>
-                {data?.quizPlays.map((entry, index) => (
-                  <Tr key={index} fontWeight={600}>
-                    <TableCell paddingY={3} paddingX={6}>
-                      {entry.name}
-                    </TableCell>
-                    <TableCell isNumeric paddingY={3} paddingX={6}>
-                      {entry.plays}
-                    </TableCell>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </Box>
-        </Flex>
+            <Tbody>
+              {data?.quizPlays.map((entry, index) => (
+                <Tr key={index} fontWeight={600}>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {entry.name}
+                  </TableCell>
+                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                    {entry.plays}
+                  </TableCell>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
       </Flex>
 
       <Flex
@@ -126,31 +122,29 @@ const AdminDashboard: FC<Props> = ({ data = null, error = false }) => {
         borderRadius={12}
         justifyContent="center"
       >
-        <Flex direction="column" justifyContent="center">
-          <Box overflow="auto" my={6}>
-            <Table size="md" variant="striped" colorscheme="gray">
-              <Thead>
-                <Tr>
-                  <Th textAlign="left">{"TRIVIA"} </Th>
-                  <Th textAlign="left">{"PLAYS"}</Th>
-                </Tr>
-              </Thead>
+        <Box overflow="auto" m={6}>
+          <Table size="md" variant="striped" colorscheme="gray">
+            <Thead>
+              <Tr>
+                <Th textAlign="left">{"TRIVIA"} </Th>
+                <Th textAlign="left">{"PLAYS"}</Th>
+              </Tr>
+            </Thead>
 
-              <Tbody>
-                {data?.triviaPlays.map((entry, index) => (
-                  <Tr key={index} fontWeight={600}>
-                    <TableCell paddingY={3} paddingX={6}>
-                      {entry.name}
-                    </TableCell>
-                    <TableCell isNumeric paddingY={3} paddingX={6}>
-                      {entry.plays}
-                    </TableCell>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          </Box>
-        </Flex>
+            <Tbody>
+              {data?.triviaPlays.map((entry, index) => (
+                <Tr key={index} fontWeight={600}>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {entry.name}
+                  </TableCell>
+                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                    {entry.plays}
+                  </TableCell>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        </Box>
       </Flex>
     </SimpleGrid>
   );

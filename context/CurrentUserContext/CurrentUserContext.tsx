@@ -82,7 +82,7 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
   const getAuthConfig = (): AxiosRequestConfig => {
     return {
       headers: {
-        Authorization: `Bearer ${user.token}`,
+        Authorization: `Bearer ${user?.token}`,
       },
     };
   };
