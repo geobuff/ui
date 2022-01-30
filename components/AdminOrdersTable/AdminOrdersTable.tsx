@@ -1,7 +1,5 @@
 import React, { FC } from "react";
 import {
-  Alert,
-  AlertIcon,
   Box,
   Button,
   Flex,
@@ -11,19 +9,19 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { Quiz } from "../../types/quiz";
+import { Order } from "../../types/order";
 import TableCell from "../TableCell";
 
 export interface Props {
-  quizzes?: Quiz[];
+  orders?: Order[];
   isSubmitting?: boolean;
-  onToggleEnabled?: (quizId: number) => void;
+  onProgressToShipped?: (orderId: number) => void;
 }
 
-const AdminQuizTable: FC<Props> = ({
-  quizzes = [],
+const AdminOrdersTable: FC<Props> = ({
+  orders = [],
   isSubmitting = false,
-  onToggleEnabled = (quizId: number): void => {},
+  onProgressToShipped = (orderId: number): void => {},
 }) => {
   return (
     <Flex
@@ -37,23 +35,27 @@ const AdminQuizTable: FC<Props> = ({
           <Thead>
             <Tr>
               <Th textAlign="left">{"NAME"} </Th>
+              <Th textAlign="left">{"ADDED"} </Th>
               <Th>{""}</Th>
             </Tr>
           </Thead>
 
           <Tbody>
-            {quizzes?.map((quiz, index) => (
+            {orders?.map((order, index) => (
               <Tr key={index} fontWeight={600}>
                 <TableCell paddingY={3} paddingX={6}>
-                  {quiz.name}
+                  {`${order.firstName} ${order.lastName}`}
                 </TableCell>
-                <TableCell isNumeric paddingY={3} paddingX={6}>
+                <TableCell paddingY={3} paddingX={6}>
+                  {order.added}
+                </TableCell>
+                <TableCell paddingY={3} paddingX={6}>
                   <Button
-                    colorScheme={quiz.enabled ? "blue" : "green"}
-                    onClick={() => onToggleEnabled(quiz.id)}
+                    colorScheme="blue"
                     disabled={isSubmitting}
+                    onClick={() => onProgressToShipped(order.id)}
                   >
-                    {quiz.enabled ? "DISABLE" : "ENABLE"}
+                    PROGRESS TO SHIPPED
                   </Button>
                 </TableCell>
               </Tr>
@@ -65,4 +67,4 @@ const AdminQuizTable: FC<Props> = ({
   );
 };
 
-export default AdminQuizTable;
+export default AdminOrdersTable;

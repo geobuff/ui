@@ -8,6 +8,7 @@ import AdminTotalUserCountContainer from "../containers/AdminTotalUserCountConta
 import AdminDiscountsContainer from "../containers/AdminDiscountsContainer";
 import AdminTopFiveQuizPlaysContainer from "../containers/AdminTopFiveQuizPlaysContainer";
 import AdminLastFiveTriviaPlaysContainer from "../containers/AdminLastFiveTriviaPlaysContainer";
+import AdminOrdersContainer from "../containers/AdminOrdersContainer";
 
 const Admin: FC = () => (
   <>
@@ -22,6 +23,7 @@ const Admin: FC = () => (
         <AdminLastFiveTriviaPlaysContainer />
         <AdminUsersContainer />
         <AdminQuizzesContainer />
+        <AdminOrdersContainer />
       </SimpleGrid>
     </MainView>
   </>
