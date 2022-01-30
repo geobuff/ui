@@ -1,6 +1,4 @@
 import {
-  Alert,
-  AlertIcon,
   Box,
   Button,
   Flex,
@@ -17,7 +15,6 @@ import TableCell from "../TableCell";
 export interface Props {
   currentUserId?: number;
   userPage?: UserPageDto;
-  error?: boolean;
   isSubmitting?: boolean;
   setPage?: React.Dispatch<React.SetStateAction<number>>;
   onDeleteUser?: (userId: number) => void;
@@ -26,7 +23,6 @@ export interface Props {
 const AdminUsersTable: FC<Props> = ({
   currentUserId = 0,
   userPage = {},
-  error = false,
   isSubmitting = false,
   setPage = (): void => {},
   onDeleteUser = (userId: number): void => {},
@@ -38,12 +34,6 @@ const AdminUsersTable: FC<Props> = ({
       borderRadius={12}
       justifyContent="center"
     >
-      {error && (
-        <Alert status="error" borderRadius={6}>
-          <AlertIcon />
-          {`Error deleting user. Please refresh and try again.`}
-        </Alert>
-      )}
       <Box overflow="auto" margin={6}>
         <Table size="md" variant="striped" colorscheme="gray">
           <Thead>
