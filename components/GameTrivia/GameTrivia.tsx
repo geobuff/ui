@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import Head from "next/head";
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
 
@@ -9,6 +9,7 @@ import GameTriviaContent from "./GameTriviaContent";
 import GameTriviaAnswers from "./GameTriviaAnswers";
 import GameTriviaGameOver from "./GameTriviaGameOver";
 
+import { AppContext } from "../../context/AppContext";
 import { TriviaQuestion } from "../../types/trivia-questions";
 import { TriviaAnswer } from "../../types/trivia-answer";
 import { Trivia } from "../../types/trivia";
@@ -59,6 +60,8 @@ const GameTrivia: FC<Props> = ({
   const isLastQuestion = questionNumber === trivia.questions.length;
   const isMobile = useBreakpointValue({ base: true, md: false });
 
+  const { isNotchedIphone } = useContext(AppContext);
+
   if (isMobile === undefined) return null;
 
   return (
@@ -105,6 +108,7 @@ const GameTrivia: FC<Props> = ({
                   hasAnswered={hasAnswered}
                   selectedAnswer={selectedAnswer}
                   isLastQuestion={isLastQuestion}
+                  isNotchedIphone={isNotchedIphone}
                   onAnswerQuestion={handleAnswerQuestion}
                   onNextQuestion={handleNextQuestion}
                   onGameStop={handleGameStop}

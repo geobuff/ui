@@ -34,6 +34,7 @@ interface Props {
   hasGameStarted?: boolean;
   hasGameStopped?: boolean;
   hasFlags?: boolean;
+  isNotchedIphone?: boolean;
   flagDragItems?: string[];
   timeRemaining?: number;
   expiryTimestamp?: ExpiryTimestamp;
@@ -50,6 +51,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
   hasGameStarted = false,
   hasGameStopped = false,
   hasFlags = false,
+  isNotchedIphone = false,
   flagDragItems = [],
   timeRemaining = 0,
   expiryTimestamp = { minutes: 0, seconds: 0 },
@@ -61,7 +63,9 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
 
   const variants = {
     open: { top: "20%" },
-    closed: { top: "calc(100% - 260px)" },
+    closed: {
+      top: `calc(100% - ${isNotchedIphone ? 270 : 260}px)`,
+    },
     /**
      * Pulls sheet down when dragging, may reintroduce later
      * for smaller devices
