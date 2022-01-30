@@ -36,6 +36,7 @@ interface Props {
   onClose?: () => void;
   onSubmit?: (values: UpdateUserFormSubmit) => void;
   isSubmitting?: boolean;
+  isNotchedIphone?: boolean;
   error?: string;
 }
 
@@ -45,6 +46,7 @@ const UpdateUserFormModal: FC<Props> = ({
   onClose = (): void => {},
   onSubmit = (values: UpdateUserFormSubmit): void => {},
   isSubmitting = false,
+  isNotchedIphone = false,
   error = "",
 }) => (
   <Modal isOpen={isOpen} onClose={onClose}>
@@ -164,7 +166,7 @@ const UpdateUserFormModal: FC<Props> = ({
                 <Flex
                   direction="row"
                   marginTop="44px"
-                  marginBottom={6}
+                  marginBottom={isNotchedIphone ? 9 : 6}
                   marginRight={6}
                 >
                   <Button marginRight={3} width="100%" onClick={onClose}>

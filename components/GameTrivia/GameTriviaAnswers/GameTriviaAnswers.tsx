@@ -12,6 +12,7 @@ export interface Props {
   selectedAnswer: TriviaAnswer;
   hasAnswered: boolean;
   isLastQuestion: boolean;
+  isNotchedIphone?: boolean;
   onAnswerQuestion: (answer: TriviaAnswer) => void;
   onNextQuestion: () => void;
   onGameStop: () => void;
@@ -33,6 +34,7 @@ const GameTriviaAnswers: FC<Props> = ({
   hasAnswered = false,
   selectedAnswer,
   isLastQuestion = false,
+  isNotchedIphone = false,
   onAnswerQuestion = () => {},
   onNextQuestion = () => {},
   onGameStop = () => {},
@@ -60,6 +62,7 @@ const GameTriviaAnswers: FC<Props> = ({
         justifyContent="flex-end"
         marginTop={{ base: -2, md: 0 }}
         height={{ base: "52px", md: "60px" }}
+        marginBottom={isNotchedIphone ? 5 : 0}
       >
         <Fade in={hasAnswered} unmountOnExit>
           <Button

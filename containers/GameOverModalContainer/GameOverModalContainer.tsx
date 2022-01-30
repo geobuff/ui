@@ -17,6 +17,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
 import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
+import { AppContext } from "../../context/AppContext";
 
 interface Props {
   id?: number;
@@ -53,6 +54,7 @@ const GameOverModalContainer: FC<Props> = ({
 }) => {
   const toast = useToast();
   const router = useRouter();
+  const { isNotchedIphone } = useContext(AppContext);
 
   const {
     user,
@@ -219,6 +221,7 @@ const GameOverModalContainer: FC<Props> = ({
       onClose={onClose}
       onSubmit={hasLeaderboard ? handleSubmitEntry : null}
       onRedirectWithScore={handleRedirectWithScore}
+      isNotchedIphone={isNotchedIphone}
     />
   );
 };

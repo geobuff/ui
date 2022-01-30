@@ -7,6 +7,7 @@ import axiosClient from "../../axios/axiosClient";
 import { userUpdated } from "../../helpers/toasts";
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { AppContext } from "../../context/AppContext";
 
 interface Props {
   isOpen?: boolean;
@@ -19,6 +20,8 @@ const UpdateUserFormContainer: FC<Props> = ({
 }) => {
   const toast = useToast();
   const { user, updateUser, getAuthConfig } = useContext(CurrentUserContext);
+  const { isNotchedIphone } = useContext(AppContext);
+
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "bottom",
     md: "bottom-right",
@@ -65,6 +68,7 @@ const UpdateUserFormContainer: FC<Props> = ({
       user={user}
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
+      isNotchedIphone={isNotchedIphone}
       error={error}
     />
   );
