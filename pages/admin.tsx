@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { FC } from "react";
 import MainView from "../components/MainView";
@@ -7,7 +7,8 @@ import AdminUsersContainer from "../containers/AdminUsersContainer";
 import AdminTotalUserCountContainer from "../containers/AdminTotalUserCountContainer";
 import AdminDiscountsContainer from "../containers/AdminDiscountsContainer";
 import AdminTopFiveQuizPlaysContainer from "../containers/AdminTopFiveQuizPlaysContainer";
-import AdminLastFiveTriviaPlaysContainer from "../containers/AdminLastFiveTriviaPlaysContainer";
+import AdminOrdersContainer from "../containers/AdminOrdersContainer";
+import AdminLastWeekTriviaPlaysContainer from "../containers/AdminLastWeekTriviaPlaysContainer";
 
 const Admin: FC = () => (
   <>
@@ -15,14 +16,17 @@ const Admin: FC = () => (
       <title>{"Admin Dashboard - GeoBuff"}</title>
     </Head>
     <MainView>
-      <SimpleGrid columns={{ base: 1, lg: 2 }}>
-        <AdminTotalUserCountContainer />
-        <AdminDiscountsContainer />
-        <AdminTopFiveQuizPlaysContainer />
-        <AdminLastFiveTriviaPlaysContainer />
-        <AdminUsersContainer />
-        <AdminQuizzesContainer />
-      </SimpleGrid>
+      <Flex justifyContent="center">
+        <Flex direction="column" height="100%" width="100%" maxWidth={1300}>
+          <AdminTotalUserCountContainer />
+          <AdminTopFiveQuizPlaysContainer />
+          <AdminLastWeekTriviaPlaysContainer />
+          <AdminUsersContainer />
+          <AdminQuizzesContainer />
+          <AdminOrdersContainer />
+          <AdminDiscountsContainer />
+        </Flex>
+      </Flex>
     </MainView>
   </>
 );

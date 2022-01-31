@@ -1,16 +1,17 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 import axiosClient from "../../axios";
-import AdminLastFiveTriviaPlays from "../../components/AdminLastFiveTrivaPlays";
+import AdminLastWeekTriviaPlays from "../../components/AdminLastWeekTriviaPlays";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { getTriviaPlaysData } from "../../helpers/charts";
 
-const AdminLastFiveTriviaPlaysContainer: FC = () => {
+const AdminLastWeekTriviaPlaysContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
   const [triviaPlays, setTriviaPlays] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axiosClient
-      .get("/trivia-plays/last-five", getAuthConfig())
+      .get("/trivia-plays/week", getAuthConfig())
       .then((response) => {
         setTriviaPlays(response.data);
       })
@@ -21,7 +22,7 @@ const AdminLastFiveTriviaPlaysContainer: FC = () => {
     return null;
   }
 
-  return <AdminLastFiveTriviaPlays triviaPlays={triviaPlays} />;
+  return <AdminLastWeekTriviaPlays data={getTriviaPlaysData(triviaPlays)} />;
 };
 
-export default AdminLastFiveTriviaPlaysContainer;
+export default AdminLastWeekTriviaPlaysContainer;

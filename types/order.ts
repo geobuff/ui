@@ -1,6 +1,7 @@
 import { NullString } from "./null-string";
 
 export interface Order {
+  id: number;
   items: OrderItem[];
   status: string;
   firstName: string;

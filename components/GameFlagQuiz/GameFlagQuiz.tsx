@@ -35,6 +35,7 @@ import {
   getRandomCollectionItem,
 } from "../../helpers/random";
 import GameBannerButton from "../GameBannerButton";
+import { AppContext } from "../../context/AppContext";
 
 const INCORRECT_ANSWER_THRESHOLD = 1;
 
@@ -69,6 +70,7 @@ const GameFlagQuiz: FC<Props> = ({
   mapping = [],
 }) => {
   const router = useRouter();
+  const { isNotchedIphone } = useContext(AppContext);
   const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
 
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -436,6 +438,7 @@ const GameFlagQuiz: FC<Props> = ({
               hasFlags={hasFlags}
               hasGameStarted={hasGameStarted}
               hasGameStopped={hasGameStopped}
+              isNotchedIphone={isNotchedIphone}
               expiryTimestamp={{ minutes, seconds }}
               timeRemaining={time}
               flagDragItems={flagDragItems}

@@ -8,7 +8,6 @@ const AdminQuizzesContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
   const { quizzes, isLoading } = useQuizzes();
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(false);
 
   const handleToggleEnabled = (quizId: number): void => {
     setIsSubmitting(true);
@@ -19,7 +18,6 @@ const AdminQuizzesContainer: FC = () => {
         const index = quizzes.indexOf(quiz);
         quizzes[index].enabled = !quizzes[index].enabled;
       })
-      .catch(() => setError(true))
       .finally(() => setIsSubmitting(false));
   };
 
@@ -31,7 +29,6 @@ const AdminQuizzesContainer: FC = () => {
     <AdminQuizTable
       quizzes={quizzes}
       isSubmitting={isSubmitting}
-      error={error}
       onToggleEnabled={handleToggleEnabled}
     />
   );

@@ -34,6 +34,7 @@ export interface Props {
   isLoading?: boolean;
   isOpen?: boolean;
   isSubmitting?: boolean;
+  isNotchedIphone?: boolean;
   onClose?: () => void;
   onSubmit?: (existingEntry: LeaderboardEntry) => void;
   onRedirectWithScore?: (path: string) => void;
@@ -49,6 +50,7 @@ const GameOverModal: FC<Props> = ({
   existingEntry = null,
   isOpen = false,
   isSubmitting = false,
+  isNotchedIphone = false,
   onClose = (): void => {},
   onSubmit = (existingEntry: LeaderboardEntry): void => {},
   onRedirectWithScore = (path: string): void => {},
@@ -64,6 +66,7 @@ const GameOverModal: FC<Props> = ({
       colorScheme="green"
       onClick={(): void => onSubmit(existingEntry)}
       isDisabled={!isLoggedIn || isSubmitting || isLoading}
+      marginBottom={isNotchedIphone ? 4 : 0}
     >
       {"Submit"}
     </Button>

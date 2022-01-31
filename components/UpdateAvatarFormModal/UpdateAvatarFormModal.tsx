@@ -5,7 +5,6 @@ import * as Yup from "yup";
 import {
   Box,
   FormControl,
-  FormLabel,
   Flex,
   Button,
   FormErrorMessage,
@@ -27,6 +26,7 @@ interface Props {
   onClose?: () => void;
   onSubmit?: (values: UpdateAvatarFormSubmit) => void;
   isSubmitting?: boolean;
+  isNotchedIphone?: boolean;
   error?: string;
 }
 
@@ -34,8 +34,9 @@ const UpdateAvatarFormModal: FC<Props> = ({
   avatarId = 0,
   isOpen = false,
   onClose = (): void => {},
-  onSubmit = (values: UpdateAvatarFormSubmit): void => {},
+  onSubmit = (): void => {},
   isSubmitting = false,
+  isNotchedIphone = false,
   error = "",
 }) => (
   <Modal isOpen={isOpen} onClose={onClose}>
@@ -92,7 +93,7 @@ const UpdateAvatarFormModal: FC<Props> = ({
                 <Flex
                   direction="row"
                   marginTop="44px"
-                  marginBottom={6}
+                  marginBottom={isNotchedIphone ? 9 : 6}
                   marginRight={6}
                 >
                   <Button marginRight={3} width="100%" onClick={onClose}>

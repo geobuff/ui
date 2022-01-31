@@ -6,6 +6,7 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { avatarUpdated } from "../../helpers/toasts";
 import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
 import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
+import { AppContext } from "../../context/AppContext";
 
 interface Props {
   isOpen?: boolean;
@@ -17,6 +18,8 @@ const UpdateAvatarFormContainer: FC<Props> = ({
   onClose = (): void => {},
 }) => {
   const toast = useToast();
+  const { isNotchedIphone } = useContext(AppContext);
+
   const { user, updateUser, getAuthConfig } = useContext(CurrentUserContext);
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "bottom",
@@ -66,6 +69,7 @@ const UpdateAvatarFormContainer: FC<Props> = ({
       avatarId={user?.avatarId}
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
+      isNotchedIphone={isNotchedIphone}
       error={error}
     />
   );

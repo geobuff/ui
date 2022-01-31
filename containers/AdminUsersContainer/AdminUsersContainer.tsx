@@ -10,7 +10,6 @@ const AdminUsersContainer: FC = () => {
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(false);
 
   useEffect(() => {
     axiosClient
@@ -18,7 +17,6 @@ const AdminUsersContainer: FC = () => {
       .then((response) => {
         setUserPage(response.data);
       })
-      .catch(() => setError(true))
       .finally(() => setIsLoading(false));
   }, []);
 
@@ -32,7 +30,6 @@ const AdminUsersContainer: FC = () => {
           hasMore: userPage.hasMore,
         });
       })
-      .catch(() => setError(true))
       .finally(() => setIsSubmitting(false));
   };
 
@@ -44,7 +41,6 @@ const AdminUsersContainer: FC = () => {
     <AdminUsersTable
       currentUserId={user?.id}
       userPage={userPage}
-      error={error}
       isSubmitting={isSubmitting}
       setPage={setPage}
       onDeleteUser={handleDeleteUser}
