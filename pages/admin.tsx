@@ -1,4 +1,4 @@
-import { SimpleGrid } from "@chakra-ui/react";
+import { Flex, SimpleGrid, Stack } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { FC } from "react";
 import MainView from "../components/MainView";
@@ -16,15 +16,17 @@ const Admin: FC = () => (
       <title>{"Admin Dashboard - GeoBuff"}</title>
     </Head>
     <MainView>
-      <SimpleGrid columns={{ base: 1, lg: 2 }}>
-        <AdminTotalUserCountContainer />
-        <AdminDiscountsContainer />
-        <AdminTopFiveQuizPlaysContainer />
-        <AdminLastFiveTriviaPlaysContainer />
-        <AdminUsersContainer />
-        <AdminQuizzesContainer />
-        <AdminOrdersContainer />
-      </SimpleGrid>
+      <Flex justifyContent="center">
+        <Flex direction="column" height="100%" width="100%" maxWidth={1300}>
+          <AdminTotalUserCountContainer />
+          <AdminTopFiveQuizPlaysContainer />
+          <AdminLastFiveTriviaPlaysContainer />
+          <AdminUsersContainer />
+          <AdminQuizzesContainer />
+          <AdminOrdersContainer />
+          <AdminDiscountsContainer />
+        </Flex>
+      </Flex>
     </MainView>
   </>
 );

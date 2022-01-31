@@ -15,7 +15,7 @@ const AdminLastFiveTriviaPlays: FC<Props> = ({ triviaPlays = [] }) => {
       borderRadius={12}
       justifyContent="center"
     >
-      <Box overflow="auto" m={6}>
+      <Box overflow="auto" margin={6}>
         <Table size="md" variant="striped" colorscheme="gray">
           <Thead>
             <Tr>

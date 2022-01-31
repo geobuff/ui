@@ -2,6 +2,7 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminTopFiveQuizPlays from "../../components/AdminTopFiveQuizPlays";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { getQuizPlaysData } from "../../helpers/charts";
 
 const AdminTopFiveQuizPlaysContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
@@ -21,7 +22,7 @@ const AdminTopFiveQuizPlaysContainer: FC = () => {
     return null;
   }
 
-  return <AdminTopFiveQuizPlays quizPlays={quizPlays} />;
+  return <AdminTopFiveQuizPlays data={getQuizPlaysData(quizPlays)} />;
 };
 
 export default AdminTopFiveQuizPlaysContainer;

@@ -47,6 +47,7 @@
     "react-swipeable": "^6.2.0",
     "react-timer-hook": "^2.0.7",
     "react-virtualized": "^9.22.3",
+    "recharts": "^2.1.8",
     "swr": "^0.4.0",
     "twemoji": "^13.0.1",
     "yup": "^0.32.9"

@@ -1,43 +1,28 @@
 import React, { FC } from "react";
-import { Box, Flex, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
-import TableCell from "../TableCell";
-import { PlaysDto } from "../../types/plays-dto";
+import { Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Bar, BarChart, Tooltip, XAxis, YAxis } from "recharts";
 
 export interface Props {
-  quizPlays?: PlaysDto[];
+  data?: any[];
 }
 
-const AdminTopFiveQuizPlays: FC<Props> = ({ quizPlays = [] }) => {
+const AdminTopFiveQuizPlays: FC<Props> = ({ data = [] }) => {
+  const width = useBreakpointValue({ base: 300, md: 1200 });
+
   return (
     <Flex
       margin={6}
+      padding={12}
       background="white"
       borderRadius={12}
       justifyContent="center"
     >
-      <Box overflow="auto" m={6}>
-        <Table size="md" variant="striped" colorscheme="gray">
-          <Thead>
-            <Tr>
-              <Th textAlign="left">{"QUIZ"} </Th>
-              <Th textAlign="left">{"PLAYS"}</Th>
-            </Tr>
-          </Thead>
-
-          <Tbody>
-            {quizPlays.map((entry, index) => (
-              <Tr key={index} fontWeight={600}>
-                <TableCell paddingY={3} paddingX={6}>
-                  {entry.name}
-                </TableCell>
-                <TableCell isNumeric paddingY={3} paddingX={6}>
-                  {entry.plays}
-                </TableCell>
-              </Tr>
-            ))}
-          </Tbody>
-        </Table>
-      </Box>
+      <BarChart width={width} height={250} data={data}>
+        <XAxis dataKey="name" />
+        <YAxis allowDecimals={false} />
+        <Tooltip />
+        <Bar dataKey="Plays" fill="#48BB78" maxBarSize={50} />
+      </BarChart>
     </Flex>
   );
 };
