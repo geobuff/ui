@@ -8,3 +8,12 @@ export const getQuizPlaysData = (quizPlays: PlaysDto[]): any[] => {
     };
   });
 };
+
+export const getTriviaPlaysData = (triviaPlays: PlaysDto[]): any[] => {
+  return triviaPlays.map((x) => {
+    return {
+      name: x.name.split(",")[0],
+      Plays: x.plays,
+    };
+  });
+};

@@ -1,4 +1,4 @@
-import { Flex, SimpleGrid, Stack } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Head from "next/head";
 import React, { FC } from "react";
 import MainView from "../components/MainView";
@@ -7,8 +7,8 @@ import AdminUsersContainer from "../containers/AdminUsersContainer";
 import AdminTotalUserCountContainer from "../containers/AdminTotalUserCountContainer";
 import AdminDiscountsContainer from "../containers/AdminDiscountsContainer";
 import AdminTopFiveQuizPlaysContainer from "../containers/AdminTopFiveQuizPlaysContainer";
-import AdminLastFiveTriviaPlaysContainer from "../containers/AdminLastFiveTriviaPlaysContainer";
 import AdminOrdersContainer from "../containers/AdminOrdersContainer";
+import AdminLastWeekTriviaPlaysContainer from "../containers/AdminLastWeekTriviaPlaysContainer";
 
 const Admin: FC = () => (
   <>
@@ -20,7 +20,7 @@ const Admin: FC = () => (
         <Flex direction="column" height="100%" width="100%" maxWidth={1300}>
           <AdminTotalUserCountContainer />
           <AdminTopFiveQuizPlaysContainer />
-          <AdminLastFiveTriviaPlaysContainer />
+          <AdminLastWeekTriviaPlaysContainer />
           <AdminUsersContainer />
           <AdminQuizzesContainer />
           <AdminOrdersContainer />
