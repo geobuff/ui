@@ -2,17 +2,19 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminUserCount from "../../components/AdminUserCount";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { getTotalUsersData } from "../../helpers/charts";
+import { TotalUserDto } from "../../types/total-users-dto";
 
 const AdminTotalUserCountContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
-  const [count, setCount] = useState(0);
+  const [usersCount, setUsersCount] = useState<TotalUserDto[]>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axiosClient
-      .get("/users-total", getAuthConfig())
+      .get("/users/total/week", getAuthConfig())
       .then((response) => {
-        setCount(response.data);
+        setUsersCount(response.data);
       })
       .finally(() => setIsLoading(false));
   }, [getAuthConfig]);
@@ -21,7 +23,7 @@ const AdminTotalUserCountContainer: FC = () => {
     return null;
   }
 
-  return <AdminUserCount count={count} />;
+  return <AdminUserCount data={getTotalUsersData(usersCount)} />;
 };
 
 export default AdminTotalUserCountContainer;
