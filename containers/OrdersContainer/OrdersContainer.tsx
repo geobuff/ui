@@ -17,7 +17,7 @@ const OrdersContainer: FC<Props> = ({ email }) => {
 
   useEffect(() => {
     axiosClient
-      .get(`/orders/${email}`, getAuthConfig())
+      .get(`/orders/user/${email}`, getAuthConfig())
       .then((response) => {
         setOrders(response.data);
       })
