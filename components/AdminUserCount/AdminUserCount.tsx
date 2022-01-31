@@ -13,7 +13,7 @@ const AdminUserCount: FC<Props> = ({ count = 0 }) => {
       borderRadius={12}
       justifyContent="center"
     >
-      <Flex direction="column" justifyContent="center">
+      <Flex direction="column" justifyContent="center" padding={12}>
         <Heading>{count}</Heading>
         <Text fontWeight={600}>TOTAL USERS</Text>
       </Flex>
