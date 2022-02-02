@@ -393,6 +393,7 @@ const GameFlagQuiz: FC<Props> = ({
                 height="100%"
                 alignItems="center"
                 flex="1"
+                marginBottom={{ base: "260px", md: 0 }}
               >
                 <Flex
                   flex={{ base: "initial", lg: 1 }}
