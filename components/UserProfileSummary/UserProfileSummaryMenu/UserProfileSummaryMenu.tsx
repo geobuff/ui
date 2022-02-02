@@ -14,6 +14,7 @@ import SaveAlt from "../../../Icons/SaveAlt";
 import SolidDotsVertical from "../../../Icons/SolidDotsVertical";
 import SolidPencil from "../../../Icons/SolidPencil";
 import User from "../../../Icons/User";
+import DeleteBinLine from "../../../Icons/DeleteBinLine";
 
 const downloadDataExplainer =
   "Downloads all personal information collected by GeoBuff.";
@@ -22,12 +23,14 @@ export interface Props {
   downloadData?: string[][];
   onUserModalOpen: () => void;
   onAvatarModalOpen: () => void;
+  onDeleteAccountModalOpen: () => void;
 }
 
 const UserProfileSummaryMenu: FC<Props> = ({
+  downloadData = [],
   onUserModalOpen = () => {},
   onAvatarModalOpen = () => {},
-  downloadData = [],
+  onDeleteAccountModalOpen = () => {},
 }) => {
   return (
     <Menu>
@@ -80,6 +83,18 @@ const UserProfileSummaryMenu: FC<Props> = ({
             </Flex>
           </MenuItem>
         )}
+
+        <MenuItem onClick={onDeleteAccountModalOpen}>
+          <Flex alignItems="center" color="red.600">
+            <DeleteBinLine
+              marginTop={0.5}
+              marginRight={1.5}
+              height={4}
+              width={4}
+            />
+            {"Delete Account"}
+          </Flex>
+        </MenuItem>
       </MenuList>
     </Menu>
   );
