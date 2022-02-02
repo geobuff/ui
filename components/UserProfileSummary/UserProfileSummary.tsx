@@ -21,6 +21,7 @@ import Twemoji from "../Twemoji";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
+import DeleteAccountContainer from "../../containers/DeleteAccountContainer";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -69,6 +70,12 @@ const UserProfileSummary: FC<Props> = ({
     onClose: onAvatarModalClose,
   } = useDisclosure();
 
+  const {
+    isOpen: isDeleteAccountModalOpen,
+    onOpen: onDeleteAccountModalOpen,
+    onClose: onDeleteAccountModalClose,
+  } = useDisclosure();
+
   const { countries } = useCountries();
 
   const downloadData = isAppMobile ? [] : [["email"], [email]];
@@ -106,9 +113,10 @@ const UserProfileSummary: FC<Props> = ({
         {isCurrentUser && (
           <Flex justifyContent="flex-end" width="100%">
             <UserProfileSummaryMenu
+              downloadData={downloadData}
               onUserModalOpen={onUserModalOpen}
               onAvatarModalOpen={onAvatarModalOpen}
-              downloadData={downloadData}
+              onDeleteAccountModalOpen={onDeleteAccountModalOpen}
             />
           </Flex>
         )}
@@ -178,6 +186,10 @@ const UserProfileSummary: FC<Props> = ({
       <UpdateUserFormContainer
         isOpen={isUserModalOpen}
         onClose={onUserModalClose}
+      />
+      <DeleteAccountContainer
+        isOpen={isDeleteAccountModalOpen}
+        onClose={onDeleteAccountModalClose}
       />
     </>
   );
