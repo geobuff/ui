@@ -17,18 +17,21 @@ import { Field } from "formik";
 
 import Logo from "../../Logo";
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
+import { EmailIcon } from "@chakra-ui/icons";
 
 const welcomeHelperText =
   "Cheers for your interest in signing up! Let's get started by entering your email and password. These will be used to sign you in.";
 
 export interface Props {
   errors: Record<string, string>;
+  hasSubmittedOnce: boolean;
   values: RegisterFormSubmit;
   isValidating: boolean;
   onCheckEmailValidity: (email: string) => void;
 }
 
 const RegisterFormStepOne: FC<Props> = ({
+  hasSubmittedOnce = false,
   errors = {},
   values = {},
   onCheckEmailValidity = () => {},
@@ -59,8 +62,15 @@ const RegisterFormStepOne: FC<Props> = ({
       <Box marginTop={10} marginBottom={16}>
         <Flex marginY={6}>
           <Field name="email">
-            {({ field, form }): React.ReactNode => (
-              <FormControl isInvalid={form.errors.email && form.touched.email}>
+            {({ field, form }) => (
+              <FormControl
+                isInvalid={
+                  (form.errors.email &&
+                    form.touched.email &&
+                    !hasSubmittedOnce) ||
+                  (form.errors.email && hasSubmittedOnce)
+                }
+              >
                 <FormLabel fontWeight="bold" htmlFor="email">
                   {"Email"}
                 </FormLabel>
