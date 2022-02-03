@@ -18,6 +18,8 @@ import HeroBanner from "../components/HeroBanner";
 import Search from "../Icons/Search";
 import SolidCloseCircle from "../Icons/SolidCloseCircle";
 import QuizList from "../components/QuizList";
+import axiosClient from "../axios";
+import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
 
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
@@ -116,17 +118,25 @@ const Home: FC<AppProps> = ({ pageProps }) => {
 };
 
 export async function getStaticProps() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes`);
-  const quizzes = await res.json();
+  const body: QuizzesFilterDto = {
+    filter: "",
+    page: 0,
+    limit: 100,
+  };
 
-  if (!quizzes) {
+  const { data } = await axiosClient.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/quizzes`,
+    body
+  );
+
+  if (!data) {
     return {
       notFound: true,
     };
   }
 
   return {
-    props: { quizzes },
+    props: { quizzes: data.quizzes },
   };
 }
 

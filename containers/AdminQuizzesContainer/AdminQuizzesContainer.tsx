@@ -1,24 +1,50 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminQuizTable from "../../components/AdminQuizTable";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import useQuizzes from "../../hooks/UseQuizzes";
+import { QuizPageDto } from "../../types/quiz-page-dto";
+import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 
 const AdminQuizzesContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
-  const { quizzes, isLoading } = useQuizzes();
+
+  const [quizPage, setQuizPage] = useState<QuizPageDto>();
+  const [page, setPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    setIsLoading(true);
+    const filter: QuizzesFilterDto = {
+      filter: "",
+      page: page,
+      limit: 10,
+    };
+
+    axiosClient.post(`/quizzes`, filter).then((response) => {
+      setQuizPage(response.data);
+      setIsLoading(false);
+    });
+  }, [page]);
 
   const handleToggleEnabled = (quizId: number): void => {
     setIsSubmitting(true);
     axiosClient
       .put(`/quizzes/enabled/${quizId}`, null, getAuthConfig())
       .then(() => {
-        const quiz = quizzes.find((x) => x.id === quizId);
-        const index = quizzes.indexOf(quiz);
-        quizzes[index].enabled = !quizzes[index].enabled;
+        const quiz = quizPage?.quizzes.find((x) => x.id === quizId);
+        const index = quizPage?.quizzes.indexOf(quiz);
+        quizPage.quizzes[index].enabled = !quizPage.quizzes[index].enabled;
       })
       .finally(() => setIsSubmitting(false));
+  };
+
+  const handlePreviousPage = (): void => {
+    setPage(page - 1);
+  };
+
+  const handleNextPage = (): void => {
+    setPage(page + 1);
   };
 
   if (isLoading) {
@@ -27,9 +53,13 @@ const AdminQuizzesContainer: FC = () => {
 
   return (
     <AdminQuizTable
-      quizzes={quizzes}
+      quizPage={quizPage}
       isSubmitting={isSubmitting}
+      isLoading={isLoading}
+      page={page}
       onToggleEnabled={handleToggleEnabled}
+      onPreviousPage={handlePreviousPage}
+      onNextPage={handleNextPage}
     />
   );
 };
