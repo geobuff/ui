@@ -4,11 +4,13 @@ import {
   AspectRatio,
   Flex,
   Heading,
+  ResponsiveValue,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
+import { use100vh } from "react-div-100vh";
 
 import CustomFlag from "../../CustomFlag";
 import Image from "../../Image";
@@ -69,6 +71,16 @@ const getContentByType = (
   }
 };
 
+type HeaderFontSize = string | ResponsiveValue<string | any>;
+
+const getHeaderFontSize = (
+  isTinyMobile: boolean,
+  isTextQuestion: boolean
+): HeaderFontSize => {
+  if (!isTextQuestion && isTinyMobile) return "lg";
+  return { base: isTextQuestion ? "2xl" : "xl", md: "3xl", lg: "4xl" };
+};
+
 export interface Props {
   text: string;
   type?: TriviaQuestionType;
@@ -87,6 +99,9 @@ const GameTriviaContent: FC<Props> = ({
   imageUrl = "",
 }) => {
   const isMobile = useBreakpointValue({ base: false, md: true });
+  const height = use100vh();
+  const isTinyMobile = height < 625;
+  const isTextQuestion = type === "Text";
 
   const contentNode = getContentByType(
     type,
@@ -96,7 +111,7 @@ const GameTriviaContent: FC<Props> = ({
     imageUrl
   );
 
-  const isTextQuestion = type === "Text";
+  const headerFontSize = getHeaderFontSize(isTinyMobile, isTextQuestion);
 
   if (isMobile === undefined) return null;
 
@@ -114,7 +129,7 @@ const GameTriviaContent: FC<Props> = ({
         color="white"
         marginTop={5}
         marginBottom={{ base: 0, md: 5 }}
-        fontSize={{ base: isTextQuestion ? "2xl" : "xl", md: "3xl" }}
+        fontSize={headerFontSize}
       >
         {text}
       </Heading>
