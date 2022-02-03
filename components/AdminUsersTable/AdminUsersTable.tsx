@@ -95,7 +95,7 @@ const AdminUsersTable: FC<Props> = ({
             ))}
           </Tbody>
         </Table>
-        <Flex marginTop="auto" pt={4}>
+        <Flex marginTop="auto" py={4}>
           <Box marginLeft="auto">
             <Button
               backgroundColor="#F3F3F3"
