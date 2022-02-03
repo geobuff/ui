@@ -17,6 +17,7 @@ const RegisterFormStepOneContainer: FC<Props> = ({
   onNextStep = () => {},
 }) => {
   const [isValidating, setIsValidating] = useState(false);
+  const [hasSubmittedOnce, setHasSubmittedOnce] = useState(false);
 
   const handleCheckEmailValidity = async (email: string) => {
     setIsValidating(true);
@@ -31,12 +32,14 @@ const RegisterFormStepOneContainer: FC<Props> = ({
       setFieldError("email", `An account with email ${email} already exists.`);
     }
 
+    setHasSubmittedOnce(true);
     setIsValidating(false);
   };
 
   return (
     <RegisterFormStepOne
       errors={errors}
+      hasSubmittedOnce={hasSubmittedOnce}
       values={values}
       isValidating={isValidating}
       onCheckEmailValidity={handleCheckEmailValidity}

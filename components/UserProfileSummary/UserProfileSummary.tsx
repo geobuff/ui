@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext, useState } from "react";
 import { getFlagUrl } from "@geobuff/flags";
 import { DateTime } from "luxon";
 import flag from "country-code-emoji";
@@ -21,6 +21,10 @@ import Twemoji from "../Twemoji";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
+import DeleteAccountModal from "../DeleteAccountModal";
+import axiosClient from "../../axios";
+import { useRouter } from "next/router";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -57,6 +61,14 @@ const UserProfileSummary: FC<Props> = ({
   avatarPrimaryImageUrl = "",
   avatarSecondaryImageUrl = "",
 }) => {
+  const router = useRouter();
+  const { user, clearUser, getAuthConfig } = useContext(CurrentUserContext);
+
+  const [isDeleteAccountSubmitting, setIsDeleteAccountSubmitting] = useState(
+    false
+  );
+  const [deleteAccountError, setDeleteAccountError] = useState(false);
+
   const {
     isOpen: isUserModalOpen,
     onOpen: onUserModalOpen,
@@ -68,6 +80,27 @@ const UserProfileSummary: FC<Props> = ({
     onOpen: onAvatarModalOpen,
     onClose: onAvatarModalClose,
   } = useDisclosure();
+
+  const {
+    isOpen: isDeleteAccountModalOpen,
+    onOpen: onDeleteAccountModalOpen,
+    onClose: onDeleteAccountModalClose,
+  } = useDisclosure();
+
+  const handleDeleteAccountSubmit = (): void => {
+    setIsDeleteAccountSubmitting(true);
+    setDeleteAccountError(false);
+
+    axiosClient
+      .delete(`/users/${user?.id}`, getAuthConfig())
+      .then(() => {
+        clearUser();
+        onDeleteAccountModalClose();
+        router.push("/");
+      })
+      .catch(() => setDeleteAccountError(true))
+      .finally(() => setIsDeleteAccountSubmitting(false));
+  };
 
   const { countries } = useCountries();
 
@@ -106,9 +139,10 @@ const UserProfileSummary: FC<Props> = ({
         {isCurrentUser && (
           <Flex justifyContent="flex-end" width="100%">
             <UserProfileSummaryMenu
+              downloadData={downloadData}
               onUserModalOpen={onUserModalOpen}
               onAvatarModalOpen={onAvatarModalOpen}
-              downloadData={downloadData}
+              onDeleteAccountModalOpen={onDeleteAccountModalOpen}
             />
           </Flex>
         )}
@@ -178,6 +212,13 @@ const UserProfileSummary: FC<Props> = ({
       <UpdateUserFormContainer
         isOpen={isUserModalOpen}
         onClose={onUserModalClose}
+      />
+      <DeleteAccountModal
+        isOpen={isDeleteAccountModalOpen}
+        onClose={onDeleteAccountModalClose}
+        onSubmit={handleDeleteAccountSubmit}
+        isSubmitting={isDeleteAccountSubmitting}
+        error={deleteAccountError}
       />
     </>
   );

@@ -5,7 +5,6 @@ import { isMobile } from "react-device-detect";
 import { getFlagUrl } from "@geobuff/flags";
 
 import Image from "../../Image";
-import { CurrentUserContext } from "../../../context/CurrentUserContext";
 import { FlagGameContext } from "../../../context/FlagGameContext";
 
 export interface Props {
