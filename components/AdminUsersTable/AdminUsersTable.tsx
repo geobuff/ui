@@ -42,6 +42,7 @@ const AdminUsersTable: FC<Props> = ({
   return (
     <Flex
       margin={6}
+      padding={12}
       background="white"
       borderRadius={12}
       justifyContent="center"

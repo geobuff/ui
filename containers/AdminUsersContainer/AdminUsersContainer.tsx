@@ -2,9 +2,9 @@ import { useDisclosure } from "@chakra-ui/react";
 import React, { FC, useContext, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminUsersTable from "../../components/AdminUsersTable";
+import DeleteAccountModal from "../../components/DeleteAccountModal";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { UserPageDto } from "../../types/user-page-dto";
-import DeleteAccountContainer from "../DeleteAccountContainer";
 
 const AdminUsersContainer: FC = () => {
   const { user, getAuthConfig } = useContext(CurrentUserContext);
@@ -12,6 +12,8 @@ const AdminUsersContainer: FC = () => {
   const [page, setPage] = useState(0);
   const [userId, setUserId] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState(false);
 
   const {
     isOpen: isDeleteAccountModalOpen,
@@ -27,6 +29,23 @@ const AdminUsersContainer: FC = () => {
       })
       .finally(() => setIsLoading(false));
   }, [page]);
+
+  const handleSubmit = (): void => {
+    setIsSubmitting(true);
+    setError(false);
+
+    axiosClient
+      .delete(`/users/${userId}`, getAuthConfig())
+      .then(() => {
+        setUserPage({
+          ...userPage,
+          users: userPage.users.filter((x) => x.id !== userId),
+        });
+        onDeleteAccountModalClose();
+      })
+      .catch(() => setError(true))
+      .finally(() => setIsSubmitting(false));
+  };
 
   const handleDeleteUser = (userId: number) => {
     setUserId(userId);
@@ -56,11 +75,13 @@ const AdminUsersContainer: FC = () => {
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
       />
-      <DeleteAccountContainer
+      <DeleteAccountModal
         isOpen={isDeleteAccountModalOpen}
+        possessive={"this"}
         onClose={onDeleteAccountModalClose}
-        possessive="this"
-        userId={userId}
+        onSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+        error={error}
       />
     </>
   );
