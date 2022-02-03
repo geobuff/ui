@@ -4,7 +4,6 @@ import axiosClient from "../../axios/axiosClient";
 
 import Leaderboard from "../../components/Leaderboard";
 import { FilterParams } from "../../types/filter-params";
-import { Quiz } from "../../types/quiz";
 import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 
 interface Props {
