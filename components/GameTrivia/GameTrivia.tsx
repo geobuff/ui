@@ -1,6 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 import Head from "next/head";
 import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { use100vh } from "react-div-100vh";
 
 import MainView from "../MainView";
 
@@ -30,6 +31,13 @@ const GameTrivia: FC<Props> = ({
   const [questionNumber, setQuestionNumber] = useState(1);
   const [hasGameStopped, setHasGameStopped] = useState(false);
 
+  const { isNotchedIphone } = useContext(AppContext);
+  const isMobile = useBreakpointValue({ base: true, md: false });
+  const height = use100vh();
+
+  const isLastQuestion = questionNumber === trivia.questions.length;
+  const isTinyMobile = height < 625;
+
   const handleAnswerQuestion = (answer: TriviaAnswer): void => {
     answer.isCorrect && setScore(score + 1);
     setSelectedAnswer(answer);
@@ -57,11 +65,6 @@ const GameTrivia: FC<Props> = ({
     setHasGameStopped(false);
   };
 
-  const isLastQuestion = questionNumber === trivia.questions.length;
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
-  const { isNotchedIphone } = useContext(AppContext);
-
   if (isMobile === undefined) return null;
 
   return (
@@ -77,7 +80,7 @@ const GameTrivia: FC<Props> = ({
             height="100%"
             width="100%"
             maxWidth={1300}
-            padding={5}
+            padding={isTinyMobile ? 4 : 5}
             marginLeft="auto"
             marginRight="auto"
           >
