@@ -9,14 +9,24 @@ import { CurrentUserContext } from "../../context/CurrentUserContext";
 import GameMapQuiz from "../../components/GameMapQuiz";
 import GameFlagQuiz from "../../components/GameFlagQuiz";
 import { FlagGameContextProvider } from "../../context/FlagGameContext";
+import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
+import axiosClient from "../../axios";
 
 const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const getQuizData = async (id: string) => {
-  const quizzesRes = await fetch(`${baseUrl}/quizzes`);
-  const quizzes = await quizzesRes.json();
+  const body: QuizzesFilterDto = {
+    filter: "",
+    page: 0,
+    limit: 100,
+  };
 
-  const matchedQuiz = quizzes.find((x) => x.route === id);
+  const { data } = await axiosClient.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/quizzes`,
+    body
+  );
+
+  const matchedQuiz = data.quizzes.find((x) => x.route === id);
 
   if (matchedQuiz) {
     const quizRes = await fetch(`${baseUrl}/quizzes/${matchedQuiz.id}`);
@@ -130,10 +140,18 @@ export async function getStaticProps({ params }) {
 }
 
 export async function getStaticPaths() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/quizzes`);
-  const quizzes = await res.json();
+  const body: QuizzesFilterDto = {
+    filter: "",
+    page: 0,
+    limit: 100,
+  };
 
-  const paths = quizzes.map((quiz) => ({
+  const { data } = await axiosClient.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/quizzes`,
+    body
+  );
+
+  const paths = data.quizzes.map((quiz) => ({
     params: {
       id: quiz.route,
     },
