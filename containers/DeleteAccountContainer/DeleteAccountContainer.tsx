@@ -8,11 +8,15 @@ import { useRouter } from "next/router";
 interface Props {
   isOpen?: boolean;
   onClose?: () => void;
+  userId?: number;
+  possessive?: string;
 }
 
-const UpdateUserFormContainer: FC<Props> = ({
+const DeleteAccountContainer: FC<Props> = ({
   isOpen = false,
   onClose = (): void => {},
+  userId = 0,
+  possessive = "",
 }) => {
   const router = useRouter();
   const { user, clearUser, getAuthConfig } = useContext(CurrentUserContext);
@@ -24,11 +28,14 @@ const UpdateUserFormContainer: FC<Props> = ({
     setError(false);
 
     axiosClient
-      .delete(`/users/${user.id}`, getAuthConfig())
+      .delete(`/users/${userId}`, getAuthConfig())
       .then(() => {
-        clearUser();
+        if (userId === user?.id) {
+          clearUser();
+          router.push("/");
+        }
+
         onClose();
-        router.push("/");
       })
       .catch(() => setError(true))
       .finally(() => setIsSubmitting(false));
@@ -37,6 +44,7 @@ const UpdateUserFormContainer: FC<Props> = ({
   return (
     <DeleteAccountModal
       isOpen={isOpen}
+      possessive={possessive ? possessive : null}
       onClose={onClose}
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
@@ -45,4 +53,4 @@ const UpdateUserFormContainer: FC<Props> = ({
   );
 };
 
-export default UpdateUserFormContainer;
+export default DeleteAccountContainer;

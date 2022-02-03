@@ -44,7 +44,7 @@ const DeleteAccountModal: FC<Props> = ({
             Error deleting user. Please refresh page and try again.
           </Alert>
         )}
-        <Text>{`Are you sure you want to delete ${possessive} account? You will not be able to recover any of your data once this action is complete.`}</Text>
+        <Text>{`Are you sure you want to delete ${possessive} account? You will not be able to recover any of the data once this action is complete.`}</Text>
       </Box>
     </Modal>
   );

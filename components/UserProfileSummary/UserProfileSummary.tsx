@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { getFlagUrl } from "@geobuff/flags";
 import { DateTime } from "luxon";
 import flag from "country-code-emoji";
@@ -22,6 +22,7 @@ import FlagFallback from "../ResultsListItem/FlagFallback";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 import DeleteAccountContainer from "../../containers/DeleteAccountContainer";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -58,6 +59,8 @@ const UserProfileSummary: FC<Props> = ({
   avatarPrimaryImageUrl = "",
   avatarSecondaryImageUrl = "",
 }) => {
+  const { user } = useContext(CurrentUserContext);
+
   const {
     isOpen: isUserModalOpen,
     onOpen: onUserModalOpen,
@@ -190,6 +193,7 @@ const UserProfileSummary: FC<Props> = ({
       <DeleteAccountContainer
         isOpen={isDeleteAccountModalOpen}
         onClose={onDeleteAccountModalClose}
+        userId={user?.id}
       />
     </>
   );
