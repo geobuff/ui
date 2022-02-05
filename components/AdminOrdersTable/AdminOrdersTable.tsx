@@ -25,8 +25,8 @@ export interface Props {
   statusId?: number;
   isLoading?: boolean;
   isSubmitting?: boolean;
-  onProgressToShipped?: (orderId: number) => void;
-  onDeleteOrder?: (orderId: number) => void;
+  onProgressClick?: (orderId: number) => void;
+  onDeleteClick?: (orderId: number) => void;
   onStatusChange?: (statusId: number) => void;
   onNextPage?: () => void;
   onPreviousPage?: () => void;
@@ -38,8 +38,8 @@ const AdminOrdersTable: FC<Props> = ({
   statusId = 0,
   isLoading = false,
   isSubmitting = false,
-  onProgressToShipped = (orderId: number): void => {},
-  onDeleteOrder = (orderId: number): void => {},
+  onProgressClick = (orderId: number): void => {},
+  onDeleteClick = (orderId: number): void => {},
   onStatusChange = (statusId: number): void => {},
   onNextPage = (): void => {},
   onPreviousPage = (): void => {},
@@ -53,7 +53,7 @@ const AdminOrdersTable: FC<Props> = ({
           <Button
             colorScheme="red"
             disabled={isSubmitting || isLoading}
-            onClick={() => onDeleteOrder(orderId)}
+            onClick={() => onDeleteClick(orderId)}
           >
             DELETE
           </Button>
@@ -63,7 +63,7 @@ const AdminOrdersTable: FC<Props> = ({
           <Button
             colorScheme="blue"
             disabled={isSubmitting || isLoading}
-            onClick={() => onProgressToShipped(orderId)}
+            onClick={() => onProgressClick(orderId)}
           >
             PROGRESS
           </Button>
