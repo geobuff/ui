@@ -17,6 +17,7 @@ import TableCell from "../TableCell";
 import { getFlagUrl } from "@geobuff/flags";
 import ArrowRight from "../../Icons/ArrowRight";
 import ArrowLeft from "../../Icons/ArrowLeft";
+import AdminUsersTablePlaceholder from "../../placeholders/AdminUsersTablePlaceholder";
 
 export interface Props {
   currentUserId?: number;
@@ -48,53 +49,57 @@ const AdminUsersTable: FC<Props> = ({
       justifyContent="center"
     >
       <Box overflow="auto" margin={6}>
-        <Table size="md" variant="striped" colorscheme="gray">
-          <Thead>
-            <Tr>
-              <Th textAlign="left">{"USERNAME"} </Th>
-              <Th textAlign="left">{"EMAIL"}</Th>
-              <Th textAlign="left">{"COUNTRY"}</Th>
-              <Th textAlign="left">{"AVATAR"}</Th>
-              <Th textAlign="left">{"JOINED"}</Th>
-              <Th>{""}</Th>
-            </Tr>
-          </Thead>
-
-          <Tbody>
-            {userPage?.users.map((user, index) => (
-              <Tr key={index} fontWeight={600}>
-                <TableCell paddingY={3} paddingX={6}>
-                  {user.username}
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  {user.email}
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  <Box marginRight={4}>
-                    <CustomFlag url={getFlagUrl(user.countryCode)} />
-                  </Box>
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  {user.avatarName}
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  {DateTime.fromISO(user.joined).toLocaleString(
-                    DateTime.DATE_MED
-                  )}
-                </TableCell>
-                <TableCell isNumeric paddingY={3} paddingX={6}>
-                  <Button
-                    colorScheme="red"
-                    onClick={() => onDeleteUser(user.id)}
-                    disabled={user.id === currentUserId}
-                  >
-                    DELETE
-                  </Button>
-                </TableCell>
+        {isLoading ? (
+          <AdminUsersTablePlaceholder />
+        ) : (
+          <Table size="md" variant="striped" colorscheme="gray">
+            <Thead>
+              <Tr>
+                <Th textAlign="left">{"USERNAME"} </Th>
+                <Th textAlign="left">{"EMAIL"}</Th>
+                <Th textAlign="left">{"COUNTRY"}</Th>
+                <Th textAlign="left">{"AVATAR"}</Th>
+                <Th textAlign="left">{"JOINED"}</Th>
+                <Th>{""}</Th>
               </Tr>
-            ))}
-          </Tbody>
-        </Table>
+            </Thead>
+
+            <Tbody>
+              {userPage?.users.map((user, index) => (
+                <Tr key={index} fontWeight={600}>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {user.username}
+                  </TableCell>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {user.email}
+                  </TableCell>
+                  <TableCell paddingY={3} paddingX={6}>
+                    <Box marginRight={4}>
+                      <CustomFlag url={getFlagUrl(user.countryCode)} />
+                    </Box>
+                  </TableCell>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {user.avatarName}
+                  </TableCell>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {DateTime.fromISO(user.joined).toLocaleString(
+                      DateTime.DATE_MED
+                    )}
+                  </TableCell>
+                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                    <Button
+                      colorScheme="red"
+                      onClick={() => onDeleteUser(user.id)}
+                      disabled={user.id === currentUserId}
+                    >
+                      DELETE
+                    </Button>
+                  </TableCell>
+                </Tr>
+              ))}
+            </Tbody>
+          </Table>
+        )}
         <Flex marginTop="auto" py={4}>
           <Box marginLeft="auto">
             <Button

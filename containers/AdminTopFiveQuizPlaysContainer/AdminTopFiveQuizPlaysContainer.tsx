@@ -3,6 +3,7 @@ import axiosClient from "../../axios";
 import AdminTopFiveQuizPlays from "../../components/AdminTopFiveQuizPlays";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { getQuizPlaysData } from "../../helpers/charts";
+import AdminTopFiveQuizPlaysPlaceholder from "../../placeholders/AdminTopFiveQuizPlaysPlaceholder";
 
 const AdminTopFiveQuizPlaysContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
@@ -19,7 +20,7 @@ const AdminTopFiveQuizPlaysContainer: FC = () => {
   }, [getAuthConfig]);
 
   if (isLoading) {
-    return null;
+    return <AdminTopFiveQuizPlaysPlaceholder />;
   }
 
   return <AdminTopFiveQuizPlays data={getQuizPlaysData(quizPlays)} />;

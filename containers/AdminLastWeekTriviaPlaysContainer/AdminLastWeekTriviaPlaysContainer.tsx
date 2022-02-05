@@ -3,6 +3,7 @@ import axiosClient from "../../axios";
 import AdminLastWeekTriviaPlays from "../../components/AdminLastWeekTriviaPlays";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { getTriviaPlaysData } from "../../helpers/charts";
+import AdminLastWeekTriviaPlaysPlaceholder from "../../placeholders/AdminLastWeekTriviaPlaysPlaceholder";
 
 const AdminLastWeekTriviaPlaysContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
@@ -19,7 +20,7 @@ const AdminLastWeekTriviaPlaysContainer: FC = () => {
   }, [getAuthConfig]);
 
   if (isLoading) {
-    return null;
+    return <AdminLastWeekTriviaPlaysPlaceholder />;
   }
 
   return <AdminLastWeekTriviaPlays data={getTriviaPlaysData(triviaPlays)} />;
