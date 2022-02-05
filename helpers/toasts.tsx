@@ -63,3 +63,27 @@ export const addedToCart = (
   duration: 9000,
   isClosable: true,
 });
+
+export const createTriviaToast = (
+  date: string,
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Created Trivia",
+  description: `Successfully created trivia for ${date}.`,
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});
+
+export const deployUIToast = (
+  environment: string,
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Deploy UI",
+  description: `Successfully deployed ${environment} UI.`,
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});

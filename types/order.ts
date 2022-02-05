@@ -3,6 +3,7 @@ import { NullString } from "./null-string";
 export interface Order {
   id: number;
   items: OrderItem[];
+  statusId: number;
   status: string;
   firstName: string;
   lastName: string;

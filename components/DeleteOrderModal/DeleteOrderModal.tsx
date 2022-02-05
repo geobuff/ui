@@ -4,16 +4,14 @@ import Modal from "../Modal";
 
 export interface Props {
   isOpen?: boolean;
-  possessive?: string;
   isSubmitting?: boolean;
   error?: boolean;
   onClose?: () => void;
   onSubmit?: () => void;
 }
 
-const DeleteAccountModal: FC<Props> = ({
+const DeleteOrderModal: FC<Props> = ({
   isOpen = false,
-  possessive = "your",
   isSubmitting = false,
   error = false,
   onClose = (): void => {},
@@ -39,20 +37,20 @@ const DeleteAccountModal: FC<Props> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      header="Delete Account"
+      header="Delete Order"
       footer={footer}
     >
       <Box paddingX={6}>
         {error && (
           <Alert status="error" borderRadius={6} marginBottom={3}>
             <AlertIcon />
-            Error deleting user. Please refresh page and try again.
+            Error deleting order. Please refresh page and try again.
           </Alert>
         )}
-        <Text>{`Are you sure you want to delete ${possessive} account? You will not be able to recover any of the data once this action is complete.`}</Text>
+        <Text>{`Are you sure you want to delete this order?`}</Text>
       </Box>
     </Modal>
   );
 };
 
-export default DeleteAccountModal;
+export default DeleteOrderModal;

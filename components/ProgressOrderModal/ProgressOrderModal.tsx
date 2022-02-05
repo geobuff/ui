@@ -4,16 +4,18 @@ import Modal from "../Modal";
 
 export interface Props {
   isOpen?: boolean;
-  possessive?: string;
+  previous?: string;
+  next?: string;
   isSubmitting?: boolean;
   error?: boolean;
   onClose?: () => void;
   onSubmit?: () => void;
 }
 
-const DeleteAccountModal: FC<Props> = ({
+const ProgressOrderModal: FC<Props> = ({
   isOpen = false,
-  possessive = "your",
+  previous = "",
+  next = "",
   isSubmitting = false,
   error = false,
   onClose = (): void => {},
@@ -25,12 +27,12 @@ const DeleteAccountModal: FC<Props> = ({
         Cancel
       </Button>
       <Button
-        colorScheme="red"
+        colorScheme="green"
         onClick={onSubmit}
         disabled={isSubmitting}
         ml={3}
       >
-        Delete
+        Submit
       </Button>
     </>
   );
@@ -39,20 +41,20 @@ const DeleteAccountModal: FC<Props> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      header="Delete Account"
+      header="Progress Order"
       footer={footer}
     >
       <Box paddingX={6}>
         {error && (
           <Alert status="error" borderRadius={6} marginBottom={3}>
             <AlertIcon />
-            Error deleting user. Please refresh page and try again.
+            Error updating order. Please refresh page and try again.
           </Alert>
         )}
-        <Text>{`Are you sure you want to delete ${possessive} account? You will not be able to recover any of the data once this action is complete.`}</Text>
+        <Text>{`Are you sure you want to progress this order from ${previous} to ${next}?`}</Text>
       </Box>
     </Modal>
   );
 };
 
-export default DeleteAccountModal;
+export default ProgressOrderModal;
