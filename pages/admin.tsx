@@ -18,6 +18,7 @@ import AdminLastWeekTriviaPlaysContainer from "../containers/AdminLastWeekTrivia
 import AdminQuizzesContainer from "../containers/AdminQuizzesContainer";
 import AdminOrdersContainer from "../containers/AdminOrdersContainer";
 import AdminDiscountsContainer from "../containers/AdminDiscountsContainer";
+import AdminGeneralContainer from "../containers/AdminGeneralContainer";
 
 const Admin: FC = () => (
   <>
@@ -27,6 +28,7 @@ const Admin: FC = () => (
     <MainView>
       <Tabs>
         <TabList>
+          <Tab>General</Tab>
           <Tab>Users</Tab>
           <Tab>Quizzes</Tab>
           <Tab>Trivia</Tab>
@@ -34,6 +36,18 @@ const Admin: FC = () => (
         </TabList>
 
         <TabPanels>
+          <TabPanel>
+            <Flex justifyContent="center">
+              <Flex
+                direction="column"
+                height="100%"
+                width="100%"
+                maxWidth={1300}
+              >
+                <AdminGeneralContainer />
+              </Flex>
+            </Flex>
+          </TabPanel>
           <TabPanel>
             <Flex justifyContent="center">
               <Flex
