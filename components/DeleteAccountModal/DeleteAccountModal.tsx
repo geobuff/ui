@@ -21,11 +21,16 @@ const DeleteAccountModal: FC<Props> = ({
 }) => {
   const footer = (
     <>
-      <Button colorScheme="red" onClick={onSubmit} disabled={isSubmitting}>
-        Delete
-      </Button>
-      <Button onClick={onClose} disabled={isSubmitting} ml={3}>
+      <Button onClick={onClose} disabled={isSubmitting}>
         Cancel
+      </Button>
+      <Button
+        colorScheme="red"
+        onClick={onSubmit}
+        disabled={isSubmitting}
+        ml={3}
+      >
+        Delete
       </Button>
     </>
   );

@@ -1,15 +1,33 @@
 import React, { FC, useContext, useEffect, useState } from "react";
-import { Order } from "../../types/order";
 import axiosClient from "../../axios";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import AdminOrdersTable from "../../components/AdminOrdersTable";
 import { OrderStatuses } from "../../types/order-statuses";
+import { OrderPageDto } from "../../types/order-page-dto";
+import { OrdersFilterDto } from "../../types/orders-filter-dto";
 
 const AdminOrdersContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
-  const [orders, setOrders] = useState<Order[]>();
+  const [orderPage, setOrderPage] = useState<OrderPageDto>();
+  const [page, setPage] = useState(0);
+  const [statusId, setStatusId] = useState(OrderStatuses.PENDING);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    const payload: OrdersFilterDto = {
+      statusId,
+      page,
+      limit: 10,
+    };
+
+    axiosClient
+      .post(`/orders`, payload, getAuthConfig())
+      .then((response) => {
+        setOrderPage(response.data);
+      })
+      .finally(() => setIsLoading(false));
+  }, [page, statusId]);
 
   const handleProgressToShipped = (orderId: number): void => {
     setIsSubmitting(true);
@@ -18,32 +36,55 @@ const AdminOrdersContainer: FC = () => {
     axiosClient
       .put(`/orders/status/${orderId}`, payload, getAuthConfig())
       .then(() => {
-        const order = orders.find((x) => x.id === orderId);
-        const index = orders.indexOf(order);
-        const updated = orders.splice(index, 1);
-        setOrders(updated);
+        setOrderPage({
+          ...orderPage,
+          orders: orderPage.orders.filter((x) => x.id === orderId),
+        });
       })
       .finally(() => setIsSubmitting(false));
   };
 
-  useEffect(() => {
+  const handleDeleteOrder = (orderId: number): void => {
+    setIsSubmitting(true);
     axiosClient
-      .get(`/orders/${OrderStatuses.PAYMENT_RECEIVED}`, getAuthConfig())
-      .then((response) => {
-        setOrders(response.data);
+      .delete(`/orders/${orderId}`, getAuthConfig())
+      .then(() => {
+        setOrderPage({
+          ...orderPage,
+          orders: orderPage.orders.filter((x) => x.id === orderId),
+        });
       })
-      .finally(() => setIsLoading(false));
-  }, [getAuthConfig]);
+      .finally(() => setIsSubmitting(false));
+  };
 
-  if (isLoading) {
-    return null;
-  }
+  const handleStatusChange = (statusId: number): void => {
+    setStatusId(statusId);
+  };
+
+  const handlePreviousPage = (): void => {
+    setIsLoading(true);
+    setPage(page - 1);
+    setIsLoading(false);
+  };
+
+  const handleNextPage = (): void => {
+    setIsLoading(true);
+    setPage(page + 1);
+    setIsLoading(false);
+  };
 
   return (
     <AdminOrdersTable
-      orders={orders}
+      orderPage={orderPage}
+      page={page}
+      statusId={statusId}
+      isLoading={isLoading}
       isSubmitting={isSubmitting}
       onProgressToShipped={handleProgressToShipped}
+      onDeleteOrder={handleDeleteOrder}
+      onStatusChange={handleStatusChange}
+      onNextPage={handleNextPage}
+      onPreviousPage={handlePreviousPage}
     />
   );
 };

@@ -9,7 +9,7 @@ const Canceled: FC = () => {
 
   useEffect(() => {
     const email = router.query.email as string;
-    axiosClient.delete(`/orders/${email}`).finally(() => {
+    axiosClient.delete(`/orders/email/${email}`).finally(() => {
       setIsLoading(false);
       setTimeout(() => {
         router.push("/shopping-cart");
