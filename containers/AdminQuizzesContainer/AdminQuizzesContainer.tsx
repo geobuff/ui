@@ -40,16 +40,16 @@ const AdminQuizzesContainer: FC = () => {
   };
 
   const handlePreviousPage = (): void => {
+    setIsLoading(true);
     setPage(page - 1);
+    setIsLoading(false);
   };
 
   const handleNextPage = (): void => {
+    setIsLoading(true);
     setPage(page + 1);
+    setIsLoading(false);
   };
-
-  if (isLoading) {
-    return null;
-  }
 
   return (
     <AdminQuizTable

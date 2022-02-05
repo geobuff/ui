@@ -14,6 +14,7 @@ import {
   Skeleton,
   SkeletonCircle,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
 import Image from "../Image";
@@ -27,6 +28,7 @@ interface Props {
 }
 
 const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
   const { user, isLoading, clearUser } = useContext(CurrentUserContext);
   const router = useRouter();
 
@@ -125,7 +127,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
         </MenuButton>
 
         <MenuList>
-          {user.isAdmin && (
+          {!isMobile && user.isAdmin && (
             <>
               <MenuItem onClick={(): Promise<boolean> => router.push(`/admin`)}>
                 <Twemoji emoji="👑" width={5} mr={2} /> {"Admin Dashboard"}
