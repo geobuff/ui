@@ -21,7 +21,7 @@ const AdminQuizzesContainer: FC = () => {
       limit: 10,
     };
 
-    axiosClient.post(`/quizzes`, filter).then((response) => {
+    axiosClient.post(`/quizzes/all`, filter).then((response) => {
       setQuizPage(response.data);
       setIsLoading(false);
     });

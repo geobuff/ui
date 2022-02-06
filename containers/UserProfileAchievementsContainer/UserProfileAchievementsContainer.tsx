@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 
 import UserProfileAchievements from "../../components/UserProfileAchievements";
-import useBadges from "../../hooks/UseBadges";
+import useBadges from "../../hooks/UseUserBadges";
 import UserProfileAchievementsPlaceholder from "../../placeholders/UserProfileAchievementsPlaceholder";
 
 interface Props {

@@ -19,6 +19,7 @@ import AdminQuizzesContainer from "../containers/AdminQuizzesContainer";
 import AdminOrdersContainer from "../containers/AdminOrdersContainer";
 import AdminDiscountsContainer from "../containers/AdminDiscountsContainer";
 import AdminGeneralContainer from "../containers/AdminGeneralContainer";
+import AdminCreateQuizContainer from "../containers/AdminCreateQuizContainer";
 
 const Admin: FC = () => (
   <>
@@ -71,6 +72,7 @@ const Admin: FC = () => (
               >
                 <AdminTopFiveQuizPlaysContainer />
                 <AdminQuizzesContainer />
+                <AdminCreateQuizContainer />
               </Flex>
             </Flex>
           </TabPanel>
