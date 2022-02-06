@@ -96,7 +96,7 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
             hasGrouping={quiz?.hasGrouping}
           />
         );
-      case QuizType.FLAG:
+      case QuizTypes.FLAG:
         return (
           <FlagGameContextProvider>
             <GameFlagQuiz
