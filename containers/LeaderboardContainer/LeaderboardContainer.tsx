@@ -59,7 +59,7 @@ const LeaderboardContainer: FC<Props> = ({
       limit: 100,
     };
 
-    axiosClient.post(`/quizzes`, body).then((response) => {
+    axiosClient.post(`/quizzes/all`, body).then((response) => {
       setQuizzes(response.data.quizzes);
       setIsLoadingQuizzes(false);
     });

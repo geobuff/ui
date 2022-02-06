@@ -3,17 +3,17 @@ import { fetcher } from "../helpers/fetcher";
 import { Badge } from "../types/badge";
 
 interface Result {
-  data: Badge[];
+  badges: Badge[];
   isLoading: boolean;
 }
 
-const useBadges = (): Result => {
-  const { data } = useSWR(`/badges`, fetcher);
+const useUserBadges = (userId: number): Result => {
+  const { data } = useSWR(`/badges/${userId}`, fetcher);
 
   return {
-    data: data ?? [],
+    badges: data ?? [],
     isLoading: !data,
   };
 };
 
-export default useBadges;
+export default useUserBadges;

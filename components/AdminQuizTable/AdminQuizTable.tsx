@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 
 import TableCell from "../TableCell";
-import { QuizType } from "../../types/quiz-type";
+import { QuizTypes } from "../../types/quiz-types";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import ArrowRight from "../../Icons/ArrowRight";
 import { QuizPageDto } from "../../types/quiz-page-dto";
@@ -20,9 +20,9 @@ import AdminQuizTablePlaceholder from "../../placeholders/AdminQuizTablePlacehol
 
 const getType = (typeId: number): string => {
   switch (typeId) {
-    case QuizType.MAP:
+    case QuizTypes.MAP:
       return "Map";
-    case QuizType.FLAG:
+    case QuizTypes.FLAG:
       return "Flag";
     default:
       return "Unknown";

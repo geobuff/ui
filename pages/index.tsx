@@ -125,7 +125,7 @@ export async function getStaticProps() {
   };
 
   const { data } = await axiosClient.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/quizzes`,
+    `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
     body
   );
 

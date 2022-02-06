@@ -18,7 +18,7 @@ import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 import ResultsList from "../ResultsList";
 import GameInputCardScore from "./GameInputCardScore/GameInputCardScore";
 import GameInputCardTimer from "./GameInputCardTimer/GameInputCardTimer";
-import { QuizType } from "../../types/quiz-type";
+import { QuizTypes } from "../../types/quiz-types";
 import { Result } from "../../types/result";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 
@@ -66,7 +66,7 @@ const GameInputCard: FC<Props> = ({
   onGameStop = (): void => {},
 }) => {
   const inputRef = createRef<HTMLInputElement>();
-  const isFlagGame = typeId === QuizType.FLAG;
+  const isFlagGame = typeId === QuizTypes.FLAG;
 
   useEffect(() => {
     if (!isFlagGame && hasGameStarted) {
