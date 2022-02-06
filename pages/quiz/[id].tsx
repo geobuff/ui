@@ -4,7 +4,7 @@ import * as Maps from "@geobuff/svg-maps";
 
 import MainView from "../../components/MainView";
 
-import { QuizType } from "../../types/quiz-type";
+import { QuizTypes } from "../../types/quiz-types";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import GameMapQuiz from "../../components/GameMapQuiz";
 import GameFlagQuiz from "../../components/GameFlagQuiz";
@@ -22,7 +22,7 @@ const getQuizData = async (id: string) => {
   };
 
   const { data } = await axiosClient.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/quizzes`,
+    `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
     body
   );
 
@@ -79,7 +79,7 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
 
   const getQuizComponent = (): React.ReactNode => {
     switch (quiz.typeId) {
-      case QuizType.MAP:
+      case QuizTypes.MAP:
         return (
           <GameMapQuiz
             time={quiz?.time}
@@ -96,7 +96,7 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
             hasGrouping={quiz?.hasGrouping}
           />
         );
-      case QuizType.FLAG:
+      case QuizTypes.FLAG:
         return (
           <FlagGameContextProvider>
             <GameFlagQuiz
@@ -147,7 +147,7 @@ export async function getStaticPaths() {
   };
 
   const { data } = await axiosClient.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/quizzes`,
+    `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
     body
   );
 

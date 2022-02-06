@@ -3,6 +3,7 @@ import axiosClient from "../../axios";
 import AdminUserCount from "../../components/AdminUserCount";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { getTotalUsersData } from "../../helpers/charts";
+import AdminUserCountPlaceholder from "../../placeholders/AdminUserCountPlaceholder";
 import { TotalUserDto } from "../../types/total-users-dto";
 
 const AdminTotalUserCountContainer: FC = () => {
@@ -20,7 +21,7 @@ const AdminTotalUserCountContainer: FC = () => {
   }, [getAuthConfig]);
 
   if (isLoading) {
-    return null;
+    return <AdminUserCountPlaceholder />;
   }
 
   return <AdminUserCount data={getTotalUsersData(usersCount)} />;

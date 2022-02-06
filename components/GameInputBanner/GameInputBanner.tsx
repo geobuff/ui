@@ -17,7 +17,7 @@ import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 import GameInputBannerTimer from "./GameInputBannerTimer/GameInputBannerTimer";
 import GameInputBannerError from "./GameInputBannerError/GameInputBannerError";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
-import { QuizType } from "../../types/quiz-type";
+import { QuizTypes } from "../../types/quiz-types";
 
 export interface Props {
   typeId?: number;
@@ -50,7 +50,7 @@ const GameInputBanner: FC<Props> = ({
   onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {},
   onClearInput = (): void => {},
 }) => {
-  const isFlagGame = typeId === QuizType.FLAG;
+  const isFlagGame = typeId === QuizTypes.FLAG;
   const inputRef = createRef<HTMLInputElement>();
 
   useEffect(() => {

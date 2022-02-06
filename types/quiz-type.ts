@@ -1,4 +1,4 @@
-export enum QuizType {
-  MAP = 1,
-  FLAG,
+export interface QuizType {
+  id: number;
+  name: string;
 }

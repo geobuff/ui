@@ -21,7 +21,7 @@ const AdminQuizzesContainer: FC = () => {
       limit: 10,
     };
 
-    axiosClient.post(`/quizzes`, filter).then((response) => {
+    axiosClient.post(`/quizzes/all`, filter).then((response) => {
       setQuizPage(response.data);
       setIsLoading(false);
     });
@@ -40,16 +40,16 @@ const AdminQuizzesContainer: FC = () => {
   };
 
   const handlePreviousPage = (): void => {
+    setIsLoading(true);
     setPage(page - 1);
+    setIsLoading(false);
   };
 
   const handleNextPage = (): void => {
+    setIsLoading(true);
     setPage(page + 1);
+    setIsLoading(false);
   };
-
-  if (isLoading) {
-    return null;
-  }
 
   return (
     <AdminQuizTable

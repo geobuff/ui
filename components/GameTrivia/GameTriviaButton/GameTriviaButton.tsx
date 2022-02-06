@@ -8,7 +8,6 @@ const getStylesByStatus = (status: TriviaButtonStatus) => {
   switch (status) {
     case "correct":
       return {
-        fontWeight: "bold",
         backgroundColor: "green.500",
         boxShadow: "0px 0px 8px 3px rgba(39, 174, 96, 0.5);",
         _hover: {
@@ -25,7 +24,6 @@ const getStylesByStatus = (status: TriviaButtonStatus) => {
       };
     case "outlined":
       return {
-        fontWeight: "bold",
         boxShadow:
           "inset 0px 0px 0px 2px #27ae60, 0px 0px 8px 3px rgb(39 174 96 / 50%)",
         _hover: {},
@@ -40,12 +38,14 @@ export type TriviaButtonStatus = "correct" | "incorrect" | "outlined" | "idle";
 
 export interface Props extends ButtonProps {
   text: string | number;
+  isCondensed: boolean;
   status?: TriviaButtonStatus;
   flagCode?: string;
 }
 
 const GameTriviaButton: FC<Props> = ({
   flagCode,
+  isCondensed = false,
   status = "idle",
   text,
   ...props
@@ -54,7 +54,7 @@ const GameTriviaButton: FC<Props> = ({
 
   return (
     <Button
-      paddingY={{ base: 6, md: 8 }}
+      paddingY={isCondensed ? 2 : { base: 6, md: 8 }}
       paddingX={{ base: 5, md: 6 }}
       backgroundColor="#236175"
       borderRadius={12}

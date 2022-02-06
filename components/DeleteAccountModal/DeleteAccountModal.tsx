@@ -21,11 +21,16 @@ const DeleteAccountModal: FC<Props> = ({
 }) => {
   const footer = (
     <>
-      <Button colorScheme="red" onClick={onSubmit} disabled={isSubmitting}>
-        Delete
-      </Button>
-      <Button onClick={onClose} disabled={isSubmitting} ml={3}>
+      <Button onClick={onClose} disabled={isSubmitting}>
         Cancel
+      </Button>
+      <Button
+        colorScheme="red"
+        onClick={onSubmit}
+        disabled={isSubmitting}
+        ml={3}
+      >
+        Delete
       </Button>
     </>
   );
@@ -39,7 +44,7 @@ const DeleteAccountModal: FC<Props> = ({
     >
       <Box paddingX={6}>
         {error && (
-          <Alert status="error" borderRadius={6}>
+          <Alert status="error" borderRadius={6} marginBottom={3}>
             <AlertIcon />
             Error deleting user. Please refresh page and try again.
           </Alert>

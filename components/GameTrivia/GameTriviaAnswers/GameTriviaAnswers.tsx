@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { Button, Fade, Flex, SimpleGrid } from "@chakra-ui/react";
+import { use100vh } from "react-div-100vh";
 
 import ArrowRight from "../../../Icons/ArrowRight";
 import GameTriviaButton from "../GameTriviaButton";
@@ -39,6 +40,9 @@ const GameTriviaAnswers: FC<Props> = ({
   onNextQuestion = () => {},
   onGameStop = () => {},
 }) => {
+  const height = use100vh();
+  const isTinyMobile = height < 625;
+
   return (
     <Flex direction="column" marginTop="auto" width="100%">
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 2, md: 4 }}>
@@ -51,6 +55,7 @@ const GameTriviaAnswers: FC<Props> = ({
             key={answer?.text}
             text={answer.text}
             flagCode={answer?.flagCode}
+            isCondensed={isTinyMobile}
             onClick={() => onAnswerQuestion(answer)}
             isDisabled={hasAnswered}
             _disabled={{ opacity: "1", cursor: "not-allowed" }}
@@ -70,6 +75,8 @@ const GameTriviaAnswers: FC<Props> = ({
             color="white"
             fontSize={{ base: "sm", md: "md" }}
             marginTop={5}
+            paddingY={2}
+            height={isTinyMobile ? "32px" : "40px"}
             marginRight={{ base: 0, md: 1 }}
             rightIcon={<ArrowRight strokeWidth={"20px"} />}
             iconSpacing={1}

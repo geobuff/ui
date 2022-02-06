@@ -1,50 +1,144 @@
 import React, { FC, useContext, useEffect, useState } from "react";
-import { Order } from "../../types/order";
 import axiosClient from "../../axios";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import AdminOrdersTable from "../../components/AdminOrdersTable";
 import { OrderStatuses } from "../../types/order-statuses";
+import { OrderPageDto } from "../../types/order-page-dto";
+import { OrdersFilterDto } from "../../types/orders-filter-dto";
+import DeleteOrderModal from "../../components/DeleteOrderModal";
+import ProgressOrderModal from "../../components/ProgressOrderModal";
+import { useDisclosure } from "@chakra-ui/react";
 
 const AdminOrdersContainer: FC = () => {
+  const {
+    isOpen: isDeleteOrderModalOpen,
+    onOpen: onDeleteOrderModalOpen,
+    onClose: onDeleteOrderModalClose,
+  } = useDisclosure();
+
+  const {
+    isOpen: isProgressOrderModalOpen,
+    onOpen: onProgressOrderModalOpen,
+    onClose: onProgressOrderModalClose,
+  } = useDisclosure();
+
   const { getAuthConfig } = useContext(CurrentUserContext);
-  const [orders, setOrders] = useState<Order[]>();
+  const [orderPage, setOrderPage] = useState<OrderPageDto>();
+  const [page, setPage] = useState(0);
+  const [statusId, setStatusId] = useState(OrderStatuses.PENDING);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [orderId, setOrderId] = useState(0);
+  const [error, setError] = useState(false);
 
-  const handleProgressToShipped = (orderId: number): void => {
+  useEffect(() => {
+    const payload: OrdersFilterDto = {
+      statusId,
+      page,
+      limit: 10,
+    };
+
+    axiosClient
+      .post(`/orders`, payload, getAuthConfig())
+      .then((response) => {
+        setOrderPage(response.data);
+      })
+      .finally(() => setIsLoading(false));
+  }, [page, statusId]);
+
+  const handleProgressToShipped = (): void => {
+    setError(false);
     setIsSubmitting(true);
     const payload = { statusId: OrderStatuses.SHIPPED };
 
     axiosClient
       .put(`/orders/status/${orderId}`, payload, getAuthConfig())
       .then(() => {
-        const order = orders.find((x) => x.id === orderId);
-        const index = orders.indexOf(order);
-        const updated = orders.splice(index, 1);
-        setOrders(updated);
+        setOrderPage({
+          ...orderPage,
+          orders: orderPage.orders.filter((x) => x.id !== orderId),
+        });
+        onProgressOrderModalClose();
       })
+      .catch(() => setError(true))
       .finally(() => setIsSubmitting(false));
   };
 
-  useEffect(() => {
+  const handleDeleteOrder = (): void => {
+    setError(false);
+    setIsSubmitting(true);
     axiosClient
-      .get(`/orders/${OrderStatuses.PAYMENT_RECEIVED}`, getAuthConfig())
-      .then((response) => {
-        setOrders(response.data);
+      .delete(`/orders/${orderId}`, getAuthConfig())
+      .then(() => {
+        setOrderPage({
+          ...orderPage,
+          orders: orderPage.orders.filter((x) => x.id !== orderId),
+        });
+        onDeleteOrderModalClose();
       })
-      .finally(() => setIsLoading(false));
-  }, [getAuthConfig]);
+      .catch(() => setError(true))
+      .finally(() => setIsSubmitting(false));
+  };
 
-  if (isLoading) {
-    return null;
-  }
+  const handleStatusChange = (statusId: number): void => {
+    setStatusId(statusId);
+    setPage(0);
+    setError(false);
+  };
+
+  const handlePreviousPage = (): void => {
+    setIsLoading(true);
+    setPage(page - 1);
+    setIsLoading(false);
+  };
+
+  const handleNextPage = (): void => {
+    setIsLoading(true);
+    setPage(page + 1);
+    setIsLoading(false);
+  };
+
+  const handleDeleteClick = (orderId: number): void => {
+    setOrderId(orderId);
+    onDeleteOrderModalOpen();
+  };
+
+  const handleProgressClick = (orderId: number): void => {
+    setOrderId(orderId);
+    onProgressOrderModalOpen();
+  };
 
   return (
-    <AdminOrdersTable
-      orders={orders}
-      isSubmitting={isSubmitting}
-      onProgressToShipped={handleProgressToShipped}
-    />
+    <>
+      <AdminOrdersTable
+        orderPage={orderPage}
+        page={page}
+        statusId={statusId}
+        isLoading={isLoading}
+        isSubmitting={isSubmitting}
+        onProgressClick={handleProgressClick}
+        onDeleteClick={handleDeleteClick}
+        onStatusChange={handleStatusChange}
+        onNextPage={handleNextPage}
+        onPreviousPage={handlePreviousPage}
+      />
+      <DeleteOrderModal
+        isOpen={isDeleteOrderModalOpen}
+        onClose={onDeleteOrderModalClose}
+        isSubmitting={isSubmitting}
+        onSubmit={handleDeleteOrder}
+        error={error}
+      />
+      <ProgressOrderModal
+        isOpen={isProgressOrderModalOpen}
+        previous="Payment Received"
+        next="Shipped"
+        onClose={onProgressOrderModalClose}
+        isSubmitting={isSubmitting}
+        onSubmit={handleProgressToShipped}
+        error={error}
+      />
+    </>
   );
 };
 
