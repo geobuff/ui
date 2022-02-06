@@ -87,3 +87,14 @@ export const deployUIToast = (
   duration: 9000,
   isClosable: true,
 });
+
+export const createQuizToast = (
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Create Quiz",
+  description: `Successfully created new quiz.`,
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});

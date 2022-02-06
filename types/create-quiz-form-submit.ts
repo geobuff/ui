@@ -1,18 +1,19 @@
 export interface CreateQuizFormSubmit {
-  typeId: number;
-  badgeId: number;
-  continentId: number;
+  typeId: string;
+  badgeId: string;
+  continentId: string;
   country: string;
   singular: string;
   name: string;
-  maxScore: number;
-  time: number;
+  maxScore: string;
+  time: string;
   mapSVG: string;
-  imageURL: string;
+  imageUrl: string;
   verb: string;
   apiPath: string;
   route: string;
   hasLeaderboard: boolean;
   hasGrouping: boolean;
   hasFlags: boolean;
+  enabled: boolean;
 }
