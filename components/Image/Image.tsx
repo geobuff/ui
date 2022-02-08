@@ -28,23 +28,15 @@ const Image: FC<Props> = ({
 
   const handleLoad = (): void => setIsLoading(false);
 
-  const loadingNode = (
-    <>
-      {hasSkeleton ? (
-        <Skeleton height={height} width={width} {...(props as SkeletonProps)} />
-      ) : (
-        <Box height={height} width={width} {...(props as BoxProps)} />
-      )}
-    </>
-  );
-
   return (
     <>
-      {isLoading && loadingNode}
+      {isLoading && hasSkeleton && (
+        <Skeleton height={height} width={width} {...(props as SkeletonProps)} />
+      )}
       <ChakraImage
         display={isLoading && "none"}
         src={src}
-        height={height}
+        height={isLoading && !hasSkeleton ? 0 : height}
         width={width}
         onLoad={handleLoad}
         {...props}
