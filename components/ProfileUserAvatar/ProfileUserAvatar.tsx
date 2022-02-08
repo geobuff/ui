@@ -2,6 +2,7 @@ import React, { FC, useState, MouseEventHandler } from "react";
 import { Box, BoxProps } from "@chakra-ui/react";
 
 import Image from "../Image";
+import DelayedRender from "../DelayedRender";
 
 export interface Props extends BoxProps {
   primaryImageUrl?: string;
@@ -50,19 +51,20 @@ const ProfileUserAvatar: FC<Props> = ({
       onClick={onClick}
       {...props}
     >
-      <Image
-        display={shouldShowSecondary ? "none" : "inherit"}
-        src={primaryImageUrl}
-        alt={`${name} avatar looking away`}
-        marginTop={0.5}
-        height={height - 24}
-        width={width - 24}
-        hasSkeleton={false}
-      />
+      <DelayedRender shouldFadeIn={true} waitBeforeShow={75}>
+        <Image
+          display={shouldShowSecondary ? "none" : "inherit"}
+          src={primaryImageUrl}
+          marginTop={0.5}
+          height={height - 24}
+          width={width - 24}
+          hasSkeleton={false}
+        />
+      </DelayedRender>
+
       <Image
         display={shouldShowSecondary ? "inherit" : "none"}
         src={secondaryImageUrl}
-        alt={`${name} avatar looking dead straight`}
         marginTop={0.5}
         height={height - 24}
         width={width - 24}

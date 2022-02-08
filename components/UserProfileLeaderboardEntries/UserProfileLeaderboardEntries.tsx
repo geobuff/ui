@@ -30,7 +30,7 @@ interface Props {
 }
 
 const UserProfileLeaderboardEntries: FC<Props> = ({ entries = [] }) => (
-  <Card padding={6}>
+  <Card paddingX={{ base: 4, md: 6 }} paddingY={{ base: 5, md: 6 }}>
     <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
       {"Leaderboard Entries"}
     </Heading>
