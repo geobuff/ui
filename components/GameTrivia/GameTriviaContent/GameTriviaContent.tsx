@@ -22,10 +22,6 @@ const mapStyles = {
   fill: "#6dca94",
 };
 
-const highlightedStyling = {
-  fill: "#e24f4f",
-};
-
 const getContentByType = (
   type: TriviaQuestionType,
   map: string,
@@ -56,7 +52,9 @@ const getContentByType = (
           ...svgMap,
           paths: svgMap.paths.map((x) => {
             if (x.name.toLowerCase() === highlighted.toLowerCase()) {
-              x.style = highlightedStyling;
+              x.style = { fill: "#e24f4f" };
+            } else {
+              x.style = { fill: "#6dca94" };
             }
             return x;
           }),
