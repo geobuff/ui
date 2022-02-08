@@ -15,7 +15,7 @@ import {
 import Card from "../../components/Card";
 
 const UserProfileLeaderboardEntriesPlaceholder: FC = () => (
-  <Card padding={6}>
+  <Card paddingX={{ base: 4, md: 6 }} paddingY={2}>
     <Skeleton>
       <Heading size="md" m={6}>
         Leaderboard Entries
