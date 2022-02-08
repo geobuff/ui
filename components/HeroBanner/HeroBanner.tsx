@@ -86,7 +86,7 @@ const HeroBanner: FC = () => {
             <Box
               marginY={5}
               marginX="auto"
-              maxWidth={{ sm: "400px", md: "450px" }}
+              maxWidth={{ base: "340px", sm: "400px", md: "450px" }}
               className={shouldFadeOut ? "fade-out" : "fade-in"}
             >
               <Text
