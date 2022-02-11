@@ -7,11 +7,11 @@ import ErrorView from "../components/ErrorView";
 import Head from "next/head";
 import { StatusCode } from "../types/statusCode";
 
-const Custom404: FC = () => {
+const Custom500: FC = () => {
   return (
     <>
       <Head>
-        <title>{"Page Not Found - GeoBuff"}</title>
+        <title>{"Error - GeoBuff"}</title>
       </Head>
       <MainView backgroundColor="#276F86" hasFooter={false} overflowX="hidden">
         <Flex
@@ -25,11 +25,11 @@ const Custom404: FC = () => {
           padding={5}
           marginX="auto"
         >
-          <ErrorView code={StatusCode.NotFound} />
+          <ErrorView code={StatusCode.InternalServerError} />
         </Flex>
       </MainView>
     </>
   );
 };
 
-export default Custom404;
+export default Custom500;
