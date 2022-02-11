@@ -49,6 +49,10 @@ const AdminCreateQuizContainer = dynamic(
   () => import("../containers/AdminCreateQuizContainer")
 );
 
+const AdminManualTriviaQuestionsContainer = dynamic(
+  () => import("../containers/AdminManualTriviaQuestionsContainer")
+);
+
 const Admin: FC = () => (
   <>
     <Head>
@@ -113,6 +117,7 @@ const Admin: FC = () => (
                 maxWidth={1300}
               >
                 <AdminLastWeekTriviaPlaysContainer />
+                <AdminManualTriviaQuestionsContainer />
               </Flex>
             </Flex>
           </TabPanel>
