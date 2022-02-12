@@ -86,7 +86,7 @@ const AdminUsersTable: FC<Props> = ({
                       DateTime.DATE_MED
                     )}
                   </TableCell>
-                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                  <TableCell paddingY={3} paddingX={6}>
                     <Button
                       colorScheme="red"
                       onClick={() => onDeleteUser(user.id)}

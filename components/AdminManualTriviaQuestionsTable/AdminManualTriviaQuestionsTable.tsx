@@ -22,6 +22,7 @@ export interface Props {
   page?: number;
   onNextPage?: () => void;
   onPreviousPage?: () => void;
+  onDeleteQuestion?: (questionId: number) => void;
 }
 
 const AdminManualTriviaQuestionsTable: FC<Props> = ({
@@ -30,6 +31,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
   page = 0,
   onNextPage = (): void => {},
   onPreviousPage = (): void => {},
+  onDeleteQuestion = (questionId: number): void => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
@@ -50,6 +52,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
               <Tr>
                 <Th textAlign="left">{"QUESTION"} </Th>
                 <Th textAlign="left">{"TYPE"}</Th>
+                <Th>{""}</Th>
               </Tr>
             </Thead>
 
@@ -60,7 +63,15 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
                     {question.question}
                   </TableCell>
                   <TableCell paddingY={3} paddingX={6}>
-                    {question.typeId}
+                    {question.type}
+                  </TableCell>
+                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                    <Button
+                      colorScheme="red"
+                      onClick={() => onDeleteQuestion(question.id)}
+                    >
+                      DELETE
+                    </Button>
                   </TableCell>
                 </Tr>
               ))}
