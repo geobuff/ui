@@ -52,6 +52,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
               <Tr>
                 <Th textAlign="left">{"QUESTION"} </Th>
                 <Th textAlign="left">{"TYPE"}</Th>
+                <Th textAlign="left">{"ANSWERS"}</Th>
                 <Th>{""}</Th>
               </Tr>
             </Thead>
@@ -64,6 +65,9 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
                   </TableCell>
                   <TableCell paddingY={3} paddingX={6}>
                     {question.type}
+                  </TableCell>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {question.answers.join(", ")}
                   </TableCell>
                   <TableCell isNumeric paddingY={3} paddingX={6}>
                     <Button
