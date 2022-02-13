@@ -67,7 +67,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
                     {question.type}
                   </TableCell>
                   <TableCell paddingY={3} paddingX={6}>
-                    {question.answers.join(", ")}
+                    {question.answers.map((x) => x.text).join(", ")}
                   </TableCell>
                   <TableCell isNumeric paddingY={3} paddingX={6}>
                     <Button
