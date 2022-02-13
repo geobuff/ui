@@ -1,4 +1,4 @@
-import { ManualTriviaQuestion } from "./manual-trivia-questions";
+import { ManualTriviaQuestion } from "./manual-trivia-question";
 
 export interface ManualQuestionsDto {
   questions: ManualTriviaQuestion[];
