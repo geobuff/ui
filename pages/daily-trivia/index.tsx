@@ -8,6 +8,7 @@ import HeroHeader from "../../components/HeroHeader";
 import MainView from "../../components/MainView";
 
 import TriviaList from "../../components/TriviaList";
+import axiosClient from "../../axios";
 
 const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
   return (
@@ -34,8 +35,13 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/trivia`);
-  const trivia = await res.json();
+  const { data: trivia } = await axiosClient.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
+    {
+      page: 0,
+      limit: 30,
+    }
+  );
 
   if (!trivia) {
     return {
@@ -44,7 +50,7 @@ export const getStaticProps: GetStaticProps = async () => {
   }
 
   return {
-    props: { trivia },
+    props: { trivia: trivia.trivia },
   };
 };
 
