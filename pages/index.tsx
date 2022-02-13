@@ -1,5 +1,7 @@
 import React, { useState, useCallback, FC, ChangeEvent } from "react";
 import type { AppProps } from "next/app";
+import Link from "next/link";
+
 import { debounce } from "debounce";
 
 import {
@@ -12,8 +14,9 @@ import {
   IconButton,
   Heading,
   AspectRatio,
-  Link,
+  Link as ChakraLink,
   useBreakpointValue,
+  Flex,
 } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
@@ -131,12 +134,17 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         marginRight="auto"
         paddingX={{ base: 3, md: 10 }}
       >
-        <Heading
-          marginBottom={{ base: 1, md: 5 }}
-          fontSize={{ base: 22, md: "2xl" }}
+        <Flex
+          width="100%"
+          justifyContent="space-between"
+          alignItems="center"
+          marginY={{ base: 1, md: 6 }}
         >
-          {"Daily Trivia"}
-        </Heading>
+          <Heading fontSize={{ base: 22, md: "2xl" }}>{"Daily Trivia"}</Heading>
+          <Link href="/daily-trivia">
+            <ChakraLink fontWeight="semibold">{"See more Trivia"}</ChakraLink>
+          </Link>
+        </Flex>
         <CardList>
           {pageProps?.trivia?.map((quiz) => (
             // !!quiz.isActive && (
@@ -168,13 +176,20 @@ const Home: FC<AppProps> = ({ pageProps }) => {
             </Link>
           ))}
         </CardList>
-        <Heading
-          marginTop={{ base: 2, md: 10 }}
-          marginBottom={{ base: 1, md: 5 }}
-          fontSize={{ base: 22, md: "2xl" }}
+
+        <Flex
+          width="100%"
+          justifyContent="space-between"
+          alignItems="center"
+          marginY={{ base: 1, md: 6 }}
         >
-          {"Popular Map Games"}
-        </Heading>
+          <Heading fontSize={{ base: 22, md: "2xl" }}>
+            {"Popular Map Games"}
+          </Heading>
+          <Link href="/map-games">
+            <ChakraLink fontWeight="semibold">{"See all map games"}</ChakraLink>
+          </Link>
+        </Flex>
         <CardList>
           {pageProps?.mapQuizzes?.map((quiz) => (
             <Link key={quiz.id} href={`/daily-trivia/${formatDate(quiz.date)}`}>
@@ -218,13 +233,21 @@ const Home: FC<AppProps> = ({ pageProps }) => {
             </Link>
           ))}
         </CardList>
-        <Heading
-          marginTop={{ base: 2, md: 10 }}
-          marginBottom={{ base: 1, md: 5 }}
-          fontSize={{ base: 22, md: "2xl" }}
+        <Flex
+          width="100%"
+          justifyContent="space-between"
+          alignItems="center"
+          marginY={{ base: 1, md: 6 }}
         >
-          {"Popular Flag Games"}
-        </Heading>
+          <Heading fontSize={{ base: 22, md: "2xl" }}>
+            {"Popular Flag Games"}
+          </Heading>
+          <Link href="/flag-games">
+            <ChakraLink fontWeight="semibold">
+              {"See all flag games"}
+            </ChakraLink>
+          </Link>
+        </Flex>
         <CardList>
           {pageProps?.flagQuizzes?.map((quiz) => (
             <Link key={quiz.id} href={`/daily-trivia/${formatDate(quiz.date)}`}>
