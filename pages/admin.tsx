@@ -53,6 +53,10 @@ const AdminManualTriviaQuestionsContainer = dynamic(
   () => import("../containers/AdminManualTriviaQuestionsContainer")
 );
 
+const AdminCreateManualTriviaQuestionContainer = dynamic(
+  () => import("../containers/AdminCreateManualTriviaQuestionContainer")
+);
+
 const Admin: FC = () => (
   <>
     <Head>
@@ -118,6 +122,7 @@ const Admin: FC = () => (
               >
                 <AdminLastWeekTriviaPlaysContainer />
                 <AdminManualTriviaQuestionsContainer />
+                <AdminCreateManualTriviaQuestionContainer />
               </Flex>
             </Flex>
           </TabPanel>

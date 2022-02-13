@@ -9,60 +9,46 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
-  NumberDecrementStepper,
-  NumberIncrementStepper,
-  NumberInput,
-  NumberInputField,
-  NumberInputStepper,
+  Radio,
+  RadioGroup,
   Select,
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-import { CreateQuizFormSubmit } from "../../types/create-quiz-form-submit";
 import { QuizType } from "../../types/quiz-type";
-import { Continent } from "../../types/continent";
-import { Badge } from "../../types/badge";
+import { CreateManualTriviaQuestionFormSubmit } from "../../types/create-manual-trivia-question-form-submit";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
-  singular: Yup.string().required("Please enter a value for   singular."),
-  name: Yup.string().required("Please enter a name."),
-  maxScore: Yup.number()
-    .moreThan(0)
-    .required("Please enter a max score greater than 0."),
-  time: Yup.number()
-    .moreThan(0)
-    .required("Please enter a time in seconds value greater than 0."),
-  imageUrl: Yup.string().required("Please enter an image URL."),
-  verb: Yup.string().required("Please enter a verb value."),
-  apiPath: Yup.string().required("Please enter an API path."),
-  route: Yup.string().required("Please enter a route value."),
-  hasLeaderboard: Yup.boolean().required(
-    "Please enter a value for hasLeaderboard."
+  question: Yup.string().required("Please enter a value for question."),
+  answerOneText: Yup.string().required(
+    "Please enter a value for answer one text."
   ),
-  hasGrouping: Yup.boolean().required("Please enter a value for hasGrouping."),
-  hasFlags: Yup.boolean().required("Please enter a value for hasFlags."),
-  enabled: Yup.boolean().required("Please enter a value for enabled."),
+  answerOneIsCorrect: Yup.string().required(
+    "Please select a value for answer one is correct."
+  ),
+  answerTwoText: Yup.string().required(
+    "Please enter a value for answer two text."
+  ),
+  answerTwoIsCorrect: Yup.string().required(
+    "Please select a value for answer two is correct."
+  ),
 });
 
 export interface Props {
   types?: QuizType[];
-  badges?: Badge[];
-  continents?: Continent[];
   isSubmitting?: boolean;
   error?: string;
   isLoading?: boolean;
-  onSubmit?: (values: CreateQuizFormSubmit) => void;
+  onSubmit?: (values: CreateManualTriviaQuestionFormSubmit) => void;
 }
 
-const AdminCreateQuizForm: FC<Props> = ({
+const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
   types = [],
-  badges = [],
-  continents = [],
   isSubmitting = false,
   error = "",
   isLoading = false,
-  onSubmit = (values: CreateQuizFormSubmit): void => {},
+  onSubmit = (values: CreateManualTriviaQuestionFormSubmit): void => {},
 }) => (
   <>
     {error && (
@@ -81,22 +67,23 @@ const AdminCreateQuizForm: FC<Props> = ({
       <Formik
         initialValues={{
           typeId: "",
-          badgeId: "",
-          continentId: "",
-          country: "",
-          singular: "",
-          name: "",
-          maxScore: "",
-          time: "",
-          mapSVG: "",
+          question: "",
+          map: "",
+          highlighted: "",
+          flagCode: "",
           imageUrl: "",
-          verb: "",
-          apiPath: "",
-          route: "",
-          hasLeaderboard: false,
-          hasGrouping: false,
-          hasFlags: false,
-          enabled: false,
+          answerOneText: "",
+          answerOneIsCorrect: "false",
+          answerOneFlagCode: "",
+          answerTwoText: "",
+          answerTwoIsCorrect: "false",
+          answerTwoFlagCode: "",
+          answerThreeText: "",
+          answerThreeIsCorrect: "false",
+          answerThreeFlagCode: "",
+          answerFourText: "",
+          answerFourIsCorrect: "false",
+          answerFourFlagCode: "",
         }}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
@@ -135,75 +122,21 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="badgeId">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={form.errors.badgeId && form.touched.badgeId}
-                      >
-                        <FormLabel htmlFor="badgeId" fontWeight="bold">
-                          {"Badge"}
-                        </FormLabel>
-                        <Select {...field}>
-                          <option value="">Select a badge...</option>
-                          {badges.map((badge) => (
-                            <option key={badge.id} value={badge.id}>
-                              {badge.name}
-                            </option>
-                          ))}
-                        </Select>
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.badge}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="continentId">
+                  <Field name="question">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
                         isInvalid={
-                          form.errors.continentId && form.touched.continentId
+                          form.errors.question && form.touched.question
                         }
                       >
-                        <FormLabel htmlFor="continentId" fontWeight="bold">
-                          {"Continent"}
-                        </FormLabel>
-                        <Select {...field}>
-                          <option value="">Select a continent...</option>
-                          {continents.map((continent) => (
-                            <option key={continent.id} value={continent.id}>
-                              {continent.name}
-                            </option>
-                          ))}
-                        </Select>
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.continentId}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="country">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={form.errors.country && form.touched.country}
-                      >
-                        <FormLabel htmlFor="country" fontWeight="bold">
-                          {"Country"}
+                        <FormLabel htmlFor="question" fontWeight="bold">
+                          {"Question"}
                         </FormLabel>
                         <Input
                           {...field}
-                          id="country"
+                          id="question"
                           type="text"
-                          placeholder="Enter country..."
+                          placeholder="Enter question..."
                           size="lg"
                           fontSize="16px"
                           fontWeight={400}
@@ -214,7 +147,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                         />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.country}
+                            {form.errors.question}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -223,21 +156,53 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="singular">
+                  <Field name="map">
+                    {({ field, form }): React.ReactNode => (
+                      <FormControl
+                        isInvalid={form.errors.map && form.touched.map}
+                      >
+                        <FormLabel htmlFor="map" fontWeight="bold">
+                          {"Map"}
+                        </FormLabel>
+                        <Input
+                          {...field}
+                          id="map"
+                          type="text"
+                          placeholder="Enter map..."
+                          size="lg"
+                          fontSize="16px"
+                          fontWeight={400}
+                          background="#F6F6F6"
+                          borderRadius={6}
+                          _placeholder={{ color: "gray.500" }}
+                          _hover={{ background: "#e0e0e0" }}
+                        />
+                        <Box position="absolute" top="68px" left="2px">
+                          <FormErrorMessage fontSize="11px">
+                            {form.errors.map}
+                          </FormErrorMessage>
+                        </Box>
+                      </FormControl>
+                    )}
+                  </Field>
+                </Flex>
+
+                <Flex marginY={3}>
+                  <Field name="highlighted">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
                         isInvalid={
-                          form.errors.singular && form.touched.singular
+                          form.errors.highlighted && form.touched.highlighted
                         }
                       >
-                        <FormLabel htmlFor="singular" fontWeight="bold">
-                          {"Singular"}
+                        <FormLabel htmlFor="highlighted" fontWeight="bold">
+                          {"Highlighted"}
                         </FormLabel>
                         <Input
                           {...field}
-                          id="singular"
+                          id="highlighted"
                           type="text"
-                          placeholder="Enter singular..."
+                          placeholder="Enter highlighted..."
                           size="lg"
                           fontSize="16px"
                           fontWeight={400}
@@ -248,7 +213,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                         />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.singular}
+                            {form.errors.highlighted}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -257,105 +222,21 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="name">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={form.errors.name && form.touched.name}
-                      >
-                        <FormLabel htmlFor="name" fontWeight="bold">
-                          {"Name"}
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="name"
-                          type="text"
-                          placeholder="Enter name..."
-                          size="lg"
-                          fontSize="16px"
-                          fontWeight={400}
-                          background="#F6F6F6"
-                          borderRadius={6}
-                          _placeholder={{ color: "gray.500" }}
-                          _hover={{ background: "#e0e0e0" }}
-                        />
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.name}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="maxScore">
+                  <Field name="flagCode">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
                         isInvalid={
-                          form.errors.maxScore && form.touched.maxScore
+                          form.errors.flagCode && form.touched.flagCode
                         }
                       >
-                        <FormLabel htmlFor="maxScore" fontWeight="bold">
-                          {"Max Score"}
-                        </FormLabel>
-                        <NumberInput>
-                          <NumberInputField {...field} id="maxScore" />
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.maxScore}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="time">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={form.errors.time && form.touched.time}
-                      >
-                        <FormLabel htmlFor="time" fontWeight="bold">
-                          {"Time"}
-                        </FormLabel>
-                        <NumberInput>
-                          <NumberInputField {...field} id="time" />
-                          <NumberInputStepper>
-                            <NumberIncrementStepper />
-                            <NumberDecrementStepper />
-                          </NumberInputStepper>
-                        </NumberInput>
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.time}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="mapSVG">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={form.errors.mapSVG && form.touched.mapSVG}
-                      >
-                        <FormLabel htmlFor="mapSVG" fontWeight="bold">
-                          {"Map SVG"}
+                        <FormLabel htmlFor="flagCode" fontWeight="bold">
+                          {"Flag Code"}
                         </FormLabel>
                         <Input
                           {...field}
-                          id="mapSVG"
+                          id="flagCode"
                           type="text"
-                          placeholder="Enter map SVG..."
+                          placeholder="Enter flag code..."
                           size="lg"
                           fontSize="16px"
                           fontWeight={400}
@@ -366,7 +247,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                         />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.mapSVG}
+                            {form.errors.flagCode}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -409,19 +290,22 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="verb">
+                  <Field name="answerOneText">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
-                        isInvalid={form.errors.verb && form.touched.verb}
+                        isInvalid={
+                          form.errors.answerOneText &&
+                          form.touched.answerOneText
+                        }
                       >
-                        <FormLabel htmlFor="verb" fontWeight="bold">
-                          {"Verb"}
+                        <FormLabel htmlFor="answerOneText" fontWeight="bold">
+                          {"Answer One"}
                         </FormLabel>
                         <Input
                           {...field}
-                          id="verb"
+                          id="answerOneText"
                           type="text"
-                          placeholder="Enter verb..."
+                          placeholder="Enter answer one text..."
                           size="lg"
                           fontSize="16px"
                           fontWeight={400}
@@ -432,7 +316,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                         />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.verb}
+                            {form.errors.answerOneText}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -441,19 +325,19 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="apiPath">
+                  <Field name="answerOneFlagCode">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
-                        isInvalid={form.errors.apiPath && form.touched.apiPath}
+                        isInvalid={
+                          form.errors.answerOneFlagCode &&
+                          form.touched.answerOneFlagCode
+                        }
                       >
-                        <FormLabel htmlFor="apiPath" fontWeight="bold">
-                          {"API Path"}
-                        </FormLabel>
                         <Input
                           {...field}
-                          id="apiPath"
+                          id="answerOneFlagCode"
                           type="text"
-                          placeholder="Enter API Path..."
+                          placeholder="Enter answer one flag code..."
                           size="lg"
                           fontSize="16px"
                           fontWeight={400}
@@ -464,7 +348,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                         />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.apiPath}
+                            {form.errors.answerOneFlagCode}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -473,19 +357,54 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="route">
+                  <Field name="answerOneIsCorrect">
+                    {({ field, form }): React.ReactNode => (
+                      <RadioGroup
+                        {...field}
+                        id="answerOneIsCorrect"
+                        value={form.values.answerOneIsCorrect}
+                        onChange={(value) =>
+                          (form.values.answerOneIsCorrect = value)
+                        }
+                      >
+                        <FormLabel>
+                          <Radio
+                            name="answerOneIsCorrect"
+                            value="true"
+                            mr={3}
+                          />
+                          {"True"}
+                        </FormLabel>
+                        <FormLabel>
+                          <Radio
+                            name="answerOneIsCorrect"
+                            value="false"
+                            mr={3}
+                          />
+                          {"False"}
+                        </FormLabel>
+                      </RadioGroup>
+                    )}
+                  </Field>
+                </Flex>
+
+                <Flex marginY={3}>
+                  <Field name="answerTwoText">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
-                        isInvalid={form.errors.route && form.touched.route}
+                        isInvalid={
+                          form.errors.answerTwoText &&
+                          form.touched.answerTwoText
+                        }
                       >
-                        <FormLabel htmlFor="route" fontWeight="bold">
-                          {"Route"}
+                        <FormLabel htmlFor="answerTwoText" fontWeight="bold">
+                          {"Answer Two"}
                         </FormLabel>
                         <Input
                           {...field}
-                          id="route"
+                          id="answerTwoText"
                           type="text"
-                          placeholder="Enter route..."
+                          placeholder="Enter answer two text..."
                           size="lg"
                           fontSize="16px"
                           fontWeight={400}
@@ -496,7 +415,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                         />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.route}
+                            {form.errors.answerTwoText}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -505,27 +424,30 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="hasLeaderboard">
+                  <Field name="answerTwoFlagCode">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
                         isInvalid={
-                          form.errors.hasLeaderboard &&
-                          form.touched.hasLeaderboard
+                          form.errors.answerTwoFlagCode &&
+                          form.touched.answerTwoFlagCode
                         }
                       >
-                        <FormLabel htmlFor="hasLeaderboard" fontWeight="bold">
-                          {"Has leaderboard?"}
-                        </FormLabel>
-                        <Select {...field}>
-                          <option value="" disabled>
-                            Select an option...
-                          </option>
-                          <option value="true">True</option>
-                          <option value="false">False</option>
-                        </Select>
+                        <Input
+                          {...field}
+                          id="answerTwoFlagCode"
+                          type="text"
+                          placeholder="Enter answer two flag code..."
+                          size="lg"
+                          fontSize="16px"
+                          fontWeight={400}
+                          background="#F6F6F6"
+                          borderRadius={6}
+                          _placeholder={{ color: "gray.500" }}
+                          _hover={{ background: "#e0e0e0" }}
+                        />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.hasLeaderboard}
+                            {form.errors.answerTwoFlagCode}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -534,26 +456,65 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="hasGrouping">
+                  <Field name="answerTwoIsCorrect">
+                    {({ field, form }): React.ReactNode => (
+                      <RadioGroup
+                        {...field}
+                        id="answerTwoIsCorrect"
+                        value={form.values.answerTwoIsCorrect}
+                        onChange={(value) =>
+                          (form.values.answerTwoIsCorrect = value)
+                        }
+                      >
+                        <FormLabel>
+                          <Radio
+                            name="answerTwoIsCorrect"
+                            value="true"
+                            mr={3}
+                          />
+                          {"True"}
+                        </FormLabel>
+                        <FormLabel>
+                          <Radio
+                            name="answerTwoIsCorrect"
+                            value="false"
+                            mr={3}
+                          />
+                          {"False"}
+                        </FormLabel>
+                      </RadioGroup>
+                    )}
+                  </Field>
+                </Flex>
+
+                <Flex marginY={3}>
+                  <Field name="answerThreeText">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
                         isInvalid={
-                          form.errors.hasGrouping && form.touched.hasGrouping
+                          form.errors.answerThreeText &&
+                          form.touched.answerThreeText
                         }
                       >
-                        <FormLabel htmlFor="hasGrouping" fontWeight="bold">
-                          {"Has grouping?"}
+                        <FormLabel htmlFor="answerThreeText" fontWeight="bold">
+                          {"Answer Three"}
                         </FormLabel>
-                        <Select {...field}>
-                          <option value="" disabled>
-                            Select an option...
-                          </option>
-                          <option value="true">True</option>
-                          <option value="false">False</option>
-                        </Select>
+                        <Input
+                          {...field}
+                          id="answerThreeText"
+                          type="text"
+                          placeholder="Enter answer three text..."
+                          size="lg"
+                          fontSize="16px"
+                          fontWeight={400}
+                          background="#F6F6F6"
+                          borderRadius={6}
+                          _placeholder={{ color: "gray.500" }}
+                          _hover={{ background: "#e0e0e0" }}
+                        />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.hasGrouping}
+                            {form.errors.answerThreeText}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -562,26 +523,30 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="hasFlags">
+                  <Field name="answerThreeFlagCode">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
                         isInvalid={
-                          form.errors.hasFlags && form.touched.hasFlags
+                          form.errors.answerThreeFlagCode &&
+                          form.touched.answerThreeFlagCode
                         }
                       >
-                        <FormLabel htmlFor="hasFlags" fontWeight="bold">
-                          {"Has flags?"}
-                        </FormLabel>
-                        <Select {...field}>
-                          <option value="" disabled>
-                            Select an option...
-                          </option>
-                          <option value="true">True</option>
-                          <option value="false">False</option>
-                        </Select>
+                        <Input
+                          {...field}
+                          id="answerThreeFlagCode"
+                          type="text"
+                          placeholder="Enter answer three flag code..."
+                          size="lg"
+                          fontSize="16px"
+                          fontWeight={400}
+                          background="#F6F6F6"
+                          borderRadius={6}
+                          _placeholder={{ color: "gray.500" }}
+                          _hover={{ background: "#e0e0e0" }}
+                        />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.hasFlags}
+                            {form.errors.answerThreeFlagCode}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -590,27 +555,132 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex marginY={3}>
-                  <Field name="enabled">
+                  <Field name="answerThreeIsCorrect">
+                    {({ field, form }): React.ReactNode => (
+                      <RadioGroup
+                        {...field}
+                        id="answerThreeIsCorrect"
+                        value={form.values.answerThreeIsCorrect}
+                        onChange={(value) =>
+                          (form.values.answerThreeIsCorrect = value)
+                        }
+                      >
+                        <FormLabel>
+                          <Radio
+                            name="answerThreeIsCorrect"
+                            value="true"
+                            mr={3}
+                          />
+                          {"True"}
+                        </FormLabel>
+                        <FormLabel>
+                          <Radio
+                            name="answerThreeIsCorrect"
+                            value="false"
+                            mr={3}
+                          />
+                          {"False"}
+                        </FormLabel>
+                      </RadioGroup>
+                    )}
+                  </Field>
+                </Flex>
+
+                <Flex marginY={3}>
+                  <Field name="answerFourText">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
-                        isInvalid={form.errors.enabled && form.touched.enabled}
+                        isInvalid={
+                          form.errors.answerFourText &&
+                          form.touched.answerFourText
+                        }
                       >
-                        <FormLabel htmlFor="enabled" fontWeight="bold">
-                          {"Enabled?"}
+                        <FormLabel htmlFor="answerFourText" fontWeight="bold">
+                          {"Answer Four"}
                         </FormLabel>
-                        <Select {...field}>
-                          <option value="" disabled>
-                            Select an option...
-                          </option>
-                          <option value="true">True</option>
-                          <option value="false">False</option>
-                        </Select>
+                        <Input
+                          {...field}
+                          id="answerFourText"
+                          type="text"
+                          placeholder="Enter answer four text..."
+                          size="lg"
+                          fontSize="16px"
+                          fontWeight={400}
+                          background="#F6F6F6"
+                          borderRadius={6}
+                          _placeholder={{ color: "gray.500" }}
+                          _hover={{ background: "#e0e0e0" }}
+                        />
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
-                            {form.errors.enabled}
+                            {form.errors.answerFourText}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
+                    )}
+                  </Field>
+                </Flex>
+
+                <Flex marginY={3}>
+                  <Field name="answerFourFlagCode">
+                    {({ field, form }): React.ReactNode => (
+                      <FormControl
+                        isInvalid={
+                          form.errors.answerFourFlagCode &&
+                          form.touched.answerFourFlagCode
+                        }
+                      >
+                        <Input
+                          {...field}
+                          id="answerFourFlagCode"
+                          type="text"
+                          placeholder="Enter answer four flag code..."
+                          size="lg"
+                          fontSize="16px"
+                          fontWeight={400}
+                          background="#F6F6F6"
+                          borderRadius={6}
+                          _placeholder={{ color: "gray.500" }}
+                          _hover={{ background: "#e0e0e0" }}
+                        />
+                        <Box position="absolute" top="68px" left="2px">
+                          <FormErrorMessage fontSize="11px">
+                            {form.errors.answerFourFlagCode}
+                          </FormErrorMessage>
+                        </Box>
+                      </FormControl>
+                    )}
+                  </Field>
+                </Flex>
+
+                <Flex marginY={3}>
+                  <Field name="answerFourIsCorrect">
+                    {({ field, form }): React.ReactNode => (
+                      <RadioGroup
+                        {...field}
+                        id="answerFourIsCorrect"
+                        value={form.values.answerFourIsCorrect}
+                        onChange={(value) =>
+                          (form.values.answerFourIsCorrect = value)
+                        }
+                      >
+                        <FormLabel>
+                          <Radio
+                            name="answerFourIsCorrect"
+                            value="true"
+                            mr={3}
+                          />
+                          {"True"}
+                        </FormLabel>
+                        <FormLabel>
+                          <Radio
+                            name="answerFourIsCorrect"
+                            value="false"
+                            mr={3}
+                          />
+                          {"False"}
+                        </FormLabel>
+                      </RadioGroup>
                     )}
                   </Field>
                 </Flex>
@@ -642,4 +712,4 @@ const AdminCreateQuizForm: FC<Props> = ({
   </>
 );
 
-export default AdminCreateQuizForm;
+export default AdminCreateManualTriviaQuestionForm;

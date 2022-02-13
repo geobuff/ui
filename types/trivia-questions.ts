@@ -1,9 +1,9 @@
 import { TriviaAnswer } from "./trivia-answer";
-import { TriviaQuestionType } from "./trivia-question-type";
+import { TriviaQuestionTypes } from "./trivia-question-types";
 
 export interface TriviaQuestion {
   id: number;
-  type: TriviaQuestionType;
+  type: TriviaQuestionTypes;
   question: string;
   answers: TriviaAnswer[];
   map?: string;
