@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Badge, Box, Divider, Flex, Text } from "@chakra-ui/react";
+import { Badge, Box, BoxProps, Divider, Flex, Text } from "@chakra-ui/react";
 
 import Image from "../Image";
 import Twemoji from "../Twemoji";
@@ -8,21 +8,21 @@ const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
-export interface Props {
+export interface Props extends BoxProps {
   name?: string;
 }
 
-const TriviaCard: FC<Props> = ({ name = "" }) => (
+const TriviaCard: FC<Props> = ({ name = "", ...props }) => (
   <Box
     aria-label={`trivia card for ${name}`}
     role="group"
     direction="column"
-    position="relative"
     backgroundColor="white"
     borderRadius={12}
     width="100%"
     height="100%"
     boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
+    {...props}
   >
     <Box position="absolute" top={0} left={0} right={0} bottom={0}>
       <Image

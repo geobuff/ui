@@ -138,19 +138,19 @@ const Home: FC<AppProps> = ({ pageProps }) => {
           {"Daily Trivia"}
         </Heading>
         <CardList>
-          {pageProps?.trivia.slice(0, 5)?.map((quiz) => (
+          {pageProps?.trivia?.map((quiz) => (
             // !!quiz.isActive && (
             <Link key={quiz.id} href={`/daily-trivia/${formatDate(quiz.date)}`}>
               <>
                 {isMobile ? (
                   <Box
                     display="inline-block"
-                    width="260px"
-                    height={"220px"}
+                    width="200px"
+                    height="216px"
                     marginRight={3}
                     paddingY={3}
                   >
-                    <TriviaCard name={quiz.name} />
+                    <TriviaCard name={quiz.name} position="relative" />
                   </Box>
                 ) : (
                   <AspectRatio
@@ -183,12 +183,13 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                 {isMobile ? (
                   <Box
                     display="inline-block"
-                    width="260px"
-                    height={"220px"}
+                    width="200px"
+                    height="216px"
                     marginRight={3}
                     paddingY={3}
                   >
                     <QuizCard
+                      position="relative"
                       name={quiz.name}
                       imageUrl={quiz.imageUrl}
                       time={quiz.time}
@@ -233,12 +234,13 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                 {isMobile ? (
                   <Box
                     display="inline-block"
-                    width="260px"
-                    height={"220px"}
+                    width="200px"
+                    height="216px"
                     marginRight={3}
                     paddingY={3}
                   >
                     <QuizCard
+                      position="relative"
                       name={quiz.name}
                       imageUrl={quiz.imageUrl}
                       time={quiz.time}
@@ -269,11 +271,6 @@ const Home: FC<AppProps> = ({ pageProps }) => {
           ))}
         </CardList>
       </Box>
-
-      {/* <TriviaList trivia={pageProps?.trivia.slice(0, 10)} />
-
-      <QuizList quizzes={pageProps?.mapQuizzes} heading="Popular Map Games" />
-      <QuizList quizzes={pageProps?.flagQuizzes} heading="Popular Flag Games" /> */}
     </MainView>
   );
 };
@@ -301,8 +298,12 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  const { data: trivia } = await axiosClient.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/trivia`
+  const { data: trivia } = await axiosClient.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
+    {
+      page: 0,
+      limit: 5,
+    }
   );
 
   if (!mapQuizzes && !flagQuizzes && !trivia) {
@@ -317,7 +318,7 @@ export const getStaticProps: GetStaticProps = async () => {
     props: {
       mapQuizzes: mapQuizzes.quizzes,
       flagQuizzes: flagQuizzes.quizzes,
-      trivia,
+      trivia: trivia.trivia,
     },
   };
 };

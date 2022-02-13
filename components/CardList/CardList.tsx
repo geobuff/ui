@@ -33,16 +33,16 @@ const CardList: FC<Props> = ({ children }) => {
   }
 
   return (
-    <DelayedRender shouldFadeIn waitBeforeShow={100}>
-      <SimpleGrid
-        column={3}
-        justifyContent="center"
-        minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
-        spacing={{ base: "12px", md: "24px" }}
-      >
-        {children}
-      </SimpleGrid>
-    </DelayedRender>
+    // <DelayedRender shouldFadeIn waitBeforeShow={100}>
+    <SimpleGrid
+      column={3}
+      justifyContent="center"
+      minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
+      spacing={{ base: "12px", md: "24px" }}
+    >
+      {children}
+    </SimpleGrid>
+    // </DelayedRender>
   );
 };
 
