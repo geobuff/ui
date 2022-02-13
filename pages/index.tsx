@@ -134,8 +134,8 @@ const Home: FC<AppProps> = ({ pageProps }) => {
       <Box
         width="100%"
         maxWidth={1400}
-        marginTop="32px"
-        marginBottom={{ base: 10, md: 16 }}
+        marginTop={2}
+        marginBottom={{ base: 5, md: 16 }}
         marginLeft="auto"
         marginRight="auto"
         paddingX={{ base: 3, md: 10 }}
@@ -238,8 +238,8 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                     {isMobile ? (
                       <Box
                         display="inline-block"
-                        width="200px"
-                        height="216px"
+                        width="180px"
+                        height="210px"
                         marginRight={3}
                         paddingY={3}
                       >
@@ -288,8 +288,8 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                     {isMobile ? (
                       <Box
                         display="inline-block"
-                        width="200px"
-                        height="216px"
+                        width="180px"
+                        height="210px"
                         marginRight={3}
                         paddingY={3}
                       >
@@ -350,8 +350,8 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                     {isMobile ? (
                       <Box
                         display="inline-block"
-                        width="200px"
-                        height="216px"
+                        width="180px"
+                        height="210px"
                         marginRight={3}
                         paddingY={3}
                       >

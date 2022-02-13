@@ -54,7 +54,7 @@ const QuizCard: FC<Props> = ({
         }}
       />
 
-      <Box paddingTop="12px" paddingX="12px">
+      <Flex paddingTop="12px" paddingX="12px" whiteSpace="pre-wrap">
         <Text
           fontWeight="bold"
           fontSize="18px"
@@ -64,7 +64,7 @@ const QuizCard: FC<Props> = ({
         >
           {name}
         </Text>
-      </Box>
+      </Flex>
 
       <Box position="absolute" bottom={0} left={0} right={0}>
         {divider}
