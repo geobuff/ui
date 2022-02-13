@@ -17,6 +17,8 @@ import {
   Link as ChakraLink,
   useBreakpointValue,
   Flex,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
@@ -45,7 +47,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
     setFilter(value);
   };
 
-  const handleDebounceChange = useCallback(debounce(onChange, 500), [onChange]);
+  const handleDebounceChange = useCallback(debounce(onChange, 300), [onChange]);
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
     const value = event.currentTarget.value;
@@ -53,17 +55,21 @@ const Home: FC<AppProps> = ({ pageProps }) => {
     handleDebounceChange(value);
   };
 
-  // const getFilteredQuizzes = () => {
-  //   if (filter) {
-  //     return pageProps.quizzes.filter((quiz) =>
-  //       quiz.name.toLowerCase().includes(filter.toLocaleLowerCase())
-  //     );
-  //   }
-  //   return pageProps?.quizzes;
-  // };
+  const getFilteredQuizzes = () => {
+    if (filter) {
+      return [
+        ...pageProps?.mapQuizzes.filter((quiz) =>
+          quiz.name.toLowerCase().includes(filter.toLocaleLowerCase())
+        ),
+        ...pageProps?.flagQuizzes.filter((quiz) =>
+          quiz.name.toLowerCase().includes(filter.toLocaleLowerCase())
+        ),
+      ];
+    }
+    return [];
+  };
 
-  // const filteredQuizzes = getFilteredQuizzes();
-
+  const filteredQuizzes = getFilteredQuizzes();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
@@ -134,163 +140,254 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         marginRight="auto"
         paddingX={{ base: 3, md: 10 }}
       >
-        <Flex
-          width="100%"
-          justifyContent="space-between"
-          alignItems="center"
-          marginY={{ base: 1, md: 6 }}
-        >
-          <Heading fontSize={{ base: 22, md: "2xl" }}>{"Daily Trivia"}</Heading>
-          <Link href="/daily-trivia">
-            <ChakraLink fontWeight="semibold">{"See more Trivia"}</ChakraLink>
-          </Link>
-        </Flex>
-        <CardList>
-          {pageProps?.trivia?.map((quiz) => (
-            // !!quiz.isActive && (
-            <Link key={quiz.id} href={`/daily-trivia/${formatDate(quiz.date)}`}>
-              <>
-                {isMobile ? (
-                  <Box
-                    display="inline-block"
-                    width="200px"
-                    height="216px"
-                    marginRight={3}
-                    paddingY={3}
+        {filter ? (
+          <>
+            <Flex
+              width="100%"
+              justifyContent="space-between"
+              alignItems="center"
+              marginBottom={{ base: 1, md: 6 }}
+            >
+              <Heading fontSize={{ base: 18, md: "2xl" }}>
+                {`Search results for '${filter}'`}
+              </Heading>
+            </Flex>
+            {!filteredQuizzes.length ? (
+              <Alert status="info" borderRadius={6} p={5} mt={5}>
+                <AlertIcon />
+                {`There were no results for '${filter}'`}
+              </Alert>
+            ) : (
+              <CardList>
+                {filteredQuizzes?.map((quiz) => (
+                  <Link
+                    key={quiz.id}
+                    href={`/daily-trivia/${formatDate(quiz.date)}`}
                   >
-                    <TriviaCard name={quiz.name} position="relative" />
-                  </Box>
-                ) : (
-                  <AspectRatio
-                    maxWidth="260px"
-                    minHeight={{ base: "180px", sm: "206px", md: "216px" }}
-                    maxHeight="230px"
-                    ratio={3 / 2}
-                    transition="all 150ms ease-out"
-                    _hover={{ transform: "scale(1.030)" }}
-                  >
-                    <TriviaCard name={quiz.name} />
-                  </AspectRatio>
-                )}
-              </>
-            </Link>
-          ))}
-        </CardList>
+                    <>
+                      {isMobile ? (
+                        <Box
+                          display="inline-block"
+                          width="200px"
+                          height="216px"
+                          marginRight={3}
+                          paddingY={3}
+                        >
+                          <QuizCard
+                            position="relative"
+                            name={quiz.name}
+                            imageUrl={quiz.imageUrl}
+                            time={quiz.time}
+                            maxScore={quiz.maxScore}
+                            verb={quiz.verb}
+                          />
+                        </Box>
+                      ) : (
+                        <AspectRatio
+                          maxWidth="260px"
+                          minHeight={{
+                            base: "180px",
+                            sm: "206px",
+                            md: "216px",
+                          }}
+                          maxHeight="230px"
+                          ratio={3 / 2}
+                          transition="all 150ms ease-out"
+                          _hover={{ transform: "scale(1.030)" }}
+                        >
+                          <QuizCard
+                            name={quiz.name}
+                            imageUrl={quiz.imageUrl}
+                            time={quiz.time}
+                            maxScore={quiz.maxScore}
+                            verb={quiz.verb}
+                          />
+                        </AspectRatio>
+                      )}
+                    </>
+                  </Link>
+                ))}
+              </CardList>
+            )}
+          </>
+        ) : (
+          <>
+            <Flex
+              width="100%"
+              justifyContent="space-between"
+              alignItems="center"
+              marginBottom={{ base: 1, md: 6 }}
+            >
+              <Heading fontSize={{ base: 22, md: "2xl" }}>
+                {"Daily Trivia"}
+              </Heading>
+              <Link href="/daily-trivia">
+                <ChakraLink fontWeight="semibold">
+                  {"See all trivia"}
+                </ChakraLink>
+              </Link>
+            </Flex>
+            <CardList>
+              {pageProps?.trivia?.map((quiz) => (
+                // !!quiz.isActive && (
+                <Link
+                  key={quiz.id}
+                  href={`/daily-trivia/${formatDate(quiz.date)}`}
+                >
+                  <>
+                    {isMobile ? (
+                      <Box
+                        display="inline-block"
+                        width="200px"
+                        height="216px"
+                        marginRight={3}
+                        paddingY={3}
+                      >
+                        <TriviaCard name={quiz.name} position="relative" />
+                      </Box>
+                    ) : (
+                      <AspectRatio
+                        maxWidth="260px"
+                        minHeight={{ base: "180px", sm: "206px", md: "216px" }}
+                        maxHeight="230px"
+                        ratio={3 / 2}
+                        transition="all 150ms ease-out"
+                        _hover={{ transform: "scale(1.030)" }}
+                      >
+                        <TriviaCard name={quiz.name} />
+                      </AspectRatio>
+                    )}
+                  </>
+                </Link>
+              ))}
+            </CardList>
 
-        <Flex
-          width="100%"
-          justifyContent="space-between"
-          alignItems="center"
-          marginY={{ base: 1, md: 6 }}
-        >
-          <Heading fontSize={{ base: 22, md: "2xl" }}>
-            {"Popular Map Games"}
-          </Heading>
-          <Link href="/map-games">
-            <ChakraLink fontWeight="semibold">{"See all map games"}</ChakraLink>
-          </Link>
-        </Flex>
-        <CardList>
-          {pageProps?.mapQuizzes?.map((quiz) => (
-            <Link key={quiz.id} href={`/daily-trivia/${formatDate(quiz.date)}`}>
-              <>
-                {isMobile ? (
-                  <Box
-                    display="inline-block"
-                    width="200px"
-                    height="216px"
-                    marginRight={3}
-                    paddingY={3}
-                  >
-                    <QuizCard
-                      position="relative"
-                      name={quiz.name}
-                      imageUrl={quiz.imageUrl}
-                      time={quiz.time}
-                      maxScore={quiz.maxScore}
-                      verb={quiz.verb}
-                    />
-                  </Box>
-                ) : (
-                  <AspectRatio
-                    maxWidth="260px"
-                    minHeight={{ base: "180px", sm: "206px", md: "216px" }}
-                    maxHeight="230px"
-                    ratio={3 / 2}
-                    transition="all 150ms ease-out"
-                    _hover={{ transform: "scale(1.030)" }}
-                  >
-                    <QuizCard
-                      name={quiz.name}
-                      imageUrl={quiz.imageUrl}
-                      time={quiz.time}
-                      maxScore={quiz.maxScore}
-                      verb={quiz.verb}
-                    />
-                  </AspectRatio>
-                )}
-              </>
-            </Link>
-          ))}
-        </CardList>
-        <Flex
-          width="100%"
-          justifyContent="space-between"
-          alignItems="center"
-          marginY={{ base: 1, md: 6 }}
-        >
-          <Heading fontSize={{ base: 22, md: "2xl" }}>
-            {"Popular Flag Games"}
-          </Heading>
-          <Link href="/flag-games">
-            <ChakraLink fontWeight="semibold">
-              {"See all flag games"}
-            </ChakraLink>
-          </Link>
-        </Flex>
-        <CardList>
-          {pageProps?.flagQuizzes?.map((quiz) => (
-            <Link key={quiz.id} href={`/daily-trivia/${formatDate(quiz.date)}`}>
-              <>
-                {isMobile ? (
-                  <Box
-                    display="inline-block"
-                    width="200px"
-                    height="216px"
-                    marginRight={3}
-                    paddingY={3}
-                  >
-                    <QuizCard
-                      position="relative"
-                      name={quiz.name}
-                      imageUrl={quiz.imageUrl}
-                      time={quiz.time}
-                      maxScore={quiz.maxScore}
-                      verb={quiz.verb}
-                    />
-                  </Box>
-                ) : (
-                  <AspectRatio
-                    maxWidth="260px"
-                    minHeight={{ base: "180px", sm: "206px", md: "216px" }}
-                    maxHeight="230px"
-                    ratio={3 / 2}
-                    transition="all 150ms ease-out"
-                    _hover={{ transform: "scale(1.030)" }}
-                  >
-                    <QuizCard
-                      name={quiz.name}
-                      imageUrl={quiz.imageUrl}
-                      time={quiz.time}
-                      maxScore={quiz.maxScore}
-                      verb={quiz.verb}
-                    />
-                  </AspectRatio>
-                )}
-              </>
-            </Link>
-          ))}
-        </CardList>
+            <Flex
+              width="100%"
+              justifyContent="space-between"
+              alignItems="center"
+              marginTop={{ base: 2.5, md: 12 }}
+              marginBottom={{ base: 1, md: 6 }}
+            >
+              <Heading fontSize={{ base: 22, md: "2xl" }}>
+                {"Popular Map Games"}
+              </Heading>
+              <Link href="/map-games">
+                <ChakraLink fontWeight="semibold">
+                  {"See all map games"}
+                </ChakraLink>
+              </Link>
+            </Flex>
+            <CardList>
+              {pageProps?.mapQuizzes?.map((quiz) => (
+                <Link
+                  key={quiz.id}
+                  href={`/daily-trivia/${formatDate(quiz.date)}`}
+                >
+                  <>
+                    {isMobile ? (
+                      <Box
+                        display="inline-block"
+                        width="200px"
+                        height="216px"
+                        marginRight={3}
+                        paddingY={3}
+                      >
+                        <QuizCard
+                          position="relative"
+                          name={quiz.name}
+                          imageUrl={quiz.imageUrl}
+                          time={quiz.time}
+                          maxScore={quiz.maxScore}
+                          verb={quiz.verb}
+                        />
+                      </Box>
+                    ) : (
+                      <AspectRatio
+                        maxWidth="260px"
+                        minHeight={{ base: "180px", sm: "206px", md: "216px" }}
+                        maxHeight="230px"
+                        ratio={3 / 2}
+                        transition="all 150ms ease-out"
+                        _hover={{ transform: "scale(1.030)" }}
+                      >
+                        <QuizCard
+                          name={quiz.name}
+                          imageUrl={quiz.imageUrl}
+                          time={quiz.time}
+                          maxScore={quiz.maxScore}
+                          verb={quiz.verb}
+                        />
+                      </AspectRatio>
+                    )}
+                  </>
+                </Link>
+              ))}
+            </CardList>
+            <Flex
+              width="100%"
+              justifyContent="space-between"
+              alignItems="center"
+              marginTop={{ base: 2.5, md: 12 }}
+              marginBottom={{ base: 1, md: 6 }}
+            >
+              <Heading fontSize={{ base: 22, md: "2xl" }}>
+                {"Popular Flag Games"}
+              </Heading>
+              <Link href="/flag-games">
+                <ChakraLink fontWeight="semibold">
+                  {"See all flag games"}
+                </ChakraLink>
+              </Link>
+            </Flex>
+            <CardList>
+              {pageProps?.flagQuizzes?.map((quiz) => (
+                <Link
+                  key={quiz.id}
+                  href={`/daily-trivia/${formatDate(quiz.date)}`}
+                >
+                  <>
+                    {isMobile ? (
+                      <Box
+                        display="inline-block"
+                        width="200px"
+                        height="216px"
+                        marginRight={3}
+                        paddingY={3}
+                      >
+                        <QuizCard
+                          position="relative"
+                          name={quiz.name}
+                          imageUrl={quiz.imageUrl}
+                          time={quiz.time}
+                          maxScore={quiz.maxScore}
+                          verb={quiz.verb}
+                        />
+                      </Box>
+                    ) : (
+                      <AspectRatio
+                        maxWidth="260px"
+                        minHeight={{ base: "180px", sm: "206px", md: "216px" }}
+                        maxHeight="230px"
+                        ratio={3 / 2}
+                        transition="all 150ms ease-out"
+                        _hover={{ transform: "scale(1.030)" }}
+                      >
+                        <QuizCard
+                          name={quiz.name}
+                          imageUrl={quiz.imageUrl}
+                          time={quiz.time}
+                          maxScore={quiz.maxScore}
+                          verb={quiz.verb}
+                        />
+                      </AspectRatio>
+                    )}
+                  </>
+                </Link>
+              ))}
+            </CardList>
+          </>
+        )}
       </Box>
     </MainView>
   );

@@ -5,6 +5,8 @@ export interface Props {
   type?: "trivia" | "quiz";
 }
 
+// TODO: fix layout when less items than grid
+
 const CardList: FC<Props> = ({ children }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
