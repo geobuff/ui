@@ -35,7 +35,7 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data: trivia } = await axiosClient.post(
+  const { data: triviaData } = await axiosClient.post(
     `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
     {
       page: 0,
@@ -43,14 +43,14 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  if (!trivia) {
+  if (!triviaData) {
     return {
       notFound: true,
     };
   }
 
   return {
-    props: { trivia: trivia.trivia },
+    props: { trivia: triviaData.trivia },
   };
 };
 

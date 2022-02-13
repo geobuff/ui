@@ -21,11 +21,9 @@ import HeroBanner from "../components/HeroBanner";
 
 import Search from "../Icons/Search";
 import SolidCloseCircle from "../Icons/SolidCloseCircle";
-import QuizList from "../components/QuizList";
 import axiosClient from "../axios";
 import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
 import { GetStaticProps } from "next";
-import TriviaList from "../components/TriviaList";
 import CardList from "../components/CardList";
 import { formatDate } from "../helpers/date";
 import TriviaCard from "../components/TriviaCard";
@@ -128,13 +126,15 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         width="100%"
         maxWidth={1400}
         marginTop="32px"
-        marginBottom="100px"
+        marginBottom={{ base: 10, md: 16 }}
         marginLeft="auto"
         marginRight="auto"
-        // minHeight="1000px"
         paddingX={{ base: 3, md: 10 }}
       >
-        <Heading marginBottom={{ base: 2, md: 5 }} fontSize="2xl">
+        <Heading
+          marginBottom={{ base: 1, md: 5 }}
+          fontSize={{ base: 22, md: "2xl" }}
+        >
           {"Daily Trivia"}
         </Heading>
         <CardList>
@@ -169,15 +169,14 @@ const Home: FC<AppProps> = ({ pageProps }) => {
           ))}
         </CardList>
         <Heading
-          marginTop={{ base: 5, md: 10 }}
-          marginBottom={{ base: 2, md: 5 }}
-          fontSize="2xl"
+          marginTop={{ base: 2, md: 10 }}
+          marginBottom={{ base: 1, md: 5 }}
+          fontSize={{ base: 22, md: "2xl" }}
         >
           {"Popular Map Games"}
         </Heading>
         <CardList>
           {pageProps?.mapQuizzes?.map((quiz) => (
-            // !!quiz.isActive && (
             <Link key={quiz.id} href={`/daily-trivia/${formatDate(quiz.date)}`}>
               <>
                 {isMobile ? (
@@ -220,15 +219,14 @@ const Home: FC<AppProps> = ({ pageProps }) => {
           ))}
         </CardList>
         <Heading
-          marginTop={{ base: 5, md: 10 }}
-          marginBottom={{ base: 2, md: 5 }}
-          fontSize="2xl"
+          marginTop={{ base: 2, md: 10 }}
+          marginBottom={{ base: 1, md: 5 }}
+          fontSize={{ base: 22, md: "2xl" }}
         >
           {"Popular Flag Games"}
         </Heading>
         <CardList>
           {pageProps?.flagQuizzes?.map((quiz) => (
-            // !!quiz.isActive && (
             <Link key={quiz.id} href={`/daily-trivia/${formatDate(quiz.date)}`}>
               <>
                 {isMobile ? (
@@ -279,10 +277,10 @@ export const getStaticProps: GetStaticProps = async () => {
   const body: QuizzesFilterDto = {
     filter: "",
     page: 0,
-    limit: 10,
+    limit: 15,
   };
 
-  const { data: mapQuizzes } = await axiosClient.post(
+  const { data: mapData } = await axiosClient.post(
     `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
     {
       ...body,
@@ -290,7 +288,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  const { data: flagQuizzes } = await axiosClient.post(
+  const { data: flagData } = await axiosClient.post(
     `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
     {
       ...body,
@@ -298,7 +296,7 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  const { data: trivia } = await axiosClient.post(
+  const { data: triviaData } = await axiosClient.post(
     `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
     {
       page: 0,
@@ -306,19 +304,17 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
-  if (!mapQuizzes && !flagQuizzes && !trivia) {
+  if (!mapData && !flagData && !triviaData) {
     return {
       notFound: true,
     };
   }
 
-  console.log({ mapQuizzes, flagQuizzes, trivia }, "page Props");
-
   return {
     props: {
-      mapQuizzes: mapQuizzes.quizzes,
-      flagQuizzes: flagQuizzes.quizzes,
-      trivia: trivia.trivia,
+      mapQuizzes: mapData.quizzes,
+      flagQuizzes: flagData.quizzes,
+      trivia: triviaData.trivia,
     },
   };
 };

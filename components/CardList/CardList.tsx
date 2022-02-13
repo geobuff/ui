@@ -1,13 +1,5 @@
 import React, { FC } from "react";
-import {
-  AspectRatio,
-  Box,
-  Flex,
-  SimpleGrid,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-
-import DelayedRender from "../DelayedRender";
+import { Box, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 
 export interface Props {
   type?: "trivia" | "quiz";
@@ -18,22 +10,19 @@ const CardList: FC<Props> = ({ children }) => {
 
   if (isMobile) {
     return (
-      <DelayedRender shouldFadeIn waitBeforeShow={100}>
-        <Box
-          overflowX="scroll"
-          overflowY="auto"
-          whiteSpace="nowrap"
-          width="100%"
-          minHeight="230px"
-        >
-          {children}
-        </Box>
-      </DelayedRender>
+      <Box
+        overflowX="scroll"
+        overflowY="auto"
+        whiteSpace="nowrap"
+        width="100%"
+        paddingBottom={2}
+      >
+        {children}
+      </Box>
     );
   }
 
   return (
-    // <DelayedRender shouldFadeIn waitBeforeShow={100}>
     <SimpleGrid
       column={3}
       justifyContent="center"
@@ -42,7 +31,6 @@ const CardList: FC<Props> = ({ children }) => {
     >
       {children}
     </SimpleGrid>
-    // </DelayedRender>
   );
 };
 
