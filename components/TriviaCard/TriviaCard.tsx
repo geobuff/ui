@@ -13,13 +13,15 @@ export interface Props {
 }
 
 const TriviaCard: FC<Props> = ({ name = "" }) => (
-  <Flex
+  <Box
     aria-label={`trivia card for ${name}`}
     role="group"
     direction="column"
+    position="relative"
     backgroundColor="white"
     borderRadius={12}
     width="100%"
+    height="100%"
     boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
   >
     <Box position="absolute" top={0} left={0} right={0} bottom={0}>
@@ -96,7 +98,7 @@ const TriviaCard: FC<Props> = ({ name = "" }) => (
         </Flex>
       </Box>
     </Box>
-  </Flex>
+  </Box>
 );
 
 export default React.memo(TriviaCard);
