@@ -3,7 +3,4 @@ export interface CheckoutFormSubmit {
   firstName: string;
   lastName: string;
   address: string;
-  suburb: string;
-  city: string;
-  postcode: string;
 }

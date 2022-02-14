@@ -101,7 +101,7 @@ const AdminOrdersTable: FC<Props> = ({
                     {`${order.firstName} ${order.lastName}`}
                   </TableCell>
                   <TableCell paddingY={3} paddingX={6}>
-                    {`${order.address}, ${order.suburb}, ${order.city}, ${order.postcode}`}
+                    {order.address}
                   </TableCell>
                   <TableCell paddingY={3} paddingX={6}>
                     {DateTime.fromISO(order.added).toLocaleString(
