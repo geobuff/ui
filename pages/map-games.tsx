@@ -4,20 +4,19 @@ import { GetStaticProps } from "next";
 import Head from "next/head";
 import { Flex } from "@chakra-ui/react";
 
-import HeroHeader from "../../components/HeroHeader";
-import MainView from "../../components/MainView";
-
-import TriviaList from "../../components/TriviaList";
-import axiosClient from "../../axios";
+import axiosClient from "../axios";
+import HeroHeader from "../components/HeroHeader";
+import MainView from "../components/MainView";
+import QuizList from "../components/QuizList";
 
 const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
   return (
     <>
       <Head>
-        <title> {"Daily Trivia - GeoBuff"}</title>
+        <title> {"All Map Games - GeoBuff"}</title>
       </Head>
       <MainView>
-        <HeroHeader heading="Daily Trivia" />
+        <HeroHeader heading="All Map Games" />
         <Flex flex={1} width="100%">
           <Flex
             direction="column"
@@ -26,7 +25,7 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
             width="100%"
             marginX="auto"
           >
-            <TriviaList trivia={pageProps?.trivia} />
+            <QuizList quizzes={pageProps?.mapQuizzes} />
           </Flex>
         </Flex>
       </MainView>
@@ -35,22 +34,23 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const { data: triviaData } = await axiosClient.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
+  const { data: mapData } = await axiosClient.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
     {
       page: 0,
-      limit: 30,
+      limit: 100,
+      filter: "map",
     }
   );
 
-  if (!triviaData) {
+  if (!mapData) {
     return {
       notFound: true,
     };
   }
 
   return {
-    props: { trivia: triviaData.trivia },
+    props: { mapQuizzes: mapData.quizzes },
   };
 };
 

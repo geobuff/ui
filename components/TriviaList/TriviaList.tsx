@@ -14,7 +14,7 @@ import TriviaCard from "../TriviaCard";
 import DelayedRender from "../DelayedRender";
 import { isDateBefore, formatDate } from "../../helpers/date";
 
-interface FilteredTrivia extends Trivia {
+export interface FilteredTrivia extends Trivia {
   isActive: boolean;
 }
 
@@ -50,7 +50,7 @@ const TriviaList: FC<Props> = ({ trivia = [] }) => {
       marginBottom={10}
       marginLeft="auto"
       marginRight="auto"
-      minHeight="1000px"
+      // minHeight="1000px"
       paddingX={{ base: 3, md: 10 }}
       _hover={{
         cursor: "pointer",
