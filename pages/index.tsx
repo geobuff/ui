@@ -1,7 +1,6 @@
-import React, { useState, useCallback, FC, ChangeEvent } from "react";
+import React, { useState, FC, ChangeEvent, useEffect, useMemo } from "react";
 import type { AppProps } from "next/app";
-
-import { debounce } from "debounce";
+import { debounce } from "throttle-debounce";
 
 import {
   Box,
@@ -12,6 +11,8 @@ import {
   Fade,
   IconButton,
   useBreakpointValue,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
@@ -33,46 +34,52 @@ import CardListItem from "../components/CardList/CardListItem";
 
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const [isSearching, setIsSearching] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const handleClearInput = (): void => {
     setInputValue("");
     setFilter("");
+    setSearchResults([]);
   };
 
   const onChange = (value: string): void => {
     setFilter(value);
   };
 
-  const handleDebounceChange = useCallback(debounce(onChange, 300), [onChange]);
+  const handleDebounceChange = debounce(500, (event) => {
+    onChange(event);
+  });
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    const value = event.currentTarget.value;
-    setInputValue(value);
-    handleDebounceChange(value);
-  };
+    setInputValue(event.target.value);
+    handleDebounceChange(event.target.value);
 
-  const getFilteredQuizzes = () => {
-    if (filter) {
-      return [
-        ...pageProps?.mapQuizzes.filter((quiz) =>
-          quiz.name.toLowerCase().includes(filter.toLocaleLowerCase())
-        ),
-        ...pageProps?.flagQuizzes.filter((quiz) =>
-          quiz.name.toLowerCase().includes(filter.toLocaleLowerCase())
-        ),
-      ];
+    if (event.target.value?.length === 2) {
+      setIsSearching(true);
     }
-    return [];
   };
 
-  // {!filteredQuizzes.length ? (
-  //   <Alert status="info" borderRadius={6} p={5} mt={5}>
-  //     <AlertIcon />
-  //     {`There were no results for '${filter}'`}
-  //   </Alert>
+  useEffect(() => {
+    if (filter.trim().length < 3) {
+      setSearchResults([]);
+      return;
+    }
+    setIsSearching(true);
+    axiosClient
+      .post(`/quizzes/all`, {
+        filter,
+        page: 0,
+        limit: 15,
+        orderByPopularity: true,
+      })
+      .then((response) => {
+        setSearchResults(response.data.quizzes || []);
+      })
+      .finally(() => setIsSearching(false));
+  }, [filter]);
 
-  const filteredQuizzes = getFilteredQuizzes();
   const isMobile = useBreakpointValue({ base: true, md: false });
   // const [isLargerThan1205] = useMediaQuery("(min-width: 1205)");
 
@@ -90,6 +97,29 @@ const Home: FC<AppProps> = ({ pageProps }) => {
     }))
     .filter((t) => t.isActive)
     .slice(0, 5);
+
+  const searchResultItems = useMemo(
+    () => (
+      <>
+        {searchResults?.map((quiz) => (
+          <CardListItem
+            key={quiz.id}
+            href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+          >
+            <QuizCard
+              name={quiz.name}
+              imageUrl={quiz.imageUrl}
+              time={quiz.time}
+              maxScore={quiz.maxScore}
+              verb={quiz.verb}
+              position={{ base: "relative", md: "absolute" }}
+            />
+          </CardListItem>
+        ))}
+      </>
+    ),
+    [searchResults]
+  );
 
   return (
     <MainView>
@@ -158,92 +188,149 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         marginLeft="auto"
         marginRight="auto"
         paddingX={{ base: 3, md: 10 }}
+        minHeight="400px"
       >
-        {filter ? (
-          <CardListSection title={`Search results for '${filter}'`}>
-            {filteredQuizzes.map((quiz) => (
-              <CardListItem
-                key={quiz.id}
-                href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
-              >
-                <QuizCard
-                  name={quiz.name}
-                  imageUrl={quiz.imageUrl}
-                  time={quiz.time}
-                  maxScore={quiz.maxScore}
-                  verb={quiz.verb}
-                  position={{ base: "relative", md: "absolute" }}
-                />
-              </CardListItem>
-            ))}
-          </CardListSection>
+        {!!searchResults.length && !isSearching && filter ? (
+          <>
+            <>
+              {!searchResults.length && !isSearching ? (
+                <Alert
+                  status="info"
+                  borderRadius={6}
+                  p={5}
+                  mt={3}
+                  mb={"100px"}
+                  maxWidth="100%"
+                >
+                  <AlertIcon />
+                  {`There were no results for '${filter}'`}
+                </Alert>
+              ) : (
+                <CardListSection
+                  title={
+                    isSearching
+                      ? `Searching for '${filter.trim()}' `
+                      : `Search results for '${filter.trim()}'`
+                  }
+                  isLoading={isSearching}
+                >
+                  {searchResultItems}
+                </CardListSection>
+              )}
+            </>
+          </>
         ) : (
-          <Box minHeight={{ base: "775px", md: "775px" }}>
-            <DelayedRender shouldFadeIn waitBeforeShow={100}>
+          <>
+            {filter?.length > 2 ? (
               <CardListSection
-                title="Trivia"
-                linkHref="/daily-trivia"
-                linkVerb="trivia"
-                marginTop={0}
+                title={
+                  isSearching
+                    ? `Searching for '${filter.trim()}' `
+                    : `Search results for '${filter.trim()}'`
+                }
+                isLoading={isSearching}
               >
-                {filteredTrivia.map((quiz) => (
-                  <CardListItem
-                    key={quiz.id}
-                    href={`/daily-trivia/${formatDate(quiz.date)}`}
+                {!searchResults.length && !isSearching ? (
+                  <Alert
+                    status="info"
+                    borderRadius={6}
+                    p={5}
+                    mt={3}
+                    mb={"100px"}
+                    maxWidth="100%"
                   >
-                    <TriviaCard
-                      name={quiz.name}
-                      position={{ base: "relative", md: "absolute" }}
-                    />
-                  </CardListItem>
-                ))}
+                    <AlertIcon />
+                    {`There were no results for '${filter}'`}
+                  </Alert>
+                ) : (
+                  <>
+                    {searchResults?.map((quiz) => (
+                      <CardListItem
+                        key={quiz.id}
+                        href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                      >
+                        <QuizCard
+                          name={quiz.name}
+                          imageUrl={quiz.imageUrl}
+                          time={quiz.time}
+                          maxScore={quiz.maxScore}
+                          verb={quiz.verb}
+                          position={{ base: "relative", md: "absolute" }}
+                        />
+                      </CardListItem>
+                    ))}
+                  </>
+                )}
               </CardListSection>
+            ) : (
+              <Box minHeight={{ base: "775px", md: "775px" }}>
+                <DelayedRender shouldFadeIn waitBeforeShow={100}>
+                  <CardListSection
+                    title="Trivia"
+                    linkHref="/daily-trivia"
+                    linkVerb="trivia"
+                    marginTop={0}
+                  >
+                    {filteredTrivia.map((quiz) => (
+                      <CardListItem
+                        key={quiz.id}
+                        href={`/daily-trivia/${formatDate(quiz.date)}`}
+                      >
+                        <TriviaCard
+                          name={quiz.name}
+                          position={{ base: "relative", md: "absolute" }}
+                        />
+                      </CardListItem>
+                    ))}
+                  </CardListSection>
 
-              <CardListSection
-                title="Map Games"
-                linkHref="/map-games"
-                linkVerb="map games"
-              >
-                {mapQuizzes.map((quiz) => (
-                  <CardListItem
-                    key={quiz.id}
-                    href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                  <CardListSection
+                    title="Map Games"
+                    linkHref="/map-games"
+                    linkVerb="map games"
                   >
-                    <QuizCard
-                      name={quiz.name}
-                      imageUrl={quiz.imageUrl}
-                      time={quiz.time}
-                      maxScore={quiz.maxScore}
-                      verb={quiz.verb}
-                      position={{ base: "relative", md: "absolute" }}
-                    />
-                  </CardListItem>
-                ))}
-              </CardListSection>
+                    {mapQuizzes.map((quiz) => (
+                      <CardListItem
+                        key={quiz.id}
+                        href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                      >
+                        <QuizCard
+                          name={quiz.name}
+                          imageUrl={quiz.imageUrl}
+                          time={quiz.time}
+                          maxScore={quiz.maxScore}
+                          verb={quiz.verb}
+                          position={{ base: "relative", md: "absolute" }}
+                        />
+                      </CardListItem>
+                    ))}
+                  </CardListSection>
 
-              <CardListSection
-                title="Flag Games"
-                linkHref="/flag-games"
-                linkVerb="flag games"
-              >
-                {flagQuizzes.map((quiz) => (
-                  <CardListItem
-                    key={quiz.id}
-                    href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                  <CardListSection
+                    title="Flag Games"
+                    linkHref="/flag-games"
+                    linkVerb="flag games"
                   >
-                    <QuizCard
-                      name={quiz.name}
-                      imageUrl={quiz.imageUrl}
-                      time={quiz.time}
-                      maxScore={quiz.maxScore}
-                      verb={quiz.verb}
-                      position={{ base: "relative", md: "absolute" }}
-                    />
-                  </CardListItem>
-                ))}
-              </CardListSection>
-            </DelayedRender>
-          </Box>
+                    {flagQuizzes.map((quiz) => (
+                      <CardListItem
+                        key={quiz.id}
+                        href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                      >
+                        <QuizCard
+                          name={quiz.name}
+                          imageUrl={quiz.imageUrl}
+                          time={quiz.time}
+                          maxScore={quiz.maxScore}
+                          verb={quiz.verb}
+                          position={{ base: "relative", md: "absolute" }}
+                        />
+                      </CardListItem>
+                    ))}
+                  </CardListSection>
+                </DelayedRender>
+              </Box>
+            )}
+          </>
         )}
       </Box>
     </MainView>
