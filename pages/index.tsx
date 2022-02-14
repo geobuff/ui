@@ -33,6 +33,7 @@ import CardList from "../components/CardList";
 import { formatDate } from "../helpers/date";
 import TriviaCard from "../components/TriviaCard";
 import QuizCard from "../components/QuizCard";
+import OutlinedChevronRight from "../Icons/OutlinedChevronRight";
 
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
@@ -148,7 +149,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
               alignItems="center"
               marginBottom={{ base: 1, md: 6 }}
             >
-              <Heading fontSize={{ base: 18, md: "2xl" }}>
+              <Heading fontSize={{ base: 16, md: "2xl" }}>
                 {`Search results for '${filter}'`}
               </Heading>
             </Flex>
@@ -216,14 +217,18 @@ const Home: FC<AppProps> = ({ pageProps }) => {
               width="100%"
               justifyContent="space-between"
               alignItems="center"
-              marginBottom={{ base: 1, md: 6 }}
+              marginBottom={{ base: 1, md: 5 }}
             >
-              <Heading fontSize={{ base: 22, md: "2xl" }}>
+              <Heading fontSize={{ base: 18, md: "2xl" }}>
                 {"Daily Trivia"}
               </Heading>
               <Link href="/daily-trivia">
-                <ChakraLink fontWeight="semibold">
-                  {"See all trivia"}
+                <ChakraLink
+                  fontWeight="semibold"
+                  fontSize={{ base: "sm", md: "medium" }}
+                >
+                  {`See all ${isMobile ? "" : "trivia"}`}
+                  <OutlinedChevronRight height="18px" width="18px" mb="2px" />
                 </ChakraLink>
               </Link>
             </Flex>
@@ -234,30 +239,36 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                   key={quiz.id}
                   href={`/daily-trivia/${formatDate(quiz.date)}`}
                 >
-                  <>
-                    {isMobile ? (
-                      <Box
-                        display="inline-block"
-                        width="180px"
-                        height="210px"
-                        marginRight={3}
-                        paddingY={3}
-                      >
-                        <TriviaCard name={quiz.name} position="relative" />
-                      </Box>
-                    ) : (
-                      <AspectRatio
-                        maxWidth="260px"
-                        minHeight={{ base: "180px", sm: "206px", md: "216px" }}
-                        maxHeight="230px"
-                        ratio={3 / 2}
-                        transition="all 150ms ease-out"
-                        _hover={{ transform: "scale(1.030)" }}
-                      >
-                        <TriviaCard name={quiz.name} />
-                      </AspectRatio>
-                    )}
-                  </>
+                  <ChakraLink>
+                    <>
+                      {isMobile ? (
+                        <Box
+                          display="inline-block"
+                          width="180px"
+                          height="210px"
+                          marginRight={3}
+                          paddingY={3}
+                        >
+                          <TriviaCard name={quiz.name} position="relative" />
+                        </Box>
+                      ) : (
+                        <AspectRatio
+                          maxWidth="260px"
+                          minHeight={{
+                            base: "180px",
+                            sm: "206px",
+                            md: "216px",
+                          }}
+                          maxHeight="230px"
+                          ratio={3 / 2}
+                          transition="all 150ms ease-out"
+                          _hover={{ transform: "scale(1.030)" }}
+                        >
+                          <TriviaCard name={quiz.name} />
+                        </AspectRatio>
+                      )}
+                    </>
+                  </ChakraLink>
                 </Link>
               ))}
             </CardList>
@@ -267,14 +278,18 @@ const Home: FC<AppProps> = ({ pageProps }) => {
               justifyContent="space-between"
               alignItems="center"
               marginTop={{ base: 2.5, md: 12 }}
-              marginBottom={{ base: 1, md: 6 }}
+              marginBottom={{ base: 1, md: 5 }}
             >
-              <Heading fontSize={{ base: 22, md: "2xl" }}>
+              <Heading fontSize={{ base: 18, md: "2xl" }}>
                 {"Popular Map Games"}
               </Heading>
               <Link href="/map-games">
-                <ChakraLink fontWeight="semibold">
-                  {"See all map games"}
+                <ChakraLink
+                  fontWeight="semibold"
+                  fontSize={{ base: "sm", md: "medium" }}
+                >
+                  {`See all ${isMobile ? "" : "map games"}`}
+                  <OutlinedChevronRight height="18px" width="18px" mb="1px" />
                 </ChakraLink>
               </Link>
             </Flex>
@@ -282,9 +297,9 @@ const Home: FC<AppProps> = ({ pageProps }) => {
               {pageProps?.mapQuizzes?.map((quiz) => (
                 <Link
                   key={quiz.id}
-                  href={`/daily-trivia/${formatDate(quiz.date)}`}
+                  href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
                 >
-                  <>
+                  <ChakraLink>
                     {isMobile ? (
                       <Box
                         display="inline-block"
@@ -320,7 +335,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                         />
                       </AspectRatio>
                     )}
-                  </>
+                  </ChakraLink>
                 </Link>
               ))}
             </CardList>
@@ -329,14 +344,18 @@ const Home: FC<AppProps> = ({ pageProps }) => {
               justifyContent="space-between"
               alignItems="center"
               marginTop={{ base: 2.5, md: 12 }}
-              marginBottom={{ base: 1, md: 6 }}
+              marginBottom={{ base: 1, md: 5 }}
             >
-              <Heading fontSize={{ base: 22, md: "2xl" }}>
+              <Heading fontSize={{ base: 18, md: "2xl" }}>
                 {"Popular Flag Games"}
               </Heading>
               <Link href="/flag-games">
-                <ChakraLink fontWeight="semibold">
-                  {"See all flag games"}
+                <ChakraLink
+                  fontWeight="semibold"
+                  fontSize={{ base: "sm", md: "medium" }}
+                >
+                  {`See all ${isMobile ? "" : "flag games"}`}
+                  <OutlinedChevronRight height="18px" width="18px" mb="1px" />
                 </ChakraLink>
               </Link>
             </Flex>
