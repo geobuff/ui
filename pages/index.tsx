@@ -1,6 +1,5 @@
 import React, { useState, useCallback, FC, ChangeEvent } from "react";
 import type { AppProps } from "next/app";
-import Link from "next/link";
 
 import { debounce } from "debounce";
 
@@ -12,15 +11,7 @@ import {
   InputRightElement,
   Fade,
   IconButton,
-  Heading,
-  AspectRatio,
-  Link as ChakraLink,
   useBreakpointValue,
-  Flex,
-  Alert,
-  AlertIcon,
-  useMediaQuery,
-  GridItem,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
@@ -32,7 +23,6 @@ import SolidCloseCircle from "../Icons/SolidCloseCircle";
 import axiosClient from "../axios";
 import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
 import { GetStaticProps } from "next";
-import CardList from "../components/CardList";
 import { formatDate, isDateBefore } from "../helpers/date";
 import TriviaCard from "../components/TriviaCard";
 import QuizCard from "../components/QuizCard";
@@ -76,12 +66,20 @@ const Home: FC<AppProps> = ({ pageProps }) => {
     return [];
   };
 
+  // {!filteredQuizzes.length ? (
+  //   <Alert status="info" borderRadius={6} p={5} mt={5}>
+  //     <AlertIcon />
+  //     {`There were no results for '${filter}'`}
+  //   </Alert>
+
   const filteredQuizzes = getFilteredQuizzes();
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const [isLargerThan1205] = useMediaQuery("(min-width: 1205)");
+  // const [isLargerThan1205] = useMediaQuery("(min-width: 1205)");
 
   const numberToSlice = isMobile ? 14 : 15;
 
+  const mapQuizzes = pageProps?.mapQuizzes?.slice(0, numberToSlice);
+  const flagQuizzes = pageProps?.flagQuizzes?.slice(0, numberToSlice);
   const filteredTrivia = pageProps?.trivia
     .map((quiz: FilteredTrivia) => ({
       ...quiz,
@@ -92,9 +90,6 @@ const Home: FC<AppProps> = ({ pageProps }) => {
     }))
     .filter((t) => t.isActive)
     .slice(0, 5);
-
-  // TODO: see if we can move this to just content
-  if (isLargerThan1205 === undefined || isMobile === undefined) return null;
 
   return (
     <MainView>
@@ -165,75 +160,23 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         paddingX={{ base: 3, md: 10 }}
       >
         {filter ? (
-          <>
-            <Flex
-              width="100%"
-              justifyContent="space-between"
-              alignItems="center"
-              marginBottom={{ base: 1, md: 6 }}
-            >
-              <Heading fontSize={{ base: 16, md: "2xl" }}>
-                {`Search results for '${filter}'`}
-              </Heading>
-            </Flex>
-            {!filteredQuizzes.length ? (
-              <Alert status="info" borderRadius={6} p={5} mt={5}>
-                <AlertIcon />
-                {`There were no results for '${filter}'`}
-              </Alert>
-            ) : (
-              <CardList>
-                {filteredQuizzes?.map((quiz) => (
-                  <Link
-                    key={quiz.id}
-                    href={`/daily-trivia/${formatDate(quiz.date)}`}
-                  >
-                    <>
-                      {isMobile ? (
-                        <Box
-                          display="inline-block"
-                          width="200px"
-                          height="216px"
-                          marginRight={3}
-                          paddingY={3}
-                        >
-                          <QuizCard
-                            position="relative"
-                            name={quiz.name}
-                            imageUrl={quiz.imageUrl}
-                            time={quiz.time}
-                            maxScore={quiz.maxScore}
-                            verb={quiz.verb}
-                          />
-                        </Box>
-                      ) : (
-                        <AspectRatio
-                          maxWidth="260px"
-                          minHeight={{
-                            base: "180px",
-                            sm: "206px",
-                            md: "216px",
-                          }}
-                          maxHeight="230px"
-                          ratio={3 / 2}
-                          transition="all 150ms ease-out"
-                          _hover={{ transform: "scale(1.030)" }}
-                        >
-                          <QuizCard
-                            name={quiz.name}
-                            imageUrl={quiz.imageUrl}
-                            time={quiz.time}
-                            maxScore={quiz.maxScore}
-                            verb={quiz.verb}
-                          />
-                        </AspectRatio>
-                      )}
-                    </>
-                  </Link>
-                ))}
-              </CardList>
-            )}
-          </>
+          <CardListSection title={`Search results for '${filter}'`}>
+            {filteredQuizzes.map((quiz) => (
+              <CardListItem
+                key={quiz.id}
+                href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+              >
+                <QuizCard
+                  name={quiz.name}
+                  imageUrl={quiz.imageUrl}
+                  time={quiz.time}
+                  maxScore={quiz.maxScore}
+                  verb={quiz.verb}
+                  position={{ base: "relative", md: "absolute" }}
+                />
+              </CardListItem>
+            ))}
+          </CardListSection>
         ) : (
           <Box minHeight={{ base: "775px", md: "775px" }}>
             <DelayedRender shouldFadeIn waitBeforeShow={100}>
@@ -261,7 +204,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                 linkHref="/map-games"
                 linkVerb="map games"
               >
-                {pageProps?.mapQuizzes?.slice(0, numberToSlice).map((quiz) => (
+                {mapQuizzes.map((quiz) => (
                   <CardListItem
                     key={quiz.id}
                     href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
@@ -283,7 +226,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                 linkHref="/flag-games"
                 linkVerb="flag games"
               >
-                {pageProps?.flagQuizzes?.slice(0, numberToSlice).map((quiz) => (
+                {flagQuizzes.map((quiz) => (
                   <CardListItem
                     key={quiz.id}
                     href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
@@ -312,6 +255,7 @@ export const getStaticProps: GetStaticProps = async () => {
     filter: "",
     page: 0,
     limit: 15,
+    orderByPopularity: true,
   };
 
   const { data: mapData } = await axiosClient.post(
