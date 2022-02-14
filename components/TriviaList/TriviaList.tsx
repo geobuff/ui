@@ -14,7 +14,7 @@ import TriviaCard from "../TriviaCard";
 import DelayedRender from "../DelayedRender";
 import { isDateBefore, formatDate } from "../../helpers/date";
 
-interface FilteredTrivia extends Trivia {
+export interface FilteredTrivia extends Trivia {
   isActive: boolean;
 }
 

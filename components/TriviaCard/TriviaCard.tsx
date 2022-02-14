@@ -41,7 +41,7 @@ const TriviaCard: FC<Props> = ({ name = "", ...props }) => (
         }}
       />
 
-      <Box paddingTop="12px" paddingX="12px">
+      <Box paddingTop="12px" paddingX="12px" whiteSpace="pre-wrap">
         <Text
           fontWeight="bold"
           fontSize="18px"
