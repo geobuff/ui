@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import * as Yup from "yup";
 
 import {
@@ -16,6 +16,7 @@ import {
   Radio,
 } from "@chakra-ui/react";
 
+import PlacesAutocomplete from "react-places-autocomplete";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import Card from "../Card";
 import { useRouter } from "next/router";
@@ -29,12 +30,13 @@ const validationSchema = Yup.object().shape({
   firstName: Yup.string().required("Please include your first name."),
   lastName: Yup.string().required("Please include your last name."),
   address: Yup.string().required("Please include your street address."),
-  suburb: Yup.string().required("Please include your suburb."),
-  city: Yup.string().required("Please include your city."),
-  postcode: Yup.string().required("Please include a valid postcode."),
 });
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
+
+const searchOptions = {
+  componentRestrictions: { country: ["nz"] },
+};
 
 export interface Props {
   email?: string;
@@ -48,6 +50,49 @@ const CheckoutForm: FC<Props> = ({
   onSubmit = (values: CheckoutFormSubmit): void => {},
 }) => {
   const router = useRouter();
+
+  const renderAddressInput = ({
+    getInputProps,
+    getSuggestionItemProps,
+    suggestions,
+    loading,
+  }) => (
+    <>
+      <Input
+        {...getInputProps()}
+        id="address"
+        type="text"
+        placeholder="Enter your street address..."
+        size="lg"
+        fontSize="16px"
+        fontWeight={400}
+        background="#F6F6F6"
+        borderRadius={6}
+        _placeholder={{ color: "gray.500" }}
+        _hover={{ background: "#e0e0e0" }}
+      />
+      <>
+        {loading && (
+          <Box>
+            <Text>Loading...</Text>
+          </Box>
+        )}
+        {suggestions.map((suggestion, index) => (
+          <Box
+            {...getSuggestionItemProps(suggestion)}
+            key={index}
+            background={suggestion.active ? "red" : "#ffffff"}
+            cursor="pointer"
+            border="1px #E3E1E1 solid"
+            padding={3}
+            borderRadius={6}
+          >
+            <Text>{suggestion.description}</Text>
+          </Box>
+        ))}
+      </>
+    </>
+  );
 
   return (
     <Flex
@@ -84,14 +129,11 @@ const CheckoutForm: FC<Props> = ({
             firstName: "",
             lastName: "",
             address: "",
-            suburb: "",
-            city: "",
-            postcode: "",
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({ dirty, isValid }): React.ReactNode => (
+          {({ values, setFieldValue }): React.ReactNode => (
             <Form>
               <Flex direction="column" marginX={{ base: 1, md: 6 }}>
                 <Heading size="md" mt={{ base: 1, md: 6 }} mb={3}>
@@ -134,6 +176,7 @@ const CheckoutForm: FC<Props> = ({
                           fontWeight={400}
                           background="#F6F6F6"
                           borderRadius={6}
+                          disabled={!!email}
                           _placeholder={{ color: "gray.500" }}
                           _hover={{ background: "#e0e0e0" }}
                         />
@@ -222,127 +265,23 @@ const CheckoutForm: FC<Props> = ({
 
                 <Flex marginY={3}>
                   <Field name="address">
-                    {({ field, form }): React.ReactNode => (
+                    {({ form }): React.ReactNode => (
                       <FormControl
                         isInvalid={form.errors.address && form.touched.address}
                       >
                         <FormLabel htmlFor="address" fontWeight="bold">
                           {"Address"}
                         </FormLabel>
-                        <Input
-                          {...field}
-                          id="address"
-                          type="text"
-                          placeholder="Enter your street address..."
-                          size="lg"
-                          fontSize="16px"
-                          fontWeight={400}
-                          background="#F6F6F6"
-                          borderRadius={6}
-                          _placeholder={{ color: "gray.500" }}
-                          _hover={{ background: "#e0e0e0" }}
-                        />
+                        <PlacesAutocomplete
+                          value={values.address}
+                          onChange={(value) => setFieldValue("address", value)}
+                          searchOptions={searchOptions}
+                        >
+                          {renderAddressInput}
+                        </PlacesAutocomplete>
                         <Box position="absolute" top="68px" left="2px">
                           <FormErrorMessage fontSize="11px">
                             {form.errors.address}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="suburb">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={form.errors.suburb && form.touched.suburb}
-                      >
-                        <FormLabel htmlFor="suburb" fontWeight="bold">
-                          {"Suburb"}
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="suburb"
-                          type="text"
-                          placeholder="Enter your suburb..."
-                          size="lg"
-                          fontSize="16px"
-                          fontWeight={400}
-                          background="#F6F6F6"
-                          borderRadius={6}
-                          _placeholder={{ color: "gray.500" }}
-                          _hover={{ background: "#e0e0e0" }}
-                        />
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.suburb}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="city">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={form.errors.city && form.touched.city}
-                      >
-                        <FormLabel htmlFor="city" fontWeight="bold">
-                          {"City"}
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="city"
-                          type="text"
-                          placeholder="Enter your city..."
-                          size="lg"
-                          fontSize="16px"
-                          fontWeight={400}
-                          background="#F6F6F6"
-                          borderRadius={6}
-                          _placeholder={{ color: "gray.500" }}
-                          _hover={{ background: "#e0e0e0" }}
-                        />
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.city}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="postcode">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={
-                          form.errors.postcode && form.touched.postcode
-                        }
-                      >
-                        <FormLabel htmlFor="postcode" fontWeight="bold">
-                          {"Postcode"}
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="postcode"
-                          type="text"
-                          placeholder="Enter your postcode..."
-                          size="lg"
-                          fontSize="16px"
-                          fontWeight={400}
-                          background="#F6F6F6"
-                          borderRadius={6}
-                          _placeholder={{ color: "gray.500" }}
-                          _hover={{ background: "#e0e0e0" }}
-                        />
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.postcode}
                           </FormErrorMessage>
                         </Box>
                       </FormControl>
@@ -362,7 +301,7 @@ const CheckoutForm: FC<Props> = ({
                       width="100%"
                       type="submit"
                       isLoading={isLoading}
-                      disabled={!dirty || !isValid || isLoading}
+                      disabled={isLoading}
                     >
                       {"Continue To Payment"}
                     </Button>

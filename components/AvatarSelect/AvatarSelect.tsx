@@ -7,8 +7,6 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import Image from "../Image";
-
 import { FieldProps } from "../../types/field-props";
 import { Avatar } from "../../types/avatar";
 import RadioCard from "./RadioCard";
