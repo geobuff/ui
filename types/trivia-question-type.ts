@@ -1,1 +1,4 @@
-export type TriviaQuestionType = "Flag" | "Map" | "Image" | "Text";
+export interface TriviaQuestionType {
+  id: number;
+  name: string;
+}

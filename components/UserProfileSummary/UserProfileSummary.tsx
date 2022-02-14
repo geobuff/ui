@@ -135,7 +135,7 @@ const UserProfileSummary: FC<Props> = ({
 
   return (
     <>
-      <Card>
+      <Card padding={3}>
         {isCurrentUser && (
           <Flex justifyContent="flex-end" width="100%">
             <UserProfileSummaryMenu

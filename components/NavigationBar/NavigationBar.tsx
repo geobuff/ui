@@ -70,13 +70,6 @@ const NavigationBar: FC = () => {
           isActive={route === "/leaderboard"}
           marginLeft={6}
         />
-
-        <NavigationBarLink
-          href="/daily-trivia"
-          label="Daily Trivia"
-          isActive={route === "/daily-trivia"}
-          marginLeft={6}
-        />
       </Flex>
 
       <Flex>

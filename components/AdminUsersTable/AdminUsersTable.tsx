@@ -86,7 +86,7 @@ const AdminUsersTable: FC<Props> = ({
                       DateTime.DATE_MED
                     )}
                   </TableCell>
-                  <TableCell isNumeric paddingY={3} paddingX={6}>
+                  <TableCell paddingY={3} paddingX={6}>
                     <Button
                       colorScheme="red"
                       onClick={() => onDeleteUser(user.id)}
@@ -123,7 +123,7 @@ const AdminUsersTable: FC<Props> = ({
               role="group"
               backgroundColor="#F3F3F3"
               onClick={onNextPage}
-              isDisabled={!userPage.hasMore || isLoading}
+              isDisabled={isLoading || !userPage.hasMore}
               height="48px"
               width={{ base: "46px", md: "132px" }}
               _hover={{ backgroundColor: "#e6e6e6" }}

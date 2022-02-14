@@ -14,7 +14,7 @@ import { use100vh } from "react-div-100vh";
 
 import CustomFlag from "../../CustomFlag";
 import Image from "../../Image";
-import { TriviaQuestionType } from "../../../types/trivia-question-type";
+import { TriviaQuestionTypes } from "../../../types/trivia-question-types";
 
 const mapStyles = {
   height: "100%",
@@ -22,12 +22,8 @@ const mapStyles = {
   fill: "#6dca94",
 };
 
-const highlightedStyling = {
-  fill: "#e24f4f",
-};
-
 const getContentByType = (
-  type: TriviaQuestionType,
+  type: TriviaQuestionTypes,
   map: string,
   highlighted: string,
   flagCode: string,
@@ -56,7 +52,9 @@ const getContentByType = (
           ...svgMap,
           paths: svgMap.paths.map((x) => {
             if (x.name.toLowerCase() === highlighted.toLowerCase()) {
-              x.style = highlightedStyling;
+              x.style = { fill: "#e24f4f" };
+            } else {
+              x.style = { fill: "#6dca94" };
             }
             return x;
           }),
@@ -83,7 +81,7 @@ const getHeaderFontSize = (
 
 export interface Props {
   text: string;
-  type?: TriviaQuestionType;
+  type?: TriviaQuestionTypes;
   map?: string;
   highlighted?: string;
   flagCode?: string;

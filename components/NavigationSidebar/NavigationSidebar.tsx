@@ -41,17 +41,16 @@ const quickLinks = [
     label: "Daily Trivia",
     emoji: "❓",
   },
-  // TODO: uncomment when ready
-  //   {
-  //     href: "/map-games",
-  //     label: "Map Games",
-  //     emoji: "🗺",
-  //   },
-  //   {
-  //     href: "/flag-games",
-  //     label: "Flag Games",
-  //     emoji: "🎌",
-  //   },
+  {
+    href: "/map-games",
+    label: "Map Games",
+    emoji: "🗺",
+  },
+  {
+    href: "/flag-games",
+    label: "Flag Games",
+    emoji: "🎌",
+  },
 ];
 
 const popularQuizzes = [

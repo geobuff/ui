@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
+import dynamic from "next/dynamic";
 
 import {
   Flex,
@@ -11,15 +12,50 @@ import {
 } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
-import AdminTotalUserCountContainer from "../containers/AdminTotalUserCountContainer";
-import AdminUsersContainer from "../containers/AdminUsersContainer";
-import AdminTopFiveQuizPlaysContainer from "../containers/AdminTopFiveQuizPlaysContainer";
-import AdminLastWeekTriviaPlaysContainer from "../containers/AdminLastWeekTriviaPlaysContainer";
-import AdminQuizzesContainer from "../containers/AdminQuizzesContainer";
-import AdminOrdersContainer from "../containers/AdminOrdersContainer";
-import AdminDiscountsContainer from "../containers/AdminDiscountsContainer";
-import AdminGeneralContainer from "../containers/AdminGeneralContainer";
-import AdminCreateQuizContainer from "../containers/AdminCreateQuizContainer";
+
+const AdminTotalUserCountContainer = dynamic(
+  () => import("../containers/AdminTotalUserCountContainer")
+);
+
+const AdminUsersContainer = dynamic(
+  () => import("../containers/AdminUsersContainer")
+);
+
+const AdminTopFiveQuizPlaysContainer = dynamic(
+  () => import("../containers/AdminTopFiveQuizPlaysContainer")
+);
+
+const AdminLastWeekTriviaPlaysContainer = dynamic(
+  () => import("../containers/AdminLastWeekTriviaPlaysContainer")
+);
+
+const AdminQuizzesContainer = dynamic(
+  () => import("../containers/AdminQuizzesContainer")
+);
+
+const AdminOrdersContainer = dynamic(
+  () => import("../containers/AdminOrdersContainer")
+);
+
+const AdminDiscountsContainer = dynamic(
+  () => import("../containers/AdminDiscountsContainer")
+);
+
+const AdminGeneralContainer = dynamic(
+  () => import("../containers/AdminGeneralContainer")
+);
+
+const AdminCreateQuizContainer = dynamic(
+  () => import("../containers/AdminCreateQuizContainer")
+);
+
+const AdminManualTriviaQuestionsContainer = dynamic(
+  () => import("../containers/AdminManualTriviaQuestionsContainer")
+);
+
+const AdminCreateManualTriviaQuestionContainer = dynamic(
+  () => import("../containers/AdminCreateManualTriviaQuestionContainer")
+);
 
 const Admin: FC = () => (
   <>
@@ -85,6 +121,8 @@ const Admin: FC = () => (
                 maxWidth={1300}
               >
                 <AdminLastWeekTriviaPlaysContainer />
+                <AdminManualTriviaQuestionsContainer />
+                <AdminCreateManualTriviaQuestionContainer />
               </Flex>
             </Flex>
           </TabPanel>

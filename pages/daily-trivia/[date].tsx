@@ -37,10 +37,15 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
 };
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/trivia`);
-  const trivia = await res.json();
+  const { data: triviaData } = await axiosClient.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
+    {
+      page: 0,
+      limit: 50,
+    }
+  );
 
-  const paths = trivia.map(({ date }) => ({
+  const paths = triviaData.trivia.map(({ date }) => ({
     params: {
       date: DateTime.fromISO(date).toFormat("yyyy-MM-dd"),
     },

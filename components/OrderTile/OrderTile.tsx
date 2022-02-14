@@ -19,9 +19,6 @@ const OrderTile: FC<Props> = ({ order = null }) => (
     <Flex direction="column" minWidth={{ base: "100%", md: "50%" }}>
       <Text>{`Name: ${order.firstName} ${order.lastName}`}</Text>
       <Text>{`Address: ${order.address}`}</Text>
-      <Text>{`Suburb: ${order.suburb}`}</Text>
-      <Text>{`City: ${order.city}`}</Text>
-      <Text>{`Postcode: ${order.postcode}`}</Text>
       <Text>{`Purchased: ${order.added}`}</Text>
       {order.discount.Valid && (
         <Text>{`Discount code: ${order.discount.String}`}</Text>

@@ -98,3 +98,14 @@ export const createQuizToast = (
   duration: 9000,
   isClosable: true,
 });
+
+export const createManualTriviaQuestionToast = (
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Create Manual Trivia Question",
+  description: `Successfully created new trivia question.`,
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});

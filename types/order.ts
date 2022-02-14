@@ -8,9 +8,6 @@ export interface Order {
   firstName: string;
   lastName: string;
   address: string;
-  suburb: string;
-  city: string;
-  postcode: string;
   added: Date;
   discount: NullString;
 }

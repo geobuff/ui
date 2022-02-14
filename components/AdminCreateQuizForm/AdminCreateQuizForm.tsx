@@ -62,7 +62,7 @@ const AdminCreateQuizForm: FC<Props> = ({
   isSubmitting = false,
   error = "",
   isLoading = false,
-  onSubmit,
+  onSubmit = (values: CreateQuizFormSubmit): void => {},
 }) => (
   <>
     {error && (

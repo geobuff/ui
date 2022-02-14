@@ -19,6 +19,7 @@ const AdminQuizzesContainer: FC = () => {
       filter: "",
       page: page,
       limit: 10,
+      orderByPopularity: true,
     };
 
     axiosClient.post(`/quizzes/all`, filter).then((response) => {
