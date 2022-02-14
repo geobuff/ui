@@ -36,10 +36,10 @@ import CardList from "../components/CardList";
 import { formatDate, isDateBefore } from "../helpers/date";
 import TriviaCard from "../components/TriviaCard";
 import QuizCard from "../components/QuizCard";
-import OutlinedChevronRight from "../Icons/OutlinedChevronRight";
 import DelayedRender from "../components/DelayedRender";
 import { FilteredTrivia } from "../components/TriviaList/TriviaList";
 import CardListSection from "../components/CardListSection";
+import CardListItem from "../components/CardList/CardListItem";
 
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
@@ -244,41 +244,15 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                 marginTop={0}
               >
                 {filteredTrivia.map((quiz) => (
-                  <Link
+                  <CardListItem
                     key={quiz.id}
                     href={`/daily-trivia/${formatDate(quiz.date)}`}
                   >
-                    <ChakraLink>
-                      <>
-                        {isMobile ? (
-                          <Box
-                            display="inline-block"
-                            width="180px"
-                            height="210px"
-                            marginRight={3}
-                            paddingY={3}
-                          >
-                            <TriviaCard name={quiz.name} position="relative" />
-                          </Box>
-                        ) : (
-                          <AspectRatio
-                            maxWidth="260px"
-                            minHeight={{
-                              base: "180px",
-                              sm: "206px",
-                              md: "216px",
-                            }}
-                            maxHeight="230px"
-                            ratio={3 / 2}
-                            transition="all 150ms ease-out"
-                            _hover={{ transform: "scale(1.030)" }}
-                          >
-                            <TriviaCard name={quiz.name} />
-                          </AspectRatio>
-                        )}
-                      </>
-                    </ChakraLink>
-                  </Link>
+                    <TriviaCard
+                      name={quiz.name}
+                      position={{ base: "relative", md: "absolute" }}
+                    />
+                  </CardListItem>
                 ))}
               </CardListSection>
 
@@ -288,51 +262,19 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                 linkVerb="map games"
               >
                 {pageProps?.mapQuizzes?.slice(0, numberToSlice).map((quiz) => (
-                  <GridItem key={quiz.id}>
-                    <Link href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}>
-                      <ChakraLink>
-                        {isMobile ? (
-                          <Box
-                            display="inline-block"
-                            width="180px"
-                            height="210px"
-                            marginRight={3}
-                            paddingY={3}
-                          >
-                            <QuizCard
-                              position="relative"
-                              name={quiz.name}
-                              imageUrl={quiz.imageUrl}
-                              time={quiz.time}
-                              maxScore={quiz.maxScore}
-                              verb={quiz.verb}
-                            />
-                          </Box>
-                        ) : (
-                          <AspectRatio
-                            maxWidth="260px"
-                            minHeight={{
-                              base: "180px",
-                              sm: "206px",
-                              md: "216px",
-                            }}
-                            maxHeight="230px"
-                            ratio={3 / 2}
-                            transition="all 150ms ease-out"
-                            _hover={{ transform: "scale(1.030)" }}
-                          >
-                            <QuizCard
-                              name={quiz.name}
-                              imageUrl={quiz.imageUrl}
-                              time={quiz.time}
-                              maxScore={quiz.maxScore}
-                              verb={quiz.verb}
-                            />
-                          </AspectRatio>
-                        )}
-                      </ChakraLink>
-                    </Link>
-                  </GridItem>
+                  <CardListItem
+                    key={quiz.id}
+                    href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                  >
+                    <QuizCard
+                      name={quiz.name}
+                      imageUrl={quiz.imageUrl}
+                      time={quiz.time}
+                      maxScore={quiz.maxScore}
+                      verb={quiz.verb}
+                      position={{ base: "relative", md: "absolute" }}
+                    />
+                  </CardListItem>
                 ))}
               </CardListSection>
 
@@ -342,51 +284,19 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                 linkVerb="flag games"
               >
                 {pageProps?.flagQuizzes?.slice(0, numberToSlice).map((quiz) => (
-                  <GridItem key={quiz.id}>
-                    <Link href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}>
-                      <ChakraLink>
-                        {isMobile ? (
-                          <Box
-                            display="inline-block"
-                            width="180px"
-                            height="210px"
-                            marginRight={3}
-                            paddingY={3}
-                          >
-                            <QuizCard
-                              position="relative"
-                              name={quiz.name}
-                              imageUrl={quiz.imageUrl}
-                              time={quiz.time}
-                              maxScore={quiz.maxScore}
-                              verb={quiz.verb}
-                            />
-                          </Box>
-                        ) : (
-                          <AspectRatio
-                            maxWidth="260px"
-                            minHeight={{
-                              base: "180px",
-                              sm: "206px",
-                              md: "216px",
-                            }}
-                            maxHeight="230px"
-                            ratio={3 / 2}
-                            transition="all 150ms ease-out"
-                            _hover={{ transform: "scale(1.030)" }}
-                          >
-                            <QuizCard
-                              name={quiz.name}
-                              imageUrl={quiz.imageUrl}
-                              time={quiz.time}
-                              maxScore={quiz.maxScore}
-                              verb={quiz.verb}
-                            />
-                          </AspectRatio>
-                        )}
-                      </ChakraLink>
-                    </Link>
-                  </GridItem>
+                  <CardListItem
+                    key={quiz.id}
+                    href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                  >
+                    <QuizCard
+                      name={quiz.name}
+                      imageUrl={quiz.imageUrl}
+                      time={quiz.time}
+                      maxScore={quiz.maxScore}
+                      verb={quiz.verb}
+                      position={{ base: "relative", md: "absolute" }}
+                    />
+                  </CardListItem>
                 ))}
               </CardListSection>
             </DelayedRender>
