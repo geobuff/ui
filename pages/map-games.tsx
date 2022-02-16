@@ -13,10 +13,10 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
   return (
     <>
       <Head>
-        <title> {"All Map Games - GeoBuff"}</title>
+        <title> {"Map Games - GeoBuff"}</title>
       </Head>
       <MainView>
-        <HeroHeader heading="All Map Games" />
+        <HeroHeader heading="Map Games" />
         <Flex flex={1} width="100%">
           <Flex
             direction="column"

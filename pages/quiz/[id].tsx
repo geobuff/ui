@@ -19,7 +19,7 @@ const getQuizData = async (id: string) => {
     filter: "",
     page: 0,
     limit: 100,
-    orderByPopularity: true,
+    orderByPopularity: false,
   };
 
   const { data } = await axiosClient.post(
@@ -145,7 +145,7 @@ export async function getStaticPaths() {
     filter: "",
     page: 0,
     limit: 100,
-    orderByPopularity: true,
+    orderByPopularity: false,
   };
 
   const { data } = await axiosClient.post(

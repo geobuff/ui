@@ -57,7 +57,7 @@ const LeaderboardContainer: FC<Props> = ({
       filter: "",
       page: 0,
       limit: 100,
-      orderByPopularity: true,
+      orderByPopularity: false,
     };
 
     axiosClient.post(`/quizzes/all`, body).then((response) => {
