@@ -99,7 +99,7 @@ const OurMission: FC = () => (
               country="New Zealand"
               primaryImageUrl="/ash-primary.svg"
               secondaryImageUrl="/ash-secondary.svg"
-              link="https://twitter.com/wonderlandoooor"
+              link="https://twitter.com/midgleyxbt"
             />
             <TeamMemberCard
               title="Kirby McKenzie"
@@ -117,7 +117,7 @@ const OurMission: FC = () => (
               country="New Zealand"
               primaryImageUrl="/dan-primary.svg"
               secondaryImageUrl="/dan-secondary.svg"
-              link="https://github.com/danielmarchbank"
+              link="https://twitter.com/cleangecko"
             />
           </SimpleGrid>
         </Box>
