@@ -12,6 +12,9 @@ export default class MyDocument extends Document {
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
             />
             <script
+              src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
+            ></script>
+            <script
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
                 __html: `

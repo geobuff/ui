@@ -266,9 +266,9 @@ const Home: FC<AppProps> = ({ pageProps }) => {
               <Box minHeight={{ base: "775px", md: "775px" }}>
                 <DelayedRender shouldFadeIn waitBeforeShow={100}>
                   <CardListSection
-                    title="Trivia"
+                    title="Daily Trivia"
                     linkHref="/daily-trivia"
-                    linkVerb="trivia"
+                    linkVerb="daily trivia"
                     marginTop={0}
                   >
                     {filteredTrivia.map((quiz) => (
