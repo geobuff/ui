@@ -81,7 +81,6 @@ const Home: FC<AppProps> = ({ pageProps }) => {
   }, [filter]);
 
   const isMobile = useBreakpointValue({ base: true, md: false });
-  // const [isLargerThan1205] = useMediaQuery("(min-width: 1205)");
 
   const numberToSlice = isMobile ? 14 : 15;
 
@@ -96,7 +95,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
       ),
     }))
     .filter((t) => t.isActive)
-    .slice(0, 5);
+    .slice(0, isMobile ? 7 : 5);
 
   const searchResultItems = useMemo(
     () => (
@@ -170,7 +169,10 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                   onClick={handleClearInput}
                   color="#a6a6a6"
                   fontWeight="bold"
-                  _hover={{ backgroundColor: "transparent", color: "#5c5c5c" }}
+                  _hover={{
+                    backgroundColor: "transparent",
+                    color: "#5c5c5c",
+                  }}
                 >
                   <SolidCloseCircle height={5} width={5} padding={0} />
                 </IconButton>
@@ -263,7 +265,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                 )}
               </CardListSection>
             ) : (
-              <Box minHeight={{ base: "775px", md: "775px" }}>
+              <Box minHeight="776px">
                 <DelayedRender shouldFadeIn waitBeforeShow={100}>
                   <CardListSection
                     title="Daily Trivia"
