@@ -104,12 +104,9 @@ const DraggableFlagCarousel: FC<Props> = ({
           ))
         ) : (
           <DelayedRender shouldFadeIn>
-            <Box paddingBottom={4} width="100%" textAlign="center">
-              <Text fontSize="18px" color="gray.500" fontWeight={700} mr={1}>
-                {`Nice work! 🥳`}
-              </Text>
-              <Text fontSize="13px" color="gray.500" fontWeight={600}>
-                {`Drag up to view results`}
+            <Box paddingY={4} width="100%" textAlign="center">
+              <Text fontSize="20px" color="gray.500" fontWeight={700} mr={1}>
+                {`Perfect score, well done! 🥳`}
               </Text>
             </Box>
           </DelayedRender>
