@@ -6,6 +6,8 @@ import Logo from "../Logo";
 import FooterPlaysContainer from "../../containers/FooterPlaysContainer";
 import { FooterVariant } from "../../types/footer-variant";
 
+const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
+
 const companyLinks = [
   {
     href: "/our-mission",
@@ -175,7 +177,7 @@ const extendedFooter = (
       justifyContent="space-between"
       borderTop="2px solid #E3E1E1"
       paddingTop={{ base: 3, md: 5 }}
-      paddingBottom={{ base: 2, md: 3 }}
+      paddingBottom={{ base: isAppMobile ? 6 : 2, md: 3 }}
       paddingX={{ base: 2, md: 10 }}
     >
       <Text color="#B0B0B0" fontSize="14px" marginBottom={{ base: 2, md: 0 }}>

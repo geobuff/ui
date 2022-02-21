@@ -87,7 +87,7 @@ const GameTrivia: FC<Props> = ({
             <GameTriviaHeader
               name={trivia.name}
               questionNumber={questionNumber}
-              maxQuestionNumber={10}
+              maxQuestionNumber={trivia.questions?.length}
             />
 
             {hasGameStopped ? (

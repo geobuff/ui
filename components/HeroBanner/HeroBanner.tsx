@@ -73,36 +73,34 @@ const HeroBanner: FC = () => {
           alignItems="center"
           textAlign="center"
         >
-          <Fade in>
+          <Text
+            color="white"
+            fontSize={["42px", "42px", "56px"]}
+            fontWeight="black"
+            lineHeight={{ base: "1.1", md: "1" }}
+          >
+            {"Get Your Geo Flex On"}
+          </Text>
+
+          <Box
+            marginY={5}
+            marginX="auto"
+            maxWidth={{ base: "340px", sm: "400px", md: "450px" }}
+            className={shouldFadeOut ? "fade-out" : "fade-in"}
+          >
             <Text
               color="white"
-              fontSize={["42px", "42px", "56px"]}
-              fontWeight="black"
-              lineHeight={{ base: "1.1", md: "1" }}
+              fontSize={["18px", "18px", "24px"]}
+              fontWeight="medium"
             >
-              {"Get Your Geo Flex On"}
+              {"Create an account and"}{" "}
+              <Link href={actions[index].link}>
+                <ChakraLink textDecoration="underline">
+                  {actions[index].value}
+                </ChakraLink>
+              </Link>
             </Text>
-
-            <Box
-              marginY={5}
-              marginX="auto"
-              maxWidth={{ base: "340px", sm: "400px", md: "450px" }}
-              className={shouldFadeOut ? "fade-out" : "fade-in"}
-            >
-              <Text
-                color="white"
-                fontSize={["18px", "18px", "24px"]}
-                fontWeight="medium"
-              >
-                {"Create an account and"}{" "}
-                <Link href={actions[index].link}>
-                  <ChakraLink textDecoration="underline">
-                    {actions[index].value}
-                  </ChakraLink>
-                </Link>
-              </Text>
-            </Box>
-          </Fade>
+          </Box>
         </Flex>
       </Box>
     </Box>
