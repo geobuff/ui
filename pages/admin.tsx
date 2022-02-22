@@ -64,15 +64,24 @@ const Admin: FC = () => (
     </Head>
     <MainView>
       <Tabs>
-        <TabList>
-          <Tab>General</Tab>
-          <Tab>Users</Tab>
-          <Tab>Quizzes</Tab>
-          <Tab>Trivia</Tab>
-          <Tab>Orders</Tab>
-        </TabList>
+        <Flex
+          position="fixed"
+          left={0}
+          right={0}
+          backgroundColor="white"
+          zIndex={100}
+          borderTop={"1.5px solid #E2E8F0"}
+        >
+          <TabList width="100%">
+            <Tab fontWeight="medium">General</Tab>
+            <Tab fontWeight="medium">Users</Tab>
+            <Tab fontWeight="medium">Quizzes</Tab>
+            <Tab fontWeight="medium">Trivia</Tab>
+            <Tab fontWeight="medium">Orders</Tab>
+          </TabList>
+        </Flex>
 
-        <TabPanels>
+        <TabPanels mt={10}>
           <TabPanel>
             <Flex justifyContent="center">
               <Flex

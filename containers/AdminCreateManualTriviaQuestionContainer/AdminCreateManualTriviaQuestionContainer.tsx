@@ -1,5 +1,6 @@
 import { useToast } from "@chakra-ui/react";
 import React, { FC, useContext, useState } from "react";
+
 import axiosClient from "../../axios";
 import AdminCreateManualTriviaQuestionForm from "../../components/AdminCreateManualTriviaQuestionForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
@@ -21,21 +22,18 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
   const [error, setError] = useState("");
 
   const handleSubmit = (values: CreateManualTriviaQuestionFormSubmit): void => {
-    // TODO: uncomment dez... nuts
-    // setIsSubmitting(true);
-    // setError("");
-
-    console.log(values, "values:::handleSUbmit");
+    setIsSubmitting(true);
+    setError("");
 
     const answers: CreateManualTriviaAnswerDto[] = [
       {
         text: values.answerOneText,
-        isCorrect: values.answerOneIsCorrect === "true",
+        isCorrect: values.correctAnswer === 1,
         flagCode: values.answerOneFlagCode,
       },
       {
         text: values.answerTwoText,
-        isCorrect: values.answerTwoIsCorrect === "true",
+        isCorrect: values.correctAnswer === 2,
         flagCode: values.answerTwoFlagCode,
       },
     ];
@@ -43,7 +41,7 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
     if (values.answerThreeText) {
       answers.push({
         text: values.answerThreeText,
-        isCorrect: values.answerThreeIsCorrect === "true",
+        isCorrect: values.correctAnswer === 3,
         flagCode: values.answerThreeFlagCode,
       });
     }
@@ -51,7 +49,7 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
     if (values.answerFourText) {
       answers.push({
         text: values.answerFourText,
-        isCorrect: values.answerFourIsCorrect === "true",
+        isCorrect: values.correctAnswer === 4,
         flagCode: values.answerFourFlagCode,
       });
     }
@@ -66,13 +64,11 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
       answers: answers,
     };
 
-    console.log(payload, "payload");
-
-    // axiosClient
-    //   .post(`/manual-trivia-questions`, payload, getAuthConfig())
-    //   .then(() => toast(createManualTriviaQuestionToast()))
-    //   .catch((error) => setError(error.response.data))
-    //   .finally(() => setIsSubmitting(false));
+    axiosClient
+      .post(`/manual-trivia-questions`, payload, getAuthConfig())
+      .then(() => toast(createManualTriviaQuestionToast()))
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSubmitting(false));
   };
 
   if (isQuestionTypesLoading) {
