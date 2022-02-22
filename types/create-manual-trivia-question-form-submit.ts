@@ -17,4 +17,12 @@ export interface CreateManualTriviaQuestionFormSubmit {
   answerFourText: string;
   answerFourIsCorrect: string;
   answerFourFlagCode: string;
+  correctAnswer: number;
+}
+
+export enum QuestionType {
+  Text = 1,
+  Image = 2,
+  Flag = 3,
+  Map = 4,
 }

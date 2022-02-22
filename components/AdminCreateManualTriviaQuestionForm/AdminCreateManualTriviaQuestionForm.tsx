@@ -18,10 +18,14 @@ import {
   Radio,
   useRadioGroup,
 } from "@chakra-ui/react";
-import { QuizType } from "../../types/quiz-type";
 
-import { CreateManualTriviaQuestionFormSubmit } from "../../types/create-manual-trivia-question-form-submit";
 import RadioButton from "../RadioButton";
+
+import {
+  CreateManualTriviaQuestionFormSubmit,
+  QuestionType,
+} from "../../types/create-manual-trivia-question-form-submit";
+import { QuizType } from "../../types/quiz-type";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -38,14 +42,10 @@ const validationSchema = Yup.object().shape({
   answerTwoIsCorrect: Yup.string().required(
     "Please select a value for answer two is correct."
   ),
+  correctAnswer: Yup.number()
+    .required("Please select a correct answer")
+    .typeError("Please select a correct answer"),
 });
-
-enum QuestionType {
-  Text = 1,
-  Image = 2,
-  Flag = 3,
-  Map = 4,
-}
 
 export interface Props {
   types?: QuizType[];
@@ -99,11 +99,14 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
             answerFourText: "",
             answerFourIsCorrect: "false",
             answerFourFlagCode: "",
+            correctAnswer: null,
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({ dirty, values, setFieldValue }) => {
+          {({ dirty, values, setFieldValue, errors }) => {
+            console.log(values.correctAnswer, "values");
+            console.log(errors, "errors");
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { getRootProps, getRadioProps } = useRadioGroup({
               name: "typeId",
@@ -113,6 +116,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
             });
 
             const radioGroup = getRootProps();
+
             return (
               <Box maxWidth="600px" width="100%">
                 <Heading size="md">{"Create Manual Trivia Question"}</Heading>
@@ -353,7 +357,15 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                       {"Answer One"}
                     </FormLabel>
                     <Flex marginY={3}>
-                      <Radio name="answerOneIsCorrect" value="true" mr={3} />
+                      <Radio
+                        value={1}
+                        isChecked={values.correctAnswer === 1}
+                        mr={3}
+                        onChange={() => {
+                          setFieldValue("correctAnswer", 1);
+                        }}
+                        colorScheme="green"
+                      />
                       {hasFlagAnswers && (
                         <Flex maxWidth="150px">
                           <Field name="answerOneFlagCode">
@@ -372,7 +384,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                   size="lg"
                                   fontSize="16px"
                                   fontWeight={400}
-                                  background="#F6F6F6"
+                                  background={"#F6F6F6"}
                                   borderRadius={6}
                                   _placeholder={{ color: "gray.500" }}
                                   _hover={{ background: "#e0e0e0" }}
@@ -403,7 +415,11 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               size="lg"
                               fontSize="16px"
                               fontWeight={400}
-                              background="#F6F6F6"
+                              background={
+                                values.correctAnswer === 1
+                                  ? "green.100"
+                                  : "#F6F6F6"
+                              }
                               borderRadius={6}
                               ml={hasFlagAnswers ? 3 : 0}
                               _placeholder={{ color: "gray.500" }}
@@ -417,24 +433,32 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                       </Field>
                     </Flex>
 
-                    <FormLabel htmlFor="answerOneText" fontWeight="bold">
+                    <FormLabel htmlFor="answerTwoText" fontWeight="bold">
                       {"Answer Two"}
                     </FormLabel>
                     <Flex marginY={3}>
-                      <Radio name="answerOneIsCorrect" value="true" mr={3} />
+                      <Radio
+                        value={2}
+                        isChecked={values.correctAnswer === 2}
+                        onChange={() => {
+                          setFieldValue("correctAnswer", 2);
+                        }}
+                        colorScheme="green"
+                        marginRight={3}
+                      />
                       {hasFlagAnswers && (
                         <Flex maxWidth="150px">
-                          <Field name="answerOneFlagCode">
+                          <Field name="answerTwoFlagCode">
                             {({ field, form }) => (
                               <FormControl
                                 isInvalid={
-                                  form.errors.answerOneFlagCode &&
-                                  form.touched.answerOneFlagCode
+                                  form.errors.answerTwoFlagCode &&
+                                  form.touched.answerTwoFlagCode
                                 }
                               >
                                 <Input
                                   {...field}
-                                  id="answerOneFlagCode"
+                                  id="answerTwoFlagCode"
                                   type="text"
                                   placeholder="Flag code..."
                                   size="lg"
@@ -446,213 +470,13 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                   _hover={{ background: "#e0e0e0" }}
                                 />
                                 <FormErrorMessage fontSize="11px">
-                                  {form.errors.answerOneFlagCode}
+                                  {form.errors.answerTwoFlagCode}
                                 </FormErrorMessage>
                               </FormControl>
                             )}
                           </Field>
                         </Flex>
                       )}
-                      <Field name="answerOneText">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              form.errors.answerOneText &&
-                              form.touched.answerOneText
-                            }
-                          >
-                            <Input
-                              {...field}
-                              width="100%"
-                              id="answerOneText"
-                              type="text"
-                              placeholder="Answer text..."
-                              size="lg"
-                              fontSize="16px"
-                              fontWeight={400}
-                              background="#F6F6F6"
-                              borderRadius={6}
-                              ml={hasFlagAnswers ? 3 : 0}
-                              _placeholder={{ color: "gray.500" }}
-                              _hover={{ background: "#e0e0e0" }}
-                            />
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.answerOneText}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                    </Flex>
-
-                    <FormLabel htmlFor="answerOneText" fontWeight="bold">
-                      {"Answer Three (Optional)"}
-                    </FormLabel>
-                    <Flex marginY={3}>
-                      <Radio name="answerOneIsCorrect" value="true" mr={3} />
-                      {hasFlagAnswers && (
-                        <Flex maxWidth="150px">
-                          <Field name="answerOneFlagCode">
-                            {({ field, form }) => (
-                              <FormControl
-                                isInvalid={
-                                  form.errors.answerOneFlagCode &&
-                                  form.touched.answerOneFlagCode
-                                }
-                              >
-                                <Input
-                                  {...field}
-                                  id="answerOneFlagCode"
-                                  type="text"
-                                  placeholder="Flag code..."
-                                  size="lg"
-                                  fontSize="16px"
-                                  fontWeight={400}
-                                  background="#F6F6F6"
-                                  borderRadius={6}
-                                  _placeholder={{ color: "gray.500" }}
-                                  _hover={{ background: "#e0e0e0" }}
-                                />
-                                <FormErrorMessage fontSize="11px">
-                                  {form.errors.answerOneFlagCode}
-                                </FormErrorMessage>
-                              </FormControl>
-                            )}
-                          </Field>
-                        </Flex>
-                      )}
-
-                      <Field name="answerOneText">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              form.errors.answerOneText &&
-                              form.touched.answerOneText
-                            }
-                          >
-                            <Input
-                              {...field}
-                              width="100%"
-                              id="answerOneText"
-                              type="text"
-                              placeholder="Answer text..."
-                              size="lg"
-                              fontSize="16px"
-                              fontWeight={400}
-                              background="#F6F6F6"
-                              borderRadius={6}
-                              ml={hasFlagAnswers ? 3 : 0}
-                              _placeholder={{ color: "gray.500" }}
-                              _hover={{ background: "#e0e0e0" }}
-                            />
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.answerOneText}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                    </Flex>
-
-                    <FormLabel htmlFor="answerOneText" fontWeight="bold">
-                      {"Answer Four (Optional)"}
-                    </FormLabel>
-                    <Flex marginY={3}>
-                      <Radio name="answerOneIsCorrect" value="true" mr={3} />
-                      {hasFlagAnswers && (
-                        <Flex maxWidth="150px">
-                          <Field name="answerOneFlagCode">
-                            {({ field, form }) => (
-                              <FormControl
-                                isInvalid={
-                                  form.errors.answerOneFlagCode &&
-                                  form.touched.answerOneFlagCode
-                                }
-                              >
-                                <Input
-                                  {...field}
-                                  id="answerOneFlagCode"
-                                  type="text"
-                                  placeholder="Flag code..."
-                                  size="lg"
-                                  fontSize="16px"
-                                  fontWeight={400}
-                                  background="#F6F6F6"
-                                  borderRadius={6}
-                                  _placeholder={{ color: "gray.500" }}
-                                  _hover={{ background: "#e0e0e0" }}
-                                />
-                                <FormErrorMessage fontSize="11px">
-                                  {form.errors.answerOneFlagCode}
-                                </FormErrorMessage>
-                              </FormControl>
-                            )}
-                          </Field>
-                        </Flex>
-                      )}
-
-                      <Field name="answerOneText">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              form.errors.answerOneText &&
-                              form.touched.answerOneText
-                            }
-                          >
-                            <Input
-                              {...field}
-                              width="100%"
-                              id="answerOneText"
-                              type="text"
-                              placeholder="Answer text..."
-                              size="lg"
-                              fontSize="16px"
-                              fontWeight={400}
-                              background="#F6F6F6"
-                              borderRadius={6}
-                              ml={hasFlagAnswers ? 3 : 0}
-                              _placeholder={{ color: "gray.500" }}
-                              _hover={{ background: "#e0e0e0" }}
-                            />
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.answerOneText}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                    </Flex>
-
-                    {/* <Flex marginY={3}>
-                      <Field name="answerOneIsCorrect">
-                        {({ field, form }) => (
-                          <RadioGroup
-                            {...field}
-                            id="answerOneIsCorrect"
-                            value={form.values.answerOneIsCorrect}
-                            onChange={(value) =>
-                              (form.values.answerOneIsCorrect = value)
-                            }
-                          >
-                            <FormLabel>
-                              <Radio
-                                name="answerOneIsCorrect"
-                                value="true"
-                                mr={3}
-                              />
-                              {"True"}
-                            </FormLabel>
-                            <FormLabel>
-                              <Radio
-                                name="answerOneIsCorrect"
-                                value="false"
-                                mr={3}
-                              />
-                              {"False"}
-                            </FormLabel>
-                          </RadioGroup>
-                        )}
-                      </Field>
-                    </Flex>
-
-                    <Flex marginY={3}>
                       <Field name="answerTwoText">
                         {({ field, form }) => (
                           <FormControl
@@ -661,22 +485,22 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               form.touched.answerTwoText
                             }
                           >
-                            <FormLabel
-                              htmlFor="answerTwoText"
-                              fontWeight="bold"
-                            >
-                              {"Answer Two"}
-                            </FormLabel>
                             <Input
                               {...field}
+                              width="100%"
                               id="answerTwoText"
                               type="text"
-                              placeholder="Enter answer two text..."
+                              placeholder="Answer text..."
                               size="lg"
                               fontSize="16px"
                               fontWeight={400}
-                              background="#F6F6F6"
+                              background={
+                                values.correctAnswer === 2
+                                  ? "green.100"
+                                  : "#F6F6F6"
+                              }
                               borderRadius={6}
+                              ml={hasFlagAnswers ? 3 : 0}
                               _placeholder={{ color: "gray.500" }}
                               _hover={{ background: "#e0e0e0" }}
                             />
@@ -688,69 +512,49 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                       </Field>
                     </Flex>
 
+                    <FormLabel htmlFor="answerThreeText" fontWeight="bold">
+                      {"Answer Three (Optional)"}
+                    </FormLabel>
                     <Flex marginY={3}>
-                      <Field name="answerTwoFlagCode">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              form.errors.answerTwoFlagCode &&
-                              form.touched.answerTwoFlagCode
-                            }
-                          >
-                            <Input
-                              {...field}
-                              id="answerTwoFlagCode"
-                              type="text"
-                              placeholder="Enter answer two flag code..."
-                              size="lg"
-                              fontSize="16px"
-                              fontWeight={400}
-                              background="#F6F6F6"
-                              borderRadius={6}
-                              _placeholder={{ color: "gray.500" }}
-                              _hover={{ background: "#e0e0e0" }}
-                            />
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.answerTwoFlagCode}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                    </Flex>
+                      <Radio
+                        value={3}
+                        isChecked={values.correctAnswer === 3}
+                        onChange={() => setFieldValue("correctAnswer", 3)}
+                        colorScheme="green"
+                        marginRight={3}
+                      />
+                      {hasFlagAnswers && (
+                        <Flex maxWidth="150px">
+                          <Field name="answerThreeFlagCode">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  form.errors.answerThreeFlagCode &&
+                                  form.touched.answerThreeFlagCode
+                                }
+                              >
+                                <Input
+                                  {...field}
+                                  id="answerThreeFlagCode"
+                                  type="text"
+                                  placeholder="Flag code..."
+                                  size="lg"
+                                  fontSize="16px"
+                                  fontWeight={400}
+                                  background="#F6F6F6"
+                                  borderRadius={6}
+                                  _placeholder={{ color: "gray.500" }}
+                                  _hover={{ background: "#e0e0e0" }}
+                                />
+                                <FormErrorMessage fontSize="11px">
+                                  {form.errors.answerThreeFlagCode}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                          </Field>
+                        </Flex>
+                      )}
 
-                    <Flex marginY={3}>
-                      <Field name="answerTwoIsCorrect">
-                        {({ field, form }) => (
-                          <RadioGroup
-                            {...field}
-                            id="answerTwoIsCorrect"
-                            value={form.values.answerTwoIsCorrect}
-                            onChange={(value) =>
-                              (form.values.answerTwoIsCorrect = value)
-                            }
-                          >
-                            <FormLabel>
-                              <Radio
-                                name="answerTwoIsCorrect"
-                                value="true"
-                                mr={3}
-                              />
-                              {"True"}
-                            </FormLabel>
-                            <FormLabel>
-                              <Radio
-                                name="answerTwoIsCorrect"
-                                value="false"
-                                mr={3}
-                              />
-                              {"False"}
-                            </FormLabel>
-                          </RadioGroup>
-                        )}
-                      </Field>
-                    </Flex>
-
-                    <Flex marginY={3}>
                       <Field name="answerThreeText">
                         {({ field, form }) => (
                           <FormControl
@@ -759,22 +563,22 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               form.touched.answerThreeText
                             }
                           >
-                            <FormLabel
-                              htmlFor="answerThreeText"
-                              fontWeight="bold"
-                            >
-                              {"Answer Three"}
-                            </FormLabel>
                             <Input
                               {...field}
+                              width="100%"
                               id="answerThreeText"
                               type="text"
-                              placeholder="Enter answer three text..."
+                              placeholder="Answer text..."
                               size="lg"
                               fontSize="16px"
                               fontWeight={400}
-                              background="#F6F6F6"
+                              background={
+                                values.correctAnswer === 3
+                                  ? "green.100"
+                                  : "#F6F6F6"
+                              }
                               borderRadius={6}
+                              ml={hasFlagAnswers ? 3 : 0}
                               _placeholder={{ color: "gray.500" }}
                               _hover={{ background: "#e0e0e0" }}
                             />
@@ -786,69 +590,49 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                       </Field>
                     </Flex>
 
+                    <FormLabel htmlFor="answerFourText" fontWeight="bold">
+                      {"Answer Four (Optional)"}
+                    </FormLabel>
                     <Flex marginY={3}>
-                      <Field name="answerThreeFlagCode">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              form.errors.answerThreeFlagCode &&
-                              form.touched.answerThreeFlagCode
-                            }
-                          >
-                            <Input
-                              {...field}
-                              id="answerThreeFlagCode"
-                              type="text"
-                              placeholder="Enter answer three flag code..."
-                              size="lg"
-                              fontSize="16px"
-                              fontWeight={400}
-                              background="#F6F6F6"
-                              borderRadius={6}
-                              _placeholder={{ color: "gray.500" }}
-                              _hover={{ background: "#e0e0e0" }}
-                            />
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.answerThreeFlagCode}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                    </Flex>
+                      <Radio
+                        value={4}
+                        isChecked={values.correctAnswer === 4}
+                        onChange={() => setFieldValue("correctAnswer", 4)}
+                        colorScheme="green"
+                        marginRight={3}
+                      />
+                      {hasFlagAnswers && (
+                        <Flex maxWidth="150px">
+                          <Field name="answerFourFlagCode">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  form.errors.answerFourFlagCode &&
+                                  form.touched.answerFourFlagCode
+                                }
+                              >
+                                <Input
+                                  {...field}
+                                  id="answerFourFlagCode"
+                                  type="text"
+                                  placeholder="Flag code..."
+                                  size="lg"
+                                  fontSize="16px"
+                                  fontWeight={400}
+                                  background="#F6F6F6"
+                                  borderRadius={6}
+                                  _placeholder={{ color: "gray.500" }}
+                                  _hover={{ background: "#e0e0e0" }}
+                                />
+                                <FormErrorMessage fontSize="11px">
+                                  {form.errors.answerFourFlagCode}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                          </Field>
+                        </Flex>
+                      )}
 
-                    <Flex marginY={3}>
-                      <Field name="answerThreeIsCorrect">
-                        {({ field, form }) => (
-                          <RadioGroup
-                            {...field}
-                            id="answerThreeIsCorrect"
-                            value={form.values.answerThreeIsCorrect}
-                            onChange={(value) =>
-                              (form.values.answerThreeIsCorrect = value)
-                            }
-                          >
-                            <FormLabel>
-                              <Radio
-                                name="answerThreeIsCorrect"
-                                value="true"
-                                mr={3}
-                              />
-                              {"True"}
-                            </FormLabel>
-                            <FormLabel>
-                              <Radio
-                                name="answerThreeIsCorrect"
-                                value="false"
-                                mr={3}
-                              />
-                              {"False"}
-                            </FormLabel>
-                          </RadioGroup>
-                        )}
-                      </Field>
-                    </Flex>
-
-                    <Flex marginY={3}>
                       <Field name="answerFourText">
                         {({ field, form }) => (
                           <FormControl
@@ -857,22 +641,22 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               form.touched.answerFourText
                             }
                           >
-                            <FormLabel
-                              htmlFor="answerFourText"
-                              fontWeight="bold"
-                            >
-                              {"Answer Four"}
-                            </FormLabel>
                             <Input
                               {...field}
+                              width="100%"
                               id="answerFourText"
                               type="text"
-                              placeholder="Enter answer four text..."
+                              placeholder="Answer text..."
                               size="lg"
                               fontSize="16px"
                               fontWeight={400}
-                              background="#F6F6F6"
+                              background={
+                                values.correctAnswer === 4
+                                  ? "green.100"
+                                  : "#F6F6F6"
+                              }
                               borderRadius={6}
+                              ml={hasFlagAnswers ? 3 : 0}
                               _placeholder={{ color: "gray.500" }}
                               _hover={{ background: "#e0e0e0" }}
                             />
@@ -884,75 +668,8 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                       </Field>
                     </Flex>
 
-                    <Flex marginY={3}>
-                      <Field name="answerFourFlagCode">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              form.errors.answerFourFlagCode &&
-                              form.touched.answerFourFlagCode
-                            }
-                          >
-                            <Input
-                              {...field}
-                              id="answerFourFlagCode"
-                              type="text"
-                              placeholder="Enter answer four flag code..."
-                              size="lg"
-                              fontSize="16px"
-                              fontWeight={400}
-                              background="#F6F6F6"
-                              borderRadius={6}
-                              _placeholder={{ color: "gray.500" }}
-                              _hover={{ background: "#e0e0e0" }}
-                            />
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.answerFourFlagCode}
-                            </FormErrorMessage>
-                          </FormControl>
-                        )}
-                      </Field>
-                    </Flex>
-
-                    <Flex marginY={3}>
-                      <Field name="answerFourIsCorrect">
-                        {({ field, form }) => (
-                          <RadioGroup
-                            {...field}
-                            id="answerFourIsCorrect"
-                            value={form.values.answerFourIsCorrect}
-                            onChange={(value) =>
-                              (form.values.answerFourIsCorrect = value)
-                            }
-                          >
-                            <FormLabel>
-                              <Radio
-                                name="answerFourIsCorrect"
-                                value="true"
-                                mr={3}
-                              />
-                              {"True"}
-                            </FormLabel>
-                            <FormLabel>
-                              <Radio
-                                name="answerFourIsCorrect"
-                                value="false"
-                                mr={3}
-                              />
-                              {"False"}
-                            </FormLabel>
-                          </RadioGroup>
-                        )}
-                      </Field>
-                    </Flex> */}
-
                     <Flex justifyContent="flex-end">
-                      <Flex
-                        direction="row"
-                        marginTop="44px"
-                        marginBottom={6}
-                        marginRight={{ base: 0, md: 6 }}
-                      >
+                      <Flex direction="row" marginTop="44px" marginBottom={6}>
                         <Button
                           colorScheme="teal"
                           width="100%"
