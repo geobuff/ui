@@ -109,8 +109,6 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
           enableReinitialize
         >
           {({ dirty, values, setFieldValue, errors }) => {
-            console.log(errors, "errors");
-            console.log(values, "values");
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { getRootProps, getRadioProps } = useRadioGroup({
               name: "typeId",
