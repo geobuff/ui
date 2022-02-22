@@ -46,11 +46,11 @@ const validationSchema = Yup.object().shape({
   }),
   flagCode: Yup.string().when("typeId", {
     is: QuestionType.Flag,
-    then: Yup.string().required("Must include flagCode for image questions."),
+    then: Yup.string().required("Must include flagCode for flag questions."),
   }),
   map: Yup.string().when("typeId", {
     is: QuestionType.Map,
-    then: Yup.string().required("Must include map for image questions."),
+    then: Yup.string().required("Must include map for map questions."),
   }),
 });
 
@@ -388,7 +388,11 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                   size="lg"
                                   fontSize="16px"
                                   fontWeight={400}
-                                  background={"#F6F6F6"}
+                                  background={
+                                    values.correctAnswer === 1
+                                      ? "green.100"
+                                      : "#F6F6F6"
+                                  }
                                   borderRadius={6}
                                   _placeholder={{ color: "gray.500" }}
                                   _hover={{ background: "#e0e0e0" }}
@@ -472,7 +476,11 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                   size="lg"
                                   fontSize="16px"
                                   fontWeight={400}
-                                  background="#F6F6F6"
+                                  background={
+                                    values.correctAnswer === 2
+                                      ? "green.100"
+                                      : "#F6F6F6"
+                                  }
                                   borderRadius={6}
                                   _placeholder={{ color: "gray.500" }}
                                   _hover={{ background: "#e0e0e0" }}
@@ -551,7 +559,11 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                   size="lg"
                                   fontSize="16px"
                                   fontWeight={400}
-                                  background="#F6F6F6"
+                                  background={
+                                    values.correctAnswer === 3
+                                      ? "green.100"
+                                      : "#F6F6F6"
+                                  }
                                   borderRadius={6}
                                   _placeholder={{ color: "gray.500" }}
                                   _hover={{ background: "#e0e0e0" }}
@@ -629,7 +641,11 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                   size="lg"
                                   fontSize="16px"
                                   fontWeight={400}
-                                  background="#F6F6F6"
+                                  background={
+                                    values.correctAnswer === 4
+                                      ? "green.100"
+                                      : "#F6F6F6"
+                                  }
                                   borderRadius={6}
                                   _placeholder={{ color: "gray.500" }}
                                   _hover={{ background: "#e0e0e0" }}
