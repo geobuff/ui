@@ -21,8 +21,9 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
   const [error, setError] = useState("");
 
   const handleSubmit = (values: CreateManualTriviaQuestionFormSubmit): void => {
-    setIsSubmitting(true);
-    setError("");
+    // TODO: uncomment dez... nuts
+    // setIsSubmitting(true);
+    // setError("");
 
     const answers: CreateManualTriviaAnswerDto[] = [
       {
@@ -63,11 +64,13 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
       answers: answers,
     };
 
-    axiosClient
-      .post(`/manual-trivia-questions`, payload, getAuthConfig())
-      .then(() => toast(createManualTriviaQuestionToast()))
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsSubmitting(false));
+    console.log(payload, "payload");
+
+    // axiosClient
+    //   .post(`/manual-trivia-questions`, payload, getAuthConfig())
+    //   .then(() => toast(createManualTriviaQuestionToast()))
+    //   .catch((error) => setError(error.response.data))
+    //   .finally(() => setIsSubmitting(false));
   };
 
   if (isQuestionTypesLoading) {
