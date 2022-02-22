@@ -17,8 +17,6 @@ export interface Props {
 const CardListItem: FC<Props> = ({ isEnabled = true, href, children }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  if (isMobile === undefined) return null;
-
   return (
     <GridItem>
       <Link href={isEnabled ? href : "/"}>

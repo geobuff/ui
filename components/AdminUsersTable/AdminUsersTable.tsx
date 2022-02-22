@@ -65,7 +65,7 @@ const AdminUsersTable: FC<Props> = ({
             </Thead>
 
             <Tbody>
-              {userPage?.users.map((user, index) => (
+              {userPage?.users?.map((user, index) => (
                 <Tr key={index} fontWeight={600}>
                   <TableCell paddingY={3} paddingX={6}>
                     {user.username}

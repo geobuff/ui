@@ -29,7 +29,6 @@ const CardListSection: FC<Props> = ({
   ...props
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const spinnerSize = useBreakpointValue({ base: "sm", md: "sm" });
 
   if (isMobile === undefined) return null;
 
@@ -48,7 +47,7 @@ const CardListSection: FC<Props> = ({
           {isLoading && (
             <Spinner
               marginLeft={2}
-              size={spinnerSize}
+              size="sm"
               color="blue.500"
               emptyColor="green.500"
             />
