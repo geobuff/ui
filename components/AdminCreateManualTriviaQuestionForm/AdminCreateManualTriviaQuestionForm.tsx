@@ -15,6 +15,7 @@ import {
   Heading,
   HStack,
   Input,
+  Text,
   Radio,
   useRadioGroup,
 } from "@chakra-ui/react";
@@ -33,18 +34,24 @@ const validationSchema = Yup.object().shape({
   answerOneText: Yup.string().required(
     "Please enter a value for answer one text."
   ),
-  answerOneIsCorrect: Yup.string().required(
-    "Please select a value for answer one is correct."
-  ),
   answerTwoText: Yup.string().required(
     "Please enter a value for answer two text."
-  ),
-  answerTwoIsCorrect: Yup.string().required(
-    "Please select a value for answer two is correct."
   ),
   correctAnswer: Yup.number()
     .required("Please select a correct answer")
     .typeError("Please select a correct answer"),
+  imageUrl: Yup.string().when("typeId", {
+    is: QuestionType.Image,
+    then: Yup.string().required("Must include imageUrl for image questions."),
+  }),
+  flagCode: Yup.string().when("typeId", {
+    is: QuestionType.Flag,
+    then: Yup.string().required("Must include flagCode for image questions."),
+  }),
+  map: Yup.string().when("typeId", {
+    is: QuestionType.Map,
+    then: Yup.string().required("Must include map for image questions."),
+  }),
 });
 
 export interface Props {
@@ -88,25 +95,22 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
             flagCode: "",
             imageUrl: "",
             answerOneText: "",
-            answerOneIsCorrect: "false",
             answerOneFlagCode: "",
             answerTwoText: "",
-            answerTwoIsCorrect: "false",
             answerTwoFlagCode: "",
             answerThreeText: "",
-            answerThreeIsCorrect: "false",
             answerThreeFlagCode: "",
             answerFourText: "",
-            answerFourIsCorrect: "false",
             answerFourFlagCode: "",
             correctAnswer: null,
           }}
           validationSchema={validationSchema}
           onSubmit={onSubmit}
+          enableReinitialize
         >
           {({ dirty, values, setFieldValue, errors }) => {
-            console.log(values.correctAnswer, "values");
             console.log(errors, "errors");
+            console.log(values, "values");
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { getRootProps, getRadioProps } = useRadioGroup({
               name: "typeId",
@@ -356,15 +360,15 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                     <FormLabel htmlFor="answerOneText" fontWeight="bold">
                       {"Answer One"}
                     </FormLabel>
-                    <Flex marginY={3}>
+                    <Flex marginTop={3} marginBottom={7}>
                       <Radio
                         value={1}
                         isChecked={values.correctAnswer === 1}
-                        mr={3}
                         onChange={() => {
                           setFieldValue("correctAnswer", 1);
                         }}
                         colorScheme="green"
+                        marginRight={3}
                       />
                       {hasFlagAnswers && (
                         <Flex maxWidth="150px">
@@ -389,9 +393,11 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                   _placeholder={{ color: "gray.500" }}
                                   _hover={{ background: "#e0e0e0" }}
                                 />
-                                <FormErrorMessage fontSize="11px">
-                                  {form.errors.answerOneFlagCode}
-                                </FormErrorMessage>
+                                <Box position="absolute" top="38px" left="2px">
+                                  <FormErrorMessage fontSize="11px">
+                                    {form.errors.answerOneFlagCode}
+                                  </FormErrorMessage>
+                                </Box>
                               </FormControl>
                             )}
                           </Field>
@@ -425,9 +431,11 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               _placeholder={{ color: "gray.500" }}
                               _hover={{ background: "#e0e0e0" }}
                             />
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.answerOneText}
-                            </FormErrorMessage>
+                            <Box position="absolute" top="42px" left="2px">
+                              <FormErrorMessage fontSize="11px">
+                                {form.errors.answerOneText}
+                              </FormErrorMessage>
+                            </Box>
                           </FormControl>
                         )}
                       </Field>
@@ -436,7 +444,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                     <FormLabel htmlFor="answerTwoText" fontWeight="bold">
                       {"Answer Two"}
                     </FormLabel>
-                    <Flex marginY={3}>
+                    <Flex marginTop={3} marginBottom={7}>
                       <Radio
                         value={2}
                         isChecked={values.correctAnswer === 2}
@@ -504,9 +512,11 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               _placeholder={{ color: "gray.500" }}
                               _hover={{ background: "#e0e0e0" }}
                             />
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.answerTwoText}
-                            </FormErrorMessage>
+                            <Box position="absolute" top="42px" left="2px">
+                              <FormErrorMessage fontSize="11px">
+                                {form.errors.answerTwoText}
+                              </FormErrorMessage>
+                            </Box>
                           </FormControl>
                         )}
                       </Field>
@@ -515,7 +525,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                     <FormLabel htmlFor="answerThreeText" fontWeight="bold">
                       {"Answer Three (Optional)"}
                     </FormLabel>
-                    <Flex marginY={3}>
+                    <Flex marginTop={3} marginBottom={7}>
                       <Radio
                         value={3}
                         isChecked={values.correctAnswer === 3}
@@ -593,7 +603,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                     <FormLabel htmlFor="answerFourText" fontWeight="bold">
                       {"Answer Four (Optional)"}
                     </FormLabel>
-                    <Flex marginY={3}>
+                    <Flex marginTop={3}>
                       <Radio
                         value={4}
                         isChecked={values.correctAnswer === 4}
@@ -663,6 +673,16 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                             <FormErrorMessage fontSize="11px">
                               {form.errors.answerFourText}
                             </FormErrorMessage>
+                            {form.touched.correctAnswer &&
+                              errors.correctAnswer && (
+                                <Text
+                                  color="red.500"
+                                  marginTop={3}
+                                  marginLeft={1.5}
+                                >
+                                  {errors.correctAnswer}
+                                </Text>
+                              )}
                           </FormControl>
                         )}
                       </Field>

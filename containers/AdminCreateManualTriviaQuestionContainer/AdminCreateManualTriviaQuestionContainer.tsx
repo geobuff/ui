@@ -25,6 +25,8 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
     // setIsSubmitting(true);
     // setError("");
 
+    console.log(values, "values:::handleSUbmit");
+
     const answers: CreateManualTriviaAnswerDto[] = [
       {
         text: values.answerOneText,
