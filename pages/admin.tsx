@@ -63,7 +63,7 @@ const Admin: FC = () => (
       <title>{"Admin Dashboard - GeoBuff"}</title>
     </Head>
     <MainView>
-      <Tabs>
+      <Tabs isLazy>
         <Flex
           position="fixed"
           left={0}
