@@ -1,11 +1,10 @@
 import React, { FC, useState } from "react";
-import { Box, Skeleton, Image } from "@chakra-ui/react";
+import { Box, BoxProps, Skeleton, Image } from "@chakra-ui/react";
 
-interface Props {
+interface Props extends BoxProps {
   url?: string;
   height?: string;
   width?: string;
-  [x: string]: any;
 }
 
 const CustomFlag: FC<Props> = ({

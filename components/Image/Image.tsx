@@ -4,8 +4,6 @@ import {
   Skeleton,
   ImageProps,
   SkeletonProps,
-  BoxProps,
-  Box,
 } from "@chakra-ui/react";
 
 export interface Props extends ImageProps {
