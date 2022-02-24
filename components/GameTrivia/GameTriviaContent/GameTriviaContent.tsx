@@ -2,6 +2,7 @@
 import React, { FC } from "react";
 import {
   AspectRatio,
+  Box,
   Flex,
   Heading,
   ResponsiveValue,
@@ -42,6 +43,7 @@ const getContentByType = (
             height="100%"
             maxHeight="200px"
             width="100%"
+            borderRadius="24px"
           />
         </AspectRatio>
       );
@@ -63,7 +65,33 @@ const getContentByType = (
 
       return <SVGMap map={svgMap} mapStyle={mapStyles} />;
     case "Image":
-      return <Image src={imageUrl} height="100%" width="100%" />;
+      return (
+        <Flex
+          direction="column"
+          justifyContent="center"
+          height="80%"
+          width="100%"
+          marginX="auto"
+        >
+          <Box width="100%" height="100%">
+            <AspectRatio
+              ratio={1}
+              maxWidth={{ base: "100%", md: "80%" }}
+              maxHeight={"100%"}
+              marginX="auto"
+            >
+              <Image
+                src={imageUrl}
+                height="100%"
+                width="100%"
+                marginX="auto"
+                // @ts-expect-error
+                objectFit="contain !important"
+              />
+            </AspectRatio>
+          </Box>
+        </Flex>
+      );
     default:
       return null;
   }
