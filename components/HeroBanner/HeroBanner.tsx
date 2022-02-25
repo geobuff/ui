@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
-import { Box, Fade, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
+import { Box, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
 
 const NEXT_ACTION_DELAY = 10000;
 const FADE_OUT_DELAY = 1000;
@@ -24,7 +24,19 @@ const actions: SubHeaderAction[] = [
 
 const initialIndex = Math.floor(Math.random() * actions.length);
 
-const HeroBanner: FC = () => {
+export interface Props {
+  title?: string;
+  textColor?: string;
+  backgroundColor?: string;
+  backgroundImageUrl?: string;
+}
+
+const HeroBanner: FC<Props> = ({
+  title = "Get Your Geo Flex On",
+  textColor = "white",
+  backgroundColor = "linear-gradient(90deg, #27AE60 0%, #219250 100%)",
+  backgroundImageUrl = "/world-map.svg",
+}) => {
   const [index, setIndex] = useState(initialIndex);
   const [shouldFadeOut, setShouldFadeOut] = useState(false);
 
@@ -54,13 +66,13 @@ const HeroBanner: FC = () => {
   return (
     <Box
       role="banner"
-      background="linear-gradient(90deg, #27AE60 0%, #219250 100%)"
+      background={backgroundColor}
       height={["260px", "300px", "420px"]}
       width="100%"
     >
       <Box
         height="100%"
-        background={"url(/world-map.svg)"}
+        background={`url(${backgroundImageUrl})`}
         backgroundRepeat="no-repeat"
         backgroundSize={{ base: "600px 300px", md: "1200px 475px" }}
         backgroundPosition="center top 2px"
@@ -74,12 +86,12 @@ const HeroBanner: FC = () => {
           textAlign="center"
         >
           <Text
-            color="white"
+            color={textColor}
             fontSize={["42px", "42px", "56px"]}
             fontWeight="black"
             lineHeight={{ base: "1.1", md: "1" }}
           >
-            {"Get Your Geo Flex On"}
+            {title}
           </Text>
 
           <Box
@@ -89,7 +101,7 @@ const HeroBanner: FC = () => {
             className={shouldFadeOut ? "fade-out" : "fade-in"}
           >
             <Text
-              color="white"
+              color={textColor}
               fontSize={["18px", "18px", "24px"]}
               fontWeight="medium"
             >
