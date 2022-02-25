@@ -60,7 +60,7 @@ const NavigationBar: FC = () => {
       <Flex alignItems="center">
         <Link href="/">
           <ChakraLink _hover={{ textDecoration: "none" }}>
-            <Logo armColor="#F9DB3C" badgeColor="#2650B3" />
+            <Logo armColor="#F9DB3C" badgeColor="#0066cc" />
           </ChakraLink>
         </Link>
 
@@ -96,7 +96,7 @@ const NavigationBar: FC = () => {
       </Flex>
       <Link href="/">
         <ChakraLink _hover={{ textDecoration: "none" }}>
-          <Logo armColor="#F9DB3C" badgeColor="#2650B3" />
+          <Logo armColor="#F9DB3C" badgeColor="#0066cc" />
         </ChakraLink>
       </Link>
 
