@@ -122,7 +122,12 @@ const Home: FC<AppProps> = ({ pageProps }) => {
 
   return (
     <MainView>
-      <HeroBanner />
+      <HeroBanner
+        title="We Stand With Ukraine"
+        textColor="#F9DB3C"
+        backgroundColor="#2650B3"
+        backgroundImageUrl="/world-map-ukraine.svg"
+      />
       <Box>
         <Box
           mx="auto"
