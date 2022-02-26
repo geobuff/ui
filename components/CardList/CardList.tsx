@@ -1,4 +1,4 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC } from "react";
 import { Box, Grid, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 
 // TODO: fix layout when less items than grid
