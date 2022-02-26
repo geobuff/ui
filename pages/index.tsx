@@ -113,6 +113,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
               maxScore={quiz.maxScore}
               verb={quiz.verb}
               position={{ base: "relative", md: "absolute" }}
+              marginLeft={3}
             />
           </CardListItem>
         ))}
@@ -201,17 +202,19 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         {!!searchResults.length && !isSearching && filter ? (
           <>
             {!searchResults.length && !isSearching ? (
-              <Alert
-                status="info"
-                borderRadius={6}
-                p={5}
-                mt={3}
-                mb={"100px"}
-                width="100%"
-              >
-                <AlertIcon />
-                {`There were no results for '${filter}'`}
-              </Alert>
+              <Flex width="100%" paddingX={3}>
+                <Alert
+                  status="info"
+                  borderRadius={6}
+                  p={5}
+                  mt={3}
+                  mb={"100px"}
+                  width="100%"
+                >
+                  <AlertIcon />
+                  {`There were no results for '${filter}'`}
+                </Alert>
+              </Flex>
             ) : (
               <CardListSection
                 title={
@@ -220,6 +223,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                     : `Search results for '${filter.trim()}'`
                 }
                 isLoading={isSearching}
+                paddingX={3}
               >
                 {searchResultItems}
               </CardListSection>
@@ -228,28 +232,31 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         ) : (
           <>
             {filter?.length > 2 ? (
-              <CardListSection
-                title={
-                  isSearching
-                    ? `Searching for '${filter.trim()}' `
-                    : `Search results for '${filter.trim()}'`
-                }
-                isLoading={isSearching}
-              >
+              <>
                 {!searchResults.length && !isSearching ? (
-                  <Alert
-                    status="info"
-                    borderRadius={6}
-                    p={5}
-                    mt={3}
-                    mb={"100px"}
-                    maxWidth="100%"
-                  >
-                    <AlertIcon />
-                    {`There were no results for '${filter}'`}
-                  </Alert>
+                  <Flex width="100%" paddingX={3}>
+                    <Alert
+                      status="info"
+                      borderRadius={6}
+                      p={5}
+                      mt={3}
+                      mb={"100px"}
+                      maxWidth="100%"
+                    >
+                      <AlertIcon />
+                      {`There were no results for '${filter}'`}
+                    </Alert>
+                  </Flex>
                 ) : (
-                  <>
+                  <CardListSection
+                    title={
+                      isSearching
+                        ? `Searching for '${filter.trim()}' `
+                        : `Search results for '${filter.trim()}'`
+                    }
+                    isLoading={isSearching}
+                    paddingX={3}
+                  >
                     {searchResults?.map((quiz) => (
                       <CardListItem
                         key={quiz.id}
@@ -262,12 +269,13 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                           maxScore={quiz.maxScore}
                           verb={quiz.verb}
                           position={{ base: "relative", md: "absolute" }}
+                          marginLeft={3}
                         />
                       </CardListItem>
                     ))}
-                  </>
+                  </CardListSection>
                 )}
-              </CardListSection>
+              </>
             ) : (
               <Box minHeight="776px">
                 <DelayedRender shouldFadeIn waitBeforeShow={100}>
