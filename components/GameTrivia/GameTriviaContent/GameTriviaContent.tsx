@@ -28,14 +28,15 @@ const getContentByType = (
   map: string,
   highlighted: string,
   flagCode: string,
-  imageUrl: string
+  imageUrl: string,
+  isSmallerMobile?: boolean
 ) => {
   switch (type) {
     case "Flag":
       return (
         <AspectRatio
           ratio={8 / 5}
-          maxWidth={{ base: "60%", md: "300px" }}
+          maxWidth={{ base: "65%", md: "300px" }}
           width="100%"
         >
           <CustomFlag
@@ -43,7 +44,7 @@ const getContentByType = (
             height="100%"
             maxHeight="200px"
             width="100%"
-            borderRadius="24px"
+            borderRadius="16px"
           />
         </AspectRatio>
       );
@@ -69,7 +70,7 @@ const getContentByType = (
         <Flex
           direction="column"
           justifyContent="center"
-          height="80%"
+          height={isSmallerMobile ? "70%" : "80%"}
           width="100%"
           marginX="auto"
         >
@@ -87,6 +88,7 @@ const getContentByType = (
                 marginX="auto"
                 // @ts-expect-error
                 objectFit="contain !important"
+                hasSkeleton={false}
               />
             </AspectRatio>
           </Box>
@@ -101,8 +103,10 @@ type HeaderFontSize = string | ResponsiveValue<string | any>;
 
 const getHeaderFontSize = (
   isTinyMobile: boolean,
-  isTextQuestion: boolean
+  isTextQuestion: boolean,
+  isImageQuestion?: boolean
 ): HeaderFontSize => {
+  if (isImageQuestion && isTinyMobile) return "md";
   if (!isTextQuestion && isTinyMobile) return "lg";
   return { base: isTextQuestion ? "2xl" : "xl", md: "3xl", lg: "4xl" };
 };
@@ -127,17 +131,24 @@ const GameTriviaContent: FC<Props> = ({
   const isMobile = useBreakpointValue({ base: false, md: true });
   const height = use100vh();
   const isTinyMobile = height < 625;
+  const isSmallerMobile = height < 785;
   const isTextQuestion = type === "Text";
+  const isImageQuestion = type === "Image";
 
   const contentNode = getContentByType(
     type,
     map,
     highlighted,
     flagCode,
-    imageUrl
+    imageUrl,
+    isSmallerMobile
   );
 
-  const headerFontSize = getHeaderFontSize(isTinyMobile, isTextQuestion);
+  const headerFontSize = getHeaderFontSize(
+    isTinyMobile || isSmallerMobile,
+    isTextQuestion,
+    isImageQuestion
+  );
 
   if (isMobile === undefined) return null;
 
@@ -147,16 +158,11 @@ const GameTriviaContent: FC<Props> = ({
       flex={1}
       justifyContent="center"
       alignItems="center"
-      marginY={5}
+      marginY={isSmallerMobile ? 1 : 5}
       overflow="hidden"
     >
       {contentNode}
-      <Heading
-        color="white"
-        marginTop={5}
-        marginBottom={{ base: 0, md: 5 }}
-        fontSize={headerFontSize}
-      >
+      <Heading color="white" marginY={5} fontSize={headerFontSize}>
         {text}
       </Heading>
     </Flex>
