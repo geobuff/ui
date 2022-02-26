@@ -5,20 +5,26 @@ import {
   AspectRatio,
   Box,
   GridItem,
+  GridItemProps,
   Link as ChakraLink,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-export interface Props {
+export interface Props extends GridItemProps {
   href: string;
   isEnabled?: boolean;
 }
 
-const CardListItem: FC<Props> = ({ isEnabled = true, href, children }) => {
+const CardListItem: FC<Props> = ({
+  isEnabled = true,
+  href,
+  children,
+  ...props
+}) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
-    <GridItem>
+    <GridItem {...props}>
       <Link href={isEnabled ? href : "/"}>
         <ChakraLink>
           {isMobile ? (

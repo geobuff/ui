@@ -13,6 +13,7 @@ import {
   useBreakpointValue,
   Alert,
   AlertIcon,
+  Flex,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
@@ -194,37 +195,35 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         marginBottom={{ base: 5, md: 16 }}
         marginLeft="auto"
         marginRight="auto"
-        paddingX={{ base: 3, md: 10 }}
+        paddingX={{ base: 0, md: 10 }}
         minHeight="400px"
       >
         {!!searchResults.length && !isSearching && filter ? (
           <>
-            <>
-              {!searchResults.length && !isSearching ? (
-                <Alert
-                  status="info"
-                  borderRadius={6}
-                  p={5}
-                  mt={3}
-                  mb={"100px"}
-                  maxWidth="100%"
-                >
-                  <AlertIcon />
-                  {`There were no results for '${filter}'`}
-                </Alert>
-              ) : (
-                <CardListSection
-                  title={
-                    isSearching
-                      ? `Searching for '${filter.trim()}' `
-                      : `Search results for '${filter.trim()}'`
-                  }
-                  isLoading={isSearching}
-                >
-                  {searchResultItems}
-                </CardListSection>
-              )}
-            </>
+            {!searchResults.length && !isSearching ? (
+              <Alert
+                status="info"
+                borderRadius={6}
+                p={5}
+                mt={3}
+                mb={"100px"}
+                width="100%"
+              >
+                <AlertIcon />
+                {`There were no results for '${filter}'`}
+              </Alert>
+            ) : (
+              <CardListSection
+                title={
+                  isSearching
+                    ? `Searching for '${filter.trim()}' `
+                    : `Search results for '${filter.trim()}'`
+                }
+                isLoading={isSearching}
+              >
+                {searchResultItems}
+              </CardListSection>
+            )}
           </>
         ) : (
           <>
@@ -277,15 +276,21 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                     linkHref="/daily-trivia"
                     linkVerb="daily trivia"
                     marginTop={0}
+                    paddingX={{ base: 3, md: 0 }}
                   >
-                    {filteredTrivia.map((quiz) => (
+                    {filteredTrivia.map((quiz, index) => (
                       <CardListItem
                         key={quiz.id}
                         href={`/daily-trivia/${formatDate(quiz.date)}`}
+                        paddingRight={{
+                          base: index === filteredTrivia.length - 1 && "12px",
+                          md: 0,
+                        }}
                       >
                         <TriviaCard
                           name={quiz.name}
                           position={{ base: "relative", md: "absolute" }}
+                          marginLeft={{ base: 3, md: 0 }}
                         />
                       </CardListItem>
                     ))}
@@ -295,11 +300,16 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                     title="Map Games"
                     linkHref="/map-games"
                     linkVerb="map games"
+                    paddingX={{ base: 3, md: 0 }}
                   >
-                    {mapQuizzes.map((quiz) => (
+                    {mapQuizzes.map((quiz, index) => (
                       <CardListItem
                         key={quiz.id}
                         href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                        paddingRight={{
+                          base: index === filteredTrivia.length - 1 && "12px",
+                          md: 0,
+                        }}
                       >
                         <QuizCard
                           name={quiz.name}
@@ -308,6 +318,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                           maxScore={quiz.maxScore}
                           verb={quiz.verb}
                           position={{ base: "relative", md: "absolute" }}
+                          marginLeft={{ base: 3, md: 0 }}
                         />
                       </CardListItem>
                     ))}
@@ -317,11 +328,16 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                     title="Flag Games"
                     linkHref="/flag-games"
                     linkVerb="flag games"
+                    paddingX={{ base: 3, md: 0 }}
                   >
-                    {flagQuizzes.map((quiz) => (
+                    {flagQuizzes.map((quiz, index) => (
                       <CardListItem
                         key={quiz.id}
                         href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                        paddingRight={{
+                          base: index === filteredTrivia.length - 1 && "12px",
+                          md: 0,
+                        }}
                       >
                         <QuizCard
                           name={quiz.name}
@@ -330,6 +346,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                           maxScore={quiz.maxScore}
                           verb={quiz.verb}
                           position={{ base: "relative", md: "absolute" }}
+                          marginLeft={{ base: 3, md: 0 }}
                         />
                       </CardListItem>
                     ))}
