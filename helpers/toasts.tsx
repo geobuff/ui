@@ -26,9 +26,8 @@ export const increaseXP = (
 ): UseToastOptions => ({
   position: position,
   duration: 9000,
-  render: ({ onClose }) => (
-    <GeoCoinToast onClose={onClose} increase={increase} />
-  ),
+  render: ({ onClose }) =>
+    increase > 0 && <GeoCoinToast onClose={onClose} increase={increase} />,
 });
 
 export const userUpdated = (
