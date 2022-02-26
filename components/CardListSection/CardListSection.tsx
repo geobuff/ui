@@ -60,7 +60,7 @@ const CardListSection: FC<Props> = ({
               fontSize={{ base: "sm", md: "medium" }}
             >
               {`See all${isMobile ? "" : ` ${linkVerb}`}`}
-              <OutlinedChevronRight height="18px" width="18px" mb="1px" />
+              <OutlinedChevronRight height="16px" width="16px" mb="1px" />
             </ChakraLink>
           </Link>
         )}
