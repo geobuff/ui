@@ -21,7 +21,10 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (values: CreateManualTriviaQuestionFormSubmit): void => {
+  const handleSubmit = (
+    values: CreateManualTriviaQuestionFormSubmit,
+    { resetForm }
+  ): void => {
     setIsSubmitting(true);
     setError("");
 
@@ -66,7 +69,10 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
 
     axiosClient
       .post(`/manual-trivia-questions`, payload, getAuthConfig())
-      .then(() => toast(createManualTriviaQuestionToast()))
+      .then(() => {
+        toast(createManualTriviaQuestionToast());
+        resetForm();
+      })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
