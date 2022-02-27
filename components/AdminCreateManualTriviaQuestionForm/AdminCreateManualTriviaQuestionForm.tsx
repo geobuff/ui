@@ -18,6 +18,8 @@ import {
   Text,
   Radio,
   useRadioGroup,
+  FormHelperText,
+  Link,
 } from "@chakra-ui/react";
 
 import RadioButton from "../RadioButton";
@@ -285,6 +287,19 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               <FormErrorMessage fontSize="11px">
                                 {form.errors.flagCode}
                               </FormErrorMessage>
+                              <FormHelperText>
+                                <Text color="gray.500" fontSize="sm" mt={2}>
+                                  {"Use 2 letter country codes."}{" "}
+                                  <Link
+                                    href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
+                                    isExternal
+                                    fontWeight="bold"
+                                    color="gray.500"
+                                  >
+                                    {"You can find a list of codes here."}
+                                  </Link>
+                                </Text>
+                              </FormHelperText>
                             </FormControl>
                           )}
                         </Field>
@@ -319,6 +334,20 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               <FormErrorMessage fontSize="11px">
                                 {form.errors.imageUrl}
                               </FormErrorMessage>
+                              <FormHelperText lineHeight="1.50">
+                                {
+                                  "Avoid images that are copyrighted or require attribution. Sites like"
+                                }
+                                <Link
+                                  href="https://pixabay.com/"
+                                  isExternal
+                                  marginX={1}
+                                  fontWeight="bold"
+                                >
+                                  {"pixabay"}
+                                </Link>
+                                {"are good for free commercial images."}
+                              </FormHelperText>
                             </FormControl>
                           )}
                         </Field>
@@ -327,9 +356,49 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
 
                     <Divider marginY={5} />
 
-                    <Heading size="md" marginBottom={5}>
-                      {"Answers"}
-                    </Heading>
+                    <Flex direction="column" marginBottom={5}>
+                      <FormLabel htmlFor="answerOneText" fontWeight="bold">
+                        {"Question Date"}
+                      </FormLabel>
+                      <Field name="answerOneFlagCode">
+                        {({ field, form }) => (
+                          <FormControl
+                            isInvalid={
+                              form.errors.answerOneFlagCode &&
+                              form.touched.answerOneFlagCode
+                            }
+                          >
+                            <Input
+                              {...field}
+                              id="answerOneFlagCode"
+                              type="text"
+                              placeholder="Flag code..."
+                              size="lg"
+                              fontSize="16px"
+                              fontWeight={400}
+                              background={
+                                values.correctAnswer === 1
+                                  ? "green.100"
+                                  : "#F6F6F6"
+                              }
+                              borderRadius={6}
+                              _placeholder={{ color: "gray.500" }}
+                              _hover={{ background: "#e0e0e0" }}
+                            />
+                            <Box position="absolute" top="38px" left="2px">
+                              <FormErrorMessage fontSize="11px">
+                                {form.errors.answerOneFlagCode}
+                              </FormErrorMessage>
+                            </Box>
+                            <FormHelperText lineHeight="1.50">
+                              {
+                                "Selecting a date will schedule the question to appear on that day. Leaving this field blank will cause the question to enter the random question pool."
+                              }
+                            </FormHelperText>
+                          </FormControl>
+                        )}
+                      </Field>
+                    </Flex>
 
                     <Flex direction="column" marginBottom={2}>
                       <FormLabel htmlFor="answerOneText" fontWeight="bold">
@@ -354,6 +423,19 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                           {"Yes"}
                         </RadioButton>
                       </HStack>
+                      {hasFlagAnswers && (
+                        <Text color="gray.500" fontSize="sm" mt={2}>
+                          {"Use 2 letter country codes."}{" "}
+                          <Link
+                            href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
+                            isExternal
+                            fontWeight="bold"
+                            color="gray.500"
+                          >
+                            {"You can find a list of codes here."}
+                          </Link>
+                        </Text>
+                      )}
                     </Flex>
 
                     <Divider marginY={5} />
