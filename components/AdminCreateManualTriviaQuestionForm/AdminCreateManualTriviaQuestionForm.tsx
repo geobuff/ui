@@ -18,7 +18,11 @@ import {
   Text,
   Radio,
   useRadioGroup,
+  FormHelperText,
+  Link,
 } from "@chakra-ui/react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import RadioButton from "../RadioButton";
 
@@ -93,6 +97,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
           initialValues={{
             typeId: "1",
             question: "",
+            quizDate: "",
             map: "",
             highlighted: "",
             flagCode: "",
@@ -112,6 +117,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
           enableReinitialize
         >
           {({ dirty, values, setFieldValue, errors }) => {
+            console.log(values, "values");
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { getRootProps, getRadioProps } = useRadioGroup({
               name: "typeId",
@@ -126,7 +132,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
               <Box maxWidth="600px" width="100%">
                 <Heading size="md">{"Create Manual Trivia Question"}</Heading>
                 <Divider marginY={5} />
-                <Form>
+                <Form autoComplete="off">
                   <Flex direction="column">
                     <Field name="typeId">
                       {({ form }) => (
@@ -285,6 +291,19 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               <FormErrorMessage fontSize="11px">
                                 {form.errors.flagCode}
                               </FormErrorMessage>
+                              <FormHelperText>
+                                <Text color="gray.500" fontSize="sm" mt={2}>
+                                  {"Use 2 letter country codes."}{" "}
+                                  <Link
+                                    href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
+                                    isExternal
+                                    fontWeight="bold"
+                                    color="gray.500"
+                                  >
+                                    {"You can find a list of codes here."}
+                                  </Link>
+                                </Text>
+                              </FormHelperText>
                             </FormControl>
                           )}
                         </Field>
@@ -319,6 +338,20 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               <FormErrorMessage fontSize="11px">
                                 {form.errors.imageUrl}
                               </FormErrorMessage>
+                              <FormHelperText lineHeight="1.50">
+                                {
+                                  "Avoid images that are copyrighted or require attribution. Sites like"
+                                }
+                                <Link
+                                  href="https://pixabay.com/"
+                                  isExternal
+                                  marginX={1}
+                                  fontWeight="bold"
+                                >
+                                  {"pixabay"}
+                                </Link>
+                                {"are good for free commercial images."}
+                              </FormHelperText>
                             </FormControl>
                           )}
                         </Field>
@@ -327,33 +360,92 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
 
                     <Divider marginY={5} />
 
-                    <Heading size="md" marginBottom={5}>
-                      {"Answers"}
-                    </Heading>
+                    <Flex direction="row" marginBottom={5} flexWrap="wrap">
+                      <Flex flex={1} direction="column" width="100%">
+                        <FormLabel htmlFor="answerOneText" fontWeight="bold">
+                          {"Do answers have flags?"}
+                        </FormLabel>
 
-                    <Flex direction="column" marginBottom={2}>
-                      <FormLabel htmlFor="answerOneText" fontWeight="bold">
-                        {"Do answers have flags?"}
-                      </FormLabel>
-
-                      <HStack spacing={3}>
-                        <RadioButton
-                          radioProps={{
-                            isChecked: !hasFlagAnswers,
-                            onChange: () => setHasFlagAnswers(false),
-                          }}
-                        >
-                          {"No"}
-                        </RadioButton>
-                        <RadioButton
-                          radioProps={{
-                            isChecked: hasFlagAnswers,
-                            onChange: () => setHasFlagAnswers(true),
-                          }}
-                        >
-                          {"Yes"}
-                        </RadioButton>
-                      </HStack>
+                        <HStack spacing={3}>
+                          <RadioButton
+                            radioProps={{
+                              isChecked: !hasFlagAnswers,
+                              onChange: () => setHasFlagAnswers(false),
+                            }}
+                          >
+                            {"No"}
+                          </RadioButton>
+                          <RadioButton
+                            radioProps={{
+                              isChecked: hasFlagAnswers,
+                              onChange: () => setHasFlagAnswers(true),
+                            }}
+                          >
+                            {"Yes"}
+                          </RadioButton>
+                        </HStack>
+                        {hasFlagAnswers ? (
+                          <Text color="gray.500" fontSize="sm" mt={2} mr={6}>
+                            {"Use 2 letter country codes."}{" "}
+                            <Link
+                              href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
+                              isExternal
+                              fontWeight="bold"
+                              color="gray.500"
+                            >
+                              {"You can find a list of codes here."}
+                            </Link>
+                          </Text>
+                        ) : (
+                          <Text color="gray.500" fontSize="sm" mt={2} mr={6}>
+                            {"Enables answer buttons to contain flag images."}
+                          </Text>
+                        )}
+                      </Flex>
+                      <Flex
+                        flex={1}
+                        direction="column"
+                        width="100%"
+                        marginRight={5}
+                      >
+                        <FormLabel htmlFor="answerOneText" fontWeight="bold">
+                          {"Appearance Date"}
+                        </FormLabel>
+                        <Field name="quizDate">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                form.errors.answerOneFlagCode &&
+                                form.touched.answerOneFlagCode
+                              }
+                            >
+                              <DatePicker
+                                {...field}
+                                placeholderText="Select date..."
+                                selected={
+                                  (field.value && new Date(field.value)) || null
+                                }
+                                onChange={(value) => {
+                                  setFieldValue(
+                                    "quizDate",
+                                    new Date(value).toISOString()
+                                  );
+                                }}
+                              />
+                              <Box position="absolute" top="38px" left="2px">
+                                <FormErrorMessage fontSize="11px">
+                                  {form.errors.questionDate}
+                                </FormErrorMessage>
+                              </Box>
+                              <FormHelperText lineHeight="1.50">
+                                {
+                                  "Selecting a date will schedule the question to appear on that day. Leaving the field blank will add the question to the random question pool."
+                                }
+                              </FormHelperText>
+                            </FormControl>
+                          )}
+                        </Field>
+                      </Flex>
                     </Flex>
 
                     <Divider marginY={5} />
