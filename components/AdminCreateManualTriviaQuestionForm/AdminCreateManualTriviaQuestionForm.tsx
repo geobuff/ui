@@ -97,6 +97,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
           initialValues={{
             typeId: "1",
             question: "",
+            quizDate: "",
             map: "",
             highlighted: "",
             flagCode: "",
@@ -116,6 +117,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
           enableReinitialize
         >
           {({ dirty, values, setFieldValue, errors }) => {
+            console.log(values, "values");
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { getRootProps, getRadioProps } = useRadioGroup({
               name: "typeId",
@@ -130,7 +132,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
               <Box maxWidth="600px" width="100%">
                 <Heading size="md">{"Create Manual Trivia Question"}</Heading>
                 <Divider marginY={5} />
-                <Form>
+                <Form autoComplete="off">
                   <Flex direction="column">
                     <Field name="typeId">
                       {({ form }) => (
@@ -396,7 +398,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                           </Text>
                         ) : (
                           <Text color="gray.500" fontSize="sm" mt={2} mr={6}>
-                            {"Enables answer buttons to contain flags."}
+                            {"Enables answer buttons to contain flag images."}
                           </Text>
                         )}
                       </Flex>
@@ -409,7 +411,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                         <FormLabel htmlFor="answerOneText" fontWeight="bold">
                           {"Appearance Date"}
                         </FormLabel>
-                        <Field name="questionDate">
+                        <Field name="quizDate">
                           {({ field, form }) => (
                             <FormControl
                               isInvalid={
@@ -419,24 +421,25 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                             >
                               <DatePicker
                                 {...field}
-                                date={false}
-                                placeholderText="Select date"
+                                placeholderText="Select date..."
                                 selected={
-                                  (field.value && new Date(field.value)) ||
-                                  false
+                                  (field.value && new Date(field.value)) || null
                                 }
-                                onChange={(val) => {
-                                  setFieldValue(field.name, val);
+                                onChange={(value) => {
+                                  setFieldValue(
+                                    "quizDate",
+                                    new Date(value).toISOString()
+                                  );
                                 }}
                               />
                               <Box position="absolute" top="38px" left="2px">
                                 <FormErrorMessage fontSize="11px">
-                                  {form.errors.answerOneFlagCode}
+                                  {form.errors.questionDate}
                                 </FormErrorMessage>
                               </Box>
                               <FormHelperText lineHeight="1.50">
                                 {
-                                  "Selecting a date will schedule the question to appear on that day. Leaving this field blank will add the question to the random question pool."
+                                  "Selecting a date will schedule the question to appear on that day. Leaving the field blank will add the question to the random question pool."
                                 }
                               </FormHelperText>
                             </FormControl>

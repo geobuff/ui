@@ -1,6 +1,7 @@
 export interface CreateManualTriviaQuestionFormSubmit {
   typeId: string;
   question: string;
+  quizDate: string;
   map: string;
   highlighted: string;
   flagCode: string;
