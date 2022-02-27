@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 
 import {
@@ -59,7 +59,10 @@ export interface Props {
   isSubmitting?: boolean;
   error?: string;
   isLoading?: boolean;
-  onSubmit?: (values: CreateManualTriviaQuestionFormSubmit) => void;
+  onSubmit?: (
+    values: CreateManualTriviaQuestionFormSubmit,
+    helpers: FormikHelpers<CreateManualTriviaQuestionFormSubmit>
+  ) => void;
 }
 
 const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
