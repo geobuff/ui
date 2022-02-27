@@ -21,6 +21,8 @@ import {
   FormHelperText,
   Link,
 } from "@chakra-ui/react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import RadioButton from "../RadioButton";
 
@@ -356,86 +358,91 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
 
                     <Divider marginY={5} />
 
-                    <Flex direction="column" marginBottom={5}>
-                      <FormLabel htmlFor="answerOneText" fontWeight="bold">
-                        {"Question Date"}
-                      </FormLabel>
-                      <Field name="answerOneFlagCode">
-                        {({ field, form }) => (
-                          <FormControl
-                            isInvalid={
-                              form.errors.answerOneFlagCode &&
-                              form.touched.answerOneFlagCode
-                            }
+                    <Flex direction="row" marginBottom={5} flexWrap="wrap">
+                      <Flex flex={1} direction="column" width="100%">
+                        <FormLabel htmlFor="answerOneText" fontWeight="bold">
+                          {"Do answers have flags?"}
+                        </FormLabel>
+
+                        <HStack spacing={3}>
+                          <RadioButton
+                            radioProps={{
+                              isChecked: !hasFlagAnswers,
+                              onChange: () => setHasFlagAnswers(false),
+                            }}
                           >
-                            <Input
-                              {...field}
-                              id="answerOneFlagCode"
-                              type="text"
-                              placeholder="Flag code..."
-                              size="lg"
-                              fontSize="16px"
-                              fontWeight={400}
-                              background={
-                                values.correctAnswer === 1
-                                  ? "green.100"
-                                  : "#F6F6F6"
-                              }
-                              borderRadius={6}
-                              _placeholder={{ color: "gray.500" }}
-                              _hover={{ background: "#e0e0e0" }}
-                            />
-                            <Box position="absolute" top="38px" left="2px">
-                              <FormErrorMessage fontSize="11px">
-                                {form.errors.answerOneFlagCode}
-                              </FormErrorMessage>
-                            </Box>
-                            <FormHelperText lineHeight="1.50">
-                              {
-                                "Selecting a date will schedule the question to appear on that day. Leaving this field blank will cause the question to enter the random question pool."
-                              }
-                            </FormHelperText>
-                          </FormControl>
+                            {"No"}
+                          </RadioButton>
+                          <RadioButton
+                            radioProps={{
+                              isChecked: hasFlagAnswers,
+                              onChange: () => setHasFlagAnswers(true),
+                            }}
+                          >
+                            {"Yes"}
+                          </RadioButton>
+                        </HStack>
+                        {hasFlagAnswers ? (
+                          <Text color="gray.500" fontSize="sm" mt={2} mr={6}>
+                            {"Use 2 letter country codes."}{" "}
+                            <Link
+                              href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
+                              isExternal
+                              fontWeight="bold"
+                              color="gray.500"
+                            >
+                              {"You can find a list of codes here."}
+                            </Link>
+                          </Text>
+                        ) : (
+                          <Text color="gray.500" fontSize="sm" mt={2} mr={6}>
+                            {"Enables answer buttons to contain flags."}
+                          </Text>
                         )}
-                      </Field>
-                    </Flex>
-
-                    <Flex direction="column" marginBottom={2}>
-                      <FormLabel htmlFor="answerOneText" fontWeight="bold">
-                        {"Do answers have flags?"}
-                      </FormLabel>
-
-                      <HStack spacing={3}>
-                        <RadioButton
-                          radioProps={{
-                            isChecked: !hasFlagAnswers,
-                            onChange: () => setHasFlagAnswers(false),
-                          }}
-                        >
-                          {"No"}
-                        </RadioButton>
-                        <RadioButton
-                          radioProps={{
-                            isChecked: hasFlagAnswers,
-                            onChange: () => setHasFlagAnswers(true),
-                          }}
-                        >
-                          {"Yes"}
-                        </RadioButton>
-                      </HStack>
-                      {hasFlagAnswers && (
-                        <Text color="gray.500" fontSize="sm" mt={2}>
-                          {"Use 2 letter country codes."}{" "}
-                          <Link
-                            href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
-                            isExternal
-                            fontWeight="bold"
-                            color="gray.500"
-                          >
-                            {"You can find a list of codes here."}
-                          </Link>
-                        </Text>
-                      )}
+                      </Flex>
+                      <Flex
+                        flex={1}
+                        direction="column"
+                        width="100%"
+                        marginRight={5}
+                      >
+                        <FormLabel htmlFor="answerOneText" fontWeight="bold">
+                          {"Appearance Date"}
+                        </FormLabel>
+                        <Field name="questionDate">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                form.errors.answerOneFlagCode &&
+                                form.touched.answerOneFlagCode
+                              }
+                            >
+                              <DatePicker
+                                {...field}
+                                date={false}
+                                placeholderText="Select date"
+                                selected={
+                                  (field.value && new Date(field.value)) ||
+                                  false
+                                }
+                                onChange={(val) => {
+                                  setFieldValue(field.name, val);
+                                }}
+                              />
+                              <Box position="absolute" top="38px" left="2px">
+                                <FormErrorMessage fontSize="11px">
+                                  {form.errors.answerOneFlagCode}
+                                </FormErrorMessage>
+                              </Box>
+                              <FormHelperText lineHeight="1.50">
+                                {
+                                  "Selecting a date will schedule the question to appear on that day. Leaving this field blank will add the question to the random question pool."
+                                }
+                              </FormHelperText>
+                            </FormControl>
+                          )}
+                        </Field>
+                      </Flex>
                     </Flex>
 
                     <Divider marginY={5} />
