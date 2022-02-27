@@ -93,10 +93,10 @@ const AdminCreateQuizForm: FC<Props> = ({
           verb: "",
           apiPath: "",
           route: "",
-          hasLeaderboard: false,
-          hasGrouping: false,
-          hasFlags: false,
-          enabled: false,
+          hasLeaderboard: "false",
+          hasGrouping: "false",
+          hasFlags: "false",
+          enabled: "false",
         }}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
