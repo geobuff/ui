@@ -8,6 +8,7 @@ import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";
 import useQuizTypes from "../../hooks/UseQuizTypes";
 import { CreateQuizFormSubmit } from "../../types/create-quiz-form-submit";
+import { NullInt } from "../../types/null-int";
 
 const AdminCreateQuizContainer: FC = () => {
   const toast = useToast();
@@ -24,10 +25,20 @@ const AdminCreateQuizContainer: FC = () => {
     setIsSubmitting(true);
     setError("");
 
+    const badgeId: NullInt = {
+      Int64: values.badgeId ? parseInt(values.badgeId) : 0,
+      Valid: !!values.badgeId,
+    };
+
+    const continentId: NullInt = {
+      Int64: values.continentId ? parseInt(values.continentId) : 0,
+      Valid: !!values.continentId,
+    };
+
     const payload = {
       typeId: parseInt(values.typeId),
-      badgeId: values.badgeId ? parseInt(values.badgeId) : null,
-      continentId: values.continentId ? parseInt(values.continentId) : null,
+      badgeId: badgeId,
+      continentId: continentId,
       country: values.country,
       singular: values.singular,
       name: values.name,
@@ -38,10 +49,10 @@ const AdminCreateQuizContainer: FC = () => {
       verb: values.verb,
       apiPath: values.apiPath,
       route: values.route,
-      hasLeaderboard: values.hasLeaderboard,
-      hasGrouping: values.hasGrouping,
-      hasFlags: values.hasFlags,
-      enabled: values.enabled,
+      hasLeaderboard: values.hasLeaderboard === "true",
+      hasGrouping: values.hasGrouping === "true",
+      hasFlags: values.hasFlags === "true",
+      enabled: values.enabled === "true",
     };
 
     axiosClient
