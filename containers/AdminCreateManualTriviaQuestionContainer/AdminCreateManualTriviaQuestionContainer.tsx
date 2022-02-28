@@ -65,7 +65,7 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
       flagCode: values.flagCode,
       imageUrl: values.imageUrl,
       answers: answers,
-      quizDate: values.quizDate,
+      quizDate: values.quizDate || null,
     };
 
     axiosClient
