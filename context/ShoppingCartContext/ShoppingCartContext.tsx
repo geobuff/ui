@@ -1,4 +1,4 @@
-import React, { createContext, useState, FC } from "react";
+import React, { createContext, useState, FC, useEffect } from "react";
 import axiosClient from "../../axios";
 import { toTwoDecimalPlaces } from "../../helpers/number";
 import { CartItem } from "../../types/cart-item";
@@ -26,7 +26,7 @@ export const ShoppingCartContext = createContext({
 });
 
 export const ShoppingCartContextProvider: FC = ({ children = null }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [discountCode, setDiscountCode] = useState(
     typeof window === "undefined"
@@ -37,12 +37,33 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
   const [checkingDiscount, setCheckingDiscount] = useState(false);
   const [discountSuccess, setDiscountSuccess] = useState("");
   const [discountError, setDiscountError] = useState("");
+  const [cart, setCart] = useState<CartItem[]>([]);
 
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    if (typeof window === "undefined") return [];
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      setIsLoading(false);
+      return;
+    }
+
     const cartString = window.localStorage.getItem("geobuff.cart");
-    return cartString ? JSON.parse(cartString) : [];
-  });
+    if (!cartString) {
+      setIsLoading(false);
+      return;
+    }
+
+    const cart = JSON.parse(cartString);
+    axiosClient
+      .post(`/merch/exists`, cart)
+      .then((response) => {
+        if (response.data) {
+          setCart(cart);
+        } else {
+          removeCartLocalStorage();
+        }
+      })
+      .catch(() => removeCartLocalStorage())
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const updateCartLocalStorage = (cart: CartItem[]): void => {
     window.localStorage.setItem("geobuff.cart", JSON.stringify(cart));
