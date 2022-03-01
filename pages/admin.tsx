@@ -63,7 +63,7 @@ const Admin: FC = () => (
       <title>{"Admin Dashboard - GeoBuff"}</title>
     </Head>
     <MainView>
-      <Tabs isLazy>
+      <Tabs isLazy colorScheme="teal">
         <Flex
           position="fixed"
           left={0}
@@ -72,7 +72,7 @@ const Admin: FC = () => (
           zIndex={100}
           borderTop={"1.5px solid #E2E8F0"}
         >
-          <TabList width="100%">
+          <TabList width="100%" paddingX={{ base: 3, md: 5 }}>
             <Tab fontWeight="medium">General</Tab>
             <Tab fontWeight="medium">Users</Tab>
             <Tab fontWeight="medium">Quizzes</Tab>
