@@ -24,7 +24,7 @@ const getTaskSettings = (key: BackgroundTaskKey) => {
     case DeployDevWeb:
       return {
         endpoints: [deployDevUIWeb],
-        toasts: [deployUIToast("Mobile Prod")],
+        toasts: [deployUIToast("Web Dev")],
       };
     case DeployProdAll:
       return {
@@ -38,8 +38,8 @@ const getTaskSettings = (key: BackgroundTaskKey) => {
       };
     case DeployProdWeb:
       return {
-        endpoints: [deployProdUIMobile],
-        toasts: [deployUIToast("Mobile Prod")],
+        endpoints: [deployProdUIWeb],
+        toasts: [deployUIToast("Web Prod")],
       };
     case TriviaCreate:
       return {
