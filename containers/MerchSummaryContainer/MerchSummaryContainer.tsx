@@ -13,6 +13,7 @@ interface Props {
 }
 
 const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
+  const { getItemQuantity } = useContext(ShoppingCartContext);
   const { merch, isLoading } = useMerch();
   const toast = useToast();
 
@@ -25,6 +26,12 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
   const [submitted, setSubmitted] = useState(false);
 
   const { addToCart } = useContext(ShoppingCartContext);
+
+  const isAvailable = (sizeId: number): boolean => {
+    const cartQuantity = getItemQuantity(id);
+    const item = merch.find((x) => x.id === id);
+    return item.sizes.find((x) => x.id === sizeId).quantity - cartQuantity > 0;
+  };
 
   const handleSubmit = (values: MerchSummaryFormSubmit): void => {
     setIsSubmitting(true);
@@ -53,6 +60,7 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
   return (
     <MerchSummary
       item={merch.find((x) => x.id === id)}
+      isAvailable={isAvailable}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
       submitted={submitted}

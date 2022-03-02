@@ -13,6 +13,7 @@ export const ShoppingCartContext = createContext({
   removeItem: (id: number, sizeId: number): void => {},
   clearCart: (): void => {},
   getItemCount: (): number => 0,
+  getItemQuantity: (merchId: number): number => 0,
   getTotal: (): number => 0,
   discountAmount: 0,
   discountCode: "",
@@ -135,6 +136,12 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
   const getItemCount = (): number =>
     cart.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
 
+  const getItemQuantity = (merchId: number): number => {
+    const items = cart.filter((x) => x.id === merchId);
+    if (items.length === 0) return 0;
+    return items.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
+  };
+
   const getTotal = (): number => {
     const result = cart.reduce(
       (prev, curr) => (prev += curr.quantity * curr.price),
@@ -214,6 +221,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         removeItem,
         clearCart,
         getItemCount,
+        getItemQuantity,
         getTotal,
         discountAmount,
         discountCode,
