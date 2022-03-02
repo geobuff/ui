@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import * as Maps from "@geobuff/svg-maps";
 
 import {
   Alert,
@@ -20,6 +21,7 @@ import {
   useRadioGroup,
   FormHelperText,
   Link,
+  Select,
 } from "@chakra-ui/react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -77,6 +79,18 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
   onSubmit = () => {},
 }) => {
   const [hasFlagAnswers, setHasFlagAnswers] = useState(false);
+
+  const getHighlightRegionsByMap = (map: string) => {
+    const selectedMap = Maps[map];
+
+    if (selectedMap !== undefined) {
+      return selectedMap.paths.map(({ id, name }) => ({
+        value: id,
+        name,
+      }));
+    }
+  };
+
   return (
     <>
       {error && (
@@ -204,19 +218,15 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                 <FormLabel htmlFor="map" fontWeight="bold">
                                   {"Map"}
                                 </FormLabel>
-                                <Input
-                                  {...field}
-                                  id="map"
-                                  type="text"
-                                  placeholder="Enter map..."
-                                  size="lg"
-                                  fontSize="16px"
-                                  fontWeight={400}
-                                  background="#F6F6F6"
-                                  borderRadius={6}
-                                  _placeholder={{ color: "gray.500" }}
-                                  _hover={{ background: "#e0e0e0" }}
-                                />
+                                <Select {...field}>
+                                  <option value="">{"Select a map..."}</option>
+                                  {Object.keys(Maps).map((map) => (
+                                    <option key={map} value={map}>
+                                      {map}
+                                    </option>
+                                  ))}
+                                </Select>
+
                                 <FormErrorMessage fontSize="11px">
                                   {form.errors.map}
                                 </FormErrorMessage>
@@ -240,19 +250,21 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                 >
                                   {"Highlighted"}
                                 </FormLabel>
-                                <Input
-                                  {...field}
-                                  id="highlighted"
-                                  type="text"
-                                  placeholder="Enter highlighted..."
-                                  size="lg"
-                                  fontSize="16px"
-                                  fontWeight={400}
-                                  background="#F6F6F6"
-                                  borderRadius={6}
-                                  _placeholder={{ color: "gray.500" }}
-                                  _hover={{ background: "#e0e0e0" }}
-                                />
+                                <Select {...field}>
+                                  <option value="">
+                                    {"Select highlighted..."}
+                                  </option>
+                                  {getHighlightRegionsByMap(values.map)?.map(
+                                    (region) => (
+                                      <option
+                                        key={region.value}
+                                        value={region.value}
+                                      >
+                                        {`${region.name} (${region.value})`}
+                                      </option>
+                                    )
+                                  )}
+                                </Select>
                                 <FormErrorMessage fontSize="11px">
                                   {form.errors.highlighted}
                                 </FormErrorMessage>
