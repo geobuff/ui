@@ -222,7 +222,9 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                   <option value="">{"Select a map..."}</option>
                                   {Object.keys(Maps).map((map) => (
                                     <option key={map} value={map}>
-                                      {map}
+                                      {map
+                                        .match(/[A-Z][a-z]+|[0-9]+/g)
+                                        .join(" ")}
                                     </option>
                                   ))}
                                 </Select>
@@ -260,11 +262,16 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                         key={region.value}
                                         value={region.value}
                                       >
-                                        {`${region.name} (${region.value})`}
+                                        {`${region.value} - ${region.name}`}
                                       </option>
                                     )
                                   )}
                                 </Select>
+                                <FormHelperText lineHeight="1.50">
+                                  {
+                                    "Selecting a region will highlight it on the selected map. Leaving it blank will display the map without any highlighting."
+                                  }
+                                </FormHelperText>
                                 <FormErrorMessage fontSize="11px">
                                   {form.errors.highlighted}
                                 </FormErrorMessage>
