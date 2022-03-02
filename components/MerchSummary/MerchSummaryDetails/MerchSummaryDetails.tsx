@@ -26,6 +26,7 @@ export interface Props {
   description?: string;
   sizeGuideImageUrl?: string;
   sizes?: MerchSize[];
+  isAvailable?: (sizeId: number) => boolean;
   onSubmit?: (values: MerchSummaryFormSubmit) => void;
   isSubmitting?: boolean;
   submitted?: boolean;
@@ -38,6 +39,7 @@ const MerchSummaryDetails: FC<Props> = ({
   description = "",
   sizeGuideImageUrl = "",
   sizes = [],
+  isAvailable = (sizeId: number): boolean => false,
   onSubmit = (values: MerchSummaryFormSubmit): void => {},
   isSubmitting = false,
   submitted = false,
@@ -78,9 +80,13 @@ const MerchSummaryDetails: FC<Props> = ({
                           <option
                             key={size.id}
                             value={size.id}
-                            disabled={size.quantity === 0}
+                            disabled={
+                              size.quantity === 0 || !isAvailable(size.id)
+                            }
                           >
-                            {size.size} {size.quantity === 0 && " - Sold Out"}
+                            {size.size}{" "}
+                            {(size.quantity === 0 || !isAvailable(size.id)) &&
+                              " - Sold Out"}
                           </option>
                         ))}
                       </Select>
