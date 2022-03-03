@@ -22,10 +22,12 @@ import {
   Link,
   Select,
 } from "@chakra-ui/react";
-import { getFlagUrl } from "@geobuff/flags";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { getFlagUrl, flags } from "@geobuff/flags";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import CountrySelect from "../CountrySelect";
 import RadioButton from "../RadioButton";
 import Image from "../Image";
 
@@ -34,9 +36,6 @@ import {
   QuestionType,
 } from "../../types/create-manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
-import { flags } from "../../types/flags";
-import { ChevronDownIcon } from "@chakra-ui/icons";
-import CountrySelect from "../CountrySelect";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
