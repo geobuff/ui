@@ -10,9 +10,10 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
 export interface Props extends BoxProps {
   name?: string;
+  maxScore?: number;
 }
 
-const TriviaCard: FC<Props> = ({ name = "", ...props }) => (
+const TriviaCard: FC<Props> = ({ name = "", maxScore = 0, ...props }) => (
   <Box
     aria-label={`trivia card for ${name}`}
     role="group"
@@ -92,7 +93,7 @@ const TriviaCard: FC<Props> = ({ name = "", ...props }) => (
               maxWidth={{ base: "65px", md: "85px" }}
               isTruncated
             >
-              {"10 Questions"}
+              {`${maxScore} Questions`}
             </Text>
           </Flex>
         </Flex>
