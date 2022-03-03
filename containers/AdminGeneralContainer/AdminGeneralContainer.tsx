@@ -4,6 +4,53 @@ import axiosClient from "../../axios";
 import AdminGeneral from "../../components/AdminGeneral";
 import { useToast } from "@chakra-ui/react";
 import { createTriviaToast, deployUIToast } from "../../helpers/toasts";
+import { BackgroundTaskKey } from "../../types/background-task";
+
+const {
+  DeployDevWeb,
+  DeployProdAll,
+  DeployProdMobile,
+  DeployProdWeb,
+  TriviaCreate,
+} = BackgroundTaskKey;
+
+const deployProdUIMobile = process.env.NEXT_PUBLIC_DEPLOY_MOBILE_PROD_UI;
+const deployProdUIWeb = process.env.NEXT_PUBLIC_DEPLOY_PROD_UI;
+const deployDevUIWeb = process.env.NEXT_PUBLIC_DEPLOY_DEV_UI;
+const createTrivia = "/trivia";
+
+const getTaskSettings = (key: BackgroundTaskKey) => {
+  switch (key) {
+    case DeployDevWeb:
+      return {
+        endpoints: [deployDevUIWeb],
+        toasts: [deployUIToast("Web Dev")],
+      };
+    case DeployProdAll:
+      return {
+        endpoints: [deployProdUIWeb, deployProdUIMobile],
+        toasts: [deployUIToast("Web Prod"), deployUIToast("Mobile Prod")],
+      };
+    case DeployProdMobile:
+      return {
+        endpoints: [deployProdUIMobile],
+        toasts: [deployUIToast("Mobile Prod")],
+      };
+    case DeployProdWeb:
+      return {
+        endpoints: [deployProdUIWeb],
+        toasts: [deployUIToast("Web Prod")],
+      };
+    case TriviaCreate:
+      return {
+        endpoints: [createTrivia],
+        toasts: [createTriviaToast(DateTime.now().toFormat("yyyy-MM-dd"))],
+      };
+
+    default:
+      return null;
+  }
+};
 
 const AdminGeneralContainer: FC = () => {
   const toast = useToast();
@@ -11,54 +58,24 @@ const AdminGeneralContainer: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleDevUIDeploy = () => {
-    setError("");
-    setIsSubmitting(true);
-    axiosClient
-      .post(process.env.NEXT_PUBLIC_DEPLOY_DEV_UI)
-      .then(() => toast(deployUIToast("Dev")))
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsSubmitting(false));
-  };
+  const handleDeploy = (key: BackgroundTaskKey) => {
+    const { endpoints, toasts } = getTaskSettings(key);
 
-  const handleProdUIDeploy = () => {
     setError("");
     setIsSubmitting(true);
-    axiosClient
-      .post(process.env.NEXT_PUBLIC_DEPLOY_PROD_UI)
-      .then(() => toast(deployUIToast("Prod")))
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsSubmitting(false));
-  };
 
-  const handleMobileProdUIDeploy = () => {
-    setError("");
-    setIsSubmitting(true);
-    axiosClient
-      .post(process.env.NEXT_PUBLIC_DEPLOY_MOBILE_PROD_UI)
-      .then(() => toast(deployUIToast("Mobile Prod")))
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsSubmitting(false));
-  };
-
-  const handleCreateTrivia = () => {
-    setError("");
-    setIsSubmitting(true);
-    axiosClient
-      .post(`/trivia`)
-      .then(() =>
-        toast(createTriviaToast(DateTime.now().toFormat("yyyy-MM-dd")))
-      )
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsSubmitting(false));
+    endpoints.forEach((endpoint, index) => {
+      axiosClient
+        .post(endpoint)
+        .then(() => toast(toasts[index]))
+        .catch((error) => setError(error.response.data))
+        .finally(() => setIsSubmitting(false));
+    });
   };
 
   return (
     <AdminGeneral
-      onDevUIDeploy={handleDevUIDeploy}
-      onProdUIDeploy={handleProdUIDeploy}
-      onMobileProdUIDeploy={handleMobileProdUIDeploy}
-      onCreateTrivia={handleCreateTrivia}
+      onDeploy={handleDeploy}
       isSubmitting={isSubmitting}
       error={error}
     />

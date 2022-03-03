@@ -1,4 +1,4 @@
-import React, { createContext, useState, FC } from "react";
+import React, { createContext, useState, FC, useEffect } from "react";
 import axiosClient from "../../axios";
 import { toTwoDecimalPlaces } from "../../helpers/number";
 import { CartItem } from "../../types/cart-item";
@@ -13,6 +13,7 @@ export const ShoppingCartContext = createContext({
   removeItem: (id: number, sizeId: number): void => {},
   clearCart: (): void => {},
   getItemCount: (): number => 0,
+  getItemQuantity: (merchId: number): number => 0,
   getTotal: (): number => 0,
   discountAmount: 0,
   discountCode: "",
@@ -26,7 +27,7 @@ export const ShoppingCartContext = createContext({
 });
 
 export const ShoppingCartContextProvider: FC = ({ children = null }) => {
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [discountCode, setDiscountCode] = useState(
     typeof window === "undefined"
@@ -37,12 +38,33 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
   const [checkingDiscount, setCheckingDiscount] = useState(false);
   const [discountSuccess, setDiscountSuccess] = useState("");
   const [discountError, setDiscountError] = useState("");
+  const [cart, setCart] = useState<CartItem[]>([]);
 
-  const [cart, setCart] = useState<CartItem[]>(() => {
-    if (typeof window === "undefined") return [];
+  useEffect(() => {
+    if (typeof window === "undefined") {
+      setIsLoading(false);
+      return;
+    }
+
     const cartString = window.localStorage.getItem("geobuff.cart");
-    return cartString ? JSON.parse(cartString) : [];
-  });
+    if (!cartString) {
+      setIsLoading(false);
+      return;
+    }
+
+    const cart = JSON.parse(cartString);
+    axiosClient
+      .post(`/merch/exists`, cart)
+      .then((response) => {
+        if (response.data) {
+          setCart(cart);
+        } else {
+          removeCartLocalStorage();
+        }
+      })
+      .catch(() => removeCartLocalStorage())
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const updateCartLocalStorage = (cart: CartItem[]): void => {
     window.localStorage.setItem("geobuff.cart", JSON.stringify(cart));
@@ -65,19 +87,22 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     const match = cart.find(
       (x) => x.id === item.id && x.sizeId === item.sizeId
     );
-    if (match !== undefined) {
+
+    if (match === undefined) {
+      item.quantity = 1;
+      const result = [...cart, item];
+      updateCartLocalStorage(result);
+      setCart(result);
+    } else {
       const items = [...cart];
       const index = cart.indexOf(match);
       const item = { ...items[index] };
       item.quantity++;
       items[index] = item;
+      updateCartLocalStorage(items);
       setCart(items);
-      updateCartLocalStorage(cart);
-    } else {
-      item.quantity = 1;
-      setCart([...cart, item]);
-      updateCartLocalStorage(cart);
     }
+
     setIsLoading(false);
   };
 
@@ -113,6 +138,12 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
 
   const getItemCount = (): number =>
     cart.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
+
+  const getItemQuantity = (merchId: number): number => {
+    const items = cart.filter((x) => x.id === merchId);
+    if (items.length === 0) return 0;
+    return items.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
+  };
 
   const getTotal = (): number => {
     const result = cart.reduce(
@@ -193,6 +224,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         removeItem,
         clearCart,
         getItemCount,
+        getItemQuantity,
         getTotal,
         discountAmount,
         discountCode,

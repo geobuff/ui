@@ -24,6 +24,7 @@ export interface Props {
   sizeName?: string;
   price?: number;
   quantity?: number;
+  getMax?: (merchId: number, sizeId: number) => number;
   onUpdateQuantity?: (id: number, sizeId: number, value: number) => void;
   onRemoveItem?: (id: number, sizeId: number) => void;
 }
@@ -36,6 +37,7 @@ const ShoppingCartItem: FC<Props> = ({
   sizeName = "",
   price = 0,
   quantity = 0,
+  getMax = (merchId: number, sizeId: number): number => 0,
   onUpdateQuantity = (id: number, sizeId: number, value: number): void => {},
   onRemoveItem = (id: number, sizeId: number): void => {},
 }) => (
@@ -66,7 +68,7 @@ const ShoppingCartItem: FC<Props> = ({
         <NumberInput
           value={quantity}
           min={1}
-          max={5}
+          max={getMax(id, sizeId)}
           onChange={(value: string): void =>
             onUpdateQuantity(id, sizeId, parseInt(value))
           }
