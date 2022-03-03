@@ -87,19 +87,22 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     const match = cart.find(
       (x) => x.id === item.id && x.sizeId === item.sizeId
     );
-    if (match !== undefined) {
+
+    if (match === undefined) {
+      item.quantity = 1;
+      const result = [...cart, item];
+      updateCartLocalStorage(result);
+      setCart(result);
+    } else {
       const items = [...cart];
       const index = cart.indexOf(match);
       const item = { ...items[index] };
       item.quantity++;
       items[index] = item;
+      updateCartLocalStorage(items);
       setCart(items);
-      updateCartLocalStorage(cart);
-    } else {
-      item.quantity = 1;
-      setCart([...cart, item]);
-      updateCartLocalStorage(cart);
     }
+
     setIsLoading(false);
   };
 
