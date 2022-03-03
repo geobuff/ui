@@ -13,8 +13,11 @@ interface Props {
 }
 
 const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
-  const { getItemQuantity } = useContext(ShoppingCartContext);
-  const { merch, isLoading } = useMerch();
+  const { getItemQuantity, addToCart, isLoading: isCartLoading } = useContext(
+    ShoppingCartContext
+  );
+
+  const { merch, isLoading: isMerchLoading } = useMerch();
   const toast = useToast();
 
   const toastPosition: ToastPosition = useBreakpointValue({
@@ -24,8 +27,6 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
-
-  const { addToCart } = useContext(ShoppingCartContext);
 
   const isAvailable = (sizeId: number): boolean => {
     const cartQuantity = getItemQuantity(id);
@@ -53,7 +54,7 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
     toast(addedToCart(toastPosition));
   };
 
-  if (isLoading) {
+  if (isMerchLoading || isCartLoading) {
     return <MerchSummaryPlaceholder />;
   }
 
