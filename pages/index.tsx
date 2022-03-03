@@ -73,7 +73,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         filter,
         page: 0,
         limit: 15,
-        orderByPopularity: true,
+        orderByPopularity: false,
       })
       .then((response) => {
         setSearchResults(response.data.quizzes || []);
@@ -374,7 +374,7 @@ export const getStaticProps: GetStaticProps = async () => {
     filter: "",
     page: 0,
     limit: 15,
-    orderByPopularity: true,
+    orderByPopularity: false,
   };
 
   const { data: mapData } = await axiosClient.post(
