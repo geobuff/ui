@@ -57,7 +57,10 @@ const MerchSummaryDetails: FC<Props> = ({
           size: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={onSubmit}
+        onSubmit={(values, { resetForm }) => {
+          onSubmit(values);
+          resetForm();
+        }}
       >
         {(): React.ReactNode => (
           <Form>
