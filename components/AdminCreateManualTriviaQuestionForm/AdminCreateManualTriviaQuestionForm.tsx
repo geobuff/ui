@@ -1,6 +1,7 @@
 import React, { FC, useState } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
+import * as Maps from "@geobuff/svg-maps";
 
 import {
   Alert,
@@ -111,6 +112,17 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
 }) => {
   const [hasFlagAnswers, setHasFlagAnswers] = useState(false);
   const [flagCategory, setFlagCategory] = useState("");
+
+  const getHighlightRegionsByMap = (map: string) => {
+    const selectedMap = Maps[map];
+
+    if (selectedMap !== undefined) {
+      return selectedMap.paths.map(({ id, name }) => ({
+        value: id,
+        name,
+      }));
+    }
+  };
 
   return (
     <>
@@ -239,19 +251,17 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                 <FormLabel htmlFor="map" fontWeight="bold">
                                   {"Map"}
                                 </FormLabel>
-                                <Input
-                                  {...field}
-                                  id="map"
-                                  type="text"
-                                  placeholder="Enter map..."
-                                  size="lg"
-                                  fontSize="16px"
-                                  fontWeight={400}
-                                  background="#F6F6F6"
-                                  borderRadius={6}
-                                  _placeholder={{ color: "gray.500" }}
-                                  _hover={{ background: "#e0e0e0" }}
-                                />
+                                <Select {...field}>
+                                  <option value="">{"Select a map..."}</option>
+                                  {Object.keys(Maps).map((map) => (
+                                    <option key={map} value={map}>
+                                      {map
+                                        .match(/[A-Z][a-z]+|[0-9]+/g)
+                                        .join(" ")}
+                                    </option>
+                                  ))}
+                                </Select>
+
                                 <FormErrorMessage fontSize="11px">
                                   {form.errors.map}
                                 </FormErrorMessage>
@@ -275,19 +285,26 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                 >
                                   {"Highlighted"}
                                 </FormLabel>
-                                <Input
-                                  {...field}
-                                  id="highlighted"
-                                  type="text"
-                                  placeholder="Enter highlighted..."
-                                  size="lg"
-                                  fontSize="16px"
-                                  fontWeight={400}
-                                  background="#F6F6F6"
-                                  borderRadius={6}
-                                  _placeholder={{ color: "gray.500" }}
-                                  _hover={{ background: "#e0e0e0" }}
-                                />
+                                <Select {...field}>
+                                  <option value="">
+                                    {"Select highlighted..."}
+                                  </option>
+                                  {getHighlightRegionsByMap(values.map)?.map(
+                                    (region) => (
+                                      <option
+                                        key={region.value}
+                                        value={region.value}
+                                      >
+                                        {`${region.value} - ${region.name}`}
+                                      </option>
+                                    )
+                                  )}
+                                </Select>
+                                <FormHelperText lineHeight="1.50">
+                                  {
+                                    "Selecting a region will highlight it on the selected map. Leaving it blank will display the map without any highlighting."
+                                  }
+                                </FormHelperText>
                                 <FormErrorMessage fontSize="11px">
                                   {form.errors.highlighted}
                                 </FormErrorMessage>

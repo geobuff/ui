@@ -10,6 +10,7 @@ import MerchSummaryDetails from "./MerchSummaryDetails";
 
 interface Props {
   item?: MerchItem;
+  isAvailable?: (sizeId: number) => boolean;
   isSubmitting?: boolean;
   onSubmit?: (values: MerchSummaryFormSubmit) => void;
   submitted?: boolean;
@@ -17,6 +18,7 @@ interface Props {
 
 const MerchSummary: FC<Props> = ({
   item = null,
+  isAvailable = (sizeId: number): boolean => false,
   isSubmitting = false,
   onSubmit = () => {},
   submitted = false,
@@ -57,6 +59,7 @@ const MerchSummary: FC<Props> = ({
                 item?.sizeGuideImageUrl.Valid && item?.sizeGuideImageUrl.String
               }
               sizes={item?.sizes}
+              isAvailable={isAvailable}
               onSubmit={onSubmit}
               isSubmitting={isSubmitting}
               submitted={submitted}

@@ -13,6 +13,7 @@ export const ShoppingCartContext = createContext({
   removeItem: (id: number, sizeId: number): void => {},
   clearCart: (): void => {},
   getItemCount: (): number => 0,
+  getItemQuantity: (merchId: number): number => 0,
   getTotal: (): number => 0,
   discountAmount: 0,
   discountCode: "",
@@ -86,19 +87,22 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     const match = cart.find(
       (x) => x.id === item.id && x.sizeId === item.sizeId
     );
-    if (match !== undefined) {
+
+    if (match === undefined) {
+      item.quantity = 1;
+      const result = [...cart, item];
+      updateCartLocalStorage(result);
+      setCart(result);
+    } else {
       const items = [...cart];
       const index = cart.indexOf(match);
       const item = { ...items[index] };
       item.quantity++;
       items[index] = item;
+      updateCartLocalStorage(items);
       setCart(items);
-      updateCartLocalStorage(cart);
-    } else {
-      item.quantity = 1;
-      setCart([...cart, item]);
-      updateCartLocalStorage(cart);
     }
+
     setIsLoading(false);
   };
 
@@ -134,6 +138,12 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
 
   const getItemCount = (): number =>
     cart.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
+
+  const getItemQuantity = (merchId: number): number => {
+    const items = cart.filter((x) => x.id === merchId);
+    if (items.length === 0) return 0;
+    return items.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
+  };
 
   const getTotal = (): number => {
     const result = cart.reduce(
@@ -214,6 +224,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         removeItem,
         clearCart,
         getItemCount,
+        getItemQuantity,
         getTotal,
         discountAmount,
         discountCode,
