@@ -7,7 +7,7 @@ import ShoppingCartPlaceholder from "../../placeholders/ShoppingCartPlaceholder"
 const ShoppingCartContainer: FC = () => {
   const {
     cart,
-    isLoading,
+    isLoading: isCartLoading,
     updateQuantity,
     removeItem,
     getTotal,
@@ -25,7 +25,7 @@ const ShoppingCartContainer: FC = () => {
     return item.sizes.find((x) => x.id === sizeId).quantity;
   };
 
-  if (isLoading || isMerchLoading) {
+  if (isCartLoading || isMerchLoading) {
     return <ShoppingCartPlaceholder />;
   }
 
