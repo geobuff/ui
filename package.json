@@ -15,7 +15,7 @@
     "@chakra-ui/react": "^1.3.3",
     "@emotion/react": "11.1.5",
     "@emotion/styled": "11.1.5",
-    "@geobuff/flags": "^1.26.0",
+    "@geobuff/flags": "^1.28.0",
     "@geobuff/svg-map": "^0.2.0",
     "@geobuff/svg-maps": "^0.2.0",
     "@rehooks/local-storage": "^2.4.4",

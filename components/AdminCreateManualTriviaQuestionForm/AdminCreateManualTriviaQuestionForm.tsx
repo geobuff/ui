@@ -23,10 +23,14 @@ import {
   Link,
   Select,
 } from "@chakra-ui/react";
+import { ChevronDownIcon } from "@chakra-ui/icons";
+import { getFlagUrl, flags } from "@geobuff/flags";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+import CountrySelect from "../CountrySelect";
 import RadioButton from "../RadioButton";
+import Image from "../Image";
 
 import {
   CreateManualTriviaQuestionFormSubmit,
@@ -60,6 +64,34 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
+const flagCategories = [
+  { key: "world", label: "🌎 World, Countries" },
+  { key: "au", label: "🇦🇺 Australia, States and Territories" },
+  { key: "ar", label: "🇦🇷 Argentina, Provinces" },
+  { key: "br", label: "🇧🇷 Brazil, States" },
+  { key: "ca", label: "🇨🇦 Canada, Provinces and Territories" },
+  { key: "co", label: "🇨🇴 Colombia, Departments" },
+  { key: "fr", label: "🇫🇷 France, Regions" },
+  { key: "de", label: "🇩🇪 Germany, States" },
+  { key: "it", label: "🇮🇹 Italy, Regions" },
+  { key: "jp", label: "🇯🇵 Japan, Prefectures" },
+  { key: "ru", label: "🇷🇺 Russia, Federal Subjects" },
+  { key: "kr", label: "🇰🇷 South Korea, Provinces" },
+  { key: "es", label: "🇪🇸 Spain, Provinces" },
+  { key: "ua", label: "🇺🇦 Ukraine, Oblasts" },
+  { key: "us", label: "🇺🇸 US, States" },
+];
+
+const getFlagsByCategory = (category: string) => {
+  if (category === "world") {
+    return Object.keys(flags).filter((flag) => flag.length === 2);
+  }
+
+  return Object.keys(flags).filter(
+    (flag) => flag.slice(0, 2) === category && flag.length !== 2
+  );
+};
+
 export interface Props {
   types?: QuizType[];
   isSubmitting?: boolean;
@@ -79,6 +111,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
   onSubmit = () => {},
 }) => {
   const [hasFlagAnswers, setHasFlagAnswers] = useState(false);
+  const [flagCategory, setFlagCategory] = useState("");
 
   const getHighlightRegionsByMap = (map: string) => {
     const selectedMap = Maps[map];
@@ -283,50 +316,80 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                     )}
 
                     {values.typeId === QuestionType.Flag.toString() && (
-                      <Flex marginY={3}>
-                        <Field name="flagCode">
-                          {({ field, form }) => (
-                            <FormControl
-                              isInvalid={
-                                form.errors.flagCode && form.touched.flagCode
-                              }
+                      <>
+                        <Flex marginY={3}>
+                          <FormControl>
+                            <FormLabel htmlFor="flagCode" fontWeight="bold">
+                              {"Flag Category"}
+                            </FormLabel>
+                            <Select
+                              onChange={(e) => {
+                                setFlagCategory(e.target.value);
+                                setFieldValue("flagCode", "");
+                              }}
                             >
-                              <FormLabel htmlFor="flagCode" fontWeight="bold">
-                                {"Flag Code"}
-                              </FormLabel>
-                              <Input
-                                {...field}
-                                id="flagCode"
-                                type="text"
-                                placeholder="Enter flag code..."
-                                size="lg"
-                                fontSize="16px"
-                                fontWeight={400}
-                                background="#F6F6F6"
-                                borderRadius={6}
-                                _placeholder={{ color: "gray.500" }}
-                                _hover={{ background: "#e0e0e0" }}
-                              />
-                              <FormErrorMessage fontSize="11px">
-                                {form.errors.flagCode}
-                              </FormErrorMessage>
-                              <FormHelperText>
-                                <Text color="gray.500" fontSize="sm" mt={2}>
-                                  {"Use 2 letter country codes."}{" "}
-                                  <Link
-                                    href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2#Officially_assigned_code_elements"
-                                    isExternal
-                                    fontWeight="bold"
-                                    color="gray.500"
+                              <option>{"Select a category..."}</option>
+                              {flagCategories.map(({ key, label }) => (
+                                <option key={key} value={key}>
+                                  {label}
+                                </option>
+                              ))}
+                            </Select>
+                          </FormControl>
+                        </Flex>
+                        <Flex marginY={3}>
+                          <Field name="flagCode">
+                            {({ field, form }) => (
+                              <FormControl
+                                isInvalid={
+                                  form.errors.flagCode && form.touched.flagCode
+                                }
+                              >
+                                <FormLabel htmlFor="flagCode" fontWeight="bold">
+                                  {"Flag Code"}
+                                </FormLabel>
+
+                                {flagCategory === "world" ? (
+                                  <CountrySelect fieldProps={field} />
+                                ) : (
+                                  <Select
+                                    {...field}
+                                    id="flagCode"
+                                    icon={
+                                      values.flagCode ? (
+                                        <Image
+                                          marginRight="16px"
+                                          minHeight="22px"
+                                          minWidth="32px"
+                                          objectFit="cover"
+                                          src={getFlagUrl(values.flagCode)}
+                                          borderRadius={5}
+                                        />
+                                      ) : (
+                                        <ChevronDownIcon stroke="black" />
+                                      )
+                                    }
                                   >
-                                    {"You can find a list of codes here."}
-                                  </Link>
-                                </Text>
-                              </FormHelperText>
-                            </FormControl>
-                          )}
-                        </Field>
-                      </Flex>
+                                    <option value="">
+                                      {"select a flag code..."}
+                                    </option>
+                                    {getFlagsByCategory(flagCategory).map(
+                                      (category) => (
+                                        <option key={category} value={category}>
+                                          {category}
+                                        </option>
+                                      )
+                                    )}
+                                  </Select>
+                                )}
+                                <FormErrorMessage fontSize="11px">
+                                  {form.errors.flagCode}
+                                </FormErrorMessage>
+                              </FormControl>
+                            )}
+                          </Field>
+                        </Flex>
+                      </>
                     )}
 
                     {values.typeId === QuestionType.Image.toString() && (

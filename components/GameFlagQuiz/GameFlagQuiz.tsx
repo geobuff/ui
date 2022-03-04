@@ -450,11 +450,23 @@ const GameFlagQuiz: FC<Props> = ({
           )}
 
           {hasGameRunOnce && hasGameStopped && !leaderboardEntrySubmitted && (
-            <Box position="fixed" bottom="20px" right="20px">
-              <Button onClick={onOpen}>
-                <SolidChevronUp />
-              </Button>
-            </Box>
+            <>
+              {isMobile ? (
+                <Box position="fixed" top="130px" left="20px">
+                  <Button onClick={onOpen}>
+                    <SolidChevronUp marginRight={2} />
+                    {"Game Details"}
+                  </Button>
+                </Box>
+              ) : (
+                <Box position="fixed" bottom="20px" right="20px">
+                  <Button onClick={onOpen}>
+                    <SolidChevronUp marginRight={2} />
+                    {"Game Details"}
+                  </Button>
+                </Box>
+              )}
+            </>
           )}
         </Flex>
 

@@ -78,7 +78,7 @@ const TriviaList: FC<Props> = ({ trivia = [] }) => {
                     transition="all 150ms ease-out"
                     _hover={{ transform: "scale(1.030)" }}
                   >
-                    <TriviaCard name={quiz.name} />
+                    <TriviaCard name={quiz.name} maxScore={quiz.maxScore} />
                   </AspectRatio>
                 </Link>
               )
