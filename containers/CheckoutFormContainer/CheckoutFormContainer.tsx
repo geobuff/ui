@@ -11,7 +11,12 @@ import { CheckoutPayload } from "../../types/checkout-payload";
 
 const CheckoutFormContainer: FC = () => {
   const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
-  const { toLineItems } = useContext(ShoppingCartContext);
+  const {
+    toLineItems,
+    discountId,
+    isLoading: isShoppingCartLoading,
+  } = useContext(ShoppingCartContext);
+
   const {
     data: shippingOptions,
     isLoading: isShippingOptionsLoading,
@@ -22,9 +27,20 @@ const CheckoutFormContainer: FC = () => {
 
   const handleSubmit = (values: CheckoutFormSubmit): void => {
     setIsLoading(true);
+
     const payload: CheckoutPayload = {
       items: toLineItems(),
-      customer: values,
+      customer: {
+        email: values.email,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        address: values.address,
+      },
+      shippingId: parseInt(values.shippingId),
+      discountId: {
+        Int64: discountId,
+        Valid: discountId !== 0,
+      },
     };
 
     axiosClient
@@ -36,7 +52,7 @@ const CheckoutFormContainer: FC = () => {
       });
   };
 
-  if (isUserLoading || isShippingOptionsLoading) {
+  if (isUserLoading || isShippingOptionsLoading || isShoppingCartLoading) {
     return <CheckoutFormPlaceholder />;
   }
 
