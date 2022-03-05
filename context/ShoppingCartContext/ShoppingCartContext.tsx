@@ -15,6 +15,7 @@ export const ShoppingCartContext = createContext({
   getItemCount: (): number => 0,
   getItemQuantity: (merchId: number): number => 0,
   getTotal: (): number => 0,
+  discountId: 0,
   discountAmount: 0,
   discountCode: "",
   checkingDiscount: false,
@@ -29,6 +30,7 @@ export const ShoppingCartContext = createContext({
 export const ShoppingCartContextProvider: FC = ({ children = null }) => {
   const [isLoading, setIsLoading] = useState(true);
 
+  const [discountId, setDiscountId] = useState(0);
   const [discountCode, setDiscountCode] = useState(
     typeof window === "undefined"
       ? ""
@@ -174,6 +176,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
             );
             removeDiscountLocalStorage();
           } else {
+            setDiscountId(discount.id);
             setDiscountAmount(discount.amount);
             setDiscountCode(discount.code);
             updateDiscountLocalStorage(discount.code);
@@ -226,6 +229,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         getItemCount,
         getItemQuantity,
         getTotal,
+        discountId,
         discountAmount,
         discountCode,
         checkingDiscount,
