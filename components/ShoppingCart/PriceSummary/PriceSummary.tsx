@@ -5,18 +5,16 @@ import { formatNumber } from "../../../helpers/number";
 
 export interface Props {
   discount?: number;
-  shippingPrice?: number;
   onGetTotal?: () => number;
 }
 
 const PriceSummary: FC<Props> = ({
   discount = 0,
-  shippingPrice = 4.99,
   onGetTotal = (): number => 0,
 }) => {
   const router = useRouter();
 
-  const rawTotal = onGetTotal() + shippingPrice - discount;
+  const rawTotal = onGetTotal() - discount;
   const formattedTotal = formatNumber(rawTotal);
 
   return (
@@ -30,10 +28,6 @@ const PriceSummary: FC<Props> = ({
           <Flex justifyContent="space-between">
             <Text>{"Subtotal:"}</Text>
             <Text>{`$${onGetTotal()}`}</Text>
-          </Flex>
-          <Flex justifyContent="space-between">
-            <Text>{"Shipping:"}</Text>
-            <Text>{`$${shippingPrice}`}</Text>
           </Flex>
           {discount > 0 && (
             <Flex justifyContent="space-between">

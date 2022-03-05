@@ -12,8 +12,8 @@ import {
   FormErrorMessage,
   Heading,
   Divider,
-  RadioGroup,
-  Radio,
+  useRadioGroup,
+  HStack,
 } from "@chakra-ui/react";
 
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -22,8 +22,11 @@ import Card from "../Card";
 import { useRouter } from "next/router";
 import { Field, Form, Formik } from "formik";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
+import { ShippingOption } from "../../types/shipping-option";
+import RadioButton from "../RadioButton";
 
 const validationSchema = Yup.object().shape({
+  typeId: Yup.string().required("Please select a shipping option."),
   email: Yup.string()
     .required("Please include your email address.")
     .email("Must be a valid email address."),
@@ -40,12 +43,14 @@ const searchOptions = {
 
 export interface Props {
   email?: string;
+  shippingOptions?: ShippingOption[];
   isLoading?: boolean;
   onSubmit?: (values: CheckoutFormSubmit) => void;
 }
 
 const CheckoutForm: FC<Props> = ({
   email = "",
+  shippingOptions = [],
   isLoading = false,
   onSubmit = (values: CheckoutFormSubmit): void => {},
 }) => {
@@ -125,6 +130,7 @@ const CheckoutForm: FC<Props> = ({
       <Card>
         <Formik
           initialValues={{
+            shippingId: "1",
             email: email,
             firstName: "",
             lastName: "",
@@ -133,183 +139,213 @@ const CheckoutForm: FC<Props> = ({
           validationSchema={validationSchema}
           onSubmit={onSubmit}
         >
-          {({ values, setFieldValue }): React.ReactNode => (
-            <Form>
-              <Flex direction="column" marginX={{ base: 1, md: 6 }}>
-                <Heading size="md" mt={{ base: 1, md: 6 }} mb={3}>
-                  {"Delivery Method"}
-                </Heading>
-                <Flex marginY={6}>
-                  <RadioGroup value={"0"}>
-                    <Radio value="0">
-                      <Box ml={3}>
-                        <Text fontWeight="bold">
-                          {"NZ-wide standard shipping"}
-                        </Text>
-                        <Text>{"$5 - Expect delivery in 5-7 days"}</Text>
-                      </Box>
-                    </Radio>
-                  </RadioGroup>
-                </Flex>
+          {({ values, setFieldValue }): React.ReactNode => {
+            const { getRootProps, getRadioProps } = useRadioGroup({
+              name: "shippingId",
+              defaultValue: "1",
+              value: values.shippingId,
+              onChange: (value: number) =>
+                setFieldValue("shippingId", value.toString()),
+            });
 
-                {divider}
+            const radioGroup = getRootProps();
 
-                <Heading size="md" mt={6} mb={3}>
-                  Contact Details
-                </Heading>
-                <Flex mt={3} mb={6}>
-                  <Field name="email">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={form.errors.email && form.touched.email}
-                      >
-                        <FormLabel htmlFor="email" fontWeight="bold">
-                          {"Email"}
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="email"
-                          type="email"
-                          placeholder="Enter your email address..."
-                          size="lg"
-                          fontSize="16px"
-                          fontWeight={400}
-                          background="#F6F6F6"
-                          borderRadius={6}
-                          disabled={!!email}
-                          _placeholder={{ color: "gray.500" }}
-                          _hover={{ background: "#e0e0e0" }}
-                        />
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.email}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                {divider}
-
-                <Heading size="md" mt={6} mb={3}>
-                  Delivery Details
-                </Heading>
-                <Flex marginY={3}>
-                  <Field name="firstName">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={
-                          form.errors.firstName && form.touched.firstName
-                        }
-                      >
-                        <FormLabel htmlFor="firstName" fontWeight="bold">
-                          {"First Name"}
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="firstName"
-                          type="text"
-                          placeholder="Enter your first name..."
-                          size="lg"
-                          fontSize="16px"
-                          fontWeight={400}
-                          background="#F6F6F6"
-                          borderRadius={6}
-                          _placeholder={{ color: "gray.500" }}
-                          _hover={{ background: "#e0e0e0" }}
-                        />
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.firstName}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="lastName">
-                    {({ field, form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={
-                          form.errors.lastName && form.touched.lastName
-                        }
-                      >
-                        <FormLabel htmlFor="lastName" fontWeight="bold">
-                          {"Last Name"}
-                        </FormLabel>
-                        <Input
-                          {...field}
-                          id="lastName"
-                          type="text"
-                          placeholder="Enter your last name..."
-                          size="lg"
-                          fontSize="16px"
-                          fontWeight={400}
-                          background="#F6F6F6"
-                          borderRadius={6}
-                          _placeholder={{ color: "gray.500" }}
-                          _hover={{ background: "#e0e0e0" }}
-                        />
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.lastName}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
-
-                <Flex marginY={3}>
-                  <Field name="address">
-                    {({ form }): React.ReactNode => (
-                      <FormControl
-                        isInvalid={form.errors.address && form.touched.address}
-                      >
-                        <FormLabel htmlFor="address" fontWeight="bold">
-                          {"Address"}
-                        </FormLabel>
-                        <PlacesAutocomplete
-                          value={values.address}
-                          onChange={(value) => setFieldValue("address", value)}
-                          searchOptions={searchOptions}
+            return (
+              <Form>
+                <Flex direction="column" marginX={{ base: 1, md: 6 }}>
+                  <Heading size="md" mt={{ base: 1, md: 6 }} mb={3}>
+                    {"Delivery Method"}
+                  </Heading>
+                  <Flex marginY={6}>
+                    <Field name="shippingId">
+                      {({ form }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.shippingId && form.touched.shippingId
+                          }
                         >
-                          {renderAddressInput}
-                        </PlacesAutocomplete>
-                        <Box position="absolute" top="68px" left="2px">
-                          <FormErrorMessage fontSize="11px">
-                            {form.errors.address}
-                          </FormErrorMessage>
-                        </Box>
-                      </FormControl>
-                    )}
-                  </Field>
-                </Flex>
+                          <HStack spacing={3} name="shippingId" {...radioGroup}>
+                            {shippingOptions.map((option) => {
+                              //@ts-expect-error
+                              const radio = getRadioProps({
+                                value: option.id.toString(),
+                              });
+                              return (
+                                <RadioButton key={option.id} radioProps={radio}>
+                                  <Text fontWeight="bold">{option.name}</Text>
+                                  <Text>{option.description}</Text>
+                                </RadioButton>
+                              );
+                            })}
+                          </HStack>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
 
-                <Flex justifyContent="flex-end">
-                  <Flex
-                    direction="row"
-                    marginTop="44px"
-                    marginBottom={6}
-                    marginRight={{ base: 0, md: 6 }}
-                  >
-                    <Button
-                      colorScheme="teal"
-                      width="100%"
-                      type="submit"
-                      isLoading={isLoading}
-                      disabled={isLoading}
+                  {divider}
+
+                  <Heading size="md" mt={6} mb={3}>
+                    Contact Details
+                  </Heading>
+                  <Flex mt={3} mb={6}>
+                    <Field name="email">
+                      {({ field, form }): React.ReactNode => (
+                        <FormControl
+                          isInvalid={form.errors.email && form.touched.email}
+                        >
+                          <FormLabel htmlFor="email" fontWeight="bold">
+                            {"Email"}
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            id="email"
+                            type="email"
+                            placeholder="Enter your email address..."
+                            size="lg"
+                            fontSize="16px"
+                            fontWeight={400}
+                            background="#F6F6F6"
+                            borderRadius={6}
+                            disabled={!!email}
+                            _placeholder={{ color: "gray.500" }}
+                            _hover={{ background: "#e0e0e0" }}
+                          />
+                          <Box position="absolute" top="68px" left="2px">
+                            <FormErrorMessage fontSize="11px">
+                              {form.errors.email}
+                            </FormErrorMessage>
+                          </Box>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  {divider}
+
+                  <Heading size="md" mt={6} mb={3}>
+                    Delivery Details
+                  </Heading>
+                  <Flex marginY={3}>
+                    <Field name="firstName">
+                      {({ field, form }): React.ReactNode => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.firstName && form.touched.firstName
+                          }
+                        >
+                          <FormLabel htmlFor="firstName" fontWeight="bold">
+                            {"First Name"}
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            id="firstName"
+                            type="text"
+                            placeholder="Enter your first name..."
+                            size="lg"
+                            fontSize="16px"
+                            fontWeight={400}
+                            background="#F6F6F6"
+                            borderRadius={6}
+                            _placeholder={{ color: "gray.500" }}
+                            _hover={{ background: "#e0e0e0" }}
+                          />
+                          <Box position="absolute" top="68px" left="2px">
+                            <FormErrorMessage fontSize="11px">
+                              {form.errors.firstName}
+                            </FormErrorMessage>
+                          </Box>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  <Flex marginY={3}>
+                    <Field name="lastName">
+                      {({ field, form }): React.ReactNode => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.lastName && form.touched.lastName
+                          }
+                        >
+                          <FormLabel htmlFor="lastName" fontWeight="bold">
+                            {"Last Name"}
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            id="lastName"
+                            type="text"
+                            placeholder="Enter your last name..."
+                            size="lg"
+                            fontSize="16px"
+                            fontWeight={400}
+                            background="#F6F6F6"
+                            borderRadius={6}
+                            _placeholder={{ color: "gray.500" }}
+                            _hover={{ background: "#e0e0e0" }}
+                          />
+                          <Box position="absolute" top="68px" left="2px">
+                            <FormErrorMessage fontSize="11px">
+                              {form.errors.lastName}
+                            </FormErrorMessage>
+                          </Box>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  <Flex marginY={3}>
+                    <Field name="address">
+                      {({ form }): React.ReactNode => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.address && form.touched.address
+                          }
+                        >
+                          <FormLabel htmlFor="address" fontWeight="bold">
+                            {"Address"}
+                          </FormLabel>
+                          <PlacesAutocomplete
+                            value={values.address}
+                            onChange={(value) =>
+                              setFieldValue("address", value)
+                            }
+                            searchOptions={searchOptions}
+                          >
+                            {renderAddressInput}
+                          </PlacesAutocomplete>
+                          <Box position="absolute" top="68px" left="2px">
+                            <FormErrorMessage fontSize="11px">
+                              {form.errors.address}
+                            </FormErrorMessage>
+                          </Box>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  <Flex justifyContent="flex-end">
+                    <Flex
+                      direction="row"
+                      marginTop="44px"
+                      marginBottom={6}
+                      marginRight={{ base: 0, md: 6 }}
                     >
-                      {"Continue To Payment"}
-                    </Button>
+                      <Button
+                        colorScheme="teal"
+                        width="100%"
+                        type="submit"
+                        isLoading={isLoading}
+                        disabled={isLoading}
+                      >
+                        {"Continue To Payment"}
+                      </Button>
+                    </Flex>
                   </Flex>
                 </Flex>
-              </Flex>
-            </Form>
-          )}
+              </Form>
+            );
+          }}
         </Formik>
       </Card>
     </Flex>

@@ -4,6 +4,7 @@ import axiosClient from "../../axios";
 import CheckoutForm from "../../components/CheckoutForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import useShippingOptions from "../../hooks/UseShippingOptions";
 import CheckoutFormPlaceholder from "../../placeholders/CheckoutFormPlaceholder";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { CheckoutPayload } from "../../types/checkout-payload";
@@ -11,6 +12,11 @@ import { CheckoutPayload } from "../../types/checkout-payload";
 const CheckoutFormContainer: FC = () => {
   const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
   const { toLineItems } = useContext(ShoppingCartContext);
+  const {
+    data: shippingOptions,
+    isLoading: isShippingOptionsLoading,
+  } = useShippingOptions();
+
   const [isLoading, setIsLoading] = useState(false);
   const stripe = useStripe();
 
@@ -30,12 +36,13 @@ const CheckoutFormContainer: FC = () => {
       });
   };
 
-  if (isUserLoading) {
+  if (isUserLoading || isShippingOptionsLoading) {
     return <CheckoutFormPlaceholder />;
   }
 
   return (
     <CheckoutForm
+      shippingOptions={shippingOptions}
       email={user?.email}
       isLoading={isLoading}
       onSubmit={handleSubmit}
