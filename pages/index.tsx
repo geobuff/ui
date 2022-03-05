@@ -297,6 +297,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                       >
                         <TriviaCard
                           name={quiz.name}
+                          maxScore={quiz.maxScore}
                           position={{ base: "relative", md: "absolute" }}
                           marginLeft={{ base: 3, md: 0 }}
                         />

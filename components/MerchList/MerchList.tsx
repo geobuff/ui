@@ -59,7 +59,7 @@ const MerchList: FC<Props> = ({ merch = [] }) => (
               <MerchCard
                 name={product.name}
                 imageUrl={
-                  product.images.find((image) => image.isPrimary).imageUrl
+                  product.images.find((image) => image.isPrimary)?.imageUrl
                 }
                 price={product.price.Valid && product.price.Float64}
                 sizes={product.sizes.map((x) => x.size)}
