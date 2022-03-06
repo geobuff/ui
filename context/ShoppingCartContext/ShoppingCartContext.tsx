@@ -4,6 +4,7 @@ import { toTwoDecimalPlaces } from "../../helpers/number";
 import { CartItem } from "../../types/cart-item";
 import { CheckoutItem } from "../../types/checkout-payload";
 import { Discount } from "../../types/discount";
+import { useLocalStorage, deleteFromStorage } from "@rehooks/local-storage";
 
 export const ShoppingCartContext = createContext({
   cart: [],
@@ -28,61 +29,39 @@ export const ShoppingCartContext = createContext({
 });
 
 export const ShoppingCartContextProvider: FC = ({ children = null }) => {
+  const [cart, setCart] = useLocalStorage<CartItem[]>("geobuff.cart", []);
   const [isLoading, setIsLoading] = useState(true);
 
   const [discountId, setDiscountId] = useState(0);
-  const [discountCode, setDiscountCode] = useState(
-    typeof window === "undefined"
-      ? ""
-      : window.localStorage.getItem("geobuff.discountCode")
+  const [discountCode, setDiscountCode] = useLocalStorage(
+    "geobuff.discountCode"
   );
+  const [discountAmount, setDiscountAmount] = useState(0);
 
   const [checkingDiscount, setCheckingDiscount] = useState(false);
   const [discountSuccess, setDiscountSuccess] = useState("");
   const [discountError, setDiscountError] = useState("");
-  const [cart, setCart] = useState<CartItem[]>([]);
 
   useEffect(() => {
-    if (typeof window === "undefined") {
-      setIsLoading(false);
-      return;
-    }
-
-    const cartString = window.localStorage.getItem("geobuff.cart");
-    if (!cartString) {
-      setIsLoading(false);
-      return;
-    }
-
-    const cart = JSON.parse(cartString);
     axiosClient
       .post(`/merch/exists`, cart)
       .then((response) => {
         if (response.data) {
           setCart(cart);
+
+          if (discountCode) {
+            applyDiscount(
+              discountCode,
+              cart.map((x) => x.id)
+            );
+          }
         } else {
-          removeCartLocalStorage();
+          deleteFromStorage("geobuff.cart");
         }
       })
-      .catch(() => removeCartLocalStorage())
+      .catch(() => deleteFromStorage("geobuff.cart"))
       .finally(() => setIsLoading(false));
   }, []);
-
-  const updateCartLocalStorage = (cart: CartItem[]): void => {
-    window.localStorage.setItem("geobuff.cart", JSON.stringify(cart));
-  };
-
-  const removeCartLocalStorage = (): void => {
-    window.localStorage.removeItem("geobuff.cart");
-  };
-
-  const updateDiscountLocalStorage = (code: string): void => {
-    window.localStorage.setItem("geobuff.discountCode", code);
-  };
-
-  const removeDiscountLocalStorage = (): void => {
-    window.localStorage.removeItem("geobuff.discountCode");
-  };
 
   const addToCart = (item: CartItem): void => {
     setIsLoading(true);
@@ -92,16 +71,13 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
 
     if (match === undefined) {
       item.quantity = 1;
-      const result = [...cart, item];
-      updateCartLocalStorage(result);
-      setCart(result);
+      setCart([...cart, item]);
     } else {
       const items = [...cart];
       const index = cart.indexOf(match);
       const item = { ...items[index] };
       item.quantity++;
       items[index] = item;
-      updateCartLocalStorage(items);
       setCart(items);
     }
 
@@ -115,7 +91,6 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     const items = [...cart];
     items[index].quantity = value;
     setCart(items);
-    updateCartLocalStorage(items);
     setIsLoading(false);
   };
 
@@ -126,15 +101,13 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     const items = [...cart];
     items.splice(index, 1);
     setCart(items);
-    updateCartLocalStorage(items);
     setIsLoading(false);
   };
 
   const clearCart = (): void => {
     setIsLoading(true);
-    setCart(null);
-    removeCartLocalStorage();
-    removeDiscountLocalStorage();
+    deleteFromStorage("geobuff.cart");
+    deleteFromStorage("geobuff.discountCode");
     setIsLoading(false);
   };
 
@@ -164,7 +137,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
       .then((response) => {
         if (response.status === 204) {
           setDiscountError("Invalid discount code. Please try again.");
-          removeDiscountLocalStorage();
+          deleteFromStorage("geobuff.discountCode");
         } else {
           const discount: Discount = response.data;
           if (
@@ -174,12 +147,11 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
             setDiscountError(
               "Discount code does not apply to any of the items in this cart. Please try again."
             );
-            removeDiscountLocalStorage();
+            deleteFromStorage("geobuff.discountCode");
           } else {
             setDiscountId(discount.id);
             setDiscountAmount(discount.amount);
             setDiscountCode(discount.code);
-            updateDiscountLocalStorage(discount.code);
             setDiscountSuccess(
               `Successfully applied discount code ${discount.code}.`
             );
@@ -188,23 +160,10 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
       })
       .catch(() => {
         setDiscountError("Error applying discount code. Please try again.");
-        removeDiscountLocalStorage();
+        deleteFromStorage("geobuff.discountCode");
       })
       .finally(() => setCheckingDiscount(false));
   };
-
-  const [discountAmount, setDiscountAmount] = useState(() => {
-    if (typeof window === "undefined") {
-      return 0;
-    }
-
-    const code = window.localStorage.getItem("geobuff.discountCode");
-    if (!code) return 0;
-    applyDiscount(
-      code,
-      cart.map((x) => x.id)
-    );
-  });
 
   const toLineItems = (): CheckoutItem[] => {
     return cart.map((x) => {
