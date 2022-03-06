@@ -89,6 +89,8 @@ const AdminOrdersTable: FC<Props> = ({
               <Tr>
                 <Th textAlign="left">{"NAME"} </Th>
                 <Th textAlign="left">{"ADDRESS"} </Th>
+                <Th textAlign="left">{"SHIPPING"} </Th>
+                <Th textAlign="left">{"DISCOUNT"} </Th>
                 <Th textAlign="left">{"ADDED"} </Th>
                 <Th>{""}</Th>
               </Tr>
@@ -102,6 +104,12 @@ const AdminOrdersTable: FC<Props> = ({
                   </TableCell>
                   <TableCell paddingY={3} paddingX={6}>
                     {order.address}
+                  </TableCell>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {order.shippingOption}
+                  </TableCell>
+                  <TableCell paddingY={3} paddingX={6}>
+                    {order.discount.Valid && order.discount.String}
                   </TableCell>
                   <TableCell paddingY={3} paddingX={6}>
                     {DateTime.fromISO(order.added).toLocaleString(

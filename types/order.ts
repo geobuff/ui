@@ -5,11 +5,12 @@ export interface Order {
   items: OrderItem[];
   statusId: number;
   status: string;
+  shippingOption: string;
+  discount: NullString;
   firstName: string;
   lastName: string;
   address: string;
   added: Date;
-  discount: NullString;
 }
 
 export interface OrderItem {

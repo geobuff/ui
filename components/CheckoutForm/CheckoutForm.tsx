@@ -26,7 +26,7 @@ import { ShippingOption } from "../../types/shipping-option";
 import RadioButton from "../RadioButton";
 
 const validationSchema = Yup.object().shape({
-  typeId: Yup.string().required("Please select a shipping option."),
+  shippingId: Yup.string().required("Please select a shipping option."),
   email: Yup.string()
     .required("Please include your email address.")
     .email("Must be a valid email address."),
