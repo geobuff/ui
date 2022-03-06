@@ -1,8 +1,10 @@
-import { CheckoutFormSubmit } from "./checkout-form-submit";
+import { NullInt } from "./null-int";
 
 export interface CheckoutPayload {
   items: CheckoutItem[];
-  customer: CheckoutFormSubmit;
+  customer: CheckoutCustomer;
+  shippingId: number;
+  discountId: NullInt;
 }
 
 export interface CheckoutItem {
@@ -10,4 +12,11 @@ export interface CheckoutItem {
   sizeId: number;
   sizeName: string;
   quantity: number;
+}
+
+export interface CheckoutCustomer {
+  email: string;
+  firstName: string;
+  lastName: string;
+  address: string;
 }

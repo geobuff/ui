@@ -4,21 +4,43 @@ import axiosClient from "../../axios";
 import CheckoutForm from "../../components/CheckoutForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import useShippingOptions from "../../hooks/UseShippingOptions";
 import CheckoutFormPlaceholder from "../../placeholders/CheckoutFormPlaceholder";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { CheckoutPayload } from "../../types/checkout-payload";
 
 const CheckoutFormContainer: FC = () => {
   const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
-  const { toLineItems } = useContext(ShoppingCartContext);
+  const {
+    toLineItems,
+    discountId,
+    isLoading: isShoppingCartLoading,
+  } = useContext(ShoppingCartContext);
+
+  const {
+    data: shippingOptions,
+    isLoading: isShippingOptionsLoading,
+  } = useShippingOptions();
+
   const [isLoading, setIsLoading] = useState(false);
   const stripe = useStripe();
 
   const handleSubmit = (values: CheckoutFormSubmit): void => {
     setIsLoading(true);
+
     const payload: CheckoutPayload = {
       items: toLineItems(),
-      customer: values,
+      customer: {
+        email: values.email,
+        firstName: values.firstName,
+        lastName: values.lastName,
+        address: values.address,
+      },
+      shippingId: parseInt(values.shippingId),
+      discountId: {
+        Int64: discountId,
+        Valid: discountId !== 0,
+      },
     };
 
     axiosClient
@@ -30,12 +52,13 @@ const CheckoutFormContainer: FC = () => {
       });
   };
 
-  if (isUserLoading) {
+  if (isUserLoading || isShippingOptionsLoading || isShoppingCartLoading) {
     return <CheckoutFormPlaceholder />;
   }
 
   return (
     <CheckoutForm
+      shippingOptions={shippingOptions}
       email={user?.email}
       isLoading={isLoading}
       onSubmit={handleSubmit}

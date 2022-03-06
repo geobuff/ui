@@ -124,12 +124,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
 
   return (
     <MainView>
-      <HeroBanner
-        title="We Stand With Ukraine"
-        textColor="#F9DB3C"
-        backgroundColor="#2650B3"
-        backgroundImageUrl="/world-map-ukraine.svg"
-      />
+      <HeroBanner />
       <Box>
         <Box
           mx="auto"
@@ -297,6 +292,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                       >
                         <TriviaCard
                           name={quiz.name}
+                          maxScore={quiz.maxScore}
                           position={{ base: "relative", md: "absolute" }}
                           marginLeft={{ base: 3, md: 0 }}
                         />
