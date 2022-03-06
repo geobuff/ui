@@ -8,13 +8,17 @@ const Canceled: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    const email = router.query.email as string;
-    axiosClient.delete(`/orders/email/${email}`).finally(() => {
-      setIsLoading(false);
-      setTimeout(() => {
-        router.push("/shopping-cart");
-      }, 2000);
-    });
+    if (router.asPath !== router.route) {
+      const email = router.query.email as string;
+      if (email != undefined) {
+        axiosClient.delete(`/orders/email/${email}`).finally(() => {
+          setIsLoading(false);
+          setTimeout(() => {
+            router.push("/shopping-cart");
+          }, 2000);
+        });
+      }
+    }
   }, [router]);
 
   if (isLoading) {
