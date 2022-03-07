@@ -2,7 +2,6 @@ import React, { FC, ReactNode, useEffect, useState } from "react";
 
 import {
   Box,
-  CloseButton,
   Flex,
   Modal as ChakraModal,
   ModalBody,
@@ -14,6 +13,7 @@ import {
   useBreakpointValue,
   Heading,
   Button,
+  ResponsiveValue,
 } from "@chakra-ui/react";
 import ArrowLeft from "../../Icons/ArrowLeft";
 
@@ -22,6 +22,7 @@ export interface ModalProps extends ChakraModalProps {
   body?: ReactNode;
   footer?: ReactNode;
   hasCloseButton?: boolean;
+  minWidth: number | string | ResponsiveValue<string | any>;
 }
 
 const Modal: FC<ModalProps> = ({
@@ -30,6 +31,7 @@ const Modal: FC<ModalProps> = ({
   children,
   footer,
   hasCloseButton = false,
+  minWidth,
   isOpen,
   onClose,
   ...props
@@ -145,7 +147,11 @@ const Modal: FC<ModalProps> = ({
       ) : (
         <ChakraModal isOpen={isOpen} onClose={onClose} isCentered {...props}>
           <ModalOverlay />
-          <ModalContent borderRadius="12px">
+          <ModalContent
+            borderRadius="12px"
+            minWidth={minWidth}
+            overflowY="auto"
+          >
             {!!header && (
               <>
                 {React.isValidElement(header) ? (
