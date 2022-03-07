@@ -11,7 +11,7 @@ import GameTriviaAnswers from "./GameTriviaAnswers";
 import GameTriviaGameOver from "./GameTriviaGameOver";
 
 import { AppContext } from "../../context/AppContext";
-import { TriviaQuestion } from "../../types/trivia-questions";
+import { TriviaQuestion } from "../../types/trivia-question";
 import { TriviaAnswer } from "../../types/trivia-answer";
 import { Trivia } from "../../types/trivia";
 
