@@ -46,10 +46,24 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
   console.log(questionPage, "questionPage");
   console.log(selectedQuestion, "selectedQuestion");
 
+  const getTypeIDByName = (typeName: string) => {
+    switch (true) {
+      case typeName === "Image":
+        return "2";
+      case typeName === "Flag":
+        return "3";
+      case typeName === "Map":
+        return "4";
+
+      default:
+        return "1";
+    }
+  };
+
   const handleEdit = (question: ManualTriviaQuestion) => {
     onOpen();
     setSelectedQuestion({
-      typeId: 1,
+      typeId: getTypeIDByName(question.type),
       question: question.question,
       answerOneText: question.answers[0]?.text || "",
       answerOneFlagCode: question.answers[0]?.flagCode || "",
@@ -59,7 +73,8 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
       answerThreeFlagCode: question?.answers[2]?.flagCode || "",
       answerFourText: question?.answers[3]?.text || "",
       answerFourFlagCode: question?.answers[3]?.flagCode || "",
-      correctAnswer: question.answers.find((answer) => answer.isCorrect),
+      correctAnswer:
+        question.answers.findIndex((answer) => answer.isCorrect) + 1,
     });
   };
 

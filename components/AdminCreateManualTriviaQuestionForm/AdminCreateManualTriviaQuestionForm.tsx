@@ -118,8 +118,6 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
   const [hasFlagAnswers, setHasFlagAnswers] = useState(false);
   const [flagCategory, setFlagCategory] = useState("");
 
-  console.log(editValues, "editValues");
-
   const getHighlightRegionsByMap = (map: string) => {
     const selectedMap = Maps[map];
 
@@ -170,7 +168,6 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { getRootProps, getRadioProps } = useRadioGroup({
               name: "typeId",
-              defaultValue: "1",
               value: values.typeId,
               onChange: (value: number) =>
                 setFieldValue("typeId", value.toString()),
