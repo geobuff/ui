@@ -37,6 +37,7 @@ import {
   QuestionType,
 } from "../../types/create-manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
+import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -93,10 +94,12 @@ const getFlagsByCategory = (category: string) => {
 };
 
 export interface Props {
+  editValues?: CreateManualTriviaQuestionFormSubmit;
   types?: QuizType[];
   isSubmitting?: boolean;
   error?: string;
   isLoading?: boolean;
+  isEditing?: boolean;
   onSubmit?: (
     values: CreateManualTriviaQuestionFormSubmit,
     helpers: FormikHelpers<CreateManualTriviaQuestionFormSubmit>
@@ -104,14 +107,18 @@ export interface Props {
 }
 
 const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
+  editValues,
   types = [],
   isSubmitting = false,
   error = "",
   isLoading = false,
+  isEditing = false,
   onSubmit = () => {},
 }) => {
   const [hasFlagAnswers, setHasFlagAnswers] = useState(false);
   const [flagCategory, setFlagCategory] = useState("");
+
+  console.log(editValues, "editValues");
 
   const getHighlightRegionsByMap = (map: string) => {
     const selectedMap = Maps[map];
@@ -133,32 +140,28 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
         </Alert>
       )}
 
-      <Flex
-        margin={6}
-        padding={12}
-        background="white"
-        borderRadius={12}
-        justifyContent="center"
-      >
+      <Flex justifyContent="center">
         <Formik
-          initialValues={{
-            typeId: "1",
-            question: "",
-            quizDate: "",
-            map: "",
-            highlighted: "",
-            flagCode: "",
-            imageUrl: "",
-            answerOneText: "",
-            answerOneFlagCode: "",
-            answerTwoText: "",
-            answerTwoFlagCode: "",
-            answerThreeText: "",
-            answerThreeFlagCode: "",
-            answerFourText: "",
-            answerFourFlagCode: "",
-            correctAnswer: null,
-          }}
+          initialValues={
+            editValues || {
+              typeId: "1",
+              question: "",
+              quizDate: "",
+              map: "",
+              highlighted: "",
+              flagCode: "",
+              imageUrl: "",
+              answerOneText: "",
+              answerOneFlagCode: "",
+              answerTwoText: "",
+              answerTwoFlagCode: "",
+              answerThreeText: "",
+              answerThreeFlagCode: "",
+              answerFourText: "",
+              answerFourFlagCode: "",
+              correctAnswer: null,
+            }
+          }
           validationSchema={validationSchema}
           onSubmit={onSubmit}
           enableReinitialize
@@ -177,7 +180,9 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
 
             return (
               <Box maxWidth="600px" width="100%">
-                <Heading size="md">{"Create Manual Trivia Question"}</Heading>
+                <Heading size="md">
+                  {`${isEditing ? "Edit" : "Create"} Manual Trivia Question`}
+                </Heading>
                 <Divider marginY={5} />
                 <Form autoComplete="off">
                   <Flex direction="column">
