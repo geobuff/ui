@@ -93,7 +93,7 @@ export interface Props {
   ) => void;
 }
 
-const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
+const AdminManualTriviaQuestionForm: FC<Props> = ({
   editValues,
   types = [],
   isSubmitting = false,
@@ -925,4 +925,4 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
   );
 };
 
-export default AdminCreateManualTriviaQuestionForm;
+export default AdminManualTriviaQuestionForm;

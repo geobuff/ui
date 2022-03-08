@@ -23,7 +23,7 @@ import AdminManualTriviaQuestionsTablePlaceholder from "../../placeholders/Admin
 
 import { ManualQuestionsDto } from "../../types/manual-questions-dto";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
-import AdminCreateManualTriviaQuestionContainer from "../../containers/AdminCreateManualTriviaQuestionContainer";
+import AdminManualTriviaQuestionContainer from "../../containers/AdminManualTriviaQuestionContainer";
 
 export interface Props {
   questionPage?: ManualQuestionsDto;
@@ -210,7 +210,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
             width="100%"
             overflow="scroll"
           >
-            <AdminCreateManualTriviaQuestionContainer
+            <AdminManualTriviaQuestionContainer
               editValues={selectedQuestion}
               onClose={onClose}
             />

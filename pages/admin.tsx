@@ -54,7 +54,7 @@ const AdminManualTriviaQuestionsContainer = dynamic(
 );
 
 const AdminCreateManualTriviaQuestionContainer = dynamic(
-  () => import("../containers/AdminCreateManualTriviaQuestionContainer")
+  () => import("../containers/AdminManualTriviaQuestionContainer")
 );
 
 const Admin: FC = () => (

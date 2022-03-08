@@ -2,8 +2,8 @@ import { useToast } from "@chakra-ui/react";
 import React, { FC, useContext, useState } from "react";
 
 import axiosClient from "../../axios";
-import AdminCreateManualTriviaQuestionForm from "../../components/AdminCreateManualTriviaQuestionForm";
-import { EditValues } from "../../components/AdminCreateManualTriviaQuestionForm/AdminCreateManualTriviaQuestionForm";
+import AdminManualTriviaQuestionForm from "../../components/AdminManualTriviaQuestionForm";
+import { EditValues } from "../../components/AdminManualTriviaQuestionForm/AdminManualTriviaQuestionForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { createManualTriviaQuestionToast } from "../../helpers/toasts";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
@@ -15,7 +15,7 @@ export interface Props {
   onClose?: () => void;
 }
 
-const AdminCreateManualTriviaQuestionContainer: FC<Props> = ({
+const AdminManualTriviaQuestionContainer: FC<Props> = ({
   editValues,
   onClose,
 }) => {
@@ -85,7 +85,7 @@ const AdminCreateManualTriviaQuestionContainer: FC<Props> = ({
   };
 
   return (
-    <AdminCreateManualTriviaQuestionForm
+    <AdminManualTriviaQuestionForm
       types={types}
       editValues={editValues}
       isLoading={isLoading}
@@ -97,4 +97,4 @@ const AdminCreateManualTriviaQuestionContainer: FC<Props> = ({
   );
 };
 
-export default AdminCreateManualTriviaQuestionContainer;
+export default AdminManualTriviaQuestionContainer;
