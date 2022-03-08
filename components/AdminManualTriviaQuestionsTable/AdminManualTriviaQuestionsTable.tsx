@@ -3,7 +3,7 @@ import {
   Box,
   Button,
   Flex,
-  IconButton,
+  Heading,
   Table,
   Tbody,
   Th,
@@ -12,14 +12,16 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
+
+import AdminCreateManualTriviaQuestionForm from "../AdminCreateManualTriviaQuestionForm";
+import Card from "../Card";
+import Modal from "../Modal";
 import TableCell from "../TableCell";
-import { ManualQuestionsDto } from "../../types/manual-questions-dto";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import ArrowRight from "../../Icons/ArrowRight";
 import AdminManualTriviaQuestionsTablePlaceholder from "../../placeholders/AdminManualTriviaQuestionsTablePlaceholder";
-import SolidPencil from "../../Icons/SolidPencil";
-import AdminCreateManualTriviaQuestionForm from "../AdminCreateManualTriviaQuestionForm";
-import Modal from "../Modal";
+
+import { ManualQuestionsDto } from "../../types/manual-questions-dto";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 
 export interface Props {
@@ -35,9 +37,9 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
   questionPage = null,
   isLoading = true,
   page = 0,
-  onNextPage = (): void => {},
-  onPreviousPage = (): void => {},
-  onDeleteQuestion = (questionId: number): void => {},
+  onNextPage = () => {},
+  onPreviousPage = () => {},
+  onDeleteQuestion = () => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -75,19 +77,23 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
       answerFourFlagCode: question?.answers[3]?.flagCode || "",
       correctAnswer:
         question.answers.findIndex((answer) => answer.isCorrect) + 1,
+      hasFlagAnswers: question.answers.find((answer) => !!answer.flagCode),
+      imageUrl: question?.imageUrl || "",
+      flagCode: question?.flagCode || "",
+      map: question?.map || "",
+      highlighted: question?.highlighted || "",
+      quizDate: question?.lastUsed?.Time || "",
     });
   };
 
   return (
     <>
-      <Flex
-        margin={6}
-        padding={12}
-        background="white"
-        borderRadius={12}
-        justifyContent="center"
-      >
-        <Box overflow="auto" margin={6}>
+      <Card marginY={10} padding={6}>
+        <Heading size="md" marginTop={2} marginLeft={4} marginBottom={8}>
+          {"Manual Trivia Questions"}
+        </Heading>
+
+        <Box overflow="scroll" margin={2}>
           {isLoading ? (
             <AdminManualTriviaQuestionsTablePlaceholder />
           ) : (
@@ -104,38 +110,30 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
               <Tbody>
                 {questionPage?.questions.map((question, index) => (
                   <Tr key={index} fontWeight={600}>
-                    <TableCell paddingY={3} paddingX={6}>
+                    <TableCell paddingY={3} paddingX={6} minWidth="260px">
                       {question.question}
                     </TableCell>
                     <TableCell paddingY={3} paddingX={6}>
                       {question.type}
                     </TableCell>
-                    <TableCell paddingY={3} paddingX={6}>
+                    <TableCell paddingY={3} paddingX={6} minWidth="300px">
                       {question.answers.map((x) => x.text).join(", ")}
                     </TableCell>
                     <TableCell isNumeric paddingY={3} paddingX={6}>
-                      <Flex alignItems="center">
-                        <IconButton
+                      <Flex alignItems="center" justifyContent="flex-end">
+                        <Button
                           variant="ghost"
                           aria-label="Edit question"
                           onClick={() => handleEdit(question)}
-                          icon={
-                            <SolidPencil
-                              mt="4px"
-                              ml="2.5px"
-                              height="18px"
-                              width="18px"
-                            />
-                          }
-                          marginRight={2}
+                          marginRight={3}
                         >
                           {"Edit"}
-                        </IconButton>
+                        </Button>
                         <Button
                           colorScheme="red"
                           onClick={() => onDeleteQuestion(question.id)}
                         >
-                          {"DELETE"}
+                          {"Delete"}
                         </Button>
                       </Flex>
                     </TableCell>
@@ -190,6 +188,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
             overflow="scroll"
           >
             <AdminCreateManualTriviaQuestionForm
+              // TODO: remove
               types={[
                 { id: 1, name: "Text" },
                 { id: 2, name: "Image" },
@@ -198,10 +197,11 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
               ]}
               editValues={selectedQuestion}
               isEditing
+              onClose={onClose}
             />
           </Flex>
         </Modal>
-      </Flex>
+      </Card>
     </>
   );
 };
