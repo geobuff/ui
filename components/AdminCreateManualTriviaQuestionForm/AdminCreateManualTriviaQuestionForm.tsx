@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import * as Maps from "@geobuff/svg-maps";
+import { flagCategories } from "@geobuff/flags";
 
 import {
   Alert,
@@ -63,24 +64,6 @@ const validationSchema = Yup.object().shape({
     then: Yup.string().required("Must include map for map questions."),
   }),
 });
-
-const flagCategories = [
-  { key: "world", label: "🌎 World, Countries" },
-  { key: "au", label: "🇦🇺 Australia, States and Territories" },
-  { key: "ar", label: "🇦🇷 Argentina, Provinces" },
-  { key: "br", label: "🇧🇷 Brazil, States" },
-  { key: "ca", label: "🇨🇦 Canada, Provinces and Territories" },
-  { key: "co", label: "🇨🇴 Colombia, Departments" },
-  { key: "fr", label: "🇫🇷 France, Regions" },
-  { key: "de", label: "🇩🇪 Germany, States" },
-  { key: "it", label: "🇮🇹 Italy, Regions" },
-  { key: "jp", label: "🇯🇵 Japan, Prefectures" },
-  { key: "ru", label: "🇷🇺 Russia, Federal Subjects" },
-  { key: "kr", label: "🇰🇷 South Korea, Provinces" },
-  { key: "es", label: "🇪🇸 Spain, Provinces" },
-  { key: "ua", label: "🇺🇦 Ukraine, Oblasts" },
-  { key: "us", label: "🇺🇸 US, States" },
-];
 
 const getFlagsByCategory = (category: string) => {
   if (category === "world") {
