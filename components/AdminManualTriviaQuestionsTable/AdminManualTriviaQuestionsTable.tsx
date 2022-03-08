@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import {
   Box,
   Button,
+  Divider,
   Flex,
   Heading,
   Table,
@@ -13,7 +14,6 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import AdminCreateManualTriviaQuestionForm from "../AdminCreateManualTriviaQuestionForm";
 import Card from "../Card";
 import Modal from "../Modal";
 import TableCell from "../TableCell";
@@ -23,6 +23,7 @@ import AdminManualTriviaQuestionsTablePlaceholder from "../../placeholders/Admin
 
 import { ManualQuestionsDto } from "../../types/manual-questions-dto";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
+import AdminCreateManualTriviaQuestionContainer from "../../containers/AdminCreateManualTriviaQuestionContainer";
 
 export interface Props {
   questionPage?: ManualQuestionsDto;
@@ -62,6 +63,11 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
     }
   };
 
+  const handleCreate = () => {
+    setSelectedQuestion(null);
+    onOpen();
+  };
+
   const handleEdit = (question: ManualTriviaQuestion) => {
     onOpen();
     setSelectedQuestion({
@@ -89,9 +95,19 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
   return (
     <>
       <Card marginY={10} padding={6}>
-        <Heading size="md" marginTop={2} marginLeft={4} marginBottom={8}>
-          {"Manual Trivia Questions"}
-        </Heading>
+        <Flex
+          justifyContent="space-between"
+          alignItems="center"
+          marginBottom={5}
+          marginX={2}
+        >
+          <Heading fontSize="24px">{"Manual Trivia Questions"}</Heading>
+          <Button colorScheme="teal" size="md" onClick={handleCreate}>
+            {"Create Question"}
+          </Button>
+        </Flex>
+
+        <Divider borderWidth={1} marginBottom={4} />
 
         <Box overflow="scroll" margin={2}>
           {isLoading ? (
@@ -110,27 +126,29 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
               <Tbody>
                 {questionPage?.questions.map((question, index) => (
                   <Tr key={index} fontWeight={600}>
-                    <TableCell paddingY={3} paddingX={6} minWidth="260px">
+                    <TableCell paddingY={4} paddingX={6} minWidth="260px">
                       {question.question}
                     </TableCell>
-                    <TableCell paddingY={3} paddingX={6}>
+                    <TableCell paddingY={4} paddingX={6}>
                       {question.type}
                     </TableCell>
-                    <TableCell paddingY={3} paddingX={6} minWidth="300px">
+                    <TableCell paddingY={4} paddingX={6} minWidth="300px">
                       {question.answers.map((x) => x.text).join(", ")}
                     </TableCell>
-                    <TableCell isNumeric paddingY={3} paddingX={6}>
+                    <TableCell isNumeric paddingY={4} paddingX={6}>
                       <Flex alignItems="center" justifyContent="flex-end">
                         <Button
-                          variant="ghost"
+                          colorScheme="black"
+                          variant="link"
                           aria-label="Edit question"
                           onClick={() => handleEdit(question)}
-                          marginRight={3}
+                          marginRight={4}
                         >
                           {"Edit"}
                         </Button>
                         <Button
                           colorScheme="red"
+                          variant="link"
                           onClick={() => onDeleteQuestion(question.id)}
                         >
                           {"Delete"}
@@ -180,23 +198,20 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
             </Box>
           </Flex>
         </Box>
-        <Modal isOpen={isOpen} onClose={onClose} minWidth="660px">
+        <Modal
+          isOpen={isOpen}
+          onClose={onClose}
+          shouldContentScroll={false}
+          minWidth="660px"
+        >
           <Flex
             padding={10}
             maxHeight={{ base: "100%", md: "700px" }}
             width="100%"
             overflow="scroll"
           >
-            <AdminCreateManualTriviaQuestionForm
-              // TODO: remove
-              types={[
-                { id: 1, name: "Text" },
-                { id: 2, name: "Image" },
-                { id: 3, name: "Flag" },
-                { id: 4, name: "Map" },
-              ]}
+            <AdminCreateManualTriviaQuestionContainer
               editValues={selectedQuestion}
-              isEditing
               onClose={onClose}
             />
           </Flex>

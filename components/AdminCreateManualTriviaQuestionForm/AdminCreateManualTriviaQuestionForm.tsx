@@ -83,10 +83,9 @@ export interface EditValues extends CreateManualTriviaQuestionFormSubmit {
 export interface Props {
   editValues?: EditValues;
   types?: QuizType[];
+  isLoading?: boolean;
   isSubmitting?: boolean;
   error?: string;
-  isLoading?: boolean;
-  isEditing?: boolean;
   onClose?: () => void;
   onSubmit?: (
     values: CreateManualTriviaQuestionFormSubmit,
@@ -98,13 +97,13 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
   editValues,
   types = [],
   isSubmitting = false,
-  error = "",
   isLoading = false,
-  isEditing = false,
+  error = "",
   onSubmit = () => {},
   onClose = () => {},
 }) => {
   const initialHasFlagAnswers = editValues?.hasFlagAnswers || false;
+  const isEditing = !!editValues;
 
   const [hasFlagAnswers, setHasFlagAnswers] = useState(initialHasFlagAnswers);
   const [flagCategory, setFlagCategory] = useState("world");
@@ -168,7 +167,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
 
             return (
               <Box maxWidth="600px" width="100%">
-                <Heading size="md">
+                <Heading fontSize="22px">
                   {`${isEditing ? "Edit" : "Create"} Manual Trivia Question`}
                 </Heading>
                 <Divider marginY={5} />
@@ -182,18 +181,33 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                           <FormLabel htmlFor="typeId" fontWeight="bold">
                             {"Type"}
                           </FormLabel>
-                          <HStack spacing={3} name="typeId" {...radioGroup}>
-                            {types.map((type) => {
-                              //@ts-expect-error
-                              const radio = getRadioProps({
-                                value: type.id.toString(),
-                              });
-                              return (
-                                <RadioButton key={type.id} radioProps={radio}>
-                                  {type.name}
-                                </RadioButton>
-                              );
-                            })}
+                          <HStack
+                            name="typeId"
+                            spacing={3}
+                            minHeight="50px"
+                            {...radioGroup}
+                          >
+                            {!types.length ? (
+                              <Text
+                                width="347px"
+                                textAlign="center"
+                                color="gray.500"
+                              >
+                                {"Loading Types.."}
+                              </Text>
+                            ) : (
+                              types.map((type) => {
+                                //@ts-expect-error
+                                const radio = getRadioProps({
+                                  value: type.id.toString(),
+                                });
+                                return (
+                                  <RadioButton key={type.id} radioProps={radio}>
+                                    {type.name}
+                                  </RadioButton>
+                                );
+                              })
+                            )}
                           </HStack>
                         </FormControl>
                       )}
@@ -322,7 +336,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               }}
                             >
                               <option>{"Select a category..."}</option>
-                              {flagCategories.map(({ key, label }) => (
+                              {flagCategories?.map(({ key, label }) => (
                                 <option key={key} value={key}>
                                   {label}
                                 </option>

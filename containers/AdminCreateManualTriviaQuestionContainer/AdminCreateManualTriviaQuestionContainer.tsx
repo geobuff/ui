@@ -3,20 +3,26 @@ import React, { FC, useContext, useState } from "react";
 
 import axiosClient from "../../axios";
 import AdminCreateManualTriviaQuestionForm from "../../components/AdminCreateManualTriviaQuestionForm";
+import { EditValues } from "../../components/AdminCreateManualTriviaQuestionForm/AdminCreateManualTriviaQuestionForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { createManualTriviaQuestionToast } from "../../helpers/toasts";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 import { CreateManualTriviaAnswerDto } from "../../types/create-manual-trivia-answer-dto";
 import { CreateManualTriviaQuestionFormSubmit } from "../../types/create-manual-trivia-question-form-submit";
 
-const AdminCreateManualTriviaQuestionContainer: FC = () => {
+export interface Props {
+  editValues?: EditValues;
+  onClose?: () => void;
+}
+
+const AdminCreateManualTriviaQuestionContainer: FC<Props> = ({
+  editValues,
+  onClose,
+}) => {
   const toast = useToast();
 
   const { getAuthConfig } = useContext(CurrentUserContext);
-  const {
-    data: types,
-    isLoading: isQuestionTypesLoading,
-  } = useTriviaQuestionTypes();
+  const { data: types, isLoading } = useTriviaQuestionTypes();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -78,16 +84,15 @@ const AdminCreateManualTriviaQuestionContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
-  if (isQuestionTypesLoading) {
-    return null;
-  }
-
   return (
     <AdminCreateManualTriviaQuestionForm
       types={types}
+      editValues={editValues}
+      isLoading={isLoading}
       isSubmitting={isSubmitting}
       error={error}
       onSubmit={handleSubmit}
+      onClose={onClose}
     />
   );
 };

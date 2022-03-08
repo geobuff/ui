@@ -131,7 +131,6 @@ const Admin: FC = () => (
               >
                 <AdminLastWeekTriviaPlaysContainer />
                 <AdminManualTriviaQuestionsContainer />
-                <AdminCreateManualTriviaQuestionContainer />
               </Flex>
             </Flex>
           </TabPanel>
