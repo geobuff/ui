@@ -8,7 +8,7 @@ import {
   Flex,
   Link as ChakraLink,
   useBreakpointValue,
-  Skeleton,
+  Fade,
 } from "@chakra-ui/react";
 import { Squash as Hamburger } from "hamburger-react";
 
@@ -72,17 +72,11 @@ const NavigationBar: FC = () => {
         />
       </Flex>
 
-      <Flex>
-        {isCartLoading ? (
-          <Flex direction="column" justifyContent="center" mr={6}>
-            <Skeleton width="30px" height="30px" />
-          </Flex>
-        ) : (
-          <>
-            {cart?.length > 0 && (
-              <ShoppingCartLink itemCount={getItemCount()} />
-            )}
-          </>
+      <Flex alignItems="center">
+        {cart?.length > 0 && (
+          <Fade in>
+            <ShoppingCartLink itemCount={getItemCount()} />
+          </Fade>
         )}
         <UserAvatarMenuNoSSR />
       </Flex>
