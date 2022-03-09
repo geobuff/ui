@@ -106,13 +106,18 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
 
   const clearCart = (): void => {
     setIsLoading(true);
-    deleteFromStorage("geobuff.cart");
+    setCart([]);
     deleteFromStorage("geobuff.discountCode");
     setIsLoading(false);
   };
 
-  const getItemCount = (): number =>
-    cart.map((x) => x.quantity).reduce((prev, curr) => (prev += curr));
+  const getItemCount = (): number => {
+    console.log(cart, "getItemCount");
+    if (!cart || cart.length) {
+      return 0;
+    }
+    cart?.map((x) => x.quantity)?.reduce((prev, curr) => (prev += curr), 0);
+  };
 
   const getItemQuantity = (merchId: number): number => {
     const items = cart.filter((x) => x.id === merchId);

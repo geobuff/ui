@@ -56,6 +56,7 @@ const NavigationBar: FC = () => {
   };
 
   const shoppingCartItemCount = getItemCount();
+  console.log(shoppingCartItemCount, "shoppingCartItemCount");
 
   const desktopLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
@@ -82,7 +83,7 @@ const NavigationBar: FC = () => {
         ) : (
           <>
             {cart?.length > 0 && (
-              <ShoppingCartLink itemCount={shoppingCartItemCount} mr={6} />
+              <ShoppingCartLink itemCount={getItemCount()} mr={6} />
             )}
           </>
         )}
