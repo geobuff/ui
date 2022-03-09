@@ -38,6 +38,7 @@ import {
   QuestionType,
 } from "../../types/create-manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
+import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -78,6 +79,8 @@ const getFlagsByCategory = (category: string) => {
 // Accommodate the extra field needed to override the hasFlags radio
 export interface EditValues extends CreateManualTriviaQuestionFormSubmit {
   hasFlagAnswers?: boolean;
+  id: string;
+  answers?: ManualTriviaAnswer[];
 }
 
 export interface Props {

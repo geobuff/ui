@@ -22,7 +22,7 @@ export interface ModalProps extends ChakraModalProps {
   body?: ReactNode;
   footer?: ReactNode;
   hasCloseButton?: boolean;
-  shouldContentScroll?: boolean;
+  maxHeight: number | string | ResponsiveValue<string | any>;
   minWidth: number | string | ResponsiveValue<string | any>;
 }
 
@@ -32,7 +32,7 @@ const Modal: FC<ModalProps> = ({
   children,
   footer,
   hasCloseButton = false,
-  shouldContentScroll = true,
+  maxHeight,
   minWidth,
   isOpen,
   onClose,
@@ -152,7 +152,8 @@ const Modal: FC<ModalProps> = ({
           <ModalContent
             borderRadius="12px"
             minWidth={minWidth}
-            overflowY={shouldContentScroll ? "auto" : "hidden"}
+            maxHeight={maxHeight}
+            overflowY="scroll"
           >
             {!!header && (
               <>

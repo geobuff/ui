@@ -25,6 +25,20 @@ import { ManualQuestionsDto } from "../../types/manual-questions-dto";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import AdminManualTriviaQuestionContainer from "../../containers/AdminManualTriviaQuestionContainer";
 
+const getTypeIDByName = (typeName: string) => {
+  switch (true) {
+    case typeName === "Image":
+      return "2";
+    case typeName === "Flag":
+      return "3";
+    case typeName === "Map":
+      return "4";
+
+    default:
+      return "1";
+  }
+};
+
 export interface Props {
   questionPage?: ManualQuestionsDto;
   isLoading?: boolean;
@@ -46,23 +60,6 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [selectedQuestion, setSelectedQuestion] = useState(null);
 
-  console.log(questionPage, "questionPage");
-  console.log(selectedQuestion, "selectedQuestion");
-
-  const getTypeIDByName = (typeName: string) => {
-    switch (true) {
-      case typeName === "Image":
-        return "2";
-      case typeName === "Flag":
-        return "3";
-      case typeName === "Map":
-        return "4";
-
-      default:
-        return "1";
-    }
-  };
-
   const handleCreate = () => {
     setSelectedQuestion(null);
     onOpen();
@@ -71,6 +68,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
   const handleEdit = (question: ManualTriviaQuestion) => {
     onOpen();
     setSelectedQuestion({
+      id: question.id,
       typeId: getTypeIDByName(question.type),
       question: question.question,
       answerOneText: question.answers[0]?.text || "",
@@ -81,14 +79,14 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
       answerThreeFlagCode: question?.answers[2]?.flagCode || "",
       answerFourText: question?.answers[3]?.text || "",
       answerFourFlagCode: question?.answers[3]?.flagCode || "",
-      correctAnswer:
-        question.answers.findIndex((answer) => answer.isCorrect) + 1,
-      hasFlagAnswers: question.answers.find((answer) => !!answer.flagCode),
+      correctAnswer: question.answers.findIndex((a) => a.isCorrect) + 1,
+      hasFlagAnswers: question.answers.find((a) => !!a.flagCode) || false,
       imageUrl: question?.imageUrl || "",
       flagCode: question?.flagCode || "",
       map: question?.map || "",
       highlighted: question?.highlighted || "",
       quizDate: question?.lastUsed?.Time || "",
+      answers: question?.answers || [],
     });
   };
 
@@ -102,6 +100,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
           marginX={2}
         >
           <Heading fontSize="24px">{"Manual Trivia Questions"}</Heading>
+
           <Button colorScheme="teal" size="md" onClick={handleCreate}>
             {"Create Question"}
           </Button>
@@ -201,15 +200,10 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
         <Modal
           isOpen={isOpen}
           onClose={onClose}
-          shouldContentScroll={false}
+          maxHeight={{ base: "100%", md: "700px" }}
           minWidth="660px"
         >
-          <Flex
-            padding={10}
-            maxHeight={{ base: "100%", md: "700px" }}
-            width="100%"
-            overflow="scroll"
-          >
+          <Flex padding={10} width="100%" overflow="scroll">
             <AdminManualTriviaQuestionContainer
               editValues={selectedQuestion}
               onClose={onClose}
