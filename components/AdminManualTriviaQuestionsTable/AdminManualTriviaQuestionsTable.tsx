@@ -24,8 +24,9 @@ import AdminManualTriviaQuestionsTablePlaceholder from "../../placeholders/Admin
 import { ManualQuestionsDto } from "../../types/manual-questions-dto";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import AdminManualTriviaQuestionContainer from "../../containers/AdminManualTriviaQuestionContainer";
+import { TriviaQuestionType } from "../../types/trivia-question-types";
 
-const getTypeIDByName = (typeName: string) => {
+const getTypeIDByName = (typeName: TriviaQuestionType) => {
   switch (true) {
     case typeName === "Image":
       return "2";
@@ -69,7 +70,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
     onOpen();
     setSelectedQuestion({
       id: question.id,
-      typeId: getTypeIDByName(question.type),
+      typeId: getTypeIDByName(question.type as TriviaQuestionType),
       question: question.question,
       answerOneText: question.answers[0]?.text || "",
       answerOneFlagCode: question.answers[0]?.flagCode || "",
