@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import * as Maps from "@geobuff/svg-maps";
-import { flagCategories } from "@geobuff/flags";
+import { flagCategories, flags, getFlagUrl } from "@geobuff/flags";
 
 import {
   Alert,
@@ -25,7 +25,6 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { getFlagUrl, flags } from "@geobuff/flags";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -34,7 +33,7 @@ import RadioButton from "../RadioButton";
 import Image from "../Image";
 
 import {
-  CreateManualTriviaQuestionFormSubmit,
+  CreateManualTriviaQuestionFormSubmit as ManualTriviaQuestionFormSubmit,
   QuestionType,
 } from "../../types/create-manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
@@ -76,8 +75,9 @@ const getFlagsByCategory = (category: string) => {
   );
 };
 
-// Accommodate the extra field needed to override the hasFlags radio
-export interface EditValues extends CreateManualTriviaQuestionFormSubmit {
+// Extra non form fields that we need to up build state for the form
+// and for the edit api request
+export interface EditValues extends ManualTriviaQuestionFormSubmit {
   hasFlagAnswers?: boolean;
   id: string;
   answers?: ManualTriviaAnswer[];
@@ -91,8 +91,8 @@ export interface Props {
   error?: string;
   onClose?: () => void;
   onSubmit?: (
-    values: CreateManualTriviaQuestionFormSubmit,
-    helpers: FormikHelpers<CreateManualTriviaQuestionFormSubmit>
+    values: ManualTriviaQuestionFormSubmit,
+    helpers: FormikHelpers<ManualTriviaQuestionFormSubmit>
   ) => void;
 }
 
