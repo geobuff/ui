@@ -55,6 +55,8 @@ const NavigationBar: FC = () => {
     return isMobile ? mobileLayout : desktopLayout;
   };
 
+  const shoppingCartItemCount = getItemCount();
+
   const desktopLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
       <Flex alignItems="center">
@@ -80,7 +82,7 @@ const NavigationBar: FC = () => {
         ) : (
           <>
             {cart?.length > 0 && (
-              <ShoppingCartLink itemCount={getItemCount()} />
+              <ShoppingCartLink itemCount={shoppingCartItemCount} mr={6} />
             )}
           </>
         )}
@@ -127,6 +129,7 @@ const NavigationBar: FC = () => {
         <NavigationSidebar
           onClose={() => setIsNavSidebarOpen(false)}
           isOpen={isOpen}
+          shoppingCartItemCount={shoppingCartItemCount}
         />
       )}
     </>
