@@ -1,11 +1,11 @@
 import { NullTime } from "./null-time";
 import { TriviaAnswer } from "./trivia-answer";
-import { TriviaQuestionTypes } from "./trivia-question-types";
+import { TriviaQuestionType } from "./trivia-question-types";
 
 export interface TriviaQuestion {
   id: number;
   typeId: number;
-  type: TriviaQuestionTypes;
+  type: TriviaQuestionType;
   question: string;
   map?: string;
   highlighted?: string;
