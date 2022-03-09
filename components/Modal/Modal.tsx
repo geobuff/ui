@@ -22,8 +22,8 @@ export interface ModalProps extends ChakraModalProps {
   body?: ReactNode;
   footer?: ReactNode;
   hasCloseButton?: boolean;
-  maxHeight: number | string | ResponsiveValue<string | any>;
-  minWidth: number | string | ResponsiveValue<string | any>;
+  maxHeight?: number | string | ResponsiveValue<string | any>;
+  minWidth?: number | string | ResponsiveValue<string | any>;
 }
 
 const Modal: FC<ModalProps> = ({

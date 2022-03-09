@@ -8,10 +8,10 @@ import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
 
 import AdminManualTriviaQuestionForm from "../../components/AdminManualTriviaQuestionForm";
-import { EditValues } from "../../components/AdminManualTriviaQuestionForm/AdminManualTriviaQuestionForm";
+import { ManualTriviaQuestionEditValues } from "../../components/AdminManualTriviaQuestionForm/AdminManualTriviaQuestionForm";
 
 export interface Props {
-  editValues?: EditValues;
+  editValues?: ManualTriviaQuestionEditValues;
   onClose?: () => void;
 }
 
@@ -27,7 +27,10 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (values: EditValues, { resetForm }): void => {
+  const handleSubmit = (
+    values: ManualTriviaQuestionEditValues,
+    { resetForm }
+  ): void => {
     setIsSubmitting(true);
     setError("");
 

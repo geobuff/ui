@@ -77,14 +77,15 @@ const getFlagsByCategory = (category: string) => {
 
 // Extra non form fields that we need to up build state for the form
 // and for the edit api request
-export interface EditValues extends ManualTriviaQuestionFormSubmit {
+export interface ManualTriviaQuestionEditValues
+  extends ManualTriviaQuestionFormSubmit {
   hasFlagAnswers?: boolean;
   id: string;
   answers?: ManualTriviaAnswer[];
 }
 
 export interface Props {
-  editValues?: EditValues;
+  editValues?: ManualTriviaQuestionEditValues;
   types?: QuizType[];
   isLoading?: boolean;
   isSubmitting?: boolean;
