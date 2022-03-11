@@ -111,13 +111,8 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
     setIsLoading(false);
   };
 
-  const getItemCount = (): number => {
-    console.log(cart, "getItemCount");
-    if (!cart || cart.length) {
-      return 0;
-    }
+  const getItemCount = (): number =>
     cart?.map((x) => x.quantity)?.reduce((prev, curr) => (prev += curr), 0);
-  };
 
   const getItemQuantity = (merchId: number): number => {
     const items = cart.filter((x) => x.id === merchId);
