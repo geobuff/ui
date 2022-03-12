@@ -92,18 +92,19 @@ export const createQuizToast = (
 ): UseToastOptions => ({
   position: position,
   title: "Create Quiz",
-  description: `Successfully created new quiz.`,
+  description: "Successfully created new quiz.",
   status: "success",
   duration: 9000,
   isClosable: true,
 });
 
-export const createManualTriviaQuestionToast = (
+export const ManualTriviaQuestionToast = (
+  type: "Create" | "Edit" = "Create",
   position: ToastPosition = defaultPosition
 ): UseToastOptions => ({
   position: position,
-  title: "Create Manual Trivia Question",
-  description: `Successfully created new trivia question.`,
+  title: `${type} Manual Trivia Question`,
+  description: `Successfully ${type.toLowerCase()} new trivia question.`,
   status: "success",
   duration: 9000,
   isClosable: true,

@@ -8,25 +8,20 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+import Card from "../Card";
 
 export interface Props {
   data?: any[];
 }
 
 const AdminLastWeekTriviaPlays: FC<Props> = ({ data = [] }) => {
-  const width = useBreakpointValue({ base: 300, md: 1200 });
+  const width = useBreakpointValue({ base: 400, sm: 600, md: 1200 });
 
   return (
-    <Flex
-      margin={6}
-      padding={12}
-      background="white"
-      borderRadius={12}
-      justifyContent="center"
-    >
-      <Flex direction="column">
-        <Heading size="md" marginBottom={6}>
-          Trivia Plays
+    <Card marginTop={10} padding={6}>
+      <Flex direction="column" overflowY={"scroll"}>
+        <Heading size="md" marginBottom={7}>
+          {"Trivia Plays"}
         </Heading>
         <LineChart width={width} height={250} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
@@ -36,7 +31,7 @@ const AdminLastWeekTriviaPlays: FC<Props> = ({ data = [] }) => {
           <Line type="monotone" dataKey="Plays" stroke="#3182CE" />
         </LineChart>
       </Flex>
-    </Flex>
+    </Card>
   );
 };
 

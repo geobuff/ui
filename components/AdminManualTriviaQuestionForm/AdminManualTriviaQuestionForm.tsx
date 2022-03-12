@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import * as Maps from "@geobuff/svg-maps";
-import { flagCategories } from "@geobuff/flags";
+import { flagCategories, flags, getFlagUrl } from "@geobuff/flags";
 
 import {
   Alert,
@@ -25,7 +25,6 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import { getFlagUrl, flags } from "@geobuff/flags";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -34,10 +33,11 @@ import RadioButton from "../RadioButton";
 import Image from "../Image";
 
 import {
-  CreateManualTriviaQuestionFormSubmit,
+  CreateManualTriviaQuestionFormSubmit as ManualTriviaQuestionFormSubmit,
   QuestionType,
 } from "../../types/create-manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
+import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -75,26 +75,42 @@ const getFlagsByCategory = (category: string) => {
   );
 };
 
+// Extra non form fields that we need to up build state for the form
+// and for the edit api request
+export interface ManualTriviaQuestionEditValues
+  extends ManualTriviaQuestionFormSubmit {
+  hasFlagAnswers?: boolean;
+  id: string;
+  answers?: ManualTriviaAnswer[];
+}
+
 export interface Props {
+  editValues?: ManualTriviaQuestionEditValues;
   types?: QuizType[];
+  isLoading?: boolean;
   isSubmitting?: boolean;
   error?: string;
-  isLoading?: boolean;
+  onClose?: () => void;
   onSubmit?: (
-    values: CreateManualTriviaQuestionFormSubmit,
-    helpers: FormikHelpers<CreateManualTriviaQuestionFormSubmit>
+    values: ManualTriviaQuestionFormSubmit,
+    helpers: FormikHelpers<ManualTriviaQuestionFormSubmit>
   ) => void;
 }
 
-const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
+const AdminManualTriviaQuestionForm: FC<Props> = ({
+  editValues,
   types = [],
   isSubmitting = false,
-  error = "",
   isLoading = false,
+  error = "",
   onSubmit = () => {},
+  onClose = () => {},
 }) => {
-  const [hasFlagAnswers, setHasFlagAnswers] = useState(false);
-  const [flagCategory, setFlagCategory] = useState("");
+  const initialHasFlagAnswers = editValues?.hasFlagAnswers || false;
+  const isEditing = !!editValues;
+
+  const [hasFlagAnswers, setHasFlagAnswers] = useState(initialHasFlagAnswers);
+  const [flagCategory, setFlagCategory] = useState("world");
 
   const getHighlightRegionsByMap = (map: string) => {
     const selectedMap = Maps[map];
@@ -116,32 +132,28 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
         </Alert>
       )}
 
-      <Flex
-        margin={6}
-        padding={12}
-        background="white"
-        borderRadius={12}
-        justifyContent="center"
-      >
+      <Flex justifyContent="center">
         <Formik
-          initialValues={{
-            typeId: "1",
-            question: "",
-            quizDate: "",
-            map: "",
-            highlighted: "",
-            flagCode: "",
-            imageUrl: "",
-            answerOneText: "",
-            answerOneFlagCode: "",
-            answerTwoText: "",
-            answerTwoFlagCode: "",
-            answerThreeText: "",
-            answerThreeFlagCode: "",
-            answerFourText: "",
-            answerFourFlagCode: "",
-            correctAnswer: null,
-          }}
+          initialValues={
+            editValues || {
+              typeId: "1",
+              question: "",
+              quizDate: "",
+              map: "",
+              highlighted: "",
+              flagCode: "",
+              imageUrl: "",
+              answerOneText: "",
+              answerOneFlagCode: "",
+              answerTwoText: "",
+              answerTwoFlagCode: "",
+              answerThreeText: "",
+              answerThreeFlagCode: "",
+              answerFourText: "",
+              answerFourFlagCode: "",
+              correctAnswer: null,
+            }
+          }
           validationSchema={validationSchema}
           onSubmit={onSubmit}
           enableReinitialize
@@ -150,7 +162,6 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { getRootProps, getRadioProps } = useRadioGroup({
               name: "typeId",
-              defaultValue: "1",
               value: values.typeId,
               onChange: (value: number) =>
                 setFieldValue("typeId", value.toString()),
@@ -160,7 +171,9 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
 
             return (
               <Box maxWidth="600px" width="100%">
-                <Heading size="md">{"Create Manual Trivia Question"}</Heading>
+                <Heading fontSize="22px">
+                  {`${isEditing ? "Edit" : "Create"} Manual Trivia Question`}
+                </Heading>
                 <Divider marginY={5} />
                 <Form autoComplete="off">
                   <Flex direction="column">
@@ -172,18 +185,33 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                           <FormLabel htmlFor="typeId" fontWeight="bold">
                             {"Type"}
                           </FormLabel>
-                          <HStack spacing={3} name="typeId" {...radioGroup}>
-                            {types.map((type) => {
-                              //@ts-expect-error
-                              const radio = getRadioProps({
-                                value: type.id.toString(),
-                              });
-                              return (
-                                <RadioButton key={type.id} radioProps={radio}>
-                                  {type.name}
-                                </RadioButton>
-                              );
-                            })}
+                          <HStack
+                            name="typeId"
+                            spacing={3}
+                            minHeight="50px"
+                            {...radioGroup}
+                          >
+                            {!types.length ? (
+                              <Text
+                                width="347px"
+                                textAlign="center"
+                                color="gray.500"
+                              >
+                                {"Loading Types.."}
+                              </Text>
+                            ) : (
+                              types.map((type) => {
+                                //@ts-expect-error
+                                const radio = getRadioProps({
+                                  value: type.id.toString(),
+                                });
+                                return (
+                                  <RadioButton key={type.id} radioProps={radio}>
+                                    {type.name}
+                                  </RadioButton>
+                                );
+                              })
+                            )}
                           </HStack>
                         </FormControl>
                       )}
@@ -312,7 +340,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               }}
                             >
                               <option>{"Select a category..."}</option>
-                              {flagCategories.map(({ key, label }) => (
+                              {flagCategories?.map(({ key, label }) => (
                                 <option key={key} value={key}>
                                   {label}
                                 </option>
@@ -333,7 +361,10 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                                 </FormLabel>
 
                                 {flagCategory === "world" ? (
-                                  <CountrySelect fieldProps={field} />
+                                  <CountrySelect
+                                    id="flagCode"
+                                    fieldProps={field}
+                                  />
                                 ) : (
                                   <Select
                                     {...field}
@@ -499,7 +530,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                               />
                               <Box position="absolute" top="38px" left="2px">
                                 <FormErrorMessage fontSize="11px">
-                                  {form.errors.questionDate}
+                                  {form.errors.quizDate}
                                 </FormErrorMessage>
                               </Box>
                               <FormHelperText lineHeight="1.50">
@@ -864,6 +895,18 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
 
                     <Flex justifyContent="flex-end">
                       <Flex direction="row" marginTop="44px" marginBottom={6}>
+                        {onClose && (
+                          <Button
+                            variant="outline"
+                            width="100%"
+                            isLoading={isLoading}
+                            isDisabled={isLoading || isSubmitting}
+                            onClick={onClose}
+                            marginRight={3}
+                          >
+                            {"Close"}
+                          </Button>
+                        )}
                         <Button
                           colorScheme="teal"
                           width="100%"
@@ -871,7 +914,7 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
                           isLoading={isLoading}
                           disabled={!dirty || isLoading || isSubmitting}
                         >
-                          {"Create"}
+                          {isEditing ? "Update" : "Create"}
                         </Button>
                       </Flex>
                     </Flex>
@@ -886,4 +929,4 @@ const AdminCreateManualTriviaQuestionForm: FC<Props> = ({
   );
 };
 
-export default AdminCreateManualTriviaQuestionForm;
+export default AdminManualTriviaQuestionForm;

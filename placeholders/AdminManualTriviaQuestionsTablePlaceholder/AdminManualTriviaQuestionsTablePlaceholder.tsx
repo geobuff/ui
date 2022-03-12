@@ -9,6 +9,7 @@ import {
   Td,
   Skeleton,
   useBreakpointValue,
+  Flex,
 } from "@chakra-ui/react";
 
 interface Props {
@@ -35,20 +36,31 @@ const AdminManualTriviaQuestionsTablePlaceholder: FC<Props> = ({
           <Th textAlign="left">
             <Skeleton height="24px" width="80px" />
           </Th>
-          <Th width="100px" />
+          <Th textAlign="left">
+            <Skeleton height="24px" width="80px" />
+          </Th>
+          <Th textAlign="left">
+            <Skeleton height="24px" width="60px" opacity={0} />
+          </Th>
         </Tr>
       </Thead>
       <Tbody>
         {[...Array(rows)].map((_, i) => (
           <Tr padding={0} key={i}>
-            <Td width="33%">
+            <Td>
               <Skeleton height="26px" />
             </Td>
-            <Td width="33%">
+            <Td>
               <Skeleton height="26px" />
             </Td>
-            <Td width="33%">
-              <Skeleton height="26px" width="100px" />
+            <Td>
+              <Skeleton height="26px" />
+            </Td>
+            <Td>
+              <Flex width="100">
+                <Skeleton height="26px" width="100%" />
+                <Skeleton height="26px" width="100%" marginLeft={2} />
+              </Flex>
             </Td>
           </Tr>
         ))}
