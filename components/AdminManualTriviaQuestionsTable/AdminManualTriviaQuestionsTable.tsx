@@ -68,6 +68,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
 
   const handleEdit = (question: ManualTriviaQuestion) => {
     onOpen();
+
     setSelectedQuestion({
       id: question.id,
       typeId: getTypeIDByName(question.type as TriviaQuestionType),
@@ -86,7 +87,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
       flagCode: question?.flagCode || "",
       map: question?.map || "",
       highlighted: question?.highlighted || "",
-      quizDate: question?.lastUsed?.Time || "",
+      quizDate: question?.lastUsed.Valid ? question?.lastUsed.Time : "",
       answers: question?.answers || [],
     });
   };
