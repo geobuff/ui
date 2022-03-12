@@ -76,6 +76,7 @@ const HeroBanner: FC<Props> = ({
         backgroundRepeat="no-repeat"
         backgroundSize={{ base: "600px 300px", md: "1200px 475px" }}
         backgroundPosition="center top 2px"
+        className="fade-in"
       >
         <Flex
           direction="column"

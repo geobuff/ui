@@ -12,18 +12,31 @@ import {
   DrawerContent,
   DrawerOverlay,
   Flex,
-  Link as ChakraLink,
   Text,
 } from "@chakra-ui/react";
 
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import NavigationSidebarQuicklink from "./NavigationSidebarQuicklink";
 import NavigationBarLink from "../NavigationBar/NavigationBarLink";
+import ShoppingCartLink from "../ShoppingCartLink";
+import build from "next/dist/build";
+import { insert } from "../../helpers/array";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
 const createAccountExplainer =
   "Don't have an account? Sign up today to earn XP, unlock badges and compete with friends!";
+
+const buildCartLink = (itemCount: number) => ({
+  href: "/shopping-cart",
+  label: "View Cart",
+  node: (
+    <ShoppingCartLink
+      itemCount={itemCount}
+      twemojiProps={{ height: 22, width: 22 }}
+    />
+  ),
+});
 
 const quickLinks = [
   {
@@ -75,10 +88,16 @@ const popularQuizzes = [
 export interface Props {
   onClose: () => void;
   isOpen: boolean;
+  shoppingCartItemCount?: number;
 }
 
-const NavigationSidebar: FC<Props> = ({ onClose, isOpen }) => {
+const NavigationSidebar: FC<Props> = ({
+  onClose,
+  isOpen,
+  shoppingCartItemCount = 0,
+}) => {
   const { user } = useContext(CurrentUserContext);
+
   const { route, asPath } = useRouter();
 
   const handlers = useSwipeable({
@@ -87,6 +106,16 @@ const NavigationSidebar: FC<Props> = ({ onClose, isOpen }) => {
     trackMouse: false,
     rotationAngle: 0,
   });
+
+  const buildQuickLinks = () => {
+    if (shoppingCartItemCount === 0) {
+      return quickLinks;
+    }
+
+    const shoppingCartLink = buildCartLink(shoppingCartItemCount);
+    // Move shopping cart link to number 2
+    return insert(quickLinks, 1, shoppingCartLink);
+  };
 
   return (
     <Drawer placement="left" onClose={onClose} isOpen={isOpen}>
@@ -102,12 +131,13 @@ const NavigationSidebar: FC<Props> = ({ onClose, isOpen }) => {
           >
             <Flex direction="column" justifyContent="space-between">
               <Box>
-                {quickLinks.map((link) => (
+                {buildQuickLinks().map((link) => (
                   <>
                     <NavigationSidebarQuicklink
                       key={link.href}
                       href={link.href}
-                      emoji={link.emoji}
+                      emoji={link?.emoji}
+                      node={link?.node}
                       label={link.label}
                       isActive={route === link.href}
                     />

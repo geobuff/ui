@@ -34,9 +34,7 @@ const NavigationBar: FC = () => {
     AppContext
   );
 
-  const { cart, isLoading: isCartLoading, getItemCount } = useContext(
-    ShoppingCartContext
-  );
+  const { cart, getItemCount } = useContext(ShoppingCartContext);
 
   useEffect(() => {
     if (isOpen) {
@@ -121,6 +119,7 @@ const NavigationBar: FC = () => {
         <NavigationSidebar
           onClose={() => setIsNavSidebarOpen(false)}
           isOpen={isOpen}
+          shoppingCartItemCount={getItemCount()}
         />
       )}
     </>

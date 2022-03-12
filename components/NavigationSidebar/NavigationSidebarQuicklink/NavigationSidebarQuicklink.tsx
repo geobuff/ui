@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, isValidElement } from "react";
 import { Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
 
 import Link from "next/link";
@@ -8,12 +8,14 @@ export interface Props {
   href: string;
   label: string;
   emoji?: string;
+  node?: React.ReactNode;
   isActive?: boolean;
 }
 
 const NavigationSidebarQuicklink: FC<Props> = ({
   href,
   emoji,
+  node,
   label,
   isActive,
 }) => {
@@ -28,8 +30,12 @@ const NavigationSidebarQuicklink: FC<Props> = ({
         }
       >
         <Flex alignItems="center">
-          {emoji && <Twemoji height="22px" width="22px" emoji={emoji} />}
-          <Text ml={2}>{label}</Text>
+          {isValidElement(node) ? (
+            node
+          ) : (
+            <>{emoji && <Twemoji height="22px" width="22px" emoji={emoji} />}</>
+          )}
+          <Text ml={3}>{label}</Text>
         </Flex>
       </ChakraLink>
     </Link>
