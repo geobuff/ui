@@ -348,6 +348,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                             </Select>
                           </FormControl>
                         </Flex>
+
                         <Flex marginY={3}>
                           <Field name="flagCode">
                             {({ field, form }) => (
@@ -480,6 +481,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                             {"Yes"}
                           </RadioButton>
                         </HStack>
+
                         {hasFlagAnswers ? (
                           <Text color="gray.500" fontSize="sm" mt={2} mr={6}>
                             {"Use 2 letter country codes."}{" "}
@@ -498,21 +500,21 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                           </Text>
                         )}
                       </Flex>
+
                       <Flex
                         flex={1}
                         direction="column"
                         width="100%"
                         marginRight={5}
                       >
-                        <FormLabel htmlFor="answerOneText" fontWeight="bold">
+                        <FormLabel htmlFor="quizDate" fontWeight="bold">
                           {"Appearance Date"}
                         </FormLabel>
                         <Field name="quizDate">
                           {({ field, form }) => (
                             <FormControl
                               isInvalid={
-                                form.errors.answerOneFlagCode &&
-                                form.touched.answerOneFlagCode
+                                form.errors.quizDate && form.touched.quizDate
                               }
                             >
                               <DatePicker
@@ -549,6 +551,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                     <FormLabel htmlFor="answerOneText" fontWeight="bold">
                       {"Answer One"}
                     </FormLabel>
+
                     <Flex marginTop={3} marginBottom={7}>
                       <Radio
                         value={1}
@@ -559,6 +562,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                         colorScheme="green"
                         marginRight={3}
                       />
+
                       {hasFlagAnswers && (
                         <Flex maxWidth="150px">
                           <Field name="answerOneFlagCode">
@@ -637,6 +641,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                     <FormLabel htmlFor="answerTwoText" fontWeight="bold">
                       {"Answer Two"}
                     </FormLabel>
+
                     <Flex marginTop={3} marginBottom={7}>
                       <Radio
                         value={2}
@@ -647,6 +652,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                         colorScheme="green"
                         marginRight={3}
                       />
+
                       {hasFlagAnswers && (
                         <Flex maxWidth="150px">
                           <Field name="answerTwoFlagCode">
@@ -682,6 +688,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                           </Field>
                         </Flex>
                       )}
+
                       <Field name="answerTwoText">
                         {({ field, form }) => (
                           <FormControl
@@ -722,6 +729,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                     <FormLabel htmlFor="answerThreeText" fontWeight="bold">
                       {"Answer Three (Optional)"}
                     </FormLabel>
+
                     <Flex marginTop={3} marginBottom={7}>
                       <Radio
                         value={3}
@@ -730,6 +738,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                         colorScheme="green"
                         marginRight={3}
                       />
+
                       {hasFlagAnswers && (
                         <Flex maxWidth="150px">
                           <Field name="answerThreeFlagCode">
@@ -804,6 +813,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                     <FormLabel htmlFor="answerFourText" fontWeight="bold">
                       {"Answer Four (Optional)"}
                     </FormLabel>
+
                     <Flex marginTop={3}>
                       <Radio
                         value={4}
@@ -812,6 +822,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                         colorScheme="green"
                         marginRight={3}
                       />
+
                       {hasFlagAnswers && (
                         <Flex maxWidth="150px">
                           <Field name="answerFourFlagCode">
