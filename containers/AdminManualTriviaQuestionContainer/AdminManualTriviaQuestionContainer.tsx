@@ -36,14 +36,14 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
 
     const answers: ManualTriviaAnswer[] = [
       {
-        id: values?.answers[0]?.id,
+        id: values.answers ? values.answers[0].id : 0,
         text: values.answerOneText,
         isCorrect: values.correctAnswer === 1,
         flagCode: values.answerOneFlagCode,
         manualTriviaQuestionId: values.id,
       },
       {
-        id: values?.answers[1]?.id,
+        id: values.answers ? values.answers[1].id : 0,
         text: values.answerTwoText,
         isCorrect: values.correctAnswer === 2,
         flagCode: values.answerTwoFlagCode,
