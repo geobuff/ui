@@ -9,6 +9,7 @@ import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
 
 import AdminManualTriviaQuestionForm from "../../components/AdminManualTriviaQuestionForm";
 import { ManualTriviaQuestionEditValues } from "../../components/AdminManualTriviaQuestionForm/AdminManualTriviaQuestionForm";
+import { NullTime } from "../../types/null-time";
 
 export interface Props {
   editValues?: ManualTriviaQuestionEditValues;
@@ -71,6 +72,11 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
       });
     }
 
+    const quizDate: NullTime = {
+      Valid: !!values.quizDate,
+      Time: values.quizDate ? new Date(values.quizDate) : new Date(),
+    };
+
     const payload = {
       typeId: parseInt(values.typeId),
       question: values.question,
@@ -79,7 +85,7 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
       flagCode: values.flagCode,
       imageUrl: values.imageUrl,
       answers: answers,
-      quizDate: values.quizDate || null,
+      quizDate: quizDate,
     };
 
     if (editValues) {
