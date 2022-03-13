@@ -13,6 +13,7 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
 import Card from "../Card";
 import Modal from "../Modal";
@@ -119,6 +120,8 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
                 <Tr>
                   <Th textAlign="left">{"QUESTION"} </Th>
                   <Th textAlign="left">{"TYPE"}</Th>
+                  <Th textAlign="left">{"LAST USED"}</Th>
+                  <Th textAlign="left">{"QUIZ DATE"}</Th>
                   <Th textAlign="left">{"ANSWERS"}</Th>
                   <Th>{""}</Th>
                 </Tr>
@@ -132,6 +135,18 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
                     </TableCell>
                     <TableCell paddingY={4} paddingX={6}>
                       {question.type}
+                    </TableCell>
+                    <TableCell paddingY={4} paddingX={6}>
+                      {question.lastUsed.Valid &&
+                        DateTime.fromISO(question.lastUsed.Time).toLocaleString(
+                          DateTime.DATE_LONG
+                        )}
+                    </TableCell>
+                    <TableCell paddingY={4} paddingX={6}>
+                      {question.quizDate.Valid &&
+                        DateTime.fromISO(question.quizDate.Time).toLocaleString(
+                          DateTime.DATE_LONG
+                        )}
                     </TableCell>
                     <TableCell paddingY={4} paddingX={6} minWidth="300px">
                       {question.answers.map((x) => x.text).join(", ")}
