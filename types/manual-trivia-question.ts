@@ -9,6 +9,7 @@ export interface ManualTriviaQuestion {
   map?: string;
   highlighted?: string;
   lastUsed?: NullTime;
+  quizDate?: NullTime;
   question: string;
   answers: ManualTriviaAnswer[];
 }
