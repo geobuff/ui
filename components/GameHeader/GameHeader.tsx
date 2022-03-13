@@ -36,7 +36,12 @@ const GameHeader: FC<Props> = ({
   );
 
   return (
-    <Heading size="md" textAlign="center" {...props} maxWidth="270px">
+    <Heading
+      size="md"
+      textAlign="center"
+      {...props}
+      maxWidth={{ base: "100%", md: "270px" }}
+    >
       {shouldTruncateText ? (
         <Flex width="100%" justifyContent="center" alignItems="center">
           {showLeaderboardIcon && leaderboardLinkIcon}

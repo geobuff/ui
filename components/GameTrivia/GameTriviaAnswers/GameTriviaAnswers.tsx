@@ -11,7 +11,7 @@ import { use100vh } from "react-div-100vh";
 import ArrowRight from "../../../Icons/ArrowRight";
 import GameTriviaButton from "../GameTriviaButton";
 
-import { TriviaQuestion } from "../../../types/trivia-questions";
+import { TriviaQuestion } from "../../../types/trivia-question";
 import { TriviaAnswer } from "../../../types/trivia-answer";
 
 export interface Props {

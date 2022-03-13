@@ -1,17 +1,27 @@
 import React, { FC } from "react";
 import Link from "next/link";
-import { Flex, Tag, Link as ChakraLink } from "@chakra-ui/react";
-import Twemoji from "../Twemoji";
+import { Flex, Tag, Link as ChakraLink, FlexProps } from "@chakra-ui/react";
+import Twemoji, { Props as TwemojiProps } from "../Twemoji";
 
-export interface Props {
+export interface Props extends FlexProps {
   itemCount?: number;
+  twemojiProps?: TwemojiProps;
 }
 
-const ShoppingCartLink: FC<Props> = ({ itemCount = 0 }) => (
-  <Flex direction="column" justifyContent="center" mr={6} position="relative">
+const ShoppingCartLink: FC<Props> = ({
+  itemCount = 0,
+  twemojiProps,
+  ...props
+}) => (
+  <Flex
+    direction="column"
+    justifyContent="center"
+    position="relative"
+    {...props}
+  >
     <Link href="/shopping-cart">
       <ChakraLink>
-        <Twemoji emoji="🛒" />
+        <Twemoji emoji="🛒" {...twemojiProps} />
       </ChakraLink>
     </Link>
     {itemCount > 0 && (

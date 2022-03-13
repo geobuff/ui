@@ -1,6 +1,6 @@
 export interface ManualTriviaAnswer {
   id: number;
-  manualTriviaQuestionId: number;
+  manualTriviaQuestionId: string;
   text: string;
   isCorrect: boolean;
   flagCode: string;

@@ -1,13 +1,16 @@
+import { NullTime } from "./null-time";
 import { TriviaAnswer } from "./trivia-answer";
-import { TriviaQuestionTypes } from "./trivia-question-types";
+import { TriviaQuestionType } from "./trivia-question-types";
 
 export interface TriviaQuestion {
   id: number;
-  type: TriviaQuestionTypes;
+  typeId: number;
+  type: TriviaQuestionType;
   question: string;
-  answers: TriviaAnswer[];
   map?: string;
   highlighted?: string;
   flagCode?: string;
   imageUrl?: string;
+  lastUsed: NullTime;
+  answers: TriviaAnswer[];
 }

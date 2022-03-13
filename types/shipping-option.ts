@@ -3,4 +3,5 @@ export interface ShippingOption {
   name: string;
   description: string;
   price: number;
+  imageUrl: string;
 }

@@ -1,4 +1,4 @@
-import { TriviaQuestion } from "./trivia-questions";
+import { TriviaQuestion } from "./trivia-question";
 
 export interface Trivia {
   id: number;
