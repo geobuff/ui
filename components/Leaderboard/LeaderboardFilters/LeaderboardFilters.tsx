@@ -38,10 +38,10 @@ const LeaderboardFilters: FC<Props> = ({
   quizId = "1",
   isLoading = false,
   rank = "",
-  onChangeQuiz = (event: ChangeEvent<HTMLSelectElement>): void => {},
-  onChangeRange = (event: ChangeEvent<HTMLSelectElement>): void => {},
-  onChangeSearchUsers = (event: ChangeEvent<HTMLInputElement>): void => {},
-  onChangeSearchRank = (event: ChangeEvent<HTMLInputElement>): void => {},
+  onChangeQuiz = () => {},
+  onChangeRange = () => {},
+  onChangeSearchUsers = () => {},
+  onChangeSearchRank = () => {},
 }) => {
   const [rankValue, setRankValue] = useState(rank);
 

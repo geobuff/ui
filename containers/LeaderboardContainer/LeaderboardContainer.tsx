@@ -4,22 +4,22 @@ import axiosClient from "../../axios/axiosClient";
 
 import Leaderboard from "../../components/Leaderboard";
 import { FilterParams } from "../../types/filter-params";
-import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
+import { Quiz } from "../../types/quiz";
 
 interface Props {
   defaultQuizId?: string;
   rankParam?: string;
+  quizzes?: Quiz[];
 }
 
 const LeaderboardContainer: FC<Props> = ({
   defaultQuizId = "1",
   rankParam = "",
+  quizzes = [],
 }) => {
   const [quizId, setQuizId] = useState(() => defaultQuizId);
   const [entries, setEntries] = useState([]);
-  const [quizzes, setQuizzes] = useState([]);
   const [isLoadingEntries, setIsLoadingEntries] = useState(true);
-  const [isLoadingQuizzes, setIsLoadingQuizzes] = useState(true);
   const [hasMoreEntries, setHasMoreEntries] = useState(false);
   const [filterParams, setFilterParams] = useState<FilterParams>({
     page: 0,
@@ -28,7 +28,7 @@ const LeaderboardContainer: FC<Props> = ({
   const [rank, setRank] = useState("");
   const [rankSet, setRankSet] = useState(false);
 
-  const isLoading = isLoadingEntries || isLoadingQuizzes;
+  const isLoading = isLoadingEntries;
 
   useEffect(() => {
     if (!rankSet && !rank && rankParam) {
@@ -52,26 +52,12 @@ const LeaderboardContainer: FC<Props> = ({
       });
   }, [quizId, filterParams]);
 
-  useEffect(() => {
-    const body: QuizzesFilterDto = {
-      filter: "",
-      page: 0,
-      limit: 100,
-      orderByPopularity: false,
-    };
-
-    axiosClient.post(`/quizzes/all`, body).then((response) => {
-      setQuizzes(response.data.quizzes);
-      setIsLoadingQuizzes(false);
-    });
-  }, []);
-
   return (
     <Leaderboard
       entries={entries}
       isLoading={isLoading}
       quizId={quizId}
-      quizzes={quizzes.filter((x) => x.hasLeaderboard)}
+      quizzes={quizzes?.filter((x) => x.hasLeaderboard)}
       onChangeFilterParams={setFilterParams}
       onChangeQuiz={setQuizId}
       hasMoreEntries={hasMoreEntries}
