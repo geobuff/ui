@@ -73,7 +73,7 @@ const NavigationBar: FC = () => {
       <Flex alignItems="center">
         {cart?.length > 0 && (
           <Fade in>
-            <ShoppingCartLink itemCount={getItemCount()} />
+            <ShoppingCartLink itemCount={getItemCount()} marginRight={6} />
           </Fade>
         )}
         <UserAvatarMenuNoSSR />
