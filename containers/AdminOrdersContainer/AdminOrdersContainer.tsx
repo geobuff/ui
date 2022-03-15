@@ -32,6 +32,7 @@ const AdminOrdersContainer: FC = () => {
   const [error, setError] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const payload: OrdersFilterDto = {
       statusId,
       page,
