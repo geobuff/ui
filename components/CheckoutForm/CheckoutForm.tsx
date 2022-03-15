@@ -102,7 +102,7 @@ const CheckoutForm: FC<Props> = ({
   return (
     <Flex
       direction="column"
-      maxWidth={{ base: "100%", md: "50%" }}
+      maxWidth={800}
       marginX="auto"
       marginBottom={14}
       marginTop={{ base: 3, sm: 10, md: 14 }}
