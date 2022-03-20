@@ -10,7 +10,11 @@ import useQuizTypes from "../../hooks/UseQuizTypes";
 import { CreateQuizFormSubmit } from "../../types/create-quiz-form-submit";
 import { NullInt } from "../../types/null-int";
 
-const AdminCreateQuizContainer: FC = () => {
+export interface Props {
+  onClose?: () => void;
+}
+
+const AdminCreateQuizContainer: FC<Props> = ({ onClose }) => {
   const toast = useToast();
 
   const { getAuthConfig } = useContext(CurrentUserContext);
@@ -21,7 +25,7 @@ const AdminCreateQuizContainer: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (values: CreateQuizFormSubmit): void => {
+  const handleSubmit = (values: CreateQuizFormSubmit, { resetForm }): void => {
     setIsSubmitting(true);
     setError("");
 
@@ -57,7 +61,10 @@ const AdminCreateQuizContainer: FC = () => {
 
     axiosClient
       .post(`/quizzes`, payload, getAuthConfig())
-      .then(() => toast(createQuizToast()))
+      .then(() => {
+        toast(createQuizToast());
+        resetForm();
+      })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
@@ -74,6 +81,7 @@ const AdminCreateQuizContainer: FC = () => {
       isSubmitting={isSubmitting}
       error={error}
       onSubmit={handleSubmit}
+      onClose={onClose}
     />
   );
 };

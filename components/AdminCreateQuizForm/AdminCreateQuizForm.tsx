@@ -4,10 +4,12 @@ import {
   AlertIcon,
   Box,
   Button,
+  Divider,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Heading,
   Input,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -16,7 +18,7 @@ import {
   NumberInputStepper,
   Select,
 } from "@chakra-ui/react";
-import { Field, Form, Formik } from "formik";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { CreateQuizFormSubmit } from "../../types/create-quiz-form-submit";
 import { QuizType } from "../../types/quiz-type";
@@ -52,7 +54,11 @@ export interface Props {
   isSubmitting?: boolean;
   error?: string;
   isLoading?: boolean;
-  onSubmit?: (values: CreateQuizFormSubmit) => void;
+  onSubmit?: (
+    values: CreateQuizFormSubmit,
+    helpers: FormikHelpers<CreateQuizFormSubmit>
+  ) => void;
+  onClose?: () => void;
 }
 
 const AdminCreateQuizForm: FC<Props> = ({
@@ -62,7 +68,8 @@ const AdminCreateQuizForm: FC<Props> = ({
   isSubmitting = false,
   error = "",
   isLoading = false,
-  onSubmit = (values: CreateQuizFormSubmit): void => {},
+  onSubmit = (): void => {},
+  onClose = () => {},
 }) => (
   <>
     {error && (
@@ -71,13 +78,8 @@ const AdminCreateQuizForm: FC<Props> = ({
         {error}
       </Alert>
     )}
-    <Flex
-      margin={6}
-      padding={12}
-      background="white"
-      borderRadius={12}
-      justifyContent="center"
-    >
+
+    <Flex justifyContent="center" width="100%">
       <Formik
         initialValues={{
           typeId: "",
@@ -102,10 +104,12 @@ const AdminCreateQuizForm: FC<Props> = ({
         onSubmit={onSubmit}
       >
         {({ dirty }): React.ReactNode => (
-          <Box minWidth="50%">
+          <Box maxWidth="600px" width="100%">
+            <Heading fontSize="22px">{"Create Quiz"}</Heading>
+            <Divider marginY={5} />
             <Form>
-              <Flex direction="column" marginX={{ base: 1, md: 6 }}>
-                <Flex marginTop={6} marginBottom={3}>
+              <Flex direction="column">
+                <Flex marginY={3}>
                   <Field name="typeId">
                     {({ field, form }): React.ReactNode => (
                       <FormControl
@@ -616,12 +620,19 @@ const AdminCreateQuizForm: FC<Props> = ({
                 </Flex>
 
                 <Flex justifyContent="flex-end">
-                  <Flex
-                    direction="row"
-                    marginTop="44px"
-                    marginBottom={6}
-                    marginRight={{ base: 0, md: 6 }}
-                  >
+                  <Flex direction="row" marginTop="44px" marginBottom={6}>
+                    {onClose && (
+                      <Button
+                        variant="outline"
+                        width="100%"
+                        isLoading={isLoading}
+                        isDisabled={isLoading || isSubmitting}
+                        onClick={onClose}
+                        marginRight={3}
+                      >
+                        {"Close"}
+                      </Button>
+                    )}
                     <Button
                       colorScheme="teal"
                       width="100%"

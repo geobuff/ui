@@ -214,20 +214,20 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
             </Box>
           </Flex>
         </Box>
-        <Modal
-          isOpen={isOpen}
-          onClose={onClose}
-          maxHeight={{ base: "100%", md: "700px" }}
-          minWidth="660px"
-        >
-          <Flex padding={10} width="100%" overflow="scroll">
-            <AdminManualTriviaQuestionContainer
-              editValues={selectedQuestion}
-              onClose={onClose}
-            />
-          </Flex>
-        </Modal>
       </Card>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        maxHeight={{ base: "100%", md: "700px" }}
+        minWidth="660px"
+      >
+        <Flex padding={10} width="100%" overflow="scroll">
+          <AdminManualTriviaQuestionContainer
+            editValues={selectedQuestion}
+            onClose={onClose}
+          />
+        </Flex>
+      </Modal>
     </>
   );
 };
