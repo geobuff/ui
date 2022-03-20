@@ -141,7 +141,6 @@ const Admin: FC = () => {
                 >
                   <AdminTopFiveQuizPlaysContainer />
                   <AdminQuizzesContainer />
-                  <AdminCreateQuizContainer />
                 </Flex>
               </Flex>
             </TabPanel>
