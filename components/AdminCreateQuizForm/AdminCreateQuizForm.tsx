@@ -8,6 +8,7 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
+  FormHelperText,
   FormLabel,
   Heading,
   HStack,
@@ -112,7 +113,7 @@ const AdminCreateQuizForm: FC<Props> = ({
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ dirty, values, setFieldValue }): React.ReactNode => {
+        {({ values, setFieldValue }): React.ReactNode => {
           const {
             getRootProps: getTypeRootProps,
             getRadioProps: getTypeRadioProps,
@@ -199,36 +200,70 @@ const AdminCreateQuizForm: FC<Props> = ({
               <Divider marginY={5} />
               <Form>
                 <Flex direction="column">
-                  <Field name="typeId">
-                    {({ form }) => (
-                      <FormControl
-                        isInvalid={form.errors.typeId && form.touched.typeId}
-                      >
-                        <FormLabel htmlFor="typeId" fontWeight="bold">
-                          {"Type"}
-                        </FormLabel>
-                        <HStack
-                          name="typeId"
-                          spacing={3}
-                          minHeight="50px"
-                          {...typeRadioGroup}
+                  <Flex marginBottom={6}>
+                    <Field name="name">
+                      {({ field, form }): React.ReactNode => (
+                        <FormControl
+                          isInvalid={form.errors.name && form.touched.name}
                         >
-                          {types.map((type) => {
-                            //@ts-expect-error
-                            const radio = getTypeRadioProps({
-                              value: type.id.toString(),
-                            });
+                          <FormLabel htmlFor="name" fontWeight="bold">
+                            {"Name"}
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            id="name"
+                            type="text"
+                            placeholder="Enter name..."
+                            size="lg"
+                            fontSize="16px"
+                            fontWeight={400}
+                            background="#F6F6F6"
+                            borderRadius={6}
+                            _placeholder={{ color: "gray.500" }}
+                            _hover={{ background: "#e0e0e0" }}
+                          />
+                          <Box position="absolute" top="68px" left="2px">
+                            <FormErrorMessage fontSize="11px">
+                              {form.errors.name}
+                            </FormErrorMessage>
+                          </Box>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
 
-                            return (
-                              <RadioButton key={type.id} radioProps={radio}>
-                                {type.name}
-                              </RadioButton>
-                            );
-                          })}
-                        </HStack>
-                      </FormControl>
-                    )}
-                  </Field>
+                  <Flex marginBottom={3}>
+                    <Field name="typeId">
+                      {({ form }) => (
+                        <FormControl
+                          isInvalid={form.errors.typeId && form.touched.typeId}
+                        >
+                          <FormLabel htmlFor="typeId" fontWeight="bold">
+                            {"Type"}
+                          </FormLabel>
+                          <HStack
+                            name="typeId"
+                            spacing={3}
+                            minHeight="50px"
+                            {...typeRadioGroup}
+                          >
+                            {types.map((type) => {
+                              //@ts-expect-error
+                              const radio = getTypeRadioProps({
+                                value: type.id.toString(),
+                              });
+
+                              return (
+                                <RadioButton key={type.id} radioProps={radio}>
+                                  {type.name}
+                                </RadioButton>
+                              );
+                            })}
+                          </HStack>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
 
                   {values.typeId === QuizTypes.MAP.toString() && (
                     <Flex marginTop={6} marginBottom={3}>
@@ -260,186 +295,14 @@ const AdminCreateQuizForm: FC<Props> = ({
                                 {form.errors.mapSVG}
                               </FormErrorMessage>
                             </Box>
+                            <FormHelperText lineHeight="1.50">
+                              {`JavaScript map object defined in https://github.com/geobuff/svg-maps e.g. WorldCountries.`}
+                            </FormHelperText>
                           </FormControl>
                         )}
                       </Field>
                     </Flex>
                   )}
-
-                  <Divider marginY={5} />
-
-                  <Flex marginY={3}>
-                    <Field name="badgeId">
-                      {({ form }) => (
-                        <FormControl
-                          isInvalid={
-                            form.errors.badgeId && form.touched.badgeId
-                          }
-                        >
-                          <FormLabel htmlFor="badgeId" fontWeight="bold">
-                            {"Badge"}
-                          </FormLabel>
-                          <SimpleGrid
-                            columns={4}
-                            name="badgeId"
-                            spacing={3}
-                            {...badgeRadioGroup}
-                          >
-                            {badges.map((badge) => {
-                              //@ts-expect-error
-                              const radio = getBadgeRadioProps({
-                                value: badge.id.toString(),
-                              });
-
-                              return (
-                                <RadioButton key={badge.id} radioProps={radio}>
-                                  {badge.name}
-                                </RadioButton>
-                              );
-                            })}
-                          </SimpleGrid>
-                        </FormControl>
-                      )}
-                    </Field>
-                  </Flex>
-
-                  <Flex marginY={3}>
-                    <Field name="continentId">
-                      {({ form }) => (
-                        <FormControl
-                          isInvalid={
-                            form.errors.continentId && form.touched.continentId
-                          }
-                        >
-                          <FormLabel htmlFor="continentId" fontWeight="bold">
-                            {"Continent"}
-                          </FormLabel>
-                          <SimpleGrid
-                            columns={4}
-                            name="continentId"
-                            spacing={3}
-                            {...continentRadioGroup}
-                          >
-                            {continents.map((continent) => {
-                              //@ts-expect-error
-                              const radio = getContinentRadioProps({
-                                value: continent.id.toString(),
-                              });
-
-                              return (
-                                <RadioButton
-                                  key={continent.id}
-                                  radioProps={radio}
-                                >
-                                  {continent.name}
-                                </RadioButton>
-                              );
-                            })}
-                          </SimpleGrid>
-                        </FormControl>
-                      )}
-                    </Field>
-                  </Flex>
-
-                  <Flex marginY={3}>
-                    <Field name="country">
-                      {({ field, form }): React.ReactNode => (
-                        <FormControl
-                          isInvalid={
-                            form.errors.country && form.touched.country
-                          }
-                        >
-                          <FormLabel htmlFor="country" fontWeight="bold">
-                            {"Country"}
-                          </FormLabel>
-                          <Input
-                            {...field}
-                            id="country"
-                            type="text"
-                            placeholder="Enter country..."
-                            size="lg"
-                            fontSize="16px"
-                            fontWeight={400}
-                            background="#F6F6F6"
-                            borderRadius={6}
-                            _placeholder={{ color: "gray.500" }}
-                            _hover={{ background: "#e0e0e0" }}
-                          />
-                          <Box position="absolute" top="68px" left="2px">
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.country}
-                            </FormErrorMessage>
-                          </Box>
-                        </FormControl>
-                      )}
-                    </Field>
-                  </Flex>
-
-                  <Flex marginY={3}>
-                    <Field name="singular">
-                      {({ field, form }): React.ReactNode => (
-                        <FormControl
-                          isInvalid={
-                            form.errors.singular && form.touched.singular
-                          }
-                        >
-                          <FormLabel htmlFor="singular" fontWeight="bold">
-                            {"Singular"}
-                          </FormLabel>
-                          <Input
-                            {...field}
-                            id="singular"
-                            type="text"
-                            placeholder="Enter singular..."
-                            size="lg"
-                            fontSize="16px"
-                            fontWeight={400}
-                            background="#F6F6F6"
-                            borderRadius={6}
-                            _placeholder={{ color: "gray.500" }}
-                            _hover={{ background: "#e0e0e0" }}
-                          />
-                          <Box position="absolute" top="68px" left="2px">
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.singular}
-                            </FormErrorMessage>
-                          </Box>
-                        </FormControl>
-                      )}
-                    </Field>
-                  </Flex>
-
-                  <Flex marginY={3}>
-                    <Field name="name">
-                      {({ field, form }): React.ReactNode => (
-                        <FormControl
-                          isInvalid={form.errors.name && form.touched.name}
-                        >
-                          <FormLabel htmlFor="name" fontWeight="bold">
-                            {"Name"}
-                          </FormLabel>
-                          <Input
-                            {...field}
-                            id="name"
-                            type="text"
-                            placeholder="Enter name..."
-                            size="lg"
-                            fontSize="16px"
-                            fontWeight={400}
-                            background="#F6F6F6"
-                            borderRadius={6}
-                            _placeholder={{ color: "gray.500" }}
-                            _hover={{ background: "#e0e0e0" }}
-                          />
-                          <Box position="absolute" top="68px" left="2px">
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.name}
-                            </FormErrorMessage>
-                          </Box>
-                        </FormControl>
-                      )}
-                    </Field>
-                  </Flex>
 
                   <Flex marginY={3}>
                     <Field name="maxScore">
@@ -476,7 +339,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                           isInvalid={form.errors.time && form.touched.time}
                         >
                           <FormLabel htmlFor="time" fontWeight="bold">
-                            {"Time"}
+                            {"Time (Seconds)"}
                           </FormLabel>
                           <NumberInput>
                             <NumberInputField {...field} id="time" />
@@ -490,6 +353,11 @@ const AdminCreateQuizForm: FC<Props> = ({
                               {form.errors.time}
                             </FormErrorMessage>
                           </Box>
+                          <FormHelperText lineHeight="1.50" mt={4}>
+                            {
+                              "300 = 5 minutes, 600 = 10 minutes, 900 = 15 minutes."
+                            }
+                          </FormHelperText>
                         </FormControl>
                       )}
                     </Field>
@@ -524,38 +392,9 @@ const AdminCreateQuizForm: FC<Props> = ({
                               {form.errors.imageUrl}
                             </FormErrorMessage>
                           </Box>
-                        </FormControl>
-                      )}
-                    </Field>
-                  </Flex>
-
-                  <Flex marginY={3}>
-                    <Field name="verb">
-                      {({ field, form }): React.ReactNode => (
-                        <FormControl
-                          isInvalid={form.errors.verb && form.touched.verb}
-                        >
-                          <FormLabel htmlFor="verb" fontWeight="bold">
-                            {"Verb"}
-                          </FormLabel>
-                          <Input
-                            {...field}
-                            id="verb"
-                            type="text"
-                            placeholder="Enter verb..."
-                            size="lg"
-                            fontSize="16px"
-                            fontWeight={400}
-                            background="#F6F6F6"
-                            borderRadius={6}
-                            _placeholder={{ color: "gray.500" }}
-                            _hover={{ background: "#e0e0e0" }}
-                          />
-                          <Box position="absolute" top="68px" left="2px">
-                            <FormErrorMessage fontSize="11px">
-                              {form.errors.verb}
-                            </FormErrorMessage>
-                          </Box>
+                          <FormHelperText lineHeight="1.50" mt={3}>
+                            {`Used in the quiz card. Can be a path from the UI public folder e.g. "/world-map-header.svg" or a full url e.g. "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1e6-1f1f7.svg".`}
+                          </FormHelperText>
                         </FormControl>
                       )}
                     </Field>
@@ -590,6 +429,11 @@ const AdminCreateQuizForm: FC<Props> = ({
                               {form.errors.apiPath}
                             </FormErrorMessage>
                           </Box>
+                          <FormHelperText lineHeight="1.50" mt={3}>
+                            {
+                              "This is the key used to get the mappings for this particular quiz. The mapping will be called using http://localhost:3000/api/mappings/{apiPath}."
+                            }
+                          </FormHelperText>
                         </FormControl>
                       )}
                     </Field>
@@ -622,6 +466,83 @@ const AdminCreateQuizForm: FC<Props> = ({
                               {form.errors.route}
                             </FormErrorMessage>
                           </Box>
+                          <FormHelperText lineHeight="1.50" mt={3}>
+                            {`This is the descriptor used in the URL for the quiz. The full route will be something like geobuff.com/quiz/{route}.`}
+                          </FormHelperText>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  <Flex marginY={3}>
+                    <Field name="singular">
+                      {({ field, form }): React.ReactNode => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.singular && form.touched.singular
+                          }
+                        >
+                          <FormLabel htmlFor="singular" fontWeight="bold">
+                            {"Singular"}
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            id="singular"
+                            type="text"
+                            placeholder="Enter singular..."
+                            size="lg"
+                            fontSize="16px"
+                            fontWeight={400}
+                            background="#F6F6F6"
+                            borderRadius={6}
+                            _placeholder={{ color: "gray.500" }}
+                            _hover={{ background: "#e0e0e0" }}
+                          />
+                          <Box position="absolute" top="68px" left="2px">
+                            <FormErrorMessage fontSize="11px">
+                              {form.errors.singular}
+                            </FormErrorMessage>
+                          </Box>
+                          <FormHelperText lineHeight="1.50" mt={3}>
+                            {
+                              "This is used to to describe each instance of a mapping in the quiz e.g. province. Please use lowercase format."
+                            }
+                          </FormHelperText>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  <Flex marginY={3}>
+                    <Field name="verb">
+                      {({ field, form }): React.ReactNode => (
+                        <FormControl
+                          isInvalid={form.errors.verb && form.touched.verb}
+                        >
+                          <FormLabel htmlFor="verb" fontWeight="bold">
+                            {"Verb"}
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            id="verb"
+                            type="text"
+                            placeholder="Enter verb..."
+                            size="lg"
+                            fontSize="16px"
+                            fontWeight={400}
+                            background="#F6F6F6"
+                            borderRadius={6}
+                            _placeholder={{ color: "gray.500" }}
+                            _hover={{ background: "#e0e0e0" }}
+                          />
+                          <Box position="absolute" top="68px" left="2px">
+                            <FormErrorMessage fontSize="11px">
+                              {form.errors.verb}
+                            </FormErrorMessage>
+                          </Box>
+                          <FormHelperText lineHeight="1.50" mt={3}>
+                            {"Plural of singular field."}
+                          </FormHelperText>
                         </FormControl>
                       )}
                     </Field>
@@ -674,6 +595,9 @@ const AdminCreateQuizForm: FC<Props> = ({
                           <FormLabel htmlFor="hasGrouping" fontWeight="bold">
                             {"Has grouping?"}
                           </FormLabel>
+                          <FormHelperText lineHeight="1.50" mb={3}>
+                            {`Only applicable if "Group" values have been added to the mappings for the quiz e.g. the "world-countries" mappings have been grouped by continents. Discuss with Ash if unsure.`}
+                          </FormHelperText>
                           <HStack
                             name="hasGrouping"
                             spacing={3}
@@ -709,6 +633,9 @@ const AdminCreateQuizForm: FC<Props> = ({
                           <FormLabel htmlFor="hasFlags" fontWeight="bold">
                             {"Has flags?"}
                           </FormLabel>
+                          <FormHelperText lineHeight="1.50" mb={3}>
+                            {`Only applicable if flag mappings have been added to https://github.com/geobuff/flags.`}
+                          </FormHelperText>
                           <HStack
                             name="hasFlags"
                             spacing={3}
@@ -763,6 +690,122 @@ const AdminCreateQuizForm: FC<Props> = ({
                               );
                             })}
                           </HStack>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  <Flex marginY={3}>
+                    <Field name="country">
+                      {({ field, form }): React.ReactNode => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.country && form.touched.country
+                          }
+                        >
+                          <FormLabel htmlFor="country" fontWeight="bold">
+                            {"Country"}
+                          </FormLabel>
+                          <Input
+                            {...field}
+                            id="country"
+                            type="text"
+                            placeholder="Enter country..."
+                            size="lg"
+                            fontSize="16px"
+                            fontWeight={400}
+                            background="#F6F6F6"
+                            borderRadius={6}
+                            _placeholder={{ color: "gray.500" }}
+                            _hover={{ background: "#e0e0e0" }}
+                          />
+                          <Box position="absolute" top="68px" left="2px">
+                            <FormErrorMessage fontSize="11px">
+                              {form.errors.country}
+                            </FormErrorMessage>
+                          </Box>
+                          <FormHelperText lineHeight="1.50">
+                            {`Optional field. This is used to filter non-global quizzes. Please use titlecase format e.g. "Argentina".`}
+                          </FormHelperText>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  <Flex marginY={3}>
+                    <Field name="badgeId">
+                      {({ form }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.badgeId && form.touched.badgeId
+                          }
+                        >
+                          <FormLabel htmlFor="badgeId" fontWeight="bold">
+                            {"Badge"}
+                          </FormLabel>
+                          <FormHelperText lineHeight="1.50" mb={3}>
+                            {"Optional field. Only select if applicable."}
+                          </FormHelperText>
+                          <SimpleGrid
+                            columns={2}
+                            name="badgeId"
+                            spacing={3}
+                            {...badgeRadioGroup}
+                          >
+                            {badges.map((badge) => {
+                              //@ts-expect-error
+                              const radio = getBadgeRadioProps({
+                                value: badge.id.toString(),
+                              });
+
+                              return (
+                                <RadioButton key={badge.id} radioProps={radio}>
+                                  {badge.name}
+                                </RadioButton>
+                              );
+                            })}
+                          </SimpleGrid>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  <Flex marginY={3}>
+                    <Field name="continentId">
+                      {({ form }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.continentId && form.touched.continentId
+                          }
+                        >
+                          <FormLabel htmlFor="continentId" fontWeight="bold">
+                            {"Continent"}
+                          </FormLabel>
+                          <FormHelperText lineHeight="1.50" mb={3}>
+                            {"Optional field. Only select if applicable."}
+                          </FormHelperText>
+                          <SimpleGrid
+                            columns={2}
+                            name="continentId"
+                            spacing={3}
+                            {...continentRadioGroup}
+                          >
+                            {continents.map((continent) => {
+                              //@ts-expect-error
+                              const radio = getContinentRadioProps({
+                                value: continent.id.toString(),
+                              });
+
+                              return (
+                                <RadioButton
+                                  key={continent.id}
+                                  radioProps={radio}
+                                >
+                                  {continent.name}
+                                </RadioButton>
+                              );
+                            })}
+                          </SimpleGrid>
                         </FormControl>
                       )}
                     </Field>
