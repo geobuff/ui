@@ -51,6 +51,11 @@ const validationSchema = Yup.object().shape({
   enabled: Yup.boolean().required("Please enter a value for enabled."),
 });
 
+const booleanRadioOptions = [
+  { name: "True", value: "true" },
+  { name: "False", value: "false" },
+];
+
 export interface Props {
   types?: QuizType[];
   badges?: Badge[];
@@ -640,10 +645,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                             minHeight="50px"
                             {...hasLeaderboardRadioGroup}
                           >
-                            {[
-                              { name: "True", value: "true" },
-                              { name: "False", value: "false" },
-                            ].map((entry, index) => {
+                            {booleanRadioOptions.map((entry, index) => {
                               //@ts-expect-error
                               const radio = getHasLeaderboardRadioProps({
                                 value: entry.value,
@@ -678,10 +680,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                             minHeight="50px"
                             {...hasGroupingRadioGroup}
                           >
-                            {[
-                              { name: "True", value: "true" },
-                              { name: "False", value: "false" },
-                            ].map((entry, index) => {
+                            {booleanRadioOptions.map((entry, index) => {
                               //@ts-expect-error
                               const radio = getHasGroupingRadioProps({
                                 value: entry.value,
@@ -716,10 +715,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                             minHeight="50px"
                             {...hasFlagsRadioGroup}
                           >
-                            {[
-                              { name: "True", value: "true" },
-                              { name: "False", value: "false" },
-                            ].map((entry, index) => {
+                            {booleanRadioOptions.map((entry, index) => {
                               //@ts-expect-error
                               const radio = getHasFlagsRadioProps({
                                 value: entry.value,
@@ -754,10 +750,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                             minHeight="50px"
                             {...enabledRadioGroup}
                           >
-                            {[
-                              { name: "True", value: "true" },
-                              { name: "False", value: "false" },
-                            ].map((entry, index) => {
+                            {booleanRadioOptions.map((entry, index) => {
                               //@ts-expect-error
                               const radio = getEnabledRadioProps({
                                 value: entry.value,
