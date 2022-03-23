@@ -25,7 +25,7 @@ export interface Props {
   hasLeaderboard?: boolean;
   id?: number;
   name?: string;
-  verb?: string;
+  plural?: string;
   hasFlags?: boolean;
   hasGrouping?: boolean;
   mapping?: Mapping[];
@@ -43,7 +43,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
   hasLeaderboard = false,
   id = 0,
   name = "",
-  verb = "",
+  plural = "",
   hasFlags = false,
   hasGrouping = false,
   mapping = [],
@@ -154,7 +154,11 @@ const GameMapQuizBottomSheet: FC<Props> = ({
               <Text fontWeight="bold" mb={1}>
                 {"RECENT"}
               </Text>
-              <ResultsList results={recents} verb={verb} hasFlags={hasFlags} />
+              <ResultsList
+                results={recents}
+                plural={plural}
+                hasFlags={hasFlags}
+              />
             </Box>
 
             <ResultsMap

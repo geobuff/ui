@@ -27,7 +27,7 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 export interface Props {
   typeId?: number;
   maxScore?: number;
-  verb?: string;
+  plural?: string;
   time?: number;
   hasFlags?: boolean;
   recents?: Result[];
@@ -49,7 +49,7 @@ const GameInputCard: FC<Props> = ({
   typeId = 0,
   maxScore = 0,
   time = 0,
-  verb = "",
+  plural = "",
   hasFlags = false,
   recents = [],
   score = 0,
@@ -95,7 +95,7 @@ const GameInputCard: FC<Props> = ({
               isDisabled={!hasGameStarted}
               onChange={onChange}
               my={5}
-              placeholder={`Enter ${verb}...`}
+              placeholder={`Enter ${plural}...`}
               value={inputValue}
             />
             <Fade in={!!errorMessage} unmountOnExit>
@@ -165,7 +165,7 @@ const GameInputCard: FC<Props> = ({
       {divider}
       <Box mt={4}>
         <Text fontWeight="bold">{"RECENT"}</Text>
-        <ResultsList results={recents} verb={verb} hasFlags={hasFlags} />
+        <ResultsList results={recents} plural={plural} hasFlags={hasFlags} />
       </Box>
     </Flex>
   );

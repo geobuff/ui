@@ -9,7 +9,7 @@ export interface CreateQuizFormSubmit {
   time: string;
   mapSVG: string;
   imageUrl: string;
-  verb: string;
+  plural: string;
   apiPath: string;
   route: string;
   hasLeaderboard: string;

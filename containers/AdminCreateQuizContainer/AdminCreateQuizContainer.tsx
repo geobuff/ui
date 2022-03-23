@@ -50,7 +50,7 @@ const AdminCreateQuizContainer: FC<Props> = ({ onClose }) => {
       time: parseInt(values.time),
       mapSVG: values.mapSVG,
       imageUrl: values.imageUrl,
-      verb: values.verb,
+      plural: values.plural,
       apiPath: values.apiPath,
       route: values.route,
       hasLeaderboard: values.hasLeaderboard === "true",

@@ -28,7 +28,7 @@ const GameMapQuizContainer: FC<Props> = ({ quizId }) => {
       name={quiz.name}
       typeId={quiz.typeId}
       maxScore={quiz.maxScore}
-      verb={quiz.verb}
+      plural={quiz.plural}
       route={quiz.route}
       id={quiz.id}
       hasLeaderboard={quiz.hasLeaderboard}

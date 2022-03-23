@@ -12,7 +12,7 @@ export interface Quiz {
   time: number;
   mapSVG: string;
   imageUrl: string;
-  verb: string;
+  plural: string;
   apiPath: string;
   route: string;
   hasLeaderboard: boolean;

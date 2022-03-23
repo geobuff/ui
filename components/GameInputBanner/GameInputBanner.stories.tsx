@@ -14,7 +14,7 @@ export const Default = Template.bind({});
 Default.args = {
   type: 1,
   maxScore: 197,
-  verb: "countries",
+  plural: "countries",
   time: 900,
   score: 69,
   errorMessage: "",

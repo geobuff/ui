@@ -41,7 +41,7 @@ const validationSchema = Yup.object().shape({
     .moreThan(0)
     .required("Please enter a time in seconds value greater than 0."),
   imageUrl: Yup.string().required("Please enter an image URL."),
-  verb: Yup.string().required("Please enter a verb value."),
+  plural: Yup.string().required("Please enter a plural value."),
   apiPath: Yup.string().required("Please enter an API path."),
   route: Yup.string().required("Please enter a route value."),
   hasLeaderboard: Yup.boolean().required(
@@ -102,7 +102,7 @@ const AdminCreateQuizForm: FC<Props> = ({
           time: "",
           mapSVG: "",
           imageUrl: "",
-          verb: "",
+          plural: "",
           apiPath: "",
           route: "",
           hasLeaderboard: "false",
@@ -514,19 +514,19 @@ const AdminCreateQuizForm: FC<Props> = ({
                   </Flex>
 
                   <Flex marginY={3}>
-                    <Field name="verb">
+                    <Field name="plural">
                       {({ field, form }): React.ReactNode => (
                         <FormControl
-                          isInvalid={form.errors.verb && form.touched.verb}
+                          isInvalid={form.errors.plural && form.touched.plural}
                         >
-                          <FormLabel htmlFor="verb" fontWeight="bold">
-                            {"Verb"}
+                          <FormLabel htmlFor="plural" fontWeight="bold">
+                            {"Plural"}
                           </FormLabel>
                           <Input
                             {...field}
-                            id="verb"
+                            id="plural"
                             type="text"
-                            placeholder="Enter verb..."
+                            placeholder="Enter plural..."
                             size="lg"
                             fontSize="16px"
                             fontWeight={400}
@@ -537,7 +537,7 @@ const AdminCreateQuizForm: FC<Props> = ({
                           />
                           <Box position="absolute" top="68px" left="2px">
                             <FormErrorMessage fontSize="11px">
-                              {form.errors.verb}
+                              {form.errors.plural}
                             </FormErrorMessage>
                           </Box>
                           <FormHelperText lineHeight="1.50" mt={3}>

@@ -59,7 +59,7 @@ interface Props {
   name?: string;
   typeId?: number;
   maxScore?: number;
-  verb?: string;
+  plural?: string;
   route?: string;
   id?: number;
   hasLeaderboard?: boolean;
@@ -74,7 +74,7 @@ const GameMapQuiz: FC<Props> = ({
   name = "",
   typeId = 0,
   maxScore = 0,
-  verb = "",
+  plural = "",
   route = "",
   id = 0,
   hasLeaderboard = false,
@@ -319,7 +319,7 @@ const GameMapQuiz: FC<Props> = ({
           <GameInputBanner
             typeId={typeId}
             maxScore={maxScore}
-            verb={verb}
+            plural={plural}
             time={time}
             score={score}
             errorMessage={errorMessage}
@@ -347,7 +347,7 @@ const GameMapQuiz: FC<Props> = ({
                       typeId={typeId}
                       maxScore={maxScore}
                       time={time}
-                      verb={verb}
+                      plural={plural}
                       hasFlags={hasFlags}
                       recents={recentSubmissions}
                       score={score}
@@ -385,7 +385,7 @@ const GameMapQuiz: FC<Props> = ({
               hasLeaderboard={hasLeaderboard}
               id={id}
               name={name}
-              verb={verb}
+              plural={plural}
               hasFlags={hasFlags}
               hasGrouping={hasGrouping}
               mapping={mapping}
