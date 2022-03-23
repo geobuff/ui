@@ -103,7 +103,7 @@ Default.args = {
   hasLeaderboard: false,
   id: 1,
   name: "Countries of the World",
-  verb: "countries",
+  plural: "countries",
   hasFlags: false,
   hasGrouping: false,
   mapping: mapping,

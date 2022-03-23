@@ -1,4 +1,4 @@
-export interface CreateQuizFormSubmit {
+export interface QuizFormSubmit {
   typeId: string;
   badgeId: string;
   continentId: string;
@@ -9,7 +9,7 @@ export interface CreateQuizFormSubmit {
   time: string;
   mapSVG: string;
   imageUrl: string;
-  verb: string;
+  plural: string;
   apiPath: string;
   route: string;
   hasLeaderboard: string;

@@ -1,4 +1,4 @@
-export interface CreateManualTriviaQuestionFormSubmit {
+export interface ManualTriviaQuestionFormSubmit {
   typeId: string;
   question: string;
   quizDate: string;

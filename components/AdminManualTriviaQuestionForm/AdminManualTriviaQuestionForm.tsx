@@ -33,11 +33,11 @@ import RadioButton from "../RadioButton";
 import Image from "../Image";
 
 import {
-  CreateManualTriviaQuestionFormSubmit as ManualTriviaQuestionFormSubmit,
+  ManualTriviaQuestionFormSubmit,
   QuestionType,
-} from "../../types/create-manual-trivia-question-form-submit";
+} from "../../types/manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
-import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
+import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -74,15 +74,6 @@ const getFlagsByCategory = (category: string) => {
     (flag) => flag.slice(0, 2) === category && flag.length !== 2
   );
 };
-
-// Extra non form fields that we need to up build state for the form
-// and for the edit api request
-export interface ManualTriviaQuestionEditValues
-  extends ManualTriviaQuestionFormSubmit {
-  hasFlagAnswers?: boolean;
-  id: string;
-  answers?: ManualTriviaAnswer[];
-}
 
 export interface Props {
   editValues?: ManualTriviaQuestionEditValues;
@@ -158,7 +149,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
           onSubmit={onSubmit}
           enableReinitialize
         >
-          {({ dirty, values, setFieldValue, errors }) => {
+          {({ values, setFieldValue, errors }) => {
             // eslint-disable-next-line react-hooks/rules-of-hooks
             const { getRootProps, getRadioProps } = useRadioGroup({
               name: "typeId",
@@ -923,7 +914,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                           width="100%"
                           type="submit"
                           isLoading={isLoading}
-                          disabled={!dirty || isLoading || isSubmitting}
+                          disabled={isLoading || isSubmitting}
                         >
                           {isEditing ? "Update" : "Create"}
                         </Button>

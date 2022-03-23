@@ -47,7 +47,7 @@ const AdminGeneralContainer = dynamic(
 );
 
 const AdminCreateQuizContainer = dynamic(
-  () => import("../containers/AdminCreateQuizContainer")
+  () => import("../containers/AdminQuizFormContainer")
 );
 
 const AdminManualTriviaQuestionsContainer = dynamic(

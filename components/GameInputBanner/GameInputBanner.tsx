@@ -22,7 +22,7 @@ import { QuizTypes } from "../../types/quiz-types";
 export interface Props {
   typeId?: number;
   maxScore?: number;
-  verb?: string;
+  plural?: string;
   score?: number;
   time?: number;
   errorMessage?: string;
@@ -38,7 +38,7 @@ export interface Props {
 const GameInputBanner: FC<Props> = ({
   typeId = 0,
   maxScore = 0,
-  verb = "",
+  plural = "",
   time = 0,
   score = 0,
   errorMessage = "",
@@ -64,12 +64,12 @@ const GameInputBanner: FC<Props> = ({
     inputRef.current.focus();
   };
 
-  const scoreLabel = `${score} of ${maxScore} ${verb}`;
+  const scoreLabel = `${score} of ${maxScore} ${plural}`;
 
   const scoreNode = (
     <>
       {scoreLabel?.length > 23 ? (
-        <Tooltip label={verb}>
+        <Tooltip label={plural}>
           <Box textAlign="center" mr={3}>
             <GameInputBannerTimer
               expiryTimestamp={expiryTimestamp}
@@ -135,7 +135,7 @@ const GameInputBanner: FC<Props> = ({
               ref={inputRef}
               isDisabled={!hasGameStarted}
               isInvalid={hasError}
-              placeholder={`Enter ${verb}...`}
+              placeholder={`Enter ${plural}...`}
               onChange={onChange}
               value={inputValue}
             />

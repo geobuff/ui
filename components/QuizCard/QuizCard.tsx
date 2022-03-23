@@ -15,7 +15,7 @@ export interface Props extends FlexProps {
   imageUrl?: string;
   time?: number;
   maxScore?: number;
-  verb?: string;
+  plural?: string;
 }
 
 const QuizCard: FC<Props> = ({
@@ -23,7 +23,7 @@ const QuizCard: FC<Props> = ({
   imageUrl = "",
   time = 0,
   maxScore = 0,
-  verb = "",
+  plural = "",
   ...props
 }) => (
   <Flex
@@ -106,7 +106,7 @@ const QuizCard: FC<Props> = ({
               maxWidth={{ base: "65px", md: "85px" }}
               isTruncated
             >
-              {`${maxScore} ${verb}`}
+              {`${maxScore} ${plural}`}
             </Text>
           </Flex>
         </Flex>

@@ -111,7 +111,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
               imageUrl={quiz.imageUrl}
               time={quiz.time}
               maxScore={quiz.maxScore}
-              verb={quiz.verb}
+              plural={quiz.plural}
               position={{ base: "relative", md: "absolute" }}
               marginLeft={3}
             />
@@ -262,7 +262,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                           imageUrl={quiz.imageUrl}
                           time={quiz.time}
                           maxScore={quiz.maxScore}
-                          verb={quiz.verb}
+                          plural={quiz.plural}
                           position={{ base: "relative", md: "absolute" }}
                           marginLeft={3}
                         />
@@ -320,7 +320,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                           imageUrl={quiz.imageUrl}
                           time={quiz.time}
                           maxScore={quiz.maxScore}
-                          verb={quiz.verb}
+                          plural={quiz.plural}
                           position={{ base: "relative", md: "absolute" }}
                           marginLeft={{ base: 3, md: 0 }}
                         />
@@ -348,7 +348,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                           imageUrl={quiz.imageUrl}
                           time={quiz.time}
                           maxScore={quiz.maxScore}
-                          verb={quiz.verb}
+                          plural={quiz.plural}
                           position={{ base: "relative", md: "absolute" }}
                           marginLeft={{ base: 3, md: 0 }}
                         />

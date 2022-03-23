@@ -15,5 +15,5 @@ Default.args = {
   imageUrl: "https://dev.geobuff.com/world-map-header.svg",
   time: 300,
   maxScore: 197,
-  verb: "countries",
+  plural: "countries",
 };
