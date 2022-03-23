@@ -3,13 +3,13 @@ import React, { FC, useContext, useState } from "react";
 
 import axiosClient from "../../axios";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import { ManualTriviaQuestionToast } from "../../helpers/toasts";
+import { manualTriviaQuestionToast } from "../../helpers/toasts";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
 
 import AdminManualTriviaQuestionForm from "../../components/AdminManualTriviaQuestionForm";
-import { ManualTriviaQuestionEditValues } from "../../components/AdminManualTriviaQuestionForm/AdminManualTriviaQuestionForm";
 import { NullTime } from "../../types/null-time";
+import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 
 export interface Props {
   editValues?: ManualTriviaQuestionEditValues;
@@ -92,8 +92,7 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
       axiosClient
         .put(`/manual-trivia-questions/${values.id}`, payload, getAuthConfig())
         .then(() => {
-          toast(ManualTriviaQuestionToast("Edit"));
-          resetForm();
+          toast(manualTriviaQuestionToast("Edit", "edited"));
         })
         .catch((error) => setError(error.response.data))
         .finally(() => setIsSubmitting(false));
@@ -101,7 +100,7 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
       axiosClient
         .post(`/manual-trivia-questions`, payload, getAuthConfig())
         .then(() => {
-          toast(ManualTriviaQuestionToast("Create"));
+          toast(manualTriviaQuestionToast());
           resetForm();
         })
         .catch((error) => setError(error.response.data))

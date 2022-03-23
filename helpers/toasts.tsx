@@ -87,24 +87,27 @@ export const deployUIToast = (
   isClosable: true,
 });
 
-export const createQuizToast = (
+export const quizToast = (
+  type: "Create" | "Edit" = "Create",
+  action: "created" | "edited" = "created",
   position: ToastPosition = defaultPosition
 ): UseToastOptions => ({
   position: position,
-  title: "Create Quiz",
-  description: "Successfully created new quiz.",
+  title: `${type} Quiz`,
+  description: `Successfully ${action} quiz.`,
   status: "success",
   duration: 9000,
   isClosable: true,
 });
 
-export const ManualTriviaQuestionToast = (
+export const manualTriviaQuestionToast = (
   type: "Create" | "Edit" = "Create",
+  action: "created" | "edited" = "created",
   position: ToastPosition = defaultPosition
 ): UseToastOptions => ({
   position: position,
   title: `${type} Manual Trivia Question`,
-  description: `Successfully ${type.toLowerCase()} new trivia question.`,
+  description: `Successfully ${action} trivia question.`,
   status: "success",
   duration: 9000,
   isClosable: true,

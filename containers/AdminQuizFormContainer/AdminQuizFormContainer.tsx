@@ -3,18 +3,19 @@ import React, { FC, useContext, useState } from "react";
 import axiosClient from "../../axios";
 import AdminQuizForm from "../../components/AdminQuizForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import { createQuizToast } from "../../helpers/toasts";
+import { quizToast } from "../../helpers/toasts";
 import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";
 import useQuizTypes from "../../hooks/UseQuizTypes";
-import { CreateQuizFormSubmit } from "../../types/create-quiz-form-submit";
 import { NullInt } from "../../types/null-int";
+import { QuizEditValues } from "../../types/quiz-edit-values";
 
 export interface Props {
+  editValues?: QuizEditValues;
   onClose?: () => void;
 }
 
-const AdminQuizFormContainer: FC<Props> = ({ onClose }) => {
+const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
   const toast = useToast();
 
   const { getAuthConfig } = useContext(CurrentUserContext);
@@ -25,7 +26,7 @@ const AdminQuizFormContainer: FC<Props> = ({ onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (values: CreateQuizFormSubmit, { resetForm }): void => {
+  const handleSubmit = (values: QuizEditValues, { resetForm }): void => {
     setIsSubmitting(true);
     setError("");
 
@@ -59,18 +60,29 @@ const AdminQuizFormContainer: FC<Props> = ({ onClose }) => {
       enabled: values.enabled === "true",
     };
 
-    axiosClient
-      .post(`/quizzes`, payload, getAuthConfig())
-      .then(() => {
-        toast(createQuizToast());
-        resetForm();
-      })
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsSubmitting(false));
+    if (editValues) {
+      axiosClient
+        .put(`/quizzes/${values.id}`, payload, getAuthConfig())
+        .then(() => {
+          toast(quizToast("Edit", "edited"));
+        })
+        .catch((error) => setError(error.response.data))
+        .finally(() => setIsSubmitting(false));
+    } else {
+      axiosClient
+        .post(`/quizzes`, payload, getAuthConfig())
+        .then(() => {
+          toast(quizToast());
+          resetForm();
+        })
+        .catch((error) => setError(error.response.data))
+        .finally(() => setIsSubmitting(false));
+    }
   };
 
   return (
     <AdminQuizForm
+      editValues={editValues}
       types={types}
       badges={badges}
       continents={continents}

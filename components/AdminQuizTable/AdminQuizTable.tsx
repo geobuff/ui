@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
   Box,
   Button,
@@ -24,6 +24,7 @@ import Card from "../Card";
 import Modal from "../Modal";
 import { Quiz } from "../../types/quiz";
 import AdminQuizFormContainer from "../../containers/AdminQuizFormContainer";
+import { QuizEditValues } from "../../types/quiz-edit-values";
 
 const getType = (typeId: number): string => {
   switch (typeId) {
@@ -38,7 +39,6 @@ const getType = (typeId: number): string => {
 
 export interface Props {
   quizPage?: QuizPageDto;
-  isSubmitting?: boolean;
   page?: number;
   isLoading?: boolean;
   onPreviousPage?: () => void;
@@ -48,7 +48,6 @@ export interface Props {
 
 const AdminQuizTable: FC<Props> = ({
   quizPage = null,
-  isSubmitting = false,
   page = 0,
   isLoading = false,
   onPreviousPage = () => {},
@@ -58,8 +57,38 @@ const AdminQuizTable: FC<Props> = ({
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const handleEdit = (quiz: Quiz): void => {
-    console.log(quiz);
+  const [selectedQuiz, setSelectedQuiz] = useState<QuizEditValues>(null);
+
+  const handleCreate = () => {
+    setSelectedQuiz(null);
+    onOpen();
+  };
+
+  const handleEdit = (quiz: Quiz) => {
+    setSelectedQuiz({
+      id: quiz.id,
+      typeId: quiz.typeId.toString(),
+      badgeId: quiz.badgeId.Valid ? quiz.badgeId.Int64.toString() : "",
+      continentId: quiz.continentId.Valid
+        ? quiz.continentId.Int64.toString()
+        : "",
+      country: quiz.country || "",
+      singular: quiz.singular,
+      name: quiz.name,
+      maxScore: quiz.maxScore.toString(),
+      time: quiz.time.toString(),
+      mapSVG: quiz.mapSVG || "",
+      imageUrl: quiz.imageUrl,
+      plural: quiz.plural,
+      apiPath: quiz.apiPath,
+      route: quiz.route,
+      hasLeaderboard: quiz.hasLeaderboard.toString(),
+      hasGrouping: quiz.hasGrouping.toString(),
+      hasFlags: quiz.hasFlags.toString(),
+      enabled: quiz.enabled.toString(),
+    });
+
+    onOpen();
   };
 
   return (
@@ -72,7 +101,7 @@ const AdminQuizTable: FC<Props> = ({
           marginX={2}
         >
           <Heading fontSize="24px">{"Quizzes"}</Heading>
-          <Button colorScheme="teal" size="md" onClick={onOpen}>
+          <Button colorScheme="teal" size="md" onClick={handleCreate}>
             {"Create Quiz"}
           </Button>
         </Flex>
@@ -180,7 +209,7 @@ const AdminQuizTable: FC<Props> = ({
         minWidth="660px"
       >
         <Flex padding={10} width="100%" overflow="scroll">
-          <AdminQuizFormContainer onClose={onClose} />
+          <AdminQuizFormContainer editValues={selectedQuiz} onClose={onClose} />
         </Flex>
       </Modal>
     </>

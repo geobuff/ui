@@ -1,17 +1,13 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminQuizTable from "../../components/AdminQuizTable";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { QuizPageDto } from "../../types/quiz-page-dto";
 import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 
 const AdminQuizzesContainer: FC = () => {
-  const { getAuthConfig } = useContext(CurrentUserContext);
-
   const [quizPage, setQuizPage] = useState<QuizPageDto>();
   const [page, setPage] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
-  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setIsLoading(true);
@@ -43,7 +39,6 @@ const AdminQuizzesContainer: FC = () => {
   return (
     <AdminQuizTable
       quizPage={quizPage}
-      isSubmitting={isSubmitting}
       isLoading={isLoading}
       page={page}
       onPreviousPage={handlePreviousPage}
