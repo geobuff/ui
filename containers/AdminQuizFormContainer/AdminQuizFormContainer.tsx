@@ -1,7 +1,7 @@
 import { useToast } from "@chakra-ui/react";
 import React, { FC, useContext, useState } from "react";
 import axiosClient from "../../axios";
-import AdminCreateQuizForm from "../../components/AdminCreateQuizForm";
+import AdminQuizForm from "../../components/AdminQuizForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { createQuizToast } from "../../helpers/toasts";
 import useBadges from "../../hooks/UseBadges";
@@ -14,13 +14,13 @@ export interface Props {
   onClose?: () => void;
 }
 
-const AdminCreateQuizContainer: FC<Props> = ({ onClose }) => {
+const AdminQuizFormContainer: FC<Props> = ({ onClose }) => {
   const toast = useToast();
 
   const { getAuthConfig } = useContext(CurrentUserContext);
-  const { data: types, isLoading: isQuizTypesLoading } = useQuizTypes();
-  const { data: badges, isLoading: isBadgesLoading } = useBadges();
-  const { data: continents, isLoading: isContinentsLoading } = useContinents();
+  const { data: types } = useQuizTypes();
+  const { data: badges } = useBadges();
+  const { data: continents } = useContinents();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -69,12 +69,8 @@ const AdminCreateQuizContainer: FC<Props> = ({ onClose }) => {
       .finally(() => setIsSubmitting(false));
   };
 
-  if (isQuizTypesLoading || isBadgesLoading || isContinentsLoading) {
-    return null;
-  }
-
   return (
-    <AdminCreateQuizForm
+    <AdminQuizForm
       types={types}
       badges={badges}
       continents={continents}
@@ -86,4 +82,4 @@ const AdminCreateQuizContainer: FC<Props> = ({ onClose }) => {
   );
 };
 
-export default AdminCreateQuizContainer;
+export default AdminQuizFormContainer;

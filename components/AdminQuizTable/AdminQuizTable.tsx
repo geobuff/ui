@@ -22,8 +22,8 @@ import { QuizPageDto } from "../../types/quiz-page-dto";
 import AdminQuizTablePlaceholder from "../../placeholders/AdminQuizTablePlaceholder";
 import Card from "../Card";
 import Modal from "../Modal";
-import AdminCreateQuizContainer from "../../containers/AdminCreateQuizContainer";
 import { Quiz } from "../../types/quiz";
+import AdminQuizFormContainer from "../../containers/AdminQuizFormContainer";
 
 const getType = (typeId: number): string => {
   switch (typeId) {
@@ -180,7 +180,7 @@ const AdminQuizTable: FC<Props> = ({
         minWidth="660px"
       >
         <Flex padding={10} width="100%" overflow="scroll">
-          <AdminCreateQuizContainer onClose={onClose} />
+          <AdminQuizFormContainer onClose={onClose} />
         </Flex>
       </Modal>
     </>

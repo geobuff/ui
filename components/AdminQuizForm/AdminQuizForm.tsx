@@ -20,6 +20,7 @@ import {
   NumberInputStepper,
   SimpleGrid,
   useRadioGroup,
+  Text,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
@@ -71,7 +72,7 @@ export interface Props {
   onClose?: () => void;
 }
 
-const AdminCreateQuizForm: FC<Props> = ({
+const AdminQuizForm: FC<Props> = ({
   types = [],
   badges = [],
   continents = [],
@@ -247,18 +248,28 @@ const AdminCreateQuizForm: FC<Props> = ({
                             minHeight="50px"
                             {...typeRadioGroup}
                           >
-                            {types.map((type) => {
-                              //@ts-expect-error
-                              const radio = getTypeRadioProps({
-                                value: type.id.toString(),
-                              });
+                            {!types.length ? (
+                              <Text
+                                width="347px"
+                                textAlign="center"
+                                color="gray.500"
+                              >
+                                {"Loading Types.."}
+                              </Text>
+                            ) : (
+                              types.map((type) => {
+                                //@ts-expect-error
+                                const radio = getTypeRadioProps({
+                                  value: type.id.toString(),
+                                });
 
-                              return (
-                                <RadioButton key={type.id} radioProps={radio}>
-                                  {type.name}
-                                </RadioButton>
-                              );
-                            })}
+                                return (
+                                  <RadioButton key={type.id} radioProps={radio}>
+                                    {type.name}
+                                  </RadioButton>
+                                );
+                              })
+                            )}
                           </HStack>
                         </FormControl>
                       )}
@@ -752,18 +763,31 @@ const AdminCreateQuizForm: FC<Props> = ({
                             spacing={3}
                             {...badgeRadioGroup}
                           >
-                            {badges.map((badge) => {
-                              //@ts-expect-error
-                              const radio = getBadgeRadioProps({
-                                value: badge.id.toString(),
-                              });
+                            {!badges.length ? (
+                              <Text
+                                width="347px"
+                                textAlign="center"
+                                color="gray.500"
+                              >
+                                {"Loading Badges.."}
+                              </Text>
+                            ) : (
+                              badges.map((badge) => {
+                                //@ts-expect-error
+                                const radio = getBadgeRadioProps({
+                                  value: badge.id.toString(),
+                                });
 
-                              return (
-                                <RadioButton key={badge.id} radioProps={radio}>
-                                  {badge.name}
-                                </RadioButton>
-                              );
-                            })}
+                                return (
+                                  <RadioButton
+                                    key={badge.id}
+                                    radioProps={radio}
+                                  >
+                                    {badge.name}
+                                  </RadioButton>
+                                );
+                              })
+                            )}
                           </SimpleGrid>
                         </FormControl>
                       )}
@@ -790,21 +814,31 @@ const AdminCreateQuizForm: FC<Props> = ({
                             spacing={3}
                             {...continentRadioGroup}
                           >
-                            {continents.map((continent) => {
-                              //@ts-expect-error
-                              const radio = getContinentRadioProps({
-                                value: continent.id.toString(),
-                              });
+                            {!continents.length ? (
+                              <Text
+                                width="347px"
+                                textAlign="center"
+                                color="gray.500"
+                              >
+                                {"Loading Continents.."}
+                              </Text>
+                            ) : (
+                              continents.map((continent) => {
+                                //@ts-expect-error
+                                const radio = getContinentRadioProps({
+                                  value: continent.id.toString(),
+                                });
 
-                              return (
-                                <RadioButton
-                                  key={continent.id}
-                                  radioProps={radio}
-                                >
-                                  {continent.name}
-                                </RadioButton>
-                              );
-                            })}
+                                return (
+                                  <RadioButton
+                                    key={continent.id}
+                                    radioProps={radio}
+                                  >
+                                    {continent.name}
+                                  </RadioButton>
+                                );
+                              })
+                            )}
                           </SimpleGrid>
                         </FormControl>
                       )}
@@ -846,4 +880,4 @@ const AdminCreateQuizForm: FC<Props> = ({
   </>
 );
 
-export default AdminCreateQuizForm;
+export default AdminQuizForm;
