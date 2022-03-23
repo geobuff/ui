@@ -28,18 +28,6 @@ const AdminQuizzesContainer: FC = () => {
     });
   }, [page]);
 
-  const handleToggleEnabled = (quizId: number): void => {
-    setIsSubmitting(true);
-    axiosClient
-      .put(`/quizzes/enabled/${quizId}`, null, getAuthConfig())
-      .then(() => {
-        const quiz = quizPage?.quizzes.find((x) => x.id === quizId);
-        const index = quizPage?.quizzes.indexOf(quiz);
-        quizPage.quizzes[index].enabled = !quizPage.quizzes[index].enabled;
-      })
-      .finally(() => setIsSubmitting(false));
-  };
-
   const handlePreviousPage = (): void => {
     setIsLoading(true);
     setPage(page - 1);
@@ -58,7 +46,6 @@ const AdminQuizzesContainer: FC = () => {
       isSubmitting={isSubmitting}
       isLoading={isLoading}
       page={page}
-      onToggleEnabled={handleToggleEnabled}
       onPreviousPage={handlePreviousPage}
       onNextPage={handleNextPage}
     />
