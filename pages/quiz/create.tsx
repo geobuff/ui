@@ -4,6 +4,7 @@ import Head from "next/head";
 import MainView from "../../components/MainView";
 import HeroHeader from "../../components/HeroHeader";
 import Card from "../../components/Card";
+import CommunityQuizForm from "../../components/CommunityQuizForm/CommunityQuizForm";
 
 const Create: FC = () => {
   return (
@@ -17,15 +18,19 @@ const Create: FC = () => {
           direction="column"
           borderRadius={12}
           width="100%"
-          maxWidth={1000}
+          maxWidth={900}
           marginX="auto"
           paddingX={4}
           marginTop={-125}
           marginBottom={14}
           justifyContent="center"
         >
-          <Card padding={{ base: 4, md: 6 }} minHeight="600px">
+          <Card padding={{ base: 3, md: 8 }} minHeight="600px">
             <Heading>{"Create Community Quiz"}</Heading>
+
+            <Flex width="100%" marginY={10}>
+              <CommunityQuizForm />
+            </Flex>
           </Card>
         </Flex>
       </MainView>
