@@ -13,7 +13,7 @@ const Create: FC = () => {
         <title>{"Create Community Quiz - GeoBuff"}</title>
       </Head>
       <MainView>
-        <HeroHeader height={{ base: "200px", md: "250px" }} />
+        <HeroHeader height={{ base: "180px", md: "220px" }} />
         <Flex
           direction="column"
           borderRadius={12}
@@ -25,10 +25,10 @@ const Create: FC = () => {
           marginBottom={14}
           justifyContent="center"
         >
-          <Card padding={{ base: 3, md: 8 }} minHeight="600px">
+          <Card padding={{ base: 6, md: 8 }}>
             <Heading>{"Create Community Quiz"}</Heading>
 
-            <Flex width="100%" marginY={10}>
+            <Flex width="100%" marginTop={10}>
               <CommunityQuizForm />
             </Flex>
           </Card>

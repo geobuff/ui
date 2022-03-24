@@ -29,7 +29,7 @@ const CommunityQuizFormField: FC<FormFieldProps> = ({
   <Flex key={name} width="100%" alignItems="center" marginY={4}>
     <Field name={name}>
       {({ field, form }) => (
-        <FormControl isInvalid={form.errors.question && form.touched.question}>
+        <FormControl isInvalid={form.errors[name] && form.touched[name]}>
           <Flex>
             <Flex width="50%" direction="column">
               <FormLabel htmlFor={name} fontWeight="bold" marginBottom={0.5}>
@@ -53,7 +53,7 @@ const CommunityQuizFormField: FC<FormFieldProps> = ({
             />
           </Flex>
           <FormErrorMessage fontSize="11px">
-            {form.errors.quizName}
+            {form.errors[name]}
           </FormErrorMessage>
         </FormControl>
       )}
