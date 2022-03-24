@@ -45,7 +45,7 @@ const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
         <Divider my={5} borderColor="gray.100" borderWidth={1} />
 
         <Flex justifyContent="flex-end" marginTop={8}>
-          <Button type="submit" colorScheme="green" size="lg">
+          <Button type="submit" colorScheme="green">
             {"Create Quiz"}
           </Button>
         </Flex>
