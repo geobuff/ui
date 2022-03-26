@@ -86,7 +86,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
       flagCode: question?.flagCode || "",
       map: question?.map || "",
       highlighted: question?.highlighted || "",
-      quizDate: question?.lastUsed.Valid ? question?.lastUsed.Time : "",
+      quizDate: question?.quizDate.Valid ? question?.quizDate.Time : null,
       answers: question?.answers || [],
     });
 
