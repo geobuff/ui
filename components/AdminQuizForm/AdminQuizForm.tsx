@@ -281,6 +281,7 @@ const AdminQuizForm: FC<Props> = ({
                                     <RadioButton
                                       key={type.id}
                                       radioProps={radio}
+                                      color="teal"
                                     >
                                       {type.name}
                                     </RadioButton>
@@ -606,7 +607,11 @@ const AdminQuizForm: FC<Props> = ({
                                 });
 
                                 return (
-                                  <RadioButton key={index} radioProps={radio}>
+                                  <RadioButton
+                                    key={index}
+                                    radioProps={radio}
+                                    color="teal"
+                                  >
                                     {entry.name}
                                   </RadioButton>
                                 );
@@ -645,7 +650,11 @@ const AdminQuizForm: FC<Props> = ({
                                 });
 
                                 return (
-                                  <RadioButton key={index} radioProps={radio}>
+                                  <RadioButton
+                                    key={index}
+                                    radioProps={radio}
+                                    color="teal"
+                                  >
                                     {entry.name}
                                   </RadioButton>
                                 );
@@ -683,7 +692,11 @@ const AdminQuizForm: FC<Props> = ({
                                 });
 
                                 return (
-                                  <RadioButton key={index} radioProps={radio}>
+                                  <RadioButton
+                                    key={index}
+                                    radioProps={radio}
+                                    color="teal"
+                                  >
                                     {entry.name}
                                   </RadioButton>
                                 );
@@ -718,7 +731,11 @@ const AdminQuizForm: FC<Props> = ({
                                 });
 
                                 return (
-                                  <RadioButton key={index} radioProps={radio}>
+                                  <RadioButton
+                                    key={index}
+                                    radioProps={radio}
+                                    color="teal"
+                                  >
                                     {entry.name}
                                   </RadioButton>
                                 );
@@ -805,6 +822,7 @@ const AdminQuizForm: FC<Props> = ({
                                     <RadioButton
                                       key={badge.id}
                                       radioProps={radio}
+                                      color="teal"
                                     >
                                       {badge.name}
                                     </RadioButton>
@@ -857,6 +875,7 @@ const AdminQuizForm: FC<Props> = ({
                                     <RadioButton
                                       key={continent.id}
                                       radioProps={radio}
+                                      color="teal"
                                     >
                                       {continent.name}
                                     </RadioButton>

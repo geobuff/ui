@@ -197,7 +197,11 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                   value: type.id.toString(),
                                 });
                                 return (
-                                  <RadioButton key={type.id} radioProps={radio}>
+                                  <RadioButton
+                                    key={type.id}
+                                    radioProps={radio}
+                                    color="teal"
+                                  >
                                     {type.name}
                                   </RadioButton>
                                 );
@@ -456,6 +460,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
 
                         <HStack spacing={3}>
                           <RadioButton
+                            color="teal"
                             radioProps={{
                               isChecked: !hasFlagAnswers,
                               onChange: () => setHasFlagAnswers(false),
@@ -464,6 +469,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                             {"No"}
                           </RadioButton>
                           <RadioButton
+                            color="teal"
                             radioProps={{
                               isChecked: hasFlagAnswers,
                               onChange: () => setHasFlagAnswers(true),

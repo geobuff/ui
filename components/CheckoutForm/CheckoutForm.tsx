@@ -171,7 +171,11 @@ const CheckoutForm: FC<Props> = ({
                                 value: option.id.toString(),
                               });
                               return (
-                                <RadioButton key={option.id} radioProps={radio}>
+                                <RadioButton
+                                  key={option.id}
+                                  radioProps={radio}
+                                  color="teal"
+                                >
                                   <Text fontWeight="bold">{option.name}</Text>
                                   <Text>{option.description}</Text>
                                 </RadioButton>
