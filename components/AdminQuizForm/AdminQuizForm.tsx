@@ -108,17 +108,17 @@ const AdminQuizForm: FC<Props> = ({
                 country: "",
                 singular: "",
                 name: "",
-                maxScore: "",
-                time: "",
+                maxScore: "0",
+                time: "0",
                 mapSVG: "",
                 imageUrl: "",
                 plural: "",
                 apiPath: "",
                 route: "",
-                hasLeaderboard: "false",
-                hasGrouping: "false",
-                hasFlags: "false",
-                enabled: "false",
+                hasLeaderboard: false,
+                hasGrouping: false,
+                hasFlags: false,
+                enabled: false,
               }
             }
             validationSchema={validationSchema}
@@ -167,9 +167,9 @@ const AdminQuizForm: FC<Props> = ({
                 getRadioProps: getHasLeaderboardRadioProps,
               } = useRadioGroup({
                 name: "hasLeaderboard",
-                value: values.hasLeaderboard,
+                value: values.hasLeaderboard.toString(),
                 onChange: (value: string) =>
-                  setFieldValue("hasLeaderboard", value),
+                  setFieldValue("hasLeaderboard", value === "true"),
               });
 
               const hasLeaderboardRadioGroup = getHasLeaderboardRootProps();
@@ -179,9 +179,9 @@ const AdminQuizForm: FC<Props> = ({
                 getRadioProps: getHasGroupingRadioProps,
               } = useRadioGroup({
                 name: "hasGrouping",
-                value: values.hasGrouping,
+                value: values.hasGrouping.toString(),
                 onChange: (value: string) =>
-                  setFieldValue("hasGrouping", value),
+                  setFieldValue("hasGrouping", value === "true"),
               });
 
               const hasGroupingRadioGroup = getHasGroupingRootProps();
@@ -191,8 +191,9 @@ const AdminQuizForm: FC<Props> = ({
                 getRadioProps: getHasFlagsRadioProps,
               } = useRadioGroup({
                 name: "hasFlags",
-                value: values.hasFlags,
-                onChange: (value: string) => setFieldValue("hasFlags", value),
+                value: values.hasFlags.toString(),
+                onChange: (value: string) =>
+                  setFieldValue("hasFlags", value === "true"),
               });
 
               const hasFlagsRadioGroup = getHasFlagsRootProps();
@@ -202,8 +203,9 @@ const AdminQuizForm: FC<Props> = ({
                 getRadioProps: getEnabledRadioProps,
               } = useRadioGroup({
                 name: "enabled",
-                value: values.enabled,
-                onChange: (value: string) => setFieldValue("enabled", value),
+                value: values.enabled.toString(),
+                onChange: (value: string) =>
+                  setFieldValue("enabled", value === "true"),
               });
 
               const enabledRadioGroup = getEnabledRootProps();
@@ -337,7 +339,7 @@ const AdminQuizForm: FC<Props> = ({
 
                       <Flex marginY={3}>
                         <Field name="maxScore">
-                          {({ field, form }): React.ReactNode => (
+                          {({ form }): React.ReactNode => (
                             <FormControl
                               isInvalid={
                                 form.errors.maxScore && form.touched.maxScore
@@ -346,8 +348,13 @@ const AdminQuizForm: FC<Props> = ({
                               <FormLabel htmlFor="maxScore" fontWeight="bold">
                                 {"Max Score"}
                               </FormLabel>
-                              <NumberInput>
-                                <NumberInputField {...field} id="maxScore" />
+                              <NumberInput
+                                value={parseInt(values.maxScore)}
+                                onChange={(value: string): void =>
+                                  setFieldValue("maxScore", value)
+                                }
+                              >
+                                <NumberInputField id="maxScore" />
                                 <NumberInputStepper>
                                   <NumberIncrementStepper />
                                   <NumberDecrementStepper />
@@ -365,15 +372,20 @@ const AdminQuizForm: FC<Props> = ({
 
                       <Flex marginY={3}>
                         <Field name="time">
-                          {({ field, form }): React.ReactNode => (
+                          {({ form }): React.ReactNode => (
                             <FormControl
                               isInvalid={form.errors.time && form.touched.time}
                             >
                               <FormLabel htmlFor="time" fontWeight="bold">
                                 {"Time (Seconds)"}
                               </FormLabel>
-                              <NumberInput>
-                                <NumberInputField {...field} id="time" />
+                              <NumberInput
+                                value={parseInt(values.time)}
+                                onChange={(value: string): void =>
+                                  setFieldValue("time", value)
+                                }
+                              >
+                                <NumberInputField id="time" />
                                 <NumberInputStepper>
                                   <NumberIncrementStepper />
                                   <NumberDecrementStepper />

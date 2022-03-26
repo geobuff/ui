@@ -54,10 +54,10 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
       plural: values.plural,
       apiPath: values.apiPath,
       route: values.route,
-      hasLeaderboard: values.hasLeaderboard === "true",
-      hasGrouping: values.hasGrouping === "true",
-      hasFlags: values.hasFlags === "true",
-      enabled: values.enabled === "true",
+      hasLeaderboard: values.hasLeaderboard,
+      hasGrouping: values.hasGrouping,
+      hasFlags: values.hasFlags,
+      enabled: values.enabled,
     };
 
     if (editValues) {
