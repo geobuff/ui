@@ -108,8 +108,8 @@ const AdminQuizForm: FC<Props> = ({
                 country: "",
                 singular: "",
                 name: "",
-                maxScore: "",
-                time: "",
+                maxScore: "0",
+                time: "0",
                 mapSVG: "",
                 imageUrl: "",
                 plural: "",
@@ -337,7 +337,7 @@ const AdminQuizForm: FC<Props> = ({
 
                       <Flex marginY={3}>
                         <Field name="maxScore">
-                          {({ field, form }): React.ReactNode => (
+                          {({ form }): React.ReactNode => (
                             <FormControl
                               isInvalid={
                                 form.errors.maxScore && form.touched.maxScore
@@ -346,8 +346,13 @@ const AdminQuizForm: FC<Props> = ({
                               <FormLabel htmlFor="maxScore" fontWeight="bold">
                                 {"Max Score"}
                               </FormLabel>
-                              <NumberInput>
-                                <NumberInputField {...field} id="maxScore" />
+                              <NumberInput
+                                value={parseInt(values.maxScore)}
+                                onChange={(value: string): void =>
+                                  setFieldValue("maxScore", value)
+                                }
+                              >
+                                <NumberInputField id="maxScore" />
                                 <NumberInputStepper>
                                   <NumberIncrementStepper />
                                   <NumberDecrementStepper />
@@ -365,15 +370,20 @@ const AdminQuizForm: FC<Props> = ({
 
                       <Flex marginY={3}>
                         <Field name="time">
-                          {({ field, form }): React.ReactNode => (
+                          {({ form }): React.ReactNode => (
                             <FormControl
                               isInvalid={form.errors.time && form.touched.time}
                             >
                               <FormLabel htmlFor="time" fontWeight="bold">
                                 {"Time (Seconds)"}
                               </FormLabel>
-                              <NumberInput>
-                                <NumberInputField {...field} id="time" />
+                              <NumberInput
+                                value={parseInt(values.time)}
+                                onChange={(value: string): void =>
+                                  setFieldValue("time", value)
+                                }
+                              >
+                                <NumberInputField id="time" />
                                 <NumberInputStepper>
                                   <NumberIncrementStepper />
                                   <NumberDecrementStepper />
