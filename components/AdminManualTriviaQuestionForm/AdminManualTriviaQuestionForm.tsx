@@ -39,6 +39,7 @@ import {
 } from "../../types/manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
+import CloseLine from "../../Icons/CloseLine";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -526,20 +527,29 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                   form.errors.quizDate && form.touched.quizDate
                                 }
                               >
-                                <DatePicker
-                                  {...field}
-                                  placeholderText="Select date..."
-                                  selected={
-                                    (field.value && new Date(field.value)) ||
-                                    null
-                                  }
-                                  onChange={(value) => {
-                                    setFieldValue(
-                                      "quizDate",
-                                      new Date(value).toISOString()
-                                    );
-                                  }}
-                                />
+                                <HStack>
+                                  <DatePicker
+                                    {...field}
+                                    placeholderText="Select date..."
+                                    selected={
+                                      (field.value && new Date(field.value)) ||
+                                      null
+                                    }
+                                    onChange={(value) => {
+                                      setFieldValue(
+                                        "quizDate",
+                                        new Date(value).toISOString()
+                                      );
+                                    }}
+                                  />
+                                  <Button
+                                    onClick={() => {
+                                      setFieldValue("quizDate", null);
+                                    }}
+                                  >
+                                    <CloseLine />
+                                  </Button>
+                                </HStack>
                                 <Box position="absolute" top="38px" left="2px">
                                   <FormErrorMessage fontSize="11px">
                                     {form.errors.quizDate}
