@@ -48,7 +48,7 @@ interface Props {
   name?: string;
   typeId?: number;
   maxScore?: number;
-  verb?: string;
+  plural?: string;
   route?: string;
   hasLeaderboard?: boolean;
   hasFlags?: boolean;
@@ -62,7 +62,7 @@ const GameFlagQuiz: FC<Props> = ({
   name = "",
   typeId = 0,
   maxScore = 0,
-  verb = "",
+  plural = "",
   route = "",
   hasLeaderboard = false,
   hasFlags = false,
@@ -359,7 +359,7 @@ const GameFlagQuiz: FC<Props> = ({
                       typeId={typeId}
                       maxScore={maxScore}
                       time={time}
-                      verb={verb}
+                      plural={plural}
                       hasFlags={hasFlags}
                       recents={recentSubmissions}
                       score={score}
@@ -405,7 +405,7 @@ const GameFlagQuiz: FC<Props> = ({
                 >
                   <FlagDropZone
                     acceptedFlagName={acceptedFlag?.svgName}
-                    subtitle={`${score} of ${maxScore} ${verb}`}
+                    subtitle={`${score} of ${maxScore} ${plural}`}
                     hasGameStarted={hasGameStarted}
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}

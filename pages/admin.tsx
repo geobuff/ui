@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
@@ -12,6 +12,7 @@ import {
 } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
+import { useRouter } from "next/router";
 
 const AdminTotalUserCountContainer = dynamic(
   () => import("../containers/AdminTotalUserCountContainer")
@@ -46,111 +47,134 @@ const AdminGeneralContainer = dynamic(
 );
 
 const AdminCreateQuizContainer = dynamic(
-  () => import("../containers/AdminCreateQuizContainer")
+  () => import("../containers/AdminQuizFormContainer")
 );
 
 const AdminManualTriviaQuestionsContainer = dynamic(
   () => import("../containers/AdminManualTriviaQuestionsContainer")
 );
 
-const AdminCreateManualTriviaQuestionContainer = dynamic(
-  () => import("../containers/AdminManualTriviaQuestionContainer")
-);
+const tabs = ["general", "users", "quizzes", "trivia", "orders"];
 
-const Admin: FC = () => (
-  <>
-    <Head>
-      <title>{"Admin Dashboard - GeoBuff"}</title>
-    </Head>
-    <MainView>
-      <Tabs isLazy colorScheme="teal">
-        <Flex
-          position="fixed"
-          left={0}
-          right={0}
-          backgroundColor="white"
-          zIndex={100}
-          borderTop={"1.5px solid #E2E8F0"}
+const Admin: FC = () => {
+  const [tabIndex, setTabIndex] = useState(0);
+
+  const router = useRouter();
+  const { tab } = router.query;
+
+  useEffect(() => {
+    if (tab) {
+      setTabIndex(tabs.indexOf(tab as string));
+    }
+  }, [tab]);
+
+  const handleTabsChange = (index: number): void => {
+    router.push({
+      query: {
+        tab: tabs[index],
+      },
+    });
+  };
+
+  return (
+    <>
+      <Head>
+        <title>{"Admin Dashboard - GeoBuff"}</title>
+      </Head>
+      <MainView>
+        <Tabs
+          isLazy
+          colorScheme="teal"
+          index={tabIndex}
+          onChange={handleTabsChange}
         >
-          <TabList width="100%" paddingX={{ base: 3, md: 5 }}>
-            <Tab fontWeight="medium">General</Tab>
-            <Tab fontWeight="medium">Users</Tab>
-            <Tab fontWeight="medium">Quizzes</Tab>
-            <Tab fontWeight="medium">Trivia</Tab>
-            <Tab fontWeight="medium">Orders</Tab>
-          </TabList>
-        </Flex>
+          <Flex
+            position="fixed"
+            left={0}
+            right={0}
+            backgroundColor="white"
+            zIndex={100}
+            borderTop={"1.5px solid #E2E8F0"}
+          >
+            <TabList width="100%" paddingX={{ base: 3, md: 5 }}>
+              <Tab fontWeight="medium">General</Tab>
+              <Tab fontWeight="medium">Users</Tab>
+              <Tab fontWeight="medium">Quizzes</Tab>
+              <Tab fontWeight="medium">Trivia</Tab>
+              <Tab fontWeight="medium">Orders</Tab>
+            </TabList>
+          </Flex>
 
-        <TabPanels mt={10}>
-          <TabPanel>
-            <Flex justifyContent="center">
-              <Flex
-                direction="column"
-                height="100%"
-                width="100%"
-                maxWidth={1300}
-              >
-                <AdminGeneralContainer />
+          <TabPanels mt={10}>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminGeneralContainer />
+                </Flex>
               </Flex>
-            </Flex>
-          </TabPanel>
-          <TabPanel>
-            <Flex justifyContent="center">
-              <Flex
-                direction="column"
-                height="100%"
-                width="100%"
-                maxWidth={1300}
-              >
-                <AdminTotalUserCountContainer />
-                <AdminUsersContainer />
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminTotalUserCountContainer />
+                  <AdminUsersContainer />
+                </Flex>
               </Flex>
-            </Flex>
-          </TabPanel>
-          <TabPanel>
-            <Flex justifyContent="center">
-              <Flex
-                direction="column"
-                height="100%"
-                width="100%"
-                maxWidth={1300}
-              >
-                <AdminTopFiveQuizPlaysContainer />
-                <AdminQuizzesContainer />
-                <AdminCreateQuizContainer />
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminTopFiveQuizPlaysContainer />
+                  <AdminQuizzesContainer />
+                </Flex>
               </Flex>
-            </Flex>
-          </TabPanel>
-          <TabPanel>
-            <Flex justifyContent="center">
-              <Flex
-                direction="column"
-                height="100%"
-                width="100%"
-                maxWidth={1300}
-              >
-                <AdminLastWeekTriviaPlaysContainer />
-                <AdminManualTriviaQuestionsContainer />
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminLastWeekTriviaPlaysContainer />
+                  <AdminManualTriviaQuestionsContainer />
+                </Flex>
               </Flex>
-            </Flex>
-          </TabPanel>
-          <TabPanel>
-            <Flex justifyContent="center">
-              <Flex
-                direction="column"
-                height="100%"
-                width="100%"
-                maxWidth={1300}
-              >
-                <AdminOrdersContainer />
-                <AdminDiscountsContainer />
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminOrdersContainer />
+                  <AdminDiscountsContainer />
+                </Flex>
               </Flex>
-            </Flex>
-          </TabPanel>
-        </TabPanels>
-      </Tabs>
-    </MainView>
-  </>
-);
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
+      </MainView>
+    </>
+  );
+};
 
 export default Admin;

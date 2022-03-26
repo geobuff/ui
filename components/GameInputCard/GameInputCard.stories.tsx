@@ -38,7 +38,7 @@ const recents: Result[] = [
 Default.args = {
   type: 1,
   maxScore: 197,
-  verb: "countries",
+  plural: "countries",
   time: 900,
   hasFlags: true,
   recents: recents,

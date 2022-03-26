@@ -3,7 +3,7 @@ import { NullInt } from "./null-int";
 export interface Quiz {
   id: number;
   typeId: number;
-  badgeId: number;
+  badgeId: NullInt;
   continentId: NullInt;
   country: string;
   singular: string;
@@ -12,7 +12,7 @@ export interface Quiz {
   time: number;
   mapSVG: string;
   imageUrl: string;
-  verb: string;
+  plural: string;
   apiPath: string;
   route: string;
   hasLeaderboard: boolean;

@@ -100,7 +100,7 @@ const QuizList: FC<Props> = ({ quizzes = [] }) => {
                     imageUrl={quiz.imageUrl}
                     time={quiz.time}
                     maxScore={quiz.maxScore}
-                    verb={quiz.verb}
+                    plural={quiz.plural}
                   />
                 </AspectRatio>
               </Link>

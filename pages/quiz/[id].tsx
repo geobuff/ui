@@ -87,7 +87,7 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
             name={quiz?.name}
             typeId={quiz?.typeId}
             maxScore={quiz?.maxScore}
-            verb={quiz?.verb}
+            plural={quiz?.plural}
             route={quiz?.route}
             id={quiz?.id}
             mapping={mapping}
@@ -106,7 +106,7 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
               name={quiz.name}
               typeId={quiz.typeId}
               maxScore={quiz.maxScore}
-              verb={quiz.verb}
+              plural={quiz.plural}
               route={quiz.route}
               hasLeaderboard={quiz.hasLeaderboard}
               hasFlags={quiz.hasFlags}

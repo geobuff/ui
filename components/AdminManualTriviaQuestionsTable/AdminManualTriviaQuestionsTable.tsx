@@ -68,8 +68,6 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
   };
 
   const handleEdit = (question: ManualTriviaQuestion) => {
-    onOpen();
-
     setSelectedQuestion({
       id: question.id,
       typeId: getTypeIDByName(question.type as TriviaQuestionType),
@@ -88,9 +86,11 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
       flagCode: question?.flagCode || "",
       map: question?.map || "",
       highlighted: question?.highlighted || "",
-      quizDate: question?.lastUsed.Valid ? question?.lastUsed.Time : "",
+      quizDate: question?.quizDate.Valid ? question?.quizDate.Time : null,
       answers: question?.answers || [],
     });
+
+    onOpen();
   };
 
   return (
@@ -214,20 +214,20 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
             </Box>
           </Flex>
         </Box>
-        <Modal
-          isOpen={isOpen}
-          onClose={onClose}
-          maxHeight={{ base: "100%", md: "700px" }}
-          minWidth="660px"
-        >
-          <Flex padding={10} width="100%" overflow="scroll">
-            <AdminManualTriviaQuestionContainer
-              editValues={selectedQuestion}
-              onClose={onClose}
-            />
-          </Flex>
-        </Modal>
       </Card>
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        maxHeight={{ base: "100%", md: "700px" }}
+        minWidth="660px"
+      >
+        <Flex padding={10} width="100%" overflow="scroll">
+          <AdminManualTriviaQuestionContainer
+            editValues={selectedQuestion}
+            onClose={onClose}
+          />
+        </Flex>
+      </Modal>
     </>
   );
 };

@@ -1,27 +1,32 @@
 import { useToast } from "@chakra-ui/react";
 import React, { FC, useContext, useState } from "react";
 import axiosClient from "../../axios";
-import AdminCreateQuizForm from "../../components/AdminCreateQuizForm";
+import AdminQuizForm from "../../components/AdminQuizForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import { createQuizToast } from "../../helpers/toasts";
+import { quizToast } from "../../helpers/toasts";
 import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";
 import useQuizTypes from "../../hooks/UseQuizTypes";
-import { CreateQuizFormSubmit } from "../../types/create-quiz-form-submit";
 import { NullInt } from "../../types/null-int";
+import { QuizEditValues } from "../../types/quiz-edit-values";
 
-const AdminCreateQuizContainer: FC = () => {
+export interface Props {
+  editValues?: QuizEditValues;
+  onClose?: () => void;
+}
+
+const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
   const toast = useToast();
 
   const { getAuthConfig } = useContext(CurrentUserContext);
-  const { data: types, isLoading: isQuizTypesLoading } = useQuizTypes();
-  const { data: badges, isLoading: isBadgesLoading } = useBadges();
-  const { data: continents, isLoading: isContinentsLoading } = useContinents();
+  const { data: types } = useQuizTypes();
+  const { data: badges } = useBadges();
+  const { data: continents } = useContinents();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const handleSubmit = (values: CreateQuizFormSubmit): void => {
+  const handleSubmit = (values: QuizEditValues, { resetForm }): void => {
     setIsSubmitting(true);
     setError("");
 
@@ -46,7 +51,7 @@ const AdminCreateQuizContainer: FC = () => {
       time: parseInt(values.time),
       mapSVG: values.mapSVG,
       imageUrl: values.imageUrl,
-      verb: values.verb,
+      plural: values.plural,
       apiPath: values.apiPath,
       route: values.route,
       hasLeaderboard: values.hasLeaderboard === "true",
@@ -55,27 +60,38 @@ const AdminCreateQuizContainer: FC = () => {
       enabled: values.enabled === "true",
     };
 
-    axiosClient
-      .post(`/quizzes`, payload, getAuthConfig())
-      .then(() => toast(createQuizToast()))
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsSubmitting(false));
+    if (editValues) {
+      axiosClient
+        .put(`/quizzes/${values.id}`, payload, getAuthConfig())
+        .then(() => {
+          toast(quizToast("Edit", "edited"));
+        })
+        .catch((error) => setError(error.response.data))
+        .finally(() => setIsSubmitting(false));
+    } else {
+      axiosClient
+        .post(`/quizzes`, payload, getAuthConfig())
+        .then(() => {
+          toast(quizToast());
+          resetForm();
+        })
+        .catch((error) => setError(error.response.data))
+        .finally(() => setIsSubmitting(false));
+    }
   };
 
-  if (isQuizTypesLoading || isBadgesLoading || isContinentsLoading) {
-    return null;
-  }
-
   return (
-    <AdminCreateQuizForm
+    <AdminQuizForm
+      editValues={editValues}
       types={types}
       badges={badges}
       continents={continents}
       isSubmitting={isSubmitting}
       error={error}
       onSubmit={handleSubmit}
+      onClose={onClose}
     />
   );
 };
 
-export default AdminCreateQuizContainer;
+export default AdminQuizFormContainer;
