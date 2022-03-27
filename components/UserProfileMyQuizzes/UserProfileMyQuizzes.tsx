@@ -10,7 +10,6 @@ import {
 } from "@chakra-ui/react";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import Card from "../Card";
-import UserProfileMyQuizzesTable from "./UserProfileMyQuizzesTable";
 import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
 
 export interface Props {
