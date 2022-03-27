@@ -26,6 +26,7 @@ const OrderTile: FC<Props> = ({ order = null }) => (
           {order.firstName} {order.lastName}
         </Text>
         <Text mb={1}>{order.address}</Text>
+        <Text mb={1}>{order.shippingOption}</Text>
         <Text mb={1}>
           {DateTime.fromISO(order.added).toLocaleString(DateTime.DATE_MED)}
         </Text>
