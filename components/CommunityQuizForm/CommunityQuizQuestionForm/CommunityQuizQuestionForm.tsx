@@ -3,7 +3,7 @@ import { Button, Divider, Flex, FlexProps } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
 import * as Maps from "@geobuff/svg-maps";
-import { flagCategories } from "@geobuff/flags";
+import { flags, flagCategories } from "@geobuff/flags";
 
 import { QuizType } from "../../../types/quiz-type";
 import RadioGroupFormField from "../../FormFields/RadioGroupFormField";
@@ -11,6 +11,7 @@ import CommunityQuizFormField from "../CommunityQuizFormField";
 import SelectFormField from "../../FormFields/SelectFormField";
 import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
 import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
+import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
 
 export interface Props extends FlexProps {
   // TODO: add type
@@ -74,18 +75,32 @@ const CommunityQuizQuestionForm: FC<Props> = ({
 
   return (
     <Flex width="100%" {...props}>
-      <Formik onSubmit={onSubmit} initialValues={{ typeId: "1" }}>
+      <Formik
+        onSubmit={onSubmit}
+        initialValues={{
+          typeId: "1",
+          question: "",
+          imageUrl: "",
+          map: "",
+          highlighted: "",
+          answers: [],
+        }}
+      >
         {({ values, setFieldValue }) => (
           <Form autoComplete="off" style={{ width: "100%" }}>
             <RadioGroupFormField
               name="typeId"
+              label="Type"
               onChange={(value) => setFieldValue("typeId", value)}
               selectedValue={values.typeId}
               options={options}
             />
+
+            <Divider marginTop={6} />
+
             <CommunityQuizFormField
               name="question"
-              label="Question"
+              label="Text"
               placeholder="Enter question..."
             />
 
@@ -94,24 +109,29 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 name="imageUrl"
                 label="Image URL"
                 placeholder="Enter image url..."
-                helper="Avoid images that are copyrighted or require attribution. Sites like pixabay are good for free commercial images."
+                helper="Copyrighted images will be removed. We recommend sites such as pexels for free images."
               />
             )}
 
             {values.typeId === "3" && (
               <Flex>
                 <SelectFormField
+                  name="flagCategory"
                   label="Flag Category"
                   options={flagOptions}
-                  onChange={({ target }) => setFlagCategory(target.value)}
-                  width="50%"
+                  onChange={({ target }) => {
+                    // TODO: fix error
+                    //@ts-ignore
+                    setFlagCategory(target.value);
+                    //@ts-ignore
+                    setFieldValue("flagCode", "");
+                  }}
+                  width="100%"
                   marginRight={2}
                 />
-                <SelectFormField
-                  name="flagCode"
-                  label="Flag"
-                  options={getHighlightRegionsByMap(values.map)}
-                  width="50%"
+                <CommunityQuizFlagSelectField
+                  flagCategory={flagCategory}
+                  flagCode={values.flagCode}
                 />
               </Flex>
             )}
@@ -134,13 +154,22 @@ const CommunityQuizQuestionForm: FC<Props> = ({
               </Flex>
             )}
 
-            <Divider marginY={4} />
+            <Divider marginY={6} />
 
             <CommunityQuizHasAnswersField
               isEnabled={hasFlagAnswers}
               onChange={(hasFlags) => setHasFlagAnswers(hasFlags)}
               marginY={6}
             />
+
+            {hasFlagAnswers && (
+              <SelectFormField
+                options={flagOptions}
+                label="Flag Answer Category"
+              />
+            )}
+
+            <Divider marginTop={8} marginBottom={4} />
 
             <Flex direction="column" width="100%" marginBottom={5}>
               {answers.map(({ label, value }) => (
@@ -151,7 +180,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   isChecked={correctAnswer === value}
                   hasFlagAnswers={hasFlagAnswers}
                   onChange={(value) => setCorrectAnswer(value)}
-                  marginY={2}
+                  marginY={0.5}
                 />
               ))}
             </Flex>

@@ -45,9 +45,10 @@ const CommunityQuizAnswersField: FC<Props> = ({
       flex={1}
       paddingX={2.5}
       paddingY={2}
-      borderWidth={isChecked && 2}
-      borderColor={isChecked && "green.500"}
+      borderWidth={2}
+      borderColor={isChecked ? "green.500" : "transparent"}
       borderRadius={8}
+      transition="150ms ease-in-out"
       {...props}
     >
       <FormLabel
@@ -78,6 +79,7 @@ const CommunityQuizAnswersField: FC<Props> = ({
                   }
                 >
                   <SelectFormField
+                    defaultValue={{ label: "Select category", value: "" }}
                     options={flagOptions}
                     // onChange={({ target }) => setFlagCategory(target.value)}
                     marginRight={2}
