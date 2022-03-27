@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import axiosClient from "../../axios";
 import UserProfileMyQuizzes from "../../components/UserProfileMyQuizzes";
 import useUserCommunityQuizzes from "../../hooks/UseUserCommunityQuizzes";
 import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";

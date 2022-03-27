@@ -11,6 +11,7 @@ import {
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import Card from "../Card";
 import UserProfileMyQuizzesTable from "./UserProfileMyQuizzesTable";
+import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -36,7 +37,7 @@ const UserProfileMyQuizzes: FC<Props> = ({
     }
 
     return (
-      <UserProfileMyQuizzesTable
+      <UserProfileMyQuizzesTableContainer
         quizzes={quizzes}
         isCurrentUser={isCurrentUser}
       />
