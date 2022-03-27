@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Alert, AlertIcon, Box, Flex } from "@chakra-ui/react";
+import { Alert, AlertIcon, Flex } from "@chakra-ui/react";
 import { Order } from "../../types/order";
 import Card from "../Card";
 import OrderItem from "../OrderTile";
@@ -10,7 +10,7 @@ export interface Props {
 }
 
 const MyOrders: FC<Props> = ({ orders = [], isError = false }) => {
-  const getCardContent = (): React.ReactNode => {
+  const getContent = () => {
     if (isError) {
       return (
         <Alert status="error" borderRadius={6}>
@@ -32,9 +32,9 @@ const MyOrders: FC<Props> = ({ orders = [], isError = false }) => {
     return (
       <>
         {orders.map((order, i) => (
-          <Box my={6} key={i}>
+          <Card my={6} key={i}>
             <OrderItem order={order} />
-          </Box>
+          </Card>
         ))}
       </>
     );
@@ -43,14 +43,14 @@ const MyOrders: FC<Props> = ({ orders = [], isError = false }) => {
   return (
     <Flex
       direction="column"
-      maxWidth={{ base: "100%", md: 1300 }}
+      maxWidth={{ base: "100%", md: 800 }}
+      width="100%"
       marginX="auto"
       marginBottom={14}
-      marginTop={{ base: 10, sm: 10, md: 14 }}
+      marginTop={10}
       paddingX={3}
-      width="100%"
     >
-      <Card>{getCardContent()}</Card>
+      {getContent()}
     </Flex>
   );
 };
