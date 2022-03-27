@@ -4,7 +4,6 @@ import {
   Box,
   Button,
   Flex,
-  Link,
   Table,
   Tbody,
   Td,
@@ -50,26 +49,28 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
               <Td>
                 {DateTime.fromISO(quiz.added).toLocaleString(DateTime.DATE_MED)}
               </Td>
-              <Td>
-                <Flex alignItems="center" justifyContent="flex-end">
-                  <Button
-                    colorScheme="black"
-                    variant="link"
-                    aria-label="Edit question"
-                    onClick={() => handleEdit(quiz)}
-                    marginRight={4}
-                  >
-                    {"Edit"}
-                  </Button>
-                  <Button
-                    colorScheme="red"
-                    variant="link"
-                    onClick={() => onDeleteQuiz(quiz.id)}
-                  >
-                    {"Delete"}
-                  </Button>
-                </Flex>
-              </Td>
+              {isCurrentUser && (
+                <Td>
+                  <Flex alignItems="center" justifyContent="flex-end">
+                    <Button
+                      colorScheme="black"
+                      variant="link"
+                      aria-label="Edit question"
+                      onClick={() => handleEdit(quiz)}
+                      marginRight={4}
+                    >
+                      {"Edit"}
+                    </Button>
+                    <Button
+                      colorScheme="red"
+                      variant="link"
+                      onClick={() => onDeleteQuiz(quiz.id)}
+                    >
+                      {"Delete"}
+                    </Button>
+                  </Flex>
+                </Td>
+              )}
             </Tr>
           ))}
         </Tbody>
