@@ -9,6 +9,8 @@ import { QuizType } from "../../../types/quiz-type";
 import RadioGroupFormField from "../../FormFields/RadioGroupFormField";
 import CommunityQuizFormField from "../CommunityQuizFormField";
 import SelectFormField from "../../FormFields/SelectFormField";
+import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
+import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
 
 export interface Props {
   // TODO: add type
@@ -18,6 +20,8 @@ export interface Props {
 
 const CommunityQuizQuestionForm: FC<Props> = ({ onSubmit, types = [] }) => {
   const [flagCategory, setFlagCategory] = useState("world");
+  const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
+  const [correctAnswer, setCorrectAnswer] = useState<number | string>(null);
 
   const options = types.map(({ id, name }) => ({
     label: name,
@@ -45,6 +49,25 @@ const CommunityQuizQuestionForm: FC<Props> = ({ onSubmit, types = [] }) => {
     }
   };
 
+  const answers = [
+    {
+      label: "Answer One",
+      value: 1,
+    },
+    {
+      label: "Answer Two",
+      value: 2,
+    },
+    {
+      label: "Answer Three (Optional)",
+      value: 3,
+    },
+    {
+      label: "Answer Four (Optional)",
+      value: 4,
+    },
+  ];
+
   return (
     <Flex justifyContent="center" width="100%">
       <Formik onSubmit={onSubmit} initialValues={{ typeId: "1" }}>
@@ -55,7 +78,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({ onSubmit, types = [] }) => {
               label="Question"
               placeholder="Enter question..."
             />
-            <Divider marginY={5} />
+            <Divider marginY={4} />
 
             <RadioGroupFormField
               name="typeId"
@@ -65,7 +88,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({ onSubmit, types = [] }) => {
               options={options}
             />
 
-            <Divider marginY={5} />
+            <Divider marginY={4} />
 
             {values.typeId === "2" && (
               <CommunityQuizFormField
@@ -111,6 +134,29 @@ const CommunityQuizQuestionForm: FC<Props> = ({ onSubmit, types = [] }) => {
                 />
               </Flex>
             )}
+
+            <Divider marginY={4} />
+
+            <CommunityQuizHasAnswersField
+              isEnabled={hasFlagAnswers}
+              onChange={(hasFlags) => setHasFlagAnswers(hasFlags)}
+              marginY={6}
+            />
+
+            <Divider marginY={4} />
+
+            <Flex direction="column" width="100%" marginBottom={5}>
+              {answers.map(({ label, value }) => (
+                <CommunityQuizAnswersField
+                  key={value}
+                  label={label}
+                  value={value}
+                  isChecked={correctAnswer === value}
+                  hasFlagAnswers={hasFlagAnswers}
+                  onChange={(value) => setCorrectAnswer(value)}
+                />
+              ))}
+            </Flex>
 
             <Flex width="100%" justifyContent="flex-end">
               <Button type="submit" colorScheme="green">
