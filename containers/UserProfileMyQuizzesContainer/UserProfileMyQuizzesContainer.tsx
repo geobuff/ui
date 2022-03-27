@@ -1,7 +1,7 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC } from "react";
 import axiosClient from "../../axios";
 import UserProfileMyQuizzes from "../../components/UserProfileMyQuizzes";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import useUserCommunityQuizzes from "../../hooks/UseUserCommunityQuizzes";
 import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";
 
 export interface Props {
@@ -13,30 +13,14 @@ const UserProfileMyQuizzesContainer: FC<Props> = ({
   userId = 0,
   isCurrentUser = false,
 }) => {
-  const { getAuthConfig } = useContext(CurrentUserContext);
-
-  const [quizzes, setQuizzes] = useState([]);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState(false);
-
-  useEffect(() => {
-    axiosClient
-      .get(`/community-quizzes/user/${userId}`, getAuthConfig())
-      .then((response) => setQuizzes(response.data))
-      .catch(() => setError(true))
-      .finally(() => setIsLoading(false));
-  }, []);
+  const { quizzes, isLoading } = useUserCommunityQuizzes(userId);
 
   if (isLoading) {
     return <UserProfileLeaderboardEntriesPlaceholder />;
   }
 
   return (
-    <UserProfileMyQuizzes
-      quizzes={quizzes}
-      isCurrentUser={isCurrentUser}
-      error={error}
-    />
+    <UserProfileMyQuizzes quizzes={quizzes} isCurrentUser={isCurrentUser} />
   );
 };
 

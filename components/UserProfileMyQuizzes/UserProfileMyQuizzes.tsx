@@ -15,28 +15,17 @@ import UserProfileMyQuizzesTable from "./UserProfileMyQuizzesTable";
 export interface Props {
   quizzes?: CommunityQuiz[];
   isCurrentUser?: boolean;
-  error?: boolean;
 }
 
 const UserProfileMyQuizzes: FC<Props> = ({
   quizzes = [],
   isCurrentUser = false,
-  error = false,
 }) => {
   const handleCreate = () => {
     console.log("create");
   };
 
   const getContent = () => {
-    if (error) {
-      return (
-        <Alert borderRadius={6} status="error">
-          <AlertIcon />
-          Error fetching user quizzes. Please refresh page and try again.
-        </Alert>
-      );
-    }
-
     if (quizzes.length === 0) {
       return (
         <Alert borderRadius={6}>
