@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import {
   Box,
   Flex,
+  FlexProps,
   FormControl,
   FormErrorMessage,
   FormLabel,
@@ -9,8 +10,10 @@ import {
   Radio,
 } from "@chakra-ui/react";
 import { Field } from "formik";
+import SelectFormField from "../../FormFields/SelectFormField";
+import { flagCategories } from "@geobuff/flags";
 
-export interface Props {
+export interface Props extends Omit<FlexProps, "onChange"> {
   label?: string;
   value: number | string;
   placeholder?: string;
@@ -27,7 +30,14 @@ const CommunityQuizAnswersField: FC<Props> = ({
   isChecked = false,
   hasFlagAnswers = false,
   onChange = () => {},
+  ...props
 }) => {
+  // TODO: move common
+  const flagOptions = flagCategories?.map(({ key, label }) => ({
+    label,
+    value: key,
+  }));
+
   return (
     <Flex
       direction="column"
@@ -38,6 +48,7 @@ const CommunityQuizAnswersField: FC<Props> = ({
       borderWidth={isChecked && 2}
       borderColor={isChecked && "green.500"}
       borderRadius={8}
+      {...props}
     >
       <FormLabel
         htmlFor={"answerOne"}
@@ -47,7 +58,7 @@ const CommunityQuizAnswersField: FC<Props> = ({
         {label}
       </FormLabel>
 
-      <Flex>
+      <Flex alignItems="center">
         <Radio
           value={1}
           isChecked={isChecked}
@@ -57,7 +68,7 @@ const CommunityQuizAnswersField: FC<Props> = ({
         />
 
         {hasFlagAnswers && (
-          <Flex maxWidth="150px">
+          <Flex maxWidth="150px" alignItems="center">
             <Field name="answerOneFlagCode">
               {({ field, form }) => (
                 <FormControl
@@ -66,24 +77,14 @@ const CommunityQuizAnswersField: FC<Props> = ({
                     form.touched.answerOneFlagCode
                   }
                 >
-                  <Input
-                    {...field}
-                    id="answerOneFlagCode"
-                    type="text"
-                    placeholder="Flag code..."
-                    size="lg"
-                    fontSize="16px"
-                    fontWeight={400}
-                    background="#F6F6F6"
-                    borderRadius={6}
-                    _placeholder={{ color: "gray.500" }}
-                    _hover={{ background: "#e0e0e0" }}
+                  <SelectFormField
+                    options={flagOptions}
+                    // onChange={({ target }) => setFlagCategory(target.value)}
+                    marginRight={2}
                   />
-                  <Box position="absolute" top="38px" left="2px">
-                    <FormErrorMessage fontSize="11px">
-                      {form.errors.answerOneFlagCode}
-                    </FormErrorMessage>
-                  </Box>
+                  <FormErrorMessage fontSize="11px">
+                    {form.errors.answerOneFlagCode}
+                  </FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -107,6 +108,7 @@ const CommunityQuizAnswersField: FC<Props> = ({
                 fontSize="16px"
                 fontWeight={400}
                 background="#F6F6F6"
+                color={isChecked && "green.500"}
                 borderRadius={6}
                 ml={hasFlagAnswers ? 2 : 0}
                 _placeholder={{ color: "gray.500" }}

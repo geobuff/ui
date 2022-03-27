@@ -1,6 +1,13 @@
 import React, { FC, useState } from "react";
 import { Formik } from "formik";
-import { Button, Divider, Flex, useDisclosure } from "@chakra-ui/react";
+import {
+  Button,
+  Divider,
+  Flex,
+  Heading,
+  IconButton,
+  useDisclosure,
+} from "@chakra-ui/react";
 
 import CommunityQuizFormField from "./CommunityQuizFormField";
 import CommunityQuizQuestionsField from "./CommunityQuizQuestionsField";
@@ -8,6 +15,7 @@ import Modal from "../Modal";
 import CommunityQuizQuestionForm from "./CommunityQuizQuestionForm";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 import { CommunityQuizQuestion } from "./CommunityQuizQuestionsField/CommunityQuizQuestionsField";
+import ArrowLeft from "../../Icons/ArrowLeft";
 
 export interface FormValues {
   quizName: string;
@@ -32,6 +40,25 @@ const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
     setQuestions([...questions, values]);
     onClose();
   };
+
+  const header = (
+    <Flex marginY={5} marginX={10} alignItems="center">
+      <IconButton
+        aria-label="close modal"
+        variant="unstyled"
+        size="sm"
+        marginTop={0.5}
+        marginRight={1.5}
+        _hover={{ transform: "scale(1.15)" }}
+        onClick={onClose}
+      >
+        <ArrowLeft height="28px" width="28px" />
+      </IconButton>
+      <Heading fontSize={26} marginLeft={0.5}>
+        {"Add Question"}
+      </Heading>
+    </Flex>
+  );
 
   // TODO: refactor to include some id as filtering on name will remove questions
   // with the same questions
@@ -88,9 +115,16 @@ const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
         maxHeight={{ base: "100%", md: "700px" }}
         minWidth="660px"
         hasCloseButton
-        header={"Add Question"}
+        header={header}
       >
-        <Flex paddingX={10} width="100%" overflow="scroll" marginBottom={10}>
+        <Flex
+          direction="column"
+          paddingX={10}
+          width="100%"
+          overflow="scroll"
+          marginBottom={10}
+        >
+          <Divider marginBottom={6} />
           <CommunityQuizQuestionForm
             types={types}
             onSubmit={handleAddQuestion}

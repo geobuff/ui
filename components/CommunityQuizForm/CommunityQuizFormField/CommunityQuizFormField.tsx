@@ -61,9 +61,7 @@ const CommunityQuizFormField: FC<FormFieldProps> = ({
                 _hover={{ background: "#e0e0e0" }}
               />
             </Flex>
-            {isColumn && (
-              <FormHelperText marginTop={0}>{helper}</FormHelperText>
-            )}
+            {isColumn && <FormHelperText>{helper}</FormHelperText>}
             <FormErrorMessage fontSize="11px">
               {form.errors[name]}
             </FormErrorMessage>

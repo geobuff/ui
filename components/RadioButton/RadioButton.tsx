@@ -22,6 +22,7 @@ const RadioButton: FC<Props> = ({ children, radioProps, color = "green" }) => {
         borderRadius="md"
         boxShadow="md"
         fontWeight="semibold"
+        textAlign="center"
         _checked={{
           bg: `${color}.500`,
           color: "white",

@@ -22,7 +22,7 @@ const CommunityQuizHasAnswersField: FC<Props> = ({
 }) => {
   return (
     <Flex width="100%" {...props}>
-      <Box>
+      <Box width="100%">
         <FormLabel htmlFor="answerOneText" fontWeight="bold">
           {"Do answers have flags?"}
         </FormLabel>

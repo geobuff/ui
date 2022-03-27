@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Button, Divider, Flex } from "@chakra-ui/react";
+import { Button, Divider, Flex, FlexProps } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
 import * as Maps from "@geobuff/svg-maps";
@@ -12,13 +12,17 @@ import SelectFormField from "../../FormFields/SelectFormField";
 import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
 import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
 
-export interface Props {
+export interface Props extends FlexProps {
   // TODO: add type
   onSubmit?: (values: any) => void;
   types: QuizType[];
 }
 
-const CommunityQuizQuestionForm: FC<Props> = ({ onSubmit, types = [] }) => {
+const CommunityQuizQuestionForm: FC<Props> = ({
+  onSubmit,
+  types = [],
+  ...props
+}) => {
   const [flagCategory, setFlagCategory] = useState("world");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
   const [correctAnswer, setCorrectAnswer] = useState<number | string>(null);
@@ -69,26 +73,21 @@ const CommunityQuizQuestionForm: FC<Props> = ({ onSubmit, types = [] }) => {
   ];
 
   return (
-    <Flex justifyContent="center" width="100%">
+    <Flex width="100%" {...props}>
       <Formik onSubmit={onSubmit} initialValues={{ typeId: "1" }}>
         {({ values, setFieldValue }) => (
-          <Form autoComplete="off">
+          <Form autoComplete="off" style={{ width: "100%" }}>
+            <RadioGroupFormField
+              name="typeId"
+              onChange={(value) => setFieldValue("typeId", value)}
+              selectedValue={values.typeId}
+              options={options}
+            />
             <CommunityQuizFormField
               name="question"
               label="Question"
               placeholder="Enter question..."
             />
-            <Divider marginY={4} />
-
-            <RadioGroupFormField
-              name="typeId"
-              label="Type"
-              onChange={(value) => setFieldValue("typeId", value)}
-              selectedValue={values.typeId}
-              options={options}
-            />
-
-            <Divider marginY={4} />
 
             {values.typeId === "2" && (
               <CommunityQuizFormField
@@ -143,8 +142,6 @@ const CommunityQuizQuestionForm: FC<Props> = ({ onSubmit, types = [] }) => {
               marginY={6}
             />
 
-            <Divider marginY={4} />
-
             <Flex direction="column" width="100%" marginBottom={5}>
               {answers.map(({ label, value }) => (
                 <CommunityQuizAnswersField
@@ -154,6 +151,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({ onSubmit, types = [] }) => {
                   isChecked={correctAnswer === value}
                   hasFlagAnswers={hasFlagAnswers}
                   onChange={(value) => setCorrectAnswer(value)}
+                  marginY={2}
                 />
               ))}
             </Flex>
