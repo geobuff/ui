@@ -45,7 +45,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
             <Tr key={quiz.id}>
               <Td>{quiz.name}</Td>
               <Td>{quiz.maxScore}</Td>
-              <Td>{0}</Td>
+              <Td>{quiz.plays.Valid ? quiz.plays.Int64 : 0}</Td>
               <Td>
                 {DateTime.fromISO(quiz.added).toLocaleString(DateTime.DATE_MED)}
               </Td>
