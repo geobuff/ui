@@ -1,9 +1,7 @@
 import React, { FC, Key } from "react";
-import types from "next";
 import { Field } from "formik";
 
 import {
-  Flex,
   FormControl,
   FormLabel,
   HStack,
@@ -12,20 +10,14 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import RadioButton from "../../RadioButton";
-
-type Value = string | number;
-
-export interface Option {
-  label: string;
-  value: Value;
-}
+import { FormOption, FormValue } from "../../../types/form";
 
 export interface Props {
   name: string;
   label?: string;
-  options: Option[];
-  selectedValue?: Value;
-  onChange: (value: Value) => void;
+  options: FormOption[];
+  selectedValue?: FormValue;
+  onChange: (value: FormValue) => void;
 }
 
 const RadioGroupFormField: FC<Props> = ({
