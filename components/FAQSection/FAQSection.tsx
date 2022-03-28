@@ -61,7 +61,7 @@ const FAQSection: FC<Props> = ({ index = "" }) => {
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              {"I've forgot my password. What do I do now?"}
+              {"I forgot my password. What do I do now?"}
             </Box>
             <AccordionIcon />
           </AccordionButton>

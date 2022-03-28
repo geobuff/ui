@@ -19,7 +19,7 @@ const companyLinks = [
   },
   {
     href: "/faq",
-    text: "F.A.Q",
+    text: "F.A.Q.",
   },
   {
     href: "/merch",
