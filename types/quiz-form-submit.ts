@@ -12,8 +12,8 @@ export interface QuizFormSubmit {
   plural: string;
   apiPath: string;
   route: string;
-  hasLeaderboard: string;
-  hasGrouping: string;
-  hasFlags: string;
-  enabled: string;
+  hasLeaderboard: boolean;
+  hasGrouping: boolean;
+  hasFlags: boolean;
+  enabled: boolean;
 }

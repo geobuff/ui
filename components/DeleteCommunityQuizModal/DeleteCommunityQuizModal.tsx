@@ -10,7 +10,7 @@ export interface Props {
   onSubmit?: () => void;
 }
 
-const DeleteTriviaQuestionModal: FC<Props> = ({
+const DeleteCommunityQuizModal: FC<Props> = ({
   isOpen = false,
   isSubmitting = false,
   error = false,
@@ -37,20 +37,20 @@ const DeleteTriviaQuestionModal: FC<Props> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      header="Delete Manual Trivia Question"
+      header="Delete Community Quiz"
       footer={footer}
     >
       <Box paddingX={6}>
         {error && (
           <Alert status="error" borderRadius={6} marginBottom={3}>
             <AlertIcon />
-            Error deleting question. Please refresh page and try again.
+            Error deleting community quiz. Please refresh page and try again.
           </Alert>
         )}
-        <Text>{`Are you sure you want to delete this manual trivia question? All corresponding answers will be deleted with it.`}</Text>
+        <Text>{`Are you sure you want to delete this quiz? All corresponding questions, answers and quiz plays will be deleted with it.`}</Text>
       </Box>
     </Modal>
   );
 };
 
-export default DeleteTriviaQuestionModal;
+export default DeleteCommunityQuizModal;
