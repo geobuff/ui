@@ -6,8 +6,9 @@ import DeleteTriviaQuestionModal from "../../components/DeleteTriviaQuestionModa
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { ManualQuestionsDto } from "../../types/manual-questions-dto";
 
-const AdminManualTriviaQuestionsContainer: FC = () => {
+const AdminManualTriviaQuestionTableContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
+
   const [questionPage, setQuestionPage] = useState<ManualQuestionsDto>();
   const [isLoading, setIsLoading] = useState(true);
   const [page, setPage] = useState(0);
@@ -85,4 +86,4 @@ const AdminManualTriviaQuestionsContainer: FC = () => {
   );
 };
 
-export default AdminManualTriviaQuestionsContainer;
+export default AdminManualTriviaQuestionTableContainer;

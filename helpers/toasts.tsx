@@ -112,3 +112,14 @@ export const manualTriviaQuestionToast = (
   duration: 9000,
   isClosable: true,
 });
+
+export const deleteCommunityQuizToast = (
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Delete Community Quiz",
+  description: "Successfully deleted community quiz.",
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});

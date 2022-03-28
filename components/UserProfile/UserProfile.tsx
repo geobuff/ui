@@ -7,6 +7,7 @@ import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfile
 import UserProfileAchievementsContainer from "../../containers/UserProfileAchievementsContainer";
 import { UserDto } from "../../types/user-dto";
 import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
+import UserProfileMyQuizzesContainer from "../../containers/UserProfileMyQuizzesContainer";
 
 const divider = <Divider borderColor="transparent" my={3} />;
 
@@ -49,6 +50,11 @@ const UserProfile: FC<Props> = ({
           <UserProfileAchievementsContainer userId={user?.id} />
           {divider}
           <UserProfileLeaderboardEntriesContainer userId={user?.id} />
+          {divider}
+          <UserProfileMyQuizzesContainer
+            userId={user?.id}
+            isCurrentUser={isCurrentUser}
+          />
         </>
       )}
     </Flex>

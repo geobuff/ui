@@ -30,8 +30,8 @@ const AdminLastWeekTriviaPlaysContainer = dynamic(
   () => import("../containers/AdminLastWeekTriviaPlaysContainer")
 );
 
-const AdminQuizzesContainer = dynamic(
-  () => import("../containers/AdminQuizzesContainer")
+const AdminQuizTableContainer = dynamic(
+  () => import("../containers/AdminQuizTableContainer")
 );
 
 const AdminOrdersContainer = dynamic(
@@ -46,12 +46,8 @@ const AdminGeneralContainer = dynamic(
   () => import("../containers/AdminGeneralContainer")
 );
 
-const AdminCreateQuizContainer = dynamic(
-  () => import("../containers/AdminQuizFormContainer")
-);
-
-const AdminManualTriviaQuestionsContainer = dynamic(
-  () => import("../containers/AdminManualTriviaQuestionsContainer")
+const AdminManualTriviaQuestionTableContainer = dynamic(
+  () => import("../containers/AdminManualTriviaQuestionTableContainer")
 );
 
 const tabs = ["general", "users", "quizzes", "trivia", "orders"];
@@ -140,7 +136,7 @@ const Admin: FC = () => {
                   maxWidth={1300}
                 >
                   <AdminTopFiveQuizPlaysContainer />
-                  <AdminQuizzesContainer />
+                  <AdminQuizTableContainer />
                 </Flex>
               </Flex>
             </TabPanel>
@@ -153,7 +149,7 @@ const Admin: FC = () => {
                   maxWidth={1300}
                 >
                   <AdminLastWeekTriviaPlaysContainer />
-                  <AdminManualTriviaQuestionsContainer />
+                  <AdminManualTriviaQuestionTableContainer />
                 </Flex>
               </Flex>
             </TabPanel>

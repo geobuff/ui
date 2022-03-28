@@ -37,7 +37,7 @@ const DeleteTriviaQuestionModal: FC<Props> = ({
     <Modal
       isOpen={isOpen}
       onClose={onClose}
-      header="Delete Order"
+      header="Delete Manual Trivia Question"
       footer={footer}
     >
       <Box paddingX={6}>
