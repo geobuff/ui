@@ -6,6 +6,7 @@ import {
   FormErrorMessage,
   FormLabel,
   Select,
+  SelectProps,
 } from "@chakra-ui/react";
 import { flags, getFlagUrl } from "@geobuff/flags";
 
@@ -24,14 +25,15 @@ const getFlagsByCategory = (category: string) => {
   );
 };
 
-export interface Props {
+export interface Props extends SelectProps {
   flagCategory?: string;
   flagCode?: string;
 }
 
 const CommunityQuizFlagSelect: FC<Props> = ({
-  flagCategory = "world",
+  flagCategory = "",
   flagCode,
+  ...props
 }) => {
   return (
     <Flex marginY={4} width="100%">
@@ -45,10 +47,16 @@ const CommunityQuizFlagSelect: FC<Props> = ({
             </FormLabel>
 
             {flagCategory === "world" ? (
-              <CountrySelect height="44px" id="flagCode" fieldProps={field} />
+              <CountrySelect
+                height="44px"
+                id="flagCode"
+                fieldProps={field}
+                {...props}
+              />
             ) : (
               <Select
                 {...field}
+                {...props}
                 id="flagCode"
                 fontSize="16px"
                 fontWeight={400}

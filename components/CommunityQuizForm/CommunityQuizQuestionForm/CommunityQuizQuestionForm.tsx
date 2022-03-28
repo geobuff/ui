@@ -3,7 +3,7 @@ import { Button, Divider, Flex, FlexProps } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
 import * as Maps from "@geobuff/svg-maps";
-import { flags, flagCategories } from "@geobuff/flags";
+import { flagCategories } from "@geobuff/flags";
 
 import { QuizType } from "../../../types/quiz-type";
 import RadioGroupFormField from "../../FormFields/RadioGroupFormField";
@@ -24,7 +24,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   types = [],
   ...props
 }) => {
-  const [flagCategory, setFlagCategory] = useState("world");
+  const [flagCategory, setFlagCategory] = useState("");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
   const [correctAnswer, setCorrectAnswer] = useState<number | string>(null);
 
