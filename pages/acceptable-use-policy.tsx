@@ -18,6 +18,10 @@ const AcceptableUsePolicy: FC = () => (
   <MainView>
     <Head>
       <title>Acceptable Use Policy - GeoBuff</title>
+      <meta
+        name="description"
+        content="A set of guidelines that are designed to protect us, our customers and the general Internet community from unethical, irresponsible and illegal activity."
+      />
     </Head>
     <Box>
       <HeroHeader heading="Acceptable Use Policy" />

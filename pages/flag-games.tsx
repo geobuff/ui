@@ -14,6 +14,10 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
     <>
       <Head>
         <title> {"Flag Games - GeoBuff"}</title>
+        <meta
+          name="description"
+          content="Call yourself a flag enthusiast? Test your knowledge on our variety of interactive flag games!"
+        />
       </Head>
       <MainView>
         <HeroHeader heading="Flag Games" />

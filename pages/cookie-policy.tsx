@@ -17,6 +17,10 @@ const CookiePolicy: FC = () => (
   <MainView>
     <Head>
       <title>Cookie Policy - GeoBuff</title>
+      <meta
+        name="description"
+        content="This cookie policy is part of GeoBuff's privacy policy. It covers the use of cookies between your device and our site."
+      />
     </Head>
     <Box>
       <HeroHeader heading="Cookie Policy" />

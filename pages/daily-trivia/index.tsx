@@ -15,6 +15,10 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
     <>
       <Head>
         <title> {"Daily Trivia - GeoBuff"}</title>
+        <meta
+          name="description"
+          content="Ten questions covering everything geography - from maps and flags, to rivers and mountains, our famous daily trivia will keep you coming back every single day."
+        />
       </Head>
       <MainView>
         <HeroHeader heading="Daily Trivia" />

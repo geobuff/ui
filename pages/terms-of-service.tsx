@@ -19,6 +19,10 @@ const TermsOfService: FC = () => (
   <MainView>
     <Head>
       <title>Terms of Service - GeoBuff</title>
+      <meta
+        name="description"
+        content="These Terms of Service govern your use of the website located at and any related services provided by GeoBuff."
+      />
     </Head>
     <Box>
       <HeroHeader heading="Terms of Service" />

@@ -17,6 +17,10 @@ const PrivacyPolicy: FC = () => (
   <MainView>
     <Head>
       <title>Privacy Policy - GeoBuff</title>
+      <meta
+        name="description"
+        content="Your privacy is important to us. It is GeoBuff's policy to respect your privacy and comply with any applicable law and regulation regarding any personal information we may collect about you."
+      />
     </Head>
     <Box>
       <HeroHeader heading="Privacy Policy" />

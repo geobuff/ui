@@ -11,6 +11,10 @@ const Create: FC = () => {
     <>
       <Head>
         <title>{"Create Community Quiz - GeoBuff"}</title>
+        <meta
+          name="description"
+          content="Think you can do better? Then prove yourself by creating your own quiz with our Community Quiz builder. Perfect for Teachers and true GeoBuffs!"
+        />
       </Head>
       <MainView>
         <HeroHeader height={{ base: "180px", md: "220px" }} />
