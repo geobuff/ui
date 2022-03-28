@@ -38,9 +38,11 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
               {question?.answers?.map((x) => x.text).join(", ") || ""}
             </TableCell>
             <TableCell paddingY={4} paddingX={6}>
-              {/* TODO: fix up type */}
-              {question?.type.toString()}
-              {/* {question?.typeId.toString()} */}
+              {
+                // TODO: fix type error
+                //@ts-ignore
+                question?.typeId.toString()
+              }
             </TableCell>
             <TableCell isNumeric paddingY={4} paddingX={6}>
               <Flex alignItems="center" justifyContent="flex-end">
