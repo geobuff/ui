@@ -17,6 +17,10 @@ const Register: FC = () => {
     <>
       <Head>
         <title>Register - GeoBuff</title>
+        <meta
+          name="description"
+          content="Sign up today to start using the world's leading competitive platform for geography-based games and quizzes!"
+        />
       </Head>
 
       <style jsx global>{`

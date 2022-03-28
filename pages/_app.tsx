@@ -67,6 +67,10 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
     <>
       <Head>
         <title>GeoBuff - Get Your Geo Flex On</title>
+        <meta
+          name="description"
+          content="GeoBuff is the world's leading competitive platform for geography-based games and quizzes. Sign up today!"
+        />
         <link rel="icon" href="/favicon.ico" />
         {isAppMobile && (
           <>

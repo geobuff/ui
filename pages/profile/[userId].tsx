@@ -22,6 +22,10 @@ const Profile: FC = () => {
     <>
       <Head>
         <title>Profile - GeoBuff</title>
+        <meta
+          name="description"
+          content="The one-stop shop to check out your badges, leaderboard entries, created quizzes and more."
+        />
       </Head>
       <MainView>
         {isLoading ? null : <UserProfileContainer routeId={userId} />}

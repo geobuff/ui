@@ -12,6 +12,10 @@ const Custom500: FC = () => {
     <>
       <Head>
         <title>{"Error - GeoBuff"}</title>
+        <meta
+          name="description"
+          content="Uh-oh! Looks like we've encountered an error. If this issue persists please contact support."
+        />
       </Head>
       <MainView backgroundColor="#276F86" hasFooter={false} overflowX="hidden">
         <Flex

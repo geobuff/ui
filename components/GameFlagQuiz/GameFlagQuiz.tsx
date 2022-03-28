@@ -334,6 +334,10 @@ const GameFlagQuiz: FC<Props> = ({
     <>
       <Head>
         <title>{name} - GeoBuff</title>
+        <meta
+          name="description"
+          content={`Call yourself a flag enthusiast? Test your knowledge on ${name}!`}
+        />
       </Head>
       <Flex flex={1} direction="column">
         <Flex height="100%" minHeight="100%" direction="column" flex={1}>

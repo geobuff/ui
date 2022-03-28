@@ -12,6 +12,10 @@ const OurMission: FC = () => (
   <MainView>
     <Head>
       <title>Our Mission - GeoBuff</title>
+      <meta
+        name="description"
+        content="We're on a mission to make it easier for people to learn the countries and flags of the world. Meet the team and find out why we do what we do!"
+      />
     </Head>
     <HeroHeader heading="Our Mission" />
     <Box background="white">

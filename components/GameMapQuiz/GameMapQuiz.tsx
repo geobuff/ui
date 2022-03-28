@@ -306,6 +306,10 @@ const GameMapQuiz: FC<Props> = ({
     <>
       <Head>
         <title>{name} - GeoBuff</title>
+        <meta
+          name="description"
+          content={`Rate yourself as a budding cartographer? Test your knowledge on ${name}!`}
+        />
       </Head>
 
       <Flex

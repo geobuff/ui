@@ -19,6 +19,10 @@ const Login: FC = () => {
     <>
       <Head>
         <title>Login - GeoBuff</title>
+        <meta
+          name="description"
+          content="Login to GeoBuff to start building your geography knowledge using our variety of interactive map or flag games!"
+        />
       </Head>
 
       <style jsx global>{`
