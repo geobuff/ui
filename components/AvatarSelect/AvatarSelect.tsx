@@ -5,6 +5,7 @@ import {
   Heading,
   useRadioGroup,
   SimpleGrid,
+  Box,
 } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 
@@ -55,11 +56,16 @@ const AvatarSelect: FC<Props> = ({
             secondaryImageUrl={current?.primaryImageUrl}
             hasBorder={false}
           />
-          <Heading mx="auto" size="md">
-            {current?.name}
-          </Heading>
-          <Text mx="auto">{current?.type}</Text>
-          <CustomFlag url={getFlagUrl(current?.countryCode)} mx="auto" my={3} />
+          <Box my={3} mx="auto" textAlign="center">
+            <Flex>
+              <Heading size="md">{current?.name}</Heading>
+              <Flex direction="column" justifyContent="center">
+                <CustomFlag url={getFlagUrl(current?.countryCode)} ml={3} />
+              </Flex>
+            </Flex>
+            <Text color="gray.500">{current?.type}</Text>
+          </Box>
+
           <Text
             color="gray.500"
             fontSize="small"
