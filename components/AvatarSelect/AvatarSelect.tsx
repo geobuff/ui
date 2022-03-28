@@ -6,11 +6,13 @@ import {
   useRadioGroup,
   SimpleGrid,
 } from "@chakra-ui/react";
+import { getFlagUrl } from "@geobuff/flags";
 
 import { FieldProps } from "../../types/field-props";
 import { Avatar } from "../../types/avatar";
 import RadioCard from "./RadioCard";
 import ProfileUserAvatar from "../ProfileUserAvatar";
+import CustomFlag from "../CustomFlag";
 
 interface Props {
   fieldProps?: FieldProps;
@@ -53,9 +55,11 @@ const AvatarSelect: FC<Props> = ({
             secondaryImageUrl={current?.primaryImageUrl}
             hasBorder={false}
           />
-          <Heading mx="auto" mb={2} size="md">
+          <Heading mx="auto" size="md">
             {current?.name}
           </Heading>
+          <Text mx="auto">{current?.type}</Text>
+          <CustomFlag url={getFlagUrl(current?.countryCode)} mx="auto" my={3} />
           <Text
             color="gray.500"
             fontSize="small"
