@@ -13,7 +13,6 @@ import Link from "next/link";
 import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import { MerchSize } from "../../../types/merch-item";
-import { useRouter } from "next/router";
 import { MerchSummaryFormSubmit } from "../../../types/merch-summary-form-submit";
 
 const validationSchema = Yup.object().shape({
@@ -45,8 +44,6 @@ const MerchSummaryDetails: FC<Props> = ({
   submitted = false,
   onOpen = (): void => {},
 }) => {
-  const router = useRouter();
-
   return (
     <>
       <Heading>{name}</Heading>
@@ -111,9 +108,6 @@ const MerchSummaryDetails: FC<Props> = ({
               </Flex>
             </Flex>
 
-            <Button width="100%" mt={3} onClick={() => router.push("/merch")}>
-              {"Continue Shopping"}
-            </Button>
             <Button
               colorScheme="green"
               width="100%"
