@@ -120,7 +120,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   label="Flag Category"
                   options={flagOptions}
                   onChange={({ target }) => {
-                    // TODO: fix error
+                    // TODO: fix errorCommunityQuizQuestionsTable
                     //@ts-ignore
                     setFlagCategory(target.value);
                     //@ts-ignore
