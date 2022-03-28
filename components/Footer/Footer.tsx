@@ -1,10 +1,21 @@
 import React, { FC } from "react";
 import Link from "next/link";
-import { Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
+import {
+  Flex,
+  Text,
+  Link as ChakraLink,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 
 import Logo from "../Logo";
 import FooterPlaysContainer from "../../containers/FooterPlaysContainer";
 import { FooterVariant } from "../../types/footer-variant";
+import Twitter from "../Twitter";
+import Instagram from "../Instagram/Instagram";
+import Facebook from "../Facebook";
+import Discord from "../Discord";
+import GitHub from "../GitHub";
+import Reddit from "../Reddit";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -68,7 +79,54 @@ const simpleFooter = (
   </Flex>
 );
 
-const extendedFooter = (
+const socialIcons = (
+  <Flex justifyContent="center" mt={{ base: 12, md: 0 }}>
+    <Flex direction="column" justifyContent="center" mx={3}>
+      <Link href="https://twitter.com/teamgeobuff" passHref>
+        <ChakraLink>
+          <Twitter isGrayScale />
+        </ChakraLink>
+      </Link>
+    </Flex>
+    <Flex direction="column" justifyContent="center" mx={3}>
+      <Link href="https://instagram.com/teamgeobuff" passHref>
+        <ChakraLink>
+          <Instagram isGrayScale />
+        </ChakraLink>
+      </Link>
+    </Flex>
+    <Flex direction="column" justifyContent="center" mx={3}>
+      <Link href="https://facebook.com/teamgeobuff" passHref>
+        <ChakraLink>
+          <Facebook isGrayScale />
+        </ChakraLink>
+      </Link>
+    </Flex>
+    <Flex direction="column" justifyContent="center" mx={3}>
+      <Link href="https://reddit.com/r/GeoBuff" passHref>
+        <ChakraLink>
+          <Reddit isGrayScale />
+        </ChakraLink>
+      </Link>
+    </Flex>
+    <Flex direction="column" justifyContent="center" mx={3}>
+      <Link href={process.env.NEXT_PUBLIC_DISCORD_LINK} passHref>
+        <ChakraLink>
+          <Discord isGrayScale />
+        </ChakraLink>
+      </Link>
+    </Flex>
+    <Flex direction="column" justifyContent="center" mx={3}>
+      <Link href="https://github.com/GeoBuff" passHref>
+        <ChakraLink>
+          <GitHub isGrayScale />
+        </ChakraLink>
+      </Link>
+    </Flex>
+  </Flex>
+);
+
+const extendedFooter = (isMobile: boolean) => (
   <Flex
     as="footer"
     borderTop="2px solid #E3E1E1"
@@ -167,6 +225,7 @@ const extendedFooter = (
               {footerCopy}
             </Text>
           </Flex>
+          {isMobile && socialIcons}
         </Flex>
       </Flex>
     </Flex>
@@ -183,6 +242,7 @@ const extendedFooter = (
       <Text color="#B0B0B0" fontSize="14px" marginBottom={{ base: 2, md: 0 }}>
         {footerLegal}
       </Text>
+      {!isMobile && socialIcons}
       <FooterPlaysContainer />
     </Flex>
   </Flex>
@@ -193,11 +253,13 @@ interface Props {
 }
 
 const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   switch (variant) {
     case FooterVariant.SIMPLE:
       return simpleFooter;
     default:
-      return extendedFooter;
+      return extendedFooter(isMobile);
   }
 };
 
