@@ -89,7 +89,7 @@ const OurMission: FC = () => (
           <Divider />
           <SimpleGrid
             columns={{ base: 1, md: 2, lg: 3 }}
-            spacing={{ base: "50px", lg: "inherit" }}
+            spacingY={{ base: 6, md: 12 }}
             mt={12}
           >
             <TeamMemberCard
@@ -111,6 +111,15 @@ const OurMission: FC = () => (
               link="https://github.com/KirbyMcKenzie"
             />
             <TeamMemberCard
+              title="Pearl Pan"
+              position="Marketing"
+              city="Palmerston North"
+              country="New Zealand"
+              primaryImageUrl="/pearl-primary.svg"
+              secondaryImageUrl="/pearl-secondary.svg"
+              link="https://instagram.com/pearlptp"
+            />
+            <TeamMemberCard
               title="Daniel Marchbank"
               position="Designer"
               city="Wellington"
@@ -118,6 +127,15 @@ const OurMission: FC = () => (
               primaryImageUrl="/dan-primary.svg"
               secondaryImageUrl="/dan-secondary.svg"
               link="https://twitter.com/cleangecko"
+            />
+            <TeamMemberCard
+              title="Ryan Clough"
+              position="Question Master"
+              city="Auckland"
+              country="New Zealand"
+              primaryImageUrl="/ryan-primary.svg"
+              secondaryImageUrl="/ryan-secondary.svg"
+              link="https://twitter.com/ryanclough_"
             />
           </SimpleGrid>
         </Box>
