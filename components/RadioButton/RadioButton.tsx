@@ -2,10 +2,11 @@ import React, { FC } from "react";
 import { Box, useRadio, UseRadioProps } from "@chakra-ui/react";
 
 export interface Props {
+  color?: string;
   radioProps?: UseRadioProps;
 }
 
-const RadioButton: FC<Props> = ({ children, radioProps }) => {
+const RadioButton: FC<Props> = ({ children, radioProps, color = "green" }) => {
   const { getInputProps, getCheckboxProps } = useRadio(radioProps);
 
   const input = getInputProps();
@@ -21,10 +22,11 @@ const RadioButton: FC<Props> = ({ children, radioProps }) => {
         borderRadius="md"
         boxShadow="md"
         fontWeight="semibold"
+        textAlign="center"
         _checked={{
-          bg: "teal.600",
+          bg: `${color}.500`,
           color: "white",
-          borderColor: "teal.600",
+          borderColor: `${color}.500`,
         }}
         _focus={{
           boxShadow: "outline",
