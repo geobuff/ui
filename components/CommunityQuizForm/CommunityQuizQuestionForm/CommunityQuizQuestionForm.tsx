@@ -25,8 +25,14 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   ...props
 }) => {
   const [flagCategory, setFlagCategory] = useState("");
+  const [flagAnswerCategory, setFlagAnswerCategory] = useState("");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
   const [correctAnswer, setCorrectAnswer] = useState<number | string>(null);
+
+  console.log(
+    flagAnswerCategory,
+    "flagAnswerCategory::CommunityQuizQuestionForm"
+  );
 
   const options = types.map(({ id, name }) => ({
     label: name,
@@ -128,10 +134,13 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   }}
                   width="100%"
                   marginRight={2}
+                  marginY={4}
                 />
                 <CommunityQuizFlagSelectField
+                  name="flagCode"
+                  label="Flag Code"
                   flagCategory={flagCategory}
-                  flagCode={values.flagCode}
+                  // flagCode={values.flagCode}
                 />
               </Flex>
             )}
@@ -164,21 +173,27 @@ const CommunityQuizQuestionForm: FC<Props> = ({
 
             {hasFlagAnswers && (
               <SelectFormField
+                name="hasFlagAnswers"
                 options={flagOptions}
                 label="Flag Answer Category"
+                // @ts-ignore
+                onChange={({ target }) => setFlagAnswerCategory(target.value)}
+                marginY={4}
               />
             )}
 
-            <Divider marginTop={8} marginBottom={4} />
+            {/* <Divider marginTop={8} marginBottom={4} /> */}
 
             <Flex direction="column" width="100%" marginBottom={5}>
               {answers.map(({ label, value }) => (
                 <CommunityQuizAnswersField
+                  name={value.toString()}
                   key={value}
                   label={label}
                   value={value}
                   isChecked={correctAnswer === value}
                   hasFlagAnswers={hasFlagAnswers}
+                  flagAnswerCategory={flagAnswerCategory}
                   onChange={(value) => setCorrectAnswer(value)}
                   marginY={0.5}
                 />

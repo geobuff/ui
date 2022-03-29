@@ -30,7 +30,7 @@ const SelectFormField: FC<Props> = ({
   ...props
 }) => {
   return (
-    <Flex marginY={4} {...props}>
+    <Flex {...props}>
       <Field name={name}>
         {({ field, form }) => (
           <FormControl isInvalid={form.errors[name] && form.touched[name]}>

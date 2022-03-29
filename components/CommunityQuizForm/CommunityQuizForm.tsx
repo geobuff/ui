@@ -119,6 +119,7 @@ const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
                 </Button>
               </Flex>
             </Form>
+
             <Modal
               isOpen={isOpen}
               onClose={onClose}
