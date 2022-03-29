@@ -29,11 +29,6 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
   const [correctAnswer, setCorrectAnswer] = useState<number | string>(null);
 
-  console.log(
-    flagAnswerCategory,
-    "flagAnswerCategory::CommunityQuizQuestionForm"
-  );
-
   const options = types.map(({ id, name }) => ({
     label: name,
     value: id.toString(),
@@ -134,7 +129,6 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   }}
                   width="100%"
                   marginRight={2}
-                  marginY={4}
                 />
                 <CommunityQuizFlagSelectField
                   name="flagCode"
@@ -151,6 +145,11 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   name="map"
                   label="Map"
                   options={mapCategories}
+                  onChange={({ target }) => {
+                    // TODO: fix
+                    // @ts-ignore
+                    setFieldValue("map", target?.value);
+                  }}
                   width="50%"
                   marginRight={2}
                 />
@@ -158,6 +157,11 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   name="highlighted"
                   label="Highlighted"
                   options={getHighlightRegionsByMap(values.map)}
+                  onChange={({ target }) => {
+                    // TODO: fix
+                    // @ts-ignore
+                    setFieldValue("highlighted", target?.value);
+                  }}
                   width="50%"
                 />
               </Flex>
@@ -181,8 +185,6 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 marginY={4}
               />
             )}
-
-            {/* <Divider marginTop={8} marginBottom={4} /> */}
 
             <Flex direction="column" width="100%" marginBottom={5}>
               {answers.map(({ label, value }) => (

@@ -40,7 +40,7 @@ const CommunityQuizFlagSelect: FC<Props> = ({
   ...props
 }) => {
   return (
-    <Flex marginY={4} width="100%">
+    <Flex width="100%">
       <Field name={name}>
         {({ field, form }) => (
           <FormControl isInvalid={form.errors[name] && form.touched[name]}>
