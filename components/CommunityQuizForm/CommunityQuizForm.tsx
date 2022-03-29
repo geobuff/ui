@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Formik } from "formik";
+import { Form, Formik } from "formik";
 import {
   Button,
   Divider,
@@ -8,6 +8,7 @@ import {
   IconButton,
   useDisclosure,
 } from "@chakra-ui/react";
+import * as Yup from "yup";
 
 import CommunityQuizFormField from "./CommunityQuizFormField";
 import CommunityQuizQuestionsField from "./CommunityQuizQuestionsField";
@@ -17,15 +18,22 @@ import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 import { CommunityQuizQuestion } from "./CommunityQuizQuestionsField/CommunityQuizQuestionsField";
 import ArrowLeft from "../../Icons/ArrowLeft";
 
+const validationSchema = Yup.object().shape({
+  quizName: Yup.string().required("Please enter a name for your quiz."),
+  // questions: Yup.array().required("You must include at least one question"), // TODO: check for at least 1
+});
+
 export interface FormValues {
   quizName: string;
+  description: string;
+  questions: CommunityQuizQuestion[];
 }
 
 export interface Props {
   values?: FormValues;
 }
 
-const initialValues = { quizName: "", description: "" };
+const initialValues = { quizName: "", description: "", questions: [] };
 
 const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -36,8 +44,9 @@ const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
   const [questions, setQuestions] = useState<CommunityQuizQuestion[]>([]);
   console.log(questions, "questions");
 
-  const handleAddQuestion = (values: any) => {
+  const handleAddQuestion = (values: any, setFieldHelper) => {
     setQuestions([...questions, values]);
+    setFieldHelper("questions", [...questions, values]);
     onClose();
   };
 
@@ -66,71 +75,77 @@ const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
     <>
       <Formik
         initialValues={values}
+        validationSchema={validationSchema}
         onSubmit={(values) => console.log(values, "values")}
       >
-        <Flex direction="column" width="100%">
-          <CommunityQuizFormField
-            name="quizName"
-            label="Quiz Name"
-            helper="Keep it concise and memorable!"
-            placeholder="Enter quiz name..."
-            direction="row"
-          />
-          {/* TODO: add textarea type */}
-          <CommunityQuizFormField
-            name="description"
-            label="Description"
-            helper="The description helps your quiz stand out from the rest"
-            placeholder="Enter description..."
-            direction="row"
-          />
+        {({ values, setFieldValue, errors }) => (
+          <Flex direction="column" width="100%">
+            <Form autoComplete="off">
+              <CommunityQuizFormField
+                name="quizName"
+                label="Quiz Name"
+                helper="Keep it concise and memorable!"
+                placeholder="Enter quiz name..."
+                direction="row"
+              />
+              {/* TODO: add textarea type */}
+              <CommunityQuizFormField
+                name="description"
+                label="Description"
+                helper="The description helps your quiz stand out from the rest"
+                placeholder="Enter description..."
+                direction="row"
+              />
 
-          <Divider my={5} borderColor="gray.100" borderWidth={1} />
+              <Divider my={5} borderColor="gray.100" borderWidth={1} />
 
-          <Flex width="100%" justifyContent="center" marginY={4}>
-            <CommunityQuizQuestionsField
-              questions={questions}
-              onAddQuestion={onOpen}
-              onDeleteQuestion={(question) => {
-                setQuestions(
-                  questions.filter((q) => q.question !== question.question)
-                );
-              }}
-            />
+              <Flex width="100%" justifyContent="center" marginY={4}>
+                <CommunityQuizQuestionsField
+                  questions={questions}
+                  onAddQuestion={onOpen}
+                  onDeleteQuestion={(question) => {
+                    setQuestions(
+                      questions.filter((q) => q.question !== question.question)
+                    );
+                  }}
+                />
+              </Flex>
+
+              <Divider my={5} borderColor="gray.100" borderWidth={1} />
+
+              <Flex justifyContent="flex-end" marginTop={8}>
+                <Button type="submit" colorScheme="green">
+                  {"Create Quiz"}
+                </Button>
+              </Flex>
+            </Form>
+            <Modal
+              isOpen={isOpen}
+              onClose={onClose}
+              maxHeight={{ base: "100%", md: "700px" }}
+              minWidth="660px"
+              hasCloseButton
+              header={header}
+            >
+              <Flex
+                direction="column"
+                paddingX={10}
+                width="100%"
+                overflow="scroll"
+                marginBottom={10}
+              >
+                <Divider marginBottom={6} />
+                <CommunityQuizQuestionForm
+                  types={types}
+                  onSubmit={(values) =>
+                    handleAddQuestion(values, setFieldValue)
+                  }
+                />
+              </Flex>
+            </Modal>
           </Flex>
-
-          <Divider my={5} borderColor="gray.100" borderWidth={1} />
-
-          <Flex justifyContent="flex-end" marginTop={8}>
-            <Button type="submit" colorScheme="green">
-              {"Create Quiz"}
-            </Button>
-          </Flex>
-        </Flex>
+        )}
       </Formik>
-
-      <Modal
-        isOpen={isOpen}
-        onClose={onClose}
-        maxHeight={{ base: "100%", md: "700px" }}
-        minWidth="660px"
-        hasCloseButton
-        header={header}
-      >
-        <Flex
-          direction="column"
-          paddingX={10}
-          width="100%"
-          overflow="scroll"
-          marginBottom={10}
-        >
-          <Divider marginBottom={6} />
-          <CommunityQuizQuestionForm
-            types={types}
-            onSubmit={handleAddQuestion}
-          />
-        </Flex>
-      </Modal>
     </>
   );
 };
