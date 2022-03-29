@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { ChangeEventHandler, FC } from "react";
 import { Field } from "formik";
 
 import {
@@ -12,13 +12,15 @@ import {
 } from "@chakra-ui/react";
 
 import { FormOption } from "../../../types/form";
+import { ChangeEvent } from "react";
 
-export interface Props extends Omit<FlexProps, "defaultValue"> {
+export interface Props extends Omit<FlexProps, "defaultValue" | "onChange"> {
   options: FormOption[];
   defaultValue?: FormOption;
   name?: string;
   label?: string;
   helper?: string;
+  onChange: (value: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const SelectFormField: FC<Props> = ({
@@ -27,6 +29,7 @@ const SelectFormField: FC<Props> = ({
   label,
   helper,
   defaultValue = { label: "Select a value...", value: "" },
+  onChange = () => {},
   ...props
 }) => {
   return (
@@ -51,7 +54,7 @@ const SelectFormField: FC<Props> = ({
               borderColor="transparent"
               _placeholder={{ color: "gray.500" }}
               _hover={{ background: "#e0e0e0" }}
-              onChange={props?.onChange}
+              onChange={onChange}
             >
               <option value={defaultValue.value}>{defaultValue.label}</option>
               {options.map((option) => (

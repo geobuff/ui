@@ -122,9 +122,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   options={flagOptions}
                   onChange={({ target }) => {
                     // TODO: fix errorCommunityQuizQuestionsTable
-                    //@ts-ignore
                     setFlagCategory(target.value);
-                    //@ts-ignore
                     setFieldValue("flagCode", "");
                   }}
                   width="100%"
@@ -145,11 +143,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   name="map"
                   label="Map"
                   options={mapCategories}
-                  onChange={({ target }) => {
-                    // TODO: fix
-                    // @ts-ignore
-                    setFieldValue("map", target?.value);
-                  }}
+                  onChange={({ target }) => setFieldValue("map", target?.value)}
                   width="50%"
                   marginRight={2}
                 />
@@ -157,11 +151,9 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   name="highlighted"
                   label="Highlighted"
                   options={getHighlightRegionsByMap(values.map)}
-                  onChange={({ target }) => {
-                    // TODO: fix
-                    // @ts-ignore
-                    setFieldValue("highlighted", target?.value);
-                  }}
+                  onChange={({ target }) =>
+                    setFieldValue("highlighted", target?.value)
+                  }
                   width="50%"
                 />
               </Flex>
@@ -180,7 +172,6 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 name="hasFlagAnswers"
                 options={flagOptions}
                 label="Flag Answer Category"
-                // @ts-ignore
                 onChange={({ target }) => setFlagAnswerCategory(target.value)}
                 marginY={4}
               />
