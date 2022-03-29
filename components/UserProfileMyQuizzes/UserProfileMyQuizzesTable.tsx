@@ -12,6 +12,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
+import { useRouter } from "next/router";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -24,9 +25,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
   isCurrentUser = false,
   onDeleteQuiz = (): void => {},
 }) => {
-  const handleEdit = (quiz: CommunityQuiz) => {
-    console.log(quiz);
-  };
+  const router = useRouter();
 
   return (
     <Box overflow="auto">
@@ -56,7 +55,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
                       colorScheme="black"
                       variant="link"
                       aria-label="Edit question"
-                      onClick={() => handleEdit(quiz)}
+                      onClick={() => router.push(`/quiz/edit/${quiz.id}`)}
                       marginRight={4}
                     >
                       {"Edit"}
