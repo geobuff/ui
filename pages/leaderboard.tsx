@@ -19,6 +19,10 @@ const Leaderboard: FC<AppProps> = ({ pageProps }) => {
     <>
       <Head>
         <title>{"Leaderboard - GeoBuff"}</title>
+        <meta
+          name="description"
+          content="Earn your place on the GeoBuff leaderboard! Every game features a competitive leaderboard so you can compete with your friends and foes from all over the world."
+        />
       </Head>
       <MainView>
         <LeaderboardContainer

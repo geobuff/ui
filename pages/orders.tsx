@@ -25,6 +25,10 @@ const Orders: FC = () => {
     <>
       <Head>
         <title>My Orders - GeoBuff</title>
+        <meta
+          name="description"
+          content="Check out the latest merch that you've copped from the GeoBuff store."
+        />
       </Head>
       <MainView>
         <HeroHeader heading="My Orders" />

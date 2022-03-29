@@ -71,6 +71,10 @@ const GameTrivia: FC<Props> = ({
     <>
       <Head>
         <title> {`${trivia.name} - GeoBuff`}</title>
+        <meta
+          name="description"
+          content="Ten questions covering everything geography - from maps and flags, to rivers and mountains, our famous daily trivia will keep you coming back every single day."
+        />
       </Head>
       <MainView hasFooter={false} backgroundColor="#276F86">
         <Box position="fixed" top="56px" left={0} right={0} bottom={0}>

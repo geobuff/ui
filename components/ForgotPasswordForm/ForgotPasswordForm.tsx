@@ -24,6 +24,8 @@ import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
 import Logo from "../Logo";
 import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
+import ArrowLeft from "../../Icons/ArrowLeft";
+import { useRouter } from "next/router";
 
 const forgotPasswordExplainer =
   "Enter the email address you used when you joined and we’ll send you a link to reset your password.";
@@ -45,6 +47,7 @@ const ForgotPasswordForm: FC<Props> = ({
   isSubmitting = false,
   onSubmit = (values: ForgotPasswordFormSubmit): void => {},
 }) => {
+  const router = useRouter();
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   const success = (
@@ -69,6 +72,22 @@ const ForgotPasswordForm: FC<Props> = ({
 
   const mainContent = (
     <>
+      <Flex mt={-2} ml={-4} mb={6}>
+        <Button
+          alignItems="center"
+          backgroundColor="transparent"
+          _hover={{
+            textDecoration: "underline",
+            cursor: "pointer",
+          }}
+          onClick={() => router.push("/login")}
+        >
+          <ArrowLeft height={5} width={5} marginRight={1} />
+          <Text fontWeight="bold" fontSize="14px">
+            {"Back to Login"}
+          </Text>
+        </Button>
+      </Flex>
       <Flex
         justifyContent="center"
         marginTop={3}
@@ -180,7 +199,7 @@ const ForgotPasswordForm: FC<Props> = ({
         <>
           <AuthView>
             <AuthCard
-              height={isSuccess ? 260 : 422}
+              height={isSuccess ? 260 : 478}
               width={375}
               marginX="auto"
               marginY={5}

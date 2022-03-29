@@ -19,6 +19,10 @@ const ResetPassword: FC = () => {
     <>
       <Head>
         <title>Reset Password - GeoBuff</title>
+        <meta
+          name="description"
+          content="Forgot your password? Not to worry, we've got you covered. Get a reset link sent to your email and we'll have you back in action in no time."
+        />
       </Head>
 
       <style jsx global>{`

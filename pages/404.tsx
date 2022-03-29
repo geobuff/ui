@@ -12,6 +12,10 @@ const Custom404: FC = () => {
     <>
       <Head>
         <title>{"Page Not Found - GeoBuff"}</title>
+        <meta
+          name="description"
+          content="Uh-oh! Looks like we this page can't be found."
+        />
       </Head>
       <MainView backgroundColor="#276F86" hasFooter={false} overflowX="hidden">
         <Flex

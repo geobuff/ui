@@ -25,6 +25,10 @@ const FAQ: FC = () => {
     <MainView>
       <Head>
         <title>FAQ - GeoBuff</title>
+        <meta
+          name="description"
+          content="Questions frequently asked by GeoBuff users. Can't find what you're after? Please don't hesitate to contact support via the Discord link in the footer."
+        />
       </Head>
       <HeroHeader heading="FAQ" />
       <Box background="white">
