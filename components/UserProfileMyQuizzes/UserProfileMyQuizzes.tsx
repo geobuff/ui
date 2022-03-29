@@ -11,6 +11,7 @@ import {
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import Card from "../Card";
 import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
+import { useRouter } from "next/router";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -21,9 +22,7 @@ const UserProfileMyQuizzes: FC<Props> = ({
   quizzes = [],
   isCurrentUser = false,
 }) => {
-  const handleCreate = () => {
-    console.log("create");
-  };
+  const router = useRouter();
 
   const getContent = () => {
     if (quizzes.length === 0) {
@@ -53,7 +52,11 @@ const UserProfileMyQuizzes: FC<Props> = ({
       >
         <Heading fontSize="26px">{"My Quizzes"}</Heading>
         {isCurrentUser && (
-          <Button colorScheme="green" size="md" onClick={handleCreate}>
+          <Button
+            colorScheme="green"
+            size="md"
+            onClick={() => router.push("/quiz/create")}
+          >
             {"Create Quiz"}
           </Button>
         )}
