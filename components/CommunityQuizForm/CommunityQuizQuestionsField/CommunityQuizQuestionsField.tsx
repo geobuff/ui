@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import CommunityQuizQuestionsTable from "../CommunityQuizQuestionsTable";
 
