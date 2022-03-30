@@ -87,13 +87,8 @@ const CommunityQuizAnswersField: FC<Props> = ({
         {hasFlagAnswers && (
           <Flex maxWidth="150px" alignItems="center">
             <Field name={`${name}.flagCode`}>
-              {({ form }) => (
-                <FormControl
-                  isInvalid={
-                    form.errors[`${name}FlagCode`] &&
-                    form.touched[`${name}FlagCode`]
-                  }
-                >
+              {() => (
+                <FormControl>
                   <SelectFormField
                     name={`${name}.flagCode`}
                     defaultValue={{ label: "Flag code", value: "" }}
@@ -103,10 +98,6 @@ const CommunityQuizAnswersField: FC<Props> = ({
                     ).map((option) => ({ label: option, value: option }))}
                     onChange={({ target }) => onChangeFlagCode(target.value)}
                   />
-
-                  <FormErrorMessage fontSize="11px">
-                    {form.errors[`${name}.flagCode`]}
-                  </FormErrorMessage>
                 </FormControl>
               )}
             </Field>
@@ -114,11 +105,10 @@ const CommunityQuizAnswersField: FC<Props> = ({
         )}
 
         <Field name={`${name}.text`}>
-          {({ field, form }) => (
-            <FormControl isInvalid={form.errors[name] && form.touched[name]}>
+          {({ field }) => (
+            <FormControl>
               <Input
                 {...field}
-                width="100%"
                 id={name}
                 type="text"
                 placeholder={placeholder}
@@ -129,12 +119,10 @@ const CommunityQuizAnswersField: FC<Props> = ({
                 color={isChecked && "green.500"}
                 borderRadius={6}
                 ml={hasFlagAnswers ? 2 : 0}
+                width="100%"
                 _placeholder={{ color: "gray.500" }}
                 _hover={{ background: "#e0e0e0" }}
               />
-              <FormErrorMessage fontSize="11px">
-                {form.errors[name]}
-              </FormErrorMessage>
             </FormControl>
           )}
         </Field>

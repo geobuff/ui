@@ -61,10 +61,14 @@ const CommunityQuizFormField: FC<FormFieldProps> = ({
                 _hover={{ background: "#e0e0e0" }}
               />
             </Flex>
-            {isColumn && <FormHelperText>{helper}</FormHelperText>}
-            <FormErrorMessage fontSize="11px">
-              {form.errors[name]}
-            </FormErrorMessage>
+
+            {form.errors[name] ? (
+              <FormErrorMessage fontSize="11px">
+                {form.errors[name]}
+              </FormErrorMessage>
+            ) : (
+              <>{isColumn && <FormHelperText>{helper}</FormHelperText>}</>
+            )}
           </FormControl>
         )}
       </Field>
