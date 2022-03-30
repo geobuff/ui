@@ -32,7 +32,7 @@ const Create: FC = () => {
           <Card padding={{ base: 6, md: 8 }}>
             <Heading>{"Create Community Quiz"}</Heading>
 
-            <Flex width="100%" marginTop={10}>
+            <Flex width="100%" flex={1} marginTop={10}>
               <CommunityQuizForm />
             </Flex>
           </Card>

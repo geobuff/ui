@@ -54,7 +54,7 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
 
     if (values.answerThreeText) {
       answers.push({
-        id: values.answers ? values.answers[3]?.id : 0,
+        id: values.answers ? values.answers[2]?.id : 0,
         text: values.answerThreeText,
         isCorrect: values.correctAnswer === 3,
         flagCode: values.answerThreeFlagCode,
@@ -64,7 +64,7 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
 
     if (values.answerFourText) {
       answers.push({
-        id: values.answers ? values.answers[4]?.id : 0,
+        id: values.answers ? values.answers[3]?.id : 0,
         text: values.answerFourText,
         isCorrect: values.correctAnswer === 4,
         flagCode: values.answerFourFlagCode,
