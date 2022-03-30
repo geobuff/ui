@@ -77,7 +77,6 @@ const TriviaCard: FC<Props> = ({ name = "", maxScore = 0, ...props }) => (
             >
               {"Share Quiz"}
             </Text> */}
-            <Badge>{"Beta"}</Badge>
           </Flex>
           <Flex alignItems="center">
             <Twemoji
