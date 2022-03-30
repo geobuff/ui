@@ -58,19 +58,19 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   const answers = [
     {
       label: "Answer One",
-      value: 1,
+      value: 0,
     },
     {
       label: "Answer Two",
-      value: 2,
+      value: 1,
     },
     {
       label: "Answer Three (Optional)",
-      value: 3,
+      value: 2,
     },
     {
       label: "Answer Four (Optional)",
-      value: 4,
+      value: 3,
     },
   ];
 
@@ -180,14 +180,18 @@ const CommunityQuizQuestionForm: FC<Props> = ({
             <Flex direction="column" width="100%" marginBottom={5}>
               {answers.map(({ label, value }) => (
                 <CommunityQuizAnswersField
-                  name={value.toString()}
+                  name={`answers[${value}]`}
                   key={value}
                   label={label}
                   value={value}
                   isChecked={correctAnswer === value}
                   hasFlagAnswers={hasFlagAnswers}
                   flagAnswerCategory={flagAnswerCategory}
-                  onChange={(value) => setCorrectAnswer(value)}
+                  onChange={(answer) => setCorrectAnswer(answer)}
+                  onChangeFlagCode={(flagCode) => {
+                    console.log(flagCode, "changed::flagCode");
+                    setFieldValue(`answers[${value}].flagCode`, flagCode);
+                  }}
                   marginY={0.5}
                 />
               ))}

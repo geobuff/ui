@@ -13,7 +13,7 @@ import SelectFormField from "../../FormFields/SelectFormField";
 import { flagCategories } from "@geobuff/flags";
 import { flags } from "@geobuff/flags";
 
-export interface Props extends Omit<FlexProps, "onChange"> {
+export interface Props extends FlexProps {
   name: string;
   label?: string;
   value: number | string;
@@ -21,7 +21,8 @@ export interface Props extends Omit<FlexProps, "onChange"> {
   isChecked?: boolean;
   hasFlagAnswers?: boolean;
   flagAnswerCategory?: string;
-  onChange?: (value: number | string) => void;
+  onChangeCorrectAnswer?: (value: number | string) => void;
+  onChangeFlagCode?: (value: string) => void;
 }
 
 // TODO: refactor out names and flagCodes
@@ -33,7 +34,8 @@ const CommunityQuizAnswersField: FC<Props> = ({
   isChecked = false,
   hasFlagAnswers = false,
   flagAnswerCategory,
-  onChange = () => {},
+  onChangeCorrectAnswer = () => {}, // TODO: give new name
+  onChangeFlagCode = () => {},
   ...props
 }) => {
   // TODO: move common
@@ -77,14 +79,14 @@ const CommunityQuizAnswersField: FC<Props> = ({
         <Radio
           value={1}
           isChecked={isChecked}
-          onChange={() => onChange(value)}
+          onChange={() => onChangeCorrectAnswer(value)}
           colorScheme="green"
           marginRight={3}
         />
 
         {hasFlagAnswers && (
           <Flex maxWidth="150px" alignItems="center">
-            <Field name={`${name}FlagCode`}>
+            <Field name={`${name}.flagCode`}>
               {({ form }) => (
                 <FormControl
                   isInvalid={
@@ -93,16 +95,17 @@ const CommunityQuizAnswersField: FC<Props> = ({
                   }
                 >
                   <SelectFormField
-                    name={`${name}FlagCode`}
+                    name={`${name}.flagCode`}
                     defaultValue={{ label: "Flag code", value: "" }}
                     minWidth={{ base: "100%", md: "130px" }}
                     options={getFlagsByCategory(
                       flagAnswerCategory
                     ).map((option) => ({ label: option, value: option }))}
+                    onChange={({ target }) => onChangeFlagCode(target.value)}
                   />
 
                   <FormErrorMessage fontSize="11px">
-                    {form.errors[`${name}FlagCode`]}
+                    {form.errors[`${name}.flagCode`]}
                   </FormErrorMessage>
                 </FormControl>
               )}
@@ -110,7 +113,7 @@ const CommunityQuizAnswersField: FC<Props> = ({
           </Flex>
         )}
 
-        <Field name={name}>
+        <Field name={`${name}.text`}>
           {({ field, form }) => (
             <FormControl isInvalid={form.errors[name] && form.touched[name]}>
               <Input

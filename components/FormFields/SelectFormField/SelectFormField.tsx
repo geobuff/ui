@@ -20,7 +20,7 @@ export interface Props extends Omit<FlexProps, "defaultValue" | "onChange"> {
   name?: string;
   label?: string;
   helper?: string;
-  onChange: (value: ChangeEvent<HTMLSelectElement>) => void;
+  onChange?: (value: ChangeEvent<HTMLSelectElement>) => void;
 }
 
 const SelectFormField: FC<Props> = ({
