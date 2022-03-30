@@ -2,14 +2,33 @@ import React, { FC } from "react";
 import { Button, Flex, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 import { CommunityQuizQuestion } from "../CommunityQuizQuestionsField/CommunityQuizQuestionsField";
 import TableCell from "../../TableCell";
+import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
+
+// TODO: move to common
+const getType = (typeId: string): string => {
+  switch (typeId) {
+    case QuestionType.Text:
+      return "Text";
+    case QuestionType.Image:
+      return "Image";
+    case QuestionType.Flag:
+      return "Flag";
+    case QuestionType.Map:
+      return "Map";
+    default:
+      return "Unknown";
+  }
+};
 
 export interface Props {
   questions: CommunityQuizQuestion[];
+  onEdit?: (question: CommunityQuizQuestion) => void;
   onDelete?: (question: CommunityQuizQuestion) => void;
 }
 
 const CommunityQuizQuestionsTable: FC<Props> = ({
   questions = [],
+  onEdit = () => {},
   onDelete = () => {},
 }) => {
   return (
@@ -38,11 +57,7 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
               {question?.answers?.map((x) => x.text).join(", ") || ""}
             </TableCell>
             <TableCell paddingY={4} paddingX={6}>
-              {
-                // TODO: fix type error
-                //@ts-ignore
-                question?.typeId.toString()
-              }
+              {getType(question?.typeId)}
             </TableCell>
             <TableCell isNumeric paddingY={4} paddingX={6}>
               <Flex alignItems="center" justifyContent="flex-end">
@@ -50,7 +65,7 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
                   colorScheme="black"
                   variant="link"
                   aria-label="Edit question"
-                  // onClick={() => onEdit(question)}
+                  onClick={() => onEdit(question)}
                   marginRight={4}
                 >
                   {"Edit"}
