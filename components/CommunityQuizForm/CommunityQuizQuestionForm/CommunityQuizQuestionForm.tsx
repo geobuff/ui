@@ -7,7 +7,6 @@ import * as Yup from "yup";
 
 import { flagCategories } from "@geobuff/flags";
 
-import { QuizType } from "../../../types/quiz-type";
 import RadioGroupFormField from "../../FormFields/RadioGroupFormField";
 import CommunityQuizFormField from "../CommunityQuizFormField";
 import SelectFormField from "../../FormFields/SelectFormField";
@@ -15,6 +14,8 @@ import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
 import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
 import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
 import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
+import { getHighlightRegionsByMap } from "../../../helpers/map";
+import { TriviaQuestionType } from "../../../types/trivia-question-type";
 
 const answers = [
   "Answer One",
@@ -55,7 +56,7 @@ const validationSchema = Yup.object().shape({
 
 export interface Props extends FlexProps {
   values?: any;
-  types: QuizType[];
+  types: TriviaQuestionType[];
   // TODO: add type
   onSubmit?: (values: any) => void;
 }
@@ -81,22 +82,10 @@ const CommunityQuizQuestionForm: FC<Props> = ({
     value: m,
   }));
 
-  // TODO: move common
   const flagOptions = flagCategories?.map(({ key, label }) => ({
     label,
     value: key,
   }));
-
-  const getHighlightRegionsByMap = (map: string) => {
-    const selectedMap = Maps[map];
-
-    if (selectedMap !== undefined) {
-      return selectedMap.paths.map(({ id, name }) => ({
-        value: id,
-        label: name,
-      }));
-    }
-  };
 
   return (
     <Flex width="100%" {...props}>
@@ -232,7 +221,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   marginTop={2}
                   marginLeft={4}
                 >
-                  {"Please select a correct answer"}
+                  {"Please add at least two answers"}
                 </Text>
               )}
             </Flex>
