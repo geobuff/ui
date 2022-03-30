@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import {
+  Box,
   Flex,
   FlexProps,
   FormControl,
@@ -87,12 +88,18 @@ const CommunityQuizAnswersField: FC<Props> = ({
         {hasFlagAnswers && (
           <Flex maxWidth="150px" alignItems="center">
             <Field name={`${name}.flagCode`}>
-              {() => (
+              {({ form }) => (
                 <FormControl>
                   <SelectFormField
                     name={`${name}.flagCode`}
                     defaultValue={{ label: "Flag code", value: "" }}
                     minWidth={{ base: "100%", md: "130px" }}
+                    isInvalid={
+                      (!isChecked &&
+                        form.errors.answers &&
+                        name.includes("0")) ||
+                      (!isChecked && form.errors.answers && name.includes("1"))
+                    }
                     options={getFlagsByCategory(
                       flagAnswerCategory
                     ).map((option) => ({ label: option, value: option }))}
@@ -105,8 +112,13 @@ const CommunityQuizAnswersField: FC<Props> = ({
         )}
 
         <Field name={`${name}.text`}>
-          {({ field }) => (
-            <FormControl>
+          {({ field, form }) => (
+            <FormControl
+              isInvalid={
+                (!isChecked && form.errors.answers && name.includes("0")) ||
+                (!isChecked && form.errors.answers && name.includes("1"))
+              }
+            >
               <Input
                 {...field}
                 id={name}

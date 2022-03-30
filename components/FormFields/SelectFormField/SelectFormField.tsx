@@ -20,6 +20,7 @@ export interface Props extends Omit<FlexProps, "defaultValue" | "onChange"> {
   name?: string;
   label?: string;
   helper?: string;
+  isInvalid?: boolean;
   onChange?: (value: ChangeEvent<HTMLSelectElement>) => void;
 }
 
@@ -28,6 +29,7 @@ const SelectFormField: FC<Props> = ({
   name,
   label,
   helper,
+  isInvalid = false,
   defaultValue = { label: "Select a value...", value: "" },
   onChange = () => {},
   ...props
@@ -47,6 +49,7 @@ const SelectFormField: FC<Props> = ({
               id={name}
               fontSize="16px"
               fontWeight={400}
+              isInvalid={isInvalid}
               background="#F6F6F6"
               minHeight="44px"
               borderRadius={6}
@@ -54,6 +57,11 @@ const SelectFormField: FC<Props> = ({
               borderColor="transparent"
               _placeholder={{ color: "gray.500" }}
               _hover={{ background: "#e0e0e0" }}
+              _invalid={{
+                color: "red.500",
+                borderColor: "red.500",
+                borderWidth: 2,
+              }}
               onChange={onChange}
             >
               <option value={defaultValue.value}>{defaultValue.label}</option>
