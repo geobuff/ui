@@ -54,7 +54,7 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
             </TableCell>
 
             <TableCell paddingY={4} paddingX={6}>
-              {question?.answers?.map((x) => x.text).join(", ") || ""}
+              {question?.answers?.map((x) => x?.text).join(", ") || ""}
             </TableCell>
             <TableCell paddingY={4} paddingX={6}>
               {getType(question?.typeId)}

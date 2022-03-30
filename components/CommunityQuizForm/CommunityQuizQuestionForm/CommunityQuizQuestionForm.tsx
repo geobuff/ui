@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Button, Divider, Flex, FlexProps } from "@chakra-ui/react";
+import { Button, Divider, Flex, FlexProps, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
 import * as Maps from "@geobuff/svg-maps";
@@ -54,14 +54,16 @@ const validationSchema = Yup.object().shape({
 });
 
 export interface Props extends FlexProps {
+  values?: any;
+  types: QuizType[];
   // TODO: add type
   onSubmit?: (values: any) => void;
-  types: QuizType[];
 }
 
 const CommunityQuizQuestionForm: FC<Props> = ({
-  onSubmit,
+  values = initialValues,
   types = [],
+  onSubmit,
   ...props
 }) => {
   const [flagCategory, setFlagCategory] = useState("");
@@ -79,6 +81,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
     value: m,
   }));
 
+  // TODO: move common
   const flagOptions = flagCategories?.map(({ key, label }) => ({
     label,
     value: key,
@@ -99,130 +102,148 @@ const CommunityQuizQuestionForm: FC<Props> = ({
     <Flex width="100%" {...props}>
       <Formik
         onSubmit={onSubmit}
-        initialValues={initialValues}
+        initialValues={values}
         validationSchema={validationSchema}
+        enableReinitialize
       >
-        {({ values, errors, setFieldValue }) =>
-          console.log(errors, "errors") || (
-            <Form autoComplete="off" style={{ width: "100%" }}>
-              <RadioGroupFormField
-                name="typeId"
-                label="Type"
-                onChange={(value) => setFieldValue("typeId", value)}
-                selectedValue={values.typeId}
-                options={options}
-              />
+        {({ values, setFieldValue, errors }) => (
+          <Form autoComplete="off" style={{ width: "100%" }}>
+            <RadioGroupFormField
+              name="typeId"
+              label="Type"
+              onChange={(value) => setFieldValue("typeId", value)}
+              selectedValue={values.typeId}
+              options={options}
+            />
 
-              <Divider marginTop={6} />
+            <Divider marginTop={6} />
 
+            <CommunityQuizFormField
+              name="question"
+              label="Text"
+              placeholder="Enter question..."
+            />
+
+            {values.typeId === QuestionType.Image && (
               <CommunityQuizFormField
-                name="question"
-                label="Text"
-                placeholder="Enter question..."
+                name="imageUrl"
+                label="Image URL"
+                placeholder="Enter image url..."
+                helper="Copyrighted images will be removed. We recommend sites such as pexels for free images."
               />
+            )}
 
-              {values.typeId === QuestionType.Image && (
-                <CommunityQuizFormField
-                  name="imageUrl"
-                  label="Image URL"
-                  placeholder="Enter image url..."
-                  helper="Copyrighted images will be removed. We recommend sites such as pexels for free images."
-                />
-              )}
-
-              {values.typeId === QuestionType.Flag && (
-                <Flex>
-                  <SelectFormField
-                    name="flagCategory"
-                    label="Flag Category"
-                    options={flagOptions}
-                    onChange={({ target }) => {
-                      setFlagCategory(target.value);
-                      setFieldValue("flagCode", "");
-                    }}
-                    width="100%"
-                    marginRight={2}
-                  />
-                  <CommunityQuizFlagSelectField
-                    name="flagCode"
-                    label="Flag Code"
-                    flagCategory={flagCategory}
-                  />
-                </Flex>
-              )}
-
-              {values.typeId === QuestionType.Map && (
-                <Flex>
-                  <SelectFormField
-                    name="map"
-                    label="Map"
-                    options={mapCategories}
-                    onChange={({ target }) =>
-                      setFieldValue("map", target?.value)
-                    }
-                    width="50%"
-                    marginRight={2}
-                  />
-                  <SelectFormField
-                    name="highlighted"
-                    label="Highlighted"
-                    options={getHighlightRegionsByMap(values.map)}
-                    onChange={({ target }) =>
-                      setFieldValue("highlighted", target?.value)
-                    }
-                    width="50%"
-                  />
-                </Flex>
-              )}
-
-              <Divider marginY={6} />
-
-              <CommunityQuizHasAnswersField
-                isEnabled={hasFlagAnswers}
-                onChange={(hasFlags) => setHasFlagAnswers(hasFlags)}
-                marginY={6}
-              />
-
-              {hasFlagAnswers && (
+            {values.typeId === QuestionType.Flag && (
+              <Flex>
                 <SelectFormField
-                  name="hasFlagAnswers"
+                  name="flagCategory"
+                  label="Flag Category"
                   options={flagOptions}
-                  label="Flag Answer Category"
-                  onChange={({ target }) => setFlagAnswerCategory(target.value)}
-                  marginY={4}
+                  onChange={({ target }) => {
+                    setFlagCategory(target.value);
+                    setFieldValue("flagCode", "");
+                  }}
+                  width="100%"
+                  marginRight={2}
                 />
+                <CommunityQuizFlagSelectField
+                  name="flagCode"
+                  label="Flag Code"
+                  flagCategory={flagCategory}
+                />
+              </Flex>
+            )}
+
+            {values.typeId === QuestionType.Map && (
+              <Flex>
+                <SelectFormField
+                  name="map"
+                  label="Map"
+                  options={mapCategories}
+                  onChange={({ target }) => setFieldValue("map", target?.value)}
+                  width="50%"
+                  marginRight={2}
+                />
+                <SelectFormField
+                  name="highlighted"
+                  label="Highlighted"
+                  options={getHighlightRegionsByMap(values.map)}
+                  onChange={({ target }) =>
+                    setFieldValue("highlighted", target?.value)
+                  }
+                  width="50%"
+                />
+              </Flex>
+            )}
+
+            <Divider marginY={6} />
+
+            <CommunityQuizHasAnswersField
+              isEnabled={hasFlagAnswers}
+              onChange={(hasFlags) => setHasFlagAnswers(hasFlags)}
+              marginY={6}
+            />
+
+            {hasFlagAnswers && (
+              <SelectFormField
+                name="hasFlagAnswers"
+                options={flagOptions}
+                label="Flag Answer Category"
+                onChange={({ target }) => setFlagAnswerCategory(target.value)}
+                marginY={4}
+              />
+            )}
+
+            <Flex direction="column" width="100%" marginBottom={5}>
+              {answers.map((answer, index) => (
+                <CommunityQuizAnswersField
+                  name={`answers[${index}]`}
+                  key={index}
+                  label={answer}
+                  value={index}
+                  isChecked={correctAnswer === index}
+                  hasFlagAnswers={hasFlagAnswers}
+                  flagAnswerCategory={flagAnswerCategory}
+                  onChangeCorrectAnswer={(answer) => {
+                    setCorrectAnswer(answer);
+                    setFieldValue("correctAnswer", answer);
+                  }}
+                  onChangeFlagCode={(flagCode) =>
+                    setFieldValue(`answers[${index}].flagCode`, flagCode)
+                  }
+                  marginY={0.5}
+                />
+              ))}
+              {errors.correctAnswer && (
+                <Text
+                  color="red.500"
+                  fontSize="sm"
+                  marginTop={2}
+                  marginLeft={4}
+                >
+                  {"Please select a correct answer"}
+                </Text>
               )}
 
-              <Flex direction="column" width="100%" marginBottom={5}>
-                {answers.map((answer, index) => (
-                  <CommunityQuizAnswersField
-                    name={`answers[${index}]`}
-                    key={index}
-                    label={answer}
-                    value={index}
-                    isChecked={correctAnswer === index}
-                    hasFlagAnswers={hasFlagAnswers}
-                    flagAnswerCategory={flagAnswerCategory}
-                    onChangeCorrectAnswer={(answer) => {
-                      setCorrectAnswer(answer);
-                      setFieldValue("correctAnswer", answer);
-                    }}
-                    onChangeFlagCode={(flagCode) =>
-                      setFieldValue(`answers[${index}].flagCode`, flagCode)
-                    }
-                    marginY={0.5}
-                  />
-                ))}
-              </Flex>
+              {errors.answers && (
+                <Text
+                  color="red.500"
+                  fontSize="sm"
+                  marginTop={2}
+                  marginLeft={4}
+                >
+                  {"Please select a correct answer"}
+                </Text>
+              )}
+            </Flex>
 
-              <Flex width="100%" justifyContent="flex-end">
-                <Button type="submit" colorScheme="green">
-                  {"Add Question"}
-                </Button>
-              </Flex>
-            </Form>
-          )
-        }
+            <Flex width="100%" justifyContent="flex-end">
+              <Button type="submit" colorScheme="green">
+                {"Add Question"}
+              </Button>
+            </Flex>
+          </Form>
+        )}
       </Formik>
     </Flex>
   );

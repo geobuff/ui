@@ -23,12 +23,14 @@ export interface Props {
   questions: CommunityQuizQuestion[];
   onAddQuestion?: () => void;
   onDeleteQuestion?: (question: CommunityQuizQuestion) => void;
+  onEditQuestion?: (question: CommunityQuizQuestion) => void;
 }
 
 const CommunityQuizQuestionsField: FC<Props> = ({
   questions = [],
   onAddQuestion = () => {},
   onDeleteQuestion = () => {},
+  onEditQuestion = () => {},
 }) => {
   return (
     <Flex direction="column" width="100%">
@@ -42,6 +44,7 @@ const CommunityQuizQuestionsField: FC<Props> = ({
         <CommunityQuizQuestionsTable
           questions={questions}
           onDelete={onDeleteQuestion}
+          onEdit={onEditQuestion}
         />
       )}
       <Flex justifyContent="center" marginY={4}>

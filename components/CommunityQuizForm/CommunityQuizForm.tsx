@@ -6,6 +6,7 @@ import {
   Flex,
   Heading,
   IconButton,
+  Text,
   useDisclosure,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
@@ -20,7 +21,7 @@ import ArrowLeft from "../../Icons/ArrowLeft";
 
 const validationSchema = Yup.object().shape({
   quizName: Yup.string().required("Please enter a name for your quiz."),
-  // questions: Yup.array().required("You must include at least one question"), // TODO: check for at least 1
+  questions: Yup.array().min(1, "Must include at least one question"),
 });
 
 export interface FormValues {
@@ -33,21 +34,51 @@ export interface Props {
   values?: FormValues;
 }
 
-const initialValues = { quizName: "", description: "", questions: [] };
+const initialValues = {
+  quizName: "",
+  description: "",
+  questions: [],
+};
 
 const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   // TODO: move to container
-  const { data: types, isLoading } = useTriviaQuestionTypes();
+  const { data: types } = useTriviaQuestionTypes();
 
   const [questions, setQuestions] = useState<CommunityQuizQuestion[]>([]);
-  console.log(questions, "questions");
+  const [selectedQuestion, setSelectedQuestion] = useState<
+    CommunityQuizQuestion
+  >(undefined);
+
+  console.log(questions, "");
 
   const handleAddQuestion = (values: any, setFieldHelper) => {
     setQuestions([...questions, values]);
     setFieldHelper("questions", [...questions, values]);
     onClose();
+  };
+
+  const handleEditQuestion = (selectedQuestion: CommunityQuizQuestion) => {
+    setSelectedQuestion(selectedQuestion);
+    onOpen();
+  };
+
+  const handleDeleteQuestion = (
+    deletedQuestion: CommunityQuizQuestion,
+    setFieldHelper
+  ) => {
+    const updatedQuestions = questions.filter(
+      (q) => q.question !== deletedQuestion.question
+    );
+
+    setQuestions(updatedQuestions);
+    setFieldHelper("questions", updatedQuestions);
+  };
+
+  const handleOpenQuestionForm = () => {
+    setSelectedQuestion(undefined);
+    onOpen();
   };
 
   const header = (
@@ -69,16 +100,14 @@ const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
     </Flex>
   );
 
-  // TODO: refactor to include some id as filtering on name will remove questions
-  // with the same questions
   return (
-    <>
-      <Formik
-        initialValues={values}
-        validationSchema={validationSchema}
-        onSubmit={(values) => console.log(values, "values")}
-      >
-        {({ values, setFieldValue, errors }) => (
+    <Formik
+      initialValues={values}
+      validationSchema={validationSchema}
+      onSubmit={(values) => console.log(values, "values")}
+    >
+      {({ setFieldValue, errors }) =>
+        console.log(errors, "errors") || (
           <Flex direction="column" width="100%">
             <Form autoComplete="off">
               <CommunityQuizFormField
@@ -99,16 +128,25 @@ const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
 
               <Divider my={5} borderColor="gray.100" borderWidth={1} />
 
-              <Flex width="100%" justifyContent="center" marginY={4}>
+              <Flex
+                direction="column"
+                width="100%"
+                justifyContent="center"
+                marginY={4}
+              >
                 <CommunityQuizQuestionsField
                   questions={questions}
-                  onAddQuestion={onOpen}
-                  onDeleteQuestion={(question) => {
-                    setQuestions(
-                      questions.filter((q) => q.question !== question.question)
-                    );
-                  }}
+                  onAddQuestion={handleOpenQuestionForm}
+                  onDeleteQuestion={(question) =>
+                    handleDeleteQuestion(question, setFieldValue)
+                  }
+                  onEditQuestion={handleEditQuestion}
                 />
+                {errors.questions && (
+                  <Text textAlign="center" color="red.500" fontSize="sm">
+                    {"You must add at least one question"}
+                  </Text>
+                )}
               </Flex>
 
               <Divider my={5} borderColor="gray.100" borderWidth={1} />
@@ -141,13 +179,14 @@ const CommunityQuizForm: FC<Props> = ({ values = initialValues }) => {
                   onSubmit={(values) =>
                     handleAddQuestion(values, setFieldValue)
                   }
+                  values={selectedQuestion}
                 />
               </Flex>
             </Modal>
           </Flex>
-        )}
-      </Formik>
-    </>
+        )
+      }
+    </Formik>
   );
 };
 
