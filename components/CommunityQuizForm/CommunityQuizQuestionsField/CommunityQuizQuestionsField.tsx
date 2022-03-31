@@ -10,6 +10,7 @@ export interface CommunityQuizAnswer {
 }
 
 export interface CommunityQuizQuestion {
+  id?: number;
   typeId: string;
   imageUrl?: string;
   flagCode?: string;

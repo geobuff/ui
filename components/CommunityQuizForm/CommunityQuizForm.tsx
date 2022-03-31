@@ -18,6 +18,7 @@ import CommunityQuizQuestionForm from "./CommunityQuizQuestionForm";
 import { CommunityQuizQuestion } from "./CommunityQuizQuestionsField/CommunityQuizQuestionsField";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import { TriviaQuestionType } from "../../types/trivia-question-type";
+import { FormSetFieldValue } from "../../types/form";
 
 const validationSchema = Yup.object().shape({
   quizName: Yup.string().required("Please enter a name for your quiz."),
@@ -57,9 +58,20 @@ const CommunityQuizForm: FC<Props> = ({
     CommunityQuizQuestion
   >(undefined);
 
-  const handleAddQuestion = (values: any, setFieldHelper) => {
-    setQuestions([...questions, values]);
-    setFieldHelper("questions", [...questions, values]);
+  const handleAddQuestion = (
+    values: CommunityQuizQuestion,
+    setFieldHelper: FormSetFieldValue
+  ) => {
+    const foundIndex = questions.findIndex((x) => x.id == values.id);
+
+    if (foundIndex !== -1) {
+      const updated = questions.map((x) => (x.id === foundIndex ? values : x));
+      setQuestions(updated);
+    } else {
+      const updated = [...questions, { id: questions.length, ...values }];
+      setQuestions(updated);
+      setFieldHelper("questions", updated);
+    }
     onClose();
   };
 
@@ -73,7 +85,7 @@ const CommunityQuizForm: FC<Props> = ({
     setFieldHelper
   ) => {
     const updatedQuestions = questions.filter(
-      (q) => q.question !== deletedQuestion.question
+      (q) => q.id !== deletedQuestion.id
     );
 
     setQuestions(updatedQuestions);
