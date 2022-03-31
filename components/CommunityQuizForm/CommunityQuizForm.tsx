@@ -47,7 +47,6 @@ export interface Props {
 const CommunityQuizForm: FC<Props> = ({
   values = initialValues,
   types = [],
-  isLoading = false,
   isSubmitting = false,
   onSubmit = () => {},
 }) => {

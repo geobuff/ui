@@ -1,18 +1,16 @@
 import React, { FC } from "react";
 import {
-  Box,
   Flex,
   FlexProps,
   FormControl,
-  FormErrorMessage,
   FormLabel,
   Input,
   Radio,
 } from "@chakra-ui/react";
-import { Field } from "formik";
-import SelectFormField from "../../FormFields/SelectFormField";
-import { flagCategories } from "@geobuff/flags";
 import { flags } from "@geobuff/flags";
+import { Field } from "formik";
+
+import SelectFormField from "../../FormFields/SelectFormField";
 
 export interface Props extends FlexProps {
   name: string;
@@ -21,12 +19,12 @@ export interface Props extends FlexProps {
   placeholder?: string;
   isChecked?: boolean;
   hasFlagAnswers?: boolean;
+  hasSubmittedOnce?: boolean;
   flagAnswerCategory?: string;
   onChangeCorrectAnswer?: (value: number | string) => void;
   onChangeFlagCode?: (value: string) => void;
 }
 
-// TODO: refactor out names and flagCodes
 const CommunityQuizAnswersField: FC<Props> = ({
   name,
   label,
@@ -34,17 +32,12 @@ const CommunityQuizAnswersField: FC<Props> = ({
   value,
   isChecked = false,
   hasFlagAnswers = false,
+  hasSubmittedOnce = false,
   flagAnswerCategory,
-  onChangeCorrectAnswer = () => {}, // TODO: give new name
+  onChangeCorrectAnswer = () => {},
   onChangeFlagCode = () => {},
   ...props
 }) => {
-  // TODO: move common
-  const flagOptions = flagCategories?.map(({ key, label }) => ({
-    label,
-    value: key,
-  }));
-
   const getFlagsByCategory = (category: string) => {
     if (category === "world") {
       return Object.keys(flags).filter((flag) => flag.length === 2);
@@ -112,13 +105,8 @@ const CommunityQuizAnswersField: FC<Props> = ({
         )}
 
         <Field name={`${name}.text`}>
-          {({ field, form }) => (
-            <FormControl
-              isInvalid={
-                (!isChecked && form.errors.answers && name.includes("0")) ||
-                (!isChecked && form.errors.answers && name.includes("1"))
-              }
-            >
+          {({ field }) => (
+            <FormControl>
               <Input
                 {...field}
                 id={name}

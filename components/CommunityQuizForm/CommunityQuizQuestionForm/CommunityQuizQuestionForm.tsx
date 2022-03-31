@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Button, Divider, Flex, FlexProps, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
@@ -16,6 +16,8 @@ import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
 import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
 import { getHighlightRegionsByMap } from "../../../helpers/map";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
+import { WarningTwoIcon } from "@chakra-ui/icons";
+import InlineErrorMessage from "../../InlineErrorMessage";
 
 const answers = [
   "Answer One",
@@ -54,10 +56,19 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
+const mapCategories = Object.keys(Maps).map((m) => ({
+  label: m.match(/[A-Z][a-z]+|[0-9]+/g).join(" "),
+  value: m,
+}));
+
+const flagOptions = flagCategories?.map(({ key, label }) => ({
+  label,
+  value: key,
+}));
+
 export interface Props extends FlexProps {
   values?: any;
   types: TriviaQuestionType[];
-  // TODO: add type
   onSubmit?: (values: any) => void;
 }
 
@@ -70,21 +81,16 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   const [flagCategory, setFlagCategory] = useState("");
   const [flagAnswerCategory, setFlagAnswerCategory] = useState("");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
+  const [hasSubmittedOnce, setHasSubmittedOnce] = useState<boolean>(false);
   const [correctAnswer, setCorrectAnswer] = useState<number | string>(null);
+
+  useEffect(() => {
+    setHasSubmittedOnce(false);
+  }, [values]);
 
   const options = types.map(({ id, name }) => ({
     label: name,
     value: id.toString(),
-  }));
-
-  const mapCategories = Object.keys(Maps).map((m) => ({
-    label: m.match(/[A-Z][a-z]+|[0-9]+/g).join(" "),
-    value: m,
-  }));
-
-  const flagOptions = flagCategories?.map(({ key, label }) => ({
-    label,
-    value: key,
   }));
 
   return (
@@ -191,6 +197,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   label={answer}
                   value={index}
                   isChecked={correctAnswer === index}
+                  hasSubmittedOnce={hasSubmittedOnce}
                   hasFlagAnswers={hasFlagAnswers}
                   flagAnswerCategory={flagAnswerCategory}
                   onChangeCorrectAnswer={(answer) => {
@@ -204,25 +211,17 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 />
               ))}
               {errors.correctAnswer && (
-                <Text
-                  color="red.500"
-                  fontSize="sm"
-                  marginTop={2}
-                  marginLeft={4}
-                >
-                  {"Please select a correct answer"}
-                </Text>
+                <InlineErrorMessage
+                  message="Please select a correct answer"
+                  marginY={2}
+                />
               )}
 
               {errors.answers && (
-                <Text
-                  color="red.500"
-                  fontSize="sm"
-                  marginTop={2}
-                  marginLeft={4}
-                >
-                  {"Please add at least two answers"}
-                </Text>
+                <InlineErrorMessage
+                  message="Please add at least two answers"
+                  marginY={2}
+                />
               )}
             </Flex>
 
