@@ -12,11 +12,13 @@ import { FieldProps } from "../../types/field-props";
 export interface Props extends SelectProps {
   fieldProps?: FieldProps;
   isDisabled?: boolean;
+  isFlagOnly?: boolean;
 }
 
 const CountrySelect: FC<Props> = ({
   fieldProps = { value: "" },
   isDisabled = false,
+  isFlagOnly = false,
   ...props
 }) => {
   const { countries, isLoading } = useCountries();

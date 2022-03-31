@@ -1,15 +1,19 @@
 import React, { FC } from "react";
 import { Button, Flex, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
-import { CommunityQuizQuestion } from "../CommunityQuizQuestionsField/CommunityQuizQuestionsField";
+
 import TableCell from "../../TableCell";
+import { CommunityQuizQuestion } from "../../../types/community-quiz-form";
+import { getType } from "../../../helpers/trivia-types";
 
 export interface Props {
   questions: CommunityQuizQuestion[];
+  onEdit?: (question: CommunityQuizQuestion) => void;
   onDelete?: (question: CommunityQuizQuestion) => void;
 }
 
 const CommunityQuizQuestionsTable: FC<Props> = ({
   questions = [],
+  onEdit = () => {},
   onDelete = () => {},
 }) => {
   return (
@@ -20,7 +24,7 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
           <Th textAlign="left">{"QUESTION"} </Th>
           <Th textAlign="left">{"ANSWERS"}</Th>
           <Th textAlign="left">{"TYPE"}</Th>
-          <Th textAlign="right">{"ACTIONS"}</Th>
+          <Th textAlign="left">{"ACTIONS"}</Th>
         </Tr>
       </Thead>
 
@@ -35,14 +39,10 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
             </TableCell>
 
             <TableCell paddingY={4} paddingX={6}>
-              {question?.answers?.map((x) => x.text).join(", ") || ""}
+              {question?.answers?.map((x) => x?.text).join(", ") || ""}
             </TableCell>
             <TableCell paddingY={4} paddingX={6}>
-              {
-                // TODO: fix type error
-                //@ts-ignore
-                question?.typeId.toString()
-              }
+              {getType(question?.typeId)}
             </TableCell>
             <TableCell isNumeric paddingY={4} paddingX={6}>
               <Flex alignItems="center" justifyContent="flex-end">
@@ -50,7 +50,7 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
                   colorScheme="black"
                   variant="link"
                   aria-label="Edit question"
-                  // onClick={() => onEdit(question)}
+                  onClick={() => onEdit(question)}
                   marginRight={4}
                 >
                   {"Edit"}

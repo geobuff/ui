@@ -1,92 +1,107 @@
-import React, { FC, useState } from "react";
-import { Button, Divider, Flex, FlexProps } from "@chakra-ui/react";
+import React, { FC, useEffect, useState } from "react";
+import { Button, Divider, Flex, FlexProps, Text } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
 import * as Maps from "@geobuff/svg-maps";
+import * as Yup from "yup";
+
 import { flagCategories } from "@geobuff/flags";
 
-import { QuizType } from "../../../types/quiz-type";
 import RadioGroupFormField from "../../FormFields/RadioGroupFormField";
 import CommunityQuizFormField from "../CommunityQuizFormField";
 import SelectFormField from "../../FormFields/SelectFormField";
 import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
 import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
 import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
+import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
+import { getHighlightRegionsByMap } from "../../../helpers/map";
+import { TriviaQuestionType } from "../../../types/trivia-question-type";
+import { WarningTwoIcon } from "@chakra-ui/icons";
+import InlineErrorMessage from "../../InlineErrorMessage";
+
+const answers = [
+  "Answer One",
+  "Answer Two",
+  "Answer Three (Optional)",
+  "Answer Four (Optional)",
+];
+
+const initialValues = {
+  typeId: "1",
+  question: "",
+  imageUrl: "",
+  map: "",
+  highlighted: "",
+  answers: [],
+};
+
+const validationSchema = Yup.object().shape({
+  typeId: Yup.string().required("Please select a quiz type."),
+  question: Yup.string().required("Please enter a value for question."),
+  answers: Yup.array().min(2).required("Must include at least two answers"),
+  correctAnswer: Yup.number()
+    .required("Please select a correct answer")
+    .typeError("Please select a correct answer"),
+  imageUrl: Yup.string().when("typeId", {
+    is: QuestionType.Image,
+    then: Yup.string().required("Must include imageUrl for image questions."),
+  }),
+  flagCode: Yup.string().when("typeId", {
+    is: QuestionType.Flag,
+    then: Yup.string().required("Must include flagCode for flag questions."),
+  }),
+  map: Yup.string().when("typeId", {
+    is: QuestionType.Map,
+    then: Yup.string().required("Must include map for map questions."),
+  }),
+});
+
+const mapCategories = Object.keys(Maps).map((m) => ({
+  label: m.match(/[A-Z][a-z]+|[0-9]+/g).join(" "),
+  value: m,
+}));
+
+const flagOptions = flagCategories?.map(({ key, label }) => ({
+  label,
+  value: key,
+}));
 
 export interface Props extends FlexProps {
-  // TODO: add type
+  values?: any;
+  types: TriviaQuestionType[];
   onSubmit?: (values: any) => void;
-  types: QuizType[];
 }
 
 const CommunityQuizQuestionForm: FC<Props> = ({
-  onSubmit,
+  values = initialValues,
   types = [],
+  onSubmit,
   ...props
 }) => {
   const [flagCategory, setFlagCategory] = useState("");
+  const [flagAnswerCategory, setFlagAnswerCategory] = useState("");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
+  const [hasSubmittedOnce, setHasSubmittedOnce] = useState<boolean>(false);
   const [correctAnswer, setCorrectAnswer] = useState<number | string>(null);
+
+  useEffect(() => {
+    setHasSubmittedOnce(false);
+  }, [values]);
 
   const options = types.map(({ id, name }) => ({
     label: name,
     value: id.toString(),
   }));
 
-  const mapCategories = Object.keys(Maps).map((m) => ({
-    label: m.match(/[A-Z][a-z]+|[0-9]+/g).join(" "),
-    value: m,
-  }));
-
-  const flagOptions = flagCategories?.map(({ key, label }) => ({
-    label,
-    value: key,
-  }));
-
-  const getHighlightRegionsByMap = (map: string) => {
-    const selectedMap = Maps[map];
-
-    if (selectedMap !== undefined) {
-      return selectedMap.paths.map(({ id, name }) => ({
-        value: id,
-        label: name,
-      }));
-    }
-  };
-
-  const answers = [
-    {
-      label: "Answer One",
-      value: 1,
-    },
-    {
-      label: "Answer Two",
-      value: 2,
-    },
-    {
-      label: "Answer Three (Optional)",
-      value: 3,
-    },
-    {
-      label: "Answer Four (Optional)",
-      value: 4,
-    },
-  ];
-
   return (
     <Flex width="100%" {...props}>
       <Formik
         onSubmit={onSubmit}
-        initialValues={{
-          typeId: "1",
-          question: "",
-          imageUrl: "",
-          map: "",
-          highlighted: "",
-          answers: [],
-        }}
+        initialValues={values}
+        validationSchema={validationSchema}
+        enableReinitialize
       >
-        {({ values, setFieldValue }) => (
+        {({ values, setFieldValue, errors }) => (
           <Form autoComplete="off" style={{ width: "100%" }}>
             <RadioGroupFormField
               name="typeId"
@@ -104,7 +119,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
               placeholder="Enter question..."
             />
 
-            {values.typeId === "2" && (
+            {values.typeId === QuestionType.Image && (
               <CommunityQuizFormField
                 name="imageUrl"
                 label="Image URL"
@@ -113,35 +128,34 @@ const CommunityQuizQuestionForm: FC<Props> = ({
               />
             )}
 
-            {values.typeId === "3" && (
+            {values.typeId === QuestionType.Flag && (
               <Flex>
                 <SelectFormField
                   name="flagCategory"
                   label="Flag Category"
                   options={flagOptions}
                   onChange={({ target }) => {
-                    // TODO: fix errorCommunityQuizQuestionsTable
-                    //@ts-ignore
                     setFlagCategory(target.value);
-                    //@ts-ignore
                     setFieldValue("flagCode", "");
                   }}
                   width="100%"
                   marginRight={2}
                 />
                 <CommunityQuizFlagSelectField
+                  name="flagCode"
+                  label="Flag Code"
                   flagCategory={flagCategory}
-                  flagCode={values.flagCode}
                 />
               </Flex>
             )}
 
-            {values.typeId === "4" && (
+            {values.typeId === QuestionType.Map && (
               <Flex>
                 <SelectFormField
                   name="map"
                   label="Map"
                   options={mapCategories}
+                  onChange={({ target }) => setFieldValue("map", target?.value)}
                   width="50%"
                   marginRight={2}
                 />
@@ -149,6 +163,9 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   name="highlighted"
                   label="Highlighted"
                   options={getHighlightRegionsByMap(values.map)}
+                  onChange={({ target }) =>
+                    setFieldValue("highlighted", target?.value)
+                  }
                   width="50%"
                 />
               </Flex>
@@ -164,25 +181,48 @@ const CommunityQuizQuestionForm: FC<Props> = ({
 
             {hasFlagAnswers && (
               <SelectFormField
+                name="hasFlagAnswers"
                 options={flagOptions}
                 label="Flag Answer Category"
+                onChange={({ target }) => setFlagAnswerCategory(target.value)}
+                marginY={4}
               />
             )}
 
-            <Divider marginTop={8} marginBottom={4} />
-
             <Flex direction="column" width="100%" marginBottom={5}>
-              {answers.map(({ label, value }) => (
+              {answers.map((answer, index) => (
                 <CommunityQuizAnswersField
-                  key={value}
-                  label={label}
-                  value={value}
-                  isChecked={correctAnswer === value}
+                  name={`answers[${index}]`}
+                  key={index}
+                  label={answer}
+                  value={index}
+                  isChecked={correctAnswer === index}
+                  hasSubmittedOnce={hasSubmittedOnce}
                   hasFlagAnswers={hasFlagAnswers}
-                  onChange={(value) => setCorrectAnswer(value)}
+                  flagAnswerCategory={flagAnswerCategory}
+                  onChangeCorrectAnswer={(answer) => {
+                    setCorrectAnswer(answer);
+                    setFieldValue("correctAnswer", answer);
+                  }}
+                  onChangeFlagCode={(flagCode) =>
+                    setFieldValue(`answers[${index}].flagCode`, flagCode)
+                  }
                   marginY={0.5}
                 />
               ))}
+              {errors.correctAnswer && (
+                <InlineErrorMessage
+                  message="Please select a correct answer"
+                  marginY={2}
+                />
+              )}
+
+              {errors.answers && (
+                <InlineErrorMessage
+                  message="Please add at least two answers"
+                  marginY={2}
+                />
+              )}
             </Flex>
 
             <Flex width="100%" justifyContent="flex-end">
