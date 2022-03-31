@@ -24,8 +24,6 @@ const UserProfileMyQuizzes: FC<Props> = ({
 }) => {
   const router = useRouter();
 
-  const handleCreate = () => router.push("quiz/create");
-
   const getContent = () => {
     if (quizzes.length === 0) {
       return (
@@ -54,7 +52,11 @@ const UserProfileMyQuizzes: FC<Props> = ({
       >
         <Heading fontSize="26px">{"My Quizzes"}</Heading>
         {isCurrentUser && (
-          <Button colorScheme="green" size="md" onClick={handleCreate}>
+          <Button
+            colorScheme="green"
+            size="md"
+            onClick={() => router.push("/quiz/create")}
+          >
             {"Create Quiz"}
           </Button>
         )}
