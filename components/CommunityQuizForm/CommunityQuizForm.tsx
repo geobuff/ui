@@ -14,14 +14,15 @@ import {
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 
+import Modal from "../Modal";
+import ArrowLeft from "../../Icons/ArrowLeft";
 import CommunityQuizFormField from "./CommunityQuizFormField";
 import CommunityQuizQuestionsField from "./CommunityQuizQuestionsField";
-import Modal from "../Modal";
 import CommunityQuizQuestionForm from "./CommunityQuizQuestionForm";
-import { CommunityQuizQuestion } from "./CommunityQuizQuestionsField/CommunityQuizQuestionsField";
-import ArrowLeft from "../../Icons/ArrowLeft";
+
 import { TriviaQuestionType } from "../../types/trivia-question-type";
 import { FormSetFieldValue } from "../../types/form";
+import { CommunityQuizQuestion } from "../../types/community-quiz-form";
 
 const validationSchema = Yup.object().shape({
   quizName: Yup.string().required("Please enter a name for your quiz."),
@@ -45,7 +46,7 @@ export interface Props {
   isLoading?: boolean;
   isSubmitting?: boolean;
   types: TriviaQuestionType[];
-  onSubmit: (values: any) => void;
+  onSubmit: (values: FormValues) => void;
 }
 
 const CommunityQuizForm: FC<Props> = ({

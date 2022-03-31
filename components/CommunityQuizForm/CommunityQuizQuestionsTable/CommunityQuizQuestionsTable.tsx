@@ -1,24 +1,9 @@
 import React, { FC } from "react";
 import { Button, Flex, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
-import { CommunityQuizQuestion } from "../CommunityQuizQuestionsField/CommunityQuizQuestionsField";
-import TableCell from "../../TableCell";
-import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
 
-// TODO: move to common
-const getType = (typeId: string): string => {
-  switch (typeId) {
-    case QuestionType.Text:
-      return "Text";
-    case QuestionType.Image:
-      return "Image";
-    case QuestionType.Flag:
-      return "Flag";
-    case QuestionType.Map:
-      return "Map";
-    default:
-      return "Unknown";
-  }
-};
+import TableCell from "../../TableCell";
+import { CommunityQuizQuestion } from "../../../types/community-quiz-form";
+import { getType } from "../../../helpers/trivia-types";
 
 export interface Props {
   questions: CommunityQuizQuestion[];
@@ -39,7 +24,7 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
           <Th textAlign="left">{"QUESTION"} </Th>
           <Th textAlign="left">{"ANSWERS"}</Th>
           <Th textAlign="left">{"TYPE"}</Th>
-          <Th textAlign="right">{"ACTIONS"}</Th>
+          <Th textAlign="left">{"ACTIONS"}</Th>
         </Tr>
       </Thead>
 

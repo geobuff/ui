@@ -1,24 +1,7 @@
 import React, { FC } from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import CommunityQuizQuestionsTable from "../CommunityQuizQuestionsTable";
-
-// TODO: inherit from a common shape
-export interface CommunityQuizAnswer {
-  text: string;
-  isCorrect: boolean;
-  flagCode: string;
-}
-
-export interface CommunityQuizQuestion {
-  id?: number;
-  typeId: string;
-  imageUrl?: string;
-  flagCode?: string;
-  map?: string;
-  highlighted?: string;
-  question: string;
-  answers: CommunityQuizAnswer[];
-}
+import { CommunityQuizQuestion } from "../../../types/community-quiz-form";
 
 export interface Props {
   questions: CommunityQuizQuestion[];

@@ -1,16 +1,13 @@
-import { toast, useToast } from "@chakra-ui/react";
-import { useRouter } from "next/router";
 import React, { FC, useContext, useState } from "react";
+import { useToast } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+
 import axiosClient from "../../axios/axiosClient";
-import CommunityQuizForm from "../../components/CommunityQuizForm";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import {
-  createCommunityQuizToast,
-  manualTriviaQuestionToast,
-} from "../../helpers/toasts";
+import { createCommunityQuizToast } from "../../helpers/toasts";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 
-// export interface Props {}
+import CommunityQuizForm from "../../components/CommunityQuizForm";
 
 const CommunityQuizFormContainer: FC = () => {
   const { data: types, isLoading } = useTriviaQuestionTypes();
