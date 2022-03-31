@@ -1,6 +1,8 @@
 import React, { FC, useState } from "react";
 import { Form, Formik } from "formik";
 import {
+  Alert,
+  AlertIcon,
   Button,
   Divider,
   Flex,
@@ -8,6 +10,7 @@ import {
   IconButton,
   Text,
   useDisclosure,
+  VStack,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
 
@@ -37,6 +40,7 @@ export interface FormValues {
 }
 
 export interface Props {
+  error?: string;
   values?: FormValues;
   isLoading?: boolean;
   isSubmitting?: boolean;
@@ -45,6 +49,7 @@ export interface Props {
 }
 
 const CommunityQuizForm: FC<Props> = ({
+  error = "",
   values = initialValues,
   types = [],
   isSubmitting = false,
@@ -116,92 +121,102 @@ const CommunityQuizForm: FC<Props> = ({
   );
 
   return (
-    <Formik
-      initialValues={values}
-      validationSchema={validationSchema}
-      onSubmit={onSubmit}
-    >
-      {({ setFieldValue, errors }) => (
-        <Flex direction="column" width="100%">
-          <Form autoComplete="off">
-            <CommunityQuizFormField
-              name="quizName"
-              label="Quiz Name"
-              helper="Keep it concise and memorable!"
-              placeholder="Enter quiz name..."
-              direction="row"
-            />
-            {/* TODO: add textarea type */}
-            <CommunityQuizFormField
-              name="description"
-              label="Description"
-              helper="The description helps your quiz stand out from the rest"
-              placeholder="Enter description..."
-              direction="row"
-            />
-
-            <Divider my={5} borderColor="gray.100" borderWidth={1} />
-
-            <Flex
-              direction="column"
-              width="100%"
-              justifyContent="center"
-              marginY={4}
-            >
-              <CommunityQuizQuestionsField
-                questions={questions}
-                onAddQuestion={handleOpenQuestionForm}
-                onDeleteQuestion={(question) =>
-                  handleDeleteQuestion(question, setFieldValue)
-                }
-                onEditQuestion={handleEditQuestion}
-              />
-              {errors.questions && (
-                <Text textAlign="center" color="red.500" fontSize="sm">
-                  {"You must add at least one question"}
-                </Text>
-              )}
-            </Flex>
-
-            <Divider my={5} borderColor="gray.100" borderWidth={1} />
-
-            <Flex justifyContent="flex-end" marginTop={8}>
-              <Button
-                type="submit"
-                colorScheme="green"
-                isLoading={isSubmitting}
-              >
-                {"Create Quiz"}
-              </Button>
-            </Flex>
-          </Form>
-
-          <Modal
-            isOpen={isOpen}
-            onClose={onClose}
-            maxHeight={{ base: "100%", md: "700px" }}
-            minWidth="660px"
-            hasCloseButton
-            header={header}
-          >
-            <Flex
-              direction="column"
-              paddingX={10}
-              width="100%"
-              overflow="scroll"
-              marginBottom={10}
-            >
-              <Divider marginBottom={6} />
-              <CommunityQuizQuestionForm
-                types={types}
-                onSubmit={(values) => handleAddQuestion(values, setFieldValue)}
-                values={selectedQuestion}
-              />
-            </Flex>
-          </Modal>
-        </Flex>
+    <VStack width="100%">
+      {error && (
+        <Alert status="error" borderRadius={6} marginBottom={3}>
+          <AlertIcon />
+          {error}
+        </Alert>
       )}
-    </Formik>
+      <Formik
+        initialValues={values}
+        validationSchema={validationSchema}
+        onSubmit={onSubmit}
+      >
+        {({ setFieldValue, errors }) => (
+          <Flex direction="column" width="100%">
+            <Form autoComplete="off">
+              <CommunityQuizFormField
+                name="quizName"
+                label="Quiz Name"
+                helper="Keep it concise and memorable!"
+                placeholder="Enter quiz name..."
+                direction="row"
+              />
+              {/* TODO: add textarea type */}
+              <CommunityQuizFormField
+                name="description"
+                label="Description"
+                helper="The description helps your quiz stand out from the rest"
+                placeholder="Enter description..."
+                direction="row"
+              />
+
+              <Divider my={5} borderColor="gray.100" borderWidth={1} />
+
+              <Flex
+                direction="column"
+                width="100%"
+                justifyContent="center"
+                marginY={4}
+              >
+                <CommunityQuizQuestionsField
+                  questions={questions}
+                  onAddQuestion={handleOpenQuestionForm}
+                  onDeleteQuestion={(question) =>
+                    handleDeleteQuestion(question, setFieldValue)
+                  }
+                  onEditQuestion={handleEditQuestion}
+                />
+                {errors.questions && (
+                  <Text textAlign="center" color="red.500" fontSize="sm">
+                    {"You must add at least one question"}
+                  </Text>
+                )}
+              </Flex>
+
+              <Divider my={5} borderColor="gray.100" borderWidth={1} />
+
+              <Flex justifyContent="flex-end" marginTop={8}>
+                <Button
+                  type="submit"
+                  colorScheme="green"
+                  isLoading={isSubmitting}
+                >
+                  {"Create Quiz"}
+                </Button>
+              </Flex>
+            </Form>
+
+            <Modal
+              isOpen={isOpen}
+              onClose={onClose}
+              maxHeight={{ base: "100%", md: "700px" }}
+              minWidth="660px"
+              hasCloseButton
+              header={header}
+            >
+              <Flex
+                direction="column"
+                paddingX={10}
+                width="100%"
+                overflow="scroll"
+                marginBottom={10}
+              >
+                <Divider marginBottom={6} />
+                <CommunityQuizQuestionForm
+                  types={types}
+                  onSubmit={(values) =>
+                    handleAddQuestion(values, setFieldValue)
+                  }
+                  values={selectedQuestion}
+                />
+              </Flex>
+            </Modal>
+          </Flex>
+        )}
+      </Formik>
+    </VStack>
   );
 };
 

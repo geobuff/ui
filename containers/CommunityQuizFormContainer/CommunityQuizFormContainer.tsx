@@ -62,7 +62,7 @@ const CommunityQuizFormContainer: FC = () => {
 
   return (
     <CommunityQuizForm
-      // error={error}
+      error={error}
       types={types}
       isLoading={isLoading}
       isSubmitting={isSubmitting}
