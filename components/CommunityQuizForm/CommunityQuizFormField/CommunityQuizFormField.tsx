@@ -56,7 +56,6 @@ const CommunityQuizFormField: FC<FormFieldProps> = ({
                 fontWeight={400}
                 background="#F6F6F6"
                 borderRadius={6}
-                marginLeft={4}
                 width={isColumn ? "100%" : "50%"}
                 _placeholder={{ color: "gray.500" }}
                 _hover={{ background: "#e0e0e0" }}
