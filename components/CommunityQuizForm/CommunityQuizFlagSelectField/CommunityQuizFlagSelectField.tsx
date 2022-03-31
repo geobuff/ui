@@ -28,36 +28,42 @@ const getFlagsByCategory = (category: string) => {
 export interface Props extends SelectProps {
   flagCategory?: string;
   flagCode?: string;
+  label?: string;
+  name: string;
 }
 
 const CommunityQuizFlagSelect: FC<Props> = ({
+  label,
+  name,
   flagCategory = "",
   flagCode,
   ...props
 }) => {
   return (
-    <Flex marginY={4} width="100%">
-      <Field name="flagCode">
+    <Flex width="100%">
+      <Field name={name}>
         {({ field, form }) => (
-          <FormControl
-            isInvalid={form.errors.flagCode && form.touched.flagCode}
-          >
-            <FormLabel htmlFor="flagCode" fontWeight="bold">
-              {"Flag Code"}
-            </FormLabel>
+          <FormControl isInvalid={form.errors[name] && form.touched[name]}>
+            {label && (
+              <FormLabel htmlFor={name} fontWeight="bold">
+                {label}
+              </FormLabel>
+            )}
 
             {flagCategory === "world" ? (
               <CountrySelect
                 height="44px"
-                id="flagCode"
+                fontWeight={400}
+                id={name}
                 fieldProps={field}
+                isFlagOnly
                 {...props}
               />
             ) : (
               <Select
                 {...field}
                 {...props}
-                id="flagCode"
+                id={name}
                 fontSize="16px"
                 fontWeight={400}
                 background="#F6F6F6"
@@ -92,7 +98,7 @@ const CommunityQuizFlagSelect: FC<Props> = ({
               </Select>
             )}
             <FormErrorMessage fontSize="11px">
-              {form.errors.flagCode}
+              {form.errors[name]}
             </FormErrorMessage>
           </FormControl>
         )}

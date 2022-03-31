@@ -105,6 +105,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
   const [hasFlagAnswers, setHasFlagAnswers] = useState(initialHasFlagAnswers);
   const [flagCategory, setFlagCategory] = useState("world");
 
+  // TODO: Refactor and use common version from map helpers
   const getHighlightRegionsByMap = (map: string) => {
     const selectedMap = Maps[map];
 

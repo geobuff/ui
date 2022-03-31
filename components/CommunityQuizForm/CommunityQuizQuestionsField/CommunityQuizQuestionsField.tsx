@@ -1,34 +1,20 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import CommunityQuizQuestionsTable from "../CommunityQuizQuestionsTable";
-
-// TODO: inherit from a common shape
-export interface CommunityQuizAnswer {
-  text: string;
-  isCorrect: boolean;
-  flagCode: string;
-}
-
-export interface CommunityQuizQuestion {
-  type: string;
-  imageUrl?: string;
-  flagCode?: string;
-  map?: string;
-  highlighted?: string;
-  question: string;
-  answers: CommunityQuizAnswer[];
-}
+import { CommunityQuizQuestion } from "../../../types/community-quiz-form";
 
 export interface Props {
   questions: CommunityQuizQuestion[];
   onAddQuestion?: () => void;
   onDeleteQuestion?: (question: CommunityQuizQuestion) => void;
+  onEditQuestion?: (question: CommunityQuizQuestion) => void;
 }
 
 const CommunityQuizQuestionsField: FC<Props> = ({
   questions = [],
   onAddQuestion = () => {},
   onDeleteQuestion = () => {},
+  onEditQuestion = () => {},
 }) => {
   return (
     <Flex direction="column" width="100%">
@@ -39,10 +25,13 @@ const CommunityQuizQuestionsField: FC<Props> = ({
           </Text>
         </Flex>
       ) : (
-        <CommunityQuizQuestionsTable
-          questions={questions}
-          onDelete={onDeleteQuestion}
-        />
+        <Flex overflowX="auto">
+          <CommunityQuizQuestionsTable
+            questions={questions}
+            onDelete={onDeleteQuestion}
+            onEdit={onEditQuestion}
+          />
+        </Flex>
       )}
       <Flex justifyContent="center" marginY={4}>
         <Button
