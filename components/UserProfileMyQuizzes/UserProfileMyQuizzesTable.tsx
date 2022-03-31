@@ -57,6 +57,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
                       variant="link"
                       aria-label="Edit question"
                       onClick={() => handleEdit(quiz)}
+                      isDisabled
                       marginRight={4}
                     >
                       {"Edit"}

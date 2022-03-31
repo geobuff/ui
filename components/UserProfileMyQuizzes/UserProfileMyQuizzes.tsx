@@ -11,6 +11,7 @@ import {
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import Card from "../Card";
 import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
+import { useRouter } from "next/router";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -21,9 +22,9 @@ const UserProfileMyQuizzes: FC<Props> = ({
   quizzes = [],
   isCurrentUser = false,
 }) => {
-  const handleCreate = () => {
-    console.log("create");
-  };
+  const router = useRouter();
+
+  const handleCreate = () => router.push("quiz/create");
 
   const getContent = () => {
     if (quizzes.length === 0) {

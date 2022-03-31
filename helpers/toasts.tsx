@@ -113,6 +113,19 @@ export const manualTriviaQuestionToast = (
   isClosable: true,
 });
 
+export const createCommunityQuizToast = (
+  type: "Create" | "Edit" = "Create",
+  action: "created" | "edited" = "created",
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: `${type} Community Quiz`,
+  description: `Successfully ${action} community quiz.`,
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});
+
 export const deleteCommunityQuizToast = (
   position: ToastPosition = defaultPosition
 ): UseToastOptions => ({

@@ -42,11 +42,13 @@ const CommunityQuizQuestionsField: FC<Props> = ({
           </Text>
         </Flex>
       ) : (
-        <CommunityQuizQuestionsTable
-          questions={questions}
-          onDelete={onDeleteQuestion}
-          onEdit={onEditQuestion}
-        />
+        <Flex overflowX="auto">
+          <CommunityQuizQuestionsTable
+            questions={questions}
+            onDelete={onDeleteQuestion}
+            onEdit={onEditQuestion}
+          />
+        </Flex>
       )}
       <Flex justifyContent="center" marginY={4}>
         <Button
