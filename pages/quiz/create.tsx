@@ -1,12 +1,21 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Flex, Heading } from "@chakra-ui/react";
 import Head from "next/head";
+
 import MainView from "../../components/MainView";
 import HeroHeader from "../../components/HeroHeader";
 import Card from "../../components/Card";
 import CommunityQuizFormContainer from "../../containers/CommunityQuizFormContainer";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const Create: FC = () => {
+  const { user } = useContext(CurrentUserContext);
+
+  // TODO: remove when ready
+  if (!user?.isAdmin) {
+    return null;
+  }
+
   return (
     <>
       <Head>

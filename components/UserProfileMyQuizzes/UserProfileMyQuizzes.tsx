@@ -16,11 +16,13 @@ import { useRouter } from "next/router";
 export interface Props {
   quizzes?: CommunityQuiz[];
   isCurrentUser?: boolean;
+  username?: string;
 }
 
 const UserProfileMyQuizzes: FC<Props> = ({
   quizzes = [],
   isCurrentUser = false,
+  username,
 }) => {
   const router = useRouter();
 
@@ -50,7 +52,9 @@ const UserProfileMyQuizzes: FC<Props> = ({
         marginBottom={5}
         marginX={2}
       >
-        <Heading fontSize="26px">{"My Quizzes"}</Heading>
+        <Heading fontSize="26px">
+          {`${username && !isCurrentUser ? `${username}'s` : "My"} Quizzes`}
+        </Heading>
         {isCurrentUser && (
           <Button
             colorScheme="green"

@@ -6,11 +6,13 @@ import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserPro
 export interface Props {
   userId?: number;
   isCurrentUser?: boolean;
+  username?: string;
 }
 
 const UserProfileMyQuizzesContainer: FC<Props> = ({
   userId = 0,
   isCurrentUser = false,
+  username,
 }) => {
   const { quizzes, isLoading } = useUserCommunityQuizzes(userId);
 
@@ -19,7 +21,11 @@ const UserProfileMyQuizzesContainer: FC<Props> = ({
   }
 
   return (
-    <UserProfileMyQuizzes quizzes={quizzes} isCurrentUser={isCurrentUser} />
+    <UserProfileMyQuizzes
+      quizzes={quizzes}
+      isCurrentUser={isCurrentUser}
+      username={username}
+    />
   );
 };
 
