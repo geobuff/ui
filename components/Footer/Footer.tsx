@@ -16,6 +16,8 @@ import Facebook from "../Facebook";
 import Discord from "../Discord";
 import GitHub from "../GitHub";
 import Reddit from "../Reddit";
+import YouTube from "../YouTube";
+import Twitch from "../Twitch";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -84,42 +86,59 @@ const socialIcons = (
     <Flex direction="column" justifyContent="center" mx={3}>
       <Link href="https://twitter.com/teamgeobuff" passHref>
         <ChakraLink>
-          <Twitter isGrayScale />
+          <Twitter />
         </ChakraLink>
       </Link>
     </Flex>
     <Flex direction="column" justifyContent="center" mx={3}>
       <Link href="https://instagram.com/teamgeobuff" passHref>
         <ChakraLink>
-          <Instagram isGrayScale />
+          <Instagram />
         </ChakraLink>
       </Link>
     </Flex>
     <Flex direction="column" justifyContent="center" mx={3}>
       <Link href="https://facebook.com/teamgeobuff" passHref>
         <ChakraLink>
-          <Facebook isGrayScale />
+          <Facebook />
         </ChakraLink>
       </Link>
     </Flex>
     <Flex direction="column" justifyContent="center" mx={3}>
       <Link href="https://reddit.com/r/GeoBuff" passHref>
         <ChakraLink>
-          <Reddit isGrayScale />
+          <Reddit />
         </ChakraLink>
       </Link>
     </Flex>
     <Flex direction="column" justifyContent="center" mx={3}>
       <Link href={process.env.NEXT_PUBLIC_DISCORD_LINK} passHref>
         <ChakraLink>
-          <Discord isGrayScale />
+          <Discord />
         </ChakraLink>
       </Link>
     </Flex>
     <Flex direction="column" justifyContent="center" mx={3}>
       <Link href="https://github.com/GeoBuff" passHref>
         <ChakraLink>
-          <GitHub isGrayScale />
+          <GitHub />
+        </ChakraLink>
+      </Link>
+    </Flex>
+    <Flex direction="column" justifyContent="center" mx={3}>
+      <Link
+        href="https://www.youtube.com/channel/UCDsUu_8r98ORJqsILXGRlEQ"
+        passHref
+      >
+        <ChakraLink>
+          <YouTube />
+        </ChakraLink>
+      </Link>
+    </Flex>
+    <Flex direction="column" justifyContent="center" mx={3}>
+      <Link href="https://www.twitch.tv/teamgeobuff" passHref>
+        <ChakraLink>
+          <Twitch />
         </ChakraLink>
       </Link>
     </Flex>

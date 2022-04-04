@@ -103,7 +103,7 @@ const OurMission: FC = () => (
               country="New Zealand"
               primaryImageUrl="/ash-primary.svg"
               secondaryImageUrl="/ash-secondary.svg"
-              link="https://twitter.com/midgleyxbt"
+              link="https://github.com/ashmidgley"
             />
             <TeamMemberCard
               title="Kirby McKenzie"
