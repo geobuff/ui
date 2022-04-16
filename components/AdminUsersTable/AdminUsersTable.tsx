@@ -3,12 +3,14 @@ import {
   Box,
   Button,
   Flex,
+  Link,
   Table,
   Tbody,
   Th,
   Thead,
   Tr,
   useBreakpointValue,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { UserPageDto } from "../../types/user-page-dto";
@@ -68,7 +70,9 @@ const AdminUsersTable: FC<Props> = ({
               {userPage?.users?.map((user, index) => (
                 <Tr key={index} fontWeight={600}>
                   <TableCell paddingY={3} paddingX={6}>
-                    {user.username}
+                    <Link href={`/profile/${user.id}`}>
+                      <ChakraLink>{user.username}</ChakraLink>
+                    </Link>
                   </TableCell>
                   <TableCell paddingY={3} paddingX={6}>
                     {user.email}
