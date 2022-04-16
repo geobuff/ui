@@ -39,15 +39,11 @@ const AdminQuizTableContainer: FC = () => {
   }, [page]);
 
   const handlePreviousPage = (): void => {
-    setIsLoading(true);
     setPage(page - 1);
-    setIsLoading(false);
   };
 
   const handleNextPage = (): void => {
-    setIsLoading(true);
     setPage(page + 1);
-    setIsLoading(false);
   };
 
   const handleDeleteQuiz = (quizId: number): void => {
