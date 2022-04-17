@@ -54,6 +54,7 @@ const UserProfile: FC<Props> = ({
           <UserProfileMyQuizzesContainer
             userId={user?.id}
             isCurrentUser={isCurrentUser}
+            username={user.username}
           />
         </>
       )}
