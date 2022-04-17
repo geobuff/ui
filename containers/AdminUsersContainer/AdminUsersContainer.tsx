@@ -22,13 +22,14 @@ const AdminUsersContainer: FC = () => {
   } = useDisclosure();
 
   useEffect(() => {
+    setIsLoading(true);
     axiosClient
       .get(`/users?page=${page}`, getAuthConfig())
       .then((response) => {
         setUserPage(response.data);
       })
       .finally(() => setIsLoading(false));
-  }, [page]);
+  }, [getAuthConfig, page]);
 
   const handleSubmit = (): void => {
     setIsSubmitting(true);
@@ -53,15 +54,11 @@ const AdminUsersContainer: FC = () => {
   };
 
   const handlePreviousPage = (): void => {
-    setIsLoading(true);
     setPage(page - 1);
-    setIsLoading(false);
   };
 
   const handleNextPage = (): void => {
-    setIsLoading(true);
     setPage(page + 1);
-    setIsLoading(false);
   };
 
   return (

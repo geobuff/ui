@@ -23,6 +23,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
   } = useDisclosure();
 
   useEffect(() => {
+    setIsLoading(true);
     axiosClient
       .get(`/manual-trivia-questions?page=${page}`, getAuthConfig())
       .then((response) => {
@@ -32,15 +33,11 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
   }, [getAuthConfig, page]);
 
   const handlePreviousPage = (): void => {
-    setIsLoading(true);
     setPage(page - 1);
-    setIsLoading(false);
   };
 
   const handleNextPage = (): void => {
-    setIsLoading(true);
     setPage(page + 1);
-    setIsLoading(false);
   };
 
   const handleDeleteQuestion = (questionId: number): void => {
