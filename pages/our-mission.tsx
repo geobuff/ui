@@ -98,7 +98,7 @@ const OurMission: FC = () => (
           >
             <TeamMemberCard
               title="Ash Midgley"
-              position="Founder"
+              position="Founder, CEO"
               city="Wellington"
               country="New Zealand"
               primaryImageUrl="/ash-primary.svg"
@@ -107,7 +107,7 @@ const OurMission: FC = () => (
             />
             <TeamMemberCard
               title="Kirby McKenzie"
-              position="Founder"
+              position="Founder, Developer"
               city="Melbourne"
               country="Australia"
               primaryImageUrl="/kirby-primary.svg"

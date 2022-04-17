@@ -5,6 +5,7 @@ import {
   Text,
   Link as ChakraLink,
   useBreakpointValue,
+  SimpleGrid,
 } from "@chakra-ui/react";
 
 import Logo from "../Logo";
@@ -83,65 +84,67 @@ const simpleFooter = (
 
 const socialIcons = (
   <Flex justifyContent="center" mt={{ base: 12, md: 0 }}>
-    <Flex direction="column" justifyContent="center" mx={3}>
-      <Link href="https://twitter.com/teamgeobuff" passHref>
-        <ChakraLink>
-          <Twitter />
-        </ChakraLink>
-      </Link>
-    </Flex>
-    <Flex direction="column" justifyContent="center" mx={3}>
-      <Link href="https://instagram.com/teamgeobuff" passHref>
-        <ChakraLink>
-          <Instagram />
-        </ChakraLink>
-      </Link>
-    </Flex>
-    <Flex direction="column" justifyContent="center" mx={3}>
-      <Link href="https://facebook.com/teamgeobuff" passHref>
-        <ChakraLink>
-          <Facebook />
-        </ChakraLink>
-      </Link>
-    </Flex>
-    <Flex direction="column" justifyContent="center" mx={3}>
-      <Link href="https://reddit.com/r/GeoBuff" passHref>
-        <ChakraLink>
-          <Reddit />
-        </ChakraLink>
-      </Link>
-    </Flex>
-    <Flex direction="column" justifyContent="center" mx={3}>
-      <Link href={process.env.NEXT_PUBLIC_DISCORD_LINK} passHref>
-        <ChakraLink>
-          <Discord />
-        </ChakraLink>
-      </Link>
-    </Flex>
-    <Flex direction="column" justifyContent="center" mx={3}>
-      <Link href="https://github.com/GeoBuff" passHref>
-        <ChakraLink>
-          <GitHub />
-        </ChakraLink>
-      </Link>
-    </Flex>
-    <Flex direction="column" justifyContent="center" mx={3}>
-      <Link
-        href="https://www.youtube.com/channel/UCDsUu_8r98ORJqsILXGRlEQ"
-        passHref
-      >
-        <ChakraLink>
-          <YouTube />
-        </ChakraLink>
-      </Link>
-    </Flex>
-    <Flex direction="column" justifyContent="center" mx={3}>
-      <Link href="https://www.twitch.tv/teamgeobuff" passHref>
-        <ChakraLink>
-          <Twitch />
-        </ChakraLink>
-      </Link>
-    </Flex>
+    <SimpleGrid columns={{ base: 4, lg: 8 }} spacingY={{ base: 6, lg: 0 }}>
+      <Flex direction="column" justifyContent="center" mx={3}>
+        <Link href="https://twitter.com/teamgeobuff" passHref>
+          <ChakraLink target="_blank" rel="noopener noreferrer">
+            <Twitter />
+          </ChakraLink>
+        </Link>
+      </Flex>
+      <Flex direction="column" justifyContent="center" mx={3}>
+        <Link href="https://instagram.com/teamgeobuff" passHref>
+          <ChakraLink target="_blank" rel="noopener noreferrer">
+            <Instagram />
+          </ChakraLink>
+        </Link>
+      </Flex>
+      <Flex direction="column" justifyContent="center" mx={3}>
+        <Link href="https://facebook.com/teamgeobuff" passHref>
+          <ChakraLink target="_blank" rel="noopener noreferrer">
+            <Facebook />
+          </ChakraLink>
+        </Link>
+      </Flex>
+      <Flex direction="column" justifyContent="center" mx={3}>
+        <Link href="https://reddit.com/r/GeoBuff" passHref>
+          <ChakraLink target="_blank" rel="noopener noreferrer">
+            <Reddit />
+          </ChakraLink>
+        </Link>
+      </Flex>
+      <Flex direction="column" justifyContent="center" mx={3}>
+        <Link href={process.env.NEXT_PUBLIC_DISCORD_LINK} passHref>
+          <ChakraLink target="_blank" rel="noopener noreferrer">
+            <Discord />
+          </ChakraLink>
+        </Link>
+      </Flex>
+      <Flex direction="column" justifyContent="center" mx={3}>
+        <Link href="https://github.com/GeoBuff" passHref>
+          <ChakraLink target="_blank" rel="noopener noreferrer">
+            <GitHub />
+          </ChakraLink>
+        </Link>
+      </Flex>
+      <Flex direction="column" justifyContent="center" mx={3}>
+        <Link
+          href="https://www.youtube.com/channel/UCDsUu_8r98ORJqsILXGRlEQ"
+          passHref
+        >
+          <ChakraLink target="_blank" rel="noopener noreferrer">
+            <YouTube />
+          </ChakraLink>
+        </Link>
+      </Flex>
+      <Flex direction="column" justifyContent="center" mx={3}>
+        <Link href="https://www.twitch.tv/teamgeobuff" passHref>
+          <ChakraLink target="_blank" rel="noopener noreferrer">
+            <Twitch />
+          </ChakraLink>
+        </Link>
+      </Flex>
+    </SimpleGrid>
   </Flex>
 );
 
