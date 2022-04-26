@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Button, Divider, Flex, FlexProps, Text } from "@chakra-ui/react";
+import { Button, Divider, Flex } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
 import * as Maps from "@geobuff/svg-maps";
@@ -16,8 +16,8 @@ import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
 import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
 import { getHighlightRegionsByMap } from "../../../helpers/map";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
-import { WarningTwoIcon } from "@chakra-ui/icons";
 import InlineErrorMessage from "../../InlineErrorMessage";
+import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
 
 const answers = [
   "Answer One",
@@ -26,13 +26,15 @@ const answers = [
   "Answer Four (Optional)",
 ];
 
-const initialValues = {
+const initialValues: CommunityQuizFormQuestion = {
   typeId: "1",
   question: "",
   imageUrl: "",
   map: "",
   highlighted: "",
+  flagCode: "",
   answers: [],
+  correctAnswer: "",
 };
 
 const validationSchema = Yup.object().shape({
@@ -66,10 +68,10 @@ const flagOptions = flagCategories?.map(({ key, label }) => ({
   value: key,
 }));
 
-export interface Props extends FlexProps {
-  values?: any;
+export interface Props {
+  values?: CommunityQuizFormQuestion;
   types: TriviaQuestionType[];
-  onSubmit?: (values: any) => void;
+  onSubmit?: (values: CommunityQuizFormQuestion) => void;
 }
 
 const CommunityQuizQuestionForm: FC<Props> = ({
@@ -82,7 +84,6 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   const [flagAnswerCategory, setFlagAnswerCategory] = useState("");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
   const [hasSubmittedOnce, setHasSubmittedOnce] = useState<boolean>(false);
-  const [correctAnswer, setCorrectAnswer] = useState<number | string>(null);
 
   useEffect(() => {
     setHasSubmittedOnce(false);
@@ -196,14 +197,13 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   key={index}
                   label={answer}
                   value={index}
-                  isChecked={correctAnswer === index}
+                  isChecked={values.correctAnswer === index}
                   hasSubmittedOnce={hasSubmittedOnce}
                   hasFlagAnswers={hasFlagAnswers}
                   flagAnswerCategory={flagAnswerCategory}
-                  onChangeCorrectAnswer={(answer) => {
-                    setCorrectAnswer(answer);
-                    setFieldValue("correctAnswer", answer);
-                  }}
+                  onChangeCorrectAnswer={(answer) =>
+                    setFieldValue("correctAnswer", answer)
+                  }
                   onChangeFlagCode={(flagCode) =>
                     setFieldValue(`answers[${index}].flagCode`, flagCode)
                   }

@@ -57,6 +57,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
                       aria-label="Edit question"
                       onClick={() => router.push(`/quiz/edit/${quiz.id}`)}
                       marginRight={4}
+                      disabled
                     >
                       {"Edit"}
                     </Button>

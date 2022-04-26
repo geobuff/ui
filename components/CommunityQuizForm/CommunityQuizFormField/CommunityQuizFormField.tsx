@@ -8,11 +8,11 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-import { FormValues } from "../CommunityQuizForm";
 import { Field } from "formik";
+import { CommunityQuizFormSubmit } from "../../../types/community-quiz-form-submit";
 
 export interface Props extends FlexProps {
-  values?: FormValues;
+  values?: CommunityQuizFormSubmit;
 }
 
 export interface FormFieldProps {
