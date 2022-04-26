@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 import { Button, Flex, Text } from "@chakra-ui/react";
 import CommunityQuizQuestionsTable from "../CommunityQuizQuestionsTable";
-import { CommunityQuizQuestion } from "../../../types/community-quiz-form";
+import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
 
 export interface Props {
-  questions: CommunityQuizQuestion[];
+  questions: CommunityQuizFormQuestion[];
   onAddQuestion?: () => void;
-  onDeleteQuestion?: (question: CommunityQuizQuestion) => void;
-  onEditQuestion?: (question: CommunityQuizQuestion) => void;
+  onDeleteQuestion?: (question: CommunityQuizFormQuestion) => void;
+  onEditQuestion?: (question: CommunityQuizFormQuestion) => void;
 }
 
 const CommunityQuizQuestionsField: FC<Props> = ({

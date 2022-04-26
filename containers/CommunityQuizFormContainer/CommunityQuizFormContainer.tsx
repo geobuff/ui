@@ -8,6 +8,8 @@ import { createCommunityQuizToast } from "../../helpers/toasts";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 
 import CommunityQuizForm from "../../components/CommunityQuizForm";
+import { CommunityQuizFormSubmit } from "../../types/community-quiz-form-submit";
+import { CommunityQuizPayload } from "../../types/community-quiz-payload";
 
 const CommunityQuizFormContainer: FC = () => {
   const { data: types, isLoading } = useTriviaQuestionTypes();
@@ -15,8 +17,8 @@ const CommunityQuizFormContainer: FC = () => {
   const toast = useToast();
   const router = useRouter();
 
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-  const [error, setError] = useState<string>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [error, setError] = useState("");
 
   const redirectToProfile = () => {
     setTimeout(() => {
@@ -24,25 +26,29 @@ const CommunityQuizFormContainer: FC = () => {
     }, 500);
   };
 
-  const handleSubmit = (values: any): void => {
+  const handleSubmit = (values: CommunityQuizFormSubmit): void => {
     setIsSubmitting(true);
 
-    const payload = {
+    const payload: CommunityQuizPayload = {
       userId: user.id,
-      name: values.quizName,
+      name: values.name,
       description: values.description,
-      maxScore: values.questions.length || 0,
-      questions: values.questions?.map((q) => ({
-        typeId: parseInt(q.typeId),
-        question: q.question,
-        map: q.map || "",
-        highlighted: q.highlighted || "",
-        flagCode: q.flagCode || "",
-        imageUrl: q.imageUrl || "",
-        answers: q.answers?.map((answer, index) => ({
+      maxScore: values.questions?.length || 0,
+      questions: values.questions?.map((question) => ({
+        id: {
+          Int64: question.id ?? 0,
+          Valid: !!question.id,
+        },
+        typeId: parseInt(question.typeId),
+        question: question.question,
+        map: question.map,
+        highlighted: question.highlighted,
+        flagCode: question.flagCode,
+        imageUrl: question.imageUrl,
+        answers: question.answers?.map((answer, index) => ({
           text: answer.text,
-          flagCode: answer.flagCode || "",
-          isCorrect: index === values.correctAnswer,
+          flagCode: answer.flagCode,
+          isCorrect: index === question.correctAnswer,
         })),
       })),
     };
