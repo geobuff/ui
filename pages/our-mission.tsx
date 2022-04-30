@@ -101,8 +101,8 @@ const OurMission: FC = () => (
               position="Founder, CEO"
               city="Wellington"
               country="New Zealand"
-              primaryImageUrl="/ash-primary.svg"
-              secondaryImageUrl="/ash-secondary.svg"
+              primaryImageUrl="/team/ash-primary.svg"
+              secondaryImageUrl="/team/ash-secondary.svg"
               link="https://github.com/ashmidgley"
             />
             <TeamMemberCard
@@ -110,8 +110,8 @@ const OurMission: FC = () => (
               position="Founder, Developer"
               city="Melbourne"
               country="Australia"
-              primaryImageUrl="/kirby-primary.svg"
-              secondaryImageUrl="/kirby-secondary.svg"
+              primaryImageUrl="/team/kirby-primary.svg"
+              secondaryImageUrl="/team/kirby-secondary.svg"
               link="https://github.com/KirbyMcKenzie"
             />
             <TeamMemberCard
@@ -119,8 +119,8 @@ const OurMission: FC = () => (
               position="Marketing"
               city="Palmerston North"
               country="New Zealand"
-              primaryImageUrl="/pearl-primary.svg"
-              secondaryImageUrl="/pearl-secondary.svg"
+              primaryImageUrl="/team/pearl-primary.svg"
+              secondaryImageUrl="/team/pearl-secondary.svg"
               link="https://instagram.com/pearlptp"
             />
             <TeamMemberCard
@@ -128,8 +128,8 @@ const OurMission: FC = () => (
               position="Designer"
               city="Wellington"
               country="New Zealand"
-              primaryImageUrl="/dan-primary.svg"
-              secondaryImageUrl="/dan-secondary.svg"
+              primaryImageUrl="/team/dan-primary.svg"
+              secondaryImageUrl="/team/dan-secondary.svg"
               link="https://twitter.com/cleangecko"
             />
             <TeamMemberCard
@@ -137,8 +137,8 @@ const OurMission: FC = () => (
               position="Question Master"
               city="Auckland"
               country="New Zealand"
-              primaryImageUrl="/ryan-primary.svg"
-              secondaryImageUrl="/ryan-secondary.svg"
+              primaryImageUrl="/team/ryan-primary.svg"
+              secondaryImageUrl="/team/ryan-secondary.svg"
               link="https://twitter.com/ryanclough_"
             />
           </SimpleGrid>
