@@ -12,7 +12,7 @@ export const Default = Template.bind({});
 
 Default.args = {
   name: "Countries of the World",
-  imageUrl: "https://dev.geobuff.com/world-map-header.svg",
+  imageUrl: "https://dev.geobuff.com/headers/world-map-header.svg",
   time: 300,
   maxScore: 197,
   plural: "countries",
