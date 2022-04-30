@@ -15,7 +15,10 @@ const Merch: FC = () => (
       />
     </Head>
     <MainView>
-      <HeroHeader heading="Merch" />
+      <HeroHeader
+        heading="Merch"
+        subtitle="Currently only available in New Zealand!"
+      />
       <MerchListContainer />
     </MainView>
   </>

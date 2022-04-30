@@ -68,6 +68,13 @@ const NavigationBar: FC = () => {
           isActive={route === "/leaderboard"}
           marginLeft={6}
         />
+
+        <NavigationBarLink
+          href="/merch"
+          label="Merch"
+          isActive={route === "/merch"}
+          marginLeft={6}
+        />
       </Flex>
 
       <Flex alignItems="center">
