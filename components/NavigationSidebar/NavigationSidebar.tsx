@@ -64,6 +64,11 @@ const quickLinks = [
     label: "Flag Games",
     emoji: "🎌",
   },
+  {
+    href: "/merch",
+    label: "Merch",
+    emoji: "👕",
+  },
 ];
 
 const popularQuizzes = [

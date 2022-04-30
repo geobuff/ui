@@ -32,6 +32,7 @@ import DelayedRender from "../components/DelayedRender";
 import { FilteredTrivia } from "../components/TriviaList/TriviaList";
 import CardListSection from "../components/CardListSection";
 import CardListItem from "../components/CardList/CardListItem";
+import Head from "next/head";
 
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
@@ -123,245 +124,254 @@ const Home: FC<AppProps> = ({ pageProps }) => {
   );
 
   return (
-    <MainView>
-      <HeroBanner />
-      <Box>
-        <Box
-          mx="auto"
-          position="relative"
-          left={0}
-          right={0}
-          bottom="21px"
-          maxWidth={{
-            base: "85%",
-            sm: "80%",
-            md: "40%",
-            lg: "600px",
-          }}
-        >
-          <InputGroup>
-            <InputLeftElement pointerEvents="none">
-              <Search
-                marginTop="8px"
-                marginLeft="14px"
-                height="24px"
-                width="24px"
-                color="gray.500"
+    <>
+      <Head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4707219290548480"
+          crossOrigin="anonymous"
+        />
+      </Head>
+      <MainView>
+        <HeroBanner />
+        <Box>
+          <Box
+            mx="auto"
+            position="relative"
+            left={0}
+            right={0}
+            bottom="21px"
+            maxWidth={{
+              base: "85%",
+              sm: "80%",
+              md: "40%",
+              lg: "600px",
+            }}
+          >
+            <InputGroup>
+              <InputLeftElement pointerEvents="none">
+                <Search
+                  marginTop="8px"
+                  marginLeft="14px"
+                  height="24px"
+                  width="24px"
+                  color="gray.500"
+                />
+              </InputLeftElement>
+              <Input
+                paddingLeft="44px"
+                width="100%"
+                size="lg"
+                onChange={handleChange}
+                placeholder="Enter quiz name..."
+                value={inputValue}
               />
-            </InputLeftElement>
-            <Input
-              paddingLeft="44px"
-              width="100%"
-              size="lg"
-              onChange={handleChange}
-              placeholder="Enter quiz name..."
-              value={inputValue}
-            />
-            <InputRightElement>
-              <Fade in={inputValue?.length > 0}>
-                <IconButton
-                  aria-label="close circle"
-                  position="absolute"
-                  top="11px"
-                  right={3}
-                  maxHeight="22px"
-                  minWidth="22px"
-                  backgroundColor="transparent"
-                  borderRadius={25}
-                  onClick={handleClearInput}
-                  color="#a6a6a6"
-                  fontWeight="bold"
-                  _hover={{
-                    backgroundColor: "transparent",
-                    color: "#5c5c5c",
-                  }}
-                >
-                  <SolidCloseCircle height={5} width={5} padding={0} />
-                </IconButton>
-              </Fade>
-            </InputRightElement>
-          </InputGroup>
+              <InputRightElement>
+                <Fade in={inputValue?.length > 0}>
+                  <IconButton
+                    aria-label="close circle"
+                    position="absolute"
+                    top="11px"
+                    right={3}
+                    maxHeight="22px"
+                    minWidth="22px"
+                    backgroundColor="transparent"
+                    borderRadius={25}
+                    onClick={handleClearInput}
+                    color="#a6a6a6"
+                    fontWeight="bold"
+                    _hover={{
+                      backgroundColor: "transparent",
+                      color: "#5c5c5c",
+                    }}
+                  >
+                    <SolidCloseCircle height={5} width={5} padding={0} />
+                  </IconButton>
+                </Fade>
+              </InputRightElement>
+            </InputGroup>
+          </Box>
         </Box>
-      </Box>
 
-      <Box
-        width="100%"
-        maxWidth={1300}
-        marginTop={2}
-        marginBottom={{ base: 5, md: 16 }}
-        marginLeft="auto"
-        marginRight="auto"
-        paddingX={{ base: 0, md: 10 }}
-        minHeight="400px"
-      >
-        {!!searchResults.length && !isSearching && filter ? (
-          <>
-            {!searchResults.length && !isSearching ? (
-              <Flex width="100%" paddingX={3}>
-                <Alert
-                  status="info"
-                  borderRadius={6}
-                  p={5}
-                  mt={3}
-                  mb={"100px"}
-                  width="100%"
+        <Box
+          width="100%"
+          maxWidth={1300}
+          marginTop={2}
+          marginBottom={{ base: 5, md: 16 }}
+          marginLeft="auto"
+          marginRight="auto"
+          paddingX={{ base: 0, md: 10 }}
+          minHeight="400px"
+        >
+          {!!searchResults.length && !isSearching && filter ? (
+            <>
+              {!searchResults.length && !isSearching ? (
+                <Flex width="100%" paddingX={3}>
+                  <Alert
+                    status="info"
+                    borderRadius={6}
+                    p={5}
+                    mt={3}
+                    mb={"100px"}
+                    width="100%"
+                  >
+                    <AlertIcon />
+                    {`There were no results for '${filter}'`}
+                  </Alert>
+                </Flex>
+              ) : (
+                <CardListSection
+                  title={
+                    isSearching
+                      ? `Searching for '${filter.trim()}' `
+                      : `Search results for '${filter.trim()}'`
+                  }
+                  isLoading={isSearching}
+                  paddingX={3}
                 >
-                  <AlertIcon />
-                  {`There were no results for '${filter}'`}
-                </Alert>
-              </Flex>
-            ) : (
-              <CardListSection
-                title={
-                  isSearching
-                    ? `Searching for '${filter.trim()}' `
-                    : `Search results for '${filter.trim()}'`
-                }
-                isLoading={isSearching}
-                paddingX={3}
-              >
-                {searchResultItems}
-              </CardListSection>
-            )}
-          </>
-        ) : (
-          <>
-            {filter?.length > 2 ? (
-              <>
-                {!searchResults.length && !isSearching ? (
-                  <Flex width="100%" paddingX={3}>
-                    <Alert
-                      status="info"
-                      borderRadius={6}
-                      p={5}
-                      mt={3}
-                      mb={"100px"}
-                      maxWidth="100%"
+                  {searchResultItems}
+                </CardListSection>
+              )}
+            </>
+          ) : (
+            <>
+              {filter?.length > 2 ? (
+                <>
+                  {!searchResults.length && !isSearching ? (
+                    <Flex width="100%" paddingX={3}>
+                      <Alert
+                        status="info"
+                        borderRadius={6}
+                        p={5}
+                        mt={3}
+                        mb={"100px"}
+                        maxWidth="100%"
+                      >
+                        <AlertIcon />
+                        {`There were no results for '${filter}'`}
+                      </Alert>
+                    </Flex>
+                  ) : (
+                    <CardListSection
+                      title={
+                        isSearching
+                          ? `Searching for '${filter.trim()}' `
+                          : `Search results for '${filter.trim()}'`
+                      }
+                      isLoading={isSearching}
+                      paddingX={3}
                     >
-                      <AlertIcon />
-                      {`There were no results for '${filter}'`}
-                    </Alert>
-                  </Flex>
-                ) : (
-                  <CardListSection
-                    title={
-                      isSearching
-                        ? `Searching for '${filter.trim()}' `
-                        : `Search results for '${filter.trim()}'`
-                    }
-                    isLoading={isSearching}
-                    paddingX={3}
-                  >
-                    {searchResults?.map((quiz) => (
-                      <CardListItem
-                        key={quiz.id}
-                        href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
-                      >
-                        <QuizCard
-                          name={quiz.name}
-                          imageUrl={quiz.imageUrl}
-                          time={quiz.time}
-                          maxScore={quiz.maxScore}
-                          plural={quiz.plural}
-                          position={{ base: "relative", md: "absolute" }}
-                          marginLeft={3}
-                        />
-                      </CardListItem>
-                    ))}
-                  </CardListSection>
-                )}
-              </>
-            ) : (
-              <Box minHeight="776px">
-                <DelayedRender shouldFadeIn waitBeforeShow={100}>
-                  <CardListSection
-                    title="Daily Trivia"
-                    linkHref="/daily-trivia"
-                    linkVerb="daily trivia"
-                    marginTop={0}
-                    paddingX={{ base: 3, md: 0 }}
-                  >
-                    {filteredTrivia.map((quiz, index) => (
-                      <CardListItem
-                        key={quiz.id}
-                        href={`/daily-trivia/${formatDate(quiz.date)}`}
-                        paddingRight={{
-                          base: index === filteredTrivia.length - 1 && "12px",
-                          md: 0,
-                        }}
-                      >
-                        <TriviaCard
-                          name={quiz.name}
-                          maxScore={quiz.maxScore}
-                          position={{ base: "relative", md: "absolute" }}
-                          marginLeft={{ base: 3, md: 0 }}
-                        />
-                      </CardListItem>
-                    ))}
-                  </CardListSection>
+                      {searchResults?.map((quiz) => (
+                        <CardListItem
+                          key={quiz.id}
+                          href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                        >
+                          <QuizCard
+                            name={quiz.name}
+                            imageUrl={quiz.imageUrl}
+                            time={quiz.time}
+                            maxScore={quiz.maxScore}
+                            plural={quiz.plural}
+                            position={{ base: "relative", md: "absolute" }}
+                            marginLeft={3}
+                          />
+                        </CardListItem>
+                      ))}
+                    </CardListSection>
+                  )}
+                </>
+              ) : (
+                <Box minHeight="776px">
+                  <DelayedRender shouldFadeIn waitBeforeShow={100}>
+                    <CardListSection
+                      title="Daily Trivia"
+                      linkHref="/daily-trivia"
+                      linkVerb="daily trivia"
+                      marginTop={0}
+                      paddingX={{ base: 3, md: 0 }}
+                    >
+                      {filteredTrivia.map((quiz, index) => (
+                        <CardListItem
+                          key={quiz.id}
+                          href={`/daily-trivia/${formatDate(quiz.date)}`}
+                          paddingRight={{
+                            base: index === filteredTrivia.length - 1 && "12px",
+                            md: 0,
+                          }}
+                        >
+                          <TriviaCard
+                            name={quiz.name}
+                            maxScore={quiz.maxScore}
+                            position={{ base: "relative", md: "absolute" }}
+                            marginLeft={{ base: 3, md: 0 }}
+                          />
+                        </CardListItem>
+                      ))}
+                    </CardListSection>
 
-                  <CardListSection
-                    title="Map Games"
-                    linkHref="/map-games"
-                    linkVerb="map games"
-                    paddingX={{ base: 3, md: 0 }}
-                  >
-                    {mapQuizzes.map((quiz, index) => (
-                      <CardListItem
-                        key={quiz.id}
-                        href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
-                        paddingRight={{
-                          base: index === filteredTrivia.length - 1 && "12px",
-                          md: 0,
-                        }}
-                      >
-                        <QuizCard
-                          name={quiz.name}
-                          imageUrl={quiz.imageUrl}
-                          time={quiz.time}
-                          maxScore={quiz.maxScore}
-                          plural={quiz.plural}
-                          position={{ base: "relative", md: "absolute" }}
-                          marginLeft={{ base: 3, md: 0 }}
-                        />
-                      </CardListItem>
-                    ))}
-                  </CardListSection>
+                    <CardListSection
+                      title="Map Games"
+                      linkHref="/map-games"
+                      linkVerb="map games"
+                      paddingX={{ base: 3, md: 0 }}
+                    >
+                      {mapQuizzes.map((quiz, index) => (
+                        <CardListItem
+                          key={quiz.id}
+                          href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                          paddingRight={{
+                            base: index === filteredTrivia.length - 1 && "12px",
+                            md: 0,
+                          }}
+                        >
+                          <QuizCard
+                            name={quiz.name}
+                            imageUrl={quiz.imageUrl}
+                            time={quiz.time}
+                            maxScore={quiz.maxScore}
+                            plural={quiz.plural}
+                            position={{ base: "relative", md: "absolute" }}
+                            marginLeft={{ base: 3, md: 0 }}
+                          />
+                        </CardListItem>
+                      ))}
+                    </CardListSection>
 
-                  <CardListSection
-                    title="Flag Games"
-                    linkHref="/flag-games"
-                    linkVerb="flag games"
-                    paddingX={{ base: 3, md: 0 }}
-                  >
-                    {flagQuizzes.map((quiz, index) => (
-                      <CardListItem
-                        key={quiz.id}
-                        href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
-                        paddingRight={{
-                          base: index === filteredTrivia.length - 1 && "12px",
-                          md: 0,
-                        }}
-                      >
-                        <QuizCard
-                          name={quiz.name}
-                          imageUrl={quiz.imageUrl}
-                          time={quiz.time}
-                          maxScore={quiz.maxScore}
-                          plural={quiz.plural}
-                          position={{ base: "relative", md: "absolute" }}
-                          marginLeft={{ base: 3, md: 0 }}
-                        />
-                      </CardListItem>
-                    ))}
-                  </CardListSection>
-                </DelayedRender>
-              </Box>
-            )}
-          </>
-        )}
-      </Box>
-    </MainView>
+                    <CardListSection
+                      title="Flag Games"
+                      linkHref="/flag-games"
+                      linkVerb="flag games"
+                      paddingX={{ base: 3, md: 0 }}
+                    >
+                      {flagQuizzes.map((quiz, index) => (
+                        <CardListItem
+                          key={quiz.id}
+                          href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                          paddingRight={{
+                            base: index === filteredTrivia.length - 1 && "12px",
+                            md: 0,
+                          }}
+                        >
+                          <QuizCard
+                            name={quiz.name}
+                            imageUrl={quiz.imageUrl}
+                            time={quiz.time}
+                            maxScore={quiz.maxScore}
+                            plural={quiz.plural}
+                            position={{ base: "relative", md: "absolute" }}
+                            marginLeft={{ base: 3, md: 0 }}
+                          />
+                        </CardListItem>
+                      ))}
+                    </CardListSection>
+                  </DelayedRender>
+                </Box>
+              )}
+            </>
+          )}
+        </Box>
+      </MainView>
+    </>
   );
 };
 

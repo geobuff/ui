@@ -2,13 +2,13 @@ import React, { FC } from "react";
 import { Button, Flex, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
 
 import TableCell from "../../TableCell";
-import { CommunityQuizQuestion } from "../../../types/community-quiz-form";
 import { getType } from "../../../helpers/trivia-types";
+import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
 
 export interface Props {
-  questions: CommunityQuizQuestion[];
-  onEdit?: (question: CommunityQuizQuestion) => void;
-  onDelete?: (question: CommunityQuizQuestion) => void;
+  questions: CommunityQuizFormQuestion[];
+  onEdit?: (question: CommunityQuizFormQuestion) => void;
+  onDelete?: (question: CommunityQuizFormQuestion) => void;
 }
 
 const CommunityQuizQuestionsTable: FC<Props> = ({

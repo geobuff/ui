@@ -22,31 +22,29 @@ import CommunityQuizQuestionForm from "./CommunityQuizQuestionForm";
 
 import { TriviaQuestionType } from "../../types/trivia-question-type";
 import { FormSetFieldValue } from "../../types/form";
-import { CommunityQuizQuestion } from "../../types/community-quiz-form";
+import {
+  CommunityQuizFormQuestion,
+  CommunityQuizFormSubmit,
+} from "../../types/community-quiz-form-submit";
 
 const validationSchema = Yup.object().shape({
-  quizName: Yup.string().required("Please enter a name for your quiz."),
-  questions: Yup.array().min(1, "Must include at least one question"),
+  name: Yup.string().required("Please enter a name for your quiz."),
+  questions: Yup.array().min(1, "Must include at least one question."),
 });
 
-const initialValues = {
-  quizName: "",
+const initialValues: CommunityQuizFormSubmit = {
+  name: "",
   description: "",
   questions: [],
 };
-export interface FormValues {
-  quizName: string;
-  description: string;
-  questions: CommunityQuizQuestion[];
-}
 
 export interface Props {
   error?: string;
-  values?: FormValues;
+  values?: CommunityQuizFormSubmit;
   isLoading?: boolean;
   isSubmitting?: boolean;
   types: TriviaQuestionType[];
-  onSubmit: (values: FormValues) => void;
+  onSubmit: (values: CommunityQuizFormSubmit) => void;
 }
 
 const CommunityQuizForm: FC<Props> = ({
@@ -58,35 +56,35 @@ const CommunityQuizForm: FC<Props> = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const [questions, setQuestions] = useState<CommunityQuizQuestion[]>([]);
+  const [questions, setQuestions] = useState<CommunityQuizFormQuestion[]>([]);
   const [selectedQuestion, setSelectedQuestion] = useState<
-    CommunityQuizQuestion
-  >(undefined);
+    CommunityQuizFormQuestion
+  >();
 
   const handleAddQuestion = (
-    values: CommunityQuizQuestion,
+    values: CommunityQuizFormQuestion,
     setFieldHelper: FormSetFieldValue
   ) => {
-    const foundIndex = questions.findIndex((x) => x.id == values.id);
-
-    if (foundIndex !== -1) {
-      const updated = questions.map((x) => (x.id === foundIndex ? values : x));
+    const index = questions.findIndex((x) => x.id == values.id);
+    if (index !== -1) {
+      const updated = questions.map((x) => (x.id === index ? values : x));
       setQuestions(updated);
+      setFieldHelper("questions", updated);
     } else {
-      const updated = [...questions, { id: questions.length, ...values }];
+      const updated = [...questions, { ...values, id: questions.length }];
       setQuestions(updated);
       setFieldHelper("questions", updated);
     }
     onClose();
   };
 
-  const handleEditQuestion = (selectedQuestion: CommunityQuizQuestion) => {
+  const handleEditQuestion = (selectedQuestion: CommunityQuizFormQuestion) => {
     setSelectedQuestion(selectedQuestion);
     onOpen();
   };
 
   const handleDeleteQuestion = (
-    deletedQuestion: CommunityQuizQuestion,
+    deletedQuestion: CommunityQuizFormQuestion,
     setFieldHelper
   ) => {
     const updatedQuestions = questions.filter(
@@ -138,7 +136,7 @@ const CommunityQuizForm: FC<Props> = ({
           <Flex direction="column" width="100%">
             <Form autoComplete="off">
               <CommunityQuizFormField
-                name="quizName"
+                name="name"
                 label="Quiz Name"
                 helper="Keep it concise and memorable!"
                 placeholder="Enter quiz name..."

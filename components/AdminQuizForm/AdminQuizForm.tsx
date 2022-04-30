@@ -437,7 +437,7 @@ const AdminQuizForm: FC<Props> = ({
                                 </FormErrorMessage>
                               </Box>
                               <FormHelperText lineHeight="1.50" mt={3}>
-                                {`Used in the quiz card. Can be a path from the UI public folder e.g. "/world-map-header.svg" or a full url e.g. "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1e6-1f1f7.svg".`}
+                                {`Used in the quiz card. Can be a path from the UI public folder e.g. "/headers/world-map-header.svg" or a full url e.g. "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1e6-1f1f7.svg".`}
                               </FormHelperText>
                             </FormControl>
                           )}
