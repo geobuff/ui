@@ -124,11 +124,6 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
           sizes="180x180"
           href="/apple-touch-icon-180x180.png"
         />
-        <script
-          async
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4707219290548480"
-          crossOrigin="anonymous"
-        />
       </Head>
       <ChakraProvider theme={theme}>
         <Elements stripe={stripePromise}>
