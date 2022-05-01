@@ -1,9 +1,13 @@
 import React, { FC } from "react";
 import { DateTime } from "luxon";
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
+  Divider,
   Flex,
+  Heading,
   Select,
   Table,
   Tbody,
@@ -18,6 +22,7 @@ import AdminOrdersTablePlaceholder from "../../placeholders/AdminOrdersTablePlac
 import ArrowLeft from "../../Icons/ArrowLeft";
 import ArrowRight from "../../Icons/ArrowRight";
 import { OrderStatuses } from "../../types/order-statuses";
+import Card from "../Card";
 
 export interface Props {
   orderPage?: OrderPageDto;
@@ -73,57 +78,74 @@ const AdminOrdersTable: FC<Props> = ({
     }
   };
 
-  return (
-    <Flex
-      margin={6}
-      background="white"
-      borderRadius={12}
-      justifyContent="center"
-    >
-      <Box overflow="auto" margin={6}>
-        {isLoading ? (
-          <AdminOrdersTablePlaceholder />
-        ) : (
-          <Table size="md" variant="striped" colorscheme="gray">
-            <Thead>
-              <Tr>
-                <Th textAlign="left">{"NAME"} </Th>
-                <Th textAlign="left">{"ADDRESS"} </Th>
-                <Th textAlign="left">{"SHIPPING"} </Th>
-                <Th textAlign="left">{"DISCOUNT"} </Th>
-                <Th textAlign="left">{"ADDED"} </Th>
-                <Th>{""}</Th>
-              </Tr>
-            </Thead>
+  const getTable = (): JSX.Element => {
+    if (orderPage?.orders.length === 0) {
+      return (
+        <Alert status="info" borderRadius={6} marginBottom={3}>
+          <AlertIcon />
+          No orders to display.
+        </Alert>
+      );
+    }
 
-            <Tbody>
-              {orderPage?.orders.map((order, index) => (
-                <Tr key={index} fontWeight={600}>
-                  <TableCell paddingY={3} paddingX={6}>
-                    {`${order.firstName} ${order.lastName}`}
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    {order.address}
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    {order.shippingOption}
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    {order.discount.Valid && order.discount.String}
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    {DateTime.fromISO(order.added).toLocaleString(
-                      DateTime.DATE_MED
-                    )}
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    {getAction(order.statusId, order.id)}
-                  </TableCell>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        )}
+    return (
+      <Table size="md" variant="striped" colorscheme="gray">
+        <Thead>
+          <Tr>
+            <Th textAlign="left">{"NAME"} </Th>
+            <Th textAlign="left">{"ADDRESS"} </Th>
+            <Th textAlign="left">{"SHIPPING"} </Th>
+            <Th textAlign="left">{"DISCOUNT"} </Th>
+            <Th textAlign="left">{"ADDED"} </Th>
+            <Th>{""}</Th>
+          </Tr>
+        </Thead>
+
+        <Tbody>
+          {orderPage?.orders.map((order, index) => (
+            <Tr key={index} fontWeight={600}>
+              <TableCell paddingY={3} paddingX={6}>
+                {`${order.firstName} ${order.lastName}`}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {order.address}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {order.shippingOption}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {order.discount.Valid && order.discount.String}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {DateTime.fromISO(order.added).toLocaleString(
+                  DateTime.DATE_MED
+                )}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {getAction(order.statusId, order.id)}
+              </TableCell>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    );
+  };
+
+  return (
+    <Card marginY={10} padding={6}>
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        marginBottom={5}
+        marginX={2}
+      >
+        <Heading fontSize="24px">{"Orders"}</Heading>
+      </Flex>
+
+      <Divider borderWidth={1} marginBottom={4} />
+
+      <Box overflow="auto" margin={6}>
+        {isLoading ? <AdminOrdersTablePlaceholder /> : getTable()}
         <Flex marginTop="auto" py={4}>
           <Select
             backgroundColor="#F3F3F3"
@@ -180,7 +202,7 @@ const AdminOrdersTable: FC<Props> = ({
           </Box>
         </Flex>
       </Box>
-    </Flex>
+    </Card>
   );
 };
 
