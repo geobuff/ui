@@ -1,9 +1,9 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 import axiosClient from "../../axios";
-import AdminDiscounts from "../../components/AdminDiscounts";
+import AdminDiscountsTable from "../../components/AdminDiscountsTable";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
-const AdminDiscountsContainer: FC = () => {
+const AdminDiscountsTableContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
   const [discounts, setDiscounts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,11 +17,7 @@ const AdminDiscountsContainer: FC = () => {
       .finally(() => setIsLoading(false));
   }, [getAuthConfig]);
 
-  if (isLoading) {
-    return null;
-  }
-
-  return <AdminDiscounts discounts={discounts} />;
+  return <AdminDiscountsTable discounts={discounts} isLoading={isLoading} />;
 };
 
-export default AdminDiscountsContainer;
+export default AdminDiscountsTableContainer;
