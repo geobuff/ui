@@ -40,8 +40,12 @@ const AdminOrdersContainer = dynamic(
   () => import("../containers/AdminOrdersContainer")
 );
 
-const AdminDiscountsContainer = dynamic(
-  () => import("../containers/AdminDiscountsContainer")
+const AdminDiscountsTableContainer = dynamic(
+  () => import("../containers/AdminDiscountsTableContainer")
+);
+
+const AdminMerchTableContainer = dynamic(
+  () => import("../containers/AdminMerchTableContainer")
 );
 
 const AdminGeneralContainer = dynamic(
@@ -52,7 +56,7 @@ const AdminManualTriviaQuestionTableContainer = dynamic(
   () => import("../containers/AdminManualTriviaQuestionTableContainer")
 );
 
-const tabs = ["general", "users", "quizzes", "trivia", "orders"];
+const tabs = ["general", "users", "quizzes", "trivia", "merch"];
 
 const Admin: FC = () => {
   const [tabIndex, setTabIndex] = useState(0);
@@ -104,7 +108,7 @@ const Admin: FC = () => {
                 <Tab fontWeight="medium">Users</Tab>
                 <Tab fontWeight="medium">Quizzes</Tab>
                 <Tab fontWeight="medium">Trivia</Tab>
-                <Tab fontWeight="medium">Orders</Tab>
+                <Tab fontWeight="medium">Merch</Tab>
               </TabList>
             </Flex>
 
@@ -168,8 +172,9 @@ const Admin: FC = () => {
                     width="100%"
                     maxWidth={1300}
                   >
+                    <AdminMerchTableContainer />
+                    <AdminDiscountsTableContainer />
                     <AdminOrdersContainer />
-                    <AdminDiscountsContainer />
                   </Flex>
                 </Flex>
               </TabPanel>

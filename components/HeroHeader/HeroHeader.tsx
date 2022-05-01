@@ -46,9 +46,9 @@ const HeroHeader: FC<Props> = ({ heading = "", subtitle = "", ...props }) => (
           <Fade in>
             <Text
               color="white"
-              fontSize={["16px", "24px"]}
+              fontSize={{ base: "16px", md: "24px" }}
               lineHeight={{ base: "1.1", md: "1" }}
-              mt={6}
+              mt={{ base: 3, md: 6 }}
             >
               {subtitle}
             </Text>
