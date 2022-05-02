@@ -16,6 +16,7 @@ export interface Props {
   discountSuccess?: string;
   discountError?: string;
   applyDiscount?: (code: string, merchIds: number[]) => void;
+  clearDiscount?: () => void;
 }
 
 const DiscountFooter: FC<Props> = ({
@@ -24,6 +25,7 @@ const DiscountFooter: FC<Props> = ({
   discountSuccess = "",
   discountError = "",
   applyDiscount = () => {},
+  clearDiscount = () => {},
 }) => {
   const [inputValue, setInputValue] = useState("");
 
@@ -65,6 +67,16 @@ const DiscountFooter: FC<Props> = ({
               disabled={!!discountSuccess}
             >
               {"Apply"}
+            </Button>
+            <Button
+              marginLeft={3}
+              height="44px"
+              width="150px"
+              isLoading={checkingDiscount}
+              onClick={clearDiscount}
+              disabled={!discountSuccess}
+            >
+              {"Clear"}
             </Button>
           </Flex>
 

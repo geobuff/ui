@@ -48,7 +48,7 @@ const ShoppingCartItem: FC<Props> = ({
           <Flex>
             <Image
               src={imageUrl}
-              width="150px"
+              width="auto"
               height="150px"
               borderRadius="12px"
               mr={6}

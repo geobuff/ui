@@ -14,6 +14,7 @@ import {
   Divider,
   useRadioGroup,
   HStack,
+  FormHelperText,
 } from "@chakra-ui/react";
 
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -309,6 +310,9 @@ const CheckoutForm: FC<Props> = ({
                           <FormLabel htmlFor="address" fontWeight="bold">
                             {"Address"}
                           </FormLabel>
+                          <FormHelperText lineHeight="1.50" mb={2}>
+                            {`NOTE: We are currently only delivering to New Zealand addresses.`}
+                          </FormHelperText>
                           <PlacesAutocomplete
                             value={values.address}
                             onChange={(value) =>
