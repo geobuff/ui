@@ -24,7 +24,8 @@ const MerchSummaryShowcase: FC<Props> = ({ images = [] }) => {
             src={image.imageUrl}
             onClick={(): void => setCurrentImage(image.imageUrl)}
             width="100px"
-            height="auto"
+            height="66.7px"
+            objectFit="cover"
             borderRadius="12px"
             cursor="pointer"
           />

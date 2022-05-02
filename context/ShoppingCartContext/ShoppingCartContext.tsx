@@ -23,6 +23,7 @@ export const ShoppingCartContext = createContext({
   discountSuccess: "",
   discountError: "",
   applyDiscount: (code: string, merchIds: number[]): void => {},
+  clearDiscount: (): void => {},
   toLineItems: (): CheckoutItem[] => {
     return null;
   },
@@ -107,7 +108,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
   const clearCart = (): void => {
     setIsLoading(true);
     setCart([]);
-    deleteFromStorage("geobuff.discountCode");
+    clearDiscount();
     setIsLoading(false);
   };
 
@@ -165,6 +166,16 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
       .finally(() => setCheckingDiscount(false));
   };
 
+  const clearDiscount = (): void => {
+    setCheckingDiscount(true);
+    deleteFromStorage("geobuff.discountCode");
+    setDiscountId(0);
+    setDiscountAmount(0);
+    setDiscountSuccess("");
+    setDiscountError("");
+    setCheckingDiscount(false);
+  };
+
   const toLineItems = (): CheckoutItem[] => {
     return cart.map((x) => {
       return {
@@ -195,6 +206,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
         discountSuccess,
         discountError,
         applyDiscount,
+        clearDiscount,
         toLineItems,
       }}
     >
