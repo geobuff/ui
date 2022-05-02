@@ -33,6 +33,7 @@ export interface Props {
   discountSuccess?: string;
   discountError?: string;
   applyDiscount?: (code: string, merchIds: number[]) => void;
+  clearDiscount?: () => void;
 }
 
 const ShoppingCart: FC<Props> = ({
@@ -46,6 +47,7 @@ const ShoppingCart: FC<Props> = ({
   discountSuccess = "",
   discountError = "",
   applyDiscount = () => {},
+  clearDiscount = () => {},
 }) => {
   const router = useRouter();
 
@@ -121,6 +123,7 @@ const ShoppingCart: FC<Props> = ({
             discountSuccess={discountSuccess}
             discountError={discountError}
             applyDiscount={applyDiscount}
+            clearDiscount={clearDiscount}
           />
         )}
       </Card>

@@ -11,6 +11,8 @@ import {
   Tr,
   useBreakpointValue,
   Link as ChakraLink,
+  Heading,
+  Divider,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { UserPageDto } from "../../types/user-page-dto";
@@ -20,6 +22,7 @@ import { getFlagUrl } from "@geobuff/flags";
 import ArrowRight from "../../Icons/ArrowRight";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import AdminUsersTablePlaceholder from "../../placeholders/AdminUsersTablePlaceholder";
+import Card from "../Card";
 
 export interface Props {
   currentUserId?: number;
@@ -43,13 +46,18 @@ const AdminUsersTable: FC<Props> = ({
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
   return (
-    <Flex
-      margin={6}
-      padding={12}
-      background="white"
-      borderRadius={12}
-      justifyContent="center"
-    >
+    <Card marginY={10} padding={6}>
+      <Flex
+        justifyContent="space-between"
+        alignItems="center"
+        marginBottom={5}
+        marginX={2}
+      >
+        <Heading fontSize="24px">{"Users"}</Heading>
+      </Flex>
+
+      <Divider borderWidth={1} marginBottom={4} />
+
       <Box overflow="auto" margin={6}>
         {isLoading ? (
           <AdminUsersTablePlaceholder />
@@ -142,7 +150,7 @@ const AdminUsersTable: FC<Props> = ({
           </Box>
         </Flex>
       </Box>
-    </Flex>
+    </Card>
   );
 };
 

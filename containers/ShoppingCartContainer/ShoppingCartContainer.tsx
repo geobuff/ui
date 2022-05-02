@@ -16,6 +16,7 @@ const ShoppingCartContainer: FC = () => {
     discountSuccess,
     discountError,
     applyDiscount,
+    clearDiscount,
   } = useContext(ShoppingCartContext);
 
   const { merch, isLoading: isMerchLoading } = useMerch();
@@ -41,6 +42,7 @@ const ShoppingCartContainer: FC = () => {
       discountSuccess={discountSuccess}
       discountError={discountError}
       applyDiscount={applyDiscount}
+      clearDiscount={clearDiscount}
     />
   );
 };
