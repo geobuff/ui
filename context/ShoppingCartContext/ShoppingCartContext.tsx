@@ -107,7 +107,7 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
 
   const clearCart = (): void => {
     setIsLoading(true);
-    setCart([]);
+    deleteFromStorage("geobuff.cart");
     clearDiscount();
     setIsLoading(false);
   };
