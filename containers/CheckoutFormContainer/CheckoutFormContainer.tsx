@@ -14,6 +14,7 @@ const CheckoutFormContainer: FC = () => {
   const {
     toLineItems,
     discountId,
+    clearCart,
     isLoading: isShoppingCartLoading,
   } = useContext(ShoppingCartContext);
 
@@ -46,6 +47,7 @@ const CheckoutFormContainer: FC = () => {
     axiosClient
       .post("/checkout/create-checkout-session", payload)
       .then((response) => {
+        clearCart();
         stripe.redirectToCheckout({
           sessionId: response.data.sessionId,
         });

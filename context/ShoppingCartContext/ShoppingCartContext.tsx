@@ -5,7 +5,6 @@ import { CartItem } from "../../types/cart-item";
 import { CheckoutItem } from "../../types/checkout-payload";
 import { Discount } from "../../types/discount";
 import { useLocalStorage, deleteFromStorage } from "@rehooks/local-storage";
-import { useRouter } from "next/router";
 
 export const ShoppingCartContext = createContext({
   cart: [],
@@ -31,8 +30,6 @@ export const ShoppingCartContext = createContext({
 });
 
 export const ShoppingCartContextProvider: FC = ({ children = null }) => {
-  const router = useRouter();
-
   const [cart, setCart] = useLocalStorage<CartItem[]>("geobuff.cart", []);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -47,10 +44,6 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
   const [discountError, setDiscountError] = useState("");
 
   useEffect(() => {
-    if (router.pathname === "/checkout/success") {
-      setIsLoading(false);
-    }
-
     axiosClient
       .post(`/merch/exists`, cart)
       .then((response) => {
@@ -63,13 +56,12 @@ export const ShoppingCartContextProvider: FC = ({ children = null }) => {
               cart.map((x) => x.id)
             );
           }
-
-          setIsLoading(false);
         } else {
-          clearCart();
+          deleteFromStorage("geobuff.cart");
         }
       })
-      .catch(() => clearCart());
+      .catch(() => deleteFromStorage("geobuff.cart"))
+      .finally(() => setIsLoading(false));
   }, []);
 
   const addToCart = (item: CartItem): void => {
