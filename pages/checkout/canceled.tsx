@@ -14,7 +14,7 @@ const Canceled: FC = () => {
         axiosClient.delete(`/orders/email/${email}`).finally(() => {
           setIsLoading(false);
           setTimeout(() => {
-            router.push("/shopping-cart");
+            router.push("/merch");
           }, 2000);
         });
       }
