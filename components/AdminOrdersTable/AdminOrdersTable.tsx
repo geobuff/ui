@@ -8,6 +8,7 @@ import {
   Divider,
   Flex,
   Heading,
+  Link,
   Select,
   Table,
   Tbody,
@@ -15,7 +16,9 @@ import {
   Thead,
   Tr,
   useBreakpointValue,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
+
 import TableCell from "../TableCell";
 import { OrderPageDto } from "../../types/order-page-dto";
 import AdminOrdersTablePlaceholder from "../../placeholders/AdminOrdersTablePlaceholder";
@@ -23,6 +26,7 @@ import ArrowLeft from "../../Icons/ArrowLeft";
 import ArrowRight from "../../Icons/ArrowRight";
 import { OrderStatuses } from "../../types/order-statuses";
 import Card from "../Card";
+import { Order } from "../../types/order";
 
 export interface Props {
   orderPage?: OrderPageDto;
@@ -33,6 +37,7 @@ export interface Props {
   onProgressClick?: (orderId: number) => void;
   onDeleteClick?: (orderId: number) => void;
   onStatusChange?: (statusId: number) => void;
+  onOrderClick?: (order: Order) => void;
   onNextPage?: () => void;
   onPreviousPage?: () => void;
 }
@@ -46,6 +51,7 @@ const AdminOrdersTable: FC<Props> = ({
   onProgressClick = (orderId: number): void => {},
   onDeleteClick = (orderId: number): void => {},
   onStatusChange = (statusId: number): void => {},
+  onOrderClick = (order: Order): void => {},
   onNextPage = (): void => {},
   onPreviousPage = (): void => {},
 }) => {
@@ -105,7 +111,11 @@ const AdminOrdersTable: FC<Props> = ({
           {orderPage?.orders.map((order, index) => (
             <Tr key={index} fontWeight={600}>
               <TableCell paddingY={3} paddingX={6}>
-                {`${order.firstName} ${order.lastName}`}
+                <Link onClick={() => onOrderClick(order)}>
+                  <ChakraLink>
+                    {`${order.firstName} ${order.lastName}`}
+                  </ChakraLink>
+                </Link>
               </TableCell>
               <TableCell paddingY={3} paddingX={6}>
                 {order.address}

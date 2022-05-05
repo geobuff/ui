@@ -8,6 +8,8 @@ import { OrdersFilterDto } from "../../types/orders-filter-dto";
 import DeleteOrderModal from "../../components/DeleteOrderModal";
 import ProgressOrderModal from "../../components/ProgressOrderModal";
 import { useDisclosure } from "@chakra-ui/react";
+import { Order } from "../../types/order";
+import OrderSummaryModal from "../../components/OrderItemsModal";
 
 const AdminOrdersContainer: FC = () => {
   const {
@@ -22,6 +24,12 @@ const AdminOrdersContainer: FC = () => {
     onClose: onProgressOrderModalClose,
   } = useDisclosure();
 
+  const {
+    isOpen: isOrderItemsModalOpen,
+    onOpen: onOrderItemsModalOpen,
+    onClose: onOrderItemsModalClose,
+  } = useDisclosure();
+
   const { getAuthConfig } = useContext(CurrentUserContext);
   const [orderPage, setOrderPage] = useState<OrderPageDto>();
   const [page, setPage] = useState(0);
@@ -30,6 +38,7 @@ const AdminOrdersContainer: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderId, setOrderId] = useState(0);
   const [error, setError] = useState(false);
+  const [selectedOrder, setSelectedOrder] = useState<Order>();
 
   useEffect(() => {
     setIsLoading(true);
@@ -109,6 +118,11 @@ const AdminOrdersContainer: FC = () => {
     onProgressOrderModalOpen();
   };
 
+  const handleOrderClick = (order: Order): void => {
+    setSelectedOrder(order);
+    onOrderItemsModalOpen();
+  };
+
   return (
     <>
       <AdminOrdersTable
@@ -120,8 +134,14 @@ const AdminOrdersContainer: FC = () => {
         onProgressClick={handleProgressClick}
         onDeleteClick={handleDeleteClick}
         onStatusChange={handleStatusChange}
+        onOrderClick={handleOrderClick}
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
+      />
+      <OrderSummaryModal
+        isOpen={isOrderItemsModalOpen}
+        onClose={onOrderItemsModalClose}
+        order={selectedOrder}
       />
       <DeleteOrderModal
         isOpen={isDeleteOrderModalOpen}
