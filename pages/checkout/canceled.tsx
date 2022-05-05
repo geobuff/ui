@@ -15,7 +15,7 @@ const Canceled: FC = () => {
           setIsLoading(false);
           setTimeout(() => {
             router.push("/merch");
-          }, 2000);
+          }, 1000);
         });
       }
     }
@@ -25,7 +25,7 @@ const Canceled: FC = () => {
     return <Text m={3}>Cancelling transaction...</Text>;
   }
 
-  return <Text m={3}>Redirecting back to cart...</Text>;
+  return <Text m={3}>Redirecting...</Text>;
 };
 
 export default Canceled;
