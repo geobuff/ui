@@ -9,7 +9,7 @@ import DeleteOrderModal from "../../components/DeleteOrderModal";
 import ProgressOrderModal from "../../components/ProgressOrderModal";
 import { useDisclosure } from "@chakra-ui/react";
 import { Order } from "../../types/order";
-import OrderSummaryModal from "../../components/OrderItemsModal";
+import OrderItemsModal from "../../components/OrderItemsModal";
 
 const AdminOrdersContainer: FC = () => {
   const {
@@ -38,7 +38,7 @@ const AdminOrdersContainer: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderId, setOrderId] = useState(0);
   const [error, setError] = useState(false);
-  const [selectedOrder, setSelectedOrder] = useState<Order>();
+  const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
     setIsLoading(true);
@@ -119,7 +119,7 @@ const AdminOrdersContainer: FC = () => {
   };
 
   const handleOrderClick = (order: Order): void => {
-    setSelectedOrder(order);
+    setSelectedItems(order.items);
     onOrderItemsModalOpen();
   };
 
@@ -138,10 +138,10 @@ const AdminOrdersContainer: FC = () => {
         onNextPage={handleNextPage}
         onPreviousPage={handlePreviousPage}
       />
-      <OrderSummaryModal
+      <OrderItemsModal
         isOpen={isOrderItemsModalOpen}
         onClose={onOrderItemsModalClose}
-        order={selectedOrder}
+        items={selectedItems}
       />
       <DeleteOrderModal
         isOpen={isDeleteOrderModalOpen}
