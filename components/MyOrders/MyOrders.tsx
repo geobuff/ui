@@ -2,7 +2,7 @@ import React, { FC } from "react";
 import { Alert, AlertIcon, Flex } from "@chakra-ui/react";
 import { Order } from "../../types/order";
 import Card from "../Card";
-import OrderItem from "../OrderTile";
+import OrderTile from "../OrderTile";
 
 export interface Props {
   orders?: Order[];
@@ -33,7 +33,7 @@ const MyOrders: FC<Props> = ({ orders = [], isError = false }) => {
       <>
         {orders.map((order, i) => (
           <Card my={6} key={i}>
-            <OrderItem order={order} />
+            <OrderTile order={order} />
           </Card>
         ))}
       </>

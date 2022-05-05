@@ -14,8 +14,8 @@ const Canceled: FC = () => {
         axiosClient.delete(`/orders/email/${email}`).finally(() => {
           setIsLoading(false);
           setTimeout(() => {
-            router.push("/shopping-cart");
-          }, 2000);
+            router.push("/merch");
+          }, 1000);
         });
       }
     }
@@ -25,7 +25,7 @@ const Canceled: FC = () => {
     return <Text m={3}>Cancelling transaction...</Text>;
   }
 
-  return <Text m={3}>Redirecting back to cart...</Text>;
+  return <Text m={3}>Redirecting...</Text>;
 };
 
 export default Canceled;

@@ -28,7 +28,7 @@ const AdminMerchTable: FC<Props> = ({ merch = [], isLoading = true }) => (
       marginBottom={5}
       marginX={2}
     >
-      <Heading fontSize="24px">{"Merch"}</Heading>
+      <Heading fontSize="24px">{"Inventory"}</Heading>
     </Flex>
 
     <Divider borderWidth={1} marginBottom={4} />
