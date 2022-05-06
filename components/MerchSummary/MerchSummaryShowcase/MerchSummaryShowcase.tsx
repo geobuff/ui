@@ -14,7 +14,11 @@ const MerchSummaryShowcase: FC<Props> = ({ images = [] }) => {
 
   return (
     <>
-      <MapInteractionCSS background="#F0F0F0" borderRadius="12px">
+      <MapInteractionCSS
+        background="#F0F0F0"
+        borderRadius="12px"
+        maxHeight={{ base: "235px", sm: "333px" }}
+      >
         <Image src={currentImage} width="500px" height="auto" />
       </MapInteractionCSS>
       <SimpleGrid mt={6} columns={{ base: 3, md: 4 }} spacingY={6}>
