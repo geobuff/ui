@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Flex, SimpleGrid } from "@chakra-ui/react";
+import { SimpleGrid } from "@chakra-ui/react";
 import MapInteractionCSS from "../../MapInteractionCSS";
 import Image from "../../Image";
 import { MerchImage } from "../../../types/merch-item";
