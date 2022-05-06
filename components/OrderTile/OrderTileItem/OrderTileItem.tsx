@@ -14,12 +14,14 @@ const OrderTileItem: FC<Props> = ({ item = null, ...props }) => (
         <Tag position="absolute" top={-2} right={-2}>
           {item.quantity}
         </Tag>
-        <Image
-          src={item.imageUrl}
-          borderRadius={6}
-          height="100px"
-          width="auto"
-        />
+        <Flex justifyContent="center">
+          <Image
+            src={item.imageUrl}
+            borderRadius={6}
+            height="100px"
+            width="auto"
+          />
+        </Flex>
         <Text textAlign="center">{item.sizeName}</Text>
       </Box>
     </VStack>
