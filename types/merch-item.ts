@@ -8,6 +8,7 @@ export interface MerchItem {
   sizeGuideImageUrl: NullString;
   price: NullFloat;
   externalLink: NullString;
+  route: string;
   sizes: MerchSize[];
   images: MerchImage[];
   soldOut: boolean;

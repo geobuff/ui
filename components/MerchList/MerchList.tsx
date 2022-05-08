@@ -45,7 +45,7 @@ const MerchList: FC<Props> = ({ merch = [] }) => (
             href={
               product.externalLink.Valid
                 ? product.externalLink.String
-                : `/merch/${product.id}`
+                : `/merch/${product.route}`
             }
           >
             <AspectRatio

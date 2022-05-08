@@ -6,5 +6,6 @@ export interface CartItem {
   sizeId: number;
   sizeName: string;
   imageUrl: string;
+  route: string;
   quantity?: number;
 }

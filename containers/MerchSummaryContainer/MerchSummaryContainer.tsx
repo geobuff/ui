@@ -9,10 +9,10 @@ import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
 interface Props {
-  id?: number;
+  route?: string;
 }
 
-const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
+const MerchSummaryContainer: FC<Props> = ({ route = "" }) => {
   const { getItemQuantity, addToCart, isLoading: isCartLoading } = useContext(
     ShoppingCartContext
   );
@@ -29,15 +29,15 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
   const [submitted, setSubmitted] = useState(false);
 
   const isAvailable = (sizeId: number): boolean => {
-    const cartQuantity = getItemQuantity(id);
-    const item = merch.find((x) => x.id === id);
+    const item = merch.find((x) => x.route === route);
+    const cartQuantity = getItemQuantity(item.id);
     return item.sizes.find((x) => x.id === sizeId).quantity - cartQuantity > 0;
   };
 
   const handleSubmit = (values: MerchSummaryFormSubmit): void => {
     setIsSubmitting(true);
 
-    const item = merch.find((x) => x.id === id);
+    const item = merch.find((x) => x.route === route);
     const size = item.sizes.find((x) => x.id === parseInt(values.size));
     addToCart({
       id: item.id,
@@ -47,6 +47,7 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
       sizeId: size.id,
       sizeName: size.size,
       imageUrl: item.images.find((x) => x.isPrimary).imageUrl,
+      route: item.route,
     });
 
     setIsSubmitting(false);
@@ -60,7 +61,7 @@ const MerchSummaryContainer: FC<Props> = ({ id = 0 }) => {
 
   return (
     <MerchSummary
-      item={merch.find((x) => x.id === id)}
+      item={merch.find((x) => x.route === route)}
       isAvailable={isAvailable}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
