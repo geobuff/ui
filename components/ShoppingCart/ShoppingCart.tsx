@@ -102,6 +102,7 @@ const ShoppingCart: FC<Props> = ({
                     sizeName={item.sizeName}
                     price={item.price}
                     quantity={item.quantity}
+                    route={item.route}
                     getMax={getMax}
                     onUpdateQuantity={onUpdateQuantity}
                     onRemoveItem={onRemoveItem}
