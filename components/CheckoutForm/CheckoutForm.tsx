@@ -178,7 +178,7 @@ const CheckoutForm: FC<Props> = ({
                                   color="teal"
                                 >
                                   <Text fontWeight="bold">{option.name}</Text>
-                                  <Text>{option.description}</Text>
+                                  <Text>{`$${option.price} - ${option.description}`}</Text>
                                 </RadioButton>
                               );
                             })}
