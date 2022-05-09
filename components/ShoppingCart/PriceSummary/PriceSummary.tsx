@@ -14,7 +14,7 @@ const PriceSummary: FC<Props> = ({
 }) => {
   const router = useRouter();
 
-  const rawTotal = onGetTotal() - discount;
+  const rawTotal = onGetTotal() - discount + 5.99;
   const formattedTotal = formatNumber(rawTotal);
 
   return (
@@ -28,6 +28,10 @@ const PriceSummary: FC<Props> = ({
           <Flex justifyContent="space-between">
             <Text>{"Subtotal:"}</Text>
             <Text>{`$${onGetTotal()}`}</Text>
+          </Flex>
+          <Flex justifyContent="space-between">
+            <Text>{"NZ-Wide Shipping:"}</Text>
+            <Text>{`$5.99`}</Text>
           </Flex>
           {discount > 0 && (
             <Flex justifyContent="space-between">
