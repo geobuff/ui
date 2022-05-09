@@ -1,5 +1,8 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
+        <loc>https://geobuff.com</loc>
+    </url>
+    <url>
         <loc>https://geobuff.com/acceptable-use-policy</loc>
     </url>
     <url>
@@ -22,9 +25,6 @@
     </url>
     <url>
         <loc>https://geobuff.com/forgot-password</loc>
-    </url>
-    <url>
-        <loc>https://geobuff.com/index</loc>
     </url>
     <url>
         <loc>https://geobuff.com/leaderboard</loc>
