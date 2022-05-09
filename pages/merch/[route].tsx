@@ -8,13 +8,13 @@ import HeroHeader from "../../components/HeroHeader";
 
 const Summary: FC = () => {
   const router = useRouter();
-  const [merchId, setMerchId] = useState(0);
+  const [route, setRoute] = useState("");
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (router.asPath !== router.route) {
-      const merchId = router.query.id as string;
-      setMerchId(parseInt(merchId));
+      const route = router.query.route as string;
+      setRoute(route);
       setIsLoading(false);
     }
   }, [router]);
@@ -30,7 +30,7 @@ const Summary: FC = () => {
       </Head>
       <MainView>
         <HeroHeader heading="Merch" />
-        {isLoading ? null : <MerchSummaryContainer id={merchId} />}
+        {isLoading ? null : <MerchSummaryContainer route={route} />}
       </MainView>
     </>
   );

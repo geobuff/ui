@@ -24,6 +24,7 @@ export interface Props {
   sizeName?: string;
   price?: number;
   quantity?: number;
+  route?: string;
   getMax?: (merchId: number, sizeId: number) => number;
   onUpdateQuantity?: (id: number, sizeId: number, value: number) => void;
   onRemoveItem?: (id: number, sizeId: number) => void;
@@ -37,13 +38,14 @@ const ShoppingCartItem: FC<Props> = ({
   sizeName = "",
   price = 0,
   quantity = 0,
+  route = "",
   getMax = (merchId: number, sizeId: number): number => 0,
   onUpdateQuantity = (id: number, sizeId: number, value: number): void => {},
   onRemoveItem = (id: number, sizeId: number): void => {},
 }) => (
   <>
     <TableCell paddingY={3} paddingX={6} minWidth="400px">
-      <Link href={`/merch/${id}`}>
+      <Link href={`/merch/${route}`}>
         <ChakraLink>
           <Flex>
             <Image
