@@ -11,6 +11,7 @@ import {
 import TriviaCard from "../TriviaCard";
 import DelayedRender from "../DelayedRender";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
+import CommunityQuizCard from "../CommunityQuizCard";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -58,7 +59,13 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
                 transition="all 150ms ease-out"
                 _hover={{ transform: "scale(1.030)" }}
               >
-                <TriviaCard name={quiz.name} maxScore={quiz.maxScore} />
+                <CommunityQuizCard
+                  name={quiz.name}
+                  description={quiz.description}
+                  userId={quiz.userId}
+                  username={quiz.username}
+                  maxScore={quiz.maxScore}
+                />
               </AspectRatio>
             </Link>
           ))}
