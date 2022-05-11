@@ -315,7 +315,6 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                       title="Community Quizzes"
                       linkHref="/community-quiz"
                       linkVerb="community quizzes"
-                      marginTop={0}
                       paddingX={{ base: 3, md: 0 }}
                     >
                       {communityQuizzes.map((quiz, index) => (
