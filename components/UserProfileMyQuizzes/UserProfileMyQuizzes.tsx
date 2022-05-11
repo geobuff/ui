@@ -53,16 +53,13 @@ const UserProfileMyQuizzes: FC<Props> = ({
         marginX={2}
       >
         <Heading fontSize="26px">
-          {`${
-            username && !isCurrentUser ? `${username}'s` : "My"
-          } Quizzes (Coming Soon)`}
+          {`${username && !isCurrentUser ? `${username}'s` : "My"} Quizzes`}
         </Heading>
         {isCurrentUser && (
           <Button
             colorScheme="green"
             size="md"
-            // onClick={() => router.push("/quiz/create")}
-            isDisabled
+            onClick={() => router.push("/community-quiz/create")}
           >
             {"Create Quiz"}
           </Button>
