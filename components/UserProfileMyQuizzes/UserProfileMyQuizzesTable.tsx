@@ -61,9 +61,10 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
                       colorScheme="black"
                       variant="link"
                       aria-label="Edit question"
-                      onClick={() => router.push(`/quiz/edit/${quiz.id}`)}
+                      onClick={() =>
+                        router.push(`/community-quiz/edit/${quiz.id}`)
+                      }
                       marginRight={4}
-                      disabled
                     >
                       {"Edit"}
                     </Button>
