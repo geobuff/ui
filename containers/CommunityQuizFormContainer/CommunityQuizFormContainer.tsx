@@ -23,7 +23,7 @@ const CommunityQuizFormContainer: FC = () => {
   const redirectToProfile = () => {
     setTimeout(() => {
       router.push(`/profile/${user.id}`);
-    }, 1000);
+    }, 2000);
   };
 
   const handleSubmit = (values: CommunityQuizFormSubmit): void => {
