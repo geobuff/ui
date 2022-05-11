@@ -46,7 +46,7 @@ const CommunityQuizCard: FC<Props> = ({
   >
     <Box position="absolute" top={0} left={0} right={0} bottom={0}>
       <Image
-        src="/headers/daily-trivia-header.svg"
+        src="/headers/community-quiz-header.svg"
         maxHeight={{ base: "75px", md: "90px" }}
         minHeight={{ base: "75px", md: "90px" }}
         backgroundColor="#E3E1E1"
