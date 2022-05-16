@@ -38,6 +38,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
             <Th>Questions</Th>
             <Th>Plays</Th>
             <Th>Added</Th>
+            <Th>Status</Th>
             {isCurrentUser && <Th>Actions</Th>}
           </Tr>
         </Thead>
@@ -54,6 +55,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
               <Td>
                 {DateTime.fromISO(quiz.added).toLocaleString(DateTime.DATE_MED)}
               </Td>
+              <Td>{quiz.status}</Td>
               {isCurrentUser && (
                 <Td>
                   <Flex alignItems="center" justifyContent="flex-end">

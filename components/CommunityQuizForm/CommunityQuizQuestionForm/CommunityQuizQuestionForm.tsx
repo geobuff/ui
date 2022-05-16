@@ -125,7 +125,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 name="imageUrl"
                 label="Image URL"
                 placeholder="Enter image url..."
-                helper="Copyrighted images will be removed. We recommend sites such as pexels for free images."
+                helper="Usage of copyright or explicit images will result in removal of quiz and your user account. We recommend sites such as pexels for free images."
               />
             )}
 
