@@ -8,7 +8,6 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 
-import TriviaCard from "../TriviaCard";
 import DelayedRender from "../DelayedRender";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import CommunityQuizCard from "../CommunityQuizCard";
