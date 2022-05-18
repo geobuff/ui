@@ -65,16 +65,15 @@ const CommunityQuizForm: FC<Props> = ({
     values: CommunityQuizFormQuestion,
     setFieldHelper: FormSetFieldValue
   ) => {
-    const index = questions.findIndex((x) => x.id == values.id);
-    if (index !== -1) {
-      const updated = questions.map((x) => (x.id === index ? values : x));
-      setQuestions(updated);
-      setFieldHelper("questions", updated);
-    } else {
-      const updated = [...questions, { ...values, id: questions.length }];
-      setQuestions(updated);
-      setFieldHelper("questions", updated);
+    const updated = JSON.parse(JSON.stringify(questions));
+    if (values.index !== undefined) {
+      const index = questions.findIndex((x) => x.index == values.index);
+      updated.splice(index, 1);
     }
+
+    updated.push({ ...values, index: questions.length });
+    setQuestions(updated);
+    setFieldHelper("questions", updated);
     onClose();
   };
 
@@ -88,7 +87,7 @@ const CommunityQuizForm: FC<Props> = ({
     setFieldHelper
   ) => {
     const updatedQuestions = questions.filter(
-      (q) => q.id !== deletedQuestion.id
+      (q) => q.question !== deletedQuestion.question
     );
 
     setQuestions(updatedQuestions);
