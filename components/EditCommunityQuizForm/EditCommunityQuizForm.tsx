@@ -58,19 +58,18 @@ const EditCommunityQuizForm: FC<Props> = ({
     values: CommunityQuizFormQuestion,
     setFieldHelper: FormSetFieldValue
   ) => {
-    // TODO - rewrite this. Potential overlap of id and index.
-    // Need to have id of 0 for new questions so we know which answers to delete on edit submit.
-
+    const updated = JSON.parse(JSON.stringify(questions));
     const index = questions.findIndex((x) => x.id == values.id);
     if (index !== -1) {
-      const updated = questions.map((x) => (x.id === index ? values : x));
-      setQuestions(updated);
-      setFieldHelper("questions", updated);
-    } else {
-      const updated = [...questions, { ...values, id: questions.length }];
-      setQuestions(updated);
-      setFieldHelper("questions", updated);
+      updated.splice(index, 1);
+    } else if (values.index !== undefined) {
+      const index = questions.findIndex((x) => x.index == values.index);
+      updated.splice(index, 1);
     }
+
+    updated.push({ ...values, index: questions.length });
+    setQuestions(updated);
+    setFieldHelper("questions", updated);
     onClose();
   };
 
@@ -84,7 +83,7 @@ const EditCommunityQuizForm: FC<Props> = ({
     setFieldHelper
   ) => {
     const updatedQuestions = questions.filter(
-      (q) => q.id !== deletedQuestion.id
+      (q) => q.question !== deletedQuestion.question
     );
 
     setQuestions(updatedQuestions);

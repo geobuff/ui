@@ -6,6 +6,7 @@ export interface CommunityQuizFormSubmit {
 
 export interface CommunityQuizFormQuestion {
   id?: number;
+  index?: number;
   typeId: string;
   question: string;
   map: string;
