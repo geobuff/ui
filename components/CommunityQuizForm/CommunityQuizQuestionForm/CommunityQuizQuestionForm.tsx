@@ -18,6 +18,7 @@ import { getHighlightRegionsByMap } from "../../../helpers/map";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
 import InlineErrorMessage from "../../InlineErrorMessage";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
+import QuestionTypeValuePreview from "../../QuestionTypeValuePreview";
 
 const answers = [
   "Answer One",
@@ -178,6 +179,13 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 />
               </Flex>
             )}
+
+            <QuestionTypeValuePreview
+              typeId={values.typeId}
+              map={values.map}
+              highlighted={values.highlighted}
+              imageUrl={values.imageUrl}
+            />
 
             <Divider marginY={6} />
 

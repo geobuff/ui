@@ -40,6 +40,7 @@ import {
 import { QuizType } from "../../types/quiz-type";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import CloseLine from "../../Icons/CloseLine";
+import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -498,6 +499,13 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                           </Field>
                         </Flex>
                       )}
+
+                      <QuestionTypeValuePreview
+                        typeId={values.typeId}
+                        map={values.map}
+                        highlighted={values.highlighted}
+                        imageUrl={values.imageUrl}
+                      />
 
                       <Divider marginY={5} />
 
