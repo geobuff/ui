@@ -29,6 +29,7 @@ const answers = [
 const initialValues: CommunityQuizFormQuestion = {
   typeId: "1",
   question: "",
+  explainer: "",
   imageUrl: "",
   map: "",
   highlighted: "",
@@ -116,8 +117,14 @@ const CommunityQuizQuestionForm: FC<Props> = ({
 
             <CommunityQuizFormField
               name="question"
-              label="Text"
+              label="Question"
               placeholder="Enter question..."
+            />
+
+            <CommunityQuizFormField
+              name="explainer"
+              label="Explainer"
+              placeholder="Enter explainer..."
             />
 
             {values.typeId === QuestionType.Image && (

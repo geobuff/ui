@@ -14,6 +14,7 @@ export interface GetCommunityQuizQuestion {
   typeId: number;
   type: TriviaQuestionType;
   question: string;
+  explainer: string;
   map: string;
   highlighted: string;
   flagCode: string;

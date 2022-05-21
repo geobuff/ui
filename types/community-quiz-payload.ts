@@ -16,6 +16,7 @@ interface CommunityQuizQuestionPayload {
   highlighted: string;
   flagCode: string;
   imageUrl: string;
+  explainer: string;
   answers: CommunityQuizAnswerPayload[];
 }
 

@@ -252,6 +252,38 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                         </Field>
                       </Flex>
 
+                      <Flex marginY={3}>
+                        <Field name="explainer">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                form.errors.explainer && form.touched.explainer
+                              }
+                            >
+                              <FormLabel htmlFor="explainer" fontWeight="bold">
+                                {"Explainer"}
+                              </FormLabel>
+                              <Input
+                                {...field}
+                                id="explainer"
+                                type="text"
+                                placeholder="Enter explainer..."
+                                size="lg"
+                                fontSize="16px"
+                                fontWeight={400}
+                                background="#F6F6F6"
+                                borderRadius={6}
+                                _placeholder={{ color: "gray.500" }}
+                                _hover={{ background: "#e0e0e0" }}
+                              />
+                              <FormErrorMessage fontSize="11px">
+                                {form.errors.explainer}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                      </Flex>
+
                       {values.typeId === QuestionType.Map.toString() && (
                         <>
                           <Flex marginY={3}>
