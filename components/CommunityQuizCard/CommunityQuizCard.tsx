@@ -12,6 +12,7 @@ import Image from "../Image";
 import Twemoji from "../Twemoji";
 import User from "../../Icons/User";
 import Link from "next/link";
+import Tick from "../VerifiedTick";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
@@ -23,6 +24,7 @@ export interface Props extends BoxProps {
   userId?: number;
   username?: string;
   maxScore?: number;
+  verified?: boolean;
 }
 
 const CommunityQuizCard: FC<Props> = ({
@@ -31,6 +33,7 @@ const CommunityQuizCard: FC<Props> = ({
   userId = 0,
   username = "",
   maxScore = 0,
+  verified = false,
   ...props
 }) => (
   <Box
@@ -69,7 +72,7 @@ const CommunityQuizCard: FC<Props> = ({
           noOfLines={2}
           _groupHover={{ textDecoration: "underline" }}
         >
-          {name}
+          {verified && <Tick />} {name}
         </Text>
         <Text
           fontSize="12px"

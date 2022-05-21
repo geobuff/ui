@@ -331,6 +331,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                             userId={quiz.userId}
                             username={quiz.username}
                             maxScore={quiz.maxScore}
+                            verified={quiz.verified}
                             position={{ base: "relative", md: "absolute" }}
                             marginLeft={{ base: 3, md: 0 }}
                           />
