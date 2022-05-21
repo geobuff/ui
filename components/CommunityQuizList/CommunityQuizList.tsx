@@ -64,6 +64,7 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
                   userId={quiz.userId}
                   username={quiz.username}
                   maxScore={quiz.maxScore}
+                  verified={quiz.verified}
                 />
               </AspectRatio>
             </Link>

@@ -9,5 +9,6 @@ export interface CommunityQuiz {
   description: string;
   maxScore: number;
   added: Date;
+  verified: boolean;
   plays: NullInt;
 }

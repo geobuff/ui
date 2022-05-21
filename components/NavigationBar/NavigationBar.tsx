@@ -70,6 +70,34 @@ const NavigationBar: FC = () => {
         />
 
         <NavigationBarLink
+          href="/daily-trivia"
+          label="Trivia"
+          isActive={route === "/daily-trivia"}
+          marginLeft={6}
+        />
+
+        <NavigationBarLink
+          href="/community-quiz"
+          label="Community"
+          isActive={route === "/community-quiz"}
+          marginLeft={6}
+        />
+
+        <NavigationBarLink
+          href="/map-games"
+          label="Map"
+          isActive={route === "/map-games"}
+          marginLeft={6}
+        />
+
+        <NavigationBarLink
+          href="/flag-games"
+          label="Flag"
+          isActive={route === "/flag-games"}
+          marginLeft={6}
+        />
+
+        <NavigationBarLink
           href="/merch"
           label="Merch"
           isActive={route === "/merch"}
