@@ -5,6 +5,7 @@ import {
   Flex,
   SimpleGrid,
   useBreakpointValue,
+  Text,
 } from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
 
@@ -72,6 +73,12 @@ const GameTriviaAnswers: FC<Props> = ({
           />
         ))}
       </SimpleGrid>
+
+      {hasAnswered && question?.explainer && (
+        <Flex my={6} color="white" fontSize={{ base: "sm", md: "lg" }}>
+          <Text>{question?.explainer}</Text>
+        </Flex>
+      )}
 
       <Flex
         justifyContent="flex-end"

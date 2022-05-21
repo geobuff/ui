@@ -26,6 +26,7 @@ import { ManualQuestionsDto } from "../../types/manual-questions-dto";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import AdminManualTriviaQuestionContainer from "../../containers/AdminManualTriviaQuestionContainer";
 import { TriviaQuestionType } from "../../types/trivia-question-types";
+import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 
 const getTypeIDByName = (typeName: TriviaQuestionType) => {
   switch (true) {
@@ -60,7 +61,9 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const [selectedQuestion, setSelectedQuestion] = useState(null);
+  const [selectedQuestion, setSelectedQuestion] = useState<
+    ManualTriviaQuestionEditValues
+  >(null);
 
   const handleCreate = () => {
     setSelectedQuestion(null);
@@ -69,9 +72,10 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
 
   const handleEdit = (question: ManualTriviaQuestion) => {
     setSelectedQuestion({
-      id: question.id,
+      id: question.id.toString(),
       typeId: getTypeIDByName(question.type as TriviaQuestionType),
       question: question.question,
+      explainer: question.explainer,
       answerOneText: question.answers[0]?.text || "",
       answerOneFlagCode: question.answers[0]?.flagCode || "",
       answerTwoText: question.answers[1]?.text || "",
@@ -81,12 +85,14 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
       answerFourText: question?.answers[3]?.text || "",
       answerFourFlagCode: question?.answers[3]?.flagCode || "",
       correctAnswer: question.answers.findIndex((a) => a.isCorrect) + 1,
-      hasFlagAnswers: question.answers.find((a) => !!a.flagCode) || false,
+      hasFlagAnswers: !!question.answers.find((a) => a.flagCode) || false,
       imageUrl: question?.imageUrl || "",
       flagCode: question?.flagCode || "",
       map: question?.map || "",
       highlighted: question?.highlighted || "",
-      quizDate: question?.quizDate.Valid ? question?.quizDate.Time : null,
+      quizDate: question?.quizDate.Valid
+        ? question?.quizDate.Time.toString()
+        : null,
       answers: question?.answers || [],
     });
 
