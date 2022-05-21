@@ -41,6 +41,7 @@ const CommunityQuizFormContainer: FC = () => {
         },
         typeId: parseInt(question.typeId),
         question: question.question,
+        explainer: question.explainer,
         map: question.map,
         highlighted: question.highlighted,
         flagCode: question.flagCode,

@@ -13,6 +13,7 @@ export interface CommunityQuizFormQuestion {
   highlighted: string;
   flagCode: string;
   imageUrl: string;
+  explainer: string;
   answers: CommunityQuizFormAnswer[];
   correctAnswer: string | number;
 }
