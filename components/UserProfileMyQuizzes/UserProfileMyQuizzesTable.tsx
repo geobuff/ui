@@ -38,8 +38,12 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
             <Th>Questions</Th>
             <Th>Plays</Th>
             <Th>Added</Th>
-            <Th>Status</Th>
-            {isCurrentUser && <Th>Actions</Th>}
+            {isCurrentUser && (
+              <>
+                <Th>Status</Th>
+                <Th>Actions</Th>
+              </>
+            )}
           </Tr>
         </Thead>
         <Tbody>
@@ -55,30 +59,32 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
               <Td>
                 {DateTime.fromISO(quiz.added).toLocaleString(DateTime.DATE_MED)}
               </Td>
-              <Td>{quiz.status}</Td>
               {isCurrentUser && (
-                <Td>
-                  <Flex alignItems="center" justifyContent="flex-end">
-                    <Button
-                      colorScheme="black"
-                      variant="link"
-                      aria-label="Edit question"
-                      onClick={() =>
-                        router.push(`/community-quiz/edit/${quiz.id}`)
-                      }
-                      marginRight={4}
-                    >
-                      {"Edit"}
-                    </Button>
-                    <Button
-                      colorScheme="red"
-                      variant="link"
-                      onClick={() => onDeleteQuiz(quiz.id)}
-                    >
-                      {"Delete"}
-                    </Button>
-                  </Flex>
-                </Td>
+                <>
+                  <Td>{quiz.status}</Td>
+                  <Td>
+                    <Flex alignItems="center" justifyContent="flex-end">
+                      <Button
+                        colorScheme="black"
+                        variant="link"
+                        aria-label="Edit question"
+                        onClick={() =>
+                          router.push(`/community-quiz/edit/${quiz.id}`)
+                        }
+                        marginRight={4}
+                      >
+                        {"Edit"}
+                      </Button>
+                      <Button
+                        colorScheme="red"
+                        variant="link"
+                        onClick={() => onDeleteQuiz(quiz.id)}
+                      >
+                        {"Delete"}
+                      </Button>
+                    </Flex>
+                  </Td>
+                </>
               )}
             </Tr>
           ))}

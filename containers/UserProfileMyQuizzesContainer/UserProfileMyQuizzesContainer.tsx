@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import UserProfileMyQuizzes from "../../components/UserProfileMyQuizzes";
 import useUserCommunityQuizzes from "../../hooks/UseUserCommunityQuizzes";
 import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";
+import { CommunityQuizStatus } from "../../types/community-quiz-status";
 
 export interface Props {
   userId?: number;
@@ -22,7 +23,11 @@ const UserProfileMyQuizzesContainer: FC<Props> = ({
 
   return (
     <UserProfileMyQuizzes
-      quizzes={quizzes}
+      quizzes={
+        isCurrentUser
+          ? quizzes
+          : quizzes.filter((x) => x.status !== CommunityQuizStatus.PENDING)
+      }
       isCurrentUser={isCurrentUser}
       username={username}
     />
