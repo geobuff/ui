@@ -12,7 +12,7 @@ import Image from "../Image";
 import Twemoji from "../Twemoji";
 import User from "../../Icons/User";
 import Link from "next/link";
-import Tick from "../VerifiedTick";
+import VerifiedTick from "../VerifiedTick";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
@@ -72,7 +72,7 @@ const CommunityQuizCard: FC<Props> = ({
           noOfLines={2}
           _groupHover={{ textDecoration: "underline" }}
         >
-          {verified && <Tick />} {name}
+          {verified && <VerifiedTick />} {name}
         </Text>
         <Text
           fontSize="12px"
