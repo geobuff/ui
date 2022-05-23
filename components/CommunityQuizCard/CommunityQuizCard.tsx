@@ -20,7 +20,6 @@ const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
 export interface Props extends BoxProps {
   name?: string;
-  description?: string;
   userId?: number;
   username?: string;
   maxScore?: number;
@@ -29,7 +28,6 @@ export interface Props extends BoxProps {
 
 const CommunityQuizCard: FC<Props> = ({
   name = "",
-  description = "",
   userId = 0,
   username = "",
   maxScore = 0,
@@ -73,13 +71,6 @@ const CommunityQuizCard: FC<Props> = ({
           _groupHover={{ textDecoration: "underline" }}
         >
           {verified && <VerifiedTick />} {name}
-        </Text>
-        <Text
-          fontSize="12px"
-          marginBottom="16px"
-          noOfLines={{ base: 1, sm: 2 }}
-        >
-          {description}
         </Text>
       </Box>
       <Box position="absolute" bottom={0} left={0} right={0}>

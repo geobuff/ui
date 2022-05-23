@@ -55,6 +55,11 @@ const quickLinks = [
     emoji: "❓",
   },
   {
+    href: "/community-quiz",
+    label: "Community Quizzes",
+    emoji: "🧠",
+  },
+  {
     href: "/map-games",
     label: "Map Games",
     emoji: "🗺",
