@@ -60,7 +60,6 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
               >
                 <CommunityQuizCard
                   name={quiz.name}
-                  description={quiz.description}
                   userId={quiz.userId}
                   username={quiz.username}
                   maxScore={quiz.maxScore}
