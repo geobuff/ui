@@ -47,7 +47,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
           highlighted: q.highlighted,
           flagCode: q.flagCode,
           imageUrl: q.imageUrl,
-          correctAnswer: q.answers.find((a) => a.isCorrect)?.id ?? 0,
+          correctAnswer: q.answers?.findIndex((a) => a.isCorrect) ?? 0,
           answers: q.answers.map((a) => {
             return {
               text: a.text,
