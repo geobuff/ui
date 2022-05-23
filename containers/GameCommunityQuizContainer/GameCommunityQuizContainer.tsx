@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import GameCommunityQuiz from "../../components/GameCommunityQuiz";
 import axiosClient from "../../axios";
 import useCommunityQuiz from "../../hooks/UseCommunityQuiz";
+import GameSpinner from "../../components/GameSpinner";
 
 export interface Props {
   quizId?: number;
@@ -15,7 +16,7 @@ const GameCommunityQuizContainer: FC<Props> = ({ quizId = 0 }) => {
   };
 
   if (isLoading) {
-    return null;
+    return <GameSpinner />;
   }
 
   return (
