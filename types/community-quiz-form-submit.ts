@@ -6,12 +6,14 @@ export interface CommunityQuizFormSubmit {
 
 export interface CommunityQuizFormQuestion {
   id?: number;
+  index?: number;
   typeId: string;
   question: string;
   map: string;
   highlighted: string;
   flagCode: string;
   imageUrl: string;
+  explainer: string;
   answers: CommunityQuizFormAnswer[];
   correctAnswer: string | number;
 }

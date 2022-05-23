@@ -84,6 +84,7 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
       highlighted: values.highlighted,
       flagCode: values.flagCode,
       imageUrl: values.imageUrl,
+      explainer: values.explainer,
       answers: answers,
       quizDate: quizDate,
     };

@@ -40,6 +40,7 @@ import {
 import { QuizType } from "../../types/quiz-type";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import CloseLine from "../../Icons/CloseLine";
+import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -246,6 +247,38 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                               />
                               <FormErrorMessage fontSize="11px">
                                 {form.errors.question}
+                              </FormErrorMessage>
+                            </FormControl>
+                          )}
+                        </Field>
+                      </Flex>
+
+                      <Flex marginY={3}>
+                        <Field name="explainer">
+                          {({ field, form }) => (
+                            <FormControl
+                              isInvalid={
+                                form.errors.explainer && form.touched.explainer
+                              }
+                            >
+                              <FormLabel htmlFor="explainer" fontWeight="bold">
+                                {"Explainer"}
+                              </FormLabel>
+                              <Input
+                                {...field}
+                                id="explainer"
+                                type="text"
+                                placeholder="Enter explainer..."
+                                size="lg"
+                                fontSize="16px"
+                                fontWeight={400}
+                                background="#F6F6F6"
+                                borderRadius={6}
+                                _placeholder={{ color: "gray.500" }}
+                                _hover={{ background: "#e0e0e0" }}
+                              />
+                              <FormErrorMessage fontSize="11px">
+                                {form.errors.explainer}
                               </FormErrorMessage>
                             </FormControl>
                           )}
@@ -466,6 +499,13 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                           </Field>
                         </Flex>
                       )}
+
+                      <QuestionTypeValuePreview
+                        typeId={values.typeId}
+                        map={values.map}
+                        highlighted={values.highlighted}
+                        imageUrl={values.imageUrl}
+                      />
 
                       <Divider marginY={5} />
 

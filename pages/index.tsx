@@ -33,6 +33,7 @@ import { FilteredTrivia } from "../components/TriviaList/TriviaList";
 import CardListSection from "../components/CardListSection";
 import CardListItem from "../components/CardList/CardListItem";
 import Head from "next/head";
+import CommunityQuizCard from "../components/CommunityQuizCard";
 
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
@@ -84,10 +85,11 @@ const Home: FC<AppProps> = ({ pageProps }) => {
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const numberToSlice = isMobile ? 14 : 15;
+  const numberToSlice = isMobile ? 14 : 10;
 
   const mapQuizzes = pageProps?.mapQuizzes?.slice(0, numberToSlice);
   const flagQuizzes = pageProps?.flagQuizzes?.slice(0, numberToSlice);
+  const communityQuizzes = pageProps?.communityQuizzes?.slice(0, numberToSlice);
   const filteredTrivia = pageProps?.trivia
     .map((quiz: FilteredTrivia) => ({
       ...quiz,
@@ -310,6 +312,34 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                     </CardListSection>
 
                     <CardListSection
+                      title="Community Quizzes"
+                      linkHref="/community-quiz"
+                      linkVerb="community quizzes"
+                      paddingX={{ base: 3, md: 0 }}
+                    >
+                      {communityQuizzes.map((quiz, index) => (
+                        <CardListItem
+                          key={quiz.id}
+                          href={`/community-quiz/${quiz.id}`}
+                          paddingRight={{
+                            base: index === filteredTrivia.length - 1 && "12px",
+                            md: 0,
+                          }}
+                        >
+                          <CommunityQuizCard
+                            name={quiz.name}
+                            userId={quiz.userId}
+                            username={quiz.username}
+                            maxScore={quiz.maxScore}
+                            verified={quiz.verified}
+                            position={{ base: "relative", md: "absolute" }}
+                            marginLeft={{ base: 3, md: 0 }}
+                          />
+                        </CardListItem>
+                      ))}
+                    </CardListSection>
+
+                    <CardListSection
                       title="Map Games"
                       linkHref="/map-games"
                       linkVerb="map games"
@@ -407,6 +437,14 @@ export const getStaticProps: GetStaticProps = async () => {
     }
   );
 
+  const { data: communityQuizData } = await axiosClient.post(
+    `${process.env.NEXT_PUBLIC_API_URL}/community-quizzes/all`,
+    {
+      page: 0,
+      limit: 15,
+    }
+  );
+
   if (!mapData && !flagData && !triviaData) {
     return {
       notFound: true,
@@ -418,6 +456,7 @@ export const getStaticProps: GetStaticProps = async () => {
       mapQuizzes: mapData.quizzes,
       flagQuizzes: flagData.quizzes,
       trivia: triviaData.trivia,
+      communityQuizzes: communityQuizData.quizzes,
     },
   };
 };

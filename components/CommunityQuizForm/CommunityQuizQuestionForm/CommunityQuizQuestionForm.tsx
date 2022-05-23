@@ -18,6 +18,7 @@ import { getHighlightRegionsByMap } from "../../../helpers/map";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
 import InlineErrorMessage from "../../InlineErrorMessage";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
+import QuestionTypeValuePreview from "../../QuestionTypeValuePreview";
 
 const answers = [
   "Answer One",
@@ -29,6 +30,7 @@ const answers = [
 const initialValues: CommunityQuizFormQuestion = {
   typeId: "1",
   question: "",
+  explainer: "",
   imageUrl: "",
   map: "",
   highlighted: "",
@@ -116,8 +118,14 @@ const CommunityQuizQuestionForm: FC<Props> = ({
 
             <CommunityQuizFormField
               name="question"
-              label="Text"
+              label="Question"
               placeholder="Enter question..."
+            />
+
+            <CommunityQuizFormField
+              name="explainer"
+              label="Explainer"
+              placeholder="Enter explainer..."
             />
 
             {values.typeId === QuestionType.Image && (
@@ -125,7 +133,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 name="imageUrl"
                 label="Image URL"
                 placeholder="Enter image url..."
-                helper="Copyrighted images will be removed. We recommend sites such as pexels for free images."
+                helper="Usage of copyright or explicit images will result in removal of quiz and your user account. We recommend sites such as pexels for free images."
               />
             )}
 
@@ -171,6 +179,13 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 />
               </Flex>
             )}
+
+            <QuestionTypeValuePreview
+              typeId={values.typeId}
+              map={values.map}
+              highlighted={values.highlighted}
+              imageUrl={values.imageUrl}
+            />
 
             <Divider marginY={6} />
 

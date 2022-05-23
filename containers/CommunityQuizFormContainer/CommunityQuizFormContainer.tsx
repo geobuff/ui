@@ -36,11 +36,12 @@ const CommunityQuizFormContainer: FC = () => {
       maxScore: values.questions?.length || 0,
       questions: values.questions?.map((question) => ({
         id: {
-          Int64: question.id ?? 0,
-          Valid: !!question.id,
+          Int64: 0,
+          Valid: false,
         },
         typeId: parseInt(question.typeId),
         question: question.question,
+        explainer: question.explainer,
         map: question.map,
         highlighted: question.highlighted,
         flagCode: question.flagCode,
