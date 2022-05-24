@@ -70,7 +70,17 @@ const CommunityQuizCard: FC<Props> = ({
           noOfLines={2}
           _groupHover={{ textDecoration: "underline" }}
         >
-          {verified && <VerifiedTick />} {name}
+          {verified && (
+            <Flex
+              direction="column"
+              justifyContent="center"
+              float="left"
+              mr={1}
+            >
+              <Twemoji emoji="✅" width="20px" height="20px" mt="3.5px" />
+            </Flex>
+          )}{" "}
+          {name}
         </Text>
       </Box>
       <Box position="absolute" bottom={0} left={0} right={0}>

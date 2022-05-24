@@ -79,11 +79,17 @@ const OurMission: FC = () => (
               libraries so that others can build off of our resources
             </Text>
           </Box>
-          <Box color="#828282" fontSize="15px" mb={24}>
+          <Box color="#828282" fontSize="15px" mb={12}>
             <Text mb={3}>
               {`"Technology may seem to overcome the distances between us in both mental and physical space, but it is easy to forget that the land where we live, work and raise our children is hugely important, and that the choices of those who lead the seven billion inhabitants of this planet will to some degree always be shaped by the rivers, mountains, deserts, lakes and seas that constrain us all – as they always have."`}
             </Text>
             <Text>{"- Tim Marshall, Prisoners of Geography"}</Text>
+          </Box>
+          <Box color="#828282" fontSize="15px" mb={24}>
+            <Text mb={3}>
+              {`"A good place to understand the present, and to ask questions about the future, is on the ground, travelling as slowly as possible."`}
+            </Text>
+            <Text>{"- Robert D. Kaplan, The Revenge of Geography"}</Text>
           </Box>
         </Box>
         <Box mb={12}>
