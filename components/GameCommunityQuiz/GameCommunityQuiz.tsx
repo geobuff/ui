@@ -14,6 +14,7 @@ import GameCommunityQuizHeader from "./GameCommunityQuizHeader";
 import GameCommunityQuizGameOver from "./GameCommunityQuizGameOver";
 import GameCommunityQuizContent from "./GameCommunityQuizContent";
 import GameCommunityQuizAnswers from "./GameCommunityQuizAnswers";
+import GameCommunityQuizStart from "./GameCommunityQuizStart";
 
 export interface Props {
   quiz: GetCommunityQuiz;
@@ -31,6 +32,7 @@ const GameCommunityQuiz: FC<Props> = ({
   >();
   const [question, setQuestion] = useState(quiz.questions[0]);
   const [questionNumber, setQuestionNumber] = useState(1);
+  const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
 
   const { isNotchedIphone } = useContext(AppContext);
@@ -53,6 +55,10 @@ const GameCommunityQuiz: FC<Props> = ({
     setQuestionNumber(questionNumber + 1);
   };
 
+  const handleGameStart = () => {
+    setHasGameStarted(true);
+  };
+
   const handleGameStop = () => {
     onIncrementPlays(quiz.id);
     setHasGameStopped(true);
@@ -68,6 +74,51 @@ const GameCommunityQuiz: FC<Props> = ({
   };
 
   if (isMobile === undefined) return null;
+
+  const getContent = (): JSX.Element => {
+    if (!hasGameStarted) {
+      return (
+        <GameCommunityQuizStart
+          name={quiz.name}
+          description={quiz.description}
+          onGameStart={handleGameStart}
+        />
+      );
+    }
+
+    if (hasGameStopped) {
+      return (
+        <GameCommunityQuizGameOver
+          score={score}
+          maxQuestionNumber={quiz.questions?.length}
+          onPlayAgain={handlePlayAgain}
+        />
+      );
+    }
+
+    return (
+      <>
+        <GameCommunityQuizContent
+          text={question?.question}
+          type={question?.type}
+          map={question?.map}
+          highlighted={question?.highlighted}
+          flagCode={question?.flagCode}
+          imageUrl={question?.imageUrl}
+        />
+        <GameCommunityQuizAnswers
+          question={question}
+          hasAnswered={hasAnswered}
+          selectedAnswer={selectedAnswer}
+          isLastQuestion={isLastQuestion}
+          isNotchedIphone={isNotchedIphone}
+          onAnswerQuestion={handleAnswerQuestion}
+          onNextQuestion={handleNextQuestion}
+          onGameStop={handleGameStop}
+        />
+      </>
+    );
+  };
 
   return (
     <>
@@ -95,35 +146,7 @@ const GameCommunityQuiz: FC<Props> = ({
               questionNumber={questionNumber}
               maxQuestionNumber={quiz.questions?.length}
             />
-
-            {hasGameStopped ? (
-              <GameCommunityQuizGameOver
-                score={score}
-                maxQuestionNumber={quiz.questions?.length}
-                onPlayAgain={handlePlayAgain}
-              />
-            ) : (
-              <>
-                <GameCommunityQuizContent
-                  text={question?.question}
-                  type={question?.type}
-                  map={question?.map}
-                  highlighted={question?.highlighted}
-                  flagCode={question?.flagCode}
-                  imageUrl={question?.imageUrl}
-                />
-                <GameCommunityQuizAnswers
-                  question={question}
-                  hasAnswered={hasAnswered}
-                  selectedAnswer={selectedAnswer}
-                  isLastQuestion={isLastQuestion}
-                  isNotchedIphone={isNotchedIphone}
-                  onAnswerQuestion={handleAnswerQuestion}
-                  onNextQuestion={handleNextQuestion}
-                  onGameStop={handleGameStop}
-                />
-              </>
-            )}
+            {getContent()}
           </Flex>
         </Box>
       </MainView>
