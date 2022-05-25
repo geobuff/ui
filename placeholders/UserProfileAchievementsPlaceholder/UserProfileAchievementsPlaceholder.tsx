@@ -8,7 +8,7 @@ interface Props {
   noOfTiles?: number;
 }
 
-const UserProfileAchievementsPlaceholder: FC<Props> = ({ noOfTiles = 8 }) => (
+const UserProfileAchievementsPlaceholder: FC<Props> = ({ noOfTiles = 9 }) => (
   <Card paddingX={{ base: 4, md: 6 }} paddingY={2}>
     <Skeleton>
       <Heading size="md" mt={6} mb={12}>
