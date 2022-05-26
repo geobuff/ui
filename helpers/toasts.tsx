@@ -75,6 +75,18 @@ export const createTriviaToast = (
   isClosable: true,
 });
 
+export const regenerateTriviaToast = (
+  date: string,
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Regenerate Trivia",
+  description: `Successfully created new trivia for ${date}.`,
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});
+
 export const deployUIToast = (
   environment: string,
   position: ToastPosition = defaultPosition
