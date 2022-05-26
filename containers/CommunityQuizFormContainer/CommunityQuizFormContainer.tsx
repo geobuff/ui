@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
@@ -12,13 +12,21 @@ import { CommunityQuizFormSubmit } from "../../types/community-quiz-form-submit"
 import { CommunityQuizPayload } from "../../types/community-quiz-payload";
 
 const CommunityQuizFormContainer: FC = () => {
-  const { data: types, isLoading } = useTriviaQuestionTypes();
-  const { user, getAuthConfig } = useContext(CurrentUserContext);
+  const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
+  const { user, isLoading: isUserLoading, getAuthConfig } = useContext(
+    CurrentUserContext
+  );
   const toast = useToast();
   const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push("/login");
+    }
+  }, [user, isUserLoading, router]);
 
   const redirectToProfile = () => {
     setTimeout(() => {
@@ -64,11 +72,15 @@ const CommunityQuizFormContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
+  if (isUserLoading) {
+    return null;
+  }
+
   return (
     <CommunityQuizForm
       error={error}
       types={types}
-      isLoading={isLoading}
+      isLoading={isTypesLoading}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
     />
