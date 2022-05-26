@@ -18,7 +18,7 @@ const Orders: FC = () => {
   }, [user, isLoading, router]);
 
   if (isLoading) {
-    return <>Loading</>;
+    return <>Loading...</>;
   }
 
   return (
