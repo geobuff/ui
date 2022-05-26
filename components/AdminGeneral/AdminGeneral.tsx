@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useState } from "react";
 import {
   Alert,
   AlertIcon,
@@ -11,12 +11,14 @@ import {
 import Card from "../Card";
 import { BackgroundTaskKey } from "../../types/background-task";
 
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+
 const {
   DeployDevWeb,
   DeployProdAll,
   DeployProdMobile,
   DeployProdWeb,
-  TriviaCreate,
 } = BackgroundTaskKey;
 
 const deploymentControls = [
@@ -44,22 +46,24 @@ const deploymentControls = [
     subtitle: "Redeploys dev.geobuff.com",
     buttonText: "Deploy",
   },
-  {
-    key: TriviaCreate,
-    title: "Create Trivia",
-    subtitle: "Generates the daily trivia for tomorrow",
-    buttonText: "Generate",
-  },
 ];
 
 export interface Props {
   onDeploy: (key: BackgroundTaskKey) => void;
+  onCreateTrivia: () => void;
+  onRegenerateTrivia: () => void;
+  regenerateDate?: string;
+  setRegenerateDate?: (date: string) => void;
   isSubmitting?: boolean;
   error?: string;
 }
 
 const AdminGeneral: FC<Props> = ({
   onDeploy = () => {},
+  onCreateTrivia = () => {},
+  onRegenerateTrivia = (): void => {},
+  regenerateDate = "",
+  setRegenerateDate = (): void => {},
   isSubmitting = false,
   error = "",
 }) => {
@@ -76,33 +80,95 @@ const AdminGeneral: FC<Props> = ({
           {"General"}
         </Heading>
 
-        {deploymentControls.map((control) => (
-          <Flex key={control.key} direction="column">
-            <Divider borderWidth={1} my={2} />
-            <Flex
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              marginY={2}
-              marginX={1}
-            >
-              <Flex direction="column">
-                <Text fontSize={18} fontWeight="bold">
-                  {control.title}
-                </Text>
-                <Text color="gray.500">{control.subtitle}</Text>
-              </Flex>
-              <Button
-                onClick={() => onDeploy(control.key)}
-                disabled={isSubmitting}
-                colorScheme="teal"
-                width="100px"
+        <Flex direction="column">
+          {deploymentControls.map((control) => (
+            <React.Fragment key={control.key}>
+              <Divider borderWidth={1} my={2} />
+              <Flex
+                direction="row"
+                justifyContent="space-between"
+                alignItems="center"
+                marginY={2}
+                marginX={1}
               >
-                {control.buttonText}
+                <Flex direction="column">
+                  <Text fontSize={18} fontWeight="bold">
+                    {control.title}
+                  </Text>
+                  <Text color="gray.500">{control.subtitle}</Text>
+                </Flex>
+                <Button
+                  onClick={() => onDeploy(control.key)}
+                  disabled={isSubmitting}
+                  colorScheme="teal"
+                  width="100px"
+                >
+                  {control.buttonText}
+                </Button>
+              </Flex>
+            </React.Fragment>
+          ))}
+          <Divider borderWidth={1} my={2} />
+          <Flex
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            marginY={2}
+            marginX={1}
+          >
+            <Flex direction="column">
+              <Text fontSize={18} fontWeight="bold">
+                {"Create Trivia"}
+              </Text>
+              <Text color="gray.500">
+                {"Generates the daily trivia for tomorrow"}
+              </Text>
+            </Flex>
+            <Button
+              onClick={() => onCreateTrivia()}
+              disabled={isSubmitting}
+              colorScheme="teal"
+              width="100px"
+            >
+              {"Generate"}
+            </Button>
+          </Flex>
+          <Divider borderWidth={1} my={2} />
+          <Flex
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            marginY={2}
+            marginX={1}
+          >
+            <Flex direction="column">
+              <Text fontSize={18} fontWeight="bold">
+                {"Regenerate Trivia"}
+              </Text>
+              <Text color="gray.500">
+                {"Regenerates the daily trivia for a given day"}
+              </Text>
+            </Flex>
+            <Flex>
+              <DatePicker
+                placeholderText="Select date..."
+                selected={(regenerateDate && new Date(regenerateDate)) || null}
+                onChange={(value) => {
+                  setRegenerateDate(value.toISOString());
+                }}
+                disabled={isSubmitting}
+              />
+              <Button
+                onClick={() => onRegenerateTrivia()}
+                disabled={isSubmitting || !regenerateDate}
+                colorScheme="teal"
+                ml={6}
+              >
+                {"Regenerate"}
               </Button>
             </Flex>
           </Flex>
-        ))}
+        </Flex>
       </Card>
     </>
   );
