@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
@@ -24,12 +24,22 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
     data: types,
     isLoading: isQuestionTypesLoading,
   } = useTriviaQuestionTypes();
-  const { user, getAuthConfig } = useContext(CurrentUserContext);
+
+  const { user, isLoading: isUserLoading, getAuthConfig } = useContext(
+    CurrentUserContext
+  );
+
   const toast = useToast();
   const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  useEffect(() => {
+    if (!isUserLoading && !user) {
+      router.push("/login");
+    }
+  }, [user, isUserLoading, router]);
 
   const getValuesFromQuiz = (
     quiz: GetCommunityQuiz
@@ -104,7 +114,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       .finally(() => setIsSubmitting(false));
   };
 
-  if (isQuestionTypesLoading || isQuizLoading) {
+  if (isQuestionTypesLoading || isQuizLoading || isUserLoading) {
     return null;
   }
 
