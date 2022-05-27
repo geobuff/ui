@@ -139,8 +139,17 @@ const OurMission: FC = () => (
               link="https://twitter.com/cleangecko"
             />
             <TeamMemberCard
+              title="Lewis Johnson"
+              position="Researcher"
+              city="Wellington"
+              country="New Zealand"
+              primaryImageUrl="/team/lewis-primary.svg"
+              secondaryImageUrl="/team/lewis-secondary.svg"
+              link="https://nz.linkedin.com/in/lewis-johnson-470620183?original_referer=https%3A%2F%2Fwww.google.com%2F"
+            />
+            <TeamMemberCard
               title="Ryan Clough"
-              position="Question Master"
+              position="Researcher"
               city="Auckland"
               country="New Zealand"
               primaryImageUrl="/team/ryan-primary.svg"
