@@ -12,6 +12,8 @@ import {
   Tr,
   useBreakpointValue,
   useDisclosure,
+  Text,
+  HStack,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
@@ -155,7 +157,17 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
                         )}
                     </TableCell>
                     <TableCell paddingY={4} paddingX={6} minWidth="300px">
-                      {question.answers.map((x) => x.text).join(", ")}
+                      <HStack>
+                        {question.answers.map((answer, index) => (
+                          <Text
+                            key={answer.id}
+                            color={answer.isCorrect && "green.600"}
+                          >
+                            {answer.text}
+                            {index + 1 !== question.answers.length && ", "}
+                          </Text>
+                        ))}
+                      </HStack>
                     </TableCell>
                     <TableCell isNumeric paddingY={4} paddingX={6}>
                       <Flex alignItems="center" justifyContent="flex-end">
