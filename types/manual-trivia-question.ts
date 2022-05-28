@@ -12,5 +12,6 @@ export interface ManualTriviaQuestion {
   quizDate?: NullTime;
   question: string;
   explainer?: string;
+  lastUpdated: string;
   answers: ManualTriviaAnswer[];
 }
