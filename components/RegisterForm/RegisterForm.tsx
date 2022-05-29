@@ -15,7 +15,7 @@ import RegisterFormStepThreeContainer from "../../containers/RegisterContainer/R
 import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 const initialValues = {
-  avatarId: "1",
+  avatarId: "7",
   username: "",
   email: "",
   countryCode: "",
