@@ -6,4 +6,5 @@ export interface Avatar {
   description: string;
   primaryImageUrl: string;
   secondaryImageUrl: string;
+  gridPlacement: number;
 }

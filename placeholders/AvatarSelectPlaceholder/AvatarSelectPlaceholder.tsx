@@ -11,7 +11,7 @@ interface Props {
   avatarCount?: number;
 }
 
-const AvatarSelectPlaceholder: FC<Props> = ({ avatarCount = 6 }) => (
+const AvatarSelectPlaceholder: FC<Props> = ({ avatarCount = 9 }) => (
   <>
     <Flex direction="column">
       <Skeleton
