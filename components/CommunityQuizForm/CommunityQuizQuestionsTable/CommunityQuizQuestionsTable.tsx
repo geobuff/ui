@@ -1,5 +1,14 @@
 import React, { FC } from "react";
-import { Button, Flex, Table, Tbody, Th, Thead, Tr } from "@chakra-ui/react";
+import {
+  Button,
+  Flex,
+  Table,
+  Tbody,
+  Th,
+  Thead,
+  Tr,
+  Text,
+} from "@chakra-ui/react";
 
 import TableCell from "../../TableCell";
 import { getType } from "../../../helpers/trivia-types";
@@ -39,7 +48,16 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
             </TableCell>
 
             <TableCell paddingY={4} paddingX={6}>
-              {question?.answers?.map((x) => x?.text).join(", ") || ""}
+              {question.answers?.map((answer, index) => (
+                <Text
+                  as="span"
+                  key={index}
+                  color={answer.isCorrect && "green.600"}
+                >
+                  {answer.text}
+                  {index + 1 !== question.answers.length && ", "}
+                </Text>
+              ))}
             </TableCell>
             <TableCell paddingY={4} paddingX={6}>
               {getType(question?.typeId)}
