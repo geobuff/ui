@@ -71,7 +71,12 @@ const CommunityQuizForm: FC<Props> = ({
       updated.splice(index, 1);
     }
 
-    updated.push({ ...values, index: questions.length });
+    const question = JSON.parse(JSON.stringify(values));
+    for (let i = 0; i < question.answers.length; i++) {
+      question.answers[i].isCorrect = i === question.correctAnswer;
+    }
+
+    updated.push({ ...question, index: questions.length });
     setQuestions(updated);
     setFieldHelper("questions", updated);
     onClose();
