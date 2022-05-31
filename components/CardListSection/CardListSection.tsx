@@ -18,6 +18,7 @@ export interface Props extends FlexProps {
   linkHref?: string;
   linkVerb?: string;
   isLoading?: boolean;
+  lessItemsThanGrid?: boolean;
 }
 
 const CardListSection: FC<Props> = ({
@@ -26,6 +27,7 @@ const CardListSection: FC<Props> = ({
   linkVerb,
   children,
   isLoading = false,
+  lessItemsThanGrid = false,
   ...props
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -65,7 +67,7 @@ const CardListSection: FC<Props> = ({
           </Link>
         )}
       </Flex>
-      <CardList>{children}</CardList>
+      <CardList lessItemsThanGrid={lessItemsThanGrid}>{children}</CardList>
     </>
   );
 };
