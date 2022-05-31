@@ -35,6 +35,8 @@ import CardListItem from "../components/CardList/CardListItem";
 import Head from "next/head";
 import CommunityQuizCard from "../components/CommunityQuizCard";
 
+const GRID_LENGTH = 5;
+
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -291,6 +293,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                       linkVerb="daily trivia"
                       marginTop={0}
                       paddingX={{ base: 3, md: 0 }}
+                      lessItemsThanGrid={filteredTrivia.length < GRID_LENGTH}
                     >
                       {filteredTrivia.map((quiz, index) => (
                         <CardListItem
@@ -316,6 +319,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                       linkHref="/community-quiz"
                       linkVerb="community quizzes"
                       paddingX={{ base: 3, md: 0 }}
+                      lessItemsThanGrid={communityQuizzes.length < GRID_LENGTH}
                     >
                       {communityQuizzes.map((quiz, index) => (
                         <CardListItem

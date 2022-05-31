@@ -1,8 +1,14 @@
 import React, { FC } from "react";
 import { Box, Grid, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 
-// TODO: fix layout when less items than grid
-const CardList: FC = ({ children }) => {
+type CardListProps = {
+  lessItemsThanGrid?: boolean;
+};
+
+const CardList: FC<CardListProps> = ({
+  lessItemsThanGrid = false,
+  children,
+}) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   if (isMobile) {
@@ -30,6 +36,14 @@ const CardList: FC = ({ children }) => {
           </Box>
         </Box>
       </Box>
+    );
+  }
+
+  if (lessItemsThanGrid) {
+    return (
+      <SimpleGrid columns={{ sm: 3, lg: 4, xl: 5 }} spacing="24px">
+        {children}
+      </SimpleGrid>
     );
   }
 
