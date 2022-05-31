@@ -18,6 +18,8 @@ const mapStyles = {
   height: "100%",
   width: "100%",
   fill: "#6dca94",
+  marginTop: "40px",
+  marginBottom: "10px",
 };
 
 const getContentByType = (
