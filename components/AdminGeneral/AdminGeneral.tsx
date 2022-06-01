@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC } from "react";
 import {
   Alert,
   AlertIcon,
@@ -52,20 +52,24 @@ export interface Props {
   onDeploy: (key: BackgroundTaskKey) => void;
   onCreateTrivia: () => void;
   onRegenerateTrivia: () => void;
+  onClearOldTrivia: () => void;
   regenerateDate?: string;
   setRegenerateDate?: (date: string) => void;
   isSubmitting?: boolean;
   error?: string;
+  newTriviaCount: number;
 }
 
 const AdminGeneral: FC<Props> = ({
   onDeploy = () => {},
   onCreateTrivia = () => {},
   onRegenerateTrivia = (): void => {},
+  onClearOldTrivia = (): void => {},
   regenerateDate = "",
   setRegenerateDate = (): void => {},
   isSubmitting = false,
   error = "",
+  newTriviaCount,
 }) => {
   return (
     <>
@@ -167,6 +171,31 @@ const AdminGeneral: FC<Props> = ({
                 {"Regenerate"}
               </Button>
             </Flex>
+          </Flex>
+          <Divider borderWidth={1} my={2} />
+          <Flex
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            marginY={2}
+            marginX={1}
+          >
+            <Flex direction="column">
+              <Text fontSize={18} fontWeight="bold">
+                {"Clear Old Trivia"}
+              </Text>
+              <Text color="gray.500">
+                {`Deletes all trivia older than ${newTriviaCount} days old`}
+              </Text>
+            </Flex>
+            <Button
+              onClick={() => onClearOldTrivia()}
+              disabled={isSubmitting}
+              colorScheme="teal"
+              width="100px"
+            >
+              {"Clear"}
+            </Button>
           </Flex>
         </Flex>
       </Card>

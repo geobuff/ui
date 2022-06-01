@@ -1,5 +1,7 @@
 import React, { FC, useState } from "react";
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Divider,
@@ -91,6 +93,70 @@ const AdminQuizTable: FC<Props> = ({
     onOpen();
   };
 
+  const getTable = (): JSX.Element => {
+    if (quizPage?.quizzes.length === 0) {
+      return (
+        <Alert status="info" borderRadius={6} marginBottom={3}>
+          <AlertIcon />
+          No quizzes to display.
+        </Alert>
+      );
+    }
+
+    return (
+      <Table size="md" variant="striped" colorscheme="gray">
+        <Thead>
+          <Tr>
+            <Th textAlign="left">{"NAME"} </Th>
+            <Th textAlign="left">{"TYPE"} </Th>
+            <Th textAlign="left">{"MAX SCORE"} </Th>
+            <Th textAlign="left">{"TIME"} </Th>
+            <Th>{""}</Th>
+          </Tr>
+        </Thead>
+
+        <Tbody>
+          {quizPage?.quizzes.map((quiz, index) => (
+            <Tr key={index} fontWeight={600}>
+              <TableCell paddingY={3} paddingX={6}>
+                {quiz.name}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {getType(quiz.typeId)}
+              </TableCell>
+              <TableCell isNumeric paddingY={3} paddingX={6}>
+                {quiz.maxScore}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {quiz.time}
+              </TableCell>
+              <TableCell isNumeric paddingY={4} paddingX={6}>
+                <Flex alignItems="center" justifyContent="flex-end">
+                  <Button
+                    colorScheme="black"
+                    variant="link"
+                    aria-label="Edit question"
+                    onClick={() => handleEdit(quiz)}
+                    marginRight={4}
+                  >
+                    {"Edit"}
+                  </Button>
+                  <Button
+                    colorScheme="red"
+                    variant="link"
+                    onClick={() => onDeleteQuiz(quiz.id)}
+                  >
+                    {"Delete"}
+                  </Button>
+                </Flex>
+              </TableCell>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    );
+  };
+
   return (
     <>
       <Card marginY={10} padding={6}>
@@ -109,60 +175,7 @@ const AdminQuizTable: FC<Props> = ({
         <Divider borderWidth={1} marginBottom={4} />
 
         <Box overflow="auto" margin={6}>
-          {isLoading ? (
-            <AdminQuizTablePlaceholder />
-          ) : (
-            <Table size="md" variant="striped" colorscheme="gray">
-              <Thead>
-                <Tr>
-                  <Th textAlign="left">{"NAME"} </Th>
-                  <Th textAlign="left">{"TYPE"} </Th>
-                  <Th textAlign="left">{"MAX SCORE"} </Th>
-                  <Th textAlign="left">{"TIME"} </Th>
-                  <Th>{""}</Th>
-                </Tr>
-              </Thead>
-
-              <Tbody>
-                {quizPage?.quizzes.map((quiz, index) => (
-                  <Tr key={index} fontWeight={600}>
-                    <TableCell paddingY={3} paddingX={6}>
-                      {quiz.name}
-                    </TableCell>
-                    <TableCell paddingY={3} paddingX={6}>
-                      {getType(quiz.typeId)}
-                    </TableCell>
-                    <TableCell isNumeric paddingY={3} paddingX={6}>
-                      {quiz.maxScore}
-                    </TableCell>
-                    <TableCell paddingY={3} paddingX={6}>
-                      {quiz.time}
-                    </TableCell>
-                    <TableCell isNumeric paddingY={4} paddingX={6}>
-                      <Flex alignItems="center" justifyContent="flex-end">
-                        <Button
-                          colorScheme="black"
-                          variant="link"
-                          aria-label="Edit question"
-                          onClick={() => handleEdit(quiz)}
-                          marginRight={4}
-                        >
-                          {"Edit"}
-                        </Button>
-                        <Button
-                          colorScheme="red"
-                          variant="link"
-                          onClick={() => onDeleteQuiz(quiz.id)}
-                        >
-                          {"Delete"}
-                        </Button>
-                      </Flex>
-                    </TableCell>
-                  </Tr>
-                ))}
-              </Tbody>
-            </Table>
-          )}
+          {isLoading ? <AdminQuizTablePlaceholder /> : getTable()}
           <Flex marginTop="auto" py={4}>
             <Box marginLeft="auto">
               <Button
