@@ -87,6 +87,18 @@ export const regenerateTriviaToast = (
   isClosable: true,
 });
 
+export const clearOldTriviaToast = (
+  newTriviaCount: number,
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Clear Old Trivia",
+  description: `Successfully deleted all trivia older than ${newTriviaCount} days old.`,
+  status: "success",
+  duration: 9000,
+  isClosable: true,
+});
+
 export const deployUIToast = (
   environment: string,
   position: ToastPosition = defaultPosition
