@@ -2,7 +2,7 @@ import React, { FC, useState } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import * as Maps from "@geobuff/svg-maps";
-import { flagCategories, flags, getFlagUrl } from "@geobuff/flags";
+import { flagCategories, getFlagUrl } from "@geobuff/flags";
 
 import {
   Alert,
@@ -41,6 +41,8 @@ import { QuizType } from "../../types/quiz-type";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import CloseLine from "../../Icons/CloseLine";
 import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
+import { getHighlightRegionsByMap } from "../../helpers/map";
+import { getFlagsByCategory } from "../../helpers/flag";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -67,16 +69,6 @@ const validationSchema = Yup.object().shape({
     then: Yup.string().required("Must include map for map questions."),
   }),
 });
-
-const getFlagsByCategory = (category: string) => {
-  if (category === "world") {
-    return Object.keys(flags).filter((flag) => flag.length === 2);
-  }
-
-  return Object.keys(flags).filter(
-    (flag) => flag.slice(0, 2) === category && flag.length !== 2
-  );
-};
 
 export interface Props {
   editValues?: ManualTriviaQuestionEditValues;
@@ -106,18 +98,6 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
   const [hasFlagAnswers, setHasFlagAnswers] = useState(initialHasFlagAnswers);
   const [flagCategory, setFlagCategory] = useState("world");
 
-  // TODO: Refactor and use common version from map helpers
-  const getHighlightRegionsByMap = (map: string) => {
-    const selectedMap = Maps[map];
-
-    if (selectedMap !== undefined) {
-      return selectedMap.paths.map(({ id, name }) => ({
-        value: id,
-        name,
-      }));
-    }
-  };
-
   return (
     <>
       <VStack>
@@ -134,6 +114,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
               editValues || {
                 typeId: "1",
                 question: "",
+                explainer: "",
                 quizDate: null,
                 map: "",
                 highlighted: "",
@@ -344,7 +325,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                           key={region.value}
                                           value={region.value}
                                         >
-                                          {`${region.value} - ${region.name}`}
+                                          {region.label}
                                         </option>
                                       )
                                     )}
@@ -431,11 +412,8 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                         {"select a flag code..."}
                                       </option>
                                       {getFlagsByCategory(flagCategory).map(
-                                        (category) => (
-                                          <option
-                                            key={category}
-                                            value={category}
-                                          >
+                                        (category, index) => (
+                                          <option key={index} value={category}>
                                             {category}
                                           </option>
                                         )
