@@ -71,6 +71,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
       setSearchResults([]);
       return;
     }
+
     setIsSearching(true);
     axiosClient
       .post(`/quizzes/all`, {
