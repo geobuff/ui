@@ -287,117 +287,131 @@ const Home: FC<AppProps> = ({ pageProps }) => {
               ) : (
                 <Box minHeight="776px">
                   <DelayedRender shouldFadeIn waitBeforeShow={100}>
-                    <CardListSection
-                      title="Daily Trivia"
-                      linkHref="/daily-trivia"
-                      linkVerb="daily trivia"
-                      marginTop={0}
-                      paddingX={{ base: 3, md: 0 }}
-                      lessItemsThanGrid={filteredTrivia.length < GRID_LENGTH}
-                    >
-                      {filteredTrivia.map((quiz, index) => (
-                        <CardListItem
-                          key={quiz.id}
-                          href={`/daily-trivia/${formatDate(quiz.date)}`}
-                          paddingRight={{
-                            base: index === filteredTrivia.length - 1 && "12px",
-                            md: 0,
-                          }}
-                        >
-                          <TriviaCard
-                            name={quiz.name}
-                            maxScore={quiz.maxScore}
-                            position={{ base: "relative", md: "absolute" }}
-                            marginLeft={{ base: 3, md: 0 }}
-                          />
-                        </CardListItem>
-                      ))}
-                    </CardListSection>
+                    {filteredTrivia.length > 0 && (
+                      <CardListSection
+                        title="Daily Trivia"
+                        linkHref="/daily-trivia"
+                        linkVerb="daily trivia"
+                        marginTop={0}
+                        paddingX={{ base: 3, md: 0 }}
+                        lessItemsThanGrid={filteredTrivia.length < GRID_LENGTH}
+                      >
+                        {filteredTrivia.map((quiz, index) => (
+                          <CardListItem
+                            key={quiz.id}
+                            href={`/daily-trivia/${formatDate(quiz.date)}`}
+                            paddingRight={{
+                              base:
+                                index === filteredTrivia.length - 1 && "12px",
+                              md: 0,
+                            }}
+                          >
+                            <TriviaCard
+                              name={quiz.name}
+                              maxScore={quiz.maxScore}
+                              position={{ base: "relative", md: "absolute" }}
+                              marginLeft={{ base: 3, md: 0 }}
+                            />
+                          </CardListItem>
+                        ))}
+                      </CardListSection>
+                    )}
 
-                    <CardListSection
-                      title="Community Quizzes"
-                      linkHref="/community-quiz"
-                      linkVerb="community quizzes"
-                      paddingX={{ base: 3, md: 0 }}
-                      lessItemsThanGrid={communityQuizzes.length < GRID_LENGTH}
-                    >
-                      {communityQuizzes.map((quiz, index) => (
-                        <CardListItem
-                          key={quiz.id}
-                          href={`/community-quiz/${quiz.id}`}
-                          paddingRight={{
-                            base: index === filteredTrivia.length - 1 && "12px",
-                            md: 0,
-                          }}
-                        >
-                          <CommunityQuizCard
-                            name={quiz.name}
-                            userId={quiz.userId}
-                            username={quiz.username}
-                            maxScore={quiz.maxScore}
-                            verified={quiz.verified}
-                            position={{ base: "relative", md: "absolute" }}
-                            marginLeft={{ base: 3, md: 0 }}
-                          />
-                        </CardListItem>
-                      ))}
-                    </CardListSection>
+                    {communityQuizzes.length > 0 && (
+                      <CardListSection
+                        title="Community Quizzes"
+                        linkHref="/community-quiz"
+                        linkVerb="community quizzes"
+                        paddingX={{ base: 3, md: 0 }}
+                        lessItemsThanGrid={
+                          communityQuizzes.length < GRID_LENGTH
+                        }
+                      >
+                        {communityQuizzes.map((quiz, index) => (
+                          <CardListItem
+                            key={quiz.id}
+                            href={`/community-quiz/${quiz.id}`}
+                            paddingRight={{
+                              base:
+                                index === filteredTrivia.length - 1 && "12px",
+                              md: 0,
+                            }}
+                          >
+                            <CommunityQuizCard
+                              name={quiz.name}
+                              userId={quiz.userId}
+                              username={quiz.username}
+                              maxScore={quiz.maxScore}
+                              verified={quiz.verified}
+                              position={{ base: "relative", md: "absolute" }}
+                              marginLeft={{ base: 3, md: 0 }}
+                            />
+                          </CardListItem>
+                        ))}
+                      </CardListSection>
+                    )}
 
-                    <CardListSection
-                      title="Map Games"
-                      linkHref="/map-games"
-                      linkVerb="map games"
-                      paddingX={{ base: 3, md: 0 }}
-                    >
-                      {mapQuizzes.map((quiz, index) => (
-                        <CardListItem
-                          key={quiz.id}
-                          href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
-                          paddingRight={{
-                            base: index === filteredTrivia.length - 1 && "12px",
-                            md: 0,
-                          }}
-                        >
-                          <QuizCard
-                            name={quiz.name}
-                            imageUrl={quiz.imageUrl}
-                            time={quiz.time}
-                            maxScore={quiz.maxScore}
-                            plural={quiz.plural}
-                            position={{ base: "relative", md: "absolute" }}
-                            marginLeft={{ base: 3, md: 0 }}
-                          />
-                        </CardListItem>
-                      ))}
-                    </CardListSection>
+                    {mapQuizzes.length > 0 && (
+                      <CardListSection
+                        title="Map Games"
+                        linkHref="/map-games"
+                        linkVerb="map games"
+                        paddingX={{ base: 3, md: 0 }}
+                      >
+                        {mapQuizzes.map((quiz, index) => (
+                          <CardListItem
+                            key={quiz.id}
+                            href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                            paddingRight={{
+                              base:
+                                index === filteredTrivia.length - 1 && "12px",
+                              md: 0,
+                            }}
+                          >
+                            <QuizCard
+                              name={quiz.name}
+                              imageUrl={quiz.imageUrl}
+                              time={quiz.time}
+                              maxScore={quiz.maxScore}
+                              plural={quiz.plural}
+                              position={{ base: "relative", md: "absolute" }}
+                              marginLeft={{ base: 3, md: 0 }}
+                            />
+                          </CardListItem>
+                        ))}
+                      </CardListSection>
+                    )}
 
-                    <CardListSection
-                      title="Flag Games"
-                      linkHref="/flag-games"
-                      linkVerb="flag games"
-                      paddingX={{ base: 3, md: 0 }}
-                    >
-                      {flagQuizzes.map((quiz, index) => (
-                        <CardListItem
-                          key={quiz.id}
-                          href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
-                          paddingRight={{
-                            base: index === filteredTrivia.length - 1 && "12px",
-                            md: 0,
-                          }}
-                        >
-                          <QuizCard
-                            name={quiz.name}
-                            imageUrl={quiz.imageUrl}
-                            time={quiz.time}
-                            maxScore={quiz.maxScore}
-                            plural={quiz.plural}
-                            position={{ base: "relative", md: "absolute" }}
-                            marginLeft={{ base: 3, md: 0 }}
-                          />
-                        </CardListItem>
-                      ))}
-                    </CardListSection>
+                    {flagQuizzes.length > 0 && (
+                      <CardListSection
+                        title="Flag Games"
+                        linkHref="/flag-games"
+                        linkVerb="flag games"
+                        paddingX={{ base: 3, md: 0 }}
+                      >
+                        {flagQuizzes.map((quiz, index) => (
+                          <CardListItem
+                            key={quiz.id}
+                            href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                            paddingRight={{
+                              base:
+                                index === filteredTrivia.length - 1 && "12px",
+                              md: 0,
+                            }}
+                          >
+                            <QuizCard
+                              name={quiz.name}
+                              imageUrl={quiz.imageUrl}
+                              time={quiz.time}
+                              maxScore={quiz.maxScore}
+                              plural={quiz.plural}
+                              position={{ base: "relative", md: "absolute" }}
+                              marginLeft={{ base: 3, md: 0 }}
+                            />
+                          </CardListItem>
+                        ))}
+                      </CardListSection>
+                    )}
                   </DelayedRender>
                 </Box>
               )}
