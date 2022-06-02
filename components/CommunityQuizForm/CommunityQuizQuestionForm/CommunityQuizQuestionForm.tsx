@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { Button, Divider, Flex } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 
@@ -85,11 +85,6 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   const [flagCategory, setFlagCategory] = useState("");
   const [flagAnswerCategory, setFlagAnswerCategory] = useState("");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
-  const [hasSubmittedOnce, setHasSubmittedOnce] = useState<boolean>(false);
-
-  useEffect(() => {
-    setHasSubmittedOnce(false);
-  }, [values]);
 
   const options = types.map(({ id, name }) => ({
     label: name,
@@ -213,7 +208,6 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   label={answer}
                   value={index}
                   isChecked={values.correctAnswer === index}
-                  hasSubmittedOnce={hasSubmittedOnce}
                   hasFlagAnswers={hasFlagAnswers}
                   flagAnswerCategory={flagAnswerCategory}
                   onChangeCorrectAnswer={(answer) =>

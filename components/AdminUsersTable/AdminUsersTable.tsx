@@ -13,6 +13,8 @@ import {
   Link as ChakraLink,
   Heading,
   Divider,
+  Alert,
+  AlertIcon,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { UserPageDto } from "../../types/user-page-dto";
@@ -45,6 +47,69 @@ const AdminUsersTable: FC<Props> = ({
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
 
+  const getTable = () => {
+    if (userPage?.users.length === 0) {
+      return (
+        <Alert status="info" borderRadius={6} marginBottom={3}>
+          <AlertIcon />
+          No users to display.
+        </Alert>
+      );
+    }
+
+    return (
+      <Table size="md" variant="striped" colorscheme="gray">
+        <Thead>
+          <Tr>
+            <Th textAlign="left">{"USERNAME"} </Th>
+            <Th textAlign="left">{"EMAIL"}</Th>
+            <Th textAlign="left">{"COUNTRY"}</Th>
+            <Th textAlign="left">{"AVATAR"}</Th>
+            <Th textAlign="left">{"JOINED"}</Th>
+            <Th>{""}</Th>
+          </Tr>
+        </Thead>
+
+        <Tbody>
+          {userPage?.users?.map((user, index) => (
+            <Tr key={index} fontWeight={600}>
+              <TableCell paddingY={3} paddingX={6}>
+                <Link href={`/profile/${user.id}`}>
+                  <ChakraLink>{user.username}</ChakraLink>
+                </Link>
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {user.email}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                <Box marginRight={4}>
+                  <CustomFlag url={getFlagUrl(user.countryCode)} />
+                </Box>
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {user.avatarName}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {DateTime.fromISO(user.joined).toLocaleString(
+                  DateTime.DATE_MED
+                )}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                <Button
+                  colorScheme="red"
+                  onClick={() => onDeleteUser(user.id)}
+                  disabled={user.id === currentUserId}
+                >
+                  DELETE
+                </Button>
+              </TableCell>
+            </Tr>
+          ))}
+        </Tbody>
+      </Table>
+    );
+  };
+
   return (
     <Card marginY={10} padding={6}>
       <Flex
@@ -59,59 +124,7 @@ const AdminUsersTable: FC<Props> = ({
       <Divider borderWidth={1} marginBottom={4} />
 
       <Box overflow="auto" margin={6}>
-        {isLoading ? (
-          <AdminUsersTablePlaceholder />
-        ) : (
-          <Table size="md" variant="striped" colorscheme="gray">
-            <Thead>
-              <Tr>
-                <Th textAlign="left">{"USERNAME"} </Th>
-                <Th textAlign="left">{"EMAIL"}</Th>
-                <Th textAlign="left">{"COUNTRY"}</Th>
-                <Th textAlign="left">{"AVATAR"}</Th>
-                <Th textAlign="left">{"JOINED"}</Th>
-                <Th>{""}</Th>
-              </Tr>
-            </Thead>
-
-            <Tbody>
-              {userPage?.users?.map((user, index) => (
-                <Tr key={index} fontWeight={600}>
-                  <TableCell paddingY={3} paddingX={6}>
-                    <Link href={`/profile/${user.id}`}>
-                      <ChakraLink>{user.username}</ChakraLink>
-                    </Link>
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    {user.email}
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    <Box marginRight={4}>
-                      <CustomFlag url={getFlagUrl(user.countryCode)} />
-                    </Box>
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    {user.avatarName}
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    {DateTime.fromISO(user.joined).toLocaleString(
-                      DateTime.DATE_MED
-                    )}
-                  </TableCell>
-                  <TableCell paddingY={3} paddingX={6}>
-                    <Button
-                      colorScheme="red"
-                      onClick={() => onDeleteUser(user.id)}
-                      disabled={user.id === currentUserId}
-                    >
-                      DELETE
-                    </Button>
-                  </TableCell>
-                </Tr>
-              ))}
-            </Tbody>
-          </Table>
-        )}
+        {isLoading ? <AdminUsersTablePlaceholder /> : getTable()}
         <Flex marginTop="auto" py={4}>
           <Box marginLeft="auto">
             <Button

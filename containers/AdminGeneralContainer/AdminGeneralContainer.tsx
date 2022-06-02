@@ -4,6 +4,7 @@ import axiosClient from "../../axios";
 import AdminGeneral from "../../components/AdminGeneral";
 import { useToast } from "@chakra-ui/react";
 import {
+  clearOldTriviaToast,
   createTriviaToast,
   deployUIToast,
   regenerateTriviaToast,
@@ -21,6 +22,8 @@ const {
 const deployProdUIMobile = process.env.NEXT_PUBLIC_DEPLOY_MOBILE_PROD_UI;
 const deployProdUIWeb = process.env.NEXT_PUBLIC_DEPLOY_PROD_UI;
 const deployDevUIWeb = process.env.NEXT_PUBLIC_DEPLOY_DEV_UI;
+
+const NEW_TRIVIA_COUNT = 30;
 
 const getTaskSettings = (key: BackgroundTaskKey) => {
   switch (key) {
@@ -103,15 +106,30 @@ const AdminGeneralContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
+  const handleClearOldTrivia = () => {
+    setError("");
+    setIsSubmitting(true);
+
+    axiosClient
+      .delete(`/trivia/old/${NEW_TRIVIA_COUNT}`, getAuthConfig())
+      .then(() => {
+        toast(clearOldTriviaToast(NEW_TRIVIA_COUNT));
+      })
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSubmitting(false));
+  };
+
   return (
     <AdminGeneral
       onDeploy={handleDeploy}
       onCreateTrivia={handleCreateTrivia}
       onRegenerateTrivia={handleRegenerateTrivia}
+      onClearOldTrivia={handleClearOldTrivia}
       regenerateDate={regenerateDate}
       setRegenerateDate={setRegenerateDate}
       isSubmitting={isSubmitting}
       error={error}
+      newTriviaCount={NEW_TRIVIA_COUNT}
     />
   );
 };
