@@ -26,15 +26,21 @@ import {
   CommunityQuizFormQuestion,
   CommunityQuizFormSubmit,
 } from "../../types/community-quiz-form-submit";
+import { booleanRadioOptions } from "../../helpers/form";
+import RadioGroupFormField from "../FormFields/RadioGroupFormField";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Please enter a name for your quiz."),
+  isPublic: Yup.string().required(
+    "Please choose whether your quiz will be public or private."
+  ),
   questions: Yup.array().min(1, "Must include at least one question."),
 });
 
 const initialValues: CommunityQuizFormSubmit = {
   name: "",
   description: "",
+  isPublic: "false",
   questions: [],
 };
 
@@ -153,6 +159,14 @@ const CommunityQuizForm: FC<Props> = ({
                 helper="The description helps your quiz stand out from the rest"
                 placeholder="Enter description..."
                 direction="row"
+              />
+
+              <RadioGroupFormField
+                name="isPublic"
+                label="Is Public?"
+                onChange={(value) => setFieldValue("isPublic", value)}
+                selectedValue={values.isPublic}
+                options={booleanRadioOptions}
               />
 
               <Divider my={5} borderColor="gray.100" borderWidth={1} />

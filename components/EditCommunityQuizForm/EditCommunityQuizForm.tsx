@@ -1,15 +1,19 @@
 import React, { FC, useState } from "react";
-import { Form, Formik } from "formik";
+import { Field, Form, Formik } from "formik";
 import {
   Alert,
   AlertIcon,
   Button,
   Divider,
   Flex,
+  FormControl,
+  FormLabel,
   Heading,
+  HStack,
   IconButton,
   Text,
   useDisclosure,
+  useRadioGroup,
   VStack,
 } from "@chakra-ui/react";
 import * as Yup from "yup";
@@ -26,9 +30,14 @@ import {
 import CommunityQuizFormField from "../CommunityQuizForm/CommunityQuizFormField";
 import CommunityQuizQuestionsField from "../CommunityQuizForm/CommunityQuizQuestionsField";
 import CommunityQuizQuestionForm from "../CommunityQuizForm/CommunityQuizQuestionForm";
+import { booleanRadioOptions } from "../../helpers/form";
+import RadioButton from "../RadioButton";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Please enter a name for your quiz."),
+  isPublic: Yup.boolean().required(
+    "Please choose whether your quiz will be public or private."
+  ),
   questions: Yup.array().min(1, "Must include at least one question."),
 });
 
@@ -132,88 +141,142 @@ const EditCommunityQuizForm: FC<Props> = ({
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
-        {({ setFieldValue, errors }) => (
-          <Flex direction="column" width="100%">
-            <Form autoComplete="off">
-              <CommunityQuizFormField
-                name="name"
-                label="Quiz Name"
-                helper="Keep it concise and memorable!"
-                placeholder="Enter quiz name..."
-                direction="row"
-              />
-              {/* TODO: add textarea type */}
-              <CommunityQuizFormField
-                name="description"
-                label="Description"
-                helper="The description helps your quiz stand out from the rest"
-                placeholder="Enter description..."
-                direction="row"
-              />
+        {({ setFieldValue, errors }) => {
+          const {
+            getRootProps: getIsPublicRootProps,
+            getRadioProps: getIsPublicRadioProps,
+          } = useRadioGroup({
+            name: "isPublic",
+            value: values.isPublic.toString(),
+            onChange: (value: string) =>
+              setFieldValue("isPublic", value === "true"),
+          });
 
-              <Divider my={5} borderColor="gray.100" borderWidth={1} />
+          const isPublicRadioGroup = getIsPublicRootProps();
 
-              <Flex
-                direction="column"
-                width="100%"
-                justifyContent="center"
-                marginY={4}
-              >
-                <CommunityQuizQuestionsField
-                  questions={questions}
-                  onAddQuestion={handleOpenQuestionForm}
-                  onDeleteQuestion={(question) =>
-                    handleDeleteQuestion(question, setFieldValue)
-                  }
-                  onEditQuestion={handleEditQuestion}
+          return (
+            <Flex direction="column" width="100%">
+              <Form autoComplete="off">
+                <CommunityQuizFormField
+                  name="name"
+                  label="Quiz Name"
+                  helper="Keep it concise and memorable!"
+                  placeholder="Enter quiz name..."
+                  direction="row"
                 />
-                {errors.questions && (
-                  <Text textAlign="center" color="red.500" fontSize="sm">
-                    {"You must add at least one question"}
-                  </Text>
-                )}
-              </Flex>
+                {/* TODO: add textarea type */}
+                <CommunityQuizFormField
+                  name="description"
+                  label="Description"
+                  helper="The description helps your quiz stand out from the rest"
+                  placeholder="Enter description..."
+                  direction="row"
+                />
 
-              <Divider my={5} borderColor="gray.100" borderWidth={1} />
+                {/* TODO: move into CommunityQuizRadioFormField with proper formatting */}
+                <Flex marginY={3}>
+                  <Field name="isPublic">
+                    {({ form }): React.ReactNode => (
+                      <FormControl
+                        isInvalid={
+                          form.errors.isPublic && form.touched.isPublic
+                        }
+                      >
+                        <FormLabel htmlFor="isPublic" fontWeight="bold">
+                          {"Is Public?"}
+                        </FormLabel>
+                        <HStack
+                          name="isPublic"
+                          spacing={3}
+                          minHeight="50px"
+                          {...isPublicRadioGroup}
+                        >
+                          {booleanRadioOptions.map((entry, index) => {
+                            //@ts-expect-error
+                            const radio = getIsPublicRadioProps({
+                              value: entry.value,
+                            });
 
-              <Flex justifyContent="flex-end" marginTop={8}>
-                <Button
-                  type="submit"
-                  colorScheme="green"
-                  isLoading={isSubmitting}
+                            return (
+                              <RadioButton
+                                key={index}
+                                radioProps={radio}
+                                color="teal"
+                              >
+                                {entry.name}
+                              </RadioButton>
+                            );
+                          })}
+                        </HStack>
+                      </FormControl>
+                    )}
+                  </Field>
+                </Flex>
+
+                <Divider my={5} borderColor="gray.100" borderWidth={1} />
+
+                <Flex
+                  direction="column"
+                  width="100%"
+                  justifyContent="center"
+                  marginY={4}
                 >
-                  {"Edit Quiz"}
-                </Button>
-              </Flex>
-            </Form>
+                  <CommunityQuizQuestionsField
+                    questions={questions}
+                    onAddQuestion={handleOpenQuestionForm}
+                    onDeleteQuestion={(question) =>
+                      handleDeleteQuestion(question, setFieldValue)
+                    }
+                    onEditQuestion={handleEditQuestion}
+                  />
+                  {errors.questions && (
+                    <Text textAlign="center" color="red.500" fontSize="sm">
+                      {"You must add at least one question"}
+                    </Text>
+                  )}
+                </Flex>
 
-            <Modal
-              isOpen={isOpen}
-              onClose={onClose}
-              maxHeight={{ base: "100%", md: "700px" }}
-              minWidth="660px"
-              hasCloseButton
-              header={header}
-            >
-              <Flex
-                direction="column"
-                paddingX={10}
-                width="100%"
-                overflow="scroll"
-                marginBottom={10}
+                <Divider my={5} borderColor="gray.100" borderWidth={1} />
+
+                <Flex justifyContent="flex-end" marginTop={8}>
+                  <Button
+                    type="submit"
+                    colorScheme="green"
+                    isLoading={isSubmitting}
+                  >
+                    {"Edit Quiz"}
+                  </Button>
+                </Flex>
+              </Form>
+
+              <Modal
+                isOpen={isOpen}
+                onClose={onClose}
+                maxHeight={{ base: "100%", md: "700px" }}
+                minWidth="660px"
+                hasCloseButton
+                header={header}
               >
-                <Divider marginBottom={6} />
-                <CommunityQuizQuestionForm
-                  types={types}
-                  onSubmit={(values) =>
-                    handleAddQuestion(values, setFieldValue)
-                  }
-                  values={selectedQuestion}
-                />
-              </Flex>
-            </Modal>
-          </Flex>
-        )}
+                <Flex
+                  direction="column"
+                  paddingX={10}
+                  width="100%"
+                  overflow="scroll"
+                  marginBottom={10}
+                >
+                  <Divider marginBottom={6} />
+                  <CommunityQuizQuestionForm
+                    types={types}
+                    onSubmit={(values) =>
+                      handleAddQuestion(values, setFieldValue)
+                    }
+                    values={selectedQuestion}
+                  />
+                </Flex>
+              </Modal>
+            </Flex>
+          );
+        }}
       </Formik>
     </VStack>
   );
