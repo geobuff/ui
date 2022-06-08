@@ -20,18 +20,16 @@ export interface Props {
   quizzes?: CommunityQuiz[];
   isCurrentUser?: boolean;
   onDeleteQuiz?: (quizId: number) => void;
+  onCopyLink?: (quizId: number, name: string) => void;
 }
 
 const UserProfileMyQuizzesTable: FC<Props> = ({
   quizzes = [],
   isCurrentUser = false,
   onDeleteQuiz = (): void => {},
+  onCopyLink = (): void => {},
 }) => {
   const router = useRouter();
-
-  const handleCopyLink = (quizId: number): void => {
-    alert(`Quiz ${quizId} link copied to clipboard`);
-  };
 
   return (
     <Box overflow="auto">
@@ -75,7 +73,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
                           colorScheme="black"
                           variant="link"
                           aria-label="Copy link"
-                          onClick={() => handleCopyLink(quiz.id)}
+                          onClick={() => onCopyLink(quiz.id, quiz.name)}
                           marginRight={4}
                         >
                           {"Copy Link"}

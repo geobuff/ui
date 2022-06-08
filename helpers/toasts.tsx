@@ -169,3 +169,15 @@ export const deleteCommunityQuizToast = (
   duration: 9000,
   isClosable: true,
 });
+
+export const copyCommunityQuizLinkToast = (
+  name: string,
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: `Copy ${name} Link`,
+  description: `Successfully copied link to clipboard.`,
+  status: "success",
+  duration: 6000,
+  isClosable: true,
+});
