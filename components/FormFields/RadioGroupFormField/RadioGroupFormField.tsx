@@ -15,6 +15,7 @@ import { FormOption, FormSetFieldValue, FormValue } from "../../../types/form";
 export interface Props {
   name: string;
   label?: string;
+  isLabelVisible?: boolean;
   options: FormOption[];
   selectedValue?: FormValue;
   setFieldHelper?: FormSetFieldValue;
@@ -23,6 +24,7 @@ export interface Props {
 const RadioGroupFormField: FC<Props> = ({
   name,
   label,
+  isLabelVisible = true,
   options = [],
   selectedValue,
   setFieldHelper = () => {},
@@ -40,7 +42,7 @@ const RadioGroupFormField: FC<Props> = ({
       <Field name={name}>
         {({ form }) => (
           <FormControl isInvalid={form.errors[name] && form.touched[name]}>
-            {label && (
+            {label && isLabelVisible && (
               <FormLabel htmlFor={name} fontWeight="bold">
                 {label}
               </FormLabel>

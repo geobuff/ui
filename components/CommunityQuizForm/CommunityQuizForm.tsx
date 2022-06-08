@@ -9,6 +9,7 @@ import {
   Heading,
   IconButton,
   Text,
+  useBreakpointValue,
   useDisclosure,
   VStack,
 } from "@chakra-ui/react";
@@ -27,7 +28,8 @@ import {
   CommunityQuizFormSubmit,
 } from "../../types/community-quiz-form-submit";
 import { booleanRadioOptions } from "../../helpers/form";
-import RadioGroupFormField from "../FormFields/RadioGroupFormField";
+import CommunityQuizRadioGroupFormField from "./CommunityQuizRadioGroupFormField";
+import CommunityQuizTextAreaFormField from "./CommunityQuizTextAreaFormField";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Please enter a name for your quiz."),
@@ -61,6 +63,7 @@ const CommunityQuizForm: FC<Props> = ({
   onSubmit = () => {},
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const [questions, setQuestions] = useState<CommunityQuizFormQuestion[]>([]);
   const [selectedQuestion, setSelectedQuestion] = useState<
@@ -143,7 +146,7 @@ const CommunityQuizForm: FC<Props> = ({
         onSubmit={onSubmit}
         enableReinitialize
       >
-        {({ setFieldValue, errors }) => (
+        {({ values, setFieldValue, errors }) => (
           <Flex direction="column" width="100%">
             <Form autoComplete="off">
               <CommunityQuizFormField
@@ -151,23 +154,25 @@ const CommunityQuizForm: FC<Props> = ({
                 label="Quiz Name"
                 helper="Keep it concise and memorable!"
                 placeholder="Enter quiz name..."
-                direction="row"
-              />
-              {/* TODO: add textarea type */}
-              <CommunityQuizFormField
-                name="description"
-                label="Description"
-                helper="The description helps your quiz stand out from the rest"
-                placeholder="Enter description..."
-                direction="row"
+                direction={isMobile ? "column" : "row"}
               />
 
-              <RadioGroupFormField
+              <CommunityQuizTextAreaFormField
+                name="description"
+                label="Description"
+                helper="The description helps your quiz stand out from the rest."
+                placeholder="Enter description..."
+                direction={isMobile ? "column" : "row"}
+              />
+
+              <CommunityQuizRadioGroupFormField
                 name="isPublic"
                 label="Is Public?"
+                helper="Public quizzes are visible to all users. Private quizzes give you the option to share a link with others."
                 selectedValue={values.isPublic}
                 options={booleanRadioOptions}
                 setFieldHelper={setFieldValue}
+                direction={isMobile ? "column" : "row"}
               />
 
               <Divider my={5} borderColor="gray.100" borderWidth={1} />
