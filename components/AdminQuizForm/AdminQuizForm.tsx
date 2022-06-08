@@ -625,7 +625,7 @@ const AdminQuizForm: FC<Props> = ({
                                       radioProps={radio}
                                       color="teal"
                                     >
-                                      {entry.name}
+                                      {entry.label}
                                     </RadioButton>
                                   );
                                 })}
@@ -671,7 +671,7 @@ const AdminQuizForm: FC<Props> = ({
                                       radioProps={radio}
                                       color="teal"
                                     >
-                                      {entry.name}
+                                      {entry.label}
                                     </RadioButton>
                                   );
                                 })}
@@ -713,7 +713,7 @@ const AdminQuizForm: FC<Props> = ({
                                       radioProps={radio}
                                       color="teal"
                                     >
-                                      {entry.name}
+                                      {entry.label}
                                     </RadioButton>
                                   );
                                 })}
@@ -752,7 +752,7 @@ const AdminQuizForm: FC<Props> = ({
                                       radioProps={radio}
                                       color="teal"
                                     >
-                                      {entry.name}
+                                      {entry.label}
                                     </RadioButton>
                                   );
                                 })}

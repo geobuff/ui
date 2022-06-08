@@ -10,14 +10,14 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import RadioButton from "../../RadioButton";
-import { FormOption, FormValue } from "../../../types/form";
+import { FormOption, FormSetFieldValue, FormValue } from "../../../types/form";
 
 export interface Props {
   name: string;
   label?: string;
   options: FormOption[];
   selectedValue?: FormValue;
-  onChange: (value: FormValue) => void;
+  setFieldHelper?: FormSetFieldValue;
 }
 
 const RadioGroupFormField: FC<Props> = ({
@@ -25,12 +25,12 @@ const RadioGroupFormField: FC<Props> = ({
   label,
   options = [],
   selectedValue,
-  onChange = () => {},
+  setFieldHelper = () => {},
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
     value: selectedValue,
     name,
-    onChange: (value: number) => onChange(value),
+    onChange: (value: FormValue) => setFieldHelper(name, value),
   });
 
   const radioGroup = getRootProps();
@@ -39,7 +39,7 @@ const RadioGroupFormField: FC<Props> = ({
     <VStack>
       <Field name={name}>
         {({ form }) => (
-          <FormControl isInvalid={form.errors.typeId && form.touched.typeId}>
+          <FormControl isInvalid={form.errors[name] && form.touched[name]}>
             {label && (
               <FormLabel htmlFor={name} fontWeight="bold">
                 {label}

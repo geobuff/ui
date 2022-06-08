@@ -141,6 +141,7 @@ const CommunityQuizForm: FC<Props> = ({
         initialValues={values}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
+        enableReinitialize
       >
         {({ setFieldValue, errors }) => (
           <Flex direction="column" width="100%">
@@ -164,9 +165,9 @@ const CommunityQuizForm: FC<Props> = ({
               <RadioGroupFormField
                 name="isPublic"
                 label="Is Public?"
-                onChange={(value) => setFieldValue("isPublic", value)}
                 selectedValue={values.isPublic}
                 options={booleanRadioOptions}
+                setFieldHelper={setFieldValue}
               />
 
               <Divider my={5} borderColor="gray.100" borderWidth={1} />

@@ -104,9 +104,9 @@ const CommunityQuizQuestionForm: FC<Props> = ({
             <RadioGroupFormField
               name="typeId"
               label="Type"
-              onChange={(value) => setFieldValue("typeId", value)}
               selectedValue={values.typeId}
               options={options}
+              setFieldHelper={setFieldValue}
             />
 
             <Divider marginTop={6} />
