@@ -29,6 +29,10 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
 }) => {
   const router = useRouter();
 
+  const handleCopyLink = (quizId: number): void => {
+    alert(`Quiz ${quizId} link copied to clipboard`);
+  };
+
   return (
     <Box overflow="auto">
       <Table variant="striped" colorScheme="gray">
@@ -40,6 +44,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
             <Th>Added</Th>
             {isCurrentUser && (
               <>
+                <Th>Visibility</Th>
                 <Th>Status</Th>
                 <Th>Actions</Th>
               </>
@@ -61,9 +66,21 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
               </Td>
               {isCurrentUser && (
                 <>
+                  <Td>{quiz.isPublic ? "Public" : "Private"}</Td>
                   <Td>{quiz.status}</Td>
                   <Td>
                     <Flex alignItems="center" justifyContent="flex-end">
+                      {!quiz.isPublic && (
+                        <Button
+                          colorScheme="black"
+                          variant="link"
+                          aria-label="Copy link"
+                          onClick={() => handleCopyLink(quiz.id)}
+                          marginRight={4}
+                        >
+                          {"Copy Link"}
+                        </Button>
+                      )}
                       <Button
                         colorScheme="black"
                         variant="link"

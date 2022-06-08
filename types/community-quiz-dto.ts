@@ -10,5 +10,6 @@ export interface CommunityQuiz {
   maxScore: number;
   added: Date;
   verified: boolean;
+  isPublic: boolean;
   plays: NullInt;
 }
