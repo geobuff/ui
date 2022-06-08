@@ -17,16 +17,27 @@ export interface Props {
   quizzes?: CommunityQuiz[];
   isCurrentUser?: boolean;
   username?: string;
+  error?: boolean;
 }
 
 const UserProfileMyQuizzes: FC<Props> = ({
   quizzes = [],
   isCurrentUser = false,
   username,
+  error = false,
 }) => {
   const router = useRouter();
 
   const getContent = () => {
+    if (error) {
+      return (
+        <Alert borderRadius={6} status="error">
+          <AlertIcon />
+          Error fetching user quizzes. Please refresh and try again.
+        </Alert>
+      );
+    }
+
     if (quizzes.length === 0) {
       return (
         <Alert borderRadius={6}>

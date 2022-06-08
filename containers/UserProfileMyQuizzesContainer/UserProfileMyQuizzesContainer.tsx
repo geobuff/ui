@@ -1,6 +1,6 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
+import axiosClient from "../../axios";
 import UserProfileMyQuizzes from "../../components/UserProfileMyQuizzes";
-import useUserCommunityQuizzes from "../../hooks/UseUserCommunityQuizzes";
 import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";
 import { CommunityQuizStatus } from "../../types/community-quiz-status";
 
@@ -15,7 +15,19 @@ const UserProfileMyQuizzesContainer: FC<Props> = ({
   isCurrentUser = false,
   username,
 }) => {
-  const { quizzes, isLoading } = useUserCommunityQuizzes(userId);
+  const [quizzes, setQuizzes] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(false);
+
+  useEffect(() => {
+    axiosClient
+      .get(`/community-quizzes/user/${userId}`)
+      .then((response) => {
+        setQuizzes(response.data);
+      })
+      .catch(() => setError(true))
+      .finally(() => setIsLoading(false));
+  }, []);
 
   if (isLoading) {
     return <UserProfileLeaderboardEntriesPlaceholder />;
@@ -30,6 +42,7 @@ const UserProfileMyQuizzesContainer: FC<Props> = ({
       }
       isCurrentUser={isCurrentUser}
       username={username}
+      error={error}
     />
   );
 };
