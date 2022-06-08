@@ -6,6 +6,7 @@ export interface GetCommunityQuiz {
   name: string;
   description: string;
   maxScore: number;
+  isPublic: boolean;
   questions: GetCommunityQuizQuestion[];
 }
 

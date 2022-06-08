@@ -32,6 +32,7 @@ import { Badge } from "../../types/badge";
 import RadioButton from "../RadioButton";
 import { QuizTypes } from "../../types/quiz-types";
 import { QuizEditValues } from "../../types/quiz-edit-values";
+import { booleanRadioOptions } from "../../helpers/form";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -54,11 +55,6 @@ const validationSchema = Yup.object().shape({
   hasFlags: Yup.boolean().required("Please enter a value for hasFlags."),
   enabled: Yup.boolean().required("Please enter a value for enabled."),
 });
-
-const booleanRadioOptions = [
-  { name: "True", value: "true" },
-  { name: "False", value: "false" },
-];
 
 export interface Props {
   editValues?: QuizEditValues;
@@ -629,7 +625,7 @@ const AdminQuizForm: FC<Props> = ({
                                       radioProps={radio}
                                       color="teal"
                                     >
-                                      {entry.name}
+                                      {entry.label}
                                     </RadioButton>
                                   );
                                 })}
@@ -675,7 +671,7 @@ const AdminQuizForm: FC<Props> = ({
                                       radioProps={radio}
                                       color="teal"
                                     >
-                                      {entry.name}
+                                      {entry.label}
                                     </RadioButton>
                                   );
                                 })}
@@ -717,7 +713,7 @@ const AdminQuizForm: FC<Props> = ({
                                       radioProps={radio}
                                       color="teal"
                                     >
-                                      {entry.name}
+                                      {entry.label}
                                     </RadioButton>
                                   );
                                 })}
@@ -756,7 +752,7 @@ const AdminQuizForm: FC<Props> = ({
                                       radioProps={radio}
                                       color="teal"
                                     >
-                                      {entry.name}
+                                      {entry.label}
                                     </RadioButton>
                                   );
                                 })}

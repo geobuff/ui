@@ -20,12 +20,14 @@ export interface Props {
   quizzes?: CommunityQuiz[];
   isCurrentUser?: boolean;
   onDeleteQuiz?: (quizId: number) => void;
+  onCopyLink?: (quizId: number, name: string) => void;
 }
 
 const UserProfileMyQuizzesTable: FC<Props> = ({
   quizzes = [],
   isCurrentUser = false,
   onDeleteQuiz = (): void => {},
+  onCopyLink = (): void => {},
 }) => {
   const router = useRouter();
 
@@ -40,6 +42,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
             <Th>Added</Th>
             {isCurrentUser && (
               <>
+                <Th>Visibility</Th>
                 <Th>Status</Th>
                 <Th>Actions</Th>
               </>
@@ -61,9 +64,21 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
               </Td>
               {isCurrentUser && (
                 <>
+                  <Td>{quiz.isPublic ? "Public" : "Private"}</Td>
                   <Td>{quiz.status}</Td>
                   <Td>
                     <Flex alignItems="center" justifyContent="flex-end">
+                      {!quiz.isPublic && (
+                        <Button
+                          colorScheme="black"
+                          variant="link"
+                          aria-label="Copy link"
+                          onClick={() => onCopyLink(quiz.id, quiz.name)}
+                          marginRight={4}
+                        >
+                          {"Copy Link"}
+                        </Button>
+                      )}
                       <Button
                         colorScheme="black"
                         variant="link"

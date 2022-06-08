@@ -4,7 +4,10 @@ import axiosClient from "../../axios";
 import DeleteCommunityQuizModal from "../../components/DeleteCommunityQuizModal";
 import UserProfileMyQuizzesTable from "../../components/UserProfileMyQuizzes/UserProfileMyQuizzesTable";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import { deleteCommunityQuizToast } from "../../helpers/toasts";
+import {
+  copyCommunityQuizLinkToast,
+  deleteCommunityQuizToast,
+} from "../../helpers/toasts";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 
 export interface Props {
@@ -51,12 +54,21 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
       .finally(() => setIsSubmitting(false));
   };
 
+  const handleCopyLink = (quizId: number, name: string): void => {
+    navigator.clipboard.writeText(
+      `${process.env.NEXT_PUBLIC_SITE_URL}/community-quiz/${quizId}`
+    );
+
+    toast(copyCommunityQuizLinkToast(name));
+  };
+
   return (
     <>
       <UserProfileMyQuizzesTable
         quizzes={myQuizzes}
         isCurrentUser={isCurrentUser}
         onDeleteQuiz={handleDeleteQuiz}
+        onCopyLink={handleCopyLink}
       />
       <DeleteCommunityQuizModal
         isOpen={isDeleteQuizModalOpen}

@@ -1,6 +1,7 @@
 export interface CommunityQuizFormSubmit {
   name: string;
   description: string;
+  isPublic: string;
   questions: CommunityQuizFormQuestion[];
 }
 

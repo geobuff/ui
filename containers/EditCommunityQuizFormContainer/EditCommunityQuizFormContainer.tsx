@@ -47,6 +47,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
     return {
       name: quiz.name,
       description: quiz.description,
+      isPublic: quiz.isPublic.toString(),
       questions: quiz.questions.map((q) => {
         return {
           id: q.id,
@@ -83,6 +84,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       userId: user.id,
       name: values.name,
       description: values.description,
+      isPublic: values.isPublic === "true",
       maxScore: values.questions?.length || 0,
       questions: values.questions?.map((question) => ({
         id: {
