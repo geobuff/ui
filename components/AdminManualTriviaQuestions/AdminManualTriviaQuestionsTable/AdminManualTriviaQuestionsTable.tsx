@@ -48,6 +48,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
           <Tr>
             <Th textAlign="left">{"QUESTION"} </Th>
             <Th textAlign="left">{"TYPE"}</Th>
+            <Th textAlign="left">{"CATEGORY"}</Th>
             <Th textAlign="left">{"LAST USED"}</Th>
             <Th textAlign="left">{"QUIZ DATE"}</Th>
             <Th textAlign="left">{"ANSWERS"}</Th>
@@ -63,6 +64,9 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
               </TableCell>
               <TableCell paddingY={4} paddingX={6}>
                 {question.type}
+              </TableCell>
+              <TableCell paddingY={4} paddingX={6}>
+                {question.category}
               </TableCell>
               <TableCell paddingY={4} paddingX={6}>
                 {question.lastUsed.Valid &&
