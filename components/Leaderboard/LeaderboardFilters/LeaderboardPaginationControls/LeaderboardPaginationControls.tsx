@@ -8,8 +8,8 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import ArrowLeft from "../../../Icons/ArrowLeft";
-import ArrowRight from "../../../Icons/ArrowRight";
+import ArrowLeft from "../../../../Icons/ArrowLeft";
+import ArrowRight from "../../../../Icons/ArrowRight";
 
 interface Props {
   isLoading?: boolean;

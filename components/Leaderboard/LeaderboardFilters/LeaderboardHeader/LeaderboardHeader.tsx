@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import { Box, Heading, Fade, Flex, Spinner } from "@chakra-ui/react";
-
-import Twemoji from "../../Twemoji";
+import Twemoji from "../../../Twemoji";
 
 interface Props {
   isLoading?: boolean;
