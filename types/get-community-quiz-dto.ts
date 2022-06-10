@@ -1,4 +1,4 @@
-import { TriviaQuestionType } from "./trivia-question-types";
+import { TriviaQuestionTypes } from "./trivia-question-types";
 
 export interface GetCommunityQuiz {
   id: number;
@@ -13,7 +13,7 @@ export interface GetCommunityQuiz {
 export interface GetCommunityQuizQuestion {
   id: number;
   typeId: number;
-  type: TriviaQuestionType;
+  type: TriviaQuestionTypes;
   question: string;
   explainer: string;
   map: string;
