@@ -18,15 +18,15 @@ import {
   Link as ChakraLink,
 } from "@chakra-ui/react";
 
-import LeaderTablePlaceholder from "../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
-import Twemoji from "../Twemoji";
-import TableCell from "../TableCell";
+import LeaderTablePlaceholder from "../../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
+import Twemoji from "../../Twemoji";
+import TableCell from "../../TableCell";
 
-import { secondsToMinutesString } from "../../helpers/time";
-import Sparkles from "../Sparkles/Sparkles";
-import { LeaderboardEntry } from "../../types/leaderboard-entry";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
-import CustomFlag from "../CustomFlag";
+import { secondsToMinutesString } from "../../../helpers/time";
+import Sparkles from "../../Sparkles/Sparkles";
+import { LeaderboardEntry } from "../../../types/leaderboard-entry";
+import { CurrentUserContext } from "../../../context/CurrentUserContext";
+import CustomFlag from "../../CustomFlag";
 
 interface Props {
   entries?: LeaderboardEntry[];

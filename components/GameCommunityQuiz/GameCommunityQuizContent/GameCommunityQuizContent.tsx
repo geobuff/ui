@@ -15,7 +15,7 @@ import { use100vh } from "react-div-100vh";
 
 import CustomFlag from "../../CustomFlag";
 import Image from "../../Image";
-import { TriviaQuestionType } from "../../../types/trivia-question-types";
+import { TriviaQuestionTypes } from "../../../types/trivia-question-types";
 
 const mapStyles = {
   height: "100%",
@@ -24,7 +24,7 @@ const mapStyles = {
 };
 
 const getContentByType = (
-  type: TriviaQuestionType,
+  type: TriviaQuestionTypes,
   map: string,
   highlighted: string,
   flagCode: string,
@@ -113,7 +113,7 @@ const getHeaderFontSize = (
 
 export interface Props {
   text: string;
-  type?: TriviaQuestionType;
+  type?: TriviaQuestionTypes;
   map?: string;
   highlighted?: string;
   flagCode?: string;

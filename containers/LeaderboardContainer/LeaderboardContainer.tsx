@@ -3,7 +3,7 @@ import React, { useEffect, useState, FC } from "react";
 import axiosClient from "../../axios/axiosClient";
 
 import Leaderboard from "../../components/Leaderboard";
-import { FilterParams } from "../../types/filter-params";
+import { LeaderboardFilterParams } from "../../types/leaderboard-filter-params";
 import { Quiz } from "../../types/quiz";
 
 interface Props {
@@ -21,7 +21,7 @@ const LeaderboardContainer: FC<Props> = ({
   const [entries, setEntries] = useState([]);
   const [isLoadingEntries, setIsLoadingEntries] = useState(true);
   const [hasMoreEntries, setHasMoreEntries] = useState(false);
-  const [filterParams, setFilterParams] = useState<FilterParams>({
+  const [filterParams, setFilterParams] = useState<LeaderboardFilterParams>({
     page: 0,
     limit: 10,
   });

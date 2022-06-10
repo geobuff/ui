@@ -1,1 +1,1 @@
-export type TriviaQuestionType = "Flag" | "Map" | "Image" | "Text";
+export type TriviaQuestionTypes = "Flag" | "Map" | "Image" | "Text";

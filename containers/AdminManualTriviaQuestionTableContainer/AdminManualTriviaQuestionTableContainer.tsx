@@ -1,20 +1,37 @@
-import { useDisclosure } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 import React, { FC, useContext, useEffect, useState } from "react";
 import axiosClient from "../../axios";
-import AdminManualTriviaQuestionsTable from "../../components/AdminManualTriviaQuestionsTable";
+import AdminManualTriviaQuestions from "../../components/AdminManualTriviaQuestions";
 import DeleteTriviaQuestionModal from "../../components/DeleteTriviaQuestionModal";
+import Modal from "../../components/Modal";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-import { ManualQuestionsDto } from "../../types/manual-questions-dto";
+import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
+import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
+import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
+import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
+import { TriviaQuestionTypes } from "../../types/trivia-question-types";
+import AdminManualTriviaQuestionContainer from "../AdminManualTriviaQuestionContainer";
 
 const AdminManualTriviaQuestionTableContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
+  const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
 
-  const [questionPage, setQuestionPage] = useState<ManualQuestionsDto>();
-  const [isLoading, setIsLoading] = useState(true);
-  const [page, setPage] = useState(0);
+  const [filterParams, setFilterParams] = useState<TriviaQuestionFilterParams>({
+    page: 0,
+    limit: 10,
+  });
+
+  const [entries, setEntries] = useState<ManualTriviaQuestion[]>([]);
+  const [hasMoreEntries, setHasMoreEntries] = useState(false);
+
+  const [isLoadingEntries, setIsLoadingEntries] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(false);
   const [questionId, setQuestionId] = useState(0);
+
+  const [selectedQuestion, setSelectedQuestion] = useState<
+    ManualTriviaQuestionEditValues
+  >(null);
 
   const {
     isOpen: isDeleteQuestionModalOpen,
@@ -22,22 +39,68 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
     onClose: onDeleteQuestionModalClose,
   } = useDisclosure();
 
-  useEffect(() => {
-    setIsLoading(true);
-    axiosClient
-      .get(`/manual-trivia-questions?page=${page}`, getAuthConfig())
-      .then((response) => {
-        setQuestionPage(response.data);
-      })
-      .finally(() => setIsLoading(false));
-  }, [getAuthConfig, page]);
+  const {
+    isOpen: isQuestionModalOpen,
+    onOpen: onQuestionModalOpen,
+    onClose: onQuestionModalClose,
+  } = useDisclosure();
 
-  const handlePreviousPage = (): void => {
-    setPage(page - 1);
+  useEffect(() => {
+    setIsLoadingEntries(true);
+    axiosClient
+      .post(`/manual-trivia-questions/all`, filterParams, getAuthConfig())
+      .then((response) => {
+        setEntries(response.data.questions);
+        setHasMoreEntries(response.data.hasMore);
+      })
+      .finally(() => setIsLoadingEntries(false));
+  }, [getAuthConfig, filterParams]);
+
+  const handleCreateQuestionClick = () => {
+    setSelectedQuestion(null);
+    onQuestionModalOpen();
   };
 
-  const handleNextPage = (): void => {
-    setPage(page + 1);
+  const getTypeIDByName = (typeName: TriviaQuestionTypes) => {
+    switch (true) {
+      case typeName === "Image":
+        return "2";
+      case typeName === "Flag":
+        return "3";
+      case typeName === "Map":
+        return "4";
+      default:
+        return "1";
+    }
+  };
+
+  const handleEditQuestionClick = (question: ManualTriviaQuestion) => {
+    setSelectedQuestion({
+      id: question.id.toString(),
+      typeId: getTypeIDByName(question.type as TriviaQuestionTypes),
+      question: question.question,
+      explainer: question.explainer,
+      answerOneText: question.answers[0]?.text || "",
+      answerOneFlagCode: question.answers[0]?.flagCode || "",
+      answerTwoText: question.answers[1]?.text || "",
+      answerTwoFlagCode: question.answers[1]?.flagCode || "",
+      answerThreeText: question?.answers[2]?.text || "",
+      answerThreeFlagCode: question?.answers[2]?.flagCode || "",
+      answerFourText: question?.answers[3]?.text || "",
+      answerFourFlagCode: question?.answers[3]?.flagCode || "",
+      correctAnswer: question.answers.findIndex((a) => a.isCorrect) + 1,
+      hasFlagAnswers: !!question.answers.find((a) => a.flagCode) || false,
+      imageUrl: question?.imageUrl || "",
+      flagCode: question?.flagCode || "",
+      map: question?.map || "",
+      highlighted: question?.highlighted || "",
+      quizDate: question?.quizDate.Valid
+        ? question?.quizDate.Time.toString()
+        : null,
+      answers: question?.answers || [],
+    });
+
+    onQuestionModalOpen();
   };
 
   const handleDeleteQuestion = (questionId: number): void => {
@@ -52,10 +115,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
     axiosClient
       .delete(`/manual-trivia-questions/${questionId}`, getAuthConfig())
       .then(() => {
-        setQuestionPage({
-          ...questionPage,
-          questions: questionPage.questions.filter((x) => x.id !== questionId),
-        });
+        setEntries(entries.filter((x) => x.id !== questionId));
         onDeleteQuestionModalClose();
       })
       .catch(() => setError(true))
@@ -64,13 +124,16 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
 
   return (
     <>
-      <AdminManualTriviaQuestionsTable
-        questionPage={questionPage}
-        isLoading={isLoading}
-        page={page}
-        onNextPage={handleNextPage}
-        onPreviousPage={handlePreviousPage}
-        onDeleteQuestion={handleDeleteQuestion}
+      <AdminManualTriviaQuestions
+        entries={entries}
+        hasMoreEntries={hasMoreEntries}
+        types={types}
+        isLoading={isLoadingEntries || isTypesLoading}
+        filterParams={filterParams}
+        onChangeFilterParams={setFilterParams}
+        onCreateQuestionClick={handleCreateQuestionClick}
+        onEditQuestionClick={handleEditQuestionClick}
+        onDeleteQuestionClick={handleDeleteQuestion}
       />
       <DeleteTriviaQuestionModal
         isOpen={isDeleteQuestionModalOpen}
@@ -79,6 +142,19 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         isSubmitting={isSubmitting}
         error={error}
       />
+      <Modal
+        isOpen={isQuestionModalOpen}
+        onClose={onQuestionModalClose}
+        maxHeight={{ base: "100%", md: "700px" }}
+        minWidth="660px"
+      >
+        <Flex padding={10} width="100%" overflow="scroll">
+          <AdminManualTriviaQuestionContainer
+            editValues={selectedQuestion}
+            onClose={onQuestionModalClose}
+          />
+        </Flex>
+      </Modal>
     </>
   );
 };
