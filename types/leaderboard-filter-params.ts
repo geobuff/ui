@@ -1,4 +1,4 @@
-export interface FilterParams {
+export interface LeaderboardFilterParams {
   page: number;
   limit: number;
   rank?: number;

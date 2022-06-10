@@ -1,0 +1,137 @@
+import React, { FC } from "react";
+
+import { Divider, Flex, useBreakpointValue } from "@chakra-ui/react";
+
+import Card from "../Card";
+import AdminManualTriviaQuestionsTable from "./AdminManualTriviaQuestionsTable";
+import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
+import AdminManualTriviaQuestionsHeader from "./AdminManualTriviaQuestionsHeader";
+import AdminManualTriviaQuestionsPaginationControls from "./AdminManualTriviaQuestionsPaginationControls";
+import AdminManualTriviaQuestionsFilters from "./AdminManualTriviaQuestionsFilters";
+import { TriviaQuestionType } from "../../types/trivia-question-type";
+import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
+
+interface Props {
+  entries?: ManualTriviaQuestion[];
+  hasMoreEntries?: boolean;
+  types?: TriviaQuestionType[];
+  isLoading?: boolean;
+  filterParams?: TriviaQuestionFilterParams;
+  onChangeFilterParams?: React.Dispatch<
+    React.SetStateAction<TriviaQuestionFilterParams>
+  >;
+  onCreateQuestionClick?: () => void;
+  onEditQuestionClick?: (question: ManualTriviaQuestion) => void;
+  onDeleteQuestionClick?: (questionId: number) => void;
+}
+
+const AdminManualTriviaQuestions: FC<Props> = ({
+  entries = [],
+  hasMoreEntries = false,
+  types = [],
+  filterParams = { page: 0, limit: 10 },
+  isLoading = false,
+  onChangeFilterParams = (): void => {},
+  onCreateQuestionClick = (): void => {},
+  onEditQuestionClick = (): void => {},
+  onDeleteQuestionClick = (): void => {},
+}) => {
+  const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
+
+  const handleChangeType = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    const updatedFilterParams = { ...filterParams, page: 0 };
+    if (event.target.value) {
+      updatedFilterParams.typeId = parseInt(event.target.value);
+    } else {
+      delete updatedFilterParams.typeId;
+    }
+
+    onChangeFilterParams(updatedFilterParams);
+  };
+
+  const handleChangeSearchQuestion = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    onChangeFilterParams({
+      ...filterParams,
+      question: event.target.value,
+      page: 0,
+    });
+  };
+
+  const handleChangeLimit = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    const limit = parseInt(event.target.value);
+    onChangeFilterParams({ ...filterParams, limit: limit, page: 0 });
+  };
+
+  const handleNextPage = (): void => {
+    onChangeFilterParams({ ...filterParams, page: filterParams.page + 1 });
+  };
+
+  const handlePreviousPage = (): void => {
+    onChangeFilterParams({ ...filterParams, page: filterParams.page - 1 });
+  };
+
+  // Prevent layout shifts on load
+  if (shouldRenderOnMobile === undefined) {
+    return null;
+  }
+
+  return (
+    <Flex
+      direction="column"
+      maxWidth={{ base: "100%", md: 1300 }}
+      marginX="auto"
+      marginBottom={14}
+      marginTop={{ base: 10, sm: 10, md: 14 }}
+      paddingX={3}
+      width="100%"
+    >
+      <Card>
+        <Flex
+          direction="column"
+          justifyContent="space-between"
+          minHeight="750px"
+          paddingTop={2}
+          paddingBottom={{ base: 1, md: 3 }}
+        >
+          <AdminManualTriviaQuestionsHeader
+            onCreateQuestionClick={onCreateQuestionClick}
+          />
+
+          <Divider borderWidth={1} marginBottom={6} />
+
+          <AdminManualTriviaQuestionsFilters
+            types={types}
+            typeId={filterParams.typeId ? filterParams.typeId.toString() : ""}
+            isLoading={isLoading}
+            onChangeType={handleChangeType}
+            onChangeSearchQuestion={handleChangeSearchQuestion}
+          />
+
+          <AdminManualTriviaQuestionsTable
+            entries={entries}
+            isLoading={isLoading}
+            onEditQuestionClick={onEditQuestionClick}
+            onDeleteQuestionClick={onDeleteQuestionClick}
+          />
+
+          <AdminManualTriviaQuestionsPaginationControls
+            hasMoreEntries={hasMoreEntries}
+            isLoading={isLoading}
+            page={filterParams.page}
+            onChangeLimit={handleChangeLimit}
+            onNextPage={handleNextPage}
+            onPreviousPage={handlePreviousPage}
+          />
+        </Flex>
+      </Card>
+    </Flex>
+  );
+};
+
+export default AdminManualTriviaQuestions;

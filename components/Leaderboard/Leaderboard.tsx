@@ -5,11 +5,11 @@ import { Flex, useBreakpointValue } from "@chakra-ui/react";
 import LeaderboardHeader from "./LeaderboardHeader/LeaderboardHeader";
 import LeaderboardFilters from "./LeaderboardFilters/LeaderboardFilters";
 import LeaderboardPaginationControls from "./LeaderboardPaginationControls/LeaderboardPaginationControls";
-import LeaderboardTable from "../LeaderboardTable";
+import LeaderboardTable from "./LeaderboardTable";
 
 import Card from "../Card";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
-import { FilterParams } from "../../types/filter-params";
+import { LeaderboardFilterParams } from "../../types/leaderboard-filter-params";
 import { Quiz } from "../../types/quiz";
 import router from "next/router";
 
@@ -17,11 +17,13 @@ interface Props {
   entries?: LeaderboardEntry[];
   hasMoreEntries?: boolean;
   isLoading?: boolean;
-  filterParams?: FilterParams;
+  filterParams?: LeaderboardFilterParams;
   quizId?: string;
   quizzes?: Quiz[];
   onChangeQuiz?: React.Dispatch<React.SetStateAction<string>>;
-  onChangeFilterParams?: React.Dispatch<React.SetStateAction<FilterParams>>;
+  onChangeFilterParams?: React.Dispatch<
+    React.SetStateAction<LeaderboardFilterParams>
+  >;
   rank?: string;
   setRank?: React.Dispatch<React.SetStateAction<string>>;
 }
