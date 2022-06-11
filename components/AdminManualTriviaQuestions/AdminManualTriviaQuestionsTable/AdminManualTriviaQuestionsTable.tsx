@@ -49,8 +49,8 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
             <Th textAlign="left">{"QUESTION"} </Th>
             <Th textAlign="left">{"TYPE"}</Th>
             <Th textAlign="left">{"CATEGORY"}</Th>
-            <Th textAlign="left">{"LAST USED"}</Th>
-            <Th textAlign="left">{"QUIZ DATE"}</Th>
+            {/* <Th textAlign="left">{"LAST USED"}</Th>
+            <Th textAlign="left">{"QUIZ DATE"}</Th> */}
             <Th textAlign="left">{"ANSWERS"}</Th>
             <Th>{""}</Th>
           </Tr>
@@ -68,7 +68,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
               <TableCell paddingY={4} paddingX={6}>
                 {question.category}
               </TableCell>
-              <TableCell paddingY={4} paddingX={6}>
+              {/* <TableCell paddingY={4} paddingX={6}>
                 {question.lastUsed.Valid &&
                   DateTime.fromISO(question.lastUsed.Time).toLocaleString(
                     DateTime.DATE_LONG
@@ -79,7 +79,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
                   DateTime.fromISO(question.quizDate.Time).toLocaleString(
                     DateTime.DATE_LONG
                   )}
-              </TableCell>
+              </TableCell> */}
               <TableCell paddingY={4} paddingX={6} minWidth="300px">
                 {question.answers.map((answer, index) => (
                   <Text
