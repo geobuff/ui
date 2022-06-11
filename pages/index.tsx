@@ -1,6 +1,8 @@
 import React, { useState, FC, ChangeEvent, useEffect, useMemo } from "react";
 import type { AppProps } from "next/app";
 import { debounce } from "throttle-debounce";
+import axios from "axios";
+import axiosClient from "../axios";
 
 import {
   Box,
@@ -22,7 +24,6 @@ import HeroBanner from "../components/HeroBanner";
 
 import Search from "../Icons/Search";
 import SolidCloseCircle from "../Icons/SolidCloseCircle";
-import axiosClient from "../axios";
 import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
 import { GetStaticProps } from "next";
 import { formatDate, isDateBefore } from "../helpers/date";
@@ -34,19 +35,31 @@ import CardListSection from "../components/CardListSection";
 import CardListItem from "../components/CardList/CardListItem";
 import Head from "next/head";
 import CommunityQuizCard from "../components/CommunityQuizCard";
+import { TriviaFilterDto } from "../types/trivia-filter-dto";
+import { CommunityQuizFilterDto } from "../types/community-quiz-filter-dto";
+import { Quiz } from "../types/quiz";
+import { Trivia } from "../types/trivia";
+import { CommunityQuiz } from "../types/community-quiz-dto";
 
 const GRID_LENGTH = 5;
 
+interface SearchResults {
+  quizzes: Quiz[];
+  communityQuizzes: CommunityQuiz[];
+  trivia: Trivia[];
+  length: number;
+}
+
 const Home: FC<AppProps> = ({ pageProps }) => {
   const [filter, setFilter] = useState("");
-  const [searchResults, setSearchResults] = useState([]);
+  const [searchResults, setSearchResults] = useState<SearchResults>();
   const [isSearching, setIsSearching] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
   const handleClearInput = (): void => {
     setInputValue("");
     setFilter("");
-    setSearchResults([]);
+    setSearchResults(null);
   };
 
   const onChange = (value: string): void => {
@@ -68,20 +81,57 @@ const Home: FC<AppProps> = ({ pageProps }) => {
 
   useEffect(() => {
     if (filter.trim().length < 3) {
-      setSearchResults([]);
+      setSearchResults(null);
       return;
     }
 
-    setIsSearching(true);
-    axiosClient
-      .post(`/quizzes/all`, {
-        filter,
+    const quizRequest = axios({
+      method: "post",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
+      data: {
+        filter: filter,
         page: 0,
         limit: 15,
         orderByPopularity: false,
-      })
-      .then((response) => {
-        setSearchResults(response.data.quizzes || []);
+      },
+    });
+
+    const communityQuizRequest = axios({
+      method: "post",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/community-quizzes/all`,
+      data: {
+        filter: filter,
+        page: 0,
+        limit: 15,
+      },
+    });
+
+    const triviaRequest = axios({
+      method: "post",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
+      data: {
+        filter: filter,
+        page: 0,
+        limit: 15,
+      },
+    });
+
+    const requests = [quizRequest, communityQuizRequest, triviaRequest];
+
+    setIsSearching(true);
+    axios
+      .all(requests)
+      .then((responses) => {
+        const quizzes = responses[0].data.quizzes;
+        const communityQuizzes = responses[1].data.quizzes;
+        const trivia = responses[2].data.trivia;
+
+        setSearchResults({
+          quizzes: quizzes,
+          communityQuizzes: communityQuizzes,
+          trivia: trivia,
+          length: quizzes.length + communityQuizzes.length + trivia.length,
+        });
       })
       .finally(() => setIsSearching(false));
   }, [filter]);
@@ -107,7 +157,33 @@ const Home: FC<AppProps> = ({ pageProps }) => {
   const searchResultItems = useMemo(
     () => (
       <>
-        {searchResults?.map((quiz) => (
+        {searchResults?.trivia.map((quiz) => (
+          <CardListItem
+            key={quiz.id}
+            href={`/daily-trivia/${formatDate(quiz.date)}`}
+          >
+            <TriviaCard
+              name={quiz.name}
+              maxScore={quiz.maxScore}
+              position={{ base: "relative", md: "absolute" }}
+              marginLeft={{ base: 3, md: 0 }}
+            />
+          </CardListItem>
+        ))}
+        {searchResults?.communityQuizzes.map((quiz) => (
+          <CardListItem key={quiz.id} href={`/community-quiz/${quiz.id}`}>
+            <CommunityQuizCard
+              name={quiz.name}
+              userId={quiz.userId}
+              username={quiz.username}
+              maxScore={quiz.maxScore}
+              verified={quiz.verified}
+              position={{ base: "relative", md: "absolute" }}
+              marginLeft={{ base: 3, md: 0 }}
+            />
+          </CardListItem>
+        ))}
+        {searchResults?.quizzes.map((quiz) => (
           <CardListItem
             key={quiz.id}
             href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
@@ -208,7 +284,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
           paddingX={{ base: 0, md: 10 }}
           minHeight="400px"
         >
-          {!!searchResults.length && !isSearching && filter ? (
+          {!!searchResults?.length && !isSearching && filter ? (
             <>
               {!searchResults.length && !isSearching ? (
                 <Flex width="100%" paddingX={3}>
@@ -242,7 +318,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
             <>
               {filter?.length > 2 ? (
                 <>
-                  {!searchResults.length && !isSearching ? (
+                  {!searchResults?.length && !isSearching ? (
                     <Flex width="100%" paddingX={3}>
                       <Alert
                         status="info"
@@ -266,7 +342,36 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                       isLoading={isSearching}
                       paddingX={3}
                     >
-                      {searchResults?.map((quiz) => (
+                      {searchResults?.trivia.map((quiz) => (
+                        <CardListItem
+                          key={quiz.id}
+                          href={`/daily-trivia/${formatDate(quiz.date)}`}
+                        >
+                          <TriviaCard
+                            name={quiz.name}
+                            maxScore={quiz.maxScore}
+                            position={{ base: "relative", md: "absolute" }}
+                            marginLeft={{ base: 3, md: 0 }}
+                          />
+                        </CardListItem>
+                      ))}
+                      {searchResults?.communityQuizzes.map((quiz) => (
+                        <CardListItem
+                          key={quiz.id}
+                          href={`/community-quiz/${quiz.id}`}
+                        >
+                          <CommunityQuizCard
+                            name={quiz.name}
+                            userId={quiz.userId}
+                            username={quiz.username}
+                            maxScore={quiz.maxScore}
+                            verified={quiz.verified}
+                            position={{ base: "relative", md: "absolute" }}
+                            marginLeft={{ base: 3, md: 0 }}
+                          />
+                        </CardListItem>
+                      ))}
+                      {searchResults?.quizzes.map((quiz) => (
                         <CardListItem
                           key={quiz.id}
                           href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
@@ -425,7 +530,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
 };
 
 export const getStaticProps: GetStaticProps = async () => {
-  const body: QuizzesFilterDto = {
+  const quizzesFilter: QuizzesFilterDto = {
     filter: "",
     page: 0,
     limit: 15,
@@ -435,7 +540,7 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data: mapData } = await axiosClient.post(
     `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
     {
-      ...body,
+      ...quizzesFilter,
       filter: "map",
     }
   );
@@ -443,25 +548,29 @@ export const getStaticProps: GetStaticProps = async () => {
   const { data: flagData } = await axiosClient.post(
     `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
     {
-      ...body,
+      ...quizzesFilter,
       filter: "flag",
     }
   );
 
+  const triviaFilter: TriviaFilterDto = {
+    page: 0,
+    limit: 10,
+  };
+
   const { data: triviaData } = await axiosClient.post(
     `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
-    {
-      page: 0,
-      limit: 10,
-    }
+    triviaFilter
   );
+
+  const communityQuizFilter: CommunityQuizFilterDto = {
+    page: 0,
+    limit: 15,
+  };
 
   const { data: communityQuizData } = await axiosClient.post(
     `${process.env.NEXT_PUBLIC_API_URL}/community-quizzes/all`,
-    {
-      page: 0,
-      limit: 15,
-    }
+    communityQuizFilter
   );
 
   if (!mapData && !flagData && !triviaData) {
