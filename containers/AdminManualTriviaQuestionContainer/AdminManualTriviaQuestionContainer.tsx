@@ -10,6 +10,7 @@ import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
 import AdminManualTriviaQuestionForm from "../../components/AdminManualTriviaQuestionForm";
 import { NullTime } from "../../types/null-time";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
+import useTriviaQuestionCategories from "../../hooks/UseTriviaQuestionCategories";
 
 export interface Props {
   editValues?: ManualTriviaQuestionEditValues;
@@ -23,7 +24,11 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
   const toast = useToast();
 
   const { getAuthConfig } = useContext(CurrentUserContext);
-  const { data: types, isLoading } = useTriviaQuestionTypes();
+  const { data: types, isLoading: isLoadingTypes } = useTriviaQuestionTypes();
+  const {
+    data: categories,
+    isLoading: isLoadingCategories,
+  } = useTriviaQuestionCategories();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
@@ -79,6 +84,7 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
 
     const payload = {
       typeId: parseInt(values.typeId),
+      categoryId: parseInt(values.categoryId),
       question: values.question,
       map: values.map,
       highlighted: values.highlighted,
@@ -112,8 +118,9 @@ const AdminManualTriviaQuestionContainer: FC<Props> = ({
   return (
     <AdminManualTriviaQuestionForm
       types={types}
+      categories={categories}
       editValues={editValues}
-      isLoading={isLoading}
+      isLoading={isLoadingTypes || isLoadingCategories}
       isSubmitting={isSubmitting}
       error={error}
       onSubmit={handleSubmit}
