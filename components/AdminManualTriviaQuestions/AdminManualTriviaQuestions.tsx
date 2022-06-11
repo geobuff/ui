@@ -1,6 +1,12 @@
 import React, { FC } from "react";
 
-import { Divider, Flex, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Divider,
+  Flex,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 
 import Card from "../Card";
 import AdminManualTriviaQuestionsTable from "./AdminManualTriviaQuestionsTable";
@@ -18,6 +24,7 @@ interface Props {
   types?: TriviaQuestionType[];
   categories?: TriviaQuestionCategory[];
   isLoading?: boolean;
+  error?: string;
   filterParams?: TriviaQuestionFilterParams;
   onChangeFilterParams?: React.Dispatch<
     React.SetStateAction<TriviaQuestionFilterParams>
@@ -34,6 +41,7 @@ const AdminManualTriviaQuestions: FC<Props> = ({
   categories = [],
   filterParams = { page: 0, limit: 10 },
   isLoading = false,
+  error = "",
   onChangeFilterParams = (): void => {},
   onCreateQuestionClick = (): void => {},
   onEditQuestionClick = (): void => {},
@@ -95,6 +103,15 @@ const AdminManualTriviaQuestions: FC<Props> = ({
   // Prevent layout shifts on load
   if (shouldRenderOnMobile === undefined) {
     return null;
+  }
+
+  if (error) {
+    return (
+      <Alert status="error" borderRadius={6} marginTop={6}>
+        <AlertIcon />
+        {error}
+      </Alert>
+    );
   }
 
   return (

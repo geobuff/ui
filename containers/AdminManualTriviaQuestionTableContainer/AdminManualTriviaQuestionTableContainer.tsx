@@ -19,6 +19,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
 
   const { getAuthConfig } = useContext(CurrentUserContext);
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
+
   const {
     data: categories,
     isLoading: isCategoriesLoading,
@@ -31,9 +32,9 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
 
   const [entries, setEntries] = useState<ManualTriviaQuestion[]>([]);
   const [hasMoreEntries, setHasMoreEntries] = useState(false);
-
   const [isLoadingEntries, setIsLoadingEntries] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [questionId, setQuestionId] = useState(0);
 
@@ -60,9 +61,11 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       .then((response) => {
         setEntries(response.data.questions);
         setHasMoreEntries(response.data.hasMore);
+        setSuccess(false);
       })
+      .catch((error) => setError(error.response.data))
       .finally(() => setIsLoadingEntries(false));
-  }, [getAuthConfig, filterParams]);
+  }, [getAuthConfig, filterParams, success]);
 
   const handleCreateQuestionClick = () => {
     setSelectedQuestion(null);
@@ -111,7 +114,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
     axiosClient
       .delete(`/manual-trivia-questions/${questionId}`, getAuthConfig())
       .then(() => {
-        setEntries(entries.filter((x) => x.id !== questionId));
+        setSuccess(true);
         onDeleteQuestionModalClose();
       })
       .catch((error) => setError(error.response.data))
@@ -184,6 +187,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       axiosClient
         .put(`/manual-trivia-questions/${values.id}`, payload, getAuthConfig())
         .then(() => {
+          setSuccess(true);
           toast(manualTriviaQuestionToast("Edit", "edited"));
         })
         .catch((error) => setError(error.response.data))
@@ -192,6 +196,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       axiosClient
         .post(`/manual-trivia-questions`, payload, getAuthConfig())
         .then(() => {
+          setSuccess(true);
           toast(manualTriviaQuestionToast());
           resetForm();
         })
@@ -209,6 +214,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         categories={categories}
         isLoading={isLoadingEntries || isTypesLoading || isCategoriesLoading}
         filterParams={filterParams}
+        error={error}
         onChangeFilterParams={setFilterParams}
         onCreateQuestionClick={handleCreateQuestionClick}
         onEditQuestionClick={handleEditQuestionClick}
