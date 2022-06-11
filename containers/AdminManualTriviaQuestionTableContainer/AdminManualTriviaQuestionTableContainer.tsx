@@ -10,7 +10,6 @@ import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
-import { TriviaQuestionTypes } from "../../types/trivia-question-types";
 import AdminManualTriviaQuestionContainer from "../AdminManualTriviaQuestionContainer";
 
 const AdminManualTriviaQuestionTableContainer: FC = () => {
@@ -66,23 +65,11 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
     onQuestionModalOpen();
   };
 
-  const getTypeIDByName = (typeName: TriviaQuestionTypes) => {
-    switch (true) {
-      case typeName === "Image":
-        return "2";
-      case typeName === "Flag":
-        return "3";
-      case typeName === "Map":
-        return "4";
-      default:
-        return "1";
-    }
-  };
-
   const handleEditQuestionClick = (question: ManualTriviaQuestion) => {
     setSelectedQuestion({
       id: question.id.toString(),
-      typeId: getTypeIDByName(question.type as TriviaQuestionTypes),
+      typeId: question.typeId.toString(),
+      categoryId: question.categoryId.toString(),
       question: question.question,
       explainer: question.explainer,
       answerOneText: question.answers[0]?.text || "",

@@ -1,5 +1,6 @@
 export interface ManualTriviaQuestionFormSubmit {
   typeId: string;
+  categoryId: string;
   question: string;
   quizDate: string;
   map: string;

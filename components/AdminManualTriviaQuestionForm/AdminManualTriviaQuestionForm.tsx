@@ -43,9 +43,11 @@ import CloseLine from "../../Icons/CloseLine";
 import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
 import { getHighlightRegionsByMap } from "../../helpers/map";
 import { getFlagsByCategory } from "../../helpers/flag";
+import { TriviaQuestionCategory } from "../../types/trivia-question-category";
 
 const validationSchema = Yup.object().shape({
-  typeId: Yup.string().required("Please select a quiz type."),
+  typeId: Yup.string().required("Please select a question type."),
+  categoryId: Yup.string().required("Please select a question category."),
   question: Yup.string().required("Please enter a value for question."),
   answerOneText: Yup.string().required(
     "Please enter a value for answer one text."
@@ -73,6 +75,7 @@ const validationSchema = Yup.object().shape({
 export interface Props {
   editValues?: ManualTriviaQuestionEditValues;
   types?: QuizType[];
+  categories?: TriviaQuestionCategory[];
   isLoading?: boolean;
   isSubmitting?: boolean;
   error?: string;
@@ -86,6 +89,7 @@ export interface Props {
 const AdminManualTriviaQuestionForm: FC<Props> = ({
   editValues,
   types = [],
+  categories = [],
   isSubmitting = false,
   isLoading = false,
   error = "",
@@ -113,6 +117,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
             initialValues={
               editValues || {
                 typeId: "1",
+                categoryId: "1",
                 question: "",
                 explainer: "",
                 quizDate: null,
@@ -137,14 +142,30 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
           >
             {({ values, setFieldValue, errors }) => {
               // eslint-disable-next-line react-hooks/rules-of-hooks
-              const { getRootProps, getRadioProps } = useRadioGroup({
+              const {
+                getRootProps: getTypeRootProps,
+                getRadioProps: getTypeRadioProps,
+              } = useRadioGroup({
                 name: "typeId",
                 value: values.typeId,
                 onChange: (value: number) =>
                   setFieldValue("typeId", value.toString()),
               });
 
-              const radioGroup = getRootProps();
+              const typeRadioGroup = getTypeRootProps();
+
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              const {
+                getRootProps: getCategoryRootProps,
+                getRadioProps: getCategoryRadioProps,
+              } = useRadioGroup({
+                name: "categoryId",
+                value: values.categoryId,
+                onChange: (value: number) =>
+                  setFieldValue("categoryId", value.toString()),
+              });
+
+              const categoryRadioGroup = getCategoryRootProps();
 
               return (
                 <Box maxWidth="600px" width="100%">
@@ -154,51 +175,102 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                   <Divider marginY={5} />
                   <Form autoComplete="off">
                     <Flex direction="column">
-                      <Field name="typeId">
-                        {({ form }) => (
-                          <FormControl
-                            isInvalid={
-                              form.errors.typeId && form.touched.typeId
-                            }
-                          >
-                            <FormLabel htmlFor="typeId" fontWeight="bold">
-                              {"Type"}
-                            </FormLabel>
-                            <HStack
-                              name="typeId"
-                              spacing={3}
-                              minHeight="50px"
-                              {...radioGroup}
+                      <Flex marginBottom={3}>
+                        <Field name="typeId">
+                          {({ form }) => (
+                            <FormControl
+                              isInvalid={
+                                form.errors.typeId && form.touched.typeId
+                              }
                             >
-                              {!types.length ? (
-                                <Text
-                                  width="347px"
-                                  textAlign="center"
-                                  color="gray.500"
-                                >
-                                  {"Loading Types.."}
-                                </Text>
-                              ) : (
-                                types.map((type) => {
-                                  //@ts-expect-error
-                                  const radio = getRadioProps({
-                                    value: type.id.toString(),
-                                  });
-                                  return (
-                                    <RadioButton
-                                      key={type.id}
-                                      radioProps={radio}
-                                      color="teal"
-                                    >
-                                      {type.name}
-                                    </RadioButton>
-                                  );
-                                })
-                              )}
-                            </HStack>
-                          </FormControl>
-                        )}
-                      </Field>
+                              <FormLabel htmlFor="typeId" fontWeight="bold">
+                                {"Type"}
+                              </FormLabel>
+                              <HStack
+                                name="typeId"
+                                spacing={3}
+                                minHeight="50px"
+                                {...typeRadioGroup}
+                              >
+                                {!types.length ? (
+                                  <Text
+                                    width="347px"
+                                    textAlign="center"
+                                    color="gray.500"
+                                  >
+                                    {"Loading types.."}
+                                  </Text>
+                                ) : (
+                                  types.map((type) => {
+                                    //@ts-expect-error
+                                    const radio = getTypeRadioProps({
+                                      value: type.id.toString(),
+                                    });
+                                    return (
+                                      <RadioButton
+                                        key={type.id}
+                                        radioProps={radio}
+                                        color="teal"
+                                      >
+                                        {type.name}
+                                      </RadioButton>
+                                    );
+                                  })
+                                )}
+                              </HStack>
+                            </FormControl>
+                          )}
+                        </Field>
+                      </Flex>
+
+                      <Flex marginY={3}>
+                        <Field name="categoryId">
+                          {({ form }) => (
+                            <FormControl
+                              isInvalid={
+                                form.errors.categoryId &&
+                                form.touched.categoryId
+                              }
+                            >
+                              <FormLabel htmlFor="categoryId" fontWeight="bold">
+                                {"Category"}
+                              </FormLabel>
+                              <HStack
+                                name="categoryId"
+                                spacing={3}
+                                minHeight="50px"
+                                {...categoryRadioGroup}
+                              >
+                                {!categories.length ? (
+                                  <Text
+                                    width="347px"
+                                    textAlign="center"
+                                    color="gray.500"
+                                  >
+                                    {"Loading categories.."}
+                                  </Text>
+                                ) : (
+                                  categories.map((category) => {
+                                    //@ts-expect-error
+                                    const radio = getCategoryRadioProps({
+                                      value: category.id.toString(),
+                                    });
+                                    return (
+                                      <RadioButton
+                                        key={category.id}
+                                        radioProps={radio}
+                                        color="teal"
+                                      >
+                                        {category.name}
+                                      </RadioButton>
+                                    );
+                                  })
+                                )}
+                              </HStack>
+                            </FormControl>
+                          )}
+                        </Field>
+                      </Flex>
 
                       <Divider marginY={5} />
 

@@ -3,7 +3,9 @@ import { NullTime } from "./null-time";
 
 export interface ManualTriviaQuestion {
   id: number;
+  typeId: number;
   type: string;
+  categoryId: number;
   category: string;
   imageUrl?: string;
   flagCode?: string;
