@@ -5,7 +5,7 @@ import Modal from "../Modal";
 export interface Props {
   isOpen?: boolean;
   isSubmitting?: boolean;
-  error?: boolean;
+  error?: string;
   onClose?: () => void;
   onSubmit?: () => void;
 }
@@ -13,7 +13,7 @@ export interface Props {
 const DeleteTriviaQuestionModal: FC<Props> = ({
   isOpen = false,
   isSubmitting = false,
-  error = false,
+  error = "",
   onClose = (): void => {},
   onSubmit = (): void => {},
 }) => {
@@ -44,7 +44,7 @@ const DeleteTriviaQuestionModal: FC<Props> = ({
         {error && (
           <Alert status="error" borderRadius={6} marginBottom={3}>
             <AlertIcon />
-            Error deleting question. Please refresh page and try again.
+            {error}
           </Alert>
         )}
         <Text>{`Are you sure you want to delete this manual trivia question? All corresponding answers will be deleted with it.`}</Text>
