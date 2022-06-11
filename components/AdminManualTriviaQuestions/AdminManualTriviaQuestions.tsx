@@ -1,6 +1,12 @@
 import React, { FC } from "react";
 
-import { Divider, Flex, useBreakpointValue } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Divider,
+  Flex,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 
 import Card from "../Card";
 import AdminManualTriviaQuestionsTable from "./AdminManualTriviaQuestionsTable";
@@ -10,12 +16,15 @@ import AdminManualTriviaQuestionsPaginationControls from "./AdminManualTriviaQue
 import AdminManualTriviaQuestionsFilters from "./AdminManualTriviaQuestionsFilters";
 import { TriviaQuestionType } from "../../types/trivia-question-type";
 import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
+import { TriviaQuestionCategory } from "../../types/trivia-question-category";
 
 interface Props {
   entries?: ManualTriviaQuestion[];
   hasMoreEntries?: boolean;
   types?: TriviaQuestionType[];
+  categories?: TriviaQuestionCategory[];
   isLoading?: boolean;
+  error?: string;
   filterParams?: TriviaQuestionFilterParams;
   onChangeFilterParams?: React.Dispatch<
     React.SetStateAction<TriviaQuestionFilterParams>
@@ -29,8 +38,10 @@ const AdminManualTriviaQuestions: FC<Props> = ({
   entries = [],
   hasMoreEntries = false,
   types = [],
+  categories = [],
   filterParams = { page: 0, limit: 10 },
   isLoading = false,
+  error = "",
   onChangeFilterParams = (): void => {},
   onCreateQuestionClick = (): void => {},
   onEditQuestionClick = (): void => {},
@@ -46,6 +57,19 @@ const AdminManualTriviaQuestions: FC<Props> = ({
       updatedFilterParams.typeId = parseInt(event.target.value);
     } else {
       delete updatedFilterParams.typeId;
+    }
+
+    onChangeFilterParams(updatedFilterParams);
+  };
+
+  const handleChangeCategory = (
+    event: React.ChangeEvent<HTMLSelectElement>
+  ): void => {
+    const updatedFilterParams = { ...filterParams, page: 0 };
+    if (event.target.value) {
+      updatedFilterParams.categoryId = parseInt(event.target.value);
+    } else {
+      delete updatedFilterParams.categoryId;
     }
 
     onChangeFilterParams(updatedFilterParams);
@@ -81,6 +105,15 @@ const AdminManualTriviaQuestions: FC<Props> = ({
     return null;
   }
 
+  if (error) {
+    return (
+      <Alert status="error" borderRadius={6} marginTop={6}>
+        <AlertIcon />
+        {error}
+      </Alert>
+    );
+  }
+
   return (
     <Flex
       direction="column"
@@ -108,8 +141,13 @@ const AdminManualTriviaQuestions: FC<Props> = ({
           <AdminManualTriviaQuestionsFilters
             types={types}
             typeId={filterParams.typeId ? filterParams.typeId.toString() : ""}
+            categories={categories}
+            categoryId={
+              filterParams.categoryId ? filterParams.categoryId.toString() : ""
+            }
             isLoading={isLoading}
             onChangeType={handleChangeType}
+            onChangeCategory={handleChangeCategory}
             onChangeSearchQuestion={handleChangeSearchQuestion}
           />
 

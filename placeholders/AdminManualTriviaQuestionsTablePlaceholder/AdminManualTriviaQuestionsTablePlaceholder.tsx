@@ -43,9 +43,6 @@ const AdminManualTriviaQuestionsTablePlaceholder: FC<Props> = ({
             <Skeleton height="24px" width="80px" />
           </Th>
           <Th textAlign="left">
-            <Skeleton height="24px" width="80px" />
-          </Th>
-          <Th textAlign="left">
             <Skeleton height="24px" width="60px" opacity={0} />
           </Th>
         </Tr>
@@ -53,9 +50,6 @@ const AdminManualTriviaQuestionsTablePlaceholder: FC<Props> = ({
       <Tbody>
         {[...Array(rows)].map((_, i) => (
           <Tr padding={0} key={i}>
-            <Td>
-              <Skeleton height="26px" />
-            </Td>
             <Td>
               <Skeleton height="26px" />
             </Td>
