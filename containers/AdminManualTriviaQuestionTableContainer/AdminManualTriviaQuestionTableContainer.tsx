@@ -5,6 +5,7 @@ import AdminManualTriviaQuestions from "../../components/AdminManualTriviaQuesti
 import DeleteTriviaQuestionModal from "../../components/DeleteTriviaQuestionModal";
 import Modal from "../../components/Modal";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
+import useTriviaQuestionCategories from "../../hooks/UseTriviaQuestionCategories";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
@@ -15,6 +16,10 @@ import AdminManualTriviaQuestionContainer from "../AdminManualTriviaQuestionCont
 const AdminManualTriviaQuestionTableContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
+  const {
+    data: categories,
+    isLoading: isCategoriesLoading,
+  } = useTriviaQuestionCategories();
 
   const [filterParams, setFilterParams] = useState<TriviaQuestionFilterParams>({
     page: 0,
@@ -128,7 +133,8 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         entries={entries}
         hasMoreEntries={hasMoreEntries}
         types={types}
-        isLoading={isLoadingEntries || isTypesLoading}
+        categories={categories}
+        isLoading={isLoadingEntries || isTypesLoading || isCategoriesLoading}
         filterParams={filterParams}
         onChangeFilterParams={setFilterParams}
         onCreateQuestionClick={handleCreateQuestionClick}

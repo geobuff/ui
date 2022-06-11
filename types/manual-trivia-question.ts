@@ -4,6 +4,7 @@ import { NullTime } from "./null-time";
 export interface ManualTriviaQuestion {
   id: number;
   type: string;
+  category: string;
   imageUrl?: string;
   flagCode?: string;
   map?: string;
