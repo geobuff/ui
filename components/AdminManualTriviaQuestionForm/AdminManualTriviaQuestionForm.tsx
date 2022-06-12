@@ -24,6 +24,7 @@ import {
   Link,
   Select,
   VStack,
+  SimpleGrid,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import DatePicker from "react-datepicker";
@@ -235,10 +236,10 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                               <FormLabel htmlFor="categoryId" fontWeight="bold">
                                 {"Category"}
                               </FormLabel>
-                              <HStack
+                              <SimpleGrid
+                                columns={2}
                                 name="categoryId"
                                 spacing={3}
-                                minHeight="50px"
                                 {...categoryRadioGroup}
                               >
                                 {!categories.length ? (
@@ -266,7 +267,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                     );
                                   })
                                 )}
-                              </HStack>
+                              </SimpleGrid>
                             </FormControl>
                           )}
                         </Field>

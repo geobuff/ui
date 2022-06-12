@@ -33,7 +33,7 @@ const AdminOrdersContainer: FC = () => {
   const { getAuthConfig } = useContext(CurrentUserContext);
   const [orderPage, setOrderPage] = useState<OrderPageDto>();
   const [page, setPage] = useState(0);
-  const [statusId, setStatusId] = useState(OrderStatuses.PENDING);
+  const [statusId, setStatusId] = useState(OrderStatuses.PAYMENT_RECEIVED);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderId, setOrderId] = useState(0);
