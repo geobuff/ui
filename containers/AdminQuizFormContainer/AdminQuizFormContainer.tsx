@@ -7,6 +7,7 @@ import { quizToast } from "../../helpers/toasts";
 import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";
 import useQuizTypes from "../../hooks/UseQuizTypes";
+import { CreateEditQuizPayload } from "../../types/create-edit-quiz-payload";
 import { NullInt } from "../../types/null-int";
 import { QuizEditValues } from "../../types/quiz-edit-values";
 
@@ -40,7 +41,7 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
       Valid: !!values.continentId,
     };
 
-    const payload = {
+    const payload: CreateEditQuizPayload = {
       typeId: parseInt(values.typeId),
       badgeId: badgeId,
       continentId: continentId,
@@ -54,10 +55,10 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
       plural: values.plural,
       apiPath: values.apiPath,
       route: values.route,
-      hasLeaderboard: values.hasLeaderboard,
-      hasGrouping: values.hasGrouping,
-      hasFlags: values.hasFlags,
-      enabled: values.enabled,
+      hasLeaderboard: values.hasLeaderboard === "true",
+      hasGrouping: values.hasGrouping === "true",
+      hasFlags: values.hasFlags === "true",
+      enabled: values.enabled === "true",
     };
 
     if (editValues) {

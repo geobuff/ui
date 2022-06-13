@@ -8,14 +8,13 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 import React, { FC } from "react";
-import { FormOption, FormSetFieldValue, FormValue } from "../../../types/form";
-import RadioGroupFormField from "../../FormFields/RadioGroupFormField";
+import { FormSetFieldValue, FormValue } from "../../../types/form";
+import TrueFalseFormField from "../../FormFields/TrueFalseFormField";
 
 export interface Props extends FlexProps {
   name: string;
   label?: string;
   helper?: string;
-  options: FormOption[];
   selectedValue?: FormValue;
   setFieldHelper?: FormSetFieldValue;
   direction?: "row" | "column";
@@ -25,7 +24,6 @@ const CommunityQuizRadioGroupFormField: FC<Props> = ({
   name,
   label = "",
   helper = "",
-  options = [],
   selectedValue,
   setFieldHelper = () => {},
   direction = "column",
@@ -51,12 +49,11 @@ const CommunityQuizRadioGroupFormField: FC<Props> = ({
                   <FormHelperText marginTop={0}>{helper}</FormHelperText>
                 )}
               </Flex>
-              <RadioGroupFormField
+              <TrueFalseFormField
                 name={name}
                 label={label}
                 isLabelVisible={false}
                 selectedValue={selectedValue}
-                options={options}
                 setFieldHelper={setFieldHelper}
               />
             </Flex>
