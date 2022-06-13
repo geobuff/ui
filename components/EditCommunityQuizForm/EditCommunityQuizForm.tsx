@@ -27,7 +27,6 @@ import {
 import CommunityQuizFormField from "../CommunityQuizForm/CommunityQuizFormField";
 import CommunityQuizQuestionsField from "../CommunityQuizForm/CommunityQuizQuestionsField";
 import CommunityQuizQuestionForm from "../CommunityQuizForm/CommunityQuizQuestionForm";
-import { booleanRadioOptions } from "../../helpers/form";
 import CommunityQuizRadioGroupFormField from "../CommunityQuizForm/CommunityQuizRadioGroupFormField";
 import CommunityQuizTextAreaFormField from "../CommunityQuizForm/CommunityQuizTextAreaFormField";
 
@@ -165,7 +164,6 @@ const EditCommunityQuizForm: FC<Props> = ({
                 label="Is Public?"
                 helper="Public quizzes are visible to all users. Private quizzes give you the option to share a link with others."
                 selectedValue={values.isPublic}
-                options={booleanRadioOptions}
                 setFieldHelper={setFieldValue}
                 direction={isMobile ? "column" : "row"}
               />

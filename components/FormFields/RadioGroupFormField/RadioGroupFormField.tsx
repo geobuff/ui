@@ -16,6 +16,7 @@ export interface Props {
   name: string;
   label?: string;
   isLabelVisible?: boolean;
+  color?: string;
   options: FormOption[];
   selectedValue?: FormValue;
   setFieldHelper?: FormSetFieldValue;
@@ -25,6 +26,7 @@ const RadioGroupFormField: FC<Props> = ({
   name,
   label,
   isLabelVisible = true,
+  color = "green",
   options = [],
   selectedValue,
   setFieldHelper = () => {},
@@ -57,7 +59,11 @@ const RadioGroupFormField: FC<Props> = ({
                   //@ts-ignore
                   const radio = getRadioProps({ value });
                   return (
-                    <RadioButton key={value as Key} radioProps={radio}>
+                    <RadioButton
+                      key={value as Key}
+                      radioProps={radio}
+                      color={color}
+                    >
                       {label}
                     </RadioButton>
                   );

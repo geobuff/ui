@@ -27,7 +27,6 @@ import {
   CommunityQuizFormQuestion,
   CommunityQuizFormSubmit,
 } from "../../types/community-quiz-form-submit";
-import { booleanRadioOptions } from "../../helpers/form";
 import CommunityQuizRadioGroupFormField from "./CommunityQuizRadioGroupFormField";
 import CommunityQuizTextAreaFormField from "./CommunityQuizTextAreaFormField";
 
@@ -170,7 +169,6 @@ const CommunityQuizForm: FC<Props> = ({
                 label="Is Public?"
                 helper="Public quizzes are visible to all users. Private quizzes give you the option to share a link with others."
                 selectedValue={values.isPublic}
-                options={booleanRadioOptions}
                 setFieldHelper={setFieldValue}
                 direction={isMobile ? "column" : "row"}
               />
