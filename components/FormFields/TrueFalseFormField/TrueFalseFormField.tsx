@@ -1,8 +1,11 @@
-import { color } from "@chakra-ui/react";
 import React, { FC } from "react";
-import { booleanRadioOptions } from "../../../helpers/form";
 import { FormSetFieldValue, FormValue } from "../../../types/form";
 import RadioGroupFormField from "../RadioGroupFormField";
+
+const options = [
+  { label: "True", value: "true" },
+  { label: "False", value: "false" },
+];
 
 export interface Props {
   name: string;
@@ -27,7 +30,7 @@ const TrueFalseFormField: FC<Props> = ({
     isLabelVisible={isLabelVisible}
     color={color}
     selectedValue={selectedValue}
-    options={booleanRadioOptions}
+    options={options}
     setFieldHelper={setFieldHelper}
   />
 );
