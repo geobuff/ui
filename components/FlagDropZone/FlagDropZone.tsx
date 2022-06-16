@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import {
   AspectRatio,
-  Box,
   Fade,
   Flex,
   IconButton,
@@ -26,7 +25,6 @@ interface Props {
   hasGameStarted?: boolean;
   submissionCorrect?: boolean;
   submissionIncorrect?: boolean;
-  showSkipQuestion?: boolean;
   onSkipQuestion?: () => void;
   isSkipButtonDisabled?: boolean;
 }
@@ -37,7 +35,6 @@ const FlagDropZone: FC<Props> = ({
   hasGameStarted = false,
   submissionCorrect = false,
   submissionIncorrect = false,
-  showSkipQuestion = false,
   isSkipButtonDisabled = false,
   onSkipQuestion = (): void => {},
 }) => {

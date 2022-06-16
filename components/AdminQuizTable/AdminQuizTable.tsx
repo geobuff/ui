@@ -84,10 +84,10 @@ const AdminQuizTable: FC<Props> = ({
       plural: quiz.plural,
       apiPath: quiz.apiPath,
       route: quiz.route,
-      hasLeaderboard: quiz.hasLeaderboard,
-      hasGrouping: quiz.hasGrouping,
-      hasFlags: quiz.hasFlags,
-      enabled: quiz.enabled,
+      hasLeaderboard: quiz.hasLeaderboard.toString(),
+      hasGrouping: quiz.hasGrouping.toString(),
+      hasFlags: quiz.hasFlags.toString(),
+      enabled: quiz.enabled.toString(),
     });
 
     onOpen();

@@ -4,8 +4,9 @@ import { QuestionType } from "../../types/manual-trivia-question-form-submit";
 
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
-import { Flex } from "@chakra-ui/react";
+import { Box, Flex } from "@chakra-ui/react";
 import Image from "../Image";
+import { getGameMap, getMapStyles, initializeMap } from "../../helpers/map";
 
 export interface Props {
   typeId?: string;
@@ -13,14 +14,6 @@ export interface Props {
   highlighted?: string;
   imageUrl?: string;
 }
-
-const mapStyles = {
-  height: "100%",
-  width: "100%",
-  fill: "#6dca94",
-  marginTop: "40px",
-  marginBottom: "10px",
-};
 
 const getContentByType = (
   typeId: string,
@@ -34,22 +27,13 @@ const getContentByType = (
         return <></>;
       }
 
-      let svgMap = JSON.parse(JSON.stringify(Maps[map]));
-      if (highlighted) {
-        svgMap = {
-          ...svgMap,
-          paths: svgMap.paths.map((x) => {
-            if (x.name.toLowerCase() === highlighted.toLowerCase()) {
-              x.style = { fill: "#e24f4f" };
-            } else {
-              x.style = { fill: "#6dca94" };
-            }
-            return x;
-          }),
-        };
-      }
-
-      return <SVGMap map={svgMap} mapStyle={mapStyles} />;
+      const gameMap = getGameMap(Maps[map], map, highlighted);
+      initializeMap(gameMap);
+      return (
+        <Box marginTop="40px" marginBottom="10px">
+          <SVGMap map={gameMap} mapStyle={getMapStyles(map)} />
+        </Box>
+      );
     case QuestionType.Image:
       return imageUrl ? (
         <Image

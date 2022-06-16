@@ -32,7 +32,7 @@ import { Badge } from "../../types/badge";
 import RadioButton from "../RadioButton";
 import { QuizTypes } from "../../types/quiz-types";
 import { QuizEditValues } from "../../types/quiz-edit-values";
-import { booleanRadioOptions } from "../../helpers/form";
+import TrueFalseFormField from "../FormFields/TrueFalseFormField";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),
@@ -111,10 +111,10 @@ const AdminQuizForm: FC<Props> = ({
                 plural: "",
                 apiPath: "",
                 route: "",
-                hasLeaderboard: false,
-                hasGrouping: false,
-                hasFlags: false,
-                enabled: false,
+                hasLeaderboard: "false",
+                hasGrouping: "false",
+                hasFlags: "false",
+                enabled: "false",
               }
             }
             validationSchema={validationSchema}
@@ -157,54 +157,6 @@ const AdminQuizForm: FC<Props> = ({
               });
 
               const continentRadioGroup = getContinentRootProps();
-
-              const {
-                getRootProps: getHasLeaderboardRootProps,
-                getRadioProps: getHasLeaderboardRadioProps,
-              } = useRadioGroup({
-                name: "hasLeaderboard",
-                value: values.hasLeaderboard.toString(),
-                onChange: (value: string) =>
-                  setFieldValue("hasLeaderboard", value === "true"),
-              });
-
-              const hasLeaderboardRadioGroup = getHasLeaderboardRootProps();
-
-              const {
-                getRootProps: getHasGroupingRootProps,
-                getRadioProps: getHasGroupingRadioProps,
-              } = useRadioGroup({
-                name: "hasGrouping",
-                value: values.hasGrouping.toString(),
-                onChange: (value: string) =>
-                  setFieldValue("hasGrouping", value === "true"),
-              });
-
-              const hasGroupingRadioGroup = getHasGroupingRootProps();
-
-              const {
-                getRootProps: getHasFlagsRootProps,
-                getRadioProps: getHasFlagsRadioProps,
-              } = useRadioGroup({
-                name: "hasFlags",
-                value: values.hasFlags.toString(),
-                onChange: (value: string) =>
-                  setFieldValue("hasFlags", value === "true"),
-              });
-
-              const hasFlagsRadioGroup = getHasFlagsRootProps();
-
-              const {
-                getRootProps: getEnabledRootProps,
-                getRadioProps: getEnabledRadioProps,
-              } = useRadioGroup({
-                name: "enabled",
-                value: values.enabled.toString(),
-                onChange: (value: string) =>
-                  setFieldValue("enabled", value === "true"),
-              });
-
-              const enabledRadioGroup = getEnabledRootProps();
 
               return (
                 <Box maxWidth="600px" width="100%">
@@ -601,35 +553,13 @@ const AdminQuizForm: FC<Props> = ({
                                 form.touched.hasLeaderboard
                               }
                             >
-                              <FormLabel
-                                htmlFor="hasLeaderboard"
-                                fontWeight="bold"
-                              >
-                                {"Has leaderboard?"}
-                              </FormLabel>
-                              <HStack
-                                name="hasLeaderboard"
-                                spacing={3}
-                                minHeight="50px"
-                                {...hasLeaderboardRadioGroup}
-                              >
-                                {booleanRadioOptions.map((entry, index) => {
-                                  //@ts-expect-error
-                                  const radio = getHasLeaderboardRadioProps({
-                                    value: entry.value,
-                                  });
-
-                                  return (
-                                    <RadioButton
-                                      key={index}
-                                      radioProps={radio}
-                                      color="teal"
-                                    >
-                                      {entry.label}
-                                    </RadioButton>
-                                  );
-                                })}
-                              </HStack>
+                              <TrueFalseFormField
+                                name={"hasLeaderboard"}
+                                label={"Has leaderboard?"}
+                                selectedValue={values.hasLeaderboard}
+                                setFieldHelper={setFieldValue}
+                                color="teal"
+                              />
                             </FormControl>
                           )}
                         </Field>
@@ -644,38 +574,16 @@ const AdminQuizForm: FC<Props> = ({
                                 form.touched.hasGrouping
                               }
                             >
-                              <FormLabel
-                                htmlFor="hasGrouping"
-                                fontWeight="bold"
-                              >
-                                {"Has grouping?"}
-                              </FormLabel>
+                              <TrueFalseFormField
+                                name={"hasGrouping"}
+                                label={"Has grouping?"}
+                                selectedValue={values.hasGrouping}
+                                setFieldHelper={setFieldValue}
+                                color="teal"
+                              />
                               <FormHelperText lineHeight="1.50" mb={3}>
                                 {`Only applicable if "Group" values have been added to the mappings for the quiz e.g. the "world-countries" mappings have been grouped by continents. Discuss with Ash if unsure.`}
                               </FormHelperText>
-                              <HStack
-                                name="hasGrouping"
-                                spacing={3}
-                                minHeight="50px"
-                                {...hasGroupingRadioGroup}
-                              >
-                                {booleanRadioOptions.map((entry, index) => {
-                                  //@ts-expect-error
-                                  const radio = getHasGroupingRadioProps({
-                                    value: entry.value,
-                                  });
-
-                                  return (
-                                    <RadioButton
-                                      key={index}
-                                      radioProps={radio}
-                                      color="teal"
-                                    >
-                                      {entry.label}
-                                    </RadioButton>
-                                  );
-                                })}
-                              </HStack>
                             </FormControl>
                           )}
                         </Field>
@@ -689,35 +597,16 @@ const AdminQuizForm: FC<Props> = ({
                                 form.errors.hasFlags && form.touched.hasFlags
                               }
                             >
-                              <FormLabel htmlFor="hasFlags" fontWeight="bold">
-                                {"Has flags?"}
-                              </FormLabel>
+                              <TrueFalseFormField
+                                name={"hasFlags"}
+                                label={"Has flags?"}
+                                selectedValue={values.hasFlags}
+                                setFieldHelper={setFieldValue}
+                                color="teal"
+                              />
                               <FormHelperText lineHeight="1.50" mb={3}>
                                 {`Only applicable if flag mappings have been added to https://github.com/geobuff/flags.`}
                               </FormHelperText>
-                              <HStack
-                                name="hasFlags"
-                                spacing={3}
-                                minHeight="50px"
-                                {...hasFlagsRadioGroup}
-                              >
-                                {booleanRadioOptions.map((entry, index) => {
-                                  //@ts-expect-error
-                                  const radio = getHasFlagsRadioProps({
-                                    value: entry.value,
-                                  });
-
-                                  return (
-                                    <RadioButton
-                                      key={index}
-                                      radioProps={radio}
-                                      color="teal"
-                                    >
-                                      {entry.label}
-                                    </RadioButton>
-                                  );
-                                })}
-                              </HStack>
                             </FormControl>
                           )}
                         </Field>
@@ -731,32 +620,13 @@ const AdminQuizForm: FC<Props> = ({
                                 form.errors.enabled && form.touched.enabled
                               }
                             >
-                              <FormLabel htmlFor="enabled" fontWeight="bold">
-                                {"Enabled?"}
-                              </FormLabel>
-                              <HStack
-                                name="enabled"
-                                spacing={3}
-                                minHeight="50px"
-                                {...enabledRadioGroup}
-                              >
-                                {booleanRadioOptions.map((entry, index) => {
-                                  //@ts-expect-error
-                                  const radio = getEnabledRadioProps({
-                                    value: entry.value,
-                                  });
-
-                                  return (
-                                    <RadioButton
-                                      key={index}
-                                      radioProps={radio}
-                                      color="teal"
-                                    >
-                                      {entry.label}
-                                    </RadioButton>
-                                  );
-                                })}
-                              </HStack>
+                              <TrueFalseFormField
+                                name={"enabled"}
+                                label={"Enabled?"}
+                                selectedValue={values.enabled}
+                                setFieldHelper={setFieldValue}
+                                color="teal"
+                              />
                             </FormControl>
                           )}
                         </Field>
@@ -825,7 +695,7 @@ const AdminQuizForm: FC<Props> = ({
                                     textAlign="center"
                                     color="gray.500"
                                   >
-                                    {"Loading Badges.."}
+                                    {"Loading badges.."}
                                   </Text>
                                 ) : (
                                   badges.map((badge) => {
@@ -881,7 +751,7 @@ const AdminQuizForm: FC<Props> = ({
                                     textAlign="center"
                                     color="gray.500"
                                   >
-                                    {"Loading Continents.."}
+                                    {"Loading continents.."}
                                   </Text>
                                 ) : (
                                   continents.map((continent) => {
