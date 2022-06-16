@@ -4,13 +4,19 @@ import { SVGMap } from "@geobuff/svg-map";
 
 import GameMapInteraction from "../GameMapInteraction";
 import { SVGBase } from "../../types/svg-base";
+import { getInitialMapFill } from "../../helpers/map";
 
 interface Props {
   showTooltip?: boolean;
   map?: SVGBase;
+  mapClassName?: string;
 }
 
-const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
+const GameMap: FC<Props> = ({
+  showTooltip = false,
+  map = null,
+  mapClassName = "",
+}) => {
   const [tooltipText, setTooltipText] = useState("");
   const [tooltipOpen, setTooltipOpen] = useState(false);
   const [tooltipTop, setTooltipTop] = useState(0);
@@ -21,7 +27,7 @@ const GameMap: FC<Props> = ({ showTooltip = false, map = null }) => {
   const mapStyle = {
     height: isMobile ? "initial" : "90vh",
     minWidth: isMobile ? "initial" : "100%",
-    fill: "#6dca94",
+    fill: getInitialMapFill(mapClassName),
     margin: "12px",
   };
 

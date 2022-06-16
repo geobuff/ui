@@ -413,9 +413,6 @@ const GameFlagQuiz: FC<Props> = ({
                     hasGameStarted={hasGameStarted}
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}
-                    showSkipQuestion={
-                      incorrectCount >= INCORRECT_ANSWER_THRESHOLD
-                    }
                     isSkipButtonDisabled={disableSkipButton}
                     onSkipQuestion={handleSkipQuestion}
                   />

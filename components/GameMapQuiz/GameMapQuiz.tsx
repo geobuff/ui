@@ -49,10 +49,12 @@ import { Result } from "../../types/result";
 import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
-
-const pathSelectedStyle = {
-  fill: "#27ae60",
-};
+import {
+  clearMapFill,
+  getPathSelectedFill,
+  initializeMap,
+  updateMapOnSuccessfulSubmission,
+} from "../../helpers/map";
 
 interface Props {
   time?: number;
@@ -67,6 +69,7 @@ interface Props {
   hasGrouping?: boolean;
   mapping?: Mapping[];
   map?: SVGBase;
+  mapClassName?: string;
 }
 
 const GameMapQuiz: FC<Props> = ({
@@ -82,10 +85,12 @@ const GameMapQuiz: FC<Props> = ({
   hasGrouping = false,
   mapping = [],
   map = null,
+  mapClassName = "",
 }) => {
   const router = useRouter();
   const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
 
+  const pathSelectedFill = getPathSelectedFill(mapClassName);
   const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
   const [recentSubmissions, setRecentSubmissions] = useState<Result[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
@@ -111,6 +116,10 @@ const GameMapQuiz: FC<Props> = ({
     () => DateTime.now().plus({ seconds: time }),
     [time]
   );
+
+  useEffect(() => {
+    initializeMap(map);
+  }, []);
 
   useEffect(() => {
     if (score === 0 && !isUserLoading && user && router.query.data) {
@@ -179,11 +188,7 @@ const GameMapQuiz: FC<Props> = ({
   });
 
   const handleGameStart = (): void => {
-    map.paths.map((x) => {
-      x.style = {};
-      return x;
-    });
-
+    clearMapFill(map);
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
     setScore(0);
@@ -272,15 +277,11 @@ const GameMapQuiz: FC<Props> = ({
         }
       );
 
-      map.paths
-        .filter(
-          (x) =>
-            x.name.toLowerCase() === matchedSubmission.svgName.toLowerCase()
-        )
-        .map((x) => {
-          x.style = pathSelectedStyle;
-          return x;
-        });
+      updateMapOnSuccessfulSubmission(
+        map,
+        matchedSubmission.svgName.toLowerCase(),
+        pathSelectedFill
+      );
 
       setScore(updatedCheckedSubmissions.length);
       setRecentSubmissions(updatedRecentSubmissions.reverse());
@@ -381,7 +382,11 @@ const GameMapQuiz: FC<Props> = ({
           )}
 
           <Fade in>
-            <GameMap map={map} showTooltip={!hasGameStarted} />
+            <GameMap
+              map={map}
+              showTooltip={!hasGameStarted}
+              mapClassName={mapClassName}
+            />
           </Fade>
 
           {shouldDisplayOnMobile && (

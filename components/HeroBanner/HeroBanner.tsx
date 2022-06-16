@@ -19,7 +19,7 @@ const actions: SubHeaderAction[] = [
     link: "/faq?index=4",
     value: "collect GeoCoin each time you complete a quiz",
   },
-  { link: "/merch", value: "cop an item from our summer collection" },
+  { link: "/merch", value: "cop an item from our winter collection" },
 ];
 
 const initialIndex = Math.floor(Math.random() * actions.length);

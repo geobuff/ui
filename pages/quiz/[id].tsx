@@ -92,6 +92,7 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
             id={quiz?.id}
             mapping={mapping}
             map={Maps[`${quiz.mapSVG}`]}
+            mapClassName={quiz.mapSVG}
             hasLeaderboard={quiz?.hasLeaderboard}
             hasFlags={quiz?.hasFlags}
             hasGrouping={quiz?.hasGrouping}

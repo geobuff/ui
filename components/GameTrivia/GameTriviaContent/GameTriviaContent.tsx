@@ -16,12 +16,7 @@ import { use100vh } from "react-div-100vh";
 import CustomFlag from "../../CustomFlag";
 import Image from "../../Image";
 import { TriviaQuestionTypes } from "../../../types/trivia-question-types";
-
-const mapStyles = {
-  height: "100%",
-  width: "100%",
-  fill: "#6dca94",
-};
+import { getGameMap, getMapStyles, initializeMap } from "../../../helpers/map";
 
 const getContentByType = (
   type: TriviaQuestionTypes,
@@ -49,22 +44,9 @@ const getContentByType = (
         </AspectRatio>
       );
     case "Map":
-      let svgMap = JSON.parse(JSON.stringify(Maps[map]));
-      if (highlighted) {
-        svgMap = {
-          ...svgMap,
-          paths: svgMap.paths.map((x) => {
-            if (x.name.toLowerCase() === highlighted.toLowerCase()) {
-              x.style = { fill: "#e24f4f" };
-            } else {
-              x.style = { fill: "#6dca94" };
-            }
-            return x;
-          }),
-        };
-      }
-
-      return <SVGMap map={svgMap} mapStyle={mapStyles} />;
+      const gameMap = getGameMap(Maps[map], map, highlighted);
+      initializeMap(gameMap);
+      return <SVGMap map={gameMap} mapStyle={getMapStyles(map)} />;
     case "Image":
       return (
         <Flex
