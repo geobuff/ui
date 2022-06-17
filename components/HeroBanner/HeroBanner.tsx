@@ -1,6 +1,7 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import Link from "next/link";
 import { Box, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
+import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const NEXT_ACTION_DELAY = 10000;
 const FADE_OUT_DELAY = 1000;
@@ -9,20 +10,6 @@ interface SubHeaderAction {
   link: string;
   value: string;
 }
-
-const actions: SubHeaderAction[] = [
-  {
-    link: "/leaderboard",
-    value: "compete with players from all over the globe!",
-  },
-  {
-    link: "/faq?index=4",
-    value: "collect GeoCoin each time you complete a quiz",
-  },
-  { link: "/merch", value: "cop an item from our winter collection" },
-];
-
-const initialIndex = Math.floor(Math.random() * actions.length);
 
 export interface Props {
   title?: string;
@@ -37,8 +24,30 @@ const HeroBanner: FC<Props> = ({
   backgroundColor = "linear-gradient(90deg, #27AE60 0%, #219250 100%)",
   backgroundImageUrl = "/world-map.svg",
 }) => {
-  const [index, setIndex] = useState(initialIndex);
+  const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
+
+  const [actions, setActions] = useState<SubHeaderAction[]>([]);
+  const [index, setIndex] = useState(0);
   const [shouldFadeOut, setShouldFadeOut] = useState(false);
+
+  useEffect(() => {
+    if (!isUserLoading) {
+      const actions = [
+        {
+          link: "/leaderboard",
+          value: "compete with players from all over the globe!",
+        },
+        {
+          link: user ? "/community-quiz/create" : "/community-quiz/about",
+          value: "build a community quiz to share with your peers",
+        },
+        { link: "/merch", value: "cop an item from our winter collection" },
+      ];
+
+      setActions(actions);
+      setIndex(Math.floor(Math.random() * actions.length));
+    }
+  }, [user, isUserLoading]);
 
   const delayedSetFadeOut = () =>
     setTimeout(() => {
@@ -107,11 +116,13 @@ const HeroBanner: FC<Props> = ({
               fontWeight="medium"
             >
               {"Create an account and"}{" "}
-              <Link href={actions[index].link}>
-                <ChakraLink textDecoration="underline">
-                  {actions[index].value}
-                </ChakraLink>
-              </Link>
+              {!isUserLoading && (
+                <Link href={actions[index]?.link ?? ""}>
+                  <ChakraLink textDecoration="underline">
+                    {actions[index]?.value}
+                  </ChakraLink>
+                </Link>
+              )}
             </Text>
           </Box>
         </Flex>

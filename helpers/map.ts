@@ -13,10 +13,10 @@ import {
 const OCEAN_QUIZ_CLASSNAMES = ["UkSeas", "WorldOceans"];
 
 export const getHighlightRegionsByMap = (map: string): Option[] => {
-  const selectedMap = Maps[map];
+  const selectedMap: SVGBase = Maps[map];
 
   if (selectedMap !== undefined) {
-    return selectedMap.paths
+    return selectedMap.elements
       .filter((x) => x.id)
       .map(({ svgName, name }) => ({
         value: svgName,
@@ -30,11 +30,11 @@ export const getGameMap = (
   mapClassName: string,
   highlighted?: string
 ): any => {
-  let result = JSON.parse(JSON.stringify(map));
+  let result: SVGBase = JSON.parse(JSON.stringify(map));
   if (highlighted) {
     result = {
       ...result,
-      paths: result.paths.map((x) => {
+      elements: result.elements.map((x) => {
         if (!x.id) {
           x.style = { fill: GEOBUFF_GREY };
         } else if (x.name?.toLowerCase() === highlighted.toLowerCase()) {
@@ -54,7 +54,7 @@ export const getGameMap = (
 };
 
 export const initializeMap = (map: SVGBase): void => {
-  map.paths
+  map.elements
     .filter((x) => !x.id)
     .map((x) => {
       x.style = { fill: GEOBUFF_GREY };
@@ -63,7 +63,7 @@ export const initializeMap = (map: SVGBase): void => {
 };
 
 export const clearMapFill = (map: SVGBase): void => {
-  map.paths.map((x) => {
+  map.elements.map((x) => {
     if (x.id) {
       x.style = {};
     }
@@ -76,7 +76,7 @@ export const updateMapOnSuccessfulSubmission = (
   submission: string,
   pathSelectedFill: string
 ): void => {
-  map.paths
+  map.elements
     .filter((x) => x.name.toLowerCase() === submission)
     .map((x) => {
       x.style = { fill: pathSelectedFill };
