@@ -61,7 +61,7 @@ const furtherInfoLinks = [
 ];
 
 const footerCopy =
-  "GeoBuff is the world's leading competitive platform for geography-based trivia.";
+  "GeoBuff is the world's leading platform for Geography education and trivia.";
 
 const currentYear = new Date().getFullYear();
 const footerLegal = `© ${currentYear} GeoBuff. All rights reserved.`;
