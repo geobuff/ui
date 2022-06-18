@@ -34,7 +34,7 @@ const AdminManualTriviaQuestionsFilters: FC<Props> = ({
   onChangeCategory = () => {},
   onChangeSearchQuestion = () => {},
 }) => {
-  const handleSearchQuestionDebounced = debounce(250, (event) =>
+  const handleSearchQuestionDebounced = debounce(1000, (event) =>
     onChangeSearchQuestion(event)
   );
 
