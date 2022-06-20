@@ -37,6 +37,7 @@ const validationSchema = Yup.object().shape({
 interface Props {
   error?: string;
   isSuccess?: boolean;
+  isLoading?: boolean;
   isSubmitting?: boolean;
   onSubmit?: (values: ForgotPasswordFormSubmit) => void;
 }
@@ -44,6 +45,7 @@ interface Props {
 const ForgotPasswordForm: FC<Props> = ({
   error = "",
   isSuccess = false,
+  isLoading = false,
   isSubmitting = false,
   onSubmit = (values: ForgotPasswordFormSubmit): void => {},
 }) => {
@@ -183,6 +185,7 @@ const ForgotPasswordForm: FC<Props> = ({
                 width="100%"
                 type="submit"
                 isLoading={isSubmitting}
+                disabled={isLoading}
               >
                 {"Reset"}
               </Button>

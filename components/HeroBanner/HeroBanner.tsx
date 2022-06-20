@@ -1,7 +1,7 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
 import { Box, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { useSession } from "next-auth/react";
 
 const NEXT_ACTION_DELAY = 10000;
 const FADE_OUT_DELAY = 1000;
@@ -24,21 +24,24 @@ const HeroBanner: FC<Props> = ({
   backgroundColor = "linear-gradient(90deg, #27AE60 0%, #219250 100%)",
   backgroundImageUrl = "/world-map.svg",
 }) => {
-  const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
+  const { data: session, status } = useSession();
+  const isSessionLoading = status === "loading";
 
   const [actions, setActions] = useState<SubHeaderAction[]>([]);
   const [index, setIndex] = useState(0);
   const [shouldFadeOut, setShouldFadeOut] = useState(false);
 
   useEffect(() => {
-    if (!isUserLoading) {
+    if (!isSessionLoading) {
       const actions = [
         {
           link: "/leaderboard",
           value: "compete with players from all over the globe!",
         },
         {
-          link: user ? "/community-quiz/create" : "/community-quiz/about",
+          link: session?.user
+            ? "/community-quiz/create"
+            : "/community-quiz/about",
           value: "build a community quiz to share with your peers",
         },
         { link: "/merch", value: "cop an item from our winter collection" },
@@ -47,7 +50,7 @@ const HeroBanner: FC<Props> = ({
       setActions(actions);
       setIndex(Math.floor(Math.random() * actions.length));
     }
-  }, [user, isUserLoading]);
+  }, [session, isSessionLoading]);
 
   const delayedSetFadeOut = () =>
     setTimeout(() => {
@@ -116,7 +119,7 @@ const HeroBanner: FC<Props> = ({
               fontWeight="medium"
             >
               {"Create an account and"}{" "}
-              {!isUserLoading && (
+              {!isSessionLoading && (
                 <Link href={actions[index]?.link ?? ""}>
                   <ChakraLink textDecoration="underline">
                     {actions[index]?.value}

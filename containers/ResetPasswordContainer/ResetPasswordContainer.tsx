@@ -1,29 +1,27 @@
-import React, { useEffect, useState, FC, useContext } from "react";
+import React, { useEffect, useState, FC } from "react";
 import { useRouter } from "next/router";
 
 import axiosClient from "../../axios/axiosClient";
 
 import ResetPasswordForm from "../../components/ResetPasswordForm";
 import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { useSession } from "next-auth/react";
 
 const ResetPasswordContainer: FC = () => {
   const router = useRouter();
   const { userId, token } = router.query;
-
-  const { user, isLoading: isLoadingUser } = useContext(CurrentUserContext);
+  const { status } = useSession();
 
   const [isLoading, setIsLoading] = useState(true);
-
   const [error, setError] = useState(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!isLoadingUser && user) {
+    if (status === "authenticated") {
       router.push("/");
     }
-  }, [user, isLoadingUser, router]);
+  }, [status, router]);
 
   useEffect(() => {
     if (userId && token) {
@@ -60,14 +58,11 @@ const ResetPasswordContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
-  if (isLoading || isLoadingUser || user) {
-    return null;
-  }
-
   return (
     <ResetPasswordForm
       error={error}
       isSuccess={isSuccess}
+      isLoading={isLoading || status === "loading"}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
     />

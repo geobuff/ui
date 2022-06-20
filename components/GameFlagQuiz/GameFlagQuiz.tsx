@@ -29,13 +29,13 @@ import GameFlagQuizBottomSheet from "./GameFlagQuizBottomSheet";
 import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
 import { GameOverRedirect } from "../../types/game-over-redirect";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import {
   getRandomCollectionItems,
   getRandomCollectionItem,
 } from "../../helpers/random";
 import GameBannerButton from "../GameBannerButton";
 import { AppContext } from "../../context/AppContext";
+import { useSession } from "next-auth/react";
 
 const INCORRECT_ANSWER_THRESHOLD = 1;
 
@@ -71,7 +71,8 @@ const GameFlagQuiz: FC<Props> = ({
 }) => {
   const router = useRouter();
   const { isNotchedIphone } = useContext(AppContext);
-  const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
+  const { status } = useSession();
+  const isUserAuthenticated = status === "authenticated";
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
@@ -109,7 +110,7 @@ const GameFlagQuiz: FC<Props> = ({
   useWarnIfActiveGame(hasGameStarted);
 
   useEffect(() => {
-    if (score === 0 && !isUserLoading && user && router.query.data) {
+    if (score === 0 && isUserAuthenticated && router.query.data) {
       const data: GameOverRedirect = JSON.parse(router.query.data as string);
       axiosClient
         .get(`/tempscores/${data.tempScoreId}`)
@@ -146,7 +147,7 @@ const GameFlagQuiz: FC<Props> = ({
           // Ignore invalid tempscore.
         });
     }
-  }, [score, isUserLoading, user, router.query]);
+  }, [score, isUserAuthenticated, router.query]);
 
   useEffect(() => {
     checkSubmission(currentSubmission);

@@ -1,14 +1,16 @@
 import { useDisclosure } from "@chakra-ui/react";
-import React, { FC, useContext, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminQuizTable from "../../components/AdminQuizTable";
 import DeleteQuizModal from "../../components/DeleteQuizModal";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { AuthUser } from "../../types/auth-user";
 import { QuizPageDto } from "../../types/quiz-page-dto";
 import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 
 const AdminQuizTableContainer: FC = () => {
-  const { getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
 
   const [quizPage, setQuizPage] = useState<QuizPageDto>();
   const [page, setPage] = useState(0);
@@ -57,7 +59,7 @@ const AdminQuizTableContainer: FC = () => {
     setError(false);
 
     axiosClient
-      .delete(`/quizzes/${quizId}`, getAuthConfig())
+      .delete(`/quizzes/${quizId}`, user?.authConfig)
       .then(() => {
         setQuizPage({
           ...quizPage,

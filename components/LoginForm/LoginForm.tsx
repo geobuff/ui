@@ -25,6 +25,7 @@ import Logo from "../Logo";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import RegisterLink from "./RegisterLink";
 import { LoginFormSubmit } from "../../types/login-form-submit";
+import { getCsrfToken } from "next-auth/react";
 
 const initialValues = {
   email: "",
@@ -42,12 +43,14 @@ const validationSchema = Yup.object().shape({
 });
 
 interface Props {
+  csrfToken?: string;
   error?: string;
   onSubmit?: (values: LoginFormSubmit) => void;
   isSubmitting?: boolean;
 }
 
 const LoginForm: FC<Props> = ({
+  csrfToken = "",
   error = null,
   onSubmit = () => {},
   isSubmitting = false,
@@ -81,6 +84,8 @@ const LoginForm: FC<Props> = ({
         {(): React.ReactNode => (
           <Form>
             <Flex marginTop={4} marginBottom={6}>
+              <input name="csrfToken" type="hidden" defaultValue={csrfToken} />
+
               <Field name="email">
                 {({ field, form }): React.ReactNode => (
                   <FormControl
@@ -196,5 +201,13 @@ const LoginForm: FC<Props> = ({
     </>
   );
 };
+
+export async function getServerSideProps(context) {
+  return {
+    props: {
+      csrfToken: await getCsrfToken(context),
+    },
+  };
+}
 
 export default LoginForm;
