@@ -2,11 +2,12 @@ import React, { FC, useContext, useState } from "react";
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 import axiosClient from "../../axios";
 
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { avatarUpdated } from "../../helpers/toasts";
 import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
 import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
 import { AppContext } from "../../context/AppContext";
+import { useSession } from "next-auth/react";
+import { AuthUser } from "../../types/auth-user";
 
 interface Props {
   isOpen?: boolean;
@@ -20,7 +21,9 @@ const UpdateAvatarFormContainer: FC<Props> = ({
   const toast = useToast();
   const { isNotchedIphone } = useContext(AppContext);
 
-  const { user, updateUser, getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
+
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "bottom",
     md: "bottom-right",
@@ -43,18 +46,9 @@ const UpdateAvatarFormContainer: FC<Props> = ({
           countryCode: user.countryCode,
           xp: user.xp,
         },
-        getAuthConfig()
+        user?.authConfig
       )
-      .then((response) => {
-        updateUser({
-          ...user,
-          avatarId: response.data.avatarId,
-          avatarName: response.data.avatarName,
-          avatarDescription: response.data.avatarDescription,
-          avatarPrimaryImageUrl: response.data.avatarPrimaryImageUrl,
-          avatarSecondaryImageUrl: response.data.avatarSecondaryImageUrl,
-        });
-
+      .then(() => {
         onClose();
         toast(avatarUpdated(toastPosition));
       })

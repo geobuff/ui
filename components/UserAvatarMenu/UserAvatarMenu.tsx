@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 
 import { useRouter } from "next/router";
 
@@ -20,8 +20,9 @@ import {
 import Image from "../Image";
 
 import SolidChevronDown from "../../Icons/SolidChevronDown";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Twemoji from "../Twemoji";
+import { signOut, useSession } from "next-auth/react";
+import { AuthUser } from "../../types/auth-user";
 
 interface Props {
   isCondensed?: boolean;
@@ -29,18 +30,13 @@ interface Props {
 
 const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
-  const { user, isLoading, clearUser } = useContext(CurrentUserContext);
+  const { data: session, status } = useSession();
   const router = useRouter();
 
   const avatarSize = isCondensed ? "26px" : { base: "22px", md: "26px" };
   const imageSize = isCondensed ? "13px" : { base: "11px", md: "13px" };
 
-  const logout = (): void => {
-    clearUser();
-    router.push("/");
-  };
-
-  if (isLoading) {
+  if (status === "loading") {
     return (
       <Flex
         alignItems="center"
@@ -65,7 +61,9 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
     );
   }
 
-  if (user) {
+  if (session?.user) {
+    const user = session?.user as AuthUser;
+
     return (
       <Menu>
         <MenuButton
@@ -146,7 +144,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
             {"My Orders"}
           </MenuItem>
           <MenuDivider />
-          <MenuItem onClick={logout}>{"Logout"}</MenuItem>
+          <MenuItem onClick={() => signOut()}>{"Logout"}</MenuItem>
         </MenuList>
       </Menu>
     );

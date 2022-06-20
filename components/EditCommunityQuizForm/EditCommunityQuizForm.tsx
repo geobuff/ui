@@ -41,6 +41,7 @@ const validationSchema = Yup.object().shape({
 export interface Props {
   values: CommunityQuizFormSubmit;
   error?: string;
+  isLoading?: boolean;
   isSubmitting?: boolean;
   types: TriviaQuestionType[];
   onSubmit: (values: CommunityQuizFormSubmit) => void;
@@ -50,6 +51,7 @@ const EditCommunityQuizForm: FC<Props> = ({
   values,
   error = "",
   types = [],
+  isLoading = false,
   isSubmitting = false,
   onSubmit = () => {},
 }) => {
@@ -198,6 +200,7 @@ const EditCommunityQuizForm: FC<Props> = ({
                   type="submit"
                   colorScheme="green"
                   isLoading={isSubmitting}
+                  disabled={isLoading}
                 >
                   {"Edit Quiz"}
                 </Button>

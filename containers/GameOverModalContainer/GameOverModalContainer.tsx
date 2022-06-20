@@ -13,11 +13,12 @@ import {
 } from "../../helpers/toasts";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { TempScore } from "../../types/temp-score";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
 import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
 import { AppContext } from "../../context/AppContext";
+import { useSession } from "next-auth/react";
+import { AuthUser } from "../../types/auth-user";
 
 interface Props {
   id?: number;
@@ -54,14 +55,12 @@ const GameOverModalContainer: FC<Props> = ({
 }) => {
   const toast = useToast();
   const router = useRouter();
-  const { isNotchedIphone } = useContext(AppContext);
 
-  const {
-    user,
-    isLoading: isUserLoading,
-    updateUser,
-    getAuthConfig,
-  } = useContext(CurrentUserContext);
+  const { data: session, status } = useSession();
+  const isUserLoading = status === "loading";
+  const user = session?.user as AuthUser;
+
+  const { isNotchedIphone } = useContext(AppContext);
 
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "bottom",
@@ -114,15 +113,10 @@ const GameOverModalContainer: FC<Props> = ({
     };
 
     axiosClient
-      .put(`/users/xp/${user.id}`, payload, getAuthConfig())
+      .put(`/users/xp/${user.id}`, payload, user?.authConfig)
       .then((response) => {
         const increase = response.data;
         toast(increaseXPToast(increase, toastPosition));
-
-        updateUser({
-          ...user,
-          xp: user.xp + increase,
-        });
       });
   };
 
@@ -179,7 +173,7 @@ const GameOverModalContainer: FC<Props> = ({
           score: score,
           time: time,
         },
-        getAuthConfig()
+        user?.authConfig
       )
       .then(() => {
         setIsSubmitting(false);
@@ -198,7 +192,7 @@ const GameOverModalContainer: FC<Props> = ({
           score: score,
           time: time,
         },
-        getAuthConfig()
+        user?.authConfig
       )
       .then(() => {
         setIsSubmitting(false);

@@ -1,12 +1,13 @@
 import { useToast } from "@chakra-ui/react";
-import React, { FC, useContext, useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { FC, useState } from "react";
 import axiosClient from "../../axios";
 import AdminQuizForm from "../../components/AdminQuizForm";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { quizToast } from "../../helpers/toasts";
 import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";
 import useQuizTypes from "../../hooks/UseQuizTypes";
+import { AuthUser } from "../../types/auth-user";
 import { CreateEditQuizPayload } from "../../types/create-edit-quiz-payload";
 import { NullInt } from "../../types/null-int";
 import { QuizEditValues } from "../../types/quiz-edit-values";
@@ -19,7 +20,9 @@ export interface Props {
 const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
   const toast = useToast();
 
-  const { getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
+
   const { data: types } = useQuizTypes();
   const { data: badges } = useBadges();
   const { data: continents } = useContinents();
@@ -63,7 +66,7 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
 
     if (editValues) {
       axiosClient
-        .put(`/quizzes/${values.id}`, payload, getAuthConfig())
+        .put(`/quizzes/${values.id}`, payload, user?.authConfig)
         .then(() => {
           toast(quizToast("Edit", "edited"));
         })
@@ -71,7 +74,7 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
         .finally(() => setIsSubmitting(false));
     } else {
       axiosClient
-        .post(`/quizzes`, payload, getAuthConfig())
+        .post(`/quizzes`, payload, user?.authConfig)
         .then(() => {
           toast(quizToast());
           resetForm();

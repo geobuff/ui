@@ -1,36 +1,32 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 import axiosClient from "../../axios/axiosClient";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { createCommunityQuizToast } from "../../helpers/toasts";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 
 import CommunityQuizForm from "../../components/CommunityQuizForm";
 import { CommunityQuizFormSubmit } from "../../types/community-quiz-form-submit";
 import { CommunityQuizPayload } from "../../types/community-quiz-payload";
+import { useSession } from "next-auth/react";
+import { AuthUser } from "../../types/auth-user";
 
 const CommunityQuizFormContainer: FC = () => {
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
-  const { user, isLoading: isUserLoading, getAuthConfig } = useContext(
-    CurrentUserContext
-  );
+
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
+
   const toast = useToast();
   const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  useEffect(() => {
-    if (!isUserLoading && !user) {
-      router.push("/login");
-    }
-  }, [user, isUserLoading, router]);
-
   const redirectToProfile = () => {
     setTimeout(() => {
-      router.push(`/profile/${user.id}`);
+      router.push(`/profile/${user?.id}`);
     }, 500);
   };
 
@@ -60,7 +56,7 @@ const CommunityQuizFormContainer: FC = () => {
     };
 
     axiosClient
-      .post(`/community-quizzes`, payload, getAuthConfig())
+      .post(`/community-quizzes`, payload, user?.authConfig)
       .then(() => {
         toast(createCommunityQuizToast());
         redirectToProfile();
@@ -68,10 +64,6 @@ const CommunityQuizFormContainer: FC = () => {
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
-
-  if (isUserLoading) {
-    return null;
-  }
 
   return (
     <CommunityQuizForm

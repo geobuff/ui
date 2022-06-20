@@ -1,7 +1,8 @@
-import React, { FC, useContext, useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { FC, useState } from "react";
 import axiosClient from "../../axios";
 import SupportFormModal from "../../components/SupportFormModal";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { AuthUser } from "../../types/auth-user";
 import { SupportFormSubmit } from "../../types/support-form-submit";
 
 interface Props {
@@ -15,7 +16,8 @@ const SupportFormContainer: FC<Props> = ({
   onClose = (): void => {},
   setSubmitted = (): void => {},
 }) => {
-  const { user } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");

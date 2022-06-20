@@ -4,11 +4,11 @@ import React, {
   useCallback,
   FC,
   ChangeEvent,
-  useContext,
 } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { debounce } from "throttle-debounce";
+import { useSession } from "next-auth/react";
 
 import {
   Box,
@@ -48,7 +48,7 @@ import { SVGBase } from "../../types/svg-base";
 import { Result } from "../../types/result";
 import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
 import { GameOverRedirect } from "../../types/game-over-redirect";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+
 import {
   clearMapFill,
   getPathSelectedFill,
@@ -88,7 +88,8 @@ const GameMapQuiz: FC<Props> = ({
   mapClassName = "",
 }) => {
   const router = useRouter();
-  const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
+  const { status } = useSession();
+  const isUserAuthenticated = status === "authenticated";
 
   const pathSelectedFill = getPathSelectedFill(mapClassName);
   const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
@@ -122,7 +123,7 @@ const GameMapQuiz: FC<Props> = ({
   }, []);
 
   useEffect(() => {
-    if (score === 0 && !isUserLoading && user && router.query.data) {
+    if (score === 0 && isUserAuthenticated && router.query.data) {
       const data: GameOverRedirect = JSON.parse(router.query.data as string);
       axiosClient
         .get(`/tempscores/${data.tempScoreId}`)
@@ -159,7 +160,7 @@ const GameMapQuiz: FC<Props> = ({
           //Ignore invalid tempscore.
         });
     }
-  }, [score, isUserLoading, user, router.query]);
+  }, [score, isUserAuthenticated, router.query]);
 
   useEffect(() => {
     if (hasGameStarted) {

@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Flex, Heading } from "@chakra-ui/react";
 import Head from "next/head";
 
@@ -8,7 +8,7 @@ import Card from "../../../components/Card";
 import { useRouter } from "next/router";
 import EditCommunityQuizFormContainer from "../../../containers/EditCommunityQuizFormContainer";
 
-const Edit: FC = () => {
+export default function Edit(): JSX.Element {
   const router = useRouter();
   const [quizId, setQuizId] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
@@ -56,6 +56,6 @@ const Edit: FC = () => {
       </MainView>
     </>
   );
-};
+}
 
-export default Edit;
+Edit.requireAuth = true;

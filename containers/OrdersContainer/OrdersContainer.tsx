@@ -1,30 +1,31 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
 import axiosClient from "../../axios";
 import MyOrders from "../../components/MyOrders";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import MyOrdersPlaceholder from "../../placeholders/MyOrdersPlaceholder";
+import { AuthUser } from "../../types/auth-user";
 import { Order } from "../../types/order";
 
-interface Props {
-  email: string;
-}
+const OrdersContainer: FC = () => {
+  const { data: session, status } = useSession();
+  const user = session?.user as AuthUser;
 
-const OrdersContainer: FC<Props> = ({ email }) => {
-  const { getAuthConfig } = useContext(CurrentUserContext);
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
   useEffect(() => {
-    axiosClient
-      .get(`/orders/user/${email}`, getAuthConfig())
-      .then((response) => {
-        setOrders(response.data);
-      })
-      .catch(() => {
-        setIsError(true);
-      })
-      .finally(() => setIsLoading(false));
+    if (status === "authenticated") {
+      axiosClient
+        .get(`/orders/user/${user?.email}`, user?.authConfig)
+        .then((response) => {
+          setOrders(response.data);
+        })
+        .catch(() => {
+          setIsError(true);
+        })
+        .finally(() => setIsLoading(false));
+    }
   }, []);
 
   if (isLoading) {

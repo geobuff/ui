@@ -43,6 +43,7 @@ const resetPasswordExplainer =
 interface Props {
   error?: string;
   isSuccess?: boolean;
+  isLoading?: boolean;
   isSubmitting?: boolean;
   onSubmit?: (values: ResetPasswordFormReset) => void;
 }
@@ -50,6 +51,7 @@ interface Props {
 const ResetPasswordForm: FC<Props> = ({
   error = "",
   isSuccess = false,
+  isLoading = false,
   isSubmitting = false,
   onSubmit = (values: ResetPasswordFormReset): void => {},
 }) => {
@@ -136,6 +138,7 @@ const ResetPasswordForm: FC<Props> = ({
                 width="100%"
                 type="submit"
                 isLoading={isSubmitting}
+                disabled={isLoading}
               >
                 {"Reset"}
               </Button>

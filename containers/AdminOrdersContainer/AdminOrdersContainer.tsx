@@ -1,6 +1,5 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import AdminOrdersTable from "../../components/AdminOrdersTable";
 import { OrderStatuses } from "../../types/order-statuses";
 import { OrderPageDto } from "../../types/order-page-dto";
@@ -10,6 +9,8 @@ import ProgressOrderModal from "../../components/ProgressOrderModal";
 import { useDisclosure } from "@chakra-ui/react";
 import { Order } from "../../types/order";
 import OrderItemsModal from "../../components/OrderItemsModal";
+import { useSession } from "next-auth/react";
+import { AuthUser } from "../../types/auth-user";
 
 const AdminOrdersContainer: FC = () => {
   const {
@@ -30,7 +31,9 @@ const AdminOrdersContainer: FC = () => {
     onClose: onOrderItemsModalClose,
   } = useDisclosure();
 
-  const { getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
+
   const [orderPage, setOrderPage] = useState<OrderPageDto>();
   const [page, setPage] = useState(0);
   const [statusId, setStatusId] = useState(OrderStatuses.PAYMENT_RECEIVED);
@@ -49,12 +52,12 @@ const AdminOrdersContainer: FC = () => {
     };
 
     axiosClient
-      .post(`/orders`, payload, getAuthConfig())
+      .post(`/orders`, payload, user?.authConfig)
       .then((response) => {
         setOrderPage(response.data);
       })
       .finally(() => setIsLoading(false));
-  }, [page, statusId]);
+  }, [user, page, statusId]);
 
   const handleProgressToShipped = (): void => {
     setError(false);
@@ -62,7 +65,7 @@ const AdminOrdersContainer: FC = () => {
     const payload = { statusId: OrderStatuses.SHIPPED };
 
     axiosClient
-      .put(`/orders/status/${orderId}`, payload, getAuthConfig())
+      .put(`/orders/status/${orderId}`, payload, user?.authConfig)
       .then(() => {
         setOrderPage({
           ...orderPage,
@@ -78,7 +81,7 @@ const AdminOrdersContainer: FC = () => {
     setError(false);
     setIsSubmitting(true);
     axiosClient
-      .delete(`/orders/${orderId}`, getAuthConfig())
+      .delete(`/orders/${orderId}`, user?.authConfig)
       .then(() => {
         setOrderPage({
           ...orderPage,

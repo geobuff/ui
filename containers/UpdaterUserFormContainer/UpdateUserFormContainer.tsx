@@ -6,8 +6,9 @@ import UpdateUserFormModal from "../../components/UpdateUserFormModal";
 import axiosClient from "../../axios/axiosClient";
 import { userUpdated } from "../../helpers/toasts";
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { AppContext } from "../../context/AppContext";
+import { useSession } from "next-auth/react";
+import { AuthUser } from "../../types/auth-user";
 
 interface Props {
   isOpen?: boolean;
@@ -19,7 +20,10 @@ const UpdateUserFormContainer: FC<Props> = ({
   onClose = (): void => {},
 }) => {
   const toast = useToast();
-  const { user, updateUser, getAuthConfig } = useContext(CurrentUserContext);
+
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
+
   const { isNotchedIphone } = useContext(AppContext);
 
   const toastPosition: ToastPosition = useBreakpointValue({
@@ -38,22 +42,15 @@ const UpdateUserFormContainer: FC<Props> = ({
       .put(
         `/users/${user.id}`,
         {
-          avatarId: parseInt(user.avatarId),
+          avatarId: user?.avatarId,
           username: values.username,
           email: values.email,
           countryCode: values.countryCode,
           xp: user.xp,
         },
-        getAuthConfig()
+        user?.authConfig
       )
-      .then((response) => {
-        updateUser({
-          ...user,
-          username: response.data.username,
-          email: response.data.email,
-          countryCode: response.data.countryCode,
-        });
-
+      .then(() => {
         onClose();
         toast(userUpdated(toastPosition));
       })
