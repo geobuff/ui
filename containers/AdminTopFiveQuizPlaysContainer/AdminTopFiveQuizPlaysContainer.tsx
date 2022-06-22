@@ -4,23 +4,23 @@ import axiosClient from "../../axios";
 import AdminTopFiveQuizPlays from "../../components/AdminTopFiveQuizPlays";
 import { getQuizPlaysData } from "../../helpers/charts";
 import AdminTopFiveQuizPlaysPlaceholder from "../../placeholders/AdminTopFiveQuizPlaysPlaceholder";
-import { AuthUser } from "../../types/auth-user";
 
 const AdminTopFiveQuizPlaysContainer: FC = () => {
-  const { data: session } = useSession();
-  const user = session?.user as AuthUser;
+  const { data: session, status } = useSession();
 
   const [quizPlays, setQuizPlays] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axiosClient
-      .get("/quiz-plays-top-five", user?.authConfig)
-      .then((response) => {
-        setQuizPlays(response.data);
-      })
-      .finally(() => setIsLoading(false));
-  }, [user]);
+    if (status === "authenticated") {
+      axiosClient
+        .get("/quiz-plays-top-five", session?.authConfig)
+        .then((response) => {
+          setQuizPlays(response.data);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [status, session]);
 
   if (isLoading) {
     return <AdminTopFiveQuizPlaysPlaceholder />;

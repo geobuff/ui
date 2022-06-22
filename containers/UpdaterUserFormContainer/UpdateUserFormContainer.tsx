@@ -48,7 +48,7 @@ const UpdateUserFormContainer: FC<Props> = ({
           countryCode: values.countryCode,
           xp: user.xp,
         },
-        user?.authConfig
+        session?.authConfig
       )
       .then(() => {
         onClose();

@@ -8,7 +8,7 @@ import { AuthUser } from "../../types/auth-user";
 import { UserPageDto } from "../../types/user-page-dto";
 
 const AdminUsersContainer: FC = () => {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const user = session?.user as AuthUser;
 
   const [userPage, setUserPage] = useState<UserPageDto>();
@@ -25,21 +25,23 @@ const AdminUsersContainer: FC = () => {
   } = useDisclosure();
 
   useEffect(() => {
-    setIsLoading(true);
-    axiosClient
-      .get(`/users?page=${page}`, user?.authConfig)
-      .then((response) => {
-        setUserPage(response.data);
-      })
-      .finally(() => setIsLoading(false));
-  }, [user, page]);
+    if (status === "authenticated") {
+      setIsLoading(true);
+      axiosClient
+        .get(`/users?page=${page}`, session?.authConfig)
+        .then((response) => {
+          setUserPage(response.data);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [status, session, page]);
 
   const handleSubmit = (): void => {
     setIsSubmitting(true);
     setError(false);
 
     axiosClient
-      .delete(`/users/${userId}`, user?.authConfig)
+      .delete(`/users/${userId}`, session?.authConfig)
       .then(() => {
         setUserPage({
           ...userPage,

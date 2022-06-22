@@ -17,7 +17,7 @@ const OrdersContainer: FC = () => {
   useEffect(() => {
     if (status === "authenticated") {
       axiosClient
-        .get(`/orders/user/${user?.email}`, user?.authConfig)
+        .get(`/orders/user/${user?.email}`, session?.authConfig)
         .then((response) => {
           setOrders(response.data);
         })
@@ -26,7 +26,7 @@ const OrdersContainer: FC = () => {
         })
         .finally(() => setIsLoading(false));
     }
-  }, []);
+  }, [status, session, user]);
 
   if (isLoading) {
     return <MyOrdersPlaceholder />;

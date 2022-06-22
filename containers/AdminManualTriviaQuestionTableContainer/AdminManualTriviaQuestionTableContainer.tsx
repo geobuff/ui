@@ -1,6 +1,6 @@
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminManualTriviaQuestions from "../../components/AdminManualTriviaQuestions";
 import CreateEditTriviaQuestionModal from "../../components/CreateEditTriviaQuestionModal";
@@ -8,7 +8,6 @@ import DeleteTriviaQuestionModal from "../../components/DeleteTriviaQuestionModa
 import { manualTriviaQuestionToast } from "../../helpers/toasts";
 import useTriviaQuestionCategories from "../../hooks/UseTriviaQuestionCategories";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
-import { AuthUser } from "../../types/auth-user";
 import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
@@ -19,8 +18,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
   const toast = useToast();
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
 
-  const { data: session } = useSession();
-  const user = session?.user as AuthUser;
+  const { data: session, status } = useSession();
 
   const {
     data: categories,
@@ -57,17 +55,19 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
   } = useDisclosure();
 
   useEffect(() => {
-    setIsLoadingEntries(true);
-    axiosClient
-      .post(`/manual-trivia-questions/all`, filterParams, user?.authConfig)
-      .then((response) => {
-        setEntries(response.data.questions);
-        setHasMoreEntries(response.data.hasMore);
-        setSuccess(false);
-      })
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsLoadingEntries(false));
-  }, [user, filterParams, success]);
+    if (status === "authenticated") {
+      setIsLoadingEntries(true);
+      axiosClient
+        .post(`/manual-trivia-questions/all`, filterParams, session?.authConfig)
+        .then((response) => {
+          setEntries(response.data.questions);
+          setHasMoreEntries(response.data.hasMore);
+          setSuccess(false);
+        })
+        .catch((error) => setError(error.response.data))
+        .finally(() => setIsLoadingEntries(false));
+    }
+  }, [status, session, filterParams, success]);
 
   const handleCreateQuestionClick = () => {
     setSelectedQuestion(null);
@@ -114,7 +114,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
     setError("");
 
     axiosClient
-      .delete(`/manual-trivia-questions/${questionId}`, user?.authConfig)
+      .delete(`/manual-trivia-questions/${questionId}`, session?.authConfig)
       .then(() => {
         setSuccess(true);
         onDeleteQuestionModalClose();
@@ -187,7 +187,11 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
 
     if (selectedQuestion) {
       axiosClient
-        .put(`/manual-trivia-questions/${values.id}`, payload, user?.authConfig)
+        .put(
+          `/manual-trivia-questions/${values.id}`,
+          payload,
+          session?.authConfig
+        )
         .then(() => {
           setSuccess(true);
           toast(manualTriviaQuestionToast("Edit", "edited"));
@@ -196,7 +200,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         .finally(() => setIsSubmitting(false));
     } else {
       axiosClient
-        .post(`/manual-trivia-questions`, payload, user?.authConfig)
+        .post(`/manual-trivia-questions`, payload, session?.authConfig)
         .then(() => {
           setSuccess(true);
           toast(manualTriviaQuestionToast());

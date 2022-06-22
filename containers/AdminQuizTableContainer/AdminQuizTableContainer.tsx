@@ -4,13 +4,11 @@ import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminQuizTable from "../../components/AdminQuizTable";
 import DeleteQuizModal from "../../components/DeleteQuizModal";
-import { AuthUser } from "../../types/auth-user";
 import { QuizPageDto } from "../../types/quiz-page-dto";
 import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 
 const AdminQuizTableContainer: FC = () => {
   const { data: session } = useSession();
-  const user = session?.user as AuthUser;
 
   const [quizPage, setQuizPage] = useState<QuizPageDto>();
   const [page, setPage] = useState(0);
@@ -59,7 +57,7 @@ const AdminQuizTableContainer: FC = () => {
     setError(false);
 
     axiosClient
-      .delete(`/quizzes/${quizId}`, user?.authConfig)
+      .delete(`/quizzes/${quizId}`, session?.authConfig)
       .then(() => {
         setQuizPage({
           ...quizPage,

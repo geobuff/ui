@@ -43,11 +43,6 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
     isAdmin: decoded.isAdmin,
     isPremium: decoded.isPremium,
     joined: decoded.joined,
-    authConfig: {
-      headers: {
-        Authorization: `Bearer ${data}`,
-      },
-    },
   };
 
   return {
@@ -104,11 +99,6 @@ export default NextAuth({
           joined: decoded.joined,
           expiresAt: Date.now() + decoded.exp * 1000,
           token: data,
-          authConfig: {
-            headers: {
-              Authorization: `Bearer ${data}`,
-            },
-          },
         };
 
         return response.ok && user ? user : null;
@@ -126,6 +116,12 @@ export default NextAuth({
       session.accessTokenExpires = token.accessTokenExpires;
       session.error = token.error;
       session.errorMessage = token.errorMessage;
+      session.authConfig = {
+        headers: {
+          Authorization: `Bearer ${token.accessToken}`,
+        },
+      };
+
       return session;
     },
     async jwt({ token, user }) {

@@ -92,7 +92,7 @@ const UserProfileSummary: FC<Props> = ({
     setDeleteAccountError(false);
 
     axiosClient
-      .delete(`/users/${user?.id}`, user?.authConfig)
+      .delete(`/users/${user?.id}`, session?.authConfig)
       .then(() => {
         onDeleteAccountModalClose();
         signOut();

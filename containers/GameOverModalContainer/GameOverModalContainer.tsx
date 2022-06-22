@@ -57,7 +57,6 @@ const GameOverModalContainer: FC<Props> = ({
   const router = useRouter();
 
   const { data: session, status } = useSession();
-  const isUserLoading = status === "loading";
   const user = session?.user as AuthUser;
 
   const { isNotchedIphone } = useContext(AppContext);
@@ -78,7 +77,7 @@ const GameOverModalContainer: FC<Props> = ({
       return;
     }
 
-    if (isUserLoading) {
+    if (status === "loading") {
       return;
     }
 
@@ -87,7 +86,7 @@ const GameOverModalContainer: FC<Props> = ({
       setIsPlaysUpdated(true);
     }
 
-    if (!user || score === 0) {
+    if (status === "unauthenticated" || score === 0) {
       setIsLoading(false);
       return;
     }
@@ -96,15 +95,22 @@ const GameOverModalContainer: FC<Props> = ({
       increaseXP();
       setXPUpdated(true);
     }
-  }, [isOpen, isUserLoading, user]);
+  }, [isOpen, status]);
 
   // When user loads in or modal is opened,
   // get a fresh leaderboard entry
   useEffect(() => {
-    if (user) {
-      getLeaderboardEntry();
+    if (status === "authenticated") {
+      axiosClient
+        .get(`/leaderboard/${id}/${user.id}`)
+        .then((response) => {
+          if (response.status === 200) {
+            setEntry(response.data);
+          }
+        })
+        .finally(() => setIsLoading(false));
     }
-  }, [isOpen, user]);
+  }, [isOpen, status]);
 
   const increaseXP = (): void => {
     const payload: IncreaseUserXPPayload = {
@@ -113,22 +119,11 @@ const GameOverModalContainer: FC<Props> = ({
     };
 
     axiosClient
-      .put(`/users/xp/${user.id}`, payload, user?.authConfig)
+      .put(`/users/xp/${user.id}`, payload, session?.authConfig)
       .then((response) => {
         const increase = response.data;
         toast(increaseXPToast(increase, toastPosition));
       });
-  };
-
-  const getLeaderboardEntry = (): void => {
-    axiosClient
-      .get(`/leaderboard/${id}/${user.id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          setEntry(response.data);
-        }
-      })
-      .finally(() => setIsLoading(false));
   };
 
   const handleSubmitEntry = (existingEntry: LeaderboardEntry): void => {
@@ -173,7 +168,7 @@ const GameOverModalContainer: FC<Props> = ({
           score: score,
           time: time,
         },
-        user?.authConfig
+        session?.authConfig
       )
       .then(() => {
         setIsSubmitting(false);
@@ -192,7 +187,7 @@ const GameOverModalContainer: FC<Props> = ({
           score: score,
           time: time,
         },
-        user?.authConfig
+        session?.authConfig
       )
       .then(() => {
         setIsSubmitting(false);

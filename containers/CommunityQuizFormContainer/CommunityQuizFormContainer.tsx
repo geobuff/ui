@@ -24,12 +24,6 @@ const CommunityQuizFormContainer: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const redirectToProfile = () => {
-    setTimeout(() => {
-      router.push(`/profile/${user?.id}`);
-    }, 500);
-  };
-
   const handleSubmit = (values: CommunityQuizFormSubmit): void => {
     setIsSubmitting(true);
 
@@ -56,10 +50,10 @@ const CommunityQuizFormContainer: FC = () => {
     };
 
     axiosClient
-      .post(`/community-quizzes`, payload, user?.authConfig)
+      .post(`/community-quizzes`, payload, session?.authConfig)
       .then(() => {
         toast(createCommunityQuizToast());
-        redirectToProfile();
+        router.push(`/profile/${user?.id}`);
       })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));

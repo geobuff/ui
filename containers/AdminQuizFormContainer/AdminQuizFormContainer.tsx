@@ -7,7 +7,6 @@ import { quizToast } from "../../helpers/toasts";
 import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";
 import useQuizTypes from "../../hooks/UseQuizTypes";
-import { AuthUser } from "../../types/auth-user";
 import { CreateEditQuizPayload } from "../../types/create-edit-quiz-payload";
 import { NullInt } from "../../types/null-int";
 import { QuizEditValues } from "../../types/quiz-edit-values";
@@ -21,7 +20,6 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
   const toast = useToast();
 
   const { data: session } = useSession();
-  const user = session?.user as AuthUser;
 
   const { data: types } = useQuizTypes();
   const { data: badges } = useBadges();
@@ -66,7 +64,7 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
 
     if (editValues) {
       axiosClient
-        .put(`/quizzes/${values.id}`, payload, user?.authConfig)
+        .put(`/quizzes/${values.id}`, payload, session?.authConfig)
         .then(() => {
           toast(quizToast("Edit", "edited"));
         })
@@ -74,7 +72,7 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
         .finally(() => setIsSubmitting(false));
     } else {
       axiosClient
-        .post(`/quizzes`, payload, user?.authConfig)
+        .post(`/quizzes`, payload, session?.authConfig)
         .then(() => {
           toast(quizToast());
           resetForm();

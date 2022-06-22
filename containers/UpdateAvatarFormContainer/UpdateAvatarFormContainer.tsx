@@ -46,7 +46,7 @@ const UpdateAvatarFormContainer: FC<Props> = ({
           countryCode: user.countryCode,
           xp: user.xp,
         },
-        user?.authConfig
+        session?.authConfig
       )
       .then(() => {
         onClose();

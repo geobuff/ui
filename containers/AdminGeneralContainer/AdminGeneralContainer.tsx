@@ -11,7 +11,6 @@ import {
 } from "../../helpers/toasts";
 import { BackgroundTaskKey } from "../../types/background-task";
 import { useSession } from "next-auth/react";
-import { AuthUser } from "../../types/auth-user";
 
 const {
   DeployDevWeb,
@@ -55,7 +54,6 @@ const getTaskSettings = (key: BackgroundTaskKey) => {
 
 const AdminGeneralContainer: FC = () => {
   const { data: session } = useSession();
-  const user = session?.user as AuthUser;
 
   const toast = useToast();
 
@@ -99,7 +97,7 @@ const AdminGeneralContainer: FC = () => {
     const dateString = date.toISOString().split("T")[0];
 
     axiosClient
-      .put(`/trivia/${dateString}`, null, user?.authConfig)
+      .put(`/trivia/${dateString}`, null, session?.authConfig)
       .then(() => {
         toast(regenerateTriviaToast(dateString));
         setRegenerateDate("");
@@ -113,7 +111,7 @@ const AdminGeneralContainer: FC = () => {
     setIsSubmitting(true);
 
     axiosClient
-      .delete(`/trivia/old/${NEW_TRIVIA_COUNT}`, user?.authConfig)
+      .delete(`/trivia/old/${NEW_TRIVIA_COUNT}`, session?.authConfig)
       .then(() => {
         toast(clearOldTriviaToast(NEW_TRIVIA_COUNT));
       })

@@ -10,7 +10,6 @@ import { useDisclosure } from "@chakra-ui/react";
 import { Order } from "../../types/order";
 import OrderItemsModal from "../../components/OrderItemsModal";
 import { useSession } from "next-auth/react";
-import { AuthUser } from "../../types/auth-user";
 
 const AdminOrdersContainer: FC = () => {
   const {
@@ -31,8 +30,7 @@ const AdminOrdersContainer: FC = () => {
     onClose: onOrderItemsModalClose,
   } = useDisclosure();
 
-  const { data: session } = useSession();
-  const user = session?.user as AuthUser;
+  const { data: session, status } = useSession();
 
   const [orderPage, setOrderPage] = useState<OrderPageDto>();
   const [page, setPage] = useState(0);
@@ -44,20 +42,22 @@ const AdminOrdersContainer: FC = () => {
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
-    setIsLoading(true);
-    const payload: OrdersFilterDto = {
-      statusId,
-      page,
-      limit: 10,
-    };
+    if (status === "authenticated") {
+      setIsLoading(true);
+      const payload: OrdersFilterDto = {
+        statusId,
+        page,
+        limit: 10,
+      };
 
-    axiosClient
-      .post(`/orders`, payload, user?.authConfig)
-      .then((response) => {
-        setOrderPage(response.data);
-      })
-      .finally(() => setIsLoading(false));
-  }, [user, page, statusId]);
+      axiosClient
+        .post(`/orders`, payload, session?.authConfig)
+        .then((response) => {
+          setOrderPage(response.data);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [status, session, page, statusId]);
 
   const handleProgressToShipped = (): void => {
     setError(false);
@@ -65,7 +65,7 @@ const AdminOrdersContainer: FC = () => {
     const payload = { statusId: OrderStatuses.SHIPPED };
 
     axiosClient
-      .put(`/orders/status/${orderId}`, payload, user?.authConfig)
+      .put(`/orders/status/${orderId}`, payload, session?.authConfig)
       .then(() => {
         setOrderPage({
           ...orderPage,
@@ -81,7 +81,7 @@ const AdminOrdersContainer: FC = () => {
     setError(false);
     setIsSubmitting(true);
     axiosClient
-      .delete(`/orders/${orderId}`, user?.authConfig)
+      .delete(`/orders/${orderId}`, session?.authConfig)
       .then(() => {
         setOrderPage({
           ...orderPage,
