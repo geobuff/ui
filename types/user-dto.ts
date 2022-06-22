@@ -8,5 +8,7 @@ export interface UserDto {
   username: string;
   email: string;
   countryCode: string;
+  xp: number;
+  isAdmin: boolean;
   joined: string;
 }

@@ -20,6 +20,7 @@ import { AppContextProvider } from "../context/AppContext";
 import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
 import { Session } from "next-auth";
 import AuthGuard from "../components/AuthGuard";
+import { CurrentUserContextProvider } from "../context/CurrentUserContext/CurrentUserContext";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
@@ -120,15 +121,17 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
               options={{ delayTouchStart: 5, ignoreContextMenu: true }}
             >
               <AppContextProvider>
-                <ShoppingCartContextProvider>
-                  {Component.requireAuth ? (
-                    <AuthGuard>
+                <CurrentUserContextProvider>
+                  <ShoppingCartContextProvider>
+                    {Component.requireAuth ? (
+                      <AuthGuard>
+                        <Component {...pageProps} />
+                      </AuthGuard>
+                    ) : (
                       <Component {...pageProps} />
-                    </AuthGuard>
-                  ) : (
-                    <Component {...pageProps} />
-                  )}
-                </ShoppingCartContextProvider>
+                    )}
+                  </ShoppingCartContextProvider>
+                </CurrentUserContextProvider>
               </AppContextProvider>
             </DndProvider>
           </Elements>

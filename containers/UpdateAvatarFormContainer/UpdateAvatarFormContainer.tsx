@@ -7,7 +7,7 @@ import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
 import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
 import { AppContext } from "../../context/AppContext";
 import { useSession } from "next-auth/react";
-import { AuthUser } from "../../types/auth-user";
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 
 interface Props {
   isOpen?: boolean;
@@ -21,8 +21,8 @@ const UpdateAvatarFormContainer: FC<Props> = ({
   const toast = useToast();
   const { isNotchedIphone } = useContext(AppContext);
 
+  const { user, updateUser } = useContext(CurrentUserContext);
   const { data: session } = useSession();
-  const user = session?.user as AuthUser;
 
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "bottom",
@@ -48,7 +48,16 @@ const UpdateAvatarFormContainer: FC<Props> = ({
         },
         session?.authConfig
       )
-      .then(() => {
+      .then((response) => {
+        updateUser({
+          ...user,
+          avatarId: response.data.avatarId,
+          avatarName: response.data.avatarName,
+          avatarDescription: response.data.avatarDescription,
+          avatarPrimaryImageUrl: response.data.avatarPrimaryImageUrl,
+          avatarSecondaryImageUrl: response.data.avatarSecondaryImageUrl,
+        });
+
         onClose();
         toast(avatarUpdated(toastPosition));
       })
