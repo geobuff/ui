@@ -36,6 +36,7 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
       username: window.localStorage.getItem("geobuff.username"),
       email: window.localStorage.getItem("geobuff.email"),
       countryCode: window.localStorage.getItem("geobuff.countryCode"),
+      isAdmin: window.localStorage.getItem("geobuff.isAdmin") === "true",
       xp: parseInt(window.localStorage.getItem("geobuff.xp")),
       joined: window.localStorage.getItem("geobuff.joined"),
     };
