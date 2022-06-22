@@ -11,6 +11,5 @@ export interface AuthUser {
   avatarDescription: string;
   avatarPrimaryImageUrl: string;
   avatarSecondaryImageUrl: string;
-  authConfig: any;
   joined: string;
 }

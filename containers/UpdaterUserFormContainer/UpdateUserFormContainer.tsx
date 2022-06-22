@@ -8,7 +8,7 @@ import { userUpdated } from "../../helpers/toasts";
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 import { AppContext } from "../../context/AppContext";
 import { useSession } from "next-auth/react";
-import { AuthUser } from "../../types/auth-user";
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 
 interface Props {
   isOpen?: boolean;
@@ -21,8 +21,8 @@ const UpdateUserFormContainer: FC<Props> = ({
 }) => {
   const toast = useToast();
 
+  const { user, updateUser } = useContext(CurrentUserContext);
   const { data: session } = useSession();
-  const user = session?.user as AuthUser;
 
   const { isNotchedIphone } = useContext(AppContext);
 
@@ -50,7 +50,14 @@ const UpdateUserFormContainer: FC<Props> = ({
         },
         session?.authConfig
       )
-      .then(() => {
+      .then((response) => {
+        updateUser({
+          ...user,
+          username: response.data.username,
+          email: response.data.email,
+          countryCode: response.data.countryCode,
+        });
+
         onClose();
         toast(userUpdated(toastPosition));
       })

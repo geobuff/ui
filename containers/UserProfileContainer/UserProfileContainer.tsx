@@ -1,8 +1,8 @@
 import { useSession } from "next-auth/react";
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import UserProfile from "../../components/UserProfile";
-import { AuthUser } from "../../types/auth-user";
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 import OtherUserProfileContainer from "../OtherUserProfileContainer";
 
 interface Props {
@@ -10,8 +10,8 @@ interface Props {
 }
 
 const UserProfileContainer: FC<Props> = ({ routeId }) => {
-  const { data: session, status } = useSession();
-  const user = session?.user as AuthUser;
+  const { status } = useSession();
+  const { user } = useContext(CurrentUserContext);
 
   if (status === "loading") {
     return null;

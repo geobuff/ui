@@ -18,7 +18,7 @@ import { Result } from "../../types/result";
 import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
 import { AppContext } from "../../context/AppContext";
 import { useSession } from "next-auth/react";
-import { AuthUser } from "../../types/auth-user";
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 
 interface Props {
   id?: number;
@@ -56,8 +56,8 @@ const GameOverModalContainer: FC<Props> = ({
   const toast = useToast();
   const router = useRouter();
 
+  const { user, updateUser } = useContext(CurrentUserContext);
   const { data: session, status } = useSession();
-  const user = session?.user as AuthUser;
 
   const { isNotchedIphone } = useContext(AppContext);
 
@@ -123,6 +123,11 @@ const GameOverModalContainer: FC<Props> = ({
       .then((response) => {
         const increase = response.data;
         toast(increaseXPToast(increase, toastPosition));
+
+        updateUser({
+          ...user,
+          xp: user.xp + increase,
+        });
       });
   };
 
