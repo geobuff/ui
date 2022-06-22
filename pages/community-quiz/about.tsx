@@ -46,8 +46,8 @@ const About: FC = () => {
             <Flex justifyContent="center">
               <Image
                 src="/community-quiz/quiz-builder.png"
-                width="100%"
-                height="auto"
+                width={{ base: "360px", md: "470px", lg: "630px" }}
+                height={{ base: "360px", md: "470px", lg: "630px" }}
               />
             </Flex>
             <Flex
@@ -84,8 +84,8 @@ const About: FC = () => {
             <Flex justifyContent="center">
               <Image
                 src="/community-quiz/resources.png"
-                width="100%"
-                height="auto"
+                width={{ base: "360px", md: "470px", lg: "630px" }}
+                height={{ base: "360px", md: "470px", lg: "630px" }}
               />
             </Flex>
           </SimpleGrid>
@@ -96,8 +96,8 @@ const About: FC = () => {
             <Flex justifyContent="center">
               <Image
                 src="/community-quiz/visibility.png"
-                width="100%"
-                height="auto"
+                width={{ base: "360px", md: "470px", lg: "630px" }}
+                height={{ base: "360px", md: "470px", lg: "630px" }}
               />
             </Flex>
             <Flex
@@ -134,8 +134,8 @@ const About: FC = () => {
             <Flex justifyContent="center">
               <Image
                 src="/community-quiz/my-quizzes.png"
-                width="100%"
-                height="auto"
+                width={{ base: "360px", md: "470px", lg: "630px" }}
+                height={{ base: "360px", md: "470px", lg: "630px" }}
               />
             </Flex>
           </SimpleGrid>
