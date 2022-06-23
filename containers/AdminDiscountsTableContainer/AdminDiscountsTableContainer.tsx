@@ -1,21 +1,24 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminDiscountsTable from "../../components/AdminDiscountsTable";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const AdminDiscountsTableContainer: FC = () => {
-  const { getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session, status } = useSession();
+
   const [discounts, setDiscounts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axiosClient
-      .get("/discounts", getAuthConfig())
-      .then((response) => {
-        setDiscounts(response.data);
-      })
-      .finally(() => setIsLoading(false));
-  }, [getAuthConfig]);
+    if (status === "authenticated") {
+      axiosClient
+        .get("/discounts", session?.authConfig)
+        .then((response) => {
+          setDiscounts(response.data);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [status, session]);
 
   return <AdminDiscountsTable discounts={discounts} isLoading={isLoading} />;
 };

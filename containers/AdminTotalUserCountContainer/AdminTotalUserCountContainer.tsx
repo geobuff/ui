@@ -1,24 +1,27 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminUserCount from "../../components/AdminUserCount";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { getTotalUsersData } from "../../helpers/charts";
 import AdminUserCountPlaceholder from "../../placeholders/AdminUserCountPlaceholder";
 import { TotalUserDto } from "../../types/total-users-dto";
 
 const AdminTotalUserCountContainer: FC = () => {
-  const { getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session, status } = useSession();
+
   const [usersCount, setUsersCount] = useState<TotalUserDto[]>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axiosClient
-      .get("/users/total/week", getAuthConfig())
-      .then((response) => {
-        setUsersCount(response.data);
-      })
-      .finally(() => setIsLoading(false));
-  }, [getAuthConfig]);
+    if (status === "authenticated") {
+      axiosClient
+        .get("/users/total/week", session?.authConfig)
+        .then((response) => {
+          setUsersCount(response.data);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [status, session]);
 
   if (isLoading) {
     return <AdminUserCountPlaceholder />;

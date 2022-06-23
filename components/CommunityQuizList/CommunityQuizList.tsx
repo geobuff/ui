@@ -6,17 +6,21 @@ import {
   AspectRatio,
   Box,
   SimpleGrid,
+  Text,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 
 import DelayedRender from "../DelayedRender";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import CommunityQuizCard from "../CommunityQuizCard";
+import { useSession } from "next-auth/react";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
 }
 
 const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
+  const { status } = useSession();
   const containerMaxWidth = quizzes.length < 5 ? 1000 : 1400;
 
   if (quizzes.length === 0) {
@@ -32,7 +36,6 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
     <Box
       width="100%"
       maxWidth={containerMaxWidth}
-      marginTop="32px"
       marginBottom={10}
       marginLeft="auto"
       marginRight="auto"
@@ -41,8 +44,33 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
         cursor: "pointer",
       }}
     >
+      <Alert
+        status="info"
+        borderRadius={6}
+        marginBottom={3}
+        marginTop={{ base: 6, md: 0 }}
+      >
+        <AlertIcon />
+        <Text>
+          {"Like what you see? "}
+          {status === "authenticated" ? (
+            <ChakraLink>
+              <Link href="/community-quiz/create">
+                {"Create your own using our custom quiz builder!"}
+              </Link>
+            </ChakraLink>
+          ) : (
+            <ChakraLink>
+              <Link href="/community-quiz/about">
+                {"Learn more about our custom quiz builder!"}
+              </Link>
+            </ChakraLink>
+          )}
+        </Text>
+      </Alert>
       <DelayedRender shouldFadeIn waitBeforeShow={100}>
         <SimpleGrid
+          marginTop="32px"
           column={3}
           justifyContent="center"
           minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}

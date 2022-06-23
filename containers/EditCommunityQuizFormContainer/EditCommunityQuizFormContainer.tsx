@@ -1,9 +1,8 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 import axiosClient from "../../axios/axiosClient";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { editCommunityQuizToast } from "../../helpers/toasts";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 
@@ -12,6 +11,8 @@ import { CommunityQuizPayload } from "../../types/community-quiz-payload";
 import useCommunityQuiz from "../../hooks/UseCommunityQuiz";
 import { GetCommunityQuiz } from "../../types/get-community-quiz-dto";
 import EditCommunityQuizForm from "../../components/EditCommunityQuizForm";
+import { useSession } from "next-auth/react";
+import { AuthUser } from "../../types/auth-user";
 
 interface Props {
   quizId: number;
@@ -25,21 +26,14 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
     isLoading: isQuestionTypesLoading,
   } = useTriviaQuestionTypes();
 
-  const { user, isLoading: isUserLoading, getAuthConfig } = useContext(
-    CurrentUserContext
-  );
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
 
   const toast = useToast();
   const router = useRouter();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-
-  useEffect(() => {
-    if (!isUserLoading && !user) {
-      router.push("/login");
-    }
-  }, [user, isUserLoading, router]);
 
   const getValuesFromQuiz = (
     quiz: GetCommunityQuiz
@@ -71,12 +65,6 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
     };
   };
 
-  const redirectToProfile = () => {
-    setTimeout(() => {
-      router.push(`/profile/${user.id}`);
-    }, 2000);
-  };
-
   const handleSubmit = (values: CommunityQuizFormSubmit): void => {
     setIsSubmitting(true);
 
@@ -103,24 +91,21 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
     };
 
     axiosClient
-      .put(`/community-quizzes/${quizId}`, payload, getAuthConfig())
+      .put(`/community-quizzes/${quizId}`, payload, session?.authConfig)
       .then(() => {
         toast(editCommunityQuizToast());
-        redirectToProfile();
+        router.push(`/profile/${user?.id}`);
       })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
-
-  if (isQuestionTypesLoading || isQuizLoading || isUserLoading) {
-    return null;
-  }
 
   return (
     <EditCommunityQuizForm
       values={getValuesFromQuiz(quiz)}
       error={error}
       types={types}
+      isLoading={isQuestionTypesLoading || isQuizLoading}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
     />

@@ -2,11 +2,12 @@ import React, { FC, useContext, useState } from "react";
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 import axiosClient from "../../axios";
 
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { avatarUpdated } from "../../helpers/toasts";
 import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
 import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
 import { AppContext } from "../../context/AppContext";
+import { useSession } from "next-auth/react";
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 
 interface Props {
   isOpen?: boolean;
@@ -20,7 +21,9 @@ const UpdateAvatarFormContainer: FC<Props> = ({
   const toast = useToast();
   const { isNotchedIphone } = useContext(AppContext);
 
-  const { user, updateUser, getAuthConfig } = useContext(CurrentUserContext);
+  const { user, updateUser } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
+
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "bottom",
     md: "bottom-right",
@@ -43,7 +46,7 @@ const UpdateAvatarFormContainer: FC<Props> = ({
           countryCode: user.countryCode,
           xp: user.xp,
         },
-        getAuthConfig()
+        session?.authConfig
       )
       .then((response) => {
         updateUser({

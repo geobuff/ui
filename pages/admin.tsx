@@ -1,4 +1,4 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 
@@ -13,8 +13,9 @@ import {
 
 import MainView from "../components/MainView";
 import { useRouter } from "next/router";
-import { CurrentUserContext } from "../context/CurrentUserContext";
-import Custom404 from "./404";
+import { useSession } from "next-auth/react";
+import { AuthUser } from "../types/auth-user";
+import GameSpinner from "../components/GameSpinner";
 
 const AdminTotalUserCountContainer = dynamic(
   () => import("../containers/AdminTotalUserCountContainer")
@@ -58,13 +59,20 @@ const AdminManualTriviaQuestionTableContainer = dynamic(
 
 const tabs = ["general", "users", "quizzes", "trivia", "merch"];
 
-const Admin: FC = () => {
-  const [tabIndex, setTabIndex] = useState(0);
+export default function Admin(): JSX.Element {
+  const { data: session, status } = useSession();
+  const user = session?.user as AuthUser;
 
-  const { user } = useContext(CurrentUserContext);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const router = useRouter();
   const { tab } = router.query;
+
+  useEffect(() => {
+    if (!user?.isAdmin) {
+      router.push("/");
+    }
+  }, []);
 
   useEffect(() => {
     if (tab) {
@@ -80,110 +88,110 @@ const Admin: FC = () => {
     });
   };
 
+  if (status === "loading") {
+    return <GameSpinner />;
+  }
+
   return (
     <>
       <Head>
         <title>{"Admin Dashboard - GeoBuff"}</title>
       </Head>
-      <MainView hasFooter={user?.isAdmin}>
-        {!user?.isAdmin ? (
-          <Custom404 />
-        ) : (
-          <Tabs
-            isLazy
-            colorScheme="teal"
-            index={tabIndex}
-            onChange={handleTabsChange}
+      <MainView hasFooter>
+        <Tabs
+          isLazy
+          colorScheme="teal"
+          index={tabIndex}
+          onChange={handleTabsChange}
+        >
+          <Flex
+            position="fixed"
+            left={0}
+            right={0}
+            backgroundColor="white"
+            zIndex={100}
+            borderTop={"1.5px solid #E2E8F0"}
           >
-            <Flex
-              position="fixed"
-              left={0}
-              right={0}
-              backgroundColor="white"
-              zIndex={100}
-              borderTop={"1.5px solid #E2E8F0"}
-            >
-              <TabList width="100%" paddingX={{ base: 3, md: 5 }}>
-                <Tab fontWeight="medium">General</Tab>
-                <Tab fontWeight="medium">Users</Tab>
-                <Tab fontWeight="medium">Quizzes</Tab>
-                <Tab fontWeight="medium">Trivia</Tab>
-                <Tab fontWeight="medium">Merch</Tab>
-              </TabList>
-            </Flex>
+            <TabList width="100%" paddingX={{ base: 3, md: 5 }}>
+              <Tab fontWeight="medium">General</Tab>
+              <Tab fontWeight="medium">Users</Tab>
+              <Tab fontWeight="medium">Quizzes</Tab>
+              <Tab fontWeight="medium">Trivia</Tab>
+              <Tab fontWeight="medium">Merch</Tab>
+            </TabList>
+          </Flex>
 
-            <TabPanels mt={10}>
-              <TabPanel>
-                <Flex justifyContent="center">
-                  <Flex
-                    direction="column"
-                    height="100%"
-                    width="100%"
-                    maxWidth={1300}
-                  >
-                    <AdminGeneralContainer />
-                  </Flex>
+          <TabPanels mt={10}>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminGeneralContainer />
                 </Flex>
-              </TabPanel>
-              <TabPanel>
-                <Flex justifyContent="center">
-                  <Flex
-                    direction="column"
-                    height="100%"
-                    width="100%"
-                    maxWidth={1300}
-                  >
-                    <AdminTotalUserCountContainer />
-                    <AdminUsersContainer />
-                  </Flex>
+              </Flex>
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminTotalUserCountContainer />
+                  <AdminUsersContainer />
                 </Flex>
-              </TabPanel>
-              <TabPanel>
-                <Flex justifyContent="center">
-                  <Flex
-                    direction="column"
-                    height="100%"
-                    width="100%"
-                    maxWidth={1300}
-                  >
-                    <AdminTopFiveQuizPlaysContainer />
-                    <AdminQuizTableContainer />
-                  </Flex>
+              </Flex>
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminTopFiveQuizPlaysContainer />
+                  <AdminQuizTableContainer />
                 </Flex>
-              </TabPanel>
-              <TabPanel>
-                <Flex justifyContent="center">
-                  <Flex
-                    direction="column"
-                    height="100%"
-                    width="100%"
-                    maxWidth={1300}
-                  >
-                    <AdminLastWeekTriviaPlaysContainer />
-                    <AdminManualTriviaQuestionTableContainer />
-                  </Flex>
+              </Flex>
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminLastWeekTriviaPlaysContainer />
+                  <AdminManualTriviaQuestionTableContainer />
                 </Flex>
-              </TabPanel>
-              <TabPanel>
-                <Flex justifyContent="center">
-                  <Flex
-                    direction="column"
-                    height="100%"
-                    width="100%"
-                    maxWidth={1300}
-                  >
-                    <AdminMerchTableContainer />
-                    <AdminDiscountsTableContainer />
-                    <AdminOrdersContainer />
-                  </Flex>
+              </Flex>
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminMerchTableContainer />
+                  <AdminDiscountsTableContainer />
+                  <AdminOrdersContainer />
                 </Flex>
-              </TabPanel>
-            </TabPanels>
-          </Tabs>
-        )}
+              </Flex>
+            </TabPanel>
+          </TabPanels>
+        </Tabs>
       </MainView>
     </>
   );
-};
+}
 
-export default Admin;
+Admin.requireAuth = true;

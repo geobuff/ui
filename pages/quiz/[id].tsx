@@ -1,18 +1,14 @@
-import React, { useEffect, FC, useContext } from "react";
-import { useRouter } from "next/router";
+import React, { FC } from "react";
 import * as Maps from "@geobuff/svg-maps";
 
 import MainView from "../../components/MainView";
 
 import { QuizTypes } from "../../types/quiz-types";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import GameMapQuiz from "../../components/GameMapQuiz";
 import GameFlagQuiz from "../../components/GameFlagQuiz";
 import { FlagGameContextProvider } from "../../context/FlagGameContext";
 import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 import axiosClient from "../../axios";
-
-const baseUrl = process.env.NEXT_PUBLIC_API_URL;
 
 const getQuizData = async (id: string) => {
   const body: QuizzesFilterDto = {
@@ -30,9 +26,11 @@ const getQuizData = async (id: string) => {
   const matchedQuiz = data.quizzes.find((x) => x.route === id);
 
   if (matchedQuiz) {
-    const quizRes = await fetch(`${baseUrl}/quizzes/${matchedQuiz.id}`);
+    const quizRes = await fetch(
+      `${process.env.NEXT_PUBLIC_API_URL}/quizzes/${matchedQuiz.id}`
+    );
     const mappingRes = await fetch(
-      `${baseUrl}/mappings/${matchedQuiz.apiPath}`
+      `${process.env.NEXT_PUBLIC_API_URL}/mappings/${matchedQuiz.apiPath}`
     );
 
     const quiz = await quizRes.json();
@@ -61,22 +59,6 @@ interface Props {
 const Quiz: FC<Props> = ({ ...pageProps }) => {
   const quiz = pageProps.pageProps.quiz;
   const mapping = pageProps.pageProps.mapping;
-
-  const router = useRouter();
-
-  const {
-    user,
-    isLoading: isUserLoading,
-    clearUser,
-    tokenExpired,
-  } = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    if (!isUserLoading && user && tokenExpired(user.token)) {
-      clearUser();
-      router.push("/login");
-    }
-  }, [isUserLoading, user, tokenExpired, clearUser, router]);
 
   const getQuizComponent = (): React.ReactNode => {
     switch (quiz.typeId) {

@@ -58,6 +58,7 @@ const CommunityQuizForm: FC<Props> = ({
   error = "",
   values = initialValues,
   types = [],
+  isLoading = false,
   isSubmitting = false,
   onSubmit = () => {},
 }) => {
@@ -203,6 +204,7 @@ const CommunityQuizForm: FC<Props> = ({
                   type="submit"
                   colorScheme="green"
                   isLoading={isSubmitting}
+                  disabled={isLoading}
                 >
                   {"Create Quiz"}
                 </Button>

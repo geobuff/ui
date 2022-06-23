@@ -1,13 +1,16 @@
 import { useDisclosure } from "@chakra-ui/react";
-import React, { FC, useContext, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminUsersTable from "../../components/AdminUsersTable";
 import DeleteAccountModal from "../../components/DeleteAccountModal";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { AuthUser } from "../../types/auth-user";
 import { UserPageDto } from "../../types/user-page-dto";
 
 const AdminUsersContainer: FC = () => {
-  const { user, getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session, status } = useSession();
+  const user = session?.user as AuthUser;
+
   const [userPage, setUserPage] = useState<UserPageDto>();
   const [page, setPage] = useState(0);
   const [userId, setUserId] = useState(0);
@@ -22,21 +25,23 @@ const AdminUsersContainer: FC = () => {
   } = useDisclosure();
 
   useEffect(() => {
-    setIsLoading(true);
-    axiosClient
-      .get(`/users?page=${page}`, getAuthConfig())
-      .then((response) => {
-        setUserPage(response.data);
-      })
-      .finally(() => setIsLoading(false));
-  }, [getAuthConfig, page]);
+    if (status === "authenticated") {
+      setIsLoading(true);
+      axiosClient
+        .get(`/users?page=${page}`, session?.authConfig)
+        .then((response) => {
+          setUserPage(response.data);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [status, session, page]);
 
   const handleSubmit = (): void => {
     setIsSubmitting(true);
     setError(false);
 
     axiosClient
-      .delete(`/users/${userId}`, getAuthConfig())
+      .delete(`/users/${userId}`, session?.authConfig)
       .then(() => {
         setUserPage({
           ...userPage,

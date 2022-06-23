@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSwipeable } from "react-swipeable";
@@ -15,12 +15,12 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import NavigationSidebarQuicklink from "./NavigationSidebarQuicklink";
 import NavigationBarLink from "../NavigationBar/NavigationBarLink";
 import ShoppingCartLink from "../ShoppingCartLink";
-import build from "next/dist/build";
 import { insert } from "../../helpers/array";
+import { useSession } from "next-auth/react";
+import { AuthUser } from "../../types/auth-user";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -106,7 +106,8 @@ const NavigationSidebar: FC<Props> = ({
   isOpen,
   shoppingCartItemCount = 0,
 }) => {
-  const { user } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
 
   const { route, asPath } = useRouter();
 

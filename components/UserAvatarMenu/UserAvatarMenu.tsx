@@ -20,27 +20,30 @@ import {
 import Image from "../Image";
 
 import SolidChevronDown from "../../Icons/SolidChevronDown";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import Twemoji from "../Twemoji";
+import { signOut, useSession } from "next-auth/react";
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 
 interface Props {
   isCondensed?: boolean;
 }
 
 const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-  const { user, isLoading, clearUser } = useContext(CurrentUserContext);
   const router = useRouter();
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
+  const { status } = useSession();
+  const { user, clearUser } = useContext(CurrentUserContext);
 
   const avatarSize = isCondensed ? "26px" : { base: "22px", md: "26px" };
   const imageSize = isCondensed ? "13px" : { base: "11px", md: "13px" };
 
   const logout = (): void => {
     clearUser();
-    router.push("/");
+    signOut();
   };
 
-  if (isLoading) {
+  if (status === "loading") {
     return (
       <Flex
         alignItems="center"
@@ -65,7 +68,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
     );
   }
 
-  if (user) {
+  if (status === "authenticated") {
     return (
       <Menu>
         <MenuButton
@@ -98,7 +101,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
               marginX={isCondensed ? 1 : 0}
             >
               <Image
-                src={user.avatarPrimaryImageUrl}
+                src={user?.avatarPrimaryImageUrl}
                 height={imageSize}
                 width={imageSize}
                 hasSkeleton={false}
@@ -127,7 +130,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
         </MenuButton>
 
         <MenuList>
-          {!isMobile && user.isAdmin && (
+          {!isMobile && user?.isAdmin && (
             <>
               <MenuItem onClick={(): Promise<boolean> => router.push(`/admin`)}>
                 <Twemoji emoji="👑" width={5} mr={2} /> {"Admin Dashboard"}

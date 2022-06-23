@@ -1,4 +1,4 @@
-import React, { useEffect, FC, useContext } from "react";
+import React, { useEffect, FC } from "react";
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
 import { Elements } from "@stripe/react-stripe-js";
@@ -8,6 +8,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import { isMobile } from "react-device-detect";
+import { SessionProvider } from "next-auth/react";
 import NProgress from "nprogress"; //nprogress module
 import "nprogress/nprogress.css"; //styles of nprogress
 
@@ -16,17 +17,17 @@ import theme from "../styles/theme";
 import * as gtag from "../helpers/gtag";
 
 import { AppContextProvider } from "../context/AppContext";
-import {
-  CurrentUserContext,
-  CurrentUserContextProvider,
-} from "../context/CurrentUserContext";
 import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
+import { Session } from "next-auth";
+import AuthGuard from "../components/AuthGuard";
+import { CurrentUserContextProvider } from "../context/CurrentUserContext/CurrentUserContext";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
 interface Props {
+  session: Session;
   Component: any;
 }
 
@@ -37,21 +38,8 @@ Router.events.on("routeChangeError", () => NProgress.done());
 
 NProgress.configure({ showSpinner: false });
 
-const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
+const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
   const router = useRouter();
-  const {
-    user,
-    isLoading: isUserLoading,
-    clearUser,
-    tokenExpired,
-  } = useContext(CurrentUserContext);
-
-  useEffect(() => {
-    if (!isUserLoading && user && tokenExpired(user.token)) {
-      clearUser();
-      router.push("/login");
-    }
-  }, [isUserLoading, user, tokenExpired, clearUser, router]);
 
   useEffect(() => {
     const handleRouteChange = (url: URL) => {
@@ -125,22 +113,30 @@ const MyApp: FC<Props> = ({ Component, ...pageProps }) => {
           href="/apple-touch-icon-180x180.png"
         />
       </Head>
-      <ChakraProvider theme={theme}>
-        <Elements stripe={stripePromise}>
-          <DndProvider
-            backend={isMobile ? TouchBackend : HTML5Backend}
-            options={{ delayTouchStart: 5, ignoreContextMenu: true }}
-          >
-            <AppContextProvider>
-              <CurrentUserContextProvider>
-                <ShoppingCartContextProvider>
-                  <Component {...pageProps} />
-                </ShoppingCartContextProvider>
-              </CurrentUserContextProvider>
-            </AppContextProvider>
-          </DndProvider>
-        </Elements>
-      </ChakraProvider>
+      <SessionProvider session={session}>
+        <ChakraProvider theme={theme}>
+          <Elements stripe={stripePromise}>
+            <DndProvider
+              backend={isMobile ? TouchBackend : HTML5Backend}
+              options={{ delayTouchStart: 5, ignoreContextMenu: true }}
+            >
+              <AppContextProvider>
+                <CurrentUserContextProvider>
+                  <ShoppingCartContextProvider>
+                    {Component.requireAuth ? (
+                      <AuthGuard>
+                        <Component {...pageProps} />
+                      </AuthGuard>
+                    ) : (
+                      <Component {...pageProps} />
+                    )}
+                  </ShoppingCartContextProvider>
+                </CurrentUserContextProvider>
+              </AppContextProvider>
+            </DndProvider>
+          </Elements>
+        </ChakraProvider>
+      </SessionProvider>
     </>
   );
 };

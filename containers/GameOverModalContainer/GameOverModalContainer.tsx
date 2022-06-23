@@ -13,11 +13,12 @@ import {
 } from "../../helpers/toasts";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { TempScore } from "../../types/temp-score";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { Mapping } from "../../types/mapping";
 import { Result } from "../../types/result";
 import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
 import { AppContext } from "../../context/AppContext";
+import { useSession } from "next-auth/react";
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 
 interface Props {
   id?: number;
@@ -54,14 +55,11 @@ const GameOverModalContainer: FC<Props> = ({
 }) => {
   const toast = useToast();
   const router = useRouter();
-  const { isNotchedIphone } = useContext(AppContext);
 
-  const {
-    user,
-    isLoading: isUserLoading,
-    updateUser,
-    getAuthConfig,
-  } = useContext(CurrentUserContext);
+  const { user, updateUser } = useContext(CurrentUserContext);
+  const { data: session, status } = useSession();
+
+  const { isNotchedIphone } = useContext(AppContext);
 
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "bottom",
@@ -79,7 +77,7 @@ const GameOverModalContainer: FC<Props> = ({
       return;
     }
 
-    if (isUserLoading) {
+    if (status === "loading") {
       return;
     }
 
@@ -88,7 +86,7 @@ const GameOverModalContainer: FC<Props> = ({
       setIsPlaysUpdated(true);
     }
 
-    if (!user || score === 0) {
+    if (status === "unauthenticated" || score === 0) {
       setIsLoading(false);
       return;
     }
@@ -97,15 +95,22 @@ const GameOverModalContainer: FC<Props> = ({
       increaseXP();
       setXPUpdated(true);
     }
-  }, [isOpen, isUserLoading, user]);
+  }, [isOpen, status]);
 
   // When user loads in or modal is opened,
   // get a fresh leaderboard entry
   useEffect(() => {
-    if (user) {
-      getLeaderboardEntry();
+    if (status === "authenticated") {
+      axiosClient
+        .get(`/leaderboard/${id}/${user.id}`)
+        .then((response) => {
+          if (response.status === 200) {
+            setEntry(response.data);
+          }
+        })
+        .finally(() => setIsLoading(false));
     }
-  }, [isOpen, user]);
+  }, [isOpen, status]);
 
   const increaseXP = (): void => {
     const payload: IncreaseUserXPPayload = {
@@ -114,7 +119,7 @@ const GameOverModalContainer: FC<Props> = ({
     };
 
     axiosClient
-      .put(`/users/xp/${user.id}`, payload, getAuthConfig())
+      .put(`/users/xp/${user.id}`, payload, session?.authConfig)
       .then((response) => {
         const increase = response.data;
         toast(increaseXPToast(increase, toastPosition));
@@ -124,17 +129,6 @@ const GameOverModalContainer: FC<Props> = ({
           xp: user.xp + increase,
         });
       });
-  };
-
-  const getLeaderboardEntry = (): void => {
-    axiosClient
-      .get(`/leaderboard/${id}/${user.id}`)
-      .then((response) => {
-        if (response.status === 200) {
-          setEntry(response.data);
-        }
-      })
-      .finally(() => setIsLoading(false));
   };
 
   const handleSubmitEntry = (existingEntry: LeaderboardEntry): void => {
@@ -179,7 +173,7 @@ const GameOverModalContainer: FC<Props> = ({
           score: score,
           time: time,
         },
-        getAuthConfig()
+        session?.authConfig
       )
       .then(() => {
         setIsSubmitting(false);
@@ -198,7 +192,7 @@ const GameOverModalContainer: FC<Props> = ({
           score: score,
           time: time,
         },
-        getAuthConfig()
+        session?.authConfig
       )
       .then(() => {
         setIsSubmitting(false);

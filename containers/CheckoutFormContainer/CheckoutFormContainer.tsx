@@ -1,16 +1,20 @@
 import { useStripe } from "@stripe/react-stripe-js";
+import { useSession } from "next-auth/react";
 import React, { FC, useContext, useState } from "react";
 import axiosClient from "../../axios";
 import CheckoutForm from "../../components/CheckoutForm";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 import useShippingOptions from "../../hooks/UseShippingOptions";
 import CheckoutFormPlaceholder from "../../placeholders/CheckoutFormPlaceholder";
+import { AuthUser } from "../../types/auth-user";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { CheckoutPayload } from "../../types/checkout-payload";
 
 const CheckoutFormContainer: FC = () => {
-  const { user, isLoading: isUserLoading } = useContext(CurrentUserContext);
+  const { data: session, status } = useSession();
+  const isUserLoading = status === "loading";
+  const user = session?.user as AuthUser;
+
   const {
     toLineItems,
     discountId,

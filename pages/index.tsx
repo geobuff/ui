@@ -40,6 +40,7 @@ import { CommunityQuizFilterDto } from "../types/community-quiz-filter-dto";
 import { Quiz } from "../types/quiz";
 import { Trivia } from "../types/trivia";
 import { CommunityQuiz } from "../types/community-quiz-dto";
+import { signIn, useSession } from "next-auth/react";
 
 const GRID_LENGTH = 5;
 
@@ -51,33 +52,20 @@ interface SearchResults {
 }
 
 const Home: FC<AppProps> = ({ pageProps }) => {
+  const { data: session } = useSession();
+
   const [filter, setFilter] = useState("");
   const [searchResults, setSearchResults] = useState<SearchResults>();
   const [isSearching, setIsSearching] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
-  const handleClearInput = (): void => {
-    setInputValue("");
-    setFilter("");
-    setSearchResults(null);
-  };
-
-  const onChange = (value: string): void => {
-    setFilter(value);
-  };
-
-  const handleDebounceChange = debounce(500, (event) => {
-    onChange(event);
-  });
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(event.target.value);
-    handleDebounceChange(event.target.value);
-
-    if (event.target.value?.length === 2) {
-      setIsSearching(true);
+  useEffect(() => {
+    if (session?.error === "RefreshAccessTokenError") {
+      // Force sign in to hopefully resolve error.
+      // See https://next-auth.js.org/tutorials/refresh-token-rotation#client-side.
+      signIn();
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     if (filter.trim().length < 3) {
@@ -135,6 +123,29 @@ const Home: FC<AppProps> = ({ pageProps }) => {
       })
       .finally(() => setIsSearching(false));
   }, [filter]);
+
+  const handleClearInput = (): void => {
+    setInputValue("");
+    setFilter("");
+    setSearchResults(null);
+  };
+
+  const onChange = (value: string): void => {
+    setFilter(value);
+  };
+
+  const handleDebounceChange = debounce(500, (event) => {
+    onChange(event);
+  });
+
+  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    setInputValue(event.target.value);
+    handleDebounceChange(event.target.value);
+
+    if (event.target.value?.length === 2) {
+      setIsSearching(true);
+    }
+  };
 
   const isMobile = useBreakpointValue({ base: true, md: false });
 

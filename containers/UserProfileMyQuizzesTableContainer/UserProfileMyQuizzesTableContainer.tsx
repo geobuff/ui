@@ -1,9 +1,10 @@
 import { useDisclosure, useToast } from "@chakra-ui/react";
-import React, { FC, useContext, useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { FC, useState } from "react";
 import axiosClient from "../../axios";
 import DeleteCommunityQuizModal from "../../components/DeleteCommunityQuizModal";
 import UserProfileMyQuizzesTable from "../../components/UserProfileMyQuizzes/UserProfileMyQuizzesTable";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+
 import {
   copyCommunityQuizLinkToast,
   deleteCommunityQuizToast,
@@ -20,7 +21,7 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
   isCurrentUser = false,
 }) => {
   const toast = useToast();
-  const { getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
 
   const [myQuizzes, setMyQuizzes] = useState(quizzes);
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -44,7 +45,7 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
     setError(false);
 
     axiosClient
-      .delete(`/community-quizzes/${quizId}`, getAuthConfig())
+      .delete(`/community-quizzes/${quizId}`, session?.authConfig)
       .then(() => {
         setMyQuizzes(myQuizzes.filter((x) => x.id !== quizId));
         toast(deleteCommunityQuizToast());

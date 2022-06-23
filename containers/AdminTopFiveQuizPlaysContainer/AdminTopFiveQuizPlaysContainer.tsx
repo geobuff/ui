@@ -1,23 +1,26 @@
-import React, { FC, useContext, useEffect, useState } from "react";
+import { useSession } from "next-auth/react";
+import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminTopFiveQuizPlays from "../../components/AdminTopFiveQuizPlays";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 import { getQuizPlaysData } from "../../helpers/charts";
 import AdminTopFiveQuizPlaysPlaceholder from "../../placeholders/AdminTopFiveQuizPlaysPlaceholder";
 
 const AdminTopFiveQuizPlaysContainer: FC = () => {
-  const { getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session, status } = useSession();
+
   const [quizPlays, setQuizPlays] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    axiosClient
-      .get("/quiz-plays-top-five", getAuthConfig())
-      .then((response) => {
-        setQuizPlays(response.data);
-      })
-      .finally(() => setIsLoading(false));
-  }, [getAuthConfig]);
+    if (status === "authenticated") {
+      axiosClient
+        .get("/quiz-plays-top-five", session?.authConfig)
+        .then((response) => {
+          setQuizPlays(response.data);
+        })
+        .finally(() => setIsLoading(false));
+    }
+  }, [status, session]);
 
   if (isLoading) {
     return <AdminTopFiveQuizPlaysPlaceholder />;

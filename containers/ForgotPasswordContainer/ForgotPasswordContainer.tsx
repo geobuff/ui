@@ -1,25 +1,25 @@
-import React, { useEffect, useState, FC, useContext } from "react";
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+import React, { useState, FC, useEffect } from "react";
 
 import axiosClient from "../../axios/axiosClient";
 
 import ForgotPasswordForm from "../../components/ForgotPasswordForm";
 import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
 
 const ForgotPasswordContainer: FC = () => {
   const router = useRouter();
-  const { user, isLoading: isLoadingUser } = useContext(CurrentUserContext);
+  const { status } = useSession();
 
   const [isSuccess, setIsSuccess] = useState(false);
   const [error, setError] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
-    if (!isLoadingUser && user) {
+    if (status === "authenticated") {
       router.push("/");
     }
-  }, [isLoadingUser, user, router]);
+  }, [status, router]);
 
   const handleSubmit = (values: ForgotPasswordFormSubmit): void => {
     setIsSubmitting(true);
@@ -37,6 +37,7 @@ const ForgotPasswordContainer: FC = () => {
     <ForgotPasswordForm
       error={error}
       isSuccess={isSuccess}
+      isLoading={status === "loading"}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
     />

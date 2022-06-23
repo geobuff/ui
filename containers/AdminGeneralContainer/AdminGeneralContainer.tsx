@@ -1,4 +1,4 @@
-import React, { FC, useContext, useState } from "react";
+import React, { FC, useState } from "react";
 import { DateTime } from "luxon";
 import axiosClient from "../../axios";
 import AdminGeneral from "../../components/AdminGeneral";
@@ -10,7 +10,7 @@ import {
   regenerateTriviaToast,
 } from "../../helpers/toasts";
 import { BackgroundTaskKey } from "../../types/background-task";
-import { CurrentUserContext } from "../../context/CurrentUserContext";
+import { useSession } from "next-auth/react";
 
 const {
   DeployDevWeb,
@@ -53,7 +53,7 @@ const getTaskSettings = (key: BackgroundTaskKey) => {
 };
 
 const AdminGeneralContainer: FC = () => {
-  const { getAuthConfig } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
 
   const toast = useToast();
 
@@ -97,7 +97,7 @@ const AdminGeneralContainer: FC = () => {
     const dateString = date.toISOString().split("T")[0];
 
     axiosClient
-      .put(`/trivia/${dateString}`, null, getAuthConfig())
+      .put(`/trivia/${dateString}`, null, session?.authConfig)
       .then(() => {
         toast(regenerateTriviaToast(dateString));
         setRegenerateDate("");
@@ -111,7 +111,7 @@ const AdminGeneralContainer: FC = () => {
     setIsSubmitting(true);
 
     axiosClient
-      .delete(`/trivia/old/${NEW_TRIVIA_COUNT}`, getAuthConfig())
+      .delete(`/trivia/old/${NEW_TRIVIA_COUNT}`, session?.authConfig)
       .then(() => {
         toast(clearOldTriviaToast(NEW_TRIVIA_COUNT));
       })

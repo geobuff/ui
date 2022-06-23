@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 import Link from "next/link";
 import flag from "country-code-emoji";
 import { getFlagUrl } from "@geobuff/flags";
@@ -25,8 +25,9 @@ import TableCell from "../../TableCell";
 import { secondsToMinutesString } from "../../../helpers/time";
 import Sparkles from "../../Sparkles/Sparkles";
 import { LeaderboardEntry } from "../../../types/leaderboard-entry";
-import { CurrentUserContext } from "../../../context/CurrentUserContext";
 import CustomFlag from "../../CustomFlag";
+import { useSession } from "next-auth/react";
+import { AuthUser } from "../../../types/auth-user";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -34,7 +35,8 @@ interface Props {
 }
 
 const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
-  const { user } = useContext(CurrentUserContext);
+  const { data: session } = useSession();
+  const user = session?.user as AuthUser;
 
   if (isLoading && !entries.length) {
     return <LeaderTablePlaceholder />;
