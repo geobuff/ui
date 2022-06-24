@@ -11,6 +11,7 @@ import {
 } from "./colors";
 
 const OCEAN_QUIZ_CLASSNAMES = ["UkSeas", "WorldOceans"];
+const IMAGE_QUIZ_CLASSNAMES = ["SevenSummits"];
 
 export const getHighlightRegionsByMap = (map: string): Option[] => {
   const selectedMap: SVGBase = Maps[map];
@@ -38,7 +39,11 @@ export const getGameMap = (
         if (!x.id) {
           x.style = { fill: GEOBUFF_GREY };
         } else if (x.name?.toLowerCase() === highlighted.toLowerCase()) {
-          x.style = { fill: GEOBUFF_RED };
+          if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+            x.style = { opacity: 1 };
+          } else {
+            x.style = { fill: GEOBUFF_RED };
+          }
         } else {
           x.style = {
             fill: OCEAN_QUIZ_CLASSNAMES.includes(mapClassName)
@@ -62,26 +67,45 @@ export const initializeMap = (map: SVGBase): void => {
     });
 };
 
-export const clearMapFill = (map: SVGBase): void => {
-  map.elements.map((x) => {
-    if (x.id) {
-      x.style = {};
-    }
-    return x;
-  });
+export const clearMapFill = (map: SVGBase, mapClassName: string): void => {
+  if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+    map.elements.map((x) => {
+      if (x.id) {
+        x.style = { opacity: 0 };
+      }
+      return x;
+    });
+  } else {
+    map.elements.map((x) => {
+      if (x.id) {
+        x.style = {};
+      }
+      return x;
+    });
+  }
 };
 
 export const updateMapOnSuccessfulSubmission = (
   map: SVGBase,
+  mapClassName: string,
   submission: string,
   pathSelectedFill: string
 ): void => {
-  map.elements
-    .filter((x) => x.name.toLowerCase() === submission)
-    .map((x) => {
-      x.style = { fill: pathSelectedFill };
-      return x;
-    });
+  if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+    map.elements
+      .filter((x) => x.name?.toLowerCase() === submission)
+      .map((x) => {
+        x.style = { opacity: 1 };
+        return x;
+      });
+  } else {
+    map.elements
+      .filter((x) => x.name.toLowerCase() === submission)
+      .map((x) => {
+        x.style = { fill: pathSelectedFill };
+        return x;
+      });
+  }
 };
 
 export const getMapStyles = (map: string): any => {

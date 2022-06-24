@@ -28,7 +28,7 @@ const getContentByType = (
       }
 
       const gameMap = getGameMap(Maps[map], map, highlighted);
-      initializeMap(gameMap);
+      initializeMap(gameMap, map);
       return (
         <Box marginTop="40px" marginBottom="10px">
           <SVGMap map={gameMap} mapStyle={getMapStyles(map)} />

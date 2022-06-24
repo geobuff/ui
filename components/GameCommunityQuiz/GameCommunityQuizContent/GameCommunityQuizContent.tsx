@@ -45,7 +45,7 @@ const getContentByType = (
       );
     case "Map":
       const gameMap = getGameMap(Maps[map], map, highlighted);
-      initializeMap(gameMap);
+      initializeMap(gameMap, map);
       return <SVGMap map={gameMap} mapStyle={getMapStyles(map)} />;
     case "Image":
       return (
