@@ -1,6 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
-import { Box, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Flex,
+  Link as ChakraLink,
+  Skeleton,
+  Text,
+} from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
 const NEXT_ACTION_DELAY = 10000;
@@ -66,13 +72,12 @@ const HeroBanner: FC<Props> = ({
   }, [index]);
 
   useEffect(() => {
-    if (shouldFadeOut) {
+    if (actions.length > 0 && shouldFadeOut) {
       setTimeout(() => {
         setIndex(index === actions.length - 1 ? 0 : index + 1);
         setShouldFadeOut(false);
       }, FADE_OUT_DELAY);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [shouldFadeOut]);
 
   return (
@@ -119,7 +124,13 @@ const HeroBanner: FC<Props> = ({
               fontWeight="medium"
             >
               {"Create an account and"}{" "}
-              {!isSessionLoading && (
+              {isSessionLoading ? (
+                <Skeleton
+                  height={{ base: "20px", md: "25px" }}
+                  width={{ base: "240px", md: "350px" }}
+                  mt={1}
+                />
+              ) : (
                 <Link href={actions[index]?.link ?? ""}>
                   <ChakraLink textDecoration="underline">
                     {actions[index]?.value}
