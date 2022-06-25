@@ -11,6 +11,8 @@ import {
 } from "./colors";
 
 const OCEAN_QUIZ_CLASSNAMES = ["UkSeas", "WorldOceans"];
+const CIRCLE_QUIZ_CLASSNAMES = ["UkMajorCities"];
+const IMAGE_QUIZ_CLASSNAMES = ["SevenSummits"];
 
 export const getHighlightRegionsByMap = (map: string): Option[] => {
   const selectedMap: SVGBase = Maps[map];
@@ -38,7 +40,11 @@ export const getGameMap = (
         if (!x.id) {
           x.style = { fill: GEOBUFF_GREY };
         } else if (x.name?.toLowerCase() === highlighted.toLowerCase()) {
-          x.style = { fill: GEOBUFF_RED };
+          if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+            x.style = { opacity: 1 };
+          } else {
+            x.style = { fill: GEOBUFF_RED };
+          }
         } else {
           x.style = {
             fill: OCEAN_QUIZ_CLASSNAMES.includes(mapClassName)
@@ -62,7 +68,27 @@ export const initializeMap = (map: SVGBase): void => {
     });
 };
 
-export const clearMapFill = (map: SVGBase): void => {
+export const clearMapFill = (map: SVGBase, mapClassName: string): void => {
+  if (CIRCLE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+    map.elements.map((x) => {
+      if (x.id) {
+        x.style = { fill: GEOBUFF_GREY };
+      }
+      return x;
+    });
+    return;
+  }
+
+  if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+    map.elements.map((x) => {
+      if (x.id) {
+        x.style = { opacity: 0 };
+      }
+      return x;
+    });
+    return;
+  }
+
   map.elements.map((x) => {
     if (x.id) {
       x.style = {};
@@ -73,15 +99,25 @@ export const clearMapFill = (map: SVGBase): void => {
 
 export const updateMapOnSuccessfulSubmission = (
   map: SVGBase,
+  mapClassName: string,
   submission: string,
   pathSelectedFill: string
 ): void => {
-  map.elements
-    .filter((x) => x.name.toLowerCase() === submission)
-    .map((x) => {
-      x.style = { fill: pathSelectedFill };
-      return x;
-    });
+  if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+    map.elements
+      .filter((x) => x.name?.toLowerCase() === submission)
+      .map((x) => {
+        x.style = { opacity: 1 };
+        return x;
+      });
+  } else {
+    map.elements
+      .filter((x) => x.name.toLowerCase() === submission)
+      .map((x) => {
+        x.style = { fill: pathSelectedFill };
+        return x;
+      });
+  }
 };
 
 export const getMapStyles = (map: string): any => {
@@ -100,4 +136,8 @@ export const getInitialMapFill = (map: string): string =>
     : GEOBUFF_LIGHT_GREEN;
 
 export const getPathSelectedFill = (map: string): string =>
-  OCEAN_QUIZ_CLASSNAMES.includes(map) ? GEOBUFF_BLUE : GEOBUFF_GREEN;
+  OCEAN_QUIZ_CLASSNAMES.includes(map)
+    ? GEOBUFF_BLUE
+    : CIRCLE_QUIZ_CLASSNAMES.includes(map)
+    ? GEOBUFF_RED
+    : GEOBUFF_GREEN;

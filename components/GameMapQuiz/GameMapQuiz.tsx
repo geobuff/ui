@@ -189,7 +189,7 @@ const GameMapQuiz: FC<Props> = ({
   });
 
   const handleGameStart = (): void => {
-    clearMapFill(map);
+    clearMapFill(map, mapClassName);
     setCheckedSubmissions([]);
     setRecentSubmissions([]);
     setScore(0);
@@ -280,6 +280,7 @@ const GameMapQuiz: FC<Props> = ({
 
       updateMapOnSuccessfulSubmission(
         map,
+        mapClassName,
         matchedSubmission.svgName.toLowerCase(),
         pathSelectedFill
       );

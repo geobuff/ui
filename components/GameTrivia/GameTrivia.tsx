@@ -1,7 +1,8 @@
 import React, { FC, useContext, useState } from "react";
 import Head from "next/head";
-import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, useBreakpointValue, useToast } from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
+import { DateTime } from "luxon";
 
 import MainView from "../MainView";
 
@@ -14,6 +15,9 @@ import { AppContext } from "../../context/AppContext";
 import { TriviaQuestion } from "../../types/trivia-question";
 import { TriviaAnswer } from "../../types/trivia-answer";
 import { Trivia } from "../../types/trivia";
+import { copyTriviaScoreToast } from "../../helpers/toasts";
+import { useRouter } from "next/router";
+import { getTriviaScoreMessage } from "../../helpers/clipboard";
 
 export interface Props {
   trivia: Trivia;
@@ -24,6 +28,9 @@ const GameTrivia: FC<Props> = ({
   trivia,
   onIncrementPlays = (): void => {},
 }) => {
+  const toast = useToast();
+  const { asPath } = useRouter();
+
   const [hasAnswered, setHasAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<TriviaAnswer>();
@@ -54,6 +61,17 @@ const GameTrivia: FC<Props> = ({
   const handleGameStop = () => {
     onIncrementPlays(trivia.id);
     setHasGameStopped(true);
+  };
+
+  const handleCopyScore = (): void => {
+    const message = getTriviaScoreMessage(
+      score,
+      trivia.maxScore,
+      DateTime.local().toFormat("MMM dd"),
+      asPath
+    );
+    navigator.clipboard.writeText(message);
+    toast(copyTriviaScoreToast());
   };
 
   const handlePlayAgain = () => {
@@ -98,6 +116,7 @@ const GameTrivia: FC<Props> = ({
               <GameTriviaGameOver
                 score={score}
                 maxQuestionNumber={trivia.questions?.length}
+                onCopyScore={handleCopyScore}
                 onPlayAgain={handlePlayAgain}
               />
             ) : (

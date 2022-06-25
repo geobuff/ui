@@ -12,7 +12,6 @@ import {
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
-import { DateTime } from "luxon";
 
 import TableCell from "../../TableCell";
 import AdminManualTriviaQuestionsTablePlaceholder from "../../../placeholders/AdminManualTriviaQuestionsTablePlaceholder";
