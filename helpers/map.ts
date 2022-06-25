@@ -11,6 +11,7 @@ import {
 } from "./colors";
 
 const OCEAN_QUIZ_CLASSNAMES = ["UkSeas", "WorldOceans"];
+const CIRCLE_QUIZ_CLASSNAMES = ["UkMajorCities"];
 const IMAGE_QUIZ_CLASSNAMES = ["SevenSummits"];
 
 export const getHighlightRegionsByMap = (map: string): Option[] => {
@@ -68,6 +69,16 @@ export const initializeMap = (map: SVGBase): void => {
 };
 
 export const clearMapFill = (map: SVGBase, mapClassName: string): void => {
+  if (CIRCLE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+    map.elements.map((x) => {
+      if (x.id) {
+        x.style = { fill: GEOBUFF_GREY };
+      }
+      return x;
+    });
+    return;
+  }
+
   if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
     map.elements.map((x) => {
       if (x.id) {
@@ -75,14 +86,15 @@ export const clearMapFill = (map: SVGBase, mapClassName: string): void => {
       }
       return x;
     });
-  } else {
-    map.elements.map((x) => {
-      if (x.id) {
-        x.style = {};
-      }
-      return x;
-    });
+    return;
   }
+
+  map.elements.map((x) => {
+    if (x.id) {
+      x.style = {};
+    }
+    return x;
+  });
 };
 
 export const updateMapOnSuccessfulSubmission = (
@@ -124,4 +136,8 @@ export const getInitialMapFill = (map: string): string =>
     : GEOBUFF_LIGHT_GREEN;
 
 export const getPathSelectedFill = (map: string): string =>
-  OCEAN_QUIZ_CLASSNAMES.includes(map) ? GEOBUFF_BLUE : GEOBUFF_GREEN;
+  OCEAN_QUIZ_CLASSNAMES.includes(map)
+    ? GEOBUFF_BLUE
+    : CIRCLE_QUIZ_CLASSNAMES.includes(map)
+    ? GEOBUFF_RED
+    : GEOBUFF_GREEN;
