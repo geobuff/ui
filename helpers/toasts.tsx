@@ -181,3 +181,14 @@ export const copyCommunityQuizLinkToast = (
   duration: 6000,
   isClosable: true,
 });
+
+export const copyTriviaScoreToast = (
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Copy Score",
+  description: "Successfully copied score to clipboard.",
+  status: "success",
+  duration: 6000,
+  isClosable: true,
+});

@@ -21,12 +21,14 @@ const getScoreSubtitle = (score: number, max: number): string => {
 export interface Props {
   score: number;
   maxQuestionNumber: number;
+  onCopyScore: () => void;
   onPlayAgain: () => void;
 }
 
 const GameTriviaGameOver: FC<Props> = ({
   score = 0,
   maxQuestionNumber = 10,
+  onCopyScore = () => {},
   onPlayAgain = () => {},
 }) => {
   // useMemo prevents getScoreSubtitle from
@@ -73,6 +75,23 @@ const GameTriviaGameOver: FC<Props> = ({
             {scoreSubtitle}
           </Text>
         </Box>
+
+        <Button
+          colorScheme="gray"
+          paddingY={8}
+          paddingX={6}
+          marginBottom={3}
+          borderRadius={12}
+          size="lg"
+          fontWeight="bold"
+          color="black"
+          maxWidth={420}
+          marginX="auto"
+          isFullWidth
+          onClick={onCopyScore}
+        >
+          {"Copy Score"}
+        </Button>
 
         <Button
           colorScheme="green"
