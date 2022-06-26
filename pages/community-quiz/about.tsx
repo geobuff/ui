@@ -146,9 +146,10 @@ const About: FC = () => {
             <Heading size="lg">
               Heard enough?{" "}
               <ChakraLink>
-                <Link href="/register">Sign up</Link>{" "}
-              </ChakraLink>{" "}
-              today to start creating your own!
+                <Link href="/register">
+                  {`Sign up today to start creating your own!`}
+                </Link>
+              </ChakraLink>
             </Heading>
           </Flex>
         </Flex>
