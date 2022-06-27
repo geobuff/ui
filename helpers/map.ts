@@ -12,7 +12,7 @@ import {
 
 const OCEAN_QUIZ_CLASSNAMES = ["UkSeas", "WorldOceans"];
 const CIRCLE_QUIZ_CLASSNAMES = ["UkMajorCities"];
-const IMAGE_QUIZ_CLASSNAMES = ["SevenSummits"];
+const IMAGE_QUIZ_CLASSNAMES = ["SevenSummits", "WorldLongestRivers"];
 
 export const getHighlightRegionsByMap = (map: string): Option[] => {
   const selectedMap: SVGBase = Maps[map];
