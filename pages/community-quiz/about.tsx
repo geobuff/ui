@@ -45,7 +45,7 @@ const About: FC = () => {
           <SimpleGrid columns={{ base: 1, md: 2 }} mb={12}>
             <Flex justifyContent="center">
               <Image
-                src="/community-quiz/quiz-builder.png"
+                src={`${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/quiz-builder.png`}
                 width={{ base: "360px", md: "470px", lg: "630px" }}
                 height={{ base: "360px", md: "470px", lg: "630px" }}
               />
@@ -83,7 +83,7 @@ const About: FC = () => {
             </Flex>
             <Flex justifyContent="center">
               <Image
-                src="/community-quiz/resources.png"
+                src={`${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/resources.png`}
                 width={{ base: "360px", md: "470px", lg: "630px" }}
                 height={{ base: "360px", md: "470px", lg: "630px" }}
               />
@@ -95,7 +95,7 @@ const About: FC = () => {
           <SimpleGrid columns={{ base: 1, md: 2 }} mb={12}>
             <Flex justifyContent="center">
               <Image
-                src="/community-quiz/visibility.png"
+                src={`${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/visibility.png`}
                 width={{ base: "360px", md: "470px", lg: "630px" }}
                 height={{ base: "360px", md: "470px", lg: "630px" }}
               />
@@ -133,7 +133,7 @@ const About: FC = () => {
             </Flex>
             <Flex justifyContent="center">
               <Image
-                src="/community-quiz/my-quizzes.png"
+                src={`${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/my-quizzes.png`}
                 width={{ base: "360px", md: "470px", lg: "630px" }}
                 height={{ base: "360px", md: "470px", lg: "630px" }}
               />
