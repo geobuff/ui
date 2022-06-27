@@ -17,7 +17,7 @@ const HeroHeader: FC<Props> = ({ heading = "", subtitle = "", ...props }) => (
   >
     <Box
       height="100%"
-      background={"url(/world-map.svg)"}
+      background={`url(${process.env.NEXT_PUBLIC_CDN_URL}/headers/world-map.svg)`}
       backgroundRepeat="no-repeat"
       backgroundSize={{ base: "600px 300px", md: "1200px 475px" }}
       backgroundPosition="center top 2px"

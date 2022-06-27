@@ -105,7 +105,7 @@ export default NextAuth({
       },
     }),
   ],
-  secret: process.env.NEXT_PUBLIC_SITE_JWT_SECRET,
+  secret: process.env.NEXT_PUBLIC_JWT_SECRET,
   pages: {
     signIn: "/login",
   },
@@ -139,5 +139,5 @@ export default NextAuth({
         : refreshAccessToken(token);
     },
   },
-  debug: process.env.NEXT_PUBLIC_SITE_ENV === "DEV",
+  debug: process.env.NEXT_PUBLIC_ENV === "DEV",
 });

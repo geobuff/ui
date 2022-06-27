@@ -107,8 +107,8 @@ const OurMission: FC = () => (
               position="Founder, CEO"
               city="Wellington"
               country="New Zealand"
-              primaryImageUrl="/team/ash-primary.svg"
-              secondaryImageUrl="/team/ash-secondary.svg"
+              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ash-primary.svg`}
+              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ash-secondary.svg`}
               link="https://github.com/ashmidgley"
             />
             <TeamMemberCard
@@ -116,8 +116,8 @@ const OurMission: FC = () => (
               position="Founder, Developer"
               city="Melbourne"
               country="Australia"
-              primaryImageUrl="/team/kirby-primary.svg"
-              secondaryImageUrl="/team/kirby-secondary.svg"
+              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/kirby-primary.svg`}
+              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/kirby-secondary.svg`}
               link="https://github.com/KirbyMcKenzie"
             />
             <TeamMemberCard
@@ -125,8 +125,8 @@ const OurMission: FC = () => (
               position="Marketing"
               city="Palmerston North"
               country="New Zealand"
-              primaryImageUrl="/team/pearl-primary.svg"
-              secondaryImageUrl="/team/pearl-secondary.svg"
+              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/pearl-primary.svg`}
+              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/pearl-secondary.svg`}
               link="https://instagram.com/pearlptp"
             />
             <TeamMemberCard
@@ -134,8 +134,8 @@ const OurMission: FC = () => (
               position="Designer"
               city="Wellington"
               country="New Zealand"
-              primaryImageUrl="/team/dan-primary.svg"
-              secondaryImageUrl="/team/dan-secondary.svg"
+              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/dan-primary.svg`}
+              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/dan-secondary.svg`}
               link="https://twitter.com/cleangecko"
             />
             <TeamMemberCard
@@ -143,8 +143,8 @@ const OurMission: FC = () => (
               position="Researcher"
               city="Wellington"
               country="New Zealand"
-              primaryImageUrl="/team/lewis-primary.svg"
-              secondaryImageUrl="/team/lewis-secondary.svg"
+              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/lewis-primary.svg`}
+              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/lewis-secondary.svg`}
               link="https://nz.linkedin.com/in/lewis-johnson-470620183?original_referer=https%3A%2F%2Fwww.google.com%2F"
             />
             <TeamMemberCard
@@ -152,8 +152,8 @@ const OurMission: FC = () => (
               position="Researcher"
               city="Auckland"
               country="New Zealand"
-              primaryImageUrl="/team/ryan-primary.svg"
-              secondaryImageUrl="/team/ryan-secondary.svg"
+              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ryan-primary.svg`}
+              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ryan-secondary.svg`}
               link="https://twitter.com/ryanclough_"
             />
           </SimpleGrid>
