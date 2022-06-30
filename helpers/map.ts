@@ -120,6 +120,29 @@ export const updateMapOnSuccessfulSubmission = (
   }
 };
 
+export const updateMapOnGameStop = (
+  map: SVGBase,
+  mapClassName: string
+): void => {
+  if (CIRCLE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+    map.elements
+      .filter((x) => x.id && x.style?.fill !== GEOBUFF_RED)
+      .map((x) => {
+        x.style = { fill: GEOBUFF_GREEN };
+        return x;
+      });
+  }
+
+  if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+    map.elements
+      .filter((x) => x.id && x.style?.opacity !== 1)
+      .map((x) => {
+        x.style = { opacity: 0.3 };
+        return x;
+      });
+  }
+};
+
 export const getMapStyles = (map: string): any => {
   return {
     height: "100%",
