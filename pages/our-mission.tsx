@@ -113,7 +113,7 @@ const OurMission: FC = () => (
             />
             <TeamMemberCard
               title="Kirby McKenzie"
-              position="Founder, Developer"
+              position="Founder"
               city="Melbourne"
               country="Australia"
               primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/kirby-primary.svg`}
