@@ -197,7 +197,8 @@ const Home: FC<AppProps> = ({ pageProps }) => {
         {searchResults?.quizzes.map((quiz) => (
           <CardListItem
             key={quiz.id}
-            href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+            href={`/quiz/${quiz?.route}`}
+            isEnabled={quiz.enabled}
           >
             <QuizCard
               name={quiz.name}
@@ -385,7 +386,8 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                       {searchResults?.quizzes.map((quiz) => (
                         <CardListItem
                           key={quiz.id}
-                          href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                          href={`/quiz/${quiz?.route}`}
+                          isEnabled={quiz.enabled}
                         >
                           <QuizCard
                             name={quiz.name}
@@ -478,7 +480,8 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                         {mapQuizzes.map((quiz, index) => (
                           <CardListItem
                             key={quiz.id}
-                            href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                            href={`/quiz/${quiz?.route}`}
+                            isEnabled={quiz.enabled}
                             paddingRight={{
                               base:
                                 index === filteredTrivia.length - 1 && "12px",
@@ -509,7 +512,8 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                         {flagQuizzes.map((quiz, index) => (
                           <CardListItem
                             key={quiz.id}
-                            href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
+                            href={`/quiz/${quiz?.route}`}
+                            isEnabled={quiz.enabled}
                             paddingRight={{
                               base:
                                 index === filteredTrivia.length - 1 && "12px",
