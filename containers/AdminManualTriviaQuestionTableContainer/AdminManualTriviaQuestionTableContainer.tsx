@@ -172,7 +172,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       Time: values.quizDate ? new Date(values.quizDate) : new Date(),
     };
 
-    const payload = {
+    const payload: ManualTriviaQuestionPayload = {
       typeId: parseInt(values.typeId),
       categoryId: parseInt(values.categoryId),
       question: values.question,

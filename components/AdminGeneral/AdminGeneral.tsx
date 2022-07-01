@@ -6,6 +6,7 @@ import {
   Divider,
   Flex,
   Heading,
+  Input,
   Text,
 } from "@chakra-ui/react";
 import Card from "../Card";
@@ -58,6 +59,8 @@ export interface Props {
   isSubmitting?: boolean;
   error?: string;
   newTriviaCount: number;
+  onTriviaFileSelect: (event: any) => void;
+  onTriviaBulkUpload: () => void;
 }
 
 const AdminGeneral: FC<Props> = ({
@@ -70,6 +73,8 @@ const AdminGeneral: FC<Props> = ({
   isSubmitting = false,
   error = "",
   newTriviaCount,
+  onTriviaFileSelect = (): void => {},
+  onTriviaBulkUpload = (): void => {},
 }) => {
   return (
     <>
@@ -196,6 +201,39 @@ const AdminGeneral: FC<Props> = ({
             >
               {"Clear"}
             </Button>
+          </Flex>
+          <Divider borderWidth={1} my={2} />
+          <Flex
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            marginY={2}
+            marginX={1}
+          >
+            <Flex direction="column">
+              <Text fontSize={18} fontWeight="bold">
+                {"Upload Trivia Questions"}
+              </Text>
+              <Text color="gray.500">
+                {"Select a CSV of trivia questions to be inserted."}
+              </Text>
+            </Flex>
+            <Flex>
+              <Input
+                type="file"
+                name="file"
+                accept=".csv"
+                onChange={onTriviaFileSelect}
+              />
+              <Button
+                onClick={() => onTriviaBulkUpload()}
+                disabled={isSubmitting}
+                colorScheme="teal"
+                ml={6}
+              >
+                {"Upload"}
+              </Button>
+            </Flex>
           </Flex>
         </Flex>
       </Card>

@@ -192,3 +192,14 @@ export const copyTriviaScoreToast = (
   duration: 6000,
   isClosable: true,
 });
+
+export const bulkUploadTriviaQuestionsToast = (
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Bulk Upload Trivia Questions",
+  description: "Successfully parsed and uploaded trivia questions.",
+  status: "success",
+  duration: 6000,
+  isClosable: true,
+});
