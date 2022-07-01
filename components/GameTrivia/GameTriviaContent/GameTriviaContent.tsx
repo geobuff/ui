@@ -16,70 +16,11 @@ import { use100vh } from "react-div-100vh";
 import CustomFlag from "../../CustomFlag";
 import Image from "../../Image";
 import { TriviaQuestionTypes } from "../../../types/trivia-question-types";
-import { getGameMap, getMapStyles, initializeMap } from "../../../helpers/map";
-
-const getContentByType = (
-  type: TriviaQuestionTypes,
-  map: string,
-  highlighted: string,
-  flagCode: string,
-  imageUrl: string,
-  isSmallerMobile?: boolean
-) => {
-  switch (type) {
-    case "Flag":
-      return (
-        <AspectRatio
-          ratio={8 / 5}
-          maxWidth={{ base: "65%", md: "300px" }}
-          width="100%"
-        >
-          <CustomFlag
-            url={getFlagUrl(flagCode)}
-            height="100%"
-            maxHeight="200px"
-            width="100%"
-            borderRadius="16px"
-          />
-        </AspectRatio>
-      );
-    case "Map":
-      const gameMap = getGameMap(Maps[map], map, highlighted);
-      initializeMap(gameMap);
-      return <SVGMap map={gameMap} mapStyle={getMapStyles(map)} />;
-    case "Image":
-      return (
-        <Flex
-          direction="column"
-          justifyContent="center"
-          height={isSmallerMobile ? "70%" : "80%"}
-          width="100%"
-          marginX="auto"
-        >
-          <Box width="100%" height="100%">
-            <AspectRatio
-              ratio={1}
-              maxWidth={{ base: "100%", md: "80%" }}
-              maxHeight={"100%"}
-              marginX="auto"
-            >
-              <Image
-                src={imageUrl}
-                height="100%"
-                width="100%"
-                marginX="auto"
-                // @ts-expect-error
-                objectFit="contain !important"
-                hasSkeleton={false}
-              />
-            </AspectRatio>
-          </Box>
-        </Flex>
-      );
-    default:
-      return null;
-  }
-};
+import {
+  getGameMap,
+  getMapStyles,
+  highlightSection,
+} from "../../../helpers/map";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
 
@@ -117,14 +58,61 @@ const GameTriviaContent: FC<Props> = ({
   const isTextQuestion = type === "Text";
   const isImageQuestion = type === "Image";
 
-  const contentNode = getContentByType(
-    type,
-    map,
-    highlighted,
-    flagCode,
-    imageUrl,
-    isSmallerMobile
-  );
+  const getContentByType = (): JSX.Element => {
+    switch (type) {
+      case "Flag":
+        return (
+          <AspectRatio
+            ratio={8 / 5}
+            maxWidth={{ base: "65%", md: "300px" }}
+            width="100%"
+          >
+            <CustomFlag
+              url={getFlagUrl(flagCode)}
+              height="100%"
+              maxHeight="200px"
+              width="100%"
+              borderRadius="16px"
+            />
+          </AspectRatio>
+        );
+      case "Map":
+        const gameMap = getGameMap(Maps[map], map);
+        highlighted && highlightSection(gameMap, map, highlighted);
+        return <SVGMap map={gameMap} mapStyle={getMapStyles(map)} />;
+      case "Image":
+        return (
+          <Flex
+            direction="column"
+            justifyContent="center"
+            height={isSmallerMobile ? "70%" : "80%"}
+            width="100%"
+            marginX="auto"
+          >
+            <Box width="100%" height="100%">
+              <AspectRatio
+                ratio={1}
+                maxWidth={{ base: "100%", md: "80%" }}
+                maxHeight={"100%"}
+                marginX="auto"
+              >
+                <Image
+                  src={imageUrl}
+                  height="100%"
+                  width="100%"
+                  marginX="auto"
+                  // @ts-expect-error
+                  objectFit="contain !important"
+                  hasSkeleton={false}
+                />
+              </AspectRatio>
+            </Box>
+          </Flex>
+        );
+      default:
+        return null;
+    }
+  };
 
   const headerFontSize = getHeaderFontSize(
     isTinyMobile || isSmallerMobile,
@@ -143,7 +131,7 @@ const GameTriviaContent: FC<Props> = ({
       marginY={isSmallerMobile ? 1 : 5}
       overflow="hidden"
     >
-      {contentNode}
+      {getContentByType()}
       <Heading color="white" marginY={5} fontSize={headerFontSize}>
         {text}
       </Heading>

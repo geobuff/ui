@@ -53,6 +53,7 @@ import {
   clearMapFill,
   getPathSelectedFill,
   initializeMap,
+  updateMapOnGameStop,
   updateMapOnSuccessfulSubmission,
 } from "../../helpers/map";
 
@@ -209,6 +210,7 @@ const GameMapQuiz: FC<Props> = ({
     onOpen();
     setHasGameStarted(false);
     setHasGameStopped(true);
+    updateMapOnGameStop(map, mapClassName);
   };
 
   const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
