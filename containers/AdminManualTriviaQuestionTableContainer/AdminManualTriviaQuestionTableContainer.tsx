@@ -9,6 +9,7 @@ import { manualTriviaQuestionToast } from "../../helpers/toasts";
 import useTriviaQuestionCategories from "../../hooks/UseTriviaQuestionCategories";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
+import { ManualTriviaQuestionPayload } from "../../types/manual-trivia-payload";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import { NullTime } from "../../types/null-time";
