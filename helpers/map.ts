@@ -19,7 +19,9 @@ export const getHighlightRegionsByMap = (map: string): Option[] => {
 
   if (selectedMap !== undefined) {
     return selectedMap.elements
-      .filter((x) => x.id)
+      .filter(
+        (x, index, a) => x.id && a.findIndex((y) => y.name === x.name) === index
+      )
       .map(({ svgName, name }) => ({
         value: svgName,
         label: name,
@@ -27,35 +29,27 @@ export const getHighlightRegionsByMap = (map: string): Option[] => {
   }
 };
 
-export const getGameMap = (
-  map: SVGBase,
-  mapClassName: string,
-  highlighted?: string
-): any => {
+export const getGameMap = (map: SVGBase, mapClassName: string): any => {
   let result: SVGBase = JSON.parse(JSON.stringify(map));
-  if (highlighted) {
-    result = {
-      ...result,
-      elements: result.elements.map((x) => {
-        if (!x.id) {
+  result = {
+    ...result,
+    elements: result.elements.map((x) => {
+      if (!x.id) {
+        x.style = { fill: GEOBUFF_GREY };
+      } else {
+        if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+          x.style = { opacity: 0 };
+        } else if (CIRCLE_QUIZ_CLASSNAMES.includes(mapClassName)) {
           x.style = { fill: GEOBUFF_GREY };
-        } else if (x.name?.toLowerCase() === highlighted.toLowerCase()) {
-          if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
-            x.style = { opacity: 1 };
-          } else {
-            x.style = { fill: GEOBUFF_RED };
-          }
+        } else if (OCEAN_QUIZ_CLASSNAMES.includes(mapClassName)) {
+          x.style = { fill: GEOBUFF_LIGHT_BLUE };
         } else {
-          x.style = {
-            fill: OCEAN_QUIZ_CLASSNAMES.includes(mapClassName)
-              ? GEOBUFF_LIGHT_BLUE
-              : GEOBUFF_LIGHT_GREEN,
-          };
+          x.style = { fill: GEOBUFF_LIGHT_GREEN };
         }
-        return x;
-      }),
-    };
-  }
+      }
+      return x;
+    }),
+  };
   return result;
 };
 
@@ -115,6 +109,40 @@ export const updateMapOnSuccessfulSubmission = (
       .filter((x) => x.name.toLowerCase() === submission)
       .map((x) => {
         x.style = { fill: pathSelectedFill };
+        return x;
+      });
+  }
+};
+
+export const highlightSection = (
+  map: SVGBase,
+  mapClassName: string,
+  highlight: string
+): void => {
+  if (IMAGE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+    map.elements
+      .filter((x) => x.id)
+      .map((x) => {
+        if (x.name === highlight) {
+          x.style = { opacity: 1 };
+        } else {
+          x.style = { opacity: 0 };
+        }
+        return x;
+      });
+  } else {
+    map.elements
+      .filter((x) => x.id)
+      .map((x) => {
+        if (x.name === highlight) {
+          x.style = { fill: GEOBUFF_RED };
+        } else if (CIRCLE_QUIZ_CLASSNAMES.includes(mapClassName)) {
+          x.style = { fill: GEOBUFF_GREY };
+        } else if (OCEAN_QUIZ_CLASSNAMES.includes(mapClassName)) {
+          x.style = { fill: GEOBUFF_LIGHT_BLUE };
+        } else {
+          x.style = { fill: GEOBUFF_LIGHT_GREEN };
+        }
         return x;
       });
   }
