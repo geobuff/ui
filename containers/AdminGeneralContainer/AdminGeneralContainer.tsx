@@ -2,12 +2,10 @@ import React, { FC, useState } from "react";
 import { DateTime } from "luxon";
 import axiosClient from "../../axios";
 import AdminGeneral from "../../components/AdminGeneral";
-import { useToast } from "@chakra-ui/react";
-import Papa from "papaparse";
+import { useDisclosure, useToast } from "@chakra-ui/react";
 
-import { TriviaQuestionTypes } from "../../types/trivia-question-types";
 import {
-  bulkUploadTriviaQuestionsToast,
+  bulkUploadToast,
   clearOldTriviaToast,
   createTriviaToast,
   deployUIToast,
@@ -15,8 +13,12 @@ import {
 } from "../../helpers/toasts";
 import { BackgroundTaskKey } from "../../types/background-task";
 import { useSession } from "next-auth/react";
-import { ManualTriviaQuestionPayload } from "../../types/manual-trivia-payload";
 import axios from "axios";
+import BulkUploadModal from "../../components/BulkUploadModal";
+import { BulkUploadType } from "../../types/bulk-upload-type";
+import { BulkUploadValues } from "../../types/bulk-upload-values";
+import { CommunityQuizPayload } from "../../types/community-quiz-payload";
+import { AuthUser } from "../../types/auth-user";
 
 const {
   DeployDevWeb,
@@ -58,32 +60,16 @@ const getTaskSettings = (key: BackgroundTaskKey) => {
   }
 };
 
-const getTypeId = (type: TriviaQuestionTypes): number => {
-  switch (type) {
-    case "Text":
-      return 1;
-    case "Image":
-      return 2;
-    case "Map":
-      return 3;
-    case "Flag":
-      return 4;
-    default:
-      throw Error(`Invalid trivia question type ${type}`);
-  }
-};
-
 const AdminGeneralContainer: FC = () => {
   const { data: session } = useSession();
+  const user = session?.user as AuthUser;
 
   const toast = useToast();
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [regenerateDate, setRegenerateDate] = useState("");
-  const [triviaQuestions, setTriviaQuestions] = useState<
-    ManualTriviaQuestionPayload[]
-  >();
 
   const handleDeploy = (key: BackgroundTaskKey) => {
     const { endpoints, toasts } = getTaskSettings(key);
@@ -143,64 +129,78 @@ const AdminGeneralContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
-  const handleTriviaFileSelect = (event: any) => {
-    Papa.parse(event.target.files[0], {
-      header: true,
-      skipEmptyLines: true,
-      complete: function (results) {
-        setTriviaQuestions(
-          results.data.map((x) => {
-            const typeId = getTypeId(x["Type"]);
-            const answers = x["Answers"].split(", ");
-            const correctAnswer = x["Correct"];
-            return {
-              typeId: typeId,
-              categoryId: parseInt(x["Category"]),
-              question: x["Question"],
-              explainer: x["Explainer"],
-              imageUrl: typeId === 2 ? x["Resource"] : "",
-              map: typeId === 3 ? x["Resource"] : "",
-              flagCode: typeId === 4 ? x["Resource"] : "",
-              answers: answers.map((a) => {
-                return {
-                  text: a,
-                  isCorrect: a === correctAnswer,
-                };
-              }),
-            };
-          })
-        );
-      },
-    });
-  };
-
-  const handleTriviaBulkUpload = () => {
-    const requests = triviaQuestions.map((x) =>
-      axiosClient.post(`/manual-trivia-questions`, x, session?.authConfig)
-    );
-
+  const handleBulkUploadSubmit = (values: BulkUploadValues) => {
     setIsSubmitting(true);
-    axios
-      .all(requests)
-      .then(() => toast(bulkUploadTriviaQuestionsToast()))
-      .catch((error) => setError(error.response.data))
-      .finally(() => setIsSubmitting(false));
+    if (values.typeId === BulkUploadType.ManualTrivia) {
+      const requests = values.questions.map((x) =>
+        axiosClient.post(`/manual-trivia-questions`, x, session?.authConfig)
+      );
+
+      axios
+        .all(requests)
+        .then(() => {
+          toast(bulkUploadToast(BulkUploadType.ManualTrivia));
+          onClose();
+        })
+        .catch((error) => setError(error.response.data))
+        .finally(() => setIsSubmitting(false));
+    } else {
+      const payload: CommunityQuizPayload = {
+        userId: user?.id,
+        name: values.name,
+        description: values.description,
+        isPublic: values.isPublic === "true",
+        maxScore: values.questions?.length || 0,
+        questions: values.questions?.map((question) => ({
+          id: {
+            Int64: 0,
+            Valid: false,
+          },
+          typeId: question.typeId,
+          question: question.question,
+          explainer: question.explainer,
+          map: question.map,
+          highlighted: question.highlighted,
+          flagCode: question.flagCode,
+          imageUrl: question.imageUrl,
+          answers: question.answers,
+        })),
+      };
+
+      setIsSubmitting(true);
+      axiosClient
+        .post("/community-quizzes", payload, session?.authConfig)
+        .then(() => {
+          toast(bulkUploadToast(BulkUploadType.CommunityQuiz));
+          onClose();
+        })
+        .catch((error) => setError(error.response.data))
+        .finally(() => setIsSubmitting(false));
+    }
   };
 
   return (
-    <AdminGeneral
-      onDeploy={handleDeploy}
-      onCreateTrivia={handleCreateTrivia}
-      onRegenerateTrivia={handleRegenerateTrivia}
-      onClearOldTrivia={handleClearOldTrivia}
-      regenerateDate={regenerateDate}
-      setRegenerateDate={setRegenerateDate}
-      isSubmitting={isSubmitting}
-      error={error}
-      newTriviaCount={NEW_TRIVIA_COUNT}
-      onTriviaFileSelect={handleTriviaFileSelect}
-      onTriviaBulkUpload={handleTriviaBulkUpload}
-    />
+    <>
+      <AdminGeneral
+        onDeploy={handleDeploy}
+        onCreateTrivia={handleCreateTrivia}
+        onRegenerateTrivia={handleRegenerateTrivia}
+        onClearOldTrivia={handleClearOldTrivia}
+        regenerateDate={regenerateDate}
+        setRegenerateDate={setRegenerateDate}
+        isSubmitting={isSubmitting}
+        error={error}
+        newTriviaCount={NEW_TRIVIA_COUNT}
+        onBulkUploadClick={onOpen}
+      />
+      <BulkUploadModal
+        isOpen={isOpen}
+        onClose={onClose}
+        onSubmit={handleBulkUploadSubmit}
+        error={error}
+        setError={setError}
+      />
+    </>
   );
 };
 
