@@ -102,7 +102,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
 
   return (
     <EditCommunityQuizForm
-      values={getValuesFromQuiz(quiz)}
+      values={!isQuizLoading && getValuesFromQuiz(quiz)}
       error={error}
       types={types}
       isLoading={isQuestionTypesLoading || isQuizLoading}
