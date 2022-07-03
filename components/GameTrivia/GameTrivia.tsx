@@ -15,9 +15,9 @@ import { AppContext } from "../../context/AppContext";
 import { TriviaQuestion } from "../../types/trivia-question";
 import { TriviaAnswer } from "../../types/trivia-answer";
 import { Trivia } from "../../types/trivia";
-import { copyTriviaScoreToast } from "../../helpers/toasts";
 import { useRouter } from "next/router";
 import { getTriviaScoreMessage } from "../../helpers/clipboard";
+import { copyScoreToast } from "../../helpers/toasts";
 
 export interface Props {
   trivia: Trivia;
@@ -71,7 +71,7 @@ const GameTrivia: FC<Props> = ({
       asPath
     );
     navigator.clipboard.writeText(message);
-    toast(copyTriviaScoreToast());
+    toast(copyScoreToast());
   };
 
   const handlePlayAgain = () => {
