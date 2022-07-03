@@ -2,6 +2,7 @@ import React from "react";
 import { ToastPosition, UseToastOptions } from "@chakra-ui/react";
 
 import GeoCoinToast from "../components/GeoCoinToast";
+import { BulkUploadType } from "../types/bulk-upload-type";
 
 const defaultPosition: ToastPosition = "bottom-right";
 
@@ -188,6 +189,22 @@ export const copyTriviaScoreToast = (
   position: position,
   title: "Copy Score",
   description: "Successfully copied score to clipboard.",
+  status: "success",
+  duration: 6000,
+  isClosable: true,
+});
+
+export const bulkUploadToast = (
+  uploadType: BulkUploadType,
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Bulk Upload",
+  description: `Successfully parsed and uploaded ${
+    uploadType === BulkUploadType.ManualTrivia
+      ? "manual trivia questions"
+      : "community quiz"
+  }.`,
   status: "success",
   duration: 6000,
   isClosable: true,

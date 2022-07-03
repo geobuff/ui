@@ -58,6 +58,7 @@ export interface Props {
   isSubmitting?: boolean;
   error?: string;
   newTriviaCount: number;
+  onBulkUploadClick: () => void;
 }
 
 const AdminGeneral: FC<Props> = ({
@@ -70,6 +71,7 @@ const AdminGeneral: FC<Props> = ({
   isSubmitting = false,
   error = "",
   newTriviaCount,
+  onBulkUploadClick = (): void => {},
 }) => {
   return (
     <>
@@ -196,6 +198,35 @@ const AdminGeneral: FC<Props> = ({
             >
               {"Clear"}
             </Button>
+          </Flex>
+          <Divider borderWidth={1} my={2} />
+          <Flex
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            marginY={2}
+            marginX={1}
+          >
+            <Flex direction="column">
+              <Text fontSize={18} fontWeight="bold">
+                {"Bulk Upload"}
+              </Text>
+              <Text color="gray.500">
+                {
+                  "Bulk upload a set of manual trivia questions or a community quiz."
+                }
+              </Text>
+            </Flex>
+            <Flex>
+              <Button
+                onClick={onBulkUploadClick}
+                disabled={isSubmitting}
+                colorScheme="teal"
+                ml={6}
+              >
+                {"Select"}
+              </Button>
+            </Flex>
           </Flex>
         </Flex>
       </Card>
