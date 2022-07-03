@@ -183,7 +183,7 @@ export const copyCommunityQuizLinkToast = (
   isClosable: true,
 });
 
-export const copyTriviaScoreToast = (
+export const copyScoreToast = (
   position: ToastPosition = defaultPosition
 ): UseToastOptions => ({
   position: position,
