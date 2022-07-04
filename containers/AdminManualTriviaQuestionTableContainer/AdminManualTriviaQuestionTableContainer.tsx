@@ -1,6 +1,7 @@
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import React, { FC, useEffect, useState } from "react";
+import axios from "../../axios";
 import axiosClient from "../../axios";
 import AdminManualTriviaQuestions from "../../components/AdminManualTriviaQuestions";
 import CreateEditTriviaQuestionModal from "../../components/CreateEditTriviaQuestionModal";
@@ -38,6 +39,9 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [questionId, setQuestionId] = useState(0);
+  const [images, setImages] = useState<string[]>();
+  const [isSearchingImages, setIsSearchingImages] = useState(false);
+  const [isEmptyImageSearch, setIsEmptyImageSearch] = useState(false);
 
   const [selectedQuestion, setSelectedQuestion] = useState<
     ManualTriviaQuestionEditValues
@@ -212,6 +216,22 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
     }
   };
 
+  const handleChangeSearchImage = (query: string): void => {
+    setImages([]);
+    setIsEmptyImageSearch(false);
+    setIsSearchingImages(true);
+    axios
+      .get(
+        `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+      )
+      .then((response) => {
+        setImages(response.data.results.map((x) => x.urls.small));
+        setIsEmptyImageSearch(response.data.results.length === 0);
+      })
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSearchingImages(false));
+  };
+
   return (
     <>
       <AdminManualTriviaQuestions
@@ -244,6 +264,10 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         error={error}
         onSubmit={handleCreateEditSubmit}
         onClose={onCreateEditQuestionModalClose}
+        images={images}
+        isSearchingImages={isSearchingImages}
+        isEmptyImageSearch={isEmptyImageSearch}
+        onChangeSearchImage={handleChangeSearchImage}
       />
     </>
   );

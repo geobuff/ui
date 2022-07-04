@@ -21,6 +21,10 @@ export interface Props {
     values: ManualTriviaQuestionEditValues,
     helpers: FormikHelpers<ManualTriviaQuestionFormSubmit>
   ) => void;
+  images?: string[];
+  isSearchingImages?: boolean;
+  isEmptyImageSearch?: boolean;
+  onChangeSearchImage?: (query: string) => void;
 }
 
 const CreateEditTriviaQuestionModal: FC<Props> = ({
@@ -33,6 +37,10 @@ const CreateEditTriviaQuestionModal: FC<Props> = ({
   error = "",
   onClose = (): void => {},
   onSubmit = (): void => {},
+  images = [],
+  isSearchingImages = false,
+  isEmptyImageSearch = false,
+  onChangeSearchImage = (): void => {},
 }) => (
   <Modal
     isOpen={isOpen}
@@ -50,6 +58,10 @@ const CreateEditTriviaQuestionModal: FC<Props> = ({
         error={error}
         onSubmit={onSubmit}
         onClose={onClose}
+        images={images}
+        isSearchingImages={isSearchingImages}
+        isEmptyImageSearch={isEmptyImageSearch}
+        onChangeSearchImage={onChangeSearchImage}
       />
     </Flex>
   </Modal>

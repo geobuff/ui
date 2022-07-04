@@ -3,6 +3,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import * as Maps from "@geobuff/svg-maps";
 import { flagCategories, getFlagUrl } from "@geobuff/flags";
+import { debounce } from "throttle-debounce";
 
 import {
   Alert,
@@ -25,6 +26,9 @@ import {
   Select,
   VStack,
   SimpleGrid,
+  InputGroup,
+  InputLeftElement,
+  Spinner,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import DatePicker from "react-datepicker";
@@ -45,6 +49,8 @@ import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
 import { getHighlightRegionsByMap } from "../../helpers/map";
 import { getFlagsByCategory } from "../../helpers/flag";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
+import RadioImage from "../RadioImage";
+import Search from "../../Icons/Search";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a question type."),
@@ -85,6 +91,10 @@ export interface Props {
     values: ManualTriviaQuestionFormSubmit,
     helpers: FormikHelpers<ManualTriviaQuestionFormSubmit>
   ) => void;
+  images?: string[];
+  isSearchingImages?: boolean;
+  isEmptyImageSearch?: boolean;
+  onChangeSearchImage?: (query: string) => void;
 }
 
 const AdminManualTriviaQuestionForm: FC<Props> = ({
@@ -96,12 +106,20 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
   error = "",
   onSubmit = () => {},
   onClose = () => {},
+  images = [],
+  isSearchingImages = false,
+  isEmptyImageSearch = false,
+  onChangeSearchImage = () => {},
 }) => {
   const initialHasFlagAnswers = editValues?.hasFlagAnswers || false;
   const isEditing = !!editValues;
 
   const [hasFlagAnswers, setHasFlagAnswers] = useState(initialHasFlagAnswers);
   const [flagCategory, setFlagCategory] = useState("world");
+
+  const handleSearchImageDebounced = debounce(1500, (event) =>
+    onChangeSearchImage(event.target.value)
+  );
 
   return (
     <>
@@ -167,6 +185,18 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
               });
 
               const categoryRadioGroup = getCategoryRootProps();
+
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              const {
+                getRootProps: getImageUrlRootProps,
+                getRadioProps: getImageUrlRadioProps,
+              } = useRadioGroup({
+                name: "imageUrl",
+                value: values.imageUrl,
+                onChange: (value: string) => setFieldValue("imageUrl", value),
+              });
+
+              const imageUrlRadioGroup = getImageUrlRootProps();
 
               return (
                 <Box maxWidth="600px" width="100%">
@@ -504,51 +534,96 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                       )}
 
                       {values.typeId === QuestionType.Image.toString() && (
-                        <Flex marginY={3}>
-                          <Field name="imageUrl">
-                            {({ field, form }) => (
-                              <FormControl
-                                isInvalid={
-                                  form.errors.imageUrl && form.touched.imageUrl
-                                }
-                              >
-                                <FormLabel htmlFor="imageUrl" fontWeight="bold">
-                                  {"Image URL"}
-                                </FormLabel>
-                                <Input
-                                  {...field}
-                                  id="imageUrl"
-                                  type="text"
-                                  placeholder="Enter image URL..."
-                                  size="lg"
-                                  fontSize="16px"
-                                  fontWeight={400}
-                                  background="#F6F6F6"
-                                  borderRadius={6}
-                                  _placeholder={{ color: "gray.500" }}
-                                  _hover={{ background: "#e0e0e0" }}
-                                />
-                                <FormErrorMessage fontSize="11px">
-                                  {form.errors.imageUrl}
-                                </FormErrorMessage>
-                                <FormHelperText lineHeight="1.50">
-                                  {
-                                    "Avoid images that are copyrighted or require attribution. Sites like"
+                        <>
+                          <Flex marginY={3}>
+                            <Field name="imageUrl">
+                              {({ form }) => (
+                                <FormControl
+                                  isInvalid={
+                                    form.errors.imageUrl &&
+                                    form.touched.imageUrl
                                   }
-                                  <Link
-                                    href="https://pixabay.com/"
-                                    isExternal
-                                    marginX={1}
+                                >
+                                  <FormLabel
+                                    htmlFor="imageUrl"
                                     fontWeight="bold"
                                   >
-                                    {"pixabay"}
-                                  </Link>
-                                  {"are good for free commercial images."}
-                                </FormHelperText>
-                              </FormControl>
-                            )}
-                          </Field>
-                        </Flex>
+                                    {"Image URL"}
+                                  </FormLabel>
+                                  <InputGroup>
+                                    <InputLeftElement pointerEvents="none">
+                                      <Search
+                                        marginTop="6px"
+                                        marginLeft="12px"
+                                        height="24px"
+                                        width="24px"
+                                        color="gray.500"
+                                      />
+                                    </InputLeftElement>
+                                    <Input
+                                      type="text"
+                                      placeholder="Search image..."
+                                      size="lg"
+                                      fontSize="16px"
+                                      fontWeight={400}
+                                      background="#F6F6F6"
+                                      borderRadius={6}
+                                      _placeholder={{ color: "gray.500" }}
+                                      _hover={{ background: "#e0e0e0" }}
+                                      onChange={handleSearchImageDebounced}
+                                    />
+                                  </InputGroup>
+                                  <FormErrorMessage fontSize="11px">
+                                    {form.errors.imageUrl}
+                                  </FormErrorMessage>
+                                </FormControl>
+                              )}
+                            </Field>
+                          </Flex>
+
+                          {isSearchingImages && (
+                            <Flex justifyContent="center" mt={6}>
+                              <Spinner
+                                size="md"
+                                color="blue.500"
+                                emptyColor="green.500"
+                              />
+                            </Flex>
+                          )}
+
+                          {isEmptyImageSearch && (
+                            <Alert
+                              status="info"
+                              borderRadius={6}
+                              marginBottom={3}
+                            >
+                              <AlertIcon />
+                              {`Image search returned zero items. Please try again.`}
+                            </Alert>
+                          )}
+
+                          <SimpleGrid
+                            columns={5}
+                            spacing={6}
+                            my={6}
+                            {...imageUrlRadioGroup}
+                          >
+                            {images.map((x, index) => {
+                              const radio = getImageUrlRadioProps({
+                                value: x.toString(),
+                                enterKeyHint: "imageUrl",
+                              });
+
+                              return (
+                                <RadioImage
+                                  key={index}
+                                  src={x}
+                                  radioProps={radio}
+                                />
+                              );
+                            })}
+                          </SimpleGrid>
+                        </>
                       )}
 
                       <QuestionTypeValuePreview
