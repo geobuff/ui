@@ -28,7 +28,6 @@ import {
   SimpleGrid,
   InputGroup,
   InputLeftElement,
-  Spinner,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import DatePicker from "react-datepicker";
@@ -49,8 +48,8 @@ import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
 import { getHighlightRegionsByMap } from "../../helpers/map";
 import { getFlagsByCategory } from "../../helpers/flag";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
-import RadioImage from "../RadioImage";
 import Search from "../../Icons/Search";
+import UnsplashImageGrid from "../UnsplashImageGrid";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a question type."),
@@ -67,7 +66,9 @@ const validationSchema = Yup.object().shape({
     .typeError("Please select a correct answer"),
   imageUrl: Yup.string().when("typeId", {
     is: QuestionType.Image,
-    then: Yup.string().required("Must include imageUrl for image questions."),
+    then: Yup.string().required(
+      "Must include imageUrl for image questions. Please search for an image and select one of the options below."
+    ),
   }),
   flagCode: Yup.string().when("typeId", {
     is: QuestionType.Flag,
@@ -581,48 +582,13 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                             </Field>
                           </Flex>
 
-                          {isSearchingImages && (
-                            <Flex justifyContent="center" mt={6}>
-                              <Spinner
-                                size="md"
-                                color="blue.500"
-                                emptyColor="green.500"
-                              />
-                            </Flex>
-                          )}
-
-                          {isEmptyImageSearch && (
-                            <Alert
-                              status="info"
-                              borderRadius={6}
-                              marginBottom={3}
-                            >
-                              <AlertIcon />
-                              {`Image search returned zero items. Please try again.`}
-                            </Alert>
-                          )}
-
-                          <SimpleGrid
-                            columns={5}
-                            spacing={6}
-                            my={6}
-                            {...imageUrlRadioGroup}
-                          >
-                            {images.map((x, index) => {
-                              const radio = getImageUrlRadioProps({
-                                value: x.toString(),
-                                enterKeyHint: "imageUrl",
-                              });
-
-                              return (
-                                <RadioImage
-                                  key={index}
-                                  src={x}
-                                  radioProps={radio}
-                                />
-                              );
-                            })}
-                          </SimpleGrid>
+                          <UnsplashImageGrid
+                            images={images}
+                            isSearching={isSearchingImages}
+                            isEmptySearch={isEmptyImageSearch}
+                            imageUrlRadioGroup={imageUrlRadioGroup}
+                            getImageUrlRadioProps={getImageUrlRadioProps}
+                          />
                         </>
                       )}
 
