@@ -538,13 +538,15 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                     <option value="">
                                       {"Select a map..."}
                                     </option>
-                                    {Object.keys(Maps).map((map) => (
-                                      <option key={map} value={map}>
-                                        {map
-                                          .match(/[A-Z][a-z]+|[0-9]+/g)
-                                          .join(" ")}
-                                      </option>
-                                    ))}
+                                    {Object.keys(Maps)
+                                      .sort()
+                                      .map((map) => (
+                                        <option key={map} value={map}>
+                                          {map
+                                            .match(/[A-Z][a-z]+|[0-9]+/g)
+                                            .join(" ")}
+                                        </option>
+                                      ))}
                                   </Select>
 
                                   <FormErrorMessage fontSize="11px">
