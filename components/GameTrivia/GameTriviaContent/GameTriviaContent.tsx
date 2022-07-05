@@ -114,7 +114,7 @@ const GameTriviaContent: FC<Props> = ({
                     hasSkeleton={false}
                   />
                   {imageAttributeName && (
-                    <Text fontSize="10px" mt={1}>
+                    <Text fontSize="10px" mt={1} color="white">
                       {`Photo by `}
                       <ChakraLink>
                         <Link href={imageAttributeUrl}>
