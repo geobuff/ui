@@ -7,6 +7,8 @@ export interface ManualTriviaQuestionFormSubmit {
   highlighted: string;
   flagCode: string;
   imageUrl: string;
+  imageAttributeName: string;
+  imageAttributeUrl: string;
   explainer: string;
   answerOneText: string;
   answerOneFlagCode: string;

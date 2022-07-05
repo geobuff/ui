@@ -20,6 +20,8 @@ export interface GetCommunityQuizQuestion {
   highlighted: string;
   flagCode: string;
   imageUrl: string;
+  imageAttributeName: string;
+  imageAttributeUrl: string;
   answers: GetCommunityQuizAnswer[];
 }
 

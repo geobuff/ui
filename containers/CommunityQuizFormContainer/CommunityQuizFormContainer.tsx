@@ -11,6 +11,8 @@ import { CommunityQuizFormSubmit } from "../../types/community-quiz-form-submit"
 import { CommunityQuizPayload } from "../../types/community-quiz-payload";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
+import axios from "axios";
+import { UnsplashImage } from "../../types/unsplash-image";
 
 const CommunityQuizFormContainer: FC = () => {
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
@@ -23,6 +25,10 @@ const CommunityQuizFormContainer: FC = () => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  const [images, setImages] = useState<UnsplashImage[]>();
+  const [isSearchingImages, setIsSearchingImages] = useState(false);
+  const [isEmptyImageSearch, setIsEmptyImageSearch] = useState(false);
 
   const handleSubmit = (values: CommunityQuizFormSubmit): void => {
     setIsSubmitting(true);
@@ -45,6 +51,8 @@ const CommunityQuizFormContainer: FC = () => {
         highlighted: question.highlighted,
         flagCode: question.flagCode,
         imageUrl: question.imageUrl,
+        imageAttributeName: question.imageAttributeName,
+        imageAttributeUrl: question.imageAttributeUrl,
         answers: question.answers,
       })),
     };
@@ -59,6 +67,30 @@ const CommunityQuizFormContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
+  const handleChangeSearchImage = (query: string): void => {
+    setImages([]);
+    setIsEmptyImageSearch(false);
+    setIsSearchingImages(true);
+    axios
+      .get(
+        `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+      )
+      .then((response) => {
+        setImages(
+          response.data.results.map((x) => {
+            return {
+              url: x.urls.small,
+              attributeName: x.user?.name,
+              attributeUrl: `https://unsplash.com/@${x.user?.username}`,
+            };
+          })
+        );
+        setIsEmptyImageSearch(response.data.results.length === 0);
+      })
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSearchingImages(false));
+  };
+
   return (
     <CommunityQuizForm
       error={error}
@@ -66,6 +98,10 @@ const CommunityQuizFormContainer: FC = () => {
       isLoading={isTypesLoading}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
+      images={images}
+      isSearchingImages={isSearchingImages}
+      isEmptyImageSearch={isEmptyImageSearch}
+      onChangeSearchImage={handleChangeSearchImage}
     />
   );
 };

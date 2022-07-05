@@ -1,6 +1,18 @@
 import React, { FC, useState } from "react";
-import { Button, Divider, Flex } from "@chakra-ui/react";
-import { Form, Formik } from "formik";
+import {
+  Button,
+  Divider,
+  Flex,
+  FormControl,
+  FormErrorMessage,
+  FormLabel,
+  Input,
+  InputGroup,
+  InputLeftElement,
+  useRadioGroup,
+} from "@chakra-ui/react";
+import { Field, Form, Formik } from "formik";
+import { debounce } from "throttle-debounce";
 
 import * as Maps from "@geobuff/svg-maps";
 import * as Yup from "yup";
@@ -19,6 +31,9 @@ import { TriviaQuestionType } from "../../../types/trivia-question-type";
 import InlineErrorMessage from "../../InlineErrorMessage";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
 import QuestionTypeValuePreview from "../../QuestionTypeValuePreview";
+import Search from "../../../Icons/Search";
+import UnsplashImageGrid from "../../UnsplashImageGrid";
+import { UnsplashImage } from "../../../types/unsplash-image";
 
 const answers = [
   "Answer One",
@@ -32,6 +47,8 @@ const initialValues: CommunityQuizFormQuestion = {
   question: "",
   explainer: "",
   imageUrl: "",
+  imageAttributeName: "",
+  imageAttributeUrl: "",
   map: "",
   highlighted: "",
   flagCode: "",
@@ -48,7 +65,9 @@ const validationSchema = Yup.object().shape({
     .typeError("Please select a correct answer"),
   imageUrl: Yup.string().when("typeId", {
     is: QuestionType.Image,
-    then: Yup.string().required("Must include imageUrl for image questions."),
+    then: Yup.string().required(
+      "Must include imageUrl for image questions. Please search for an image and select one of the options below."
+    ),
   }),
   flagCode: Yup.string().when("typeId", {
     is: QuestionType.Flag,
@@ -74,12 +93,20 @@ export interface Props {
   values?: CommunityQuizFormQuestion;
   types: TriviaQuestionType[];
   onSubmit?: (values: CommunityQuizFormQuestion) => void;
+  images?: UnsplashImage[];
+  isSearchingImages?: boolean;
+  isEmptyImageSearch?: boolean;
+  onChangeSearchImage: (query: string) => void;
 }
 
 const CommunityQuizQuestionForm: FC<Props> = ({
   values = initialValues,
   types = [],
   onSubmit,
+  images = [],
+  isSearchingImages = false,
+  isEmptyImageSearch = false,
+  onChangeSearchImage = () => {},
   ...props
 }) => {
   const [flagCategory, setFlagCategory] = useState("");
@@ -91,6 +118,10 @@ const CommunityQuizQuestionForm: FC<Props> = ({
     value: id.toString(),
   }));
 
+  const handleSearchImageDebounced = debounce(1500, (event) =>
+    onChangeSearchImage(event.target.value)
+  );
+
   return (
     <Flex width="100%" {...props}>
       <Formik
@@ -99,148 +130,216 @@ const CommunityQuizQuestionForm: FC<Props> = ({
         validationSchema={validationSchema}
         enableReinitialize
       >
-        {({ values, setFieldValue, errors }) => (
-          <Form autoComplete="off" style={{ width: "100%" }}>
-            <RadioGroupFormField
-              name="typeId"
-              label="Type"
-              selectedValue={values.typeId}
-              options={options}
-              setFieldHelper={setFieldValue}
-            />
+        {({ values, setFieldValue, errors }) => {
+          // eslint-disable-next-line react-hooks/rules-of-hooks
+          const {
+            getRootProps: getImageUrlRootProps,
+            getRadioProps: getImageUrlRadioProps,
+          } = useRadioGroup({
+            name: "imageUrl",
+            value: values.imageUrl,
+            onChange: (value: string) => {
+              const image = images.find((x) => x.url === value);
+              setFieldValue("imageAttributeName", image.attributeName);
+              setFieldValue("imageAttributeUrl", image.attributeUrl);
+              setFieldValue("imageUrl", value);
+            },
+          });
 
-            <Divider marginTop={6} />
+          const imageUrlRadioGroup = getImageUrlRootProps();
 
-            <CommunityQuizFormField
-              name="question"
-              label="Question"
-              placeholder="Enter question..."
-            />
+          return (
+            <Form autoComplete="off" style={{ width: "100%" }}>
+              <RadioGroupFormField
+                name="typeId"
+                label="Type"
+                selectedValue={values.typeId}
+                options={options}
+                setFieldHelper={setFieldValue}
+              />
 
-            <CommunityQuizFormField
-              name="explainer"
-              label="Explainer"
-              placeholder="Enter explainer..."
-            />
+              <Divider marginTop={6} />
 
-            {values.typeId === QuestionType.Image && (
               <CommunityQuizFormField
-                name="imageUrl"
-                label="Image URL"
-                placeholder="Enter image url..."
-                helper="Usage of copyright or explicit images will result in removal of quiz and your user account. We recommend sites such as pexels for free images."
+                name="question"
+                label="Question"
+                placeholder="Enter question..."
               />
-            )}
 
-            {values.typeId === QuestionType.Flag && (
-              <Flex>
+              <CommunityQuizFormField
+                name="explainer"
+                label="Explainer"
+                placeholder="Enter explainer..."
+              />
+
+              {values.typeId === QuestionType.Image && (
+                <>
+                  <Flex marginY={3}>
+                    <Field name="imageUrl">
+                      {({ form }) => (
+                        <FormControl
+                          isInvalid={
+                            form.errors.imageUrl && form.touched.imageUrl
+                          }
+                        >
+                          <FormLabel htmlFor="imageUrl" fontWeight="bold">
+                            {"Image URL"}
+                          </FormLabel>
+                          <InputGroup>
+                            <InputLeftElement pointerEvents="none">
+                              <Search
+                                marginTop="6px"
+                                marginLeft="12px"
+                                height="24px"
+                                width="24px"
+                                color="gray.500"
+                              />
+                            </InputLeftElement>
+                            <Input
+                              type="text"
+                              placeholder="Search image..."
+                              size="lg"
+                              fontSize="16px"
+                              fontWeight={400}
+                              background="#F6F6F6"
+                              borderRadius={6}
+                              _placeholder={{ color: "gray.500" }}
+                              _hover={{ background: "#e0e0e0" }}
+                              onChange={handleSearchImageDebounced}
+                            />
+                          </InputGroup>
+                          <FormErrorMessage fontSize="11px">
+                            {form.errors.imageUrl}
+                          </FormErrorMessage>
+                        </FormControl>
+                      )}
+                    </Field>
+                  </Flex>
+
+                  <UnsplashImageGrid
+                    images={images}
+                    isSearching={isSearchingImages}
+                    isEmptySearch={isEmptyImageSearch}
+                    imageUrlRadioGroup={imageUrlRadioGroup}
+                    getImageUrlRadioProps={getImageUrlRadioProps}
+                  />
+                </>
+              )}
+
+              {values.typeId === QuestionType.Flag && (
+                <Flex>
+                  <SelectFormField
+                    name="flagCategory"
+                    label="Flag Category"
+                    options={flagOptions}
+                    onChange={({ target }) => {
+                      setFlagCategory(target.value);
+                      setFieldValue("flagCode", "");
+                    }}
+                    width="100%"
+                    marginRight={2}
+                  />
+                  <CommunityQuizFlagSelectField
+                    name="flagCode"
+                    label="Flag Code"
+                    flagCategory={flagCategory}
+                  />
+                </Flex>
+              )}
+
+              {values.typeId === QuestionType.Map && (
+                <Flex>
+                  <SelectFormField
+                    name="map"
+                    label="Map"
+                    options={mapCategories}
+                    onChange={({ target }) =>
+                      setFieldValue("map", target?.value)
+                    }
+                    width="50%"
+                    marginRight={2}
+                  />
+                  <SelectFormField
+                    name="highlighted"
+                    label="Highlighted"
+                    options={getHighlightRegionsByMap(values.map)}
+                    onChange={({ target }) =>
+                      setFieldValue("highlighted", target?.value)
+                    }
+                    width="50%"
+                  />
+                </Flex>
+              )}
+
+              <QuestionTypeValuePreview
+                typeId={values.typeId}
+                map={values.map}
+                highlighted={values.highlighted}
+                imageUrl={values.imageUrl}
+                imageAttributeName={values.imageAttributeName}
+                imageAttributeUrl={values.imageAttributeUrl}
+              />
+
+              <Divider marginY={6} />
+
+              <CommunityQuizHasAnswersField
+                isEnabled={hasFlagAnswers}
+                onChange={(hasFlags) => setHasFlagAnswers(hasFlags)}
+                marginY={6}
+              />
+
+              {hasFlagAnswers && (
                 <SelectFormField
-                  name="flagCategory"
-                  label="Flag Category"
+                  name="hasFlagAnswers"
                   options={flagOptions}
-                  onChange={({ target }) => {
-                    setFlagCategory(target.value);
-                    setFieldValue("flagCode", "");
-                  }}
-                  width="100%"
-                  marginRight={2}
-                />
-                <CommunityQuizFlagSelectField
-                  name="flagCode"
-                  label="Flag Code"
-                  flagCategory={flagCategory}
-                />
-              </Flex>
-            )}
-
-            {values.typeId === QuestionType.Map && (
-              <Flex>
-                <SelectFormField
-                  name="map"
-                  label="Map"
-                  options={mapCategories}
-                  onChange={({ target }) => setFieldValue("map", target?.value)}
-                  width="50%"
-                  marginRight={2}
-                />
-                <SelectFormField
-                  name="highlighted"
-                  label="Highlighted"
-                  options={getHighlightRegionsByMap(values.map)}
-                  onChange={({ target }) =>
-                    setFieldValue("highlighted", target?.value)
-                  }
-                  width="50%"
-                />
-              </Flex>
-            )}
-
-            <QuestionTypeValuePreview
-              typeId={values.typeId}
-              map={values.map}
-              highlighted={values.highlighted}
-              imageUrl={values.imageUrl}
-            />
-
-            <Divider marginY={6} />
-
-            <CommunityQuizHasAnswersField
-              isEnabled={hasFlagAnswers}
-              onChange={(hasFlags) => setHasFlagAnswers(hasFlags)}
-              marginY={6}
-            />
-
-            {hasFlagAnswers && (
-              <SelectFormField
-                name="hasFlagAnswers"
-                options={flagOptions}
-                label="Flag Answer Category"
-                onChange={({ target }) => setFlagAnswerCategory(target.value)}
-                marginY={4}
-              />
-            )}
-
-            <Flex direction="column" width="100%" marginBottom={5}>
-              {answers.map((answer, index) => (
-                <CommunityQuizAnswersField
-                  name={`answers[${index}]`}
-                  key={index}
-                  label={answer}
-                  value={index}
-                  isChecked={values.correctAnswer === index}
-                  hasFlagAnswers={hasFlagAnswers}
-                  flagAnswerCategory={flagAnswerCategory}
-                  onChangeCorrectAnswer={(answer) =>
-                    setFieldValue("correctAnswer", answer)
-                  }
-                  onChangeFlagCode={(flagCode) =>
-                    setFieldValue(`answers[${index}].flagCode`, flagCode)
-                  }
-                  marginY={0.5}
-                />
-              ))}
-              {errors.correctAnswer && (
-                <InlineErrorMessage
-                  message="Please select a correct answer"
-                  marginY={2}
+                  label="Flag Answer Category"
+                  onChange={({ target }) => setFlagAnswerCategory(target.value)}
+                  marginY={4}
                 />
               )}
 
-              {errors.answers && (
-                <InlineErrorMessage
-                  message="Please add at least two answers"
-                  marginY={2}
-                />
-              )}
-            </Flex>
+              <Flex direction="column" width="100%" marginBottom={5}>
+                {answers.map((answer, index) => (
+                  <CommunityQuizAnswersField
+                    name={`answers[${index}]`}
+                    key={index}
+                    label={answer}
+                    value={index}
+                    isChecked={values.correctAnswer === index}
+                    hasFlagAnswers={hasFlagAnswers}
+                    flagAnswerCategory={flagAnswerCategory}
+                    onChangeCorrectAnswer={(answer) =>
+                      setFieldValue("correctAnswer", answer)
+                    }
+                    onChangeFlagCode={(flagCode) =>
+                      setFieldValue(`answers[${index}].flagCode`, flagCode)
+                    }
+                    marginY={0.5}
+                  />
+                ))}
+                {errors.correctAnswer && (
+                  <InlineErrorMessage
+                    message="Please select a correct answer"
+                    marginY={2}
+                  />
+                )}
 
-            <Flex width="100%" justifyContent="flex-end">
-              <Button type="submit" colorScheme="green">
-                {"Add Question"}
-              </Button>
-            </Flex>
-          </Form>
-        )}
+                {errors.answers && (
+                  <InlineErrorMessage
+                    message="Please add at least two answers"
+                    marginY={2}
+                  />
+                )}
+              </Flex>
+
+              <Flex width="100%" justifyContent="flex-end">
+                <Button type="submit" colorScheme="green">
+                  {"Add Question"}
+                </Button>
+              </Flex>
+            </Form>
+          );
+        }}
       </Formik>
     </Flex>
   );

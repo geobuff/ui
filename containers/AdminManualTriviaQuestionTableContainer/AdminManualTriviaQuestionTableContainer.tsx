@@ -1,6 +1,7 @@
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import React, { FC, useEffect, useState } from "react";
+import axios from "../../axios";
 import axiosClient from "../../axios";
 import AdminManualTriviaQuestions from "../../components/AdminManualTriviaQuestions";
 import CreateEditTriviaQuestionModal from "../../components/CreateEditTriviaQuestionModal";
@@ -14,6 +15,7 @@ import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import { NullTime } from "../../types/null-time";
 import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
+import { UnsplashImage } from "../../types/unsplash-image";
 
 const AdminManualTriviaQuestionTableContainer: FC = () => {
   const toast = useToast();
@@ -38,6 +40,9 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const [questionId, setQuestionId] = useState(0);
+  const [images, setImages] = useState<UnsplashImage[]>();
+  const [isSearchingImages, setIsSearchingImages] = useState(false);
+  const [isEmptyImageSearch, setIsEmptyImageSearch] = useState(false);
 
   const [selectedQuestion, setSelectedQuestion] = useState<
     ManualTriviaQuestionEditValues
@@ -93,6 +98,8 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       correctAnswer: question.answers.findIndex((a) => a.isCorrect) + 1,
       hasFlagAnswers: !!question.answers.find((a) => a.flagCode) || false,
       imageUrl: question?.imageUrl || "",
+      imageAttributeName: question?.imageAttributeName || "",
+      imageAttributeUrl: question?.imageAttributeUrl || "",
       flagCode: question?.flagCode || "",
       map: question?.map || "",
       highlighted: question?.highlighted || "",
@@ -181,6 +188,8 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       highlighted: values.highlighted,
       flagCode: values.flagCode,
       imageUrl: values.imageUrl,
+      imageAttributeName: values.imageAttributeName,
+      imageAttributeUrl: values.imageAttributeUrl,
       explainer: values.explainer,
       answers: answers,
       quizDate: quizDate,
@@ -210,6 +219,30 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         .catch((error) => setError(error.response.data))
         .finally(() => setIsSubmitting(false));
     }
+  };
+
+  const handleChangeSearchImage = (query: string): void => {
+    setImages([]);
+    setIsEmptyImageSearch(false);
+    setIsSearchingImages(true);
+    axios
+      .get(
+        `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+      )
+      .then((response) => {
+        setImages(
+          response.data.results.map((x) => {
+            return {
+              url: x.urls.small,
+              attributeName: x.user?.name,
+              attributeUrl: `https://unsplash.com/@${x.user?.username}`,
+            };
+          })
+        );
+        setIsEmptyImageSearch(response.data.results.length === 0);
+      })
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSearchingImages(false));
   };
 
   return (
@@ -244,6 +277,10 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         error={error}
         onSubmit={handleCreateEditSubmit}
         onClose={onCreateEditQuestionModalClose}
+        images={images}
+        isSearchingImages={isSearchingImages}
+        isEmptyImageSearch={isEmptyImageSearch}
+        onChangeSearchImage={handleChangeSearchImage}
       />
     </>
   );

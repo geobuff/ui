@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from "react";
 import Head from "next/head";
-import { Box, Flex, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, useBreakpointValue, useToast } from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
 
 import MainView from "../MainView";
@@ -15,6 +15,9 @@ import GameCommunityQuizGameOver from "./GameCommunityQuizGameOver";
 import GameCommunityQuizContent from "./GameCommunityQuizContent";
 import GameCommunityQuizAnswers from "./GameCommunityQuizAnswers";
 import GameCommunityQuizStart from "./GameCommunityQuizStart";
+import { getCommunityQuizScoreMessage } from "../../helpers/clipboard";
+import { useRouter } from "next/router";
+import { copyScoreToast } from "../../helpers/toasts";
 
 export interface Props {
   quiz: GetCommunityQuiz;
@@ -25,6 +28,9 @@ const GameCommunityQuiz: FC<Props> = ({
   quiz,
   onIncrementPlays = (): void => {},
 }) => {
+  const toast = useToast();
+  const { asPath } = useRouter();
+
   const [hasAnswered, setHasAnswered] = useState(false);
   const [score, setScore] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<
@@ -73,6 +79,17 @@ const GameCommunityQuiz: FC<Props> = ({
     setHasGameStopped(false);
   };
 
+  const handleCopyScore = (): void => {
+    const message = getCommunityQuizScoreMessage(
+      score,
+      quiz.maxScore,
+      quiz.name,
+      asPath
+    );
+    navigator.clipboard.writeText(message);
+    toast(copyScoreToast());
+  };
+
   if (isMobile === undefined) return null;
 
   const getContent = (): JSX.Element => {
@@ -91,6 +108,7 @@ const GameCommunityQuiz: FC<Props> = ({
         <GameCommunityQuizGameOver
           score={score}
           maxQuestionNumber={quiz.questions?.length}
+          onCopyScore={handleCopyScore}
           onPlayAgain={handlePlayAgain}
         />
       );
@@ -105,6 +123,8 @@ const GameCommunityQuiz: FC<Props> = ({
           highlighted={question?.highlighted}
           flagCode={question?.flagCode}
           imageUrl={question?.imageUrl}
+          imageAttributeName={question?.imageAttributeName}
+          imageAttributeUrl={question?.imageAttributeUrl}
         />
         <GameCommunityQuizAnswers
           question={question}
