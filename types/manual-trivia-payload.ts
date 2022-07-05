@@ -9,6 +9,8 @@ export interface ManualTriviaQuestionPayload {
   highlighted: string;
   flagCode: string;
   imageUrl: string;
+  imageAttributeName: string;
+  imageAttributeUrl: string;
   explainer: string;
   answers: ManualTriviaAnswer[];
   quizDate: NullTime;

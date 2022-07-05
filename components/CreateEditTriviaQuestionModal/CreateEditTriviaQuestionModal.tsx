@@ -5,6 +5,7 @@ import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-questi
 import { ManualTriviaQuestionFormSubmit } from "../../types/manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
+import { UnsplashImage } from "../../types/unsplash-image";
 import AdminManualTriviaQuestionForm from "../AdminManualTriviaQuestionForm";
 import Modal from "../Modal";
 
@@ -21,7 +22,7 @@ export interface Props {
     values: ManualTriviaQuestionEditValues,
     helpers: FormikHelpers<ManualTriviaQuestionFormSubmit>
   ) => void;
-  images?: string[];
+  images?: UnsplashImage[];
   isSearchingImages?: boolean;
   isEmptyImageSearch?: boolean;
   onChangeSearchImage?: (query: string) => void;

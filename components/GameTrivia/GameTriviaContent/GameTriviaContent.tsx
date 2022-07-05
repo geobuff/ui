@@ -7,6 +7,8 @@ import {
   Heading,
   ResponsiveValue,
   useBreakpointValue,
+  Text,
+  Link as ChakraLink,
 } from "@chakra-ui/react";
 import { getFlagUrl } from "@geobuff/flags";
 import { SVGMap } from "@geobuff/svg-map";
@@ -21,6 +23,7 @@ import {
   getMapStyles,
   highlightSection,
 } from "../../../helpers/map";
+import Link from "next/link";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
 
@@ -41,6 +44,8 @@ export interface Props {
   highlighted?: string;
   flagCode?: string;
   imageUrl?: string;
+  imageAttributeName?: string;
+  imageAttributeUrl?: string;
 }
 
 const GameTriviaContent: FC<Props> = ({
@@ -50,6 +55,8 @@ const GameTriviaContent: FC<Props> = ({
   highlighted = "",
   flagCode = "",
   imageUrl = "",
+  imageAttributeName = "",
+  imageAttributeUrl = "",
 }) => {
   const isMobile = useBreakpointValue({ base: false, md: true });
   const height = use100vh();
@@ -96,15 +103,31 @@ const GameTriviaContent: FC<Props> = ({
                 maxHeight={"100%"}
                 marginX="auto"
               >
-                <Image
-                  src={imageUrl}
-                  height="100%"
-                  width="100%"
-                  marginX="auto"
-                  // @ts-expect-error
-                  objectFit="contain !important"
-                  hasSkeleton={false}
-                />
+                <Flex direction="column">
+                  <Image
+                    src={imageUrl}
+                    height={imageAttributeName ? "95%" : "100%"}
+                    width={imageAttributeName ? "95%" : "100%"}
+                    marginX="auto"
+                    // @ts-expect-error
+                    objectFit="contain !important"
+                    hasSkeleton={false}
+                  />
+                  {imageAttributeName && (
+                    <Text fontSize="10px" mt={1}>
+                      {`Photo by `}
+                      <ChakraLink>
+                        <Link href={imageAttributeUrl}>
+                          {imageAttributeName}
+                        </Link>
+                      </ChakraLink>
+                      {` on `}
+                      <ChakraLink>
+                        <Link href="https://unsplash.com">Unsplash</Link>
+                      </ChakraLink>
+                    </Text>
+                  )}
+                </Flex>
               </AspectRatio>
             </Box>
           </Flex>

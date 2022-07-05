@@ -14,6 +14,7 @@ import EditCommunityQuizForm from "../../components/EditCommunityQuizForm";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
 import axios from "axios";
+import { UnsplashImage } from "../../types/unsplash-image";
 
 interface Props {
   quizId: number;
@@ -36,7 +37,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
-  const [images, setImages] = useState<string[]>();
+  const [images, setImages] = useState<UnsplashImage[]>();
   const [isSearchingImages, setIsSearchingImages] = useState(false);
   const [isEmptyImageSearch, setIsEmptyImageSearch] = useState(false);
 
@@ -57,6 +58,8 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
           highlighted: q.highlighted,
           flagCode: q.flagCode,
           imageUrl: q.imageUrl,
+          imageAttributeName: q.imageAttributeName,
+          imageAttributeUrl: q.imageAttributeUrl,
           correctAnswer: q.answers?.findIndex((a) => a.isCorrect) ?? 0,
           answers: q.answers.map((a) => {
             return {
@@ -91,6 +94,8 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
         highlighted: question.highlighted,
         flagCode: question.flagCode,
         imageUrl: question.imageUrl,
+        imageAttributeName: question.imageAttributeName,
+        imageAttributeUrl: question.imageAttributeUrl,
         answers: question.answers,
       })),
     };
@@ -114,7 +119,15 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
         `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
       )
       .then((response) => {
-        setImages(response.data.results.map((x) => x.urls.small));
+        setImages(
+          response.data.results.map((x) => {
+            return {
+              url: x.urls.small,
+              attributeName: x.user?.name,
+              attributeUrl: `https://unsplash.com/@${x.user?.username}`,
+            };
+          })
+        );
         setIsEmptyImageSearch(response.data.results.length === 0);
       })
       .catch((error) => setError(error.response.data))

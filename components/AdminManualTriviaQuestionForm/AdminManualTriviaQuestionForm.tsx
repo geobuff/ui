@@ -50,6 +50,7 @@ import { getFlagsByCategory } from "../../helpers/flag";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
 import Search from "../../Icons/Search";
 import UnsplashImageGrid from "../UnsplashImageGrid";
+import { UnsplashImage } from "../../types/unsplash-image";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a question type."),
@@ -92,7 +93,7 @@ export interface Props {
     values: ManualTriviaQuestionFormSubmit,
     helpers: FormikHelpers<ManualTriviaQuestionFormSubmit>
   ) => void;
-  images?: string[];
+  images?: UnsplashImage[];
   isSearchingImages?: boolean;
   isEmptyImageSearch?: boolean;
   onChangeSearchImage?: (query: string) => void;
@@ -145,6 +146,8 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                 highlighted: "",
                 flagCode: "",
                 imageUrl: "",
+                imageAttributeName: "",
+                imageAttributeUrl: "",
                 answerOneText: "",
                 answerOneFlagCode: "",
                 answerTwoText: "",
@@ -194,7 +197,12 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
               } = useRadioGroup({
                 name: "imageUrl",
                 value: values.imageUrl,
-                onChange: (value: string) => setFieldValue("imageUrl", value),
+                onChange: (value: string) => {
+                  const image = images.find((x) => x.url === value);
+                  setFieldValue("imageAttributeName", image.attributeName);
+                  setFieldValue("imageAttributeUrl", image.attributeUrl);
+                  setFieldValue("imageUrl", value);
+                },
               });
 
               const imageUrlRadioGroup = getImageUrlRootProps();
@@ -597,6 +605,8 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                         map={values.map}
                         highlighted={values.highlighted}
                         imageUrl={values.imageUrl}
+                        imageAttributeName={values.imageAttributeName}
+                        imageAttributeUrl={values.imageAttributeUrl}
                       />
 
                       <Divider marginY={5} />

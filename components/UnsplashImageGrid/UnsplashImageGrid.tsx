@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 import { Alert, AlertIcon, Flex, SimpleGrid, Spinner } from "@chakra-ui/react";
 import RadioImage from "../RadioImage";
+import { UnsplashImage } from "../../types/unsplash-image";
 
 export interface Props {
-  images?: string[];
+  images?: UnsplashImage[];
   isSearching?: boolean;
   isEmptySearch?: boolean;
   imageUrlRadioGroup?: any;
@@ -41,13 +42,13 @@ const UnsplashImageGrid: FC<Props> = ({
       my={images.length > 0 && 6}
       {...imageUrlRadioGroup}
     >
-      {images.map((x, index) => {
+      {images.map((image, index) => {
         const radio = getImageUrlRadioProps({
-          value: x.toString(),
+          value: image.url,
           enterKeyHint: "imageUrl",
         });
 
-        return <RadioImage key={index} src={x} radioProps={radio} />;
+        return <RadioImage key={index} src={image.url} radioProps={radio} />;
       })}
     </SimpleGrid>
   );

@@ -14,6 +14,8 @@ export interface CommunityQuizFormQuestion {
   highlighted: string;
   flagCode: string;
   imageUrl: string;
+  imageAttributeName: string;
+  imageAttributeUrl: string;
   explainer: string;
   answers: CommunityQuizFormAnswer[];
   correctAnswer: string | number;
