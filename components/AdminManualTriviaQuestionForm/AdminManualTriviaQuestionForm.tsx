@@ -3,6 +3,7 @@ import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import * as Maps from "@geobuff/svg-maps";
 import { flagCategories, getFlagUrl } from "@geobuff/flags";
+import { debounce } from "throttle-debounce";
 
 import {
   Alert,
@@ -25,6 +26,8 @@ import {
   Select,
   VStack,
   SimpleGrid,
+  InputGroup,
+  InputLeftElement,
 } from "@chakra-ui/react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import DatePicker from "react-datepicker";
@@ -45,6 +48,8 @@ import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
 import { getHighlightRegionsByMap } from "../../helpers/map";
 import { getFlagsByCategory } from "../../helpers/flag";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
+import Search from "../../Icons/Search";
+import UnsplashImageGrid from "../UnsplashImageGrid";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a question type."),
@@ -61,7 +66,9 @@ const validationSchema = Yup.object().shape({
     .typeError("Please select a correct answer"),
   imageUrl: Yup.string().when("typeId", {
     is: QuestionType.Image,
-    then: Yup.string().required("Must include imageUrl for image questions."),
+    then: Yup.string().required(
+      "Must include imageUrl for image questions. Please search for an image and select one of the options below."
+    ),
   }),
   flagCode: Yup.string().when("typeId", {
     is: QuestionType.Flag,
@@ -85,6 +92,10 @@ export interface Props {
     values: ManualTriviaQuestionFormSubmit,
     helpers: FormikHelpers<ManualTriviaQuestionFormSubmit>
   ) => void;
+  images?: string[];
+  isSearchingImages?: boolean;
+  isEmptyImageSearch?: boolean;
+  onChangeSearchImage?: (query: string) => void;
 }
 
 const AdminManualTriviaQuestionForm: FC<Props> = ({
@@ -96,12 +107,20 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
   error = "",
   onSubmit = () => {},
   onClose = () => {},
+  images = [],
+  isSearchingImages = false,
+  isEmptyImageSearch = false,
+  onChangeSearchImage = () => {},
 }) => {
   const initialHasFlagAnswers = editValues?.hasFlagAnswers || false;
   const isEditing = !!editValues;
 
   const [hasFlagAnswers, setHasFlagAnswers] = useState(initialHasFlagAnswers);
   const [flagCategory, setFlagCategory] = useState("world");
+
+  const handleSearchImageDebounced = debounce(1500, (event) =>
+    onChangeSearchImage(event.target.value)
+  );
 
   return (
     <>
@@ -167,6 +186,18 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
               });
 
               const categoryRadioGroup = getCategoryRootProps();
+
+              // eslint-disable-next-line react-hooks/rules-of-hooks
+              const {
+                getRootProps: getImageUrlRootProps,
+                getRadioProps: getImageUrlRadioProps,
+              } = useRadioGroup({
+                name: "imageUrl",
+                value: values.imageUrl,
+                onChange: (value: string) => setFieldValue("imageUrl", value),
+              });
+
+              const imageUrlRadioGroup = getImageUrlRootProps();
 
               return (
                 <Box maxWidth="600px" width="100%">
@@ -339,82 +370,61 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                         </Field>
                       </Flex>
 
-                      {values.typeId === QuestionType.Map.toString() && (
+                      {values.typeId === QuestionType.Image.toString() && (
                         <>
                           <Flex marginY={3}>
-                            <Field name="map">
-                              {({ field, form }) => (
+                            <Field name="imageUrl">
+                              {({ form }) => (
                                 <FormControl
                                   isInvalid={
-                                    form.errors.map && form.touched.map
-                                  }
-                                >
-                                  <FormLabel htmlFor="map" fontWeight="bold">
-                                    {"Map"}
-                                  </FormLabel>
-                                  <Select {...field}>
-                                    <option value="">
-                                      {"Select a map..."}
-                                    </option>
-                                    {Object.keys(Maps).map((map) => (
-                                      <option key={map} value={map}>
-                                        {map
-                                          .match(/[A-Z][a-z]+|[0-9]+/g)
-                                          .join(" ")}
-                                      </option>
-                                    ))}
-                                  </Select>
-
-                                  <FormErrorMessage fontSize="11px">
-                                    {form.errors.map}
-                                  </FormErrorMessage>
-                                </FormControl>
-                              )}
-                            </Field>
-                          </Flex>
-
-                          <Flex marginY={3}>
-                            <Field name="highlighted">
-                              {({ field, form }) => (
-                                <FormControl
-                                  isInvalid={
-                                    form.errors.highlighted &&
-                                    form.touched.highlighted
+                                    form.errors.imageUrl &&
+                                    form.touched.imageUrl
                                   }
                                 >
                                   <FormLabel
-                                    htmlFor="highlighted"
+                                    htmlFor="imageUrl"
                                     fontWeight="bold"
                                   >
-                                    {"Highlighted"}
+                                    {"Image URL"}
                                   </FormLabel>
-                                  <Select {...field}>
-                                    <option value="">
-                                      {"Select highlighted..."}
-                                    </option>
-                                    {getHighlightRegionsByMap(values.map)?.map(
-                                      (region) => (
-                                        <option
-                                          key={region.value}
-                                          value={region.value}
-                                        >
-                                          {region.label}
-                                        </option>
-                                      )
-                                    )}
-                                  </Select>
-                                  <FormHelperText lineHeight="1.50">
-                                    {
-                                      "Selecting a region will highlight it on the selected map. Leaving it blank will display the map without any highlighting."
-                                    }
-                                  </FormHelperText>
+                                  <InputGroup>
+                                    <InputLeftElement pointerEvents="none">
+                                      <Search
+                                        marginTop="6px"
+                                        marginLeft="12px"
+                                        height="24px"
+                                        width="24px"
+                                        color="gray.500"
+                                      />
+                                    </InputLeftElement>
+                                    <Input
+                                      type="text"
+                                      placeholder="Search image..."
+                                      size="lg"
+                                      fontSize="16px"
+                                      fontWeight={400}
+                                      background="#F6F6F6"
+                                      borderRadius={6}
+                                      _placeholder={{ color: "gray.500" }}
+                                      _hover={{ background: "#e0e0e0" }}
+                                      onChange={handleSearchImageDebounced}
+                                    />
+                                  </InputGroup>
                                   <FormErrorMessage fontSize="11px">
-                                    {form.errors.highlighted}
+                                    {form.errors.imageUrl}
                                   </FormErrorMessage>
                                 </FormControl>
                               )}
                             </Field>
                           </Flex>
+
+                          <UnsplashImageGrid
+                            images={images}
+                            isSearching={isSearchingImages}
+                            isEmptySearch={isEmptyImageSearch}
+                            imageUrlRadioGroup={imageUrlRadioGroup}
+                            getImageUrlRadioProps={getImageUrlRadioProps}
+                          />
                         </>
                       )}
 
@@ -503,52 +513,83 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                         </>
                       )}
 
-                      {values.typeId === QuestionType.Image.toString() && (
-                        <Flex marginY={3}>
-                          <Field name="imageUrl">
-                            {({ field, form }) => (
-                              <FormControl
-                                isInvalid={
-                                  form.errors.imageUrl && form.touched.imageUrl
-                                }
-                              >
-                                <FormLabel htmlFor="imageUrl" fontWeight="bold">
-                                  {"Image URL"}
-                                </FormLabel>
-                                <Input
-                                  {...field}
-                                  id="imageUrl"
-                                  type="text"
-                                  placeholder="Enter image URL..."
-                                  size="lg"
-                                  fontSize="16px"
-                                  fontWeight={400}
-                                  background="#F6F6F6"
-                                  borderRadius={6}
-                                  _placeholder={{ color: "gray.500" }}
-                                  _hover={{ background: "#e0e0e0" }}
-                                />
-                                <FormErrorMessage fontSize="11px">
-                                  {form.errors.imageUrl}
-                                </FormErrorMessage>
-                                <FormHelperText lineHeight="1.50">
-                                  {
-                                    "Avoid images that are copyrighted or require attribution. Sites like"
+                      {values.typeId === QuestionType.Map.toString() && (
+                        <>
+                          <Flex marginY={3}>
+                            <Field name="map">
+                              {({ field, form }) => (
+                                <FormControl
+                                  isInvalid={
+                                    form.errors.map && form.touched.map
                                   }
-                                  <Link
-                                    href="https://pixabay.com/"
-                                    isExternal
-                                    marginX={1}
+                                >
+                                  <FormLabel htmlFor="map" fontWeight="bold">
+                                    {"Map"}
+                                  </FormLabel>
+                                  <Select {...field}>
+                                    <option value="">
+                                      {"Select a map..."}
+                                    </option>
+                                    {Object.keys(Maps).map((map) => (
+                                      <option key={map} value={map}>
+                                        {map
+                                          .match(/[A-Z][a-z]+|[0-9]+/g)
+                                          .join(" ")}
+                                      </option>
+                                    ))}
+                                  </Select>
+
+                                  <FormErrorMessage fontSize="11px">
+                                    {form.errors.map}
+                                  </FormErrorMessage>
+                                </FormControl>
+                              )}
+                            </Field>
+                          </Flex>
+
+                          <Flex marginY={3}>
+                            <Field name="highlighted">
+                              {({ field, form }) => (
+                                <FormControl
+                                  isInvalid={
+                                    form.errors.highlighted &&
+                                    form.touched.highlighted
+                                  }
+                                >
+                                  <FormLabel
+                                    htmlFor="highlighted"
                                     fontWeight="bold"
                                   >
-                                    {"pixabay"}
-                                  </Link>
-                                  {"are good for free commercial images."}
-                                </FormHelperText>
-                              </FormControl>
-                            )}
-                          </Field>
-                        </Flex>
+                                    {"Highlighted"}
+                                  </FormLabel>
+                                  <Select {...field}>
+                                    <option value="">
+                                      {"Select highlighted..."}
+                                    </option>
+                                    {getHighlightRegionsByMap(values.map)?.map(
+                                      (region) => (
+                                        <option
+                                          key={region.value}
+                                          value={region.value}
+                                        >
+                                          {region.label}
+                                        </option>
+                                      )
+                                    )}
+                                  </Select>
+                                  <FormHelperText lineHeight="1.50">
+                                    {
+                                      "Selecting a region will highlight it on the selected map. Leaving it blank will display the map without any highlighting."
+                                    }
+                                  </FormHelperText>
+                                  <FormErrorMessage fontSize="11px">
+                                    {form.errors.highlighted}
+                                  </FormErrorMessage>
+                                </FormControl>
+                              )}
+                            </Field>
+                          </Flex>
+                        </>
                       )}
 
                       <QuestionTypeValuePreview

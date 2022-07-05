@@ -45,6 +45,10 @@ export interface Props {
   isSubmitting?: boolean;
   types: TriviaQuestionType[];
   onSubmit: (values: CommunityQuizFormSubmit) => void;
+  images?: string[];
+  isSearchingImages?: boolean;
+  isEmptyImageSearch?: boolean;
+  onChangeSearchImage?: (query: string) => void;
 }
 
 const EditCommunityQuizForm: FC<Props> = ({
@@ -54,6 +58,10 @@ const EditCommunityQuizForm: FC<Props> = ({
   isLoading = false,
   isSubmitting = false,
   onSubmit = () => {},
+  images = [],
+  isSearchingImages = false,
+  isEmptyImageSearch = false,
+  onChangeSearchImage = () => {},
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -229,6 +237,10 @@ const EditCommunityQuizForm: FC<Props> = ({
                     handleAddQuestion(values, setFieldValue)
                   }
                   values={selectedQuestion}
+                  images={images}
+                  isSearchingImages={isSearchingImages}
+                  isEmptyImageSearch={isEmptyImageSearch}
+                  onChangeSearchImage={onChangeSearchImage}
                 />
               </Flex>
             </Modal>
