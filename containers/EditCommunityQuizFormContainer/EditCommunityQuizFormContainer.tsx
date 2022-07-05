@@ -13,6 +13,7 @@ import { GetCommunityQuiz } from "../../types/get-community-quiz-dto";
 import EditCommunityQuizForm from "../../components/EditCommunityQuizForm";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
+import axios from "axios";
 
 interface Props {
   quizId: number;
@@ -34,6 +35,10 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
 
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+
+  const [images, setImages] = useState<string[]>();
+  const [isSearchingImages, setIsSearchingImages] = useState(false);
+  const [isEmptyImageSearch, setIsEmptyImageSearch] = useState(false);
 
   const getValuesFromQuiz = (
     quiz: GetCommunityQuiz
@@ -100,6 +105,22 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       .finally(() => setIsSubmitting(false));
   };
 
+  const handleChangeSearchImage = (query: string): void => {
+    setImages([]);
+    setIsEmptyImageSearch(false);
+    setIsSearchingImages(true);
+    axios
+      .get(
+        `https://api.unsplash.com/search/photos?page=1&query=${query}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+      )
+      .then((response) => {
+        setImages(response.data.results.map((x) => x.urls.small));
+        setIsEmptyImageSearch(response.data.results.length === 0);
+      })
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSearchingImages(false));
+  };
+
   return (
     <EditCommunityQuizForm
       values={!isQuizLoading && getValuesFromQuiz(quiz)}
@@ -108,6 +129,10 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       isLoading={isQuestionTypesLoading || isQuizLoading}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
+      images={images}
+      isSearchingImages={isSearchingImages}
+      isEmptyImageSearch={isEmptyImageSearch}
+      onChangeSearchImage={handleChangeSearchImage}
     />
   );
 };
