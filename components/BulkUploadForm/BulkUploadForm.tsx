@@ -88,6 +88,8 @@ const BulkUploadForm: FC<Props> = ({
               question: x["Question"],
               explainer: x["Explainer"],
               imageUrl: typeId === 2 ? x["Resource"] : "",
+              imageAttributeName: typeId === 2 ? x["ImageAttributeName"] : "",
+              imageAttributeUrl: typeId === 2 ? x["ImageAttributeUrl"] : "",
               map: typeId === 3 ? x["Resource"] : "",
               flagCode: typeId === 4 ? x["Resource"] : "",
               answers: answers.map((a) => {

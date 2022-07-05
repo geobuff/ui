@@ -112,15 +112,6 @@ const OurMission: FC = () => (
               link="https://github.com/ashmidgley"
             />
             <TeamMemberCard
-              title="Kirby McKenzie"
-              position="Founder"
-              city="Melbourne"
-              country="Australia"
-              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/kirby-primary.svg`}
-              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/kirby-secondary.svg`}
-              link="https://github.com/KirbyMcKenzie"
-            />
-            <TeamMemberCard
               title="Pearl Pan"
               position="Marketing"
               city="Palmerston North"
@@ -130,15 +121,6 @@ const OurMission: FC = () => (
               link="https://instagram.com/pearlptp"
             />
             <TeamMemberCard
-              title="Daniel Marchbank"
-              position="Designer"
-              city="Wellington"
-              country="New Zealand"
-              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/dan-primary.svg`}
-              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/dan-secondary.svg`}
-              link="https://twitter.com/cleangecko"
-            />
-            <TeamMemberCard
               title="Lewis Johnson"
               position="Researcher"
               city="Wellington"
@@ -146,15 +128,6 @@ const OurMission: FC = () => (
               primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/lewis-primary.svg`}
               secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/lewis-secondary.svg`}
               link="https://nz.linkedin.com/in/lewis-johnson-470620183?original_referer=https%3A%2F%2Fwww.google.com%2F"
-            />
-            <TeamMemberCard
-              title="Ryan Clough"
-              position="Researcher"
-              city="Auckland"
-              country="New Zealand"
-              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ryan-primary.svg`}
-              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ryan-secondary.svg`}
-              link="https://twitter.com/ryanclough_"
             />
           </SimpleGrid>
         </Box>

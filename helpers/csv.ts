@@ -4,6 +4,8 @@ const requiredHeaders = [
   "Type",
   "Category",
   "Resource",
+  "ImageAttributeName",
+  "ImageAttributeUrl",
   "Highlighted",
   "Answers",
   "Correct",
