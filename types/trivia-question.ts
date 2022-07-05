@@ -11,6 +11,8 @@ export interface TriviaQuestion {
   highlighted?: string;
   flagCode?: string;
   imageUrl?: string;
+  imageAttributeName?: string;
+  imageAttributeUrl?: string;
   explainer?: string;
   lastUsed: NullTime;
   answers: TriviaAnswer[];

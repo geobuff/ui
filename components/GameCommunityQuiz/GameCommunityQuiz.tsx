@@ -123,6 +123,8 @@ const GameCommunityQuiz: FC<Props> = ({
           highlighted={question?.highlighted}
           flagCode={question?.flagCode}
           imageUrl={question?.imageUrl}
+          imageAttributeName={question?.imageAttributeName}
+          imageAttributeUrl={question?.imageAttributeUrl}
         />
         <GameCommunityQuizAnswers
           question={question}

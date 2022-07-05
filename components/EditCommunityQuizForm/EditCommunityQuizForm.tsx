@@ -29,6 +29,7 @@ import CommunityQuizQuestionsField from "../CommunityQuizForm/CommunityQuizQuest
 import CommunityQuizQuestionForm from "../CommunityQuizForm/CommunityQuizQuestionForm";
 import CommunityQuizRadioGroupFormField from "../CommunityQuizForm/CommunityQuizRadioGroupFormField";
 import CommunityQuizTextAreaFormField from "../CommunityQuizForm/CommunityQuizTextAreaFormField";
+import { UnsplashImage } from "../../types/unsplash-image";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Please enter a name for your quiz."),
@@ -45,7 +46,7 @@ export interface Props {
   isSubmitting?: boolean;
   types: TriviaQuestionType[];
   onSubmit: (values: CommunityQuizFormSubmit) => void;
-  images?: string[];
+  images?: UnsplashImage[];
   isSearchingImages?: boolean;
   isEmptyImageSearch?: boolean;
   onChangeSearchImage?: (query: string) => void;

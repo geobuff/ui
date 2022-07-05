@@ -163,6 +163,8 @@ const AdminGeneralContainer: FC = () => {
           highlighted: question.highlighted,
           flagCode: question.flagCode,
           imageUrl: question.imageUrl,
+          imageAttributeName: question.imageAttributeName,
+          imageAttributeUrl: question.imageAttributeUrl,
           answers: question.answers,
         })),
       };

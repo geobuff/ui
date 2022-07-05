@@ -8,6 +8,8 @@ export interface ManualTriviaQuestion {
   categoryId: number;
   category: string;
   imageUrl?: string;
+  imageAttributeName?: string;
+  imageAttributeUrl?: string;
   flagCode?: string;
   map?: string;
   highlighted?: string;
