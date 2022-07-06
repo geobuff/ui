@@ -60,6 +60,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
           imageUrl: q.imageUrl,
           imageAttributeName: q.imageAttributeName,
           imageAttributeUrl: q.imageAttributeUrl,
+          imageDownloadLocation: "",
           correctAnswer: q.answers?.findIndex((a) => a.isCorrect) ?? 0,
           answers: q.answers.map((a) => {
             return {
@@ -73,7 +74,9 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
     };
   };
 
-  const handleSubmit = (values: CommunityQuizFormSubmit): void => {
+  const handleSubmit = async (
+    values: CommunityQuizFormSubmit
+  ): Promise<void> => {
     setIsSubmitting(true);
 
     const payload: CommunityQuizPayload = {
@@ -100,6 +103,14 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       })),
     };
 
+    await axios.all(
+      values.questions.map((x) =>
+        axios.get(
+          `${x.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+        )
+      )
+    );
+
     axiosClient
       .put(`/community-quizzes/${quizId}`, payload, session?.authConfig)
       .then(() => {
@@ -125,6 +136,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
               url: x.urls.small,
               attributeName: x.user?.name,
               attributeUrl: `https://unsplash.com/@${x.user?.username}`,
+              downloadLocation: x.links["download_location"],
             };
           })
         );

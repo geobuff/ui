@@ -30,7 +30,9 @@ const CommunityQuizFormContainer: FC = () => {
   const [isSearchingImages, setIsSearchingImages] = useState(false);
   const [isEmptyImageSearch, setIsEmptyImageSearch] = useState(false);
 
-  const handleSubmit = (values: CommunityQuizFormSubmit): void => {
+  const handleSubmit = async (
+    values: CommunityQuizFormSubmit
+  ): Promise<void> => {
     setIsSubmitting(true);
 
     const payload: CommunityQuizPayload = {
@@ -57,6 +59,14 @@ const CommunityQuizFormContainer: FC = () => {
       })),
     };
 
+    await axios.all(
+      values.questions.map((x) =>
+        axios.get(
+          `${x.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+        )
+      )
+    );
+
     axiosClient
       .post(`/community-quizzes`, payload, session?.authConfig)
       .then(() => {
@@ -82,6 +92,7 @@ const CommunityQuizFormContainer: FC = () => {
               url: x.urls.small,
               attributeName: x.user?.name,
               attributeUrl: `https://unsplash.com/@${x.user?.username}`,
+              downloadLocation: x.links["download_location"],
             };
           })
         );
