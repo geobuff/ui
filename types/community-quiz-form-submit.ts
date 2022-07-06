@@ -16,6 +16,7 @@ export interface CommunityQuizFormQuestion {
   imageUrl: string;
   imageAttributeName: string;
   imageAttributeUrl: string;
+  imageDownloadLocation: string;
   explainer: string;
   answers: CommunityQuizFormAnswer[];
   correctAnswer: string | number;

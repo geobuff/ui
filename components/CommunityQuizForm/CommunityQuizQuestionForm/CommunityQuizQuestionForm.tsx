@@ -49,6 +49,7 @@ const initialValues: CommunityQuizFormQuestion = {
   imageUrl: "",
   imageAttributeName: "",
   imageAttributeUrl: "",
+  imageDownloadLocation: "",
   map: "",
   highlighted: "",
   flagCode: "",
@@ -142,6 +143,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
               const image = images.find((x) => x.url === value);
               setFieldValue("imageAttributeName", image.attributeName);
               setFieldValue("imageAttributeUrl", image.attributeUrl);
+              setFieldValue("imageDownloadLocation", image.downloadLocation);
               setFieldValue("imageUrl", value);
             },
           });
