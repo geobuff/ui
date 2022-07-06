@@ -100,6 +100,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       imageUrl: question?.imageUrl || "",
       imageAttributeName: question?.imageAttributeName || "",
       imageAttributeUrl: question?.imageAttributeUrl || "",
+      imageDownloadLocation: "",
       flagCode: question?.flagCode || "",
       map: question?.map || "",
       highlighted: question?.highlighted || "",
@@ -131,10 +132,10 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
-  const handleCreateEditSubmit = (
+  const handleCreateEditSubmit = async (
     values: ManualTriviaQuestionEditValues,
     { resetForm }
-  ): void => {
+  ): Promise<void> => {
     setIsSubmitting(true);
     setError("");
 
@@ -195,6 +196,10 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       quizDate: quizDate,
     };
 
+    await axios.get(
+      `${values.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+    );
+
     if (selectedQuestion) {
       axiosClient
         .put(
@@ -236,6 +241,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
               url: x.urls.small,
               attributeName: x.user?.name,
               attributeUrl: `https://unsplash.com/@${x.user?.username}`,
+              downloadLocation: x.links["download_location"],
             };
           })
         );

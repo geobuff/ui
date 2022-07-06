@@ -148,6 +148,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                 imageUrl: "",
                 imageAttributeName: "",
                 imageAttributeUrl: "",
+                imageDownloadLocation: "",
                 answerOneText: "",
                 answerOneFlagCode: "",
                 answerTwoText: "",
@@ -201,6 +202,10 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                   const image = images.find((x) => x.url === value);
                   setFieldValue("imageAttributeName", image.attributeName);
                   setFieldValue("imageAttributeUrl", image.attributeUrl);
+                  setFieldValue(
+                    "imageDownloadLocation",
+                    image.downloadLocation
+                  );
                   setFieldValue("imageUrl", value);
                 },
               });
