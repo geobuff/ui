@@ -30,7 +30,6 @@ interface Props {
 
 const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
   const router = useRouter();
-  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const { status } = useSession();
   const { user, clearUser } = useContext(CurrentUserContext);
@@ -130,7 +129,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
         </MenuButton>
 
         <MenuList>
-          {!isMobile && user?.isAdmin && (
+          {user?.isAdmin && (
             <>
               <MenuItem onClick={(): Promise<boolean> => router.push(`/admin`)}>
                 <Twemoji emoji="👑" width={5} mr={2} /> {"Admin Dashboard"}

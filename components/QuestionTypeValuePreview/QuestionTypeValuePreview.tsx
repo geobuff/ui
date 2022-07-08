@@ -58,7 +58,11 @@ const QuestionTypeValuePreview: FC<Props> = ({
               </ChakraLink>
               {` on `}
               <ChakraLink>
-                <Link href="https://unsplash.com">Unsplash</Link>
+                <Link
+                  href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
+                >
+                  Unsplash
+                </Link>
               </ChakraLink>
             </Text>
           </Flex>
