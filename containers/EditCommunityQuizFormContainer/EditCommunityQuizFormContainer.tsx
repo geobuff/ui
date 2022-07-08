@@ -15,6 +15,7 @@ import { useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
 import axios from "axios";
 import { UnsplashImage } from "../../types/unsplash-image";
+import { TriviaQuestionTypeValues } from "../../types/trivia-question-types";
 
 interface Props {
   quizId: number;
@@ -85,29 +86,43 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       description: values.description,
       isPublic: values.isPublic === "true",
       maxScore: values.questions?.length || 0,
-      questions: values.questions?.map((question) => ({
-        id: {
-          Int64: question.id ?? 0,
-          Valid: !!question.id,
-        },
-        typeId: parseInt(question.typeId),
-        question: question.question,
-        explainer: question.explainer,
-        map: question.map,
-        highlighted: question.highlighted,
-        flagCode: question.flagCode,
-        imageUrl: question.imageUrl,
-        imageAttributeName: question.imageAttributeName,
-        imageAttributeUrl: question.imageAttributeUrl,
-        answers: question.answers,
-      })),
+      questions: values.questions?.map((question) => {
+        const typeId = parseInt(question.typeId);
+        return {
+          id: {
+            Int64: question.id ?? 0,
+            Valid: !!question.id,
+          },
+          typeId: typeId,
+          question: question.question,
+          explainer: question.explainer,
+          imageUrl:
+            typeId == TriviaQuestionTypeValues.Image ? question.imageUrl : "",
+          imageAttributeName:
+            typeId == TriviaQuestionTypeValues.Image
+              ? question.imageAttributeName
+              : "",
+          imageAttributeUrl:
+            typeId == TriviaQuestionTypeValues.Image
+              ? question.imageAttributeUrl
+              : "",
+          flagCode:
+            typeId == TriviaQuestionTypeValues.Flag ? question.flagCode : "",
+          map: typeId == TriviaQuestionTypeValues.Map ? question.map : "",
+          highlighted:
+            typeId == TriviaQuestionTypeValues.Map ? question.highlighted : "",
+          answers: question.answers,
+        };
+      }),
     };
 
     await axios.all(
-      values.questions.map((x) =>
-        axios.get(
-          `${x.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
-        )
+      values.questions.map(
+        (x) =>
+          parseInt(x.typeId) === TriviaQuestionTypeValues.Image &&
+          axios.get(
+            `${x.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+          )
       )
     );
 
@@ -135,7 +150,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
             return {
               url: x.urls.small,
               attributeName: x.user?.name,
-              attributeUrl: `https://unsplash.com/@${x.user?.username}`,
+              attributeUrl: `https://unsplash.com/@${x.user?.username}?utm_source=GeoBuff&utm_medium=referral`,
               downloadLocation: x.links["download_location"],
             };
           })

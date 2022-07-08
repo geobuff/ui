@@ -15,6 +15,7 @@ import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import { NullTime } from "../../types/null-time";
 import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
+import { TriviaQuestionTypeValues } from "../../types/trivia-question-types";
 import { UnsplashImage } from "../../types/unsplash-image";
 
 const AdminManualTriviaQuestionTableContainer: FC = () => {
@@ -181,24 +182,35 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       Time: values.quizDate ? new Date(values.quizDate) : new Date(),
     };
 
+    const typeId = parseInt(values.typeId);
     const payload: ManualTriviaQuestionPayload = {
-      typeId: parseInt(values.typeId),
+      typeId: typeId,
       categoryId: parseInt(values.categoryId),
       question: values.question,
-      map: values.map,
-      highlighted: values.highlighted,
-      flagCode: values.flagCode,
-      imageUrl: values.imageUrl,
-      imageAttributeName: values.imageAttributeName,
-      imageAttributeUrl: values.imageAttributeUrl,
       explainer: values.explainer,
+      imageUrl:
+        typeId === TriviaQuestionTypeValues.Image ? values.imageUrl : "",
+      imageAttributeName:
+        typeId === TriviaQuestionTypeValues.Image
+          ? values.imageAttributeName
+          : "",
+      imageAttributeUrl:
+        typeId === TriviaQuestionTypeValues.Image
+          ? values.imageAttributeUrl
+          : "",
+      flagCode: typeId === TriviaQuestionTypeValues.Flag ? values.flagCode : "",
+      map: typeId === TriviaQuestionTypeValues.Map ? values.map : "",
+      highlighted:
+        typeId === TriviaQuestionTypeValues.Map ? values.highlighted : "",
       answers: answers,
       quizDate: quizDate,
     };
 
-    await axios.get(
-      `${values.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
-    );
+    if (typeId === TriviaQuestionTypeValues.Image) {
+      await axios.get(
+        `${values.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+      );
+    }
 
     if (selectedQuestion) {
       axiosClient
@@ -240,7 +252,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
             return {
               url: x.urls.small,
               attributeName: x.user?.name,
-              attributeUrl: `https://unsplash.com/@${x.user?.username}`,
+              attributeUrl: `https://unsplash.com/@${x.user?.username}?utm_source=GeoBuff&utm_medium=referral`,
               downloadLocation: x.links["download_location"],
             };
           })
