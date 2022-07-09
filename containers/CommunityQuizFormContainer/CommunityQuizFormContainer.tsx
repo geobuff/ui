@@ -8,7 +8,10 @@ import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 
 import CommunityQuizForm from "../../components/CommunityQuizForm";
 import { CommunityQuizFormSubmit } from "../../types/community-quiz-form-submit";
-import { CommunityQuizPayload } from "../../types/community-quiz-payload";
+import {
+  CommunityQuizPayload,
+  CommunityQuizQuestionPayload,
+} from "../../types/community-quiz-payload";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
 import axios from "axios";
@@ -44,7 +47,7 @@ const CommunityQuizFormContainer: FC = () => {
       maxScore: values.questions?.length || 0,
       questions: values.questions?.map((question) => {
         const typeId = parseInt(question.typeId);
-        return {
+        const result: CommunityQuizQuestionPayload = {
           id: {
             Int64: 0,
             Valid: false,
@@ -52,23 +55,21 @@ const CommunityQuizFormContainer: FC = () => {
           typeId: typeId,
           question: question.question,
           explainer: question.explainer,
-          imageUrl:
-            typeId === TriviaQuestionTypeValues.Image ? question.imageUrl : "",
-          imageAttributeName:
-            typeId === TriviaQuestionTypeValues.Image
-              ? question.imageAttributeName
-              : "",
-          imageAttributeUrl:
-            typeId === TriviaQuestionTypeValues.Image
-              ? question.imageAttributeUrl
-              : "",
-          flagCode:
-            typeId === TriviaQuestionTypeValues.Flag ? question.flagCode : "",
-          map: typeId === TriviaQuestionTypeValues.Map ? question.map : "",
-          highlighted:
-            typeId === TriviaQuestionTypeValues.Map ? question.highlighted : "",
           answers: question.answers,
         };
+
+        if (typeId === TriviaQuestionTypeValues.Image) {
+          result.imageUrl = question.imageUrl;
+          result.imageAttributeName = question.imageAttributeName;
+          result.imageAttributeUrl = question.imageAttributeUrl;
+        } else if (typeId === TriviaQuestionTypeValues.Flag) {
+          result.flagCode = question.flagCode;
+        } else if (typeId === TriviaQuestionTypeValues.Map) {
+          result.map = question.map;
+          result.highlighted = question.highlighted;
+        }
+
+        return result;
       }),
     };
 

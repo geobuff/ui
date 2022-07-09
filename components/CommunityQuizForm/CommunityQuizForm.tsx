@@ -74,28 +74,27 @@ const CommunityQuizForm: FC<Props> = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const [questions, setQuestions] = useState<CommunityQuizFormQuestion[]>([]);
   const [selectedQuestion, setSelectedQuestion] = useState<
     CommunityQuizFormQuestion
   >();
 
   const handleAddQuestion = (
-    values: CommunityQuizFormQuestion,
+    newQuestion: CommunityQuizFormQuestion,
+    questions: CommunityQuizFormQuestion[],
     setFieldHelper: FormSetFieldValue
   ) => {
     const updated = JSON.parse(JSON.stringify(questions));
-    if (values.index !== undefined) {
-      const index = questions.findIndex((x) => x.index == values.index);
+    if (newQuestion.index !== undefined) {
+      const index = questions.findIndex((x) => x.index == newQuestion.index);
       updated.splice(index, 1);
     }
 
-    const question = JSON.parse(JSON.stringify(values));
+    const question = JSON.parse(JSON.stringify(newQuestion));
     for (let i = 0; i < question.answers.length; i++) {
       question.answers[i].isCorrect = i === question.correctAnswer;
     }
 
     updated.push({ ...question, index: questions.length });
-    setQuestions(updated);
     setFieldHelper("questions", updated);
     onClose();
   };
@@ -107,15 +106,13 @@ const CommunityQuizForm: FC<Props> = ({
 
   const handleDeleteQuestion = (
     deletedQuestion: CommunityQuizFormQuestion,
+    questions: CommunityQuizFormQuestion[],
     setFieldHelper
-  ) => {
-    const updatedQuestions = questions.filter(
-      (q) => q.question !== deletedQuestion.question
+  ) =>
+    setFieldHelper(
+      "questions",
+      questions.filter((q) => q.question !== deletedQuestion.question)
     );
-
-    setQuestions(updatedQuestions);
-    setFieldHelper("questions", updatedQuestions);
-  };
 
   const handleOpenQuestionForm = () => {
     setSelectedQuestion(undefined);
@@ -192,10 +189,14 @@ const CommunityQuizForm: FC<Props> = ({
                 marginY={4}
               >
                 <CommunityQuizQuestionsField
-                  questions={questions}
+                  questions={values.questions}
                   onAddQuestion={handleOpenQuestionForm}
                   onDeleteQuestion={(question) =>
-                    handleDeleteQuestion(question, setFieldValue)
+                    handleDeleteQuestion(
+                      question,
+                      values.questions,
+                      setFieldValue
+                    )
                   }
                   onEditQuestion={handleEditQuestion}
                 />
@@ -238,8 +239,8 @@ const CommunityQuizForm: FC<Props> = ({
                 <Divider marginBottom={6} />
                 <CommunityQuizQuestionForm
                   types={types}
-                  onSubmit={(values) =>
-                    handleAddQuestion(values, setFieldValue)
+                  onSubmit={(question) =>
+                    handleAddQuestion(question, values.questions, setFieldValue)
                   }
                   values={selectedQuestion}
                   images={images}

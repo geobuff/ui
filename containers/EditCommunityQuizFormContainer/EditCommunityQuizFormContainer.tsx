@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
@@ -7,8 +7,10 @@ import { editCommunityQuizToast } from "../../helpers/toasts";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 
 import { CommunityQuizFormSubmit } from "../../types/community-quiz-form-submit";
-import { CommunityQuizPayload } from "../../types/community-quiz-payload";
-import useCommunityQuiz from "../../hooks/UseCommunityQuiz";
+import {
+  CommunityQuizPayload,
+  CommunityQuizQuestionPayload,
+} from "../../types/community-quiz-payload";
 import { GetCommunityQuiz } from "../../types/get-community-quiz-dto";
 import EditCommunityQuizForm from "../../components/EditCommunityQuizForm";
 import { useSession } from "next-auth/react";
@@ -22,8 +24,6 @@ interface Props {
 }
 
 const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
-  const { data: quiz, isLoading: isQuizLoading } = useCommunityQuiz(quizId);
-
   const {
     data: types,
     isLoading: isQuestionTypesLoading,
@@ -35,12 +35,22 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
   const toast = useToast();
   const router = useRouter();
 
+  const [quiz, setQuiz] = useState<GetCommunityQuiz>();
+  const [isQuizLoading, setIsQuizLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
   const [images, setImages] = useState<UnsplashImage[]>();
   const [isSearchingImages, setIsSearchingImages] = useState(false);
   const [isEmptyImageSearch, setIsEmptyImageSearch] = useState(false);
+
+  useEffect(() => {
+    axiosClient
+      .get(`/community-quizzes/${quizId}`)
+      .then((response) => setQuiz(response.data))
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsQuizLoading(false));
+  }, []);
 
   const getValuesFromQuiz = (
     quiz: GetCommunityQuiz
@@ -55,13 +65,13 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
           typeId: q.typeId.toString(),
           question: q.question,
           explainer: q.explainer,
-          map: q.map,
-          highlighted: q.highlighted,
-          flagCode: q.flagCode,
           imageUrl: q.imageUrl,
           imageAttributeName: q.imageAttributeName,
           imageAttributeUrl: q.imageAttributeUrl,
           imageDownloadLocation: "",
+          flagCode: q.flagCode,
+          map: q.map,
+          highlighted: q.highlighted,
           correctAnswer: q.answers?.findIndex((a) => a.isCorrect) ?? 0,
           answers: q.answers.map((a) => {
             return {
@@ -88,7 +98,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       maxScore: values.questions?.length || 0,
       questions: values.questions?.map((question) => {
         const typeId = parseInt(question.typeId);
-        return {
+        const result: CommunityQuizQuestionPayload = {
           id: {
             Int64: question.id ?? 0,
             Valid: !!question.id,
@@ -96,23 +106,33 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
           typeId: typeId,
           question: question.question,
           explainer: question.explainer,
-          imageUrl:
-            typeId == TriviaQuestionTypeValues.Image ? question.imageUrl : "",
-          imageAttributeName:
-            typeId == TriviaQuestionTypeValues.Image
-              ? question.imageAttributeName
-              : "",
-          imageAttributeUrl:
-            typeId == TriviaQuestionTypeValues.Image
-              ? question.imageAttributeUrl
-              : "",
-          flagCode:
-            typeId == TriviaQuestionTypeValues.Flag ? question.flagCode : "",
-          map: typeId == TriviaQuestionTypeValues.Map ? question.map : "",
-          highlighted:
-            typeId == TriviaQuestionTypeValues.Map ? question.highlighted : "",
           answers: question.answers,
         };
+
+        if (typeId === TriviaQuestionTypeValues.Image) {
+          const originalQuestion = quiz.questions.find(
+            (x) => x.id === question.id
+          );
+          if (
+            originalQuestion !== undefined &&
+            originalQuestion.imageUrl === question.imageUrl
+          ) {
+            result.imageUrl = question.imageUrl;
+            result.imageAttributeName = originalQuestion.imageAttributeName;
+            result.imageAttributeUrl = originalQuestion.imageAttributeUrl;
+          } else {
+            result.imageUrl = question.imageUrl;
+            result.imageAttributeName = question.imageAttributeName;
+            result.imageAttributeUrl = question.imageAttributeUrl;
+          }
+        } else if (typeId === TriviaQuestionTypeValues.Flag) {
+          result.flagCode = question.flagCode;
+        } else if (typeId === TriviaQuestionTypeValues.Map) {
+          result.map = question.map;
+          result.highlighted = question.highlighted;
+        }
+
+        return result;
       }),
     };
 

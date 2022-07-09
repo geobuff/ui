@@ -199,6 +199,7 @@ const AdminGeneralContainer: FC = () => {
         isOpen={isOpen}
         onClose={onClose}
         onSubmit={handleBulkUploadSubmit}
+        isSubmitting={isSubmitting}
         error={error}
         setError={setError}
       />
