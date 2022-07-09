@@ -1,6 +1,13 @@
 import React, { FC, useContext, useState } from "react";
 import Head from "next/head";
-import { Box, Flex, useBreakpointValue, useToast } from "@chakra-ui/react";
+import {
+  Alert,
+  AlertIcon,
+  Box,
+  Flex,
+  useBreakpointValue,
+  useToast,
+} from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
 
 import MainView from "../MainView";
@@ -21,11 +28,13 @@ import { copyScoreToast } from "../../helpers/toasts";
 
 export interface Props {
   quiz: GetCommunityQuiz;
+  error?: string;
   onIncrementPlays?: (quizId: number) => void;
 }
 
 const GameCommunityQuiz: FC<Props> = ({
   quiz,
+  error = "",
   onIncrementPlays = (): void => {},
 }) => {
   const toast = useToast();
@@ -91,6 +100,15 @@ const GameCommunityQuiz: FC<Props> = ({
   };
 
   if (isMobile === undefined) return null;
+
+  if (error) {
+    return (
+      <Alert status="error" borderRadius={6} marginBottom={3}>
+        <AlertIcon />
+        {error}
+      </Alert>
+    );
+  }
 
   const getContent = (): JSX.Element => {
     if (!hasGameStarted) {
