@@ -1,15 +1,25 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import GameCommunityQuiz from "../../components/GameCommunityQuiz";
 import axiosClient from "../../axios";
-import useCommunityQuiz from "../../hooks/UseCommunityQuiz";
 import GameSpinner from "../../components/GameSpinner";
+import { GetCommunityQuiz } from "../../types/get-community-quiz-dto";
 
 export interface Props {
   quizId?: number;
 }
 
 const GameCommunityQuizContainer: FC<Props> = ({ quizId = 0 }) => {
-  const { data, isLoading } = useCommunityQuiz(quizId);
+  const [quiz, setQuiz] = useState<GetCommunityQuiz>();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    axiosClient
+      .get(`/community-quizzes/${quizId}`)
+      .then((response) => setQuiz(response.data))
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsLoading(false));
+  }, []);
 
   const handleIncrementPlays = (quizId: number): void => {
     axiosClient.put(`/community-quiz-plays/${quizId}`);
@@ -20,7 +30,11 @@ const GameCommunityQuizContainer: FC<Props> = ({ quizId = 0 }) => {
   }
 
   return (
-    <GameCommunityQuiz quiz={data} onIncrementPlays={handleIncrementPlays} />
+    <GameCommunityQuiz
+      quiz={quiz}
+      error={error}
+      onIncrementPlays={handleIncrementPlays}
+    />
   );
 };
 

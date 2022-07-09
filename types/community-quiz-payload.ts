@@ -9,17 +9,17 @@ export interface CommunityQuizPayload {
   questions: CommunityQuizQuestionPayload[];
 }
 
-interface CommunityQuizQuestionPayload {
+export interface CommunityQuizQuestionPayload {
   id: NullInt;
   typeId: number;
   question: string;
-  map: string;
-  highlighted: string;
-  flagCode: string;
-  imageUrl: string;
-  imageAttributeName: string;
-  imageAttributeUrl: string;
   explainer: string;
+  imageUrl?: string;
+  imageAttributeName?: string;
+  imageAttributeUrl?: string;
+  flagCode?: string;
+  map?: string;
+  highlighted?: string;
   answers: CommunityQuizAnswerPayload[];
 }
 
