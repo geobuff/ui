@@ -19,6 +19,9 @@ const Checkout: FC = () => {
           name="description"
           content="Merch for every occasion. Cop one of our tees, socks, posters or stickers and let the squad know you're ready to drop those countries of the world at a moments notice!"
         />
+        <script
+          src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
+        />
       </Head>
       <MainView innerRef={ref}>
         <HeroHeader heading="Checkout" />

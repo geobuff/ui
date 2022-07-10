@@ -13,10 +13,6 @@ export default class MyDocument extends Document {
               strategy="lazyOnload"
             />
             <Script
-              src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
-              strategy="lazyOnload"
-            />
-            <Script
               // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{
                 __html: `
