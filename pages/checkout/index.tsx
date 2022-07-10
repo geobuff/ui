@@ -3,6 +3,10 @@ import React, { FC, useRef } from "react";
 import HeroHeader from "../../components/HeroHeader";
 import MainView from "../../components/MainView";
 import CheckoutFormContainer from "../../containers/CheckoutFormContainer";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js/pure";
+
+const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const Checkout: FC = () => {
   const ref = useRef(null);
@@ -18,7 +22,9 @@ const Checkout: FC = () => {
       </Head>
       <MainView innerRef={ref}>
         <HeroHeader heading="Checkout" />
-        <CheckoutFormContainer />
+        <Elements stripe={stripePromise}>
+          <CheckoutFormContainer />
+        </Elements>
       </MainView>
     </>
   );

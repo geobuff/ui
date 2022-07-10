@@ -9,10 +9,6 @@ import CheckoutFormPlaceholder from "../../placeholders/CheckoutFormPlaceholder"
 import { AuthUser } from "../../types/auth-user";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { CheckoutPayload } from "../../types/checkout-payload";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js/pure";
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const CheckoutFormContainer: FC = () => {
   const { data: session, status } = useSession();
@@ -67,14 +63,12 @@ const CheckoutFormContainer: FC = () => {
   }
 
   return (
-    <Elements stripe={stripePromise}>
-      <CheckoutForm
-        shippingOptions={shippingOptions}
-        email={user?.email}
-        isLoading={isLoading}
-        onSubmit={handleSubmit}
-      />
-    </Elements>
+    <CheckoutForm
+      shippingOptions={shippingOptions}
+      email={user?.email}
+      isLoading={isLoading}
+      onSubmit={handleSubmit}
+    />
   );
 };
 
