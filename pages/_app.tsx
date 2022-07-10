@@ -1,8 +1,6 @@
 import React, { useEffect, FC } from "react";
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
-import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js/pure";
 import { ChakraProvider } from "@chakra-ui/react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
@@ -21,8 +19,6 @@ import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
 import { Session } from "next-auth";
 import AuthGuard from "../components/AuthGuard";
 import { CurrentUserContextProvider } from "../context/CurrentUserContext/CurrentUserContext";
-
-const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -115,26 +111,24 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
       </Head>
       <SessionProvider session={session}>
         <ChakraProvider theme={theme}>
-          <Elements stripe={stripePromise}>
-            <DndProvider
-              backend={isMobile ? TouchBackend : HTML5Backend}
-              options={{ delayTouchStart: 5, ignoreContextMenu: true }}
-            >
-              <AppContextProvider>
-                <CurrentUserContextProvider>
-                  <ShoppingCartContextProvider>
-                    {Component.requireAuth ? (
-                      <AuthGuard>
-                        <Component {...pageProps} />
-                      </AuthGuard>
-                    ) : (
+          <DndProvider
+            backend={isMobile ? TouchBackend : HTML5Backend}
+            options={{ delayTouchStart: 5, ignoreContextMenu: true }}
+          >
+            <AppContextProvider>
+              <CurrentUserContextProvider>
+                <ShoppingCartContextProvider>
+                  {Component.requireAuth ? (
+                    <AuthGuard>
                       <Component {...pageProps} />
-                    )}
-                  </ShoppingCartContextProvider>
-                </CurrentUserContextProvider>
-              </AppContextProvider>
-            </DndProvider>
-          </Elements>
+                    </AuthGuard>
+                  ) : (
+                    <Component {...pageProps} />
+                  )}
+                </ShoppingCartContextProvider>
+              </CurrentUserContextProvider>
+            </AppContextProvider>
+          </DndProvider>
         </ChakraProvider>
       </SessionProvider>
     </>
