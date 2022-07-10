@@ -8,11 +8,12 @@ export default class MyDocument extends Document {
         <Head>
           <>
             <script
-              async
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
+              defer
             />
             <script
               src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}
+              defer
             ></script>
             <script
               // eslint-disable-next-line react/no-danger
@@ -26,6 +27,7 @@ export default class MyDocument extends Document {
                   });
                 `,
               }}
+              defer
             />
             <script
               dangerouslySetInnerHTML={{
@@ -35,6 +37,7 @@ export default class MyDocument extends Document {
                 'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
                 })(window,document,'script','dataLayer',${process.env.NEXT_PUBLIC_GOOGLE_TAG_MANAGER});`,
               }}
+              defer
             />
           </>
         </Head>
