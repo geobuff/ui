@@ -67,18 +67,6 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
               <TableCell paddingY={4} paddingX={6}>
                 {question.category}
               </TableCell>
-              {/* <TableCell paddingY={4} paddingX={6}>
-                {question.lastUsed.Valid &&
-                  DateTime.fromISO(question.lastUsed.Time).toLocaleString(
-                    DateTime.DATE_LONG
-                  )}
-              </TableCell>
-              <TableCell paddingY={4} paddingX={6}>
-                {question.quizDate.Valid &&
-                  DateTime.fromISO(question.quizDate.Time).toLocaleString(
-                    DateTime.DATE_LONG
-                  )}
-              </TableCell> */}
               <TableCell paddingY={4} paddingX={6} minWidth="300px">
                 {question.answers.map((answer, index) => (
                   <Text
