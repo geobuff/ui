@@ -2,7 +2,7 @@ import React, { useEffect, FC } from "react";
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
 import { Elements } from "@stripe/react-stripe-js";
-import { loadStripe } from "@stripe/stripe-js";
+import { loadStripe } from "@stripe/stripe-js/pure";
 import { ChakraProvider } from "@chakra-ui/react";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
