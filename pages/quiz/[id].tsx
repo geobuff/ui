@@ -5,10 +5,9 @@ import MainView from "../../components/MainView";
 
 import { QuizTypes } from "../../types/quiz-types";
 import GameMapQuiz from "../../components/GameMapQuiz";
-import GameFlagQuiz from "../../components/GameFlagQuiz";
-import { FlagGameContextProvider } from "../../context/FlagGameContext";
 import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 import axiosClient from "../../axios";
+import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
 
 const getQuizData = async (id: string) => {
   const body: QuizzesFilterDto = {
@@ -81,23 +80,7 @@ const Quiz: FC<Props> = ({ ...pageProps }) => {
           />
         );
       case QuizTypes.FLAG:
-        return (
-          <FlagGameContextProvider>
-            <GameFlagQuiz
-              id={quiz.id}
-              time={quiz.time}
-              name={quiz.name}
-              typeId={quiz.typeId}
-              maxScore={quiz.maxScore}
-              plural={quiz.plural}
-              route={quiz.route}
-              hasLeaderboard={quiz.hasLeaderboard}
-              hasFlags={quiz.hasFlags}
-              hasGrouping={quiz.hasGrouping}
-              mapping={mapping}
-            />
-          </FlagGameContextProvider>
-        );
+        return <GameFlagQuizContainer quiz={quiz} mapping={mapping} />;
       default:
         return null;
     }
