@@ -2,10 +2,6 @@ import React, { useEffect, FC } from "react";
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
 import { ChakraProvider } from "@chakra-ui/react";
-import { DndProvider } from "react-dnd";
-import { HTML5Backend } from "react-dnd-html5-backend";
-import { TouchBackend } from "react-dnd-touch-backend";
-import { isMobile } from "react-device-detect";
 import { SessionProvider } from "next-auth/react";
 import NProgress from "nprogress"; //nprogress module
 import "nprogress/nprogress.css"; //styles of nprogress
@@ -111,24 +107,19 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
       </Head>
       <SessionProvider session={session}>
         <ChakraProvider theme={theme}>
-          <DndProvider
-            backend={isMobile ? TouchBackend : HTML5Backend}
-            options={{ delayTouchStart: 5, ignoreContextMenu: true }}
-          >
-            <AppContextProvider>
-              <CurrentUserContextProvider>
-                <ShoppingCartContextProvider>
-                  {Component.requireAuth ? (
-                    <AuthGuard>
-                      <Component {...pageProps} />
-                    </AuthGuard>
-                  ) : (
+          <AppContextProvider>
+            <CurrentUserContextProvider>
+              <ShoppingCartContextProvider>
+                {Component.requireAuth ? (
+                  <AuthGuard>
                     <Component {...pageProps} />
-                  )}
-                </ShoppingCartContextProvider>
-              </CurrentUserContextProvider>
-            </AppContextProvider>
-          </DndProvider>
+                  </AuthGuard>
+                ) : (
+                  <Component {...pageProps} />
+                )}
+              </ShoppingCartContextProvider>
+            </CurrentUserContextProvider>
+          </AppContextProvider>
         </ChakraProvider>
       </SessionProvider>
     </>
