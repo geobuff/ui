@@ -37,7 +37,6 @@ const Image: FC<Props> = ({
         height={isLoading && !hasSkeleton ? 0 : height}
         width={width}
         onLoad={handleLoad}
-        loading="lazy"
         {...props}
       />
     </>
