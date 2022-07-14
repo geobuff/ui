@@ -10,7 +10,6 @@ import {
   Text,
   Link as ChakraLink,
 } from "@chakra-ui/react";
-import { getFlagUrl } from "@geobuff/flags";
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
 import { use100vh } from "react-div-100vh";
@@ -24,6 +23,7 @@ import {
   highlightSection,
 } from "../../../helpers/map";
 import Link from "next/link";
+import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
 
@@ -58,6 +58,8 @@ const GameTriviaContent: FC<Props> = ({
   imageAttributeName = "",
   imageAttributeUrl = "",
 }) => {
+  const { getFlagUrlByCode } = useFlagGroups();
+
   const isMobile = useBreakpointValue({ base: false, md: true });
   const height = use100vh();
   const isTinyMobile = height < 625;
@@ -75,7 +77,7 @@ const GameTriviaContent: FC<Props> = ({
             width="100%"
           >
             <CustomFlag
-              url={getFlagUrl(flagCode)}
+              url={getFlagUrlByCode(flagCode)}
               height="100%"
               maxHeight="200px"
               width="100%"

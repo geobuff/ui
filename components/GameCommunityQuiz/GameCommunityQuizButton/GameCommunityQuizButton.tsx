@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 import { Box, Button, ButtonProps, Flex } from "@chakra-ui/react";
-import { getFlagUrl } from "@geobuff/flags";
 
 import CustomFlag from "../../CustomFlag";
+import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 const getStylesByStatus = (status: CommunityQuizButtonStatus) => {
   switch (status) {
@@ -55,6 +55,7 @@ const GameCommunityQuizButton: FC<Props> = ({
   ...props
 }) => {
   const buttonStyles = getStylesByStatus(status);
+  const { getFlagUrlByCode } = useFlagGroups();
 
   return (
     <Button
@@ -74,7 +75,7 @@ const GameCommunityQuizButton: FC<Props> = ({
       <Flex alignItems="center" textAlign="center" width="100%">
         {flagCode && (
           <Box marginRight={4}>
-            <CustomFlag url={getFlagUrl(flagCode)} />
+            <CustomFlag url={getFlagUrlByCode(flagCode)} />
           </Box>
         )}
         {text}

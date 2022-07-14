@@ -145,8 +145,7 @@ const CheckoutForm: FC<Props> = ({
               name: "shippingId",
               defaultValue: "1",
               value: values.shippingId,
-              onChange: (value: number) =>
-                setFieldValue("shippingId", value.toString()),
+              onChange: (value: string) => setFieldValue("shippingId", value),
             });
 
             const radioGroup = getRootProps();
@@ -165,9 +164,8 @@ const CheckoutForm: FC<Props> = ({
                             form.errors.shippingId && form.touched.shippingId
                           }
                         >
-                          <HStack spacing={3} name="shippingId" {...radioGroup}>
+                          <HStack spacing={3} {...radioGroup}>
                             {shippingOptions.map((option) => {
-                              //@ts-expect-error
                               const radio = getRadioProps({
                                 value: option.id.toString(),
                               });

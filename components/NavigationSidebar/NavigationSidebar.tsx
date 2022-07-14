@@ -142,8 +142,8 @@ const NavigationSidebar: FC<Props> = ({
           >
             <Flex direction="column" justifyContent="space-between">
               <Box>
-                {buildQuickLinks().map((link) => (
-                  <>
+                {buildQuickLinks().map((link, index) => (
+                  <React.Fragment key={index}>
                     <NavigationSidebarQuicklink
                       key={link.href}
                       href={link.href}
@@ -153,7 +153,7 @@ const NavigationSidebar: FC<Props> = ({
                       isActive={route === link.href}
                     />
                     <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />
-                  </>
+                  </React.Fragment>
                 ))}
               </Box>
 

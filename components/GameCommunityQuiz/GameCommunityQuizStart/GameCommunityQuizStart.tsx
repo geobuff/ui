@@ -52,7 +52,7 @@ const GameCommunityQuizStart: FC<Props> = ({
           fontWeight="bold"
           maxWidth={420}
           marginX="auto"
-          isFullWidth
+          width="full"
           onClick={onGameStart}
         >
           {"Start"}

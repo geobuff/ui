@@ -124,18 +124,12 @@ const HeroBanner: FC<Props> = ({
               fontWeight="medium"
             >
               {"Create an account and"}{" "}
-              {isSessionLoading ? (
-                <Skeleton
-                  height={{ base: "20px", md: "25px" }}
-                  width={{ base: "240px", md: "350px" }}
-                  mt={1}
-                />
-              ) : (
-                <Link href={actions[index]?.link ?? ""}>
-                  <ChakraLink textDecoration="underline">
+              {!isSessionLoading && actions.length > 0 && (
+                <ChakraLink textDecoration="underline">
+                  <Link href={actions[index]?.link ?? ""}>
                     {actions[index]?.value}
-                  </ChakraLink>
-                </Link>
+                  </Link>
+                </ChakraLink>
               )}
             </Text>
           </Box>

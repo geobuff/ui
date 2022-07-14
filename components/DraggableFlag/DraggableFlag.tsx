@@ -1,6 +1,5 @@
 import React, { FC, useContext, useEffect } from "react";
 
-import { getFlagUrl } from "@geobuff/flags";
 import { DragSourceMonitor, useDrag } from "react-dnd";
 import { Box, BoxProps } from "@chakra-ui/react";
 
@@ -8,6 +7,7 @@ import Image from "../Image";
 import { FlagGameContext } from "../../context/FlagGameContext";
 import { ItemTypes } from "../../types/item-types";
 import { DragResult } from "../../types/drag-result";
+import useFlagGroups from "../../hooks/UseFlagGroups";
 
 interface CollectResult {
   isDragging: boolean;
@@ -24,6 +24,7 @@ const DraggableFlag: FC<Props> = ({
   checkSubmission = (submission: string): void => {},
   ...props
 }) => {
+  const { getFlagUrlByCode } = useFlagGroups();
   const { handleDragging } = useContext(FlagGameContext);
 
   const [{ isDragging }, drag] = useDrag(() => ({
@@ -57,7 +58,7 @@ const DraggableFlag: FC<Props> = ({
     >
       <Image
         draggable="false"
-        src={getFlagUrl(code)}
+        src={getFlagUrlByCode(code)}
         width="100%"
         maxWidth={{ base: "76px", lg: "100px" }}
         minWidth={{ base: "76px", lg: "100px" }}

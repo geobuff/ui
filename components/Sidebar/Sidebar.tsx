@@ -8,6 +8,7 @@ export interface Props {
   heading?: string;
   quizId?: number;
   hasLeaderboard?: boolean;
+  children?: React.ReactNode;
 }
 
 const Sidebar: FC<Props> = ({

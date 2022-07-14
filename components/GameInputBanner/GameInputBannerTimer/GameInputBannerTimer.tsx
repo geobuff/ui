@@ -6,7 +6,11 @@ import { toMinTwoDigits } from "../../../helpers/format-text";
 import { secondsToMinutesString } from "../../../helpers/time";
 import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
 
-const Timer: FC = ({ children, ...props }) => (
+interface TimerProps {
+  children: React.ReactNode;
+}
+
+const Timer: FC<TimerProps> = ({ children, ...props }) => (
   <Text
     lineHeight={1.15}
     color="white"

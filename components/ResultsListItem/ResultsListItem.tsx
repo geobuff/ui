@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 import { Fade, Flex, Text } from "@chakra-ui/react";
-import { getFlagUrl } from "@geobuff/flags";
 
 import FlagFallback from "./FlagFallback/FlagFallback";
 import CustomFlag from "../CustomFlag";
 
 import Twemoji from "../Twemoji";
+import useFlagGroups from "../../hooks/UseFlagGroups";
 
 export interface Props {
   code?: string;
@@ -26,12 +26,14 @@ const ResultsListItem: FC<Props> = ({
   shouldFadeIn = false,
   ...props
 }) => {
+  const { getFlagUrlByCode } = useFlagGroups();
+
   const mainContent = (
     <Flex alignItems="center" marginY={2} {...props}>
       {hasFlag ? (
         <>
           {!isHidden && !isMissedResult ? (
-            <CustomFlag url={getFlagUrl(code)} />
+            <CustomFlag url={getFlagUrlByCode(code)} />
           ) : (
             <FlagFallback />
           )}

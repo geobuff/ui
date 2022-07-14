@@ -11,7 +11,11 @@ export const FlagGameContext = createContext({
   handleDragging: (dragItem: DragItem) => {},
 });
 
-export const FlagGameContextProvider: FC = ({ children = null }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+export const FlagGameContextProvider: FC<Props> = ({ children = null }) => {
   const [dragItem, setDragItem] = useState<DragItem>({
     isDragging: false,
     code: "",

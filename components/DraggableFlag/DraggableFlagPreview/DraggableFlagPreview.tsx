@@ -1,35 +1,32 @@
 import React, { FC, useContext } from "react";
-import { usePreview } from "react-dnd-preview";
 import { isMobile } from "react-device-detect";
-
-import { getFlagUrl } from "@geobuff/flags";
 
 import Image from "../../Image";
 import { FlagGameContext } from "../../../context/FlagGameContext";
+import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 export interface Props {
   code: string;
 }
 
+// TODO: Reintroduce preview.
 const DraggableFlagPreview: FC<Props> = ({ code }) => {
-  const { display, style } = usePreview();
+  const { getFlagUrlByCode } = useFlagGroups();
 
   const { isDragging } = useContext(FlagGameContext);
 
   const shouldShowFlagPreview = isDragging && isMobile;
 
-  if (!display || !shouldShowFlagPreview) {
+  if (!shouldShowFlagPreview) {
     return null;
   }
   return (
-    <div style={style}>
-      <Image
-        src={getFlagUrl(code)}
-        borderRadius={4}
-        height="72px"
-        width="98px"
-      />
-    </div>
+    <Image
+      src={getFlagUrlByCode(code)}
+      borderRadius={4}
+      height="72px"
+      width="98px"
+    />
   );
 };
 

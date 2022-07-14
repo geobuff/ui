@@ -86,7 +86,7 @@ const QuizCard: FC<Props> = ({
               fontSize={{ base: "9px", sm: "9px", md: "11px" }}
               fontWeight="bold"
               marginLeft="2.5px"
-              isTruncated
+              noOfLines={1}
               minWidth="50%"
             >
               {`${secondsToMinutesString(time)} mins`}
@@ -104,7 +104,7 @@ const QuizCard: FC<Props> = ({
               marginLeft="2.5px"
               minWidth="50%"
               maxWidth={{ base: "65px", md: "85px" }}
-              isTruncated
+              noOfLines={1}
             >
               {`${maxScore} ${plural}`}
             </Text>

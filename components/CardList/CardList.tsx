@@ -3,6 +3,7 @@ import { Box, Grid, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 
 type CardListProps = {
   lessItemsThanGrid?: boolean;
+  children: React.ReactNode;
 };
 
 const CardList: FC<CardListProps> = ({

@@ -14,10 +14,7 @@ import {
 import { Field, Form, Formik } from "formik";
 import { debounce } from "throttle-debounce";
 
-import * as Maps from "@geobuff/svg-maps";
 import * as Yup from "yup";
-
-import { flagCategories } from "@geobuff/flags";
 
 import RadioGroupFormField from "../../FormFields/RadioGroupFormField";
 import CommunityQuizFormField from "../CommunityQuizFormField";
@@ -26,7 +23,10 @@ import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
 import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
 import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
 import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
-import { getHighlightRegionsByMap } from "../../../helpers/map";
+import {
+  getHighlightRegionsByMap,
+  getMapCategories,
+} from "../../../helpers/map";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
 import InlineErrorMessage from "../../InlineErrorMessage";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
@@ -34,6 +34,7 @@ import QuestionTypeValuePreview from "../../QuestionTypeValuePreview";
 import Search from "../../../Icons/Search";
 import UnsplashImageGrid from "../../UnsplashImageGrid";
 import { UnsplashImage } from "../../../types/unsplash-image";
+import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 const answers = [
   "Answer One",
@@ -80,16 +81,6 @@ const validationSchema = Yup.object().shape({
   }),
 });
 
-const mapCategories = Object.keys(Maps).map((m) => ({
-  label: m.match(/[A-Z][a-z]+|[0-9]+/g).join(" "),
-  value: m,
-}));
-
-const flagOptions = flagCategories?.map(({ key, label }) => ({
-  label,
-  value: key,
-}));
-
 export interface Props {
   values?: CommunityQuizFormQuestion;
   types: TriviaQuestionType[];
@@ -113,6 +104,15 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   const [flagCategory, setFlagCategory] = useState("");
   const [flagAnswerCategory, setFlagAnswerCategory] = useState("");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
+
+  const { data: flagGroups } = useFlagGroups();
+
+  const flagOptions = flagGroups.map((x) => {
+    return {
+      value: x.key,
+      label: x.label,
+    };
+  });
 
   const options = types.map(({ id, name }) => ({
     label: name,
@@ -254,7 +254,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   <SelectFormField
                     name="map"
                     label="Map"
-                    options={mapCategories}
+                    options={getMapCategories()}
                     onChange={({ target }) =>
                       setFieldValue("map", target?.value)
                     }

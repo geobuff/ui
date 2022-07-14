@@ -14,7 +14,11 @@ export const AppContext = createContext({
   isNotchedIphone: false,
 });
 
-export const AppContextProvider: FC = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+export const AppContextProvider: FC<Props> = ({ children }) => {
   const [isNavSidebarOpen, setIsNavSidebarOpen] = useState(false);
   const [hasNotch, setHasNotch] = useState(false);
   const [operatingSystem, setOperatingSystem] = useState(null);

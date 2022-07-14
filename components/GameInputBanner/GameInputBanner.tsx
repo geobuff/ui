@@ -84,7 +84,7 @@ const GameInputBanner: FC<Props> = ({
               minWidth="125px"
               maxWidth="140px"
               width="100%"
-              isTruncated
+              noOfLines={1}
             >
               {scoreLabel}
             </Text>
@@ -106,7 +106,7 @@ const GameInputBanner: FC<Props> = ({
             minWidth="125px"
             maxWidth="140px"
             width="100%"
-            isTruncated
+            noOfLines={1}
           >
             {scoreLabel}
           </Text>

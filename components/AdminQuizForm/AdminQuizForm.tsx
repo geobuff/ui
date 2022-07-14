@@ -128,8 +128,7 @@ const AdminQuizForm: FC<Props> = ({
               } = useRadioGroup({
                 name: "typeId",
                 value: values.typeId,
-                onChange: (value: number) =>
-                  setFieldValue("typeId", value.toString()),
+                onChange: (value: string) => setFieldValue("typeId", value),
               });
 
               const typeRadioGroup = getTypeRootProps();
@@ -140,8 +139,7 @@ const AdminQuizForm: FC<Props> = ({
               } = useRadioGroup({
                 name: "badgeId",
                 value: values.badgeId,
-                onChange: (value: number) =>
-                  setFieldValue("badgeId", value.toString()),
+                onChange: (value: string) => setFieldValue("badgeId", value),
               });
 
               const badgeRadioGroup = getBadgeRootProps();
@@ -152,8 +150,8 @@ const AdminQuizForm: FC<Props> = ({
               } = useRadioGroup({
                 name: "continentId",
                 value: values.continentId,
-                onChange: (value: number) =>
-                  setFieldValue("continentId", value.toString()),
+                onChange: (value: string) =>
+                  setFieldValue("continentId", value),
               });
 
               const continentRadioGroup = getContinentRootProps();
@@ -210,7 +208,6 @@ const AdminQuizForm: FC<Props> = ({
                                 {"Type"}
                               </FormLabel>
                               <HStack
-                                name="typeId"
                                 spacing={3}
                                 minHeight="50px"
                                 {...typeRadioGroup}
@@ -225,7 +222,6 @@ const AdminQuizForm: FC<Props> = ({
                                   </Text>
                                 ) : (
                                   types.map((type) => {
-                                    //@ts-expect-error
                                     const radio = getTypeRadioProps({
                                       value: type.id.toString(),
                                     });
@@ -685,7 +681,6 @@ const AdminQuizForm: FC<Props> = ({
                               </FormHelperText>
                               <SimpleGrid
                                 columns={2}
-                                name="badgeId"
                                 spacing={3}
                                 {...badgeRadioGroup}
                               >
@@ -699,7 +694,6 @@ const AdminQuizForm: FC<Props> = ({
                                   </Text>
                                 ) : (
                                   badges.map((badge) => {
-                                    //@ts-expect-error
                                     const radio = getBadgeRadioProps({
                                       value: badge.id.toString(),
                                     });
@@ -741,7 +735,6 @@ const AdminQuizForm: FC<Props> = ({
                               </FormHelperText>
                               <SimpleGrid
                                 columns={2}
-                                name="continentId"
                                 spacing={3}
                                 {...continentRadioGroup}
                               >
@@ -755,7 +748,6 @@ const AdminQuizForm: FC<Props> = ({
                                   </Text>
                                 ) : (
                                   continents.map((continent) => {
-                                    //@ts-expect-error
                                     const radio = getContinentRadioProps({
                                       value: continent.id.toString(),
                                     });

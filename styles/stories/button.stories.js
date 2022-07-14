@@ -16,7 +16,7 @@ const defaultProps = {
   size: "md",
   disabled: false,
   children: "Click me!",
-  isFullWidth: false,
+  width: "full",
 };
 
 export const Default = Template.bind({});
