@@ -2,16 +2,16 @@ import React, { FC, useContext } from "react";
 import { usePreview } from "react-dnd-preview";
 import { isMobile } from "react-device-detect";
 
-import { getFlagUrl } from "@geobuff/flags";
-
 import Image from "../../Image";
 import { FlagGameContext } from "../../../context/FlagGameContext";
+import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 export interface Props {
   code: string;
 }
 
 const DraggableFlagPreview: FC<Props> = ({ code }) => {
+  const { getFlagUrlByCode } = useFlagGroups();
   const { display, style } = usePreview();
 
   const { isDragging } = useContext(FlagGameContext);
@@ -24,7 +24,7 @@ const DraggableFlagPreview: FC<Props> = ({ code }) => {
   return (
     <div style={style}>
       <Image
-        src={getFlagUrl(code)}
+        src={getFlagUrlByCode(code)}
         borderRadius={4}
         height="72px"
         width="98px"

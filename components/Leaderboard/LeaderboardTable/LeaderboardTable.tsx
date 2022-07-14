@@ -1,7 +1,6 @@
 import React, { FC } from "react";
 import Link from "next/link";
 import flag from "country-code-emoji";
-import { getFlagUrl } from "@geobuff/flags";
 
 import {
   Alert,
@@ -28,6 +27,7 @@ import { LeaderboardEntry } from "../../../types/leaderboard-entry";
 import CustomFlag from "../../CustomFlag";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../../types/auth-user";
+import UseWorldFlagGroup from "../../../hooks/UseWorldFlagGroup";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -37,6 +37,8 @@ interface Props {
 const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
+
+  const { getFlagUrl } = UseWorldFlagGroup();
 
   if (isLoading && !entries.length) {
     return <LeaderTablePlaceholder />;

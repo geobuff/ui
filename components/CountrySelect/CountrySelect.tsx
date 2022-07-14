@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 
-import { getFlagUrl } from "@geobuff/flags";
 import { Select, SelectProps } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -8,6 +7,7 @@ import Image from "../Image";
 
 import useCountries from "../../hooks/useCountries";
 import { FieldProps } from "../../types/field-props";
+import UseWorldFlagGroup from "../../hooks/UseWorldFlagGroup";
 
 export interface Props extends SelectProps {
   fieldProps?: FieldProps;
@@ -22,6 +22,7 @@ const CountrySelect: FC<Props> = ({
   ...props
 }) => {
   const { countries, isLoading } = useCountries();
+  const { getFlagUrl } = UseWorldFlagGroup();
 
   return (
     <Select

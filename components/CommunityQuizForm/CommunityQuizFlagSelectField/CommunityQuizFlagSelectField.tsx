@@ -8,22 +8,12 @@ import {
   Select,
   SelectProps,
 } from "@chakra-ui/react";
-import { flags, getFlagUrl } from "@geobuff/flags";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 
 import Image from "../../Image";
 import CountrySelect from "../../CountrySelect";
-
-const getFlagsByCategory = (category: string) => {
-  if (category === "world") {
-    return Object.keys(flags).filter((flag) => flag.length === 2);
-  }
-
-  return Object.keys(flags).filter(
-    (flag) => flag.slice(0, 2) === category && flag.length !== 2
-  );
-};
+import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 export interface Props extends SelectProps {
   flagCategory?: string;
@@ -39,6 +29,8 @@ const CommunityQuizFlagSelect: FC<Props> = ({
   flagCode,
   ...props
 }) => {
+  const { getFlagUrl, getFlagEntriesByKey } = useFlagGroups();
+
   return (
     <Flex width="100%">
       <Field name={name}>
@@ -81,7 +73,7 @@ const CommunityQuizFlagSelect: FC<Props> = ({
                       minHeight="22px"
                       minWidth="32px"
                       objectFit="cover"
-                      src={getFlagUrl(flagCode)}
+                      src={getFlagUrl(flagCategory, flagCode)}
                       borderRadius={5}
                     />
                   ) : (
@@ -90,9 +82,9 @@ const CommunityQuizFlagSelect: FC<Props> = ({
                 }
               >
                 <option value="">{"select a flag code..."}</option>
-                {getFlagsByCategory(flagCategory).map((category) => (
-                  <option key={category} value={category}>
-                    {category}
+                {getFlagEntriesByKey(flagCategory).map((entry, index) => (
+                  <option key={index} value={entry.code}>
+                    {entry.code}
                   </option>
                 ))}
               </Select>

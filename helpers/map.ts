@@ -192,3 +192,17 @@ export const getPathSelectedFill = (map: string): string =>
     : CIRCLE_QUIZ_CLASSNAMES.includes(map)
     ? GEOBUFF_RED
     : GEOBUFF_GREEN;
+
+interface MapCategory {
+  label: string;
+  value: string;
+}
+
+export const getMapCategories = (): MapCategory[] =>
+  Object.keys(Maps)
+    .filter((x) => x !== "default")
+    .sort()
+    .map((m) => ({
+      label: m,
+      value: m,
+    }));
