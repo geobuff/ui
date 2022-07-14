@@ -16,7 +16,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import Image from "../Image";
+import Image from "next/image";
 
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 import Twemoji from "../Twemoji";
@@ -34,7 +34,6 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
   const { user, clearUser } = useContext(CurrentUserContext);
 
   const avatarSize = isCondensed ? "26px" : { base: "22px", md: "26px" };
-  const imageSize = isCondensed ? "13px" : { base: "11px", md: "13px" };
 
   const logout = (): void => {
     clearUser();
@@ -90,7 +89,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
         >
           <Flex alignItems="center">
             <Flex
-              alignItems="center"
+              justifyContent="center"
               borderRadius={"100%"}
               backgroundColor="#276f86"
               border="solid 2px #1A202C"
@@ -98,13 +97,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
               width={avatarSize}
               marginX={isCondensed ? 1 : 0}
             >
-              <Image
-                src={user?.avatarPrimaryImageUrl}
-                height={imageSize}
-                width={imageSize}
-                hasSkeleton={false}
-                marginX="auto"
-              />
+              <Image src={user?.avatarPrimaryImageUrl} height={13} width={13} />
             </Flex>
 
             {!isCondensed && (
