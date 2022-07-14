@@ -3,8 +3,9 @@ import React, { FC } from "react";
 import { Box, Divider, Flex, FlexProps, Text } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
-import Image from "../Image";
+import Image from "next/image";
 import { secondsToMinutesString } from "../../helpers/time";
+import { cardImageStyle } from "../../helpers/style";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
@@ -40,20 +41,11 @@ const QuizCard: FC<Props> = ({
     <Box position="absolute" top={0} left={0} right={0} bottom={0}>
       <Image
         src={imageUrl}
-        maxHeight={{ base: "75px", md: "90px" }}
-        minHeight={{ base: "75px", md: "90px" }}
-        backgroundColor="#E3E1E1"
-        width="100%"
-        borderTopLeftRadius={12}
-        borderTopRightRadius={12}
+        height={100}
+        width={260}
         objectFit="cover"
-        transition="all 150ms ease-out"
-        _groupHover={{
-          maxHeight: { base: "80px", md: "88px" },
-          minHeight: { base: "80px", md: "88px" },
-        }}
+        style={cardImageStyle}
       />
-
       <Flex paddingTop="12px" paddingX="12px" whiteSpace="pre-wrap">
         <Text
           fontWeight="bold"
