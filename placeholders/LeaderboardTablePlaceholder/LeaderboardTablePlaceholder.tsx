@@ -26,7 +26,7 @@ const LeaderboardTablePlaceholder: FC<Props> = ({ rows = 10 }) => {
 
   if (isMobile) {
     return (
-      <Table size="md" variant="striped" colorscheme="gray">
+      <Table size="md" variant="striped" colorScheme="gray">
         <Thead>
           <Tr>
             <Th textAlign="left">
@@ -66,7 +66,7 @@ const LeaderboardTablePlaceholder: FC<Props> = ({ rows = 10 }) => {
   }
 
   return (
-    <Table size="md" variant="striped" colorscheme="gray">
+    <Table size="md" variant="striped" colorScheme="gray">
       <Thead>
         <Tr>
           <Th textAlign="left">

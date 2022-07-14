@@ -29,7 +29,11 @@ export const ShoppingCartContext = createContext({
   },
 });
 
-export const ShoppingCartContextProvider: FC = ({ children = null }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+export const ShoppingCartContextProvider: FC<Props> = ({ children = null }) => {
   const [cart, setCart] = useLocalStorage<CartItem[]>("geobuff.cart", []);
   const [isLoading, setIsLoading] = useState(true);
 

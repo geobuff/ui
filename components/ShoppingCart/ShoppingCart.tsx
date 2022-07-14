@@ -81,7 +81,7 @@ const ShoppingCart: FC<Props> = ({
       </Flex>
       <Card>
         <Box overflow="auto">
-          <Table size="md" variant="striped" colorscheme="gray">
+          <Table size="md" variant="striped" colorScheme="gray">
             <Thead>
               <Tr>
                 <Th textAlign="left">{"ITEM DETAILS"} </Th>

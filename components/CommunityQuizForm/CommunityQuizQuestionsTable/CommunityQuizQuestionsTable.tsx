@@ -26,7 +26,7 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
   onDelete = () => {},
 }) => {
   return (
-    <Table size="md" variant="striped" colorscheme="gray" overflowX="scroll">
+    <Table size="md" variant="striped" colorScheme="gray" overflowX="scroll">
       <Thead>
         <Tr>
           <Th textAlign="left">{"NO"} </Th>

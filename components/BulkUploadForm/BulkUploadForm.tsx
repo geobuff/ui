@@ -136,8 +136,7 @@ const BulkUploadForm: FC<Props> = ({
               } = useRadioGroup({
                 name: "typeId",
                 value: values.typeId,
-                onChange: (value: number) =>
-                  setFieldValue("typeId", value.toString()),
+                onChange: (value: string) => setFieldValue("typeId", value),
               });
 
               const typeRadioGroup = getTypeRootProps();
@@ -160,13 +159,11 @@ const BulkUploadForm: FC<Props> = ({
                                 {"Type"}
                               </FormLabel>
                               <HStack
-                                name="typeId"
                                 spacing={3}
                                 minHeight="50px"
                                 {...typeRadioGroup}
                               >
                                 {BulkUploadTypes.map((type) => {
-                                  //@ts-expect-error
                                   const radio = getTypeRadioProps({
                                     value: type.id.toString(),
                                   });

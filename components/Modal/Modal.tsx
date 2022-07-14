@@ -108,7 +108,6 @@ const Modal: FC<ModalProps> = ({
                             fontWeight="bold"
                             color="black"
                             onClick={onClose}
-                            {...props}
                           >
                             <Heading size="md" fontWeight="bold">
                               {header}

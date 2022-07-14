@@ -45,7 +45,7 @@ const GameHeader: FC<Props> = ({
       {shouldTruncateText ? (
         <Flex width="100%" justifyContent="center" alignItems="center">
           {showLeaderboardIcon && leaderboardLinkIcon}
-          <Text as="span" isTruncated={shouldTruncateText}>
+          <Text as="span" noOfLines={shouldTruncateText && 1}>
             {heading}
           </Text>
         </Flex>

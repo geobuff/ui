@@ -22,11 +22,10 @@ const TeamMemberCard: FC<Props> = ({
   link = "",
 }) => (
   <Box textAlign="center">
-    <Link href={link} target="_blank" rel="noopener noreferrer" passHref>
+    <Link href={link} target="_blank" rel="noopener noreferrer">
       <ProfileUserAvatar
         primaryImageUrl={primaryImageUrl}
         secondaryImageUrl={secondaryImageUrl}
-        name={title}
       />
     </Link>
     <Box>

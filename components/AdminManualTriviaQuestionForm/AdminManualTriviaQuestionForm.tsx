@@ -172,8 +172,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
               } = useRadioGroup({
                 name: "typeId",
                 value: values.typeId,
-                onChange: (value: number) =>
-                  setFieldValue("typeId", value.toString()),
+                onChange: (value: string) => setFieldValue("typeId", value),
               });
 
               const typeRadioGroup = getTypeRootProps();
@@ -185,8 +184,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
               } = useRadioGroup({
                 name: "categoryId",
                 value: values.categoryId,
-                onChange: (value: number) =>
-                  setFieldValue("categoryId", value.toString()),
+                onChange: (value: string) => setFieldValue("categoryId", value),
               });
 
               const categoryRadioGroup = getCategoryRootProps();
@@ -232,7 +230,6 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                 {"Type"}
                               </FormLabel>
                               <HStack
-                                name="typeId"
                                 spacing={3}
                                 minHeight="50px"
                                 {...typeRadioGroup}
@@ -247,7 +244,6 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                   </Text>
                                 ) : (
                                   types.map((type) => {
-                                    //@ts-expect-error
                                     const radio = getTypeRadioProps({
                                       value: type.id.toString(),
                                     });
@@ -282,7 +278,6 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                               </FormLabel>
                               <SimpleGrid
                                 columns={2}
-                                name="categoryId"
                                 spacing={3}
                                 {...categoryRadioGroup}
                               >
@@ -296,7 +291,6 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                   </Text>
                                 ) : (
                                   categories.map((category) => {
-                                    //@ts-expect-error
                                     const radio = getCategoryRadioProps({
                                       value: category.id.toString(),
                                     });

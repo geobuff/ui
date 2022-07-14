@@ -94,7 +94,7 @@ const AdminManualTriviaQuestionsFilters: FC<Props> = ({
           _hover={{ background: "#e0e0e0" }}
           fontWeight="bold"
           marginRight={{ base: 0, sm: 0, md: 3 }}
-          isTruncated
+          noOfLines={1}
           isDisabled={isLoading}
         >
           <option value="">
@@ -117,7 +117,7 @@ const AdminManualTriviaQuestionsFilters: FC<Props> = ({
           _hover={{ background: "#e0e0e0" }}
           fontWeight="bold"
           marginRight={{ base: 0, sm: 0, md: 3 }}
-          isTruncated
+          noOfLines={1}
           isDisabled={isLoading}
         >
           <option value="">

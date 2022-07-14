@@ -4,7 +4,11 @@ import { useRouter } from "next/router";
 import { FC, useEffect, useState } from "react";
 import GameSpinner from "../GameSpinner";
 
-const AuthGuard: FC = ({ children }) => {
+interface Props {
+  children: React.ReactNode;
+}
+
+const AuthGuard: FC<Props> = ({ children }) => {
   const router = useRouter();
   const { status } = useSession();
   const [isLoading, setIsLoading] = useState(true);

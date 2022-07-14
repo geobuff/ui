@@ -111,7 +111,7 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
 
   return (
     <Box overflow="auto">
-      <Table size="md" variant="striped" colorscheme="gray">
+      <Table size="md" variant="striped" colorScheme="gray">
         <Thead>
           <Tr>
             <Th textAlign="left">{"RANK"} </Th>

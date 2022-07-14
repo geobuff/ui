@@ -34,7 +34,7 @@ const AdminMerchTable: FC<Props> = ({ merch = [], isLoading = true }) => {
     }
 
     return (
-      <Table size="md" variant="striped" colorscheme="gray">
+      <Table size="md" variant="striped" colorScheme="gray">
         <Thead>
           <Tr>
             <Th textAlign="left">{"SIZE"}</Th>

@@ -1,4 +1,4 @@
-import React, { createContext, useState, FC } from "react";
+import React, { createContext, useState, FC, useEffect } from "react";
 import { UserDto } from "../../types/user-dto";
 
 export const CurrentUserContext = createContext({
@@ -8,19 +8,16 @@ export const CurrentUserContext = createContext({
   clearUser: (): void => {},
 });
 
-export const CurrentUserContextProvider: FC = ({ children = null }) => {
-  const [isLoading, setIsLoading] = useState(false);
+interface Props {
+  children: React.ReactNode;
+}
 
-  const [user, setUser] = useState<UserDto>(() => {
-    if (typeof window === "undefined") {
-      return null;
-    }
+export const CurrentUserContextProvider: FC<Props> = ({ children = null }) => {
+  const [isLoading, setIsLoading] = useState(true);
+  const [user, setUser] = useState<UserDto>();
 
-    if (!window.localStorage.getItem("geobuff.id")) {
-      return null;
-    }
-
-    return {
+  useEffect(() => {
+    setUser({
       id: parseInt(window.localStorage.getItem("geobuff.id")),
       avatarId: parseInt(window.localStorage.getItem("geobuff.avatarId")),
       avatarName: window.localStorage.getItem("geobuff.avatarName"),
@@ -39,8 +36,9 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
       isAdmin: window.localStorage.getItem("geobuff.isAdmin") === "true",
       xp: parseInt(window.localStorage.getItem("geobuff.xp")),
       joined: window.localStorage.getItem("geobuff.joined"),
-    };
-  });
+    });
+    setIsLoading(false);
+  }, []);
 
   const updateUser = (user: UserDto): void => {
     setIsLoading(true);
@@ -50,9 +48,7 @@ export const CurrentUserContextProvider: FC = ({ children = null }) => {
   };
 
   const clearUser = (): void => {
-    if (typeof window !== "undefined") {
-      window.localStorage.clear();
-    }
+    window.localStorage.clear();
     setUser(null);
   };
 

@@ -152,7 +152,7 @@ const GameInputCard: FC<Props> = ({
       <Box my={4}>
         <Button
           colorScheme={hasGameStarted ? "red" : "green"}
-          isFullWidth
+          width="full"
           onClick={hasGameStarted ? onGameStop : onGameStart}
           p={8}
           size="lg"

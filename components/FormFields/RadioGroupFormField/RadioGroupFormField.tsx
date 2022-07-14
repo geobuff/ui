@@ -49,7 +49,7 @@ const RadioGroupFormField: FC<Props> = ({
                 {label}
               </FormLabel>
             )}
-            <HStack name={name} spacing={3} minHeight="50px" {...radioGroup}>
+            <HStack spacing={3} minHeight="50px" {...radioGroup}>
               {!options.length ? (
                 <Text width="347px" textAlign="center" color="gray.500">
                   {"Loading Types.."}
