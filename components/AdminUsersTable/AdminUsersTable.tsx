@@ -20,11 +20,11 @@ import { DateTime } from "luxon";
 import { UserPageDto } from "../../types/user-page-dto";
 import CustomFlag from "../CustomFlag";
 import TableCell from "../TableCell";
-import { getFlagUrl } from "@geobuff/flags";
 import ArrowRight from "../../Icons/ArrowRight";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import AdminUsersTablePlaceholder from "../../placeholders/AdminUsersTablePlaceholder";
 import Card from "../Card";
+import UseWorldFlagGroup from "../../hooks/UseWorldFlagGroup";
 
 export interface Props {
   currentUserId?: number;
@@ -38,7 +38,7 @@ export interface Props {
 
 const AdminUsersTable: FC<Props> = ({
   currentUserId = 0,
-  userPage = {},
+  userPage = null,
   page = 0,
   isLoading = false,
   onDeleteUser = (userId: number): void => {},
@@ -46,6 +46,7 @@ const AdminUsersTable: FC<Props> = ({
   onPreviousPage = (): void => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
+  const { getFlagUrl } = UseWorldFlagGroup();
 
   const getTable = () => {
     if (userPage?.users.length === 0) {

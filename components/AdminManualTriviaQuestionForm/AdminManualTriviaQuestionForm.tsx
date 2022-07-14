@@ -1,8 +1,6 @@
 import React, { FC, useState } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
-import * as Maps from "@geobuff/svg-maps";
-import { flagCategories, getFlagUrl } from "@geobuff/flags";
 import { debounce } from "throttle-debounce";
 
 import {
@@ -45,12 +43,12 @@ import { QuizType } from "../../types/quiz-type";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import CloseLine from "../../Icons/CloseLine";
 import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
-import { getHighlightRegionsByMap } from "../../helpers/map";
-import { getFlagsByCategory } from "../../helpers/flag";
+import { getHighlightRegionsByMap, getMapCategories } from "../../helpers/map";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
 import Search from "../../Icons/Search";
 import UnsplashImageGrid from "../UnsplashImageGrid";
 import { UnsplashImage } from "../../types/unsplash-image";
+import useFlagGroups from "../../hooks/UseFlagGroups";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a question type."),
@@ -113,6 +111,8 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
   isEmptyImageSearch = false,
   onChangeSearchImage = () => {},
 }) => {
+  const { data: flagGroups, getFlagUrl, getFlagEntriesByKey } = useFlagGroups();
+
   const initialHasFlagAnswers = editValues?.hasFlagAnswers || false;
   const isEditing = !!editValues;
 
@@ -455,9 +455,9 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                 }}
                               >
                                 <option>{"Select a category..."}</option>
-                                {flagCategories?.map(({ key, label }) => (
-                                  <option key={key} value={key}>
-                                    {label}
+                                {flagGroups.map((group) => (
+                                  <option key={group.key} value={group.key}>
+                                    {group.label}
                                   </option>
                                 ))}
                               </Select>
@@ -496,7 +496,10 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                             minHeight="22px"
                                             minWidth="32px"
                                             objectFit="cover"
-                                            src={getFlagUrl(values.flagCode)}
+                                            src={getFlagUrl(
+                                              flagCategory,
+                                              values.flagCode
+                                            )}
                                             borderRadius={5}
                                           />
                                         ) : (
@@ -507,10 +510,13 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                       <option value="">
                                         {"select a flag code..."}
                                       </option>
-                                      {getFlagsByCategory(flagCategory).map(
-                                        (category, index) => (
-                                          <option key={index} value={category}>
-                                            {category}
+                                      {getFlagEntriesByKey(flagCategory).map(
+                                        (entry, index) => (
+                                          <option
+                                            key={index}
+                                            value={entry.code}
+                                          >
+                                            {entry.code}
                                           </option>
                                         )
                                       )}
@@ -543,15 +549,16 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                     <option value="">
                                       {"Select a map..."}
                                     </option>
-                                    {Object.keys(Maps)
-                                      .sort()
-                                      .map((map) => (
-                                        <option key={map} value={map}>
-                                          {map
-                                            .match(/[A-Z][a-z]+|[0-9]+/g)
-                                            .join(" ")}
+                                    {getMapCategories().map(
+                                      (mapCategory, index) => (
+                                        <option
+                                          key={index}
+                                          value={mapCategory.value}
+                                        >
+                                          {mapCategory.label}
                                         </option>
-                                      ))}
+                                      )
+                                    )}
                                   </Select>
 
                                   <FormErrorMessage fontSize="11px">

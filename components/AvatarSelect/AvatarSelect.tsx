@@ -7,13 +7,13 @@ import {
   SimpleGrid,
   Box,
 } from "@chakra-ui/react";
-import { getFlagUrl } from "@geobuff/flags";
 
 import { FieldProps } from "../../types/field-props";
 import { Avatar } from "../../types/avatar";
 import RadioCard from "./RadioCard";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import CustomFlag from "../CustomFlag";
+import UseWorldFlagGroup from "../../hooks/UseWorldFlagGroup";
 
 interface Props {
   fieldProps?: FieldProps;
@@ -32,6 +32,8 @@ const AvatarSelect: FC<Props> = ({
     shouldValidate?: boolean
   ): void => {},
 }) => {
+  const { getFlagUrl } = UseWorldFlagGroup();
+
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "avatarId",
     defaultValue: fieldProps?.value,

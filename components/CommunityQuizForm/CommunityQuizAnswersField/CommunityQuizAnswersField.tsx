@@ -10,7 +10,7 @@ import {
 import { Field } from "formik";
 
 import SelectFormField from "../../FormFields/SelectFormField";
-import { getFlagsByCategory } from "../../../helpers/flag";
+import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 export interface Props extends FlexProps {
   name: string;
@@ -35,84 +35,93 @@ const CommunityQuizAnswersField: FC<Props> = ({
   onChangeCorrectAnswer = () => {},
   onChangeFlagCode = () => {},
   ...props
-}) => (
-  <Flex
-    direction="column"
-    width="100%"
-    flex={1}
-    paddingX={3}
-    paddingY={2}
-    borderWidth={2}
-    borderColor={isChecked ? "green.500" : "transparent"}
-    borderRadius={8}
-    transition="150ms ease-in-out"
-    {...props}
-  >
-    <FormLabel
-      htmlFor={"answerOne"}
-      fontWeight="bold"
-      color={isChecked && "green.500"}
+}) => {
+  const { getFlagEntriesByKey } = useFlagGroups();
+
+  return (
+    <Flex
+      direction="column"
+      width="100%"
+      flex={1}
+      paddingX={3}
+      paddingY={2}
+      borderWidth={2}
+      borderColor={isChecked ? "green.500" : "transparent"}
+      borderRadius={8}
+      transition="150ms ease-in-out"
+      {...props}
     >
-      {label}
-    </FormLabel>
+      <FormLabel
+        htmlFor={"answerOne"}
+        fontWeight="bold"
+        color={isChecked && "green.500"}
+      >
+        {label}
+      </FormLabel>
 
-    <Flex alignItems="center">
-      <Radio
-        value={1}
-        isChecked={isChecked}
-        onChange={() => onChangeCorrectAnswer(value)}
-        colorScheme="green"
-        marginRight={3}
-      />
+      <Flex alignItems="center">
+        <Radio
+          value={1}
+          isChecked={isChecked}
+          onChange={() => onChangeCorrectAnswer(value)}
+          colorScheme="green"
+          marginRight={3}
+        />
 
-      {hasFlagAnswers && (
-        <Flex maxWidth="150px" alignItems="center">
-          <Field name={`${name}.flagCode`}>
-            {({ form }) => (
-              <FormControl>
-                <SelectFormField
-                  name={`${name}.flagCode`}
-                  defaultValue={{ label: "Flag code", value: "" }}
-                  minWidth={{ base: "100%", md: "130px" }}
-                  isInvalid={
-                    (!isChecked && form.errors.answers && name.includes("0")) ||
-                    (!isChecked && form.errors.answers && name.includes("1"))
-                  }
-                  options={getFlagsByCategory(
-                    flagAnswerCategory
-                  ).map((option) => ({ label: option, value: option }))}
-                  onChange={({ target }) => onChangeFlagCode(target.value)}
-                />
-              </FormControl>
-            )}
-          </Field>
-        </Flex>
-      )}
-
-      <Field name={`${name}.text`}>
-        {({ field }) => (
-          <FormControl>
-            <Input
-              {...field}
-              id={name}
-              type="text"
-              placeholder={placeholder}
-              size="lg"
-              fontSize="16px"
-              fontWeight={400}
-              background="#F6F6F6"
-              color={isChecked && "green.500"}
-              borderRadius={6}
-              ml={hasFlagAnswers ? 2 : 0}
-              width="100%"
-              _placeholder={{ color: "gray.500" }}
-              _hover={{ background: "#e0e0e0" }}
-            />
-          </FormControl>
+        {hasFlagAnswers && (
+          <Flex maxWidth="150px" alignItems="center">
+            <Field name={`${name}.flagCode`}>
+              {({ form }) => (
+                <FormControl>
+                  <SelectFormField
+                    name={`${name}.flagCode`}
+                    defaultValue={{ label: "Flag code", value: "" }}
+                    minWidth={{ base: "100%", md: "130px" }}
+                    isInvalid={
+                      (!isChecked &&
+                        form.errors.answers &&
+                        name.includes("0")) ||
+                      (!isChecked && form.errors.answers && name.includes("1"))
+                    }
+                    options={getFlagEntriesByKey(flagAnswerCategory).map(
+                      (entry) => ({
+                        label: entry.code,
+                        value: entry.code,
+                      })
+                    )}
+                    onChange={({ target }) => onChangeFlagCode(target.value)}
+                  />
+                </FormControl>
+              )}
+            </Field>
+          </Flex>
         )}
-      </Field>
+
+        <Field name={`${name}.text`}>
+          {({ field }) => (
+            <FormControl>
+              <Input
+                {...field}
+                id={name}
+                type="text"
+                placeholder={placeholder}
+                size="lg"
+                fontSize="16px"
+                fontWeight={400}
+                background="#F6F6F6"
+                color={isChecked && "green.500"}
+                borderRadius={6}
+                ml={hasFlagAnswers ? 2 : 0}
+                width="100%"
+                _placeholder={{ color: "gray.500" }}
+                _hover={{ background: "#e0e0e0" }}
+              />
+            </FormControl>
+          )}
+        </Field>
+      </Flex>
     </Flex>
-  </Flex>
-);
+  );
+};
 
 export default CommunityQuizAnswersField;

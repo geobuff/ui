@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import { getFlagUrl } from "@geobuff/flags";
 import { DateTime } from "luxon";
 import flag from "country-code-emoji";
 
@@ -25,6 +24,7 @@ import DeleteAccountModal from "../DeleteAccountModal";
 import axiosClient from "../../axios";
 import { signOut, useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
+import UseWorldFlagGroup from "../../hooks/UseWorldFlagGroup";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -102,6 +102,7 @@ const UserProfileSummary: FC<Props> = ({
   };
 
   const { countries } = useCountries();
+  const { getFlagUrl } = UseWorldFlagGroup();
 
   const downloadData = isAppMobile ? [] : [["email"], [email]];
 
