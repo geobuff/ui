@@ -33,6 +33,7 @@ const TriviaCard: FC<Props> = ({ name = "", maxScore = 0, ...props }) => (
         width={260}
         objectFit="cover"
         style={cardImageStyle}
+        priority
       />
 
       <Box paddingTop="12px" paddingX="12px" whiteSpace="pre-wrap">

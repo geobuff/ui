@@ -97,7 +97,12 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
               width={avatarSize}
               marginX={isCondensed ? 1 : 0}
             >
-              <Image src={user?.avatarPrimaryImageUrl} height={13} width={13} />
+              <Image
+                src={user?.avatarPrimaryImageUrl}
+                height={13}
+                width={13}
+                priority
+              />
             </Flex>
 
             {!isCondensed && (

@@ -56,6 +56,7 @@ const CommunityQuizCard: FC<Props> = ({
           width={260}
           objectFit="cover"
           style={cardImageStyle}
+          priority
         />
 
         <Box paddingTop="12px" paddingX="12px" whiteSpace="pre-wrap">
