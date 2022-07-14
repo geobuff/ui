@@ -1,13 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 import Link from "next/link";
-import {
-  Box,
-  Flex,
-  Link as ChakraLink,
-  Skeleton,
-  Text,
-} from "@chakra-ui/react";
+import { Box, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+import Image from "next/image";
 
 const NEXT_ACTION_DELAY = 10000;
 const FADE_OUT_DELAY = 1000;
@@ -83,58 +78,67 @@ const HeroBanner: FC<Props> = ({
   return (
     <Box
       role="banner"
+      position="relative"
       background={backgroundColor}
       height={["260px", "300px", "420px"]}
       width="100%"
     >
-      <Box
+      <Flex
+        position="absolute"
+        width="100%"
         height="100%"
-        background={`url(${backgroundImageUrl})`}
-        backgroundRepeat="no-repeat"
-        backgroundSize={{ base: "600px 300px", md: "1200px 475px" }}
-        backgroundPosition="center top 2px"
-        className="fade-in"
+        justifyContent="center"
       >
-        <Flex
-          direction="column"
-          padding={[3, 6, 12]}
-          height="100%"
-          justifyContent="center"
-          alignItems="center"
-          textAlign="center"
+        <Flex direction="column" justifyContent="center">
+          <Image
+            src={backgroundImageUrl}
+            height={420}
+            width={1100}
+            className="fade-in"
+            priority
+          />
+        </Flex>
+      </Flex>
+      <Flex
+        position="absolute"
+        width="100%"
+        justifyContent="center"
+        direction="column"
+        padding={[3, 6, 12]}
+        height="100%"
+        textAlign="center"
+      >
+        <Text
+          color={textColor}
+          fontSize={["42px", "42px", "56px"]}
+          fontWeight="black"
+          lineHeight={{ base: "1.1", md: "1" }}
+        >
+          {title}
+        </Text>
+
+        <Box
+          marginY={5}
+          marginX="auto"
+          maxWidth={{ base: "340px", sm: "400px", md: "450px" }}
+          className={shouldFadeOut ? "fade-out" : "fade-in"}
         >
           <Text
             color={textColor}
-            fontSize={["42px", "42px", "56px"]}
-            fontWeight="black"
-            lineHeight={{ base: "1.1", md: "1" }}
+            fontSize={["18px", "18px", "24px"]}
+            fontWeight="medium"
           >
-            {title}
+            {"Create an account and"}{" "}
+            {!isSessionLoading && actions.length > 0 && (
+              <ChakraLink textDecoration="underline">
+                <Link href={actions[index]?.link ?? ""}>
+                  {actions[index]?.value}
+                </Link>
+              </ChakraLink>
+            )}
           </Text>
-
-          <Box
-            marginY={5}
-            marginX="auto"
-            maxWidth={{ base: "340px", sm: "400px", md: "450px" }}
-            className={shouldFadeOut ? "fade-out" : "fade-in"}
-          >
-            <Text
-              color={textColor}
-              fontSize={["18px", "18px", "24px"]}
-              fontWeight="medium"
-            >
-              {"Create an account and"}{" "}
-              {!isSessionLoading && actions.length > 0 && (
-                <ChakraLink textDecoration="underline">
-                  <Link href={actions[index]?.link ?? ""}>
-                    {actions[index]?.value}
-                  </Link>
-                </ChakraLink>
-              )}
-            </Text>
-          </Box>
-        </Flex>
-      </Box>
+        </Box>
+      </Flex>
     </Box>
   );
 };

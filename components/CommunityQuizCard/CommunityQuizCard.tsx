@@ -9,10 +9,11 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import Image from "../Image";
+import Image from "next/image";
 import Twemoji from "../Twemoji";
 import User from "../../Icons/User";
 import Link from "next/link";
+import { cardImageStyle } from "../../helpers/style";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
@@ -51,18 +52,11 @@ const CommunityQuizCard: FC<Props> = ({
       <Box position="absolute" top={0} left={0} right={0} bottom={0}>
         <Image
           src={`${process.env.NEXT_PUBLIC_CDN_URL}/headers/community-quiz-header.svg`}
-          maxHeight={{ base: "75px", md: "90px" }}
-          minHeight={{ base: "75px", md: "90px" }}
-          backgroundColor="#E3E1E1"
-          width="100%"
-          borderTopLeftRadius={12}
-          borderTopRightRadius={12}
+          height={100}
+          width={260}
           objectFit="cover"
-          transition="all 150ms ease-out"
-          _groupHover={{
-            maxHeight: { base: "80px", md: "88px" },
-            minHeight: { base: "80px", md: "88px" },
-          }}
+          style={cardImageStyle}
+          priority
         />
 
         <Box paddingTop="12px" paddingX="12px" whiteSpace="pre-wrap">
