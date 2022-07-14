@@ -42,7 +42,7 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
     }
 
     return (
-      <Table size="md" variant="striped" colorscheme="gray">
+      <Table size="md" variant="striped" colorScheme="gray">
         <Thead>
           <Tr>
             <Th textAlign="left">{"QUESTION"} </Th>

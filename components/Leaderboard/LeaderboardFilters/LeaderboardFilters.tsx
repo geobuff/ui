@@ -87,7 +87,7 @@ const LeaderboardFilters: FC<Props> = ({
           value={quizId}
           marginRight={{ base: 0, sm: 0, md: 3 }}
           marginBottom={2}
-          isTruncated
+          noOfLines={1}
           isDisabled={isLoading}
         >
           {quizzes.map((quiz) => (

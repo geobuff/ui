@@ -17,7 +17,6 @@ import { Field } from "formik";
 
 import Logo from "../../Logo";
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
-import { EmailIcon } from "@chakra-ui/icons";
 
 const welcomeHelperText =
   "Cheers for your interest in signing up! Let's get started by entering your email and password. These will be used to sign you in.";

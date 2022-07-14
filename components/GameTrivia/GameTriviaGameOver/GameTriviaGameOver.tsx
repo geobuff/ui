@@ -87,7 +87,7 @@ const GameTriviaGameOver: FC<Props> = ({
           color="black"
           maxWidth={420}
           marginX="auto"
-          isFullWidth
+          width="full"
           onClick={onCopyScore}
         >
           {"Copy Score"}
@@ -102,7 +102,7 @@ const GameTriviaGameOver: FC<Props> = ({
           fontWeight="bold"
           maxWidth={420}
           marginX="auto"
-          isFullWidth
+          width="full"
           onClick={onPlayAgain}
         >
           {"Play Again"}

@@ -10,7 +10,11 @@ import OutlinedZoomOut from "../../Icons/OutlinedZoomOut";
 
 const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 
-const GameMapInteraction: FC = ({ children = null, ...props }) => {
+interface Props {
+  children?: React.ReactNode;
+}
+
+const GameMapInteraction: FC<Props> = ({ children = null, ...props }) => {
   const [value, setValue] = useState(defaultValue);
 
   const isMobile = useBreakpointValue({ base: true, lg: false });

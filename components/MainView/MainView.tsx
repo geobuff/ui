@@ -11,6 +11,7 @@ import { AppContext } from "../../context/AppContext";
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
 interface Props extends BoxProps {
+  children?: React.ReactNode;
   footerVariant?: FooterVariant;
   hasNavigationBar?: boolean;
   hasFooter?: boolean;

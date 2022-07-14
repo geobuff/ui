@@ -65,7 +65,7 @@ const UserProfileLeaderboardEntries: FC<Props> = ({ entries = [] }) => (
                             <>
                               <CustomFlag url={entry.quizImageUrl} mr={3} />
                               <Tooltip label={entry.quizName}>
-                                <Text maxWidth="200px" isTruncated>
+                                <Text maxWidth="200px" noOfLines={1}>
                                   {entry.quizName}
                                 </Text>
                               </Tooltip>
@@ -73,7 +73,7 @@ const UserProfileLeaderboardEntries: FC<Props> = ({ entries = [] }) => (
                           ) : (
                             <>
                               <CustomFlag url={entry.quizImageUrl} mr={3} />
-                              <Text maxWidth="200px" isTruncated>
+                              <Text maxWidth="200px" noOfLines={1}>
                                 {entry.quizName}
                               </Text>
                             </>

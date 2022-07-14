@@ -115,7 +115,7 @@ const MerchCard: FC<Props> = ({
                 fontSize={{ base: "9px", sm: "9px", md: "11px" }}
                 fontWeight="bold"
                 marginLeft={2}
-                isTruncated
+                noOfLines={1}
                 minWidth="50%"
               >
                 {sizes.join(", ")}
@@ -133,7 +133,7 @@ const MerchCard: FC<Props> = ({
                 marginLeft="2.5px"
                 minWidth="50%"
                 maxWidth={{ base: "65px", md: "85px" }}
-                isTruncated
+                noOfLines={1}
               >
                 {price}
               </Text>

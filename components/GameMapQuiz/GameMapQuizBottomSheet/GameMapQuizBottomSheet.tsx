@@ -93,8 +93,8 @@ const GameMapQuizBottomSheet: FC<Props> = ({
       }}
       onClose={(): void => {}}
     >
-      <Sheet.Container style={{ position: "fixed" }}>
-        <Box as={Sheet.Header} />
+      <Sheet.Container style={{ position: "fixed" }} onViewportBoxUpdate={null}>
+        <Box as={Sheet.Header} onViewportBoxUpdate={null} />
         <Box
           margin="auto"
           borderRadius={25}
@@ -105,7 +105,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
           marginTop={-4}
         />
 
-        <Sheet.Content>
+        <Sheet.Content onViewportBoxUpdate={null}>
           <Flex
             direction="column"
             height="100%"
@@ -137,7 +137,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
             <Box my={2}>
               <Button
                 colorScheme={hasGameStarted ? "red" : "green"}
-                isFullWidth
+                width="full"
                 onClick={hasGameStarted ? onGameStop : onGameStart}
                 p={8}
                 size="md"

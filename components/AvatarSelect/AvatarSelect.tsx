@@ -37,7 +37,7 @@ const AvatarSelect: FC<Props> = ({
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "avatarId",
     defaultValue: fieldProps?.value,
-    onChange: (value: number) => setFieldValue("avatarId", value.toString()),
+    onChange: (value: string) => setFieldValue("avatarId", value),
   });
 
   const group = getRootProps();
@@ -87,7 +87,6 @@ const AvatarSelect: FC<Props> = ({
       >
         {avatars.map((avatar) => {
           const fieldProps = { value: avatar.id.toString() };
-          // @ts-expect-error
           const radio = getRadioProps(fieldProps);
           return <RadioCard key={avatar.id} radio={radio} avatar={avatar} />;
         })}

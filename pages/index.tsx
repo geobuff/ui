@@ -33,7 +33,6 @@ import DelayedRender from "../components/DelayedRender";
 import { FilteredTrivia } from "../components/TriviaList/TriviaList";
 import CardListSection from "../components/CardListSection";
 import CardListItem from "../components/CardList/CardListItem";
-import Head from "next/head";
 import CommunityQuizCard from "../components/CommunityQuizCard";
 import { TriviaFilterDto } from "../types/trivia-filter-dto";
 import { CommunityQuizFilterDto } from "../types/community-quiz-filter-dto";

@@ -7,7 +7,6 @@ import DelayedRender from "../DelayedRender";
 export interface Props extends BoxProps {
   primaryImageUrl?: string;
   secondaryImageUrl?: string;
-  name?: string;
   height?: number;
   width?: number;
   onClick?: MouseEventHandler<HTMLDivElement>;
@@ -20,7 +19,6 @@ const ProfileUserAvatar: FC<Props> = ({
   primaryImageUrl,
   secondaryImageUrl,
   onClick,
-  name,
   height = 130,
   width = 130,
   shape = "circle",

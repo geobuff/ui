@@ -4,6 +4,7 @@ import React, { FC, useState, useEffect } from "react";
 type Props = {
   waitBeforeShow?: number;
   shouldFadeIn?: boolean;
+  children: React.ReactNode;
 };
 
 const DelayedRender: FC<Props> = ({

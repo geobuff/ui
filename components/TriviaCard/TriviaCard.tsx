@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Badge, Box, BoxProps, Divider, Flex, Text } from "@chakra-ui/react";
+import { Box, BoxProps, Divider, Flex, Text } from "@chakra-ui/react";
 
 import Image from "../Image";
 import Twemoji from "../Twemoji";
@@ -72,7 +72,7 @@ const TriviaCard: FC<Props> = ({ name = "", maxScore = 0, ...props }) => (
               fontSize={{ base: "9px", sm: "9px", md: "11px" }}
               fontWeight="bold"
               marginLeft="3px"
-              isTruncated
+              noOfLines={1}
               minWidth="50%"
             >
               {"Share Quiz"}
@@ -90,7 +90,7 @@ const TriviaCard: FC<Props> = ({ name = "", maxScore = 0, ...props }) => (
               marginLeft="2.5px"
               minWidth="50%"
               maxWidth={{ base: "65px", md: "85px" }}
-              isTruncated
+              noOfLines={1}
             >
               {`${maxScore} Questions`}
             </Text>

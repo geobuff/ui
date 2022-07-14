@@ -14,7 +14,6 @@ import {
   Skeleton,
   SkeletonCircle,
   Text,
-  useBreakpointValue,
 } from "@chakra-ui/react";
 
 import Image from "../Image";
@@ -114,7 +113,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
                 marginRight={0.5}
                 fontWeight="bold"
                 fontSize={{ base: "10px", md: "12px" }}
-                isTruncated
+                noOfLines={1}
                 maxWidth={{ base: "80px", md: "125px", lg: "135px" }}
               >
                 {user?.username}

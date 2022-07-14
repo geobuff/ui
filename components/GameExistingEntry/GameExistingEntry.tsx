@@ -50,7 +50,7 @@ const GameExistingEntry: FC<Props> = ({
           fontWeight="bold"
           maxWidth="150px"
           marginRight={1}
-          isTruncated
+          noOfLines={1}
         >
           {username}
         </Text>

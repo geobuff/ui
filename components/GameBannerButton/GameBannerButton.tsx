@@ -18,7 +18,7 @@ const GameBannerButton: FC<Props> = ({
   return (
     <Button
       colorScheme={hasGameStarted ? "red" : "green"}
-      isFullWidth
+      width="full"
       onClick={hasGameStarted ? onGameStop : onGameStart}
       boxShadow="0px 4px 4px rgba(0, 0, 0, 0.08)"
       padding={7}

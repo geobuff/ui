@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Button, Flex, useDisclosure, Text } from "@chakra-ui/react";
+import { Button, Flex, useDisclosure, Text } from "@chakra-ui/react";
 
 import Image from "../Image";
 import Modal from "../Modal";
