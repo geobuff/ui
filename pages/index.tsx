@@ -3,6 +3,7 @@ import type { AppProps } from "next/app";
 import { debounce } from "throttle-debounce";
 import axios from "axios";
 import axiosClient from "../axios";
+import dynamic from "next/dynamic";
 
 import {
   Box,
@@ -40,6 +41,10 @@ import { Quiz } from "../types/quiz";
 import { Trivia } from "../types/trivia";
 import { CommunityQuiz } from "../types/community-quiz-dto";
 import { signIn, useSession } from "next-auth/react";
+
+const QuizCardListSection = dynamic(
+  () => import("../components/QuizCardListSection")
+);
 
 const GRID_LENGTH = 5;
 
@@ -458,65 +463,16 @@ const Home: FC<AppProps> = ({ pageProps }) => {
                   )}
 
                   {mapQuizzes.length > 0 && (
-                    <CardListSection
-                      title="Map Games"
-                      linkHref="/map-games"
-                      linkVerb="map games"
-                      paddingX={{ base: 3, md: 0 }}
-                    >
-                      {mapQuizzes.map((quiz, index) => (
-                        <CardListItem
-                          key={quiz.id}
-                          href={`/quiz/${quiz?.route}`}
-                          isEnabled={quiz.enabled}
-                          paddingRight={{
-                            base: index === filteredTrivia.length - 1 && "12px",
-                            md: 0,
-                          }}
-                        >
-                          <QuizCard
-                            name={quiz.name}
-                            imageUrl={quiz.imageUrl}
-                            time={quiz.time}
-                            maxScore={quiz.maxScore}
-                            plural={quiz.plural}
-                            position={{ base: "relative", md: "absolute" }}
-                            marginLeft={{ base: 3, md: 0 }}
-                          />
-                        </CardListItem>
-                      ))}
-                    </CardListSection>
+                    <QuizCardListSection quizzes={mapQuizzes} />
                   )}
 
                   {flagQuizzes.length > 0 && (
-                    <CardListSection
+                    <QuizCardListSection
                       title="Flag Games"
                       linkHref="/flag-games"
                       linkVerb="flag games"
-                      paddingX={{ base: 3, md: 0 }}
-                    >
-                      {flagQuizzes.map((quiz, index) => (
-                        <CardListItem
-                          key={quiz.id}
-                          href={`/quiz/${quiz?.route}`}
-                          isEnabled={quiz.enabled}
-                          paddingRight={{
-                            base: index === filteredTrivia.length - 1 && "12px",
-                            md: 0,
-                          }}
-                        >
-                          <QuizCard
-                            name={quiz.name}
-                            imageUrl={quiz.imageUrl}
-                            time={quiz.time}
-                            maxScore={quiz.maxScore}
-                            plural={quiz.plural}
-                            position={{ base: "relative", md: "absolute" }}
-                            marginLeft={{ base: 3, md: 0 }}
-                          />
-                        </CardListItem>
-                      ))}
-                    </CardListSection>
+                      quizzes={flagQuizzes}
+                    />
                   )}
                 </DelayedRender>
               </Box>
