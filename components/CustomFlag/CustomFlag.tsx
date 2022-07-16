@@ -3,12 +3,14 @@ import { Box, BoxProps, Skeleton, Image } from "@chakra-ui/react";
 
 interface Props extends BoxProps {
   url?: string;
+  code?: string;
   height?: string;
   width?: string;
 }
 
 const CustomFlag: FC<Props> = ({
   url = "",
+  code = "",
   height = "18px",
   width = "24.5px",
   ...props
@@ -24,8 +26,9 @@ const CustomFlag: FC<Props> = ({
       {...props}
     >
       <Image
-        display={hasLoaded ? "flex" : "none"}
         src={url}
+        alt={`Flag for ${code}`}
+        display={hasLoaded ? "flex" : "none"}
         borderRadius={4}
         height={height}
         width={width}

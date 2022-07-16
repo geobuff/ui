@@ -120,6 +120,7 @@ const UserProfileSummary: FC<Props> = ({
       return (
         <CustomFlag
           url={getFlagUrl(countryCode)}
+          code={countryCode}
           boxSizing="border-box"
           border="2px solid #dae2ea"
         />

@@ -486,14 +486,15 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                       icon={
                                         values.flagCode ? (
                                           <Image
-                                            marginRight="16px"
-                                            minHeight="22px"
-                                            minWidth="32px"
-                                            objectFit="cover"
                                             src={getFlagUrl(
                                               flagCategory,
                                               values.flagCode
                                             )}
+                                            alt="Flag example"
+                                            marginRight="16px"
+                                            minHeight="22px"
+                                            minWidth="32px"
+                                            objectFit="cover"
                                             borderRadius={5}
                                           />
                                         ) : (

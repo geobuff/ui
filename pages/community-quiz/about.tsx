@@ -13,7 +13,7 @@ import {
 import MainView from "../../components/MainView";
 import Head from "next/head";
 import HeroHeader from "../../components/HeroHeader";
-import Image from "../../components/Image";
+import Image from "next/image";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} />;
 
@@ -46,8 +46,10 @@ const About: FC = () => {
             <Flex justifyContent="center">
               <Image
                 src={`${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/quiz-builder.png`}
-                width={{ base: "360px", md: "470px", lg: "630px" }}
-                height={{ base: "360px", md: "470px", lg: "630px" }}
+                alt="Quiz builder example"
+                width={630}
+                height={630}
+                priority
               />
             </Flex>
             <Flex
@@ -84,8 +86,9 @@ const About: FC = () => {
             <Flex justifyContent="center">
               <Image
                 src={`${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/resources.png`}
-                width={{ base: "360px", md: "470px", lg: "630px" }}
-                height={{ base: "360px", md: "470px", lg: "630px" }}
+                alt="Resources example"
+                width={630}
+                height={630}
               />
             </Flex>
           </SimpleGrid>
@@ -96,8 +99,9 @@ const About: FC = () => {
             <Flex justifyContent="center">
               <Image
                 src={`${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/visibility.png`}
-                width={{ base: "360px", md: "470px", lg: "630px" }}
-                height={{ base: "360px", md: "470px", lg: "630px" }}
+                alt="Public/private toggle example"
+                width={630}
+                height={630}
               />
             </Flex>
             <Flex
@@ -134,8 +138,9 @@ const About: FC = () => {
             <Flex justifyContent="center">
               <Image
                 src={`${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/my-quizzes.png`}
-                width={{ base: "360px", md: "470px", lg: "630px" }}
-                height={{ base: "360px", md: "470px", lg: "630px" }}
+                alt="My quizzes example"
+                width={630}
+                height={630}
               />
             </Flex>
           </SimpleGrid>

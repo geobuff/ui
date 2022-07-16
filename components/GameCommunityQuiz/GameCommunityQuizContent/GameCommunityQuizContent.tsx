@@ -78,6 +78,7 @@ const GameCommunityQuizContent: FC<Props> = ({
           >
             <CustomFlag
               url={getFlagUrlByCode(flagCode)}
+              code={flagCode}
               height="100%"
               maxHeight="200px"
               width="100%"
@@ -108,6 +109,7 @@ const GameCommunityQuizContent: FC<Props> = ({
                 <Flex direction="column">
                   <Image
                     src={imageUrl}
+                    alt="Stock Unsplash image"
                     height={imageAttributeName ? "95%" : "100%"}
                     width={imageAttributeName ? "95%" : "100%"}
                     marginX="auto"

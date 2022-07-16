@@ -99,6 +99,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
             >
               <Image
                 src={user?.avatarPrimaryImageUrl}
+                alt="User avatar"
                 height={13}
                 width={13}
                 priority

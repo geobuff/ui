@@ -52,6 +52,7 @@ const CommunityQuizCard: FC<Props> = ({
       <Box position="absolute" top={0} left={0} right={0} bottom={0}>
         <Image
           src={`${process.env.NEXT_PUBLIC_CDN_URL}/headers/community-quiz-header.svg`}
+          alt={name}
           height={100}
           width={260}
           objectFit="cover"

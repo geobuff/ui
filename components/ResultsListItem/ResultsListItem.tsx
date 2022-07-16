@@ -33,7 +33,7 @@ const ResultsListItem: FC<Props> = ({
       {hasFlag ? (
         <>
           {!isHidden && !isMissedResult ? (
-            <CustomFlag url={getFlagUrlByCode(code)} />
+            <CustomFlag url={getFlagUrlByCode(code)} code={code} />
           ) : (
             <FlagFallback />
           )}
