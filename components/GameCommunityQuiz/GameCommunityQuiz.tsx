@@ -42,9 +42,8 @@ const GameCommunityQuiz: FC<Props> = ({
 
   const [hasAnswered, setHasAnswered] = useState(false);
   const [score, setScore] = useState(0);
-  const [selectedAnswer, setSelectedAnswer] = useState<
-    GetCommunityQuizAnswer
-  >();
+  const [selectedAnswer, setSelectedAnswer] =
+    useState<GetCommunityQuizAnswer>();
   const [question, setQuestion] = useState(quiz.questions[0]);
   const [questionNumber, setQuestionNumber] = useState(1);
   const [hasGameStarted, setHasGameStarted] = useState(false);

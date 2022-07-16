@@ -13,9 +13,11 @@ interface Props {
 }
 
 const MerchSummaryContainer: FC<Props> = ({ route = "" }) => {
-  const { getItemQuantity, addToCart, isLoading: isCartLoading } = useContext(
-    ShoppingCartContext
-  );
+  const {
+    getItemQuantity,
+    addToCart,
+    isLoading: isCartLoading,
+  } = useContext(ShoppingCartContext);
 
   const { merch, isLoading: isMerchLoading } = useMerch();
   const toast = useToast();

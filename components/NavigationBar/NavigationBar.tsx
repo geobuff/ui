@@ -30,9 +30,8 @@ const NavigationBar: FC = () => {
 
   const [zIndex, setZIndex] = useState(5);
 
-  const { isNavSidebarOpen: isOpen, setIsNavSidebarOpen } = useContext(
-    AppContext
-  );
+  const { isNavSidebarOpen: isOpen, setIsNavSidebarOpen } =
+    useContext(AppContext);
 
   const { cart, getItemCount } = useContext(ShoppingCartContext);
 

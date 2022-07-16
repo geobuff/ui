@@ -24,10 +24,8 @@ interface Props {
 }
 
 const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
-  const {
-    data: types,
-    isLoading: isQuestionTypesLoading,
-  } = useTriviaQuestionTypes();
+  const { data: types, isLoading: isQuestionTypesLoading } =
+    useTriviaQuestionTypes();
 
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
