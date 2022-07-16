@@ -24,11 +24,15 @@ const QuizCardListSection: FC<Props> = ({
       linkVerb={linkVerb}
       paddingX={{ base: 3, md: 0 }}
     >
-      {quizzes.map((quiz) => (
+      {quizzes.map((quiz, index) => (
         <CardListItem
           key={quiz.id}
           href={`/quiz/${quiz?.route}`}
           isEnabled={quiz.enabled}
+          paddingRight={{
+            base: index === quizzes.length - 1 && "12px",
+            md: 0,
+          }}
         >
           <QuizCard
             name={quiz.name}
