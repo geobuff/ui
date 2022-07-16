@@ -45,6 +45,7 @@ const QuestionTypeValuePreview: FC<Props> = ({
           <Flex direction="column">
             <Image
               src={imageUrl}
+              alt="Selected image preview"
               height="100%"
               width="100%"
               marginX="auto"

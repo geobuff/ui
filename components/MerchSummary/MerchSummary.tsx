@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Button, Flex, useDisclosure, Text } from "@chakra-ui/react";
 
-import Image from "../Image";
+import Image from "next/image";
 import Modal from "../Modal";
 import { MerchItem } from "../../types/merch-item";
 import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";
@@ -59,7 +59,7 @@ const MerchSummary: FC<Props> = ({
           >
             <Flex justifyContent="center">
               <Flex direction="column">
-                <MerchSummaryShowcase images={item?.images} />
+                <MerchSummaryShowcase name={item?.name} images={item?.images} />
               </Flex>
             </Flex>
             <Flex
@@ -97,9 +97,9 @@ const MerchSummary: FC<Props> = ({
         <Flex justifyContent="center" margin={6}>
           <Image
             src={item?.sizeGuideImageUrl.String}
-            alt="Size Guide"
-            width="100%"
-            height="auto"
+            alt="Size guide"
+            width={385}
+            height={513}
           />
         </Flex>
       </Modal>

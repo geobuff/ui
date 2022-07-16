@@ -69,11 +69,12 @@ const CommunityQuizFlagSelect: FC<Props> = ({
                 icon={
                   flagCode ? (
                     <Image
+                      src={getFlagUrl(flagCategory, flagCode)}
+                      alt="Flag example"
                       marginRight="16px"
                       minHeight="22px"
                       minWidth="32px"
                       objectFit="cover"
-                      src={getFlagUrl(flagCategory, flagCode)}
                       borderRadius={5}
                     />
                   ) : (

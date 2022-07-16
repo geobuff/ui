@@ -1,7 +1,7 @@
 import React, { FC, useState, MouseEventHandler } from "react";
 import { Box, BoxProps } from "@chakra-ui/react";
 
-import Image from "../Image";
+import Image from "next/image";
 import DelayedRender from "../DelayedRender";
 
 export interface Props extends BoxProps {
@@ -49,26 +49,30 @@ const ProfileUserAvatar: FC<Props> = ({
       onClick={onClick}
       {...props}
     >
-      <DelayedRender shouldFadeIn={true} waitBeforeShow={75}>
+      {!shouldShowSecondary ? (
         <Image
-          display={shouldShowSecondary ? "none" : "inherit"}
           src={primaryImageUrl}
-          marginTop={0.5}
+          alt={`Primary version of current user avatar`}
           height={height - 24}
           width={width - 24}
-          hasSkeleton={false}
+          style={{
+            marginTop: "0.5px",
+          }}
+          priority
         />
-      </DelayedRender>
-
-      <Image
-        display={shouldShowSecondary ? "inherit" : "none"}
-        src={secondaryImageUrl}
-        marginTop={0.5}
-        height={height - 24}
-        width={width - 24}
-        onMouseEnter={(): void => setShouldShowSecondary(true)}
-        hasSkeleton={false}
-      />
+      ) : (
+        <Image
+          src={secondaryImageUrl}
+          alt={`Secondary version of current user avatar`}
+          height={height - 24}
+          width={width - 24}
+          style={{
+            marginTop: "0.5px",
+          }}
+          onMouseEnter={(): void => setShouldShowSecondary(true)}
+          priority
+        />
+      )}
     </Box>
   );
 };

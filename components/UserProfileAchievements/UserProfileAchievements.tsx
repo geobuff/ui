@@ -1,8 +1,9 @@
 import React, { FC } from "react";
+import Image from "next/image";
+
 import {
   Box,
   Tooltip,
-  Image,
   Flex,
   Text,
   Heading,
@@ -55,9 +56,14 @@ const UserProfileAchievements: FC<Props> = ({ badges = [] }) => {
                 >
                   <Image
                     src={badge.imageUrl}
-                    height="40px"
-                    width="40px"
-                    marginX="auto"
+                    alt={`Badge ${badge.name}`}
+                    height={40}
+                    width={40}
+                    style={{
+                      marginRight: "auto",
+                      marginLeft: "auto",
+                    }}
+                    priority
                   />
                 </Box>
                 {badge.progress !== badge.total && (

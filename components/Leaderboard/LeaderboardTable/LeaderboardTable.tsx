@@ -78,6 +78,7 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
           {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG ? (
             <CustomFlag
               url={getFlagUrl(countryCode)}
+              code={countryCode}
               boxSizing="border-box"
               border="2px solid #dae2ea"
             />

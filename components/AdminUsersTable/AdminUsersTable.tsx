@@ -84,7 +84,10 @@ const AdminUsersTable: FC<Props> = ({
               </TableCell>
               <TableCell paddingY={3} paddingX={6}>
                 <Box marginRight={4}>
-                  <CustomFlag url={getFlagUrl(user.countryCode)} />
+                  <CustomFlag
+                    url={getFlagUrl(user.countryCode)}
+                    code={user.countryCode}
+                  />
                 </Box>
               </TableCell>
               <TableCell paddingY={3} paddingX={6}>

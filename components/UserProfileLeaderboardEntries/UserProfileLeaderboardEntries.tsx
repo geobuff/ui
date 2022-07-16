@@ -63,7 +63,11 @@ const UserProfileLeaderboardEntries: FC<Props> = ({ entries = [] }) => (
                         <Flex direction="row" alignItems="center">
                           {entry.quizName.length > 23 ? (
                             <>
-                              <CustomFlag url={entry.quizImageUrl} mr={3} />
+                              <CustomFlag
+                                url={entry.quizImageUrl}
+                                code={entry.quizName}
+                                mr={3}
+                              />
                               <Tooltip label={entry.quizName}>
                                 <Text maxWidth="200px" noOfLines={1}>
                                   {entry.quizName}
@@ -72,7 +76,11 @@ const UserProfileLeaderboardEntries: FC<Props> = ({ entries = [] }) => (
                             </>
                           ) : (
                             <>
-                              <CustomFlag url={entry.quizImageUrl} mr={3} />
+                              <CustomFlag
+                                url={entry.quizImageUrl}
+                                code={entry.quizName}
+                                mr={3}
+                              />
                               <Text maxWidth="200px" noOfLines={1}>
                                 {entry.quizName}
                               </Text>

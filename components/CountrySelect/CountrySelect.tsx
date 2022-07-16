@@ -48,11 +48,12 @@ const CountrySelect: FC<Props> = ({
       icon={
         fieldProps.value ? (
           <Image
+            src={getFlagUrl(fieldProps?.value)}
+            alt="Flag example"
             marginRight="16px"
             minHeight="22px"
             minWidth="32px"
             objectFit="cover"
-            src={getFlagUrl(fieldProps?.value)}
             opacity={isDisabled ? 0.2 : 1}
             borderRadius={5}
           />
