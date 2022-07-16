@@ -14,12 +14,8 @@ import { BackgroundTaskKey } from "../../types/background-task";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-const {
-  DeployDevWeb,
-  DeployProdAll,
-  DeployProdMobile,
-  DeployProdWeb,
-} = BackgroundTaskKey;
+const { DeployDevWeb, DeployProdAll, DeployProdMobile, DeployProdWeb } =
+  BackgroundTaskKey;
 
 const deploymentControls = [
   {

@@ -62,9 +62,8 @@ const UserProfileSummary: FC<Props> = ({
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
 
-  const [isDeleteAccountSubmitting, setIsDeleteAccountSubmitting] = useState(
-    false
-  );
+  const [isDeleteAccountSubmitting, setIsDeleteAccountSubmitting] =
+    useState(false);
   const [deleteAccountError, setDeleteAccountError] = useState(false);
 
   const {
@@ -104,8 +103,9 @@ const UserProfileSummary: FC<Props> = ({
 
   const downloadData = isAppMobile ? [] : [["email"], [email]];
 
-  const matchedCountry = countries?.find(({ value }) => value === countryCode)
-    ?.label;
+  const matchedCountry = countries?.find(
+    ({ value }) => value === countryCode
+  )?.label;
 
   const getFlagNode = (): React.ReactNode => {
     if (!countryCode) {

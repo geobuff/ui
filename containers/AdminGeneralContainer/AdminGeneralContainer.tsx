@@ -20,12 +20,8 @@ import { BulkUploadValues } from "../../types/bulk-upload-values";
 import { CommunityQuizPayload } from "../../types/community-quiz-payload";
 import { AuthUser } from "../../types/auth-user";
 
-const {
-  DeployDevWeb,
-  DeployProdAll,
-  DeployProdMobile,
-  DeployProdWeb,
-} = BackgroundTaskKey;
+const { DeployDevWeb, DeployProdAll, DeployProdMobile, DeployProdWeb } =
+  BackgroundTaskKey;
 
 const deployProdUIMobile = process.env.NEXT_PUBLIC_DEPLOY_MOBILE_PROD_UI;
 const deployProdUIWeb = process.env.NEXT_PUBLIC_DEPLOY_PROD_UI;

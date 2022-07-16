@@ -24,10 +24,8 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
 
   const { data: session, status } = useSession();
 
-  const {
-    data: categories,
-    isLoading: isCategoriesLoading,
-  } = useTriviaQuestionCategories();
+  const { data: categories, isLoading: isCategoriesLoading } =
+    useTriviaQuestionCategories();
 
   const [filterParams, setFilterParams] = useState<TriviaQuestionFilterParams>({
     page: 0,
@@ -45,9 +43,8 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
   const [isSearchingImages, setIsSearchingImages] = useState(false);
   const [isEmptyImageSearch, setIsEmptyImageSearch] = useState(false);
 
-  const [selectedQuestion, setSelectedQuestion] = useState<
-    ManualTriviaQuestionEditValues
-  >(null);
+  const [selectedQuestion, setSelectedQuestion] =
+    useState<ManualTriviaQuestionEditValues>(null);
 
   const {
     isOpen: isDeleteQuestionModalOpen,
