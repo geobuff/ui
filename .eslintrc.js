@@ -25,6 +25,7 @@ module.exports = {
     "prettier",
     "plugin:prettier/recommended",
     "plugin:@typescript-eslint/recommended",
+    "plugin:storybook/recommended",
   ],
   rules: {
     "react/display-name": "off",
