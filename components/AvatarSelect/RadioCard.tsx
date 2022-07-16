@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Box, Flex, useRadio, UseRadioProps } from "@chakra-ui/react";
 import { Avatar } from "../../types/avatar";
-import Image from "../Image";
+import Image from "next/image";
 
 interface Props {
   radio?: UseRadioProps;
@@ -39,9 +39,8 @@ const RadioCard: FC<Props> = ({ radio = null, avatar = null }) => {
           <Image
             src={avatar.primaryImageUrl}
             alt={avatar.name}
-            height="30px"
-            width="30px"
-            marginX="auto"
+            height={30}
+            width={30}
           />
         </Flex>
       </Box>

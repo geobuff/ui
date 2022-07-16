@@ -75,7 +75,7 @@ const GameCommunityQuizButton: FC<Props> = ({
       <Flex alignItems="center" textAlign="center" width="100%">
         {flagCode && (
           <Box marginRight={4}>
-            <CustomFlag url={getFlagUrlByCode(flagCode)} />
+            <CustomFlag url={getFlagUrlByCode(flagCode)} code={flagCode} />
           </Box>
         )}
         {text}

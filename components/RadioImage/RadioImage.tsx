@@ -19,6 +19,7 @@ const RadioImage: FC<Props> = ({ src, radioProps }) => {
       <Image
         {...checkbox}
         src={src}
+        alt="Unsplash image preview"
         width="auto"
         height="75px"
         cursor="pointer"

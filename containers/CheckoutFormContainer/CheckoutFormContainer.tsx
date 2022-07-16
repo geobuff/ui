@@ -22,10 +22,8 @@ const CheckoutFormContainer: FC = () => {
     isLoading: isShoppingCartLoading,
   } = useContext(ShoppingCartContext);
 
-  const {
-    data: shippingOptions,
-    isLoading: isShippingOptionsLoading,
-  } = useShippingOptions();
+  const { data: shippingOptions, isLoading: isShippingOptionsLoading } =
+    useShippingOptions();
 
   const [isLoading, setIsLoading] = useState(false);
   const stripe = useStripe();

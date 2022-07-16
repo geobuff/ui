@@ -92,9 +92,8 @@ const GameFlagQuiz: FC<Props> = ({
   const [hasGameStarted, setHasGameStarted] = useState(false);
   const [hasGameStopped, setHasGameStopped] = useState(false);
   const [isXPUpdated, setXPUpdated] = useState(false);
-  const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] = useState(
-    false
-  );
+  const [leaderboardEntrySubmitted, setLeaderboardEntrySubmitted] =
+    useState(false);
   const [timeRemaining, setTimeRemaining] = useState(new Date().getMinutes());
   const [acceptedFlag, setAcceptedFlag] = useState(null);
   const [remainingAnswers, setRemainingAnswers] = useState(() => mapping);

@@ -3,7 +3,8 @@ import React, { FC } from "react";
 import { Box, Divider, Flex, Tag, Text } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
-import Image from "../Image";
+import Image from "next/image";
+import { cardImageStyle } from "../../helpers/style";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
@@ -44,18 +45,12 @@ const MerchCard: FC<Props> = ({
         )}
         <Image
           src={imageUrl}
-          maxHeight={{ base: "140px", md: "160px" }}
-          minHeight={{ base: "140px", md: "160px" }}
-          backgroundColor="#E3E1E1"
-          width="100%"
-          borderTopLeftRadius={12}
-          borderTopRightRadius={12}
+          alt={name}
+          height={160}
+          width={260}
           objectFit="cover"
-          transition="all 150ms ease-out"
-          _groupHover={{
-            maxHeight: { base: "132px", md: "156px" },
-            minHeight: { base: "132px", md: "156px" },
-          }}
+          style={cardImageStyle}
+          priority
         />
       </Box>
 

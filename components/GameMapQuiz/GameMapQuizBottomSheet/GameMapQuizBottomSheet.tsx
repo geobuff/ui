@@ -93,8 +93,8 @@ const GameMapQuizBottomSheet: FC<Props> = ({
       }}
       onClose={(): void => {}}
     >
-      <Sheet.Container style={{ position: "fixed" }} onViewportBoxUpdate={null}>
-        <Box as={Sheet.Header} onViewportBoxUpdate={null} />
+      <Sheet.Container style={{ position: "fixed" }}>
+        <Box as={Sheet.Header} />
         <Box
           margin="auto"
           borderRadius={25}
@@ -105,7 +105,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
           marginTop={-4}
         />
 
-        <Sheet.Content onViewportBoxUpdate={null}>
+        <Sheet.Content>
           <Flex
             direction="column"
             height="100%"

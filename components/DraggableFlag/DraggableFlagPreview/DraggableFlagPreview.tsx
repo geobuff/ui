@@ -23,6 +23,7 @@ const DraggableFlagPreview: FC<Props> = ({ code }) => {
   return (
     <Image
       src={getFlagUrlByCode(code)}
+      alt={`Flag for ${code}`}
       borderRadius={4}
       height="72px"
       width="98px"

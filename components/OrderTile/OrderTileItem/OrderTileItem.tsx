@@ -1,7 +1,7 @@
 import React, { FC } from "react";
 import { Flex, Text, Tag, BoxProps, VStack, Box } from "@chakra-ui/react";
 import { OrderItem } from "../../../types/order";
-import Image from "../../Image";
+import Image from "next/image";
 
 export interface Props extends BoxProps {
   item?: OrderItem;
@@ -17,9 +17,14 @@ const OrderTileItem: FC<Props> = ({ item = null, ...props }) => (
         <Flex justifyContent="center">
           <Image
             src={item.imageUrl}
-            borderRadius={6}
-            height="100px"
-            width="auto"
+            alt={item.itemName}
+            height={100}
+            width={150}
+            style={{
+              borderRadius: 6,
+              zIndex: -1,
+            }}
+            priority
           />
         </Flex>
         <Text textAlign="center">{item.sizeName}</Text>

@@ -74,9 +74,8 @@ const CommunityQuizForm: FC<Props> = ({
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  const [selectedQuestion, setSelectedQuestion] = useState<
-    CommunityQuizFormQuestion
-  >();
+  const [selectedQuestion, setSelectedQuestion] =
+    useState<CommunityQuizFormQuestion>();
 
   const handleAddQuestion = (
     newQuestion: CommunityQuizFormQuestion,

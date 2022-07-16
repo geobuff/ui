@@ -16,14 +16,14 @@ export interface Props {
   title?: string;
   textColor?: string;
   backgroundColor?: string;
-  backgroundImageUrl?: string;
+  imageUrl?: string;
 }
 
 const HeroBanner: FC<Props> = ({
   title = "Get Your Geo Flex On",
   textColor = "white",
   backgroundColor = "linear-gradient(90deg, #27AE60 0%, #219250 100%)",
-  backgroundImageUrl = `${process.env.NEXT_PUBLIC_CDN_URL}/headers/world-map.svg`,
+  imageUrl = `${process.env.NEXT_PUBLIC_CDN_URL}/headers/world-map.svg`,
 }) => {
   const { data: session, status } = useSession();
   const isSessionLoading = status === "loading";
@@ -91,7 +91,8 @@ const HeroBanner: FC<Props> = ({
       >
         <Flex direction="column" justifyContent="center">
           <Image
-            src={backgroundImageUrl}
+            src={imageUrl}
+            alt="World map background"
             height={420}
             width={1100}
             className="fade-in"
