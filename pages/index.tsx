@@ -1,4 +1,4 @@
-import React, { useState, FC, ChangeEvent, useEffect, useMemo } from "react";
+import React, { useState, FC, ChangeEvent, useEffect } from "react";
 import type { AppProps } from "next/app";
 import { debounce } from "throttle-debounce";
 import axios from "axios";
@@ -12,20 +12,14 @@ import MainView from "../components/MainView";
 import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
 import { GetStaticProps } from "next";
 import { formatDate, isDateBefore } from "../helpers/date";
-import TriviaCard from "../components/TriviaCard";
-import QuizCard from "../components/QuizCard";
 import DelayedRender from "../components/DelayedRender";
 import { FilteredTrivia } from "../components/TriviaList/TriviaList";
-import CardListItem from "../components/CardList/CardListItem";
-import CommunityQuizCard from "../components/CommunityQuizCard";
 import { TriviaFilterDto } from "../types/trivia-filter-dto";
 import { CommunityQuizFilterDto } from "../types/community-quiz-filter-dto";
-import { Quiz } from "../types/quiz";
-import { Trivia } from "../types/trivia";
 import { signIn, useSession } from "next-auth/react";
 import TriviaCardListSection from "../components/TriviaCardListSection";
 import HomeHeader from "../components/HomeHeader";
-import { CommunityQuiz } from "../types/community-quiz-dto";
+import { QuizSearchResults } from "../types/quiz-search-results";
 
 const QuizCardListSection = dynamic(
   () => import("../components/QuizCardListSection")
@@ -43,18 +37,11 @@ const HomeSearchResults = dynamic(
   () => import("../components/HomeSearchResults")
 );
 
-interface SearchResults {
-  quizzes: Quiz[];
-  communityQuizzes: CommunityQuiz[];
-  trivia: Trivia[];
-  length: number;
-}
-
 const Home: FC<AppProps> = ({ pageProps }) => {
   const { data: session } = useSession();
 
   const [filter, setFilter] = useState("");
-  const [searchResults, setSearchResults] = useState<SearchResults>();
+  const [searchResults, setSearchResults] = useState<QuizSearchResults>();
   const [isSearching, setIsSearching] = useState(false);
   const [inputValue, setInputValue] = useState("");
 
@@ -165,57 +152,6 @@ const Home: FC<AppProps> = ({ pageProps }) => {
     .filter((t) => t.isActive)
     .slice(0, isMobile ? 7 : 5);
 
-  const searchResultItems = useMemo(
-    () => (
-      <>
-        {searchResults?.trivia.map((quiz) => (
-          <CardListItem
-            key={quiz.id}
-            href={`/daily-trivia/${formatDate(quiz.date)}`}
-          >
-            <TriviaCard
-              name={quiz.name}
-              maxScore={quiz.maxScore}
-              position={{ base: "relative", md: "absolute" }}
-              marginLeft={{ base: 3, md: 0 }}
-            />
-          </CardListItem>
-        ))}
-        {searchResults?.communityQuizzes.map((quiz) => (
-          <CardListItem key={quiz.id} href={`/community-quiz/${quiz.id}`}>
-            <CommunityQuizCard
-              name={quiz.name}
-              userId={quiz.userId}
-              username={quiz.username}
-              maxScore={quiz.maxScore}
-              verified={quiz.verified}
-              position={{ base: "relative", md: "absolute" }}
-              marginLeft={{ base: 3, md: 0 }}
-            />
-          </CardListItem>
-        ))}
-        {searchResults?.quizzes.map((quiz) => (
-          <CardListItem
-            key={quiz.id}
-            href={`/quiz/${quiz?.route}`}
-            isEnabled={quiz.enabled}
-          >
-            <QuizCard
-              name={quiz.name}
-              imageUrl={quiz.imageUrl}
-              time={quiz.time}
-              maxScore={quiz.maxScore}
-              plural={quiz.plural}
-              position={{ base: "relative", md: "absolute" }}
-              marginLeft={3}
-            />
-          </CardListItem>
-        ))}
-      </>
-    ),
-    [searchResults]
-  );
-
   const getContent = (): JSX.Element => {
     if (!filter) {
       return (
@@ -253,7 +189,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
     return (
       <HomeSearchResults
         isSearching={isSearching}
-        searchResultItems={searchResultItems}
+        searchResults={searchResults}
         filter={filter.trim()}
       />
     );

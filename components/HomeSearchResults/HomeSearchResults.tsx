@@ -1,28 +1,36 @@
-import React, { FC } from "react";
+import React, { FC, useMemo } from "react";
+import { QuizSearchResults } from "../../types/quiz-search-results";
 import CardListSection from "../CardListSection";
+import HomeSearchResultItems from "./HomeSearchResultItems";
 
 export interface Props {
   isSearching?: boolean;
-  searchResultItems?: JSX.Element;
+  searchResults?: QuizSearchResults;
   filter?: string;
 }
 
 const HomeSearchResults: FC<Props> = ({
   isSearching = true,
-  searchResultItems = null,
+  searchResults = null,
   filter = "",
-}) => (
-  <CardListSection
-    title={
-      isSearching
-        ? `Searching for '${filter}' `
-        : `Search results for '${filter}'`
-    }
-    isLoading={isSearching}
-    paddingX={3}
-  >
-    {searchResultItems}
-  </CardListSection>
-);
+}) => {
+  const searchResultItems = useMemo(
+    () => <HomeSearchResultItems searchResults={searchResults} />,
+    [searchResults]
+  );
 
+  return (
+    <CardListSection
+      title={
+        isSearching
+          ? `Searching for '${filter}' `
+          : `Search results for '${filter}'`
+      }
+      isLoading={isSearching}
+      paddingX={3}
+    >
+      {searchResultItems}
+    </CardListSection>
+  );
+};
 export default HomeSearchResults;
