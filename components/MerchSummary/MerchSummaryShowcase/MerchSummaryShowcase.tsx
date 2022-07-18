@@ -25,6 +25,7 @@ const MerchSummaryShowcase: FC<Props> = ({ name = "", images = [] }) => {
           alt={`Primary showcase for ${name}`}
           width={500}
           height={333}
+          objectFit="cover"
           priority
         />
       </MapInteractionCSS>
@@ -36,6 +37,7 @@ const MerchSummaryShowcase: FC<Props> = ({ name = "", images = [] }) => {
               alt={`Secondary option for ${name}`}
               width={100}
               height={66.7}
+              objectFit="cover"
               style={{
                 borderRadius: "12px",
                 cursor: "pointer",

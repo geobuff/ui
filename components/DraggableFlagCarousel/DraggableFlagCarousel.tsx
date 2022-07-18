@@ -9,6 +9,7 @@ import { FlagGameContext } from "../../context/FlagGameContext";
 import DelayedRender from "../DelayedRender";
 import DraggableFlag from "../DraggableFlag";
 import CarouselButton from "./CarouselButton";
+import useFlagGroups from "../../hooks/UseFlagGroups";
 
 const responsiveConfig: ResponsiveType = {
   tablet: {
@@ -56,6 +57,7 @@ const DraggableFlagCarousel: FC<Props> = ({
   onCheckSubmission,
 }) => {
   const { handleDragging } = useContext(FlagGameContext);
+  const { getFlagUrlByCode } = useFlagGroups();
 
   const responsiveBreakpoints = useMediaQuery([
     "(max-width: 1000px) and (min-width: 600px)",
@@ -94,14 +96,20 @@ const DraggableFlagCarousel: FC<Props> = ({
         justifyContent="center"
       >
         {codes.length ? (
-          [...Array.from(new Set(codes))]?.map((code) => (
-            <DraggableFlag
-              key={code}
-              code={code}
-              checkSubmission={onCheckSubmission}
-              mx={3}
-            />
-          ))
+          [...Array.from(new Set(codes))]?.map((code) => {
+            const imageUrl = getFlagUrlByCode(code);
+            if (imageUrl) {
+              return (
+                <DraggableFlag
+                  key={code}
+                  code={code}
+                  imageUrl={imageUrl}
+                  checkSubmission={onCheckSubmission}
+                  mx={3}
+                />
+              );
+            }
+          })
         ) : (
           <DelayedRender shouldFadeIn>
             <Box paddingY={4} width="100%" textAlign="center">
@@ -128,14 +136,20 @@ const DraggableFlagCarousel: FC<Props> = ({
       itemClass="flex center"
       containerClass="fade-in"
     >
-      {[...Array.from(new Set(codes))]?.map((code) => (
-        <DraggableFlag
-          key={code}
-          code={code}
-          checkSubmission={onCheckSubmission}
-          mx={2}
-        />
-      ))}
+      {[...Array.from(new Set(codes))]?.map((code) => {
+        const imageUrl = getFlagUrlByCode(code);
+        if (imageUrl) {
+          return (
+            <DraggableFlag
+              key={code}
+              code={code}
+              imageUrl={imageUrl}
+              checkSubmission={onCheckSubmission}
+              mx={2}
+            />
+          );
+        }
+      })}
     </Carousel>
   );
 };
