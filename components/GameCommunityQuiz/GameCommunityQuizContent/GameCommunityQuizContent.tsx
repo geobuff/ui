@@ -77,20 +77,12 @@ const GameCommunityQuizContent: FC<Props> = ({
     switch (type) {
       case "Flag":
         return (
-          <AspectRatio
-            ratio={8 / 5}
-            maxWidth={{ base: "65%", md: "300px" }}
-            width="100%"
-          >
-            <CustomFlag
-              url={getFlagUrlByCode(flagCode)}
-              code={flagCode}
-              height="100%"
-              maxHeight="200px"
-              width="100%"
-              borderRadius="16px"
-            />
-          </AspectRatio>
+          <CustomFlag
+            url={getFlagUrlByCode(flagCode)}
+            code={flagCode}
+            width={300}
+            height={187.5}
+          />
         );
       case "Map":
         const gameMap = getGameMap(Maps[map], map);

@@ -12,7 +12,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import Image from "../../Image";
+import Image from "next/image";
 import TableCell from "../../TableCell";
 import { toTwoDecimalPlaces } from "../../../helpers/number";
 
@@ -51,10 +51,13 @@ const ShoppingCartItem: FC<Props> = ({
             <Image
               src={imageUrl}
               alt={name}
-              width="auto"
-              height="150px"
-              borderRadius="12px"
-              mr={6}
+              width={150}
+              height={100}
+              style={{
+                borderRadius: "12px",
+                marginRight: 6,
+              }}
+              priority
             />
             <Flex direction="column" justifyContent="center">
               <Text>{`${name} - ${sizeName}`}</Text>

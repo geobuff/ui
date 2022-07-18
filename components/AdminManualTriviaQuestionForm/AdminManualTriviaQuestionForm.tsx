@@ -50,6 +50,33 @@ import UnsplashImageGrid from "../UnsplashImageGrid";
 import { UnsplashImage } from "../../types/unsplash-image";
 import useFlagGroups from "../../hooks/UseFlagGroups";
 
+const initialValues: ManualTriviaQuestionFormSubmit = {
+  typeId: "1",
+  categoryId: "1",
+  question: "",
+  explainer: "",
+  quizDate: null,
+  map: "",
+  highlighted: "",
+  flagCode: "",
+  imageUrl: "",
+  imageAttributeName: "",
+  imageAttributeUrl: "",
+  imageDownloadLocation: "",
+  imageWidth: 0,
+  imageHeight: 0,
+  imageAlt: "",
+  answerOneText: "",
+  answerOneFlagCode: "",
+  answerTwoText: "",
+  answerTwoFlagCode: "",
+  answerThreeText: "",
+  answerThreeFlagCode: "",
+  answerFourText: "",
+  answerFourFlagCode: "",
+  correctAnswer: null,
+};
+
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a question type."),
   categoryId: Yup.string().required("Please select a question category."),
@@ -135,31 +162,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
 
         <Flex justifyContent="center">
           <Formik
-            initialValues={
-              editValues || {
-                typeId: "1",
-                categoryId: "1",
-                question: "",
-                explainer: "",
-                quizDate: null,
-                map: "",
-                highlighted: "",
-                flagCode: "",
-                imageUrl: "",
-                imageAttributeName: "",
-                imageAttributeUrl: "",
-                imageDownloadLocation: "",
-                answerOneText: "",
-                answerOneFlagCode: "",
-                answerTwoText: "",
-                answerTwoFlagCode: "",
-                answerThreeText: "",
-                answerThreeFlagCode: "",
-                answerFourText: "",
-                answerFourFlagCode: "",
-                correctAnswer: null,
-              }
-            }
+            initialValues={editValues || initialValues}
             validationSchema={validationSchema}
             onSubmit={onSubmit}
             enableReinitialize
@@ -619,6 +622,9 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                         imageUrl={values.imageUrl}
                         imageAttributeName={values.imageAttributeName}
                         imageAttributeUrl={values.imageAttributeUrl}
+                        imageWidth={values.imageWidth}
+                        imageHeight={values.imageHeight}
+                        imageAlt={values.imageAlt}
                       />
 
                       <Divider marginY={5} />

@@ -70,9 +70,11 @@ const GameTriviaButton: FC<Props> = ({
     >
       <Flex alignItems="center" textAlign="center" width="100%">
         {flagCode && (
-          <Box marginRight={4}>
-            <CustomFlag url={getFlagUrlByCode(flagCode)} code={flagCode} />
-          </Box>
+          <CustomFlag
+            url={getFlagUrlByCode(flagCode)}
+            code={flagCode}
+            marginRight={4}
+          />
         )}
         {text}
       </Flex>

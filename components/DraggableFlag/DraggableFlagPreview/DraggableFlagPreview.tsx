@@ -1,18 +1,16 @@
 import React, { FC, useContext } from "react";
 import { isMobile } from "react-device-detect";
 
-import Image from "../../Image";
+import Image from "next/image";
 import { FlagGameContext } from "../../../context/FlagGameContext";
-import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 export interface Props {
-  code: string;
+  code?: string;
+  imageUrl: string;
 }
 
 // TODO: Reintroduce preview.
-const DraggableFlagPreview: FC<Props> = ({ code }) => {
-  const { getFlagUrlByCode } = useFlagGroups();
-
+const DraggableFlagPreview: FC<Props> = ({ code = "", imageUrl }) => {
   const { isDragging } = useContext(FlagGameContext);
 
   const shouldShowFlagPreview = isDragging && isMobile;
@@ -20,13 +18,17 @@ const DraggableFlagPreview: FC<Props> = ({ code }) => {
   if (!shouldShowFlagPreview) {
     return null;
   }
+
   return (
     <Image
-      src={getFlagUrlByCode(code)}
+      src={imageUrl}
       alt={`Flag for ${code}`}
-      borderRadius={4}
-      height="72px"
-      width="98px"
+      height={72}
+      width={98}
+      style={{
+        borderRadius: 4,
+      }}
+      priority
     />
   );
 };
