@@ -95,12 +95,14 @@ const MerchSummary: FC<Props> = ({
         hasCloseButton
       >
         <Flex justifyContent="center" margin={6}>
-          <Image
-            src={item?.sizeGuideImageUrl.String}
-            alt="Size guide"
-            width={385}
-            height={513}
-          />
+          {item?.sizeGuideImageUrl.Valid && (
+            <Image
+              src={item?.sizeGuideImageUrl.String}
+              alt="Size guide"
+              width={385}
+              height={513}
+            />
+          )}
         </Flex>
       </Modal>
     </>
