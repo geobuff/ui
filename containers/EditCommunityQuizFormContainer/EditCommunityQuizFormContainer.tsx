@@ -121,10 +121,16 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
             result.imageUrl = question.imageUrl;
             result.imageAttributeName = originalQuestion.imageAttributeName;
             result.imageAttributeUrl = originalQuestion.imageAttributeUrl;
+            result.imageWidth = originalQuestion.imageWidth;
+            result.imageHeight = originalQuestion.imageHeight;
+            result.imageAlt = originalQuestion.imageAlt;
           } else {
             result.imageUrl = question.imageUrl;
             result.imageAttributeName = question.imageAttributeName;
             result.imageAttributeUrl = question.imageAttributeUrl;
+            result.imageWidth = question.imageWidth;
+            result.imageHeight = question.imageHeight;
+            result.imageAlt = question.imageAlt;
           }
         } else if (typeId === TriviaQuestionTypeValues.Flag) {
           result.flagCode = question.flagCode;
@@ -141,6 +147,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       values.questions.map(
         (x) =>
           parseInt(x.typeId) === TriviaQuestionTypeValues.Image &&
+          x.imageDownloadLocation &&
           axios.get(
             `${x.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
           )
