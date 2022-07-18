@@ -48,7 +48,16 @@ const UnsplashImageGrid: FC<Props> = ({
           enterKeyHint: "imageUrl",
         });
 
-        return <RadioImage key={index} src={image.url} radioProps={radio} />;
+        return (
+          <RadioImage
+            key={index}
+            src={image.url}
+            alt={image.alt}
+            width={image.width}
+            height={image.height}
+            radioProps={radio}
+          />
+        );
       })}
     </SimpleGrid>
   );

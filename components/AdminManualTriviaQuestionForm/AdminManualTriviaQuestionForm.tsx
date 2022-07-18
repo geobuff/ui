@@ -204,6 +204,9 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                     "imageDownloadLocation",
                     image.downloadLocation
                   );
+                  setFieldValue("imageWidth", image.width);
+                  setFieldValue("imageHeight", image.height);
+                  setFieldValue("imageAlt", image.alt);
                   setFieldValue("imageUrl", value);
                 },
               });
@@ -1075,7 +1078,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                     marginTop={3}
                                     marginLeft={1.5}
                                   >
-                                    {errors.correctAnswer}
+                                    {errors.correctAnswer.toString()}
                                   </Text>
                                 )}
                             </FormControl>

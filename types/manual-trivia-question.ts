@@ -10,6 +10,9 @@ export interface ManualTriviaQuestion {
   imageUrl?: string;
   imageAttributeName?: string;
   imageAttributeUrl?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
   flagCode?: string;
   map?: string;
   highlighted?: string;

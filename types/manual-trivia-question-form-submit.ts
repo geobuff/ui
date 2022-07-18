@@ -10,6 +10,9 @@ export interface ManualTriviaQuestionFormSubmit {
   imageAttributeName: string;
   imageAttributeUrl: string;
   imageDownloadLocation: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageAlt: string;
   explainer: string;
   answerOneText: string;
   answerOneFlagCode: string;

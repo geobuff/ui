@@ -51,6 +51,9 @@ const initialValues: CommunityQuizFormQuestion = {
   imageAttributeName: "",
   imageAttributeUrl: "",
   imageDownloadLocation: "",
+  imageWidth: 0,
+  imageHeight: 0,
+  imageAlt: "",
   map: "",
   highlighted: "",
   flagCode: "",
@@ -144,6 +147,9 @@ const CommunityQuizQuestionForm: FC<Props> = ({
               setFieldValue("imageAttributeName", image.attributeName);
               setFieldValue("imageAttributeUrl", image.attributeUrl);
               setFieldValue("imageDownloadLocation", image.downloadLocation);
+              setFieldValue("imageWidth", image.width);
+              setFieldValue("imageHeight", image.height);
+              setFieldValue("imageAlt", image.alt);
               setFieldValue("imageUrl", value);
             },
           });

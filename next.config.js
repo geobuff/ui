@@ -4,6 +4,7 @@ module.exports = {
       "geobuff.sgp1.digitaloceanspaces.com",
       "twemoji.maxcdn.com",
       "upload.wikimedia.org",
+      "images.unsplash.com",
     ],
   },
 };

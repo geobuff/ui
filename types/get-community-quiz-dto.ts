@@ -22,6 +22,9 @@ export interface GetCommunityQuizQuestion {
   imageUrl: string;
   imageAttributeName: string;
   imageAttributeUrl: string;
+  imageWidth: number;
+  imageHeight: number;
+  imageAlt: string;
   answers: GetCommunityQuizAnswer[];
 }
 
