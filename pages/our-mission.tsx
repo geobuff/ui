@@ -60,23 +60,7 @@ const OurMission: FC = () => (
               textAlign="center"
               mx="auto"
             >
-              Share open source{" "}
-              <Link href="https://github.com/geobuff/svg-map" color="teal.500">
-                map
-              </Link>
-              ,{" "}
-              <Link href="https://github.com/geobuff/svg-maps" color="teal.500">
-                maps
-              </Link>
-              ,{" "}
-              <Link href="https://github.com/geobuff/mapping" color="teal.500">
-                mapping
-              </Link>{" "}
-              and{" "}
-              <Link href="https://github.com/geobuff/flags" color="teal.500">
-                flag
-              </Link>{" "}
-              libraries so that others can build off of our resources
+              Dominate the leaderboard 😤
             </Text>
           </Box>
           <Box color="#828282" fontSize="15px" mb={12}>
@@ -109,7 +93,7 @@ const OurMission: FC = () => (
               country="New Zealand"
               primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ash-primary.svg`}
               secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ash-secondary.svg`}
-              link="https://github.com/ashmidgley"
+              link="https://www.linkedin.com/in/ashley-midgley-68586b244"
             />
             <TeamMemberCard
               title="Pearl Pan"
@@ -127,7 +111,7 @@ const OurMission: FC = () => (
               country="New Zealand"
               primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/lewis-primary.svg`}
               secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/lewis-secondary.svg`}
-              link="https://nz.linkedin.com/in/lewis-johnson-470620183?original_referer=https%3A%2F%2Fwww.google.com%2F"
+              link="https://nz.linkedin.com/in/lewis-johnson-470620183"
             />
           </SimpleGrid>
         </Box>
