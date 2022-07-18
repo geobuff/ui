@@ -44,7 +44,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
   const [isEmptyImageSearch, setIsEmptyImageSearch] = useState(false);
 
   const [selectedQuestion, setSelectedQuestion] =
-    useState<ManualTriviaQuestionEditValues>(null);
+    useState<ManualTriviaQuestionEditValues>();
 
   const {
     isOpen: isDeleteQuestionModalOpen,
@@ -101,7 +101,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       imageDownloadLocation: "",
       imageWidth: question?.imageWidth || 0,
       imageHeight: question?.imageHeight || 0,
-      imageAlt: "",
+      imageAlt: question?.imageAlt || "",
       flagCode: question?.flagCode || "",
       map: question?.map || "",
       highlighted: question?.highlighted || "",
@@ -193,16 +193,27 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
     };
 
     if (typeId === TriviaQuestionTypeValues.Image) {
-      payload.imageUrl = values.imageUrl;
-      payload.imageAttributeName = values.imageAttributeName;
-      payload.imageAttributeUrl = values.imageAttributeUrl;
-      payload.imageWidth = values.imageWidth;
-      payload.imageHeight = values.imageHeight;
-      payload.imageAlt = values.imageAlt;
+      if (selectedQuestion && selectedQuestion.imageUrl === values.imageUrl) {
+        payload.imageUrl = values.imageUrl;
+        payload.imageAttributeName = selectedQuestion.imageAttributeName;
+        payload.imageAttributeUrl = selectedQuestion.imageAttributeUrl;
+        payload.imageWidth = selectedQuestion.imageWidth;
+        payload.imageHeight = selectedQuestion.imageHeight;
+        payload.imageAlt = selectedQuestion.imageAlt;
+      } else {
+        payload.imageUrl = values.imageUrl;
+        payload.imageAttributeName = values.imageAttributeName;
+        payload.imageAttributeUrl = values.imageAttributeUrl;
+        payload.imageWidth = values.imageWidth;
+        payload.imageHeight = values.imageHeight;
+        payload.imageAlt = values.imageAlt;
+      }
 
-      await axios.get(
-        `${values.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
-      );
+      if (values.imageDownloadLocation) {
+        await axios.get(
+          `${values.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
+        );
+      }
     } else if (typeId === TriviaQuestionTypeValues.Flag) {
       payload.flagCode = values.flagCode;
     } else if (typeId === TriviaQuestionTypeValues.Map) {
