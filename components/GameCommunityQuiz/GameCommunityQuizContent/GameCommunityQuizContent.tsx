@@ -15,7 +15,7 @@ import * as Maps from "@geobuff/svg-maps";
 import { use100vh } from "react-div-100vh";
 
 import CustomFlag from "../../CustomFlag";
-import Image from "../../Image";
+import Image from "next/image";
 import { TriviaQuestionTypes } from "../../../types/trivia-question-types";
 import {
   getGameMap,
@@ -46,6 +46,9 @@ export interface Props {
   imageUrl?: string;
   imageAttributeName?: string;
   imageAttributeUrl?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
 }
 
 const GameCommunityQuizContent: FC<Props> = ({
@@ -57,6 +60,9 @@ const GameCommunityQuizContent: FC<Props> = ({
   imageUrl = "",
   imageAttributeName = "",
   imageAttributeUrl = "",
+  imageWidth = 0,
+  imageHeight = 0,
+  imageAlt = "",
 }) => {
   const { getFlagUrlByCode } = useFlagGroups();
 
@@ -109,13 +115,15 @@ const GameCommunityQuizContent: FC<Props> = ({
                 <Flex direction="column">
                   <Image
                     src={imageUrl}
-                    alt="Stock Unsplash image"
-                    height={imageAttributeName ? "95%" : "100%"}
-                    width={imageAttributeName ? "95%" : "100%"}
-                    marginX="auto"
-                    // @ts-expect-error
-                    objectFit="contain !important"
-                    hasSkeleton={false}
+                    alt={imageAlt ?? "Unsplash stock image"}
+                    height={imageHeight !== 0 ? imageHeight : 300}
+                    width={imageWidth !== 0 ? imageWidth : 600}
+                    objectFit={imageWidth === 0 ? "cover" : "contain"}
+                    style={{
+                      marginLeft: "auto",
+                      marginRight: "auto",
+                    }}
+                    priority
                   />
                   {imageAttributeName && (
                     <Text fontSize="10px" mt={1} color="white">
