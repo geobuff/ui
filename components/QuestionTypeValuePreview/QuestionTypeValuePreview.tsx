@@ -5,7 +5,7 @@ import { QuestionType } from "../../types/manual-trivia-question-form-submit";
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
 import { Box, Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
-import Image from "../Image";
+import Image from "next/image";
 import { getGameMap, getMapStyles, highlightSection } from "../../helpers/map";
 import Link from "next/link";
 
@@ -16,6 +16,9 @@ export interface Props {
   imageUrl?: string;
   imageAttributeName?: string;
   imageAttributeUrl?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
 }
 
 const QuestionTypeValuePreview: FC<Props> = ({
@@ -25,6 +28,9 @@ const QuestionTypeValuePreview: FC<Props> = ({
   imageUrl = "",
   imageAttributeName = "",
   imageAttributeUrl = "",
+  imageWidth = 0,
+  imageHeight = 0,
+  imageAlt = "",
 }) => {
   const getContentByType = (): JSX.Element => {
     switch (typeId) {
@@ -45,12 +51,16 @@ const QuestionTypeValuePreview: FC<Props> = ({
           <Flex direction="column">
             <Image
               src={imageUrl}
-              alt="Selected image preview"
-              height="100%"
-              width="100%"
-              marginX="auto"
-              mt={6}
-              mb={1}
+              alt={imageAlt}
+              height={imageHeight}
+              width={imageWidth}
+              style={{
+                marginTop: 6,
+                marginBottom: 1,
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+              priority
             />
             <Text fontSize="8px">
               {`Photo by `}

@@ -1,48 +1,34 @@
-import React, { FC, useState } from "react";
-import { Box, BoxProps, Skeleton, Image } from "@chakra-ui/react";
+import React, { FC } from "react";
+import Image from "next/image";
+import { Box, BoxProps } from "@chakra-ui/react";
 
 interface Props extends BoxProps {
   url?: string;
   code?: string;
-  height?: string;
-  width?: string;
+  height?: number;
+  width?: number;
 }
 
 const CustomFlag: FC<Props> = ({
   url = "",
   code = "",
-  height = "18px",
-  width = "24.5px",
+  height = 18,
+  width = 24.5,
   ...props
-}) => {
-  const [hasLoaded, setHasLoaded] = useState(false);
-
-  return (
-    <Box
-      borderRadius={4}
-      minHeight={height}
-      minWidth={width}
-      backgroundColor="transparent"
-      {...props}
-    >
-      <Image
-        src={url}
-        alt={`Flag for ${code}`}
-        display={hasLoaded ? "flex" : "none"}
-        borderRadius={4}
-        height={height}
-        width={width}
-        objectFit="cover"
-        onLoad={(): void => setHasLoaded(true)}
-      />
-      <Skeleton
-        display={hasLoaded ? "none" : "flex"}
-        borderRadius={4}
-        height={height}
-        width={width}
-      />
-    </Box>
-  );
-};
+}) => (
+  <Box {...props}>
+    <Image
+      src={url}
+      alt={`Flag for ${code}`}
+      width={width}
+      height={height}
+      objectFit="cover"
+      style={{
+        borderRadius: 22,
+      }}
+      priority
+    />
+  </Box>
+);
 
 export default CustomFlag;
