@@ -104,7 +104,7 @@ const OurMission: FC = () => (
           >
             <TeamMemberCard
               title="Ash Midgley"
-              position="Founder, CEO"
+              position="Founder"
               city="Wellington"
               country="New Zealand"
               primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ash-primary.svg`}

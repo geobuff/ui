@@ -62,6 +62,9 @@ const CommunityQuizFormContainer: FC = () => {
           result.imageUrl = question.imageUrl;
           result.imageAttributeName = question.imageAttributeName;
           result.imageAttributeUrl = question.imageAttributeUrl;
+          result.imageWidth = question.imageWidth;
+          result.imageHeight = question.imageHeight;
+          result.imageAlt = question.imageAlt;
         } else if (typeId === TriviaQuestionTypeValues.Flag) {
           result.flagCode = question.flagCode;
         } else if (typeId === TriviaQuestionTypeValues.Map) {
@@ -105,10 +108,13 @@ const CommunityQuizFormContainer: FC = () => {
         setImages(
           response.data.results.map((x) => {
             return {
-              url: x.urls.small,
+              url: x.urls.regular,
               attributeName: x.user?.name,
               attributeUrl: `https://unsplash.com/@${x.user?.username}?utm_source=GeoBuff&utm_medium=referral`,
               downloadLocation: x.links["download_location"],
+              width: x.width,
+              height: x.height,
+              alt: x["alt_description"],
             };
           })
         );

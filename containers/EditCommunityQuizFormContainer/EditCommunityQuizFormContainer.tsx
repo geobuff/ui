@@ -67,6 +67,9 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
           imageAttributeName: q.imageAttributeName,
           imageAttributeUrl: q.imageAttributeUrl,
           imageDownloadLocation: "",
+          imageWidth: q.imageWidth,
+          imageHeight: q.imageHeight,
+          imageAlt: q.imageAlt,
           flagCode: q.flagCode,
           map: q.map,
           highlighted: q.highlighted,
@@ -166,10 +169,13 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
         setImages(
           response.data.results.map((x) => {
             return {
-              url: x.urls.small,
+              url: x.urls.regular,
               attributeName: x.user?.name,
               attributeUrl: `https://unsplash.com/@${x.user?.username}?utm_source=GeoBuff&utm_medium=referral`,
               downloadLocation: x.links["download_location"],
+              width: x.width,
+              height: x.height,
+              alt: x["alt_description"],
             };
           })
         );

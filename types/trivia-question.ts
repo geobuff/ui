@@ -13,6 +13,9 @@ export interface TriviaQuestion {
   imageUrl?: string;
   imageAttributeName?: string;
   imageAttributeUrl?: string;
+  imageWidth?: number;
+  imageHeight?: number;
+  imageAlt?: string;
   explainer?: string;
   lastUsed: NullTime;
   answers: TriviaAnswer[];

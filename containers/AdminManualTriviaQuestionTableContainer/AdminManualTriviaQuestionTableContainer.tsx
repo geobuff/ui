@@ -99,6 +99,9 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       imageAttributeName: question?.imageAttributeName || "",
       imageAttributeUrl: question?.imageAttributeUrl || "",
       imageDownloadLocation: "",
+      imageWidth: question?.imageWidth || 0,
+      imageHeight: question?.imageHeight || 0,
+      imageAlt: "",
       flagCode: question?.flagCode || "",
       map: question?.map || "",
       highlighted: question?.highlighted || "",
@@ -185,28 +188,26 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
       categoryId: parseInt(values.categoryId),
       question: values.question,
       explainer: values.explainer,
-      imageUrl:
-        typeId === TriviaQuestionTypeValues.Image ? values.imageUrl : "",
-      imageAttributeName:
-        typeId === TriviaQuestionTypeValues.Image
-          ? values.imageAttributeName
-          : "",
-      imageAttributeUrl:
-        typeId === TriviaQuestionTypeValues.Image
-          ? values.imageAttributeUrl
-          : "",
-      flagCode: typeId === TriviaQuestionTypeValues.Flag ? values.flagCode : "",
-      map: typeId === TriviaQuestionTypeValues.Map ? values.map : "",
-      highlighted:
-        typeId === TriviaQuestionTypeValues.Map ? values.highlighted : "",
       answers: answers,
       quizDate: quizDate,
     };
 
     if (typeId === TriviaQuestionTypeValues.Image) {
+      payload.imageUrl = values.imageUrl;
+      payload.imageAttributeName = values.imageAttributeName;
+      payload.imageAttributeUrl = values.imageAttributeUrl;
+      payload.imageWidth = values.imageWidth;
+      payload.imageHeight = values.imageHeight;
+      payload.imageAlt = values.imageAlt;
+
       await axios.get(
         `${values.imageDownloadLocation}&client_id=${process.env.NEXT_PUBLIC_UNSPLASH_ACCESS_KEY}`
       );
+    } else if (typeId === TriviaQuestionTypeValues.Flag) {
+      payload.flagCode = values.flagCode;
+    } else if (typeId === TriviaQuestionTypeValues.Map) {
+      payload.map = values.map;
+      payload.highlighted = values.highlighted;
     }
 
     if (selectedQuestion) {
@@ -247,10 +248,13 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         setImages(
           response.data.results.map((x) => {
             return {
-              url: x.urls.small,
+              url: x.urls.regular,
               attributeName: x.user?.name,
               attributeUrl: `https://unsplash.com/@${x.user?.username}?utm_source=GeoBuff&utm_medium=referral`,
               downloadLocation: x.links["download_location"],
+              width: x.width,
+              height: x.height,
+              alt: x["alt_description"],
             };
           })
         );

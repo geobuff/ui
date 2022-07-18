@@ -1,31 +1,39 @@
 import React, { FC } from "react";
 import { Box, useRadio, UseRadioProps } from "@chakra-ui/react";
-import Image from "../Image";
+import Image from "next/image";
 
 export interface Props {
   src?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
   radioProps?: UseRadioProps;
 }
 
-const RadioImage: FC<Props> = ({ src, radioProps }) => {
+const RadioImage: FC<Props> = ({
+  src = "",
+  alt = "",
+  width = 0,
+  height = 0,
+  radioProps,
+}) => {
   const { getInputProps, getCheckboxProps } = useRadio(radioProps);
 
   const input = getInputProps();
   const checkbox = getCheckboxProps();
 
   return (
-    <Box as="label">
+    <Box as="label" {...checkbox}>
       <input {...input} />
       <Image
-        {...checkbox}
         src={src}
-        alt="Unsplash image preview"
-        width="auto"
-        height="75px"
-        cursor="pointer"
-        _focus={{
-          boxShadow: "outline",
+        alt={alt}
+        width={width}
+        height={height}
+        style={{
+          cursor: "pointer",
         }}
+        priority
       />
     </Box>
   );
