@@ -1,6 +1,7 @@
 import React, { FC, useContext, useEffect } from "react";
 
 import { DragPreviewImage, DragSourceMonitor, useDrag } from "react-dnd";
+import { isMobile } from "react-device-detect";
 import { Box, BoxProps } from "@chakra-ui/react";
 
 import Image from "next/image";
@@ -56,7 +57,7 @@ const DraggableFlag: FC<Props> = ({
       position="relative"
       {...props}
     >
-      <DragPreviewImage src={imageUrl} connect={preview} />
+      {isMobile && <DragPreviewImage src={imageUrl} connect={preview} />}
       <Box ref={drag}>
         <Image
           src={imageUrl}
