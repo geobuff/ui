@@ -76,8 +76,7 @@ const AdminUsersTable: FC<Props> = ({
           {userPage?.users?.map((user, index) => (
             <Tr key={index} fontWeight={600}>
               <TableCell paddingY={3} paddingX={6}>
-                <Link href={`/profile/${user.id}`}>{user.username}
-                </Link>
+                <Link href={`/profile/${user.id}`}>{user.username}</Link>
               </TableCell>
               <TableCell paddingY={3} paddingX={6}>
                 {user.email}
