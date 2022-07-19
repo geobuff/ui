@@ -1,6 +1,7 @@
 import React, { FC, useContext, useEffect } from "react";
 
-import { DragSourceMonitor, useDrag } from "react-dnd";
+import { DragPreviewImage, DragSourceMonitor, useDrag } from "react-dnd";
+import { isMobile } from "react-device-detect";
 import { Box, BoxProps } from "@chakra-ui/react";
 
 import Image from "next/image";
@@ -27,7 +28,7 @@ const DraggableFlag: FC<Props> = ({
 }) => {
   const { handleDragging } = useContext(FlagGameContext);
 
-  const [{ isDragging }, drag] = useDrag(() => ({
+  const [{ isDragging }, drag, preview] = useDrag(() => ({
     type: ItemTypes.FLAG,
     item: { name: code },
     end: (item: DragResult, monitor: DragSourceMonitor): void => {
@@ -56,18 +57,21 @@ const DraggableFlag: FC<Props> = ({
       position="relative"
       {...props}
     >
-      <Image
-        src={imageUrl}
-        alt={`Flag for ${code}`}
-        draggable="false"
-        width={100}
-        height={64}
-        objectFit="cover"
-        style={{
-          borderRadius: 6,
-        }}
-        priority
-      />
+      {isMobile && <DragPreviewImage src={imageUrl} connect={preview} />}
+      <Box ref={drag}>
+        <Image
+          src={imageUrl}
+          alt={`Flag for ${code}`}
+          draggable="false"
+          width={100}
+          height={64}
+          objectFit="cover"
+          style={{
+            borderRadius: 6,
+          }}
+          priority
+        />
+      </Box>
     </Box>
   );
 };
