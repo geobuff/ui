@@ -1,7 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
-import { Box, Flex, Link, Text } from "@chakra-ui/react";
+import { Box, Flex, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
+import HeroBannerText from "./HeroBannerText";
+import ClientOnly from "../ClientOnly";
 
 const NEXT_ACTION_DELAY = 10000;
 const FADE_OUT_DELAY = 1000;
@@ -129,14 +131,13 @@ const HeroBanner: FC<Props> = ({
             fontWeight="medium"
           >
             {"Create an account and"}{" "}
-            {!isSessionLoading && actions.length > 0 && (
-              <Link
-                href={actions[index]?.link ?? ""}
-                textDecoration="underline"
-              >
-                {actions[index]?.value}
-              </Link>
-            )}
+            <ClientOnly>
+              <HeroBannerText
+                isLoading={isSessionLoading}
+                href={actions[index]?.link}
+                text={actions[index]?.value}
+              />
+            </ClientOnly>
           </Text>
         </Box>
       </Flex>
