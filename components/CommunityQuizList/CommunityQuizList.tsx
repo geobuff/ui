@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import Link from "next/link";
+
 import {
   Alert,
   AlertIcon,
@@ -7,7 +7,7 @@ import {
   Box,
   SimpleGrid,
   Text,
-  Link as ChakraLink,
+  Link,
 } from "@chakra-ui/react";
 
 import DelayedRender from "../DelayedRender";
@@ -54,17 +54,13 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
         <Text>
           {"Like what you see? "}
           {status === "authenticated" ? (
-            <ChakraLink>
-              <Link href="/community-quiz/create">
-                {"Create your own using our custom quiz builder!"}
-              </Link>
-            </ChakraLink>
+            <Link href="/community-quiz/create">
+              {"Create your own using our custom quiz builder!"}
+            </Link>
           ) : (
-            <ChakraLink>
-              <Link href="/community-quiz/about">
-                {"Learn more about our custom quiz builder!"}
-              </Link>
-            </ChakraLink>
+            <Link href="/community-quiz/about">
+              {"Learn more about our custom quiz builder!"}
+            </Link>
           )}
         </Text>
       </Alert>

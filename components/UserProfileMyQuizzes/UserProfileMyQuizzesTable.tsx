@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { DateTime } from "luxon";
+
 import {
   Box,
   Button,
@@ -10,11 +11,10 @@ import {
   Th,
   Thead,
   Tr,
-  Link as ChakraLink,
+  Link,
 } from "@chakra-ui/react";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import { useRouter } from "next/router";
-import Link from "next/link";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -53,9 +53,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
           {quizzes.map((quiz) => (
             <Tr key={quiz.id}>
               <Td>
-                <Link href={`/community-quiz/${quiz.id}`}>
-                  <ChakraLink>{quiz.name}</ChakraLink>
-                </Link>
+                <Link href={`/community-quiz/${quiz.id}`}>{quiz.name}</Link>
               </Td>
               <Td>{quiz.maxScore}</Td>
               <Td>{quiz.plays.Valid ? quiz.plays.Int64 : 0}</Td>

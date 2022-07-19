@@ -4,10 +4,9 @@ import { QuestionType } from "../../types/manual-trivia-question-form-submit";
 
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
-import { Box, Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
+import { Box, Flex, Text, Link } from "@chakra-ui/react";
 import Image from "next/image";
 import { getGameMap, getMapStyles, highlightSection } from "../../helpers/map";
-import Link from "next/link";
 
 export interface Props {
   typeId?: string;
@@ -64,17 +63,13 @@ const QuestionTypeValuePreview: FC<Props> = ({
             />
             <Text fontSize="8px">
               {`Photo by `}
-              <ChakraLink>
-                <Link href={imageAttributeUrl}>{imageAttributeName}</Link>
-              </ChakraLink>
+              <Link href={imageAttributeUrl}>{imageAttributeName}</Link>
               {` on `}
-              <ChakraLink>
-                <Link
-                  href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
-                >
-                  Unsplash
-                </Link>
-              </ChakraLink>
+              <Link
+                href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
+              >
+                Unsplash
+              </Link>
             </Text>
           </Flex>
         ) : (

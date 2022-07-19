@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import Link from "next/link";
-import { Box, Flex, Link as ChakraLink, Text } from "@chakra-ui/react";
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 
@@ -131,11 +130,12 @@ const HeroBanner: FC<Props> = ({
           >
             {"Create an account and"}{" "}
             {!isSessionLoading && actions.length > 0 && (
-              <ChakraLink textDecoration="underline">
-                <Link href={actions[index]?.link ?? ""}>
-                  {actions[index]?.value}
-                </Link>
-              </ChakraLink>
+              <Link
+                href={actions[index]?.link ?? ""}
+                textDecoration="underline"
+              >
+                {actions[index]?.value}
+              </Link>
             )}
           </Text>
         </Box>

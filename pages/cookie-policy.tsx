@@ -1,14 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
-import Link from "next/link";
-
-import {
-  Box,
-  Text,
-  Heading,
-  Stack,
-  Link as ChakraLink,
-} from "@chakra-ui/react";
+import { Box, Text, Heading, Stack, Link } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
 import HeroHeader from "../components/HeroHeader";
@@ -34,11 +26,9 @@ const CookiePolicy: FC = () => (
           <Stack spacing={3} mt={3} mb={6}>
             <Text>
               We use cookies to help improve your experience of our website at{" "}
-              <Link href="https://geobuff.com">
-                <ChakraLink>https://geobuff.com</ChakraLink>
-              </Link>
-              . This cookie policy is part of GeoBuff&#39;s privacy policy. It
-              covers the use of cookies between your device and our site.{" "}
+              <Link href="https://geobuff.com">https://geobuff.com</Link>. This
+              cookie policy is part of GeoBuff&#39;s privacy policy. It covers
+              the use of cookies between your device and our site.{" "}
             </Text>
             <Text>
               We also provide basic information on third-party services we may
@@ -48,11 +38,9 @@ const CookiePolicy: FC = () => (
             <Text>
               If you don’t wish to accept cookies from us, you should instruct
               your browser to refuse cookies from{" "}
-              <Link href="https://geobuff.com">
-                <ChakraLink>https://geobuff.com</ChakraLink>
-              </Link>
-              . In such a case, we may be unable to provide you with some of
-              your desired content and services.{" "}
+              <Link href="https://geobuff.com">https://geobuff.com</Link>. In
+              such a case, we may be unable to provide you with some of your
+              desired content and services.{" "}
             </Text>
           </Stack>
 

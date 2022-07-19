@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import Link from "next/link";
+
 import {
   Button,
   Flex,
-  Link as ChakraLink,
+  Link,
   NumberDecrementStepper,
   NumberIncrementStepper,
   NumberInput,
@@ -46,24 +46,22 @@ const ShoppingCartItem: FC<Props> = ({
   <>
     <TableCell paddingY={3} paddingX={6} minWidth="400px">
       <Link href={`/merch/${route}`}>
-        <ChakraLink>
-          <Flex>
-            <Image
-              src={imageUrl}
-              alt={name}
-              width={150}
-              height={100}
-              style={{
-                borderRadius: "12px",
-                marginRight: 6,
-              }}
-              priority
-            />
-            <Flex direction="column" justifyContent="center">
-              <Text>{`${name} - ${sizeName}`}</Text>
-            </Flex>
+        <Flex>
+          <Image
+            src={imageUrl}
+            alt={name}
+            width={150}
+            height={100}
+            style={{
+              borderRadius: "12px",
+              marginRight: 6,
+            }}
+            priority
+          />
+          <Flex direction="column" justifyContent="center">
+            <Text>{`${name} - ${sizeName}`}</Text>
           </Flex>
-        </ChakraLink>
+        </Flex>
       </Link>
     </TableCell>
     <TableCell isNumeric paddingY={3} paddingX={6}>

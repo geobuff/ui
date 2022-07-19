@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import Link from "next/link";
 
 import {
   Box,
@@ -7,7 +6,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Link as ChakraLink,
+  Link,
   Input,
   Text,
   Button,
@@ -46,9 +45,7 @@ const RegisterFormStepOne: FC<Props> = ({
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <ChakraLink>
-            <Logo height="42px" width="200px" />
-          </ChakraLink>
+          <Logo height="42px" width="200px" />
         </Link>
       </Flex>
 
