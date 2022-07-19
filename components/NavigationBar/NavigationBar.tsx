@@ -109,7 +109,12 @@ const NavigationBar: FC = () => {
   const mobileLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
       <Flex alignItems="center">
-        <Hamburger size={24} toggled={isOpen} toggle={setIsNavSidebarOpen} />
+        <Hamburger
+          size={24}
+          toggled={isOpen}
+          toggle={setIsNavSidebarOpen}
+          aria-label="Toggle sidebar menu open"
+        />
       </Flex>
       <Link href="/" _hover={{ textDecoration: "none" }}>
         <Logo />

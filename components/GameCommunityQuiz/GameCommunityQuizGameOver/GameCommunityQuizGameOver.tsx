@@ -1,7 +1,7 @@
 import React, { FC, useMemo } from "react";
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 import { getRandomCollectionItem } from "../../../helpers/random";
-import { SCORE_RESPONSES } from "./constants";
+import { SCORE_RESPONSES } from "../../../helpers/responses";
 
 const getScoreSubtitle = (score: number, max: number): string => {
   const percent = (100 * score) / max;
