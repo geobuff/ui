@@ -1,21 +1,22 @@
 import React, { FC } from "react";
+
 import {
   Box,
   Button,
   Flex,
-  Link,
   Table,
   Tbody,
   Th,
   Thead,
   Tr,
   useBreakpointValue,
-  Link as ChakraLink,
+  Link,
   Heading,
   Divider,
   Alert,
   AlertIcon,
 } from "@chakra-ui/react";
+
 import { DateTime } from "luxon";
 import { UserPageDto } from "../../types/user-page-dto";
 import CustomFlag from "../CustomFlag";
@@ -75,8 +76,7 @@ const AdminUsersTable: FC<Props> = ({
           {userPage?.users?.map((user, index) => (
             <Tr key={index} fontWeight={600}>
               <TableCell paddingY={3} paddingX={6}>
-                <Link href={`/profile/${user.id}`}>
-                  <ChakraLink>{user.username}</ChakraLink>
+                <Link href={`/profile/${user.id}`}>{user.username}
                 </Link>
               </TableCell>
               <TableCell paddingY={3} paddingX={6}>

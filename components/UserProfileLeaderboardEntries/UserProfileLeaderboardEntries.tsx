@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import Link from "next/link";
 import { DateTime } from "luxon";
 
 import {
@@ -16,7 +15,7 @@ import {
   Alert,
   AlertIcon,
   Flex,
-  Link as ChakraLink,
+  Link,
 } from "@chakra-ui/react";
 
 import Card from "../Card";
@@ -57,46 +56,45 @@ const UserProfileLeaderboardEntries: FC<Props> = ({ entries = [] }) => (
                 <Tr key={entry.id}>
                   <Link
                     href={`/leaderboard?quizId=${entry.quizId}&rank=${entry.rank}`}
+                    display="contents"
                   >
-                    <ChakraLink display="contents">
-                      <Td>
-                        <Flex direction="row" alignItems="center">
-                          {entry.quizName.length > 23 ? (
-                            <>
-                              <CustomFlag
-                                url={entry.quizImageUrl}
-                                code={entry.quizName}
-                                mr={3}
-                              />
-                              <Tooltip label={entry.quizName}>
-                                <Text maxWidth="200px" noOfLines={1}>
-                                  {entry.quizName}
-                                </Text>
-                              </Tooltip>
-                            </>
-                          ) : (
-                            <>
-                              <CustomFlag
-                                url={entry.quizImageUrl}
-                                code={entry.quizName}
-                                mr={3}
-                              />
+                    <Td>
+                      <Flex direction="row" alignItems="center">
+                        {entry.quizName.length > 23 ? (
+                          <>
+                            <CustomFlag
+                              url={entry.quizImageUrl}
+                              code={entry.quizName}
+                              mr={3}
+                            />
+                            <Tooltip label={entry.quizName}>
                               <Text maxWidth="200px" noOfLines={1}>
                                 {entry.quizName}
                               </Text>
-                            </>
-                          )}
-                        </Flex>
-                      </Td>
-                      <Td>{entry.rank}</Td>
-                      <Td>{entry.score}</Td>
-                      <Td>{secondsToMinutesString(entry.time)}</Td>
-                      <Td>
-                        <Text minWidth="100px">
-                          {DateTime.fromISO(entry.added).toISODate()}
-                        </Text>
-                      </Td>
-                    </ChakraLink>
+                            </Tooltip>
+                          </>
+                        ) : (
+                          <>
+                            <CustomFlag
+                              url={entry.quizImageUrl}
+                              code={entry.quizName}
+                              mr={3}
+                            />
+                            <Text maxWidth="200px" noOfLines={1}>
+                              {entry.quizName}
+                            </Text>
+                          </>
+                        )}
+                      </Flex>
+                    </Td>
+                    <Td>{entry.rank}</Td>
+                    <Td>{entry.score}</Td>
+                    <Td>{secondsToMinutesString(entry.time)}</Td>
+                    <Td>
+                      <Text minWidth="100px">
+                        {DateTime.fromISO(entry.added).toISODate()}
+                      </Text>
+                    </Td>
                   </Link>
                 </Tr>
               ))}

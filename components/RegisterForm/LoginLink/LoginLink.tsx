@@ -1,7 +1,5 @@
 import React, { FC } from "react";
-
-import { Flex, Text, Link as ChakraLink } from "@chakra-ui/react";
-import Link from "next/link";
+import { Flex, Text, Link } from "@chakra-ui/react";
 
 const LoginLink: FC = () => {
   return (
@@ -13,15 +11,14 @@ const LoginLink: FC = () => {
       <Text fontSize="14px" marginRight={1} fontWeight="500">
         {"Already signed up?"}
       </Text>
-      <Link href="/login">
-        <ChakraLink
-          fontSize="14px"
-          fontWeight="500"
-          textDecoration="underline"
-          _hover={{ color: "#5c5c5c" }}
-        >
-          {"Login to your account"}
-        </ChakraLink>
+      <Link
+        href="/login"
+        fontSize="14px"
+        fontWeight="500"
+        textDecoration="underline"
+        _hover={{ color: "#5c5c5c" }}
+      >
+        {"Login to your account"}
       </Link>
     </Flex>
   );

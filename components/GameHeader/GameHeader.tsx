@@ -1,13 +1,5 @@
 import React, { FC } from "react";
-
-import {
-  BoxProps,
-  Flex,
-  Heading,
-  Link as ChakraLink,
-  Text,
-} from "@chakra-ui/react";
-import Link from "next/link";
+import { BoxProps, Flex, Heading, Link, Text } from "@chakra-ui/react";
 
 import Twemoji from "../Twemoji";
 
@@ -29,9 +21,7 @@ const GameHeader: FC<Props> = ({
 
   const leaderboardLinkIcon = (
     <Link href={`/leaderboard?quizId=${quizId}`}>
-      <ChakraLink>
-        <Twemoji emoji="🏆" height="22px" width="22px" pt={1} mr={2} />
-      </ChakraLink>
+      <Twemoji emoji="🏆" height="22px" width="22px" pt={1} mr={2} />
     </Link>
   );
 

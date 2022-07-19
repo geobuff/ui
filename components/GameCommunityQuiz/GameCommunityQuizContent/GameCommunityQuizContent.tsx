@@ -1,5 +1,6 @@
 /* eslint-disable no-case-declarations */
 import React, { FC } from "react";
+
 import {
   AspectRatio,
   Box,
@@ -8,7 +9,7 @@ import {
   ResponsiveValue,
   useBreakpointValue,
   Text,
-  Link as ChakraLink,
+  Link,
 } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
 import * as Maps from "@geobuff/svg-maps";
@@ -22,7 +23,6 @@ import {
   getMapStyles,
   highlightSection,
 } from "../../../helpers/map";
-import Link from "next/link";
 import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
@@ -120,19 +120,13 @@ const GameCommunityQuizContent: FC<Props> = ({
                   {imageAttributeName && (
                     <Text fontSize="10px" mt={1} color="white">
                       {`Photo by `}
-                      <ChakraLink>
-                        <Link href={imageAttributeUrl}>
-                          {imageAttributeName}
-                        </Link>
-                      </ChakraLink>
+                      <Link href={imageAttributeUrl}>{imageAttributeName}</Link>
                       {` on `}
-                      <ChakraLink>
-                        <Link
-                          href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
-                        >
-                          Unsplash
-                        </Link>
-                      </ChakraLink>
+                      <Link
+                        href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
+                      >
+                        Unsplash
+                      </Link>
                     </Text>
                   )}
                 </Flex>

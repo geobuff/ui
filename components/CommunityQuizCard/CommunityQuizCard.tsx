@@ -1,18 +1,18 @@
 import React, { FC } from "react";
+
 import {
   Box,
   BoxProps,
   Divider,
   Flex,
   Text,
-  Link as ChakraLink,
+  Link,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
 import Image from "next/image";
 import Twemoji from "../Twemoji";
 import User from "../../Icons/User";
-import Link from "next/link";
 import { cardImageStyle } from "../../helpers/style";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
@@ -96,19 +96,17 @@ const CommunityQuizCard: FC<Props> = ({
                 height={twemojiResponsiveStyles}
                 width={twemojiResponsiveStyles}
               />
-              <ChakraLink>
-                <Link href={`/profile/${userId}`}>
-                  <Text
-                    fontSize={{ base: "9px", sm: "9px", md: "11px" }}
-                    fontWeight="bold"
-                    marginLeft="3px"
-                    noOfLines={1}
-                    minWidth="50%"
-                  >
-                    {username}
-                  </Text>
-                </Link>
-              </ChakraLink>
+              <Link href={`/profile/${userId}`}>
+                <Text
+                  fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+                  fontWeight="bold"
+                  marginLeft="3px"
+                  noOfLines={1}
+                  minWidth="50%"
+                >
+                  {username}
+                </Text>
+              </Link>
             </Flex>
             <Flex alignItems="center">
               <Twemoji

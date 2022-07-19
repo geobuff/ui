@@ -1,6 +1,5 @@
 import React, { FC } from "react";
-import Link from "next/link";
-import { Flex, Tag, Link as ChakraLink, FlexProps } from "@chakra-ui/react";
+import { Flex, Tag, Link, FlexProps } from "@chakra-ui/react";
 import Twemoji, { Props as TwemojiProps } from "../Twemoji";
 
 export interface Props extends FlexProps {
@@ -20,9 +19,7 @@ const ShoppingCartLink: FC<Props> = ({
     {...props}
   >
     <Link href="/shopping-cart">
-      <ChakraLink>
-        <Twemoji emoji="🛒" {...twemojiProps} />
-      </ChakraLink>
+      <Twemoji emoji="🛒" {...twemojiProps} />
     </Link>
     {itemCount > 0 && (
       <Tag

@@ -1,6 +1,5 @@
 import React, { FC } from "react";
 import Head from "next/head";
-import Link from "next/link";
 
 import {
   Box,
@@ -9,7 +8,7 @@ import {
   OrderedList,
   ListItem,
   Stack,
-  Link as ChakraLink,
+  Link,
 } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
@@ -36,20 +35,16 @@ const TermsOfService: FC = () => (
           <Stack spacing={3} mt={3} mb={6}>
             <Text>
               These Terms of Service govern your use of the website located at{" "}
-              <Link href="https://geobuff.com">
-                <ChakraLink>https://geobuff.com</ChakraLink>
-              </Link>{" "}
-              and any related services provided by GeoBuff.{" "}
+              <Link href="https://geobuff.com">https://geobuff.com</Link> and
+              any related services provided by GeoBuff.{" "}
             </Text>
             <Text>
               By accessing{" "}
-              <Link href="https://geobuff.com">
-                <ChakraLink>https://geobuff.com</ChakraLink>
-              </Link>
-              , you agree to abide by these Terms of Service and to comply with
-              all applicable laws and regulations. If you do not agree with
-              these Terms of Service, you are prohibited from using or accessing
-              this website or using any other services provided by GeoBuff.{" "}
+              <Link href="https://geobuff.com">https://geobuff.com</Link>, you
+              agree to abide by these Terms of Service and to comply with all
+              applicable laws and regulations. If you do not agree with these
+              Terms of Service, you are prohibited from using or accessing this
+              website or using any other services provided by GeoBuff.{" "}
             </Text>
             <Text>
               We, GeoBuff, reserve the right to review and amend any of these

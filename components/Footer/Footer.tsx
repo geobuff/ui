@@ -1,9 +1,9 @@
 import React, { FC } from "react";
-import Link from "next/link";
+
 import {
   Flex,
   Text,
-  Link as ChakraLink,
+  Link,
   useBreakpointValue,
   SimpleGrid,
 } from "@chakra-ui/react";
@@ -86,62 +86,75 @@ const socialIcons = (
   <Flex justifyContent="center" mt={{ base: 12, md: 0 }}>
     <SimpleGrid columns={{ base: 4, lg: 8 }} spacingY={{ base: 6, lg: 0 }}>
       <Flex direction="column" justifyContent="center" mx={3}>
-        <Link href="https://twitter.com/teamgeobuff" passHref>
-          <ChakraLink target="_blank" rel="noopener noreferrer">
-            <Twitter />
-          </ChakraLink>
+        <Link
+          href="https://twitter.com/teamgeobuff"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Twitter />
         </Link>
       </Flex>
       <Flex direction="column" justifyContent="center" mx={3}>
-        <Link href="https://instagram.com/teamgeobuff" passHref>
-          <ChakraLink target="_blank" rel="noopener noreferrer">
-            <Instagram />
-          </ChakraLink>
+        <Link
+          href="https://instagram.com/teamgeobuff"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Instagram />
         </Link>
       </Flex>
       <Flex direction="column" justifyContent="center" mx={3}>
-        <Link href="https://facebook.com/teamgeobuff" passHref>
-          <ChakraLink target="_blank" rel="noopener noreferrer">
-            <Facebook />
-          </ChakraLink>
+        <Link
+          href="https://facebook.com/teamgeobuff"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Facebook />
         </Link>
       </Flex>
       <Flex direction="column" justifyContent="center" mx={3}>
-        <Link href="https://reddit.com/r/GeoBuff" passHref>
-          <ChakraLink target="_blank" rel="noopener noreferrer">
-            <Reddit />
-          </ChakraLink>
+        <Link
+          href="https://reddit.com/r/GeoBuff"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Reddit />
         </Link>
       </Flex>
       <Flex direction="column" justifyContent="center" mx={3}>
-        <Link href={process.env.NEXT_PUBLIC_DISCORD_LINK} passHref>
-          <ChakraLink target="_blank" rel="noopener noreferrer">
-            <Discord />
-          </ChakraLink>
+        <Link
+          href={process.env.NEXT_PUBLIC_DISCORD_LINK}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Discord />
         </Link>
       </Flex>
       <Flex direction="column" justifyContent="center" mx={3}>
-        <Link href="https://github.com/GeoBuff" passHref>
-          <ChakraLink target="_blank" rel="noopener noreferrer">
-            <GitHub />
-          </ChakraLink>
+        <Link
+          href="https://github.com/GeoBuff"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <GitHub />
         </Link>
       </Flex>
       <Flex direction="column" justifyContent="center" mx={3}>
         <Link
           href="https://www.youtube.com/channel/UCDsUu_8r98ORJqsILXGRlEQ"
-          passHref
+          target="_blank"
+          rel="noopener noreferrer"
         >
-          <ChakraLink target="_blank" rel="noopener noreferrer">
-            <YouTube />
-          </ChakraLink>
+          <YouTube />
         </Link>
       </Flex>
       <Flex direction="column" justifyContent="center" mx={3}>
-        <Link href="https://www.twitch.tv/teamgeobuff" passHref>
-          <ChakraLink target="_blank" rel="noopener noreferrer">
-            <Twitch />
-          </ChakraLink>
+        <Link
+          href="https://www.twitch.tv/teamgeobuff"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <Twitch />
         </Link>
       </Flex>
     </SimpleGrid>
@@ -179,15 +192,15 @@ const extendedFooter = (isMobile: boolean) => (
           </Text>
           <Flex direction="column">
             {companyLinks.map(({ href, text }) => (
-              <Link key={href} href={href} passHref>
-                <ChakraLink
-                  color="#B0B0B0"
-                  fontSize="14px"
-                  fontWeight="medium"
-                  marginY={{ base: 1, md: 1 }}
-                >
-                  {text}
-                </ChakraLink>
+              <Link
+                key={href}
+                href={href}
+                color="#B0B0B0"
+                fontSize="14px"
+                fontWeight="medium"
+                marginY={{ base: 1, md: 1 }}
+              >
+                {text}
               </Link>
             ))}
           </Flex>
@@ -205,15 +218,15 @@ const extendedFooter = (isMobile: boolean) => (
           </Text>
           <Flex direction="column">
             {furtherInfoLinks.map(({ href, text }) => (
-              <Link key={href} href={href}>
-                <ChakraLink
-                  color="#B0B0B0"
-                  fontSize="14px"
-                  fontWeight="medium"
-                  marginY={{ base: 1, md: 1 }}
-                >
-                  {text}
-                </ChakraLink>
+              <Link
+                key={href}
+                href={href}
+                color="#B0B0B0"
+                fontSize="14px"
+                fontWeight="medium"
+                marginY={{ base: 1, md: 1 }}
+              >
+                {text}
               </Link>
             ))}
           </Flex>

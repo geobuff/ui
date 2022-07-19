@@ -1,15 +1,8 @@
 import React, { useEffect, useState, FC, useContext } from "react";
 import dynamic from "next/dynamic";
-import Link from "next/link";
 import { useRouter } from "next/router";
 
-import {
-  Box,
-  Flex,
-  Link as ChakraLink,
-  useBreakpointValue,
-  Fade,
-} from "@chakra-ui/react";
+import { Box, Flex, Link, useBreakpointValue, Fade } from "@chakra-ui/react";
 import { Squash as Hamburger } from "hamburger-react";
 
 import Logo from "../Logo";
@@ -55,10 +48,8 @@ const NavigationBar: FC = () => {
   const desktopLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
       <Flex alignItems="center">
-        <Link href="/">
-          <ChakraLink _hover={{ textDecoration: "none" }}>
-            <Logo />
-          </ChakraLink>
+        <Link href="/" _hover={{ textDecoration: "none" }}>
+          <Logo />
         </Link>
 
         <NavigationBarLink
@@ -120,10 +111,8 @@ const NavigationBar: FC = () => {
       <Flex alignItems="center">
         <Hamburger size={24} toggled={isOpen} toggle={setIsNavSidebarOpen} />
       </Flex>
-      <Link href="/">
-        <ChakraLink _hover={{ textDecoration: "none" }}>
-          <Logo />
-        </ChakraLink>
+      <Link href="/" _hover={{ textDecoration: "none" }}>
+        <Logo />
       </Link>
 
       <Box minWidth="60px">

@@ -1,12 +1,12 @@
 import React, { FC } from "react";
-import Link from "next/link";
+
 import {
   Box,
   Flex,
   Heading,
   SimpleGrid,
   Text,
-  Link as ChakraLink,
+  Link,
   useBreakpointValue,
   Divider,
 } from "@chakra-ui/react";
@@ -150,11 +150,9 @@ const About: FC = () => {
           <Flex justifyContent="center" mt={{ base: 20, md: 12 }} mb={12}>
             <Heading size="lg">
               Heard enough?{" "}
-              <ChakraLink>
-                <Link href="/register">
-                  {`Sign up today to start creating your own!`}
-                </Link>
-              </ChakraLink>
+              <Link href="/register">
+                {`Sign up today to start creating your own!`}
+              </Link>
             </Heading>
           </Flex>
         </Flex>
