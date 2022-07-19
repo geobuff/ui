@@ -5,6 +5,7 @@ module.exports = {
       "twemoji.maxcdn.com",
       "upload.wikimedia.org",
       "images.unsplash.com",
+      "ik.imagekit.io",
     ],
   },
 };
