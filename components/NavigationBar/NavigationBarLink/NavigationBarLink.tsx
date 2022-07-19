@@ -1,6 +1,5 @@
 import React, { FC } from "react";
-import { Flex, FlexProps, Link as ChakraLink } from "@chakra-ui/react";
-import Link from "next/link";
+import { Flex, FlexProps, Link } from "@chakra-ui/react";
 
 export interface Props extends FlexProps {
   href: string;
@@ -31,18 +30,17 @@ const NavigationBarLink: FC<Props> = ({
 }) => {
   return (
     <Flex as="nav" {...props}>
-      <Link href={href}>
-        <ChakraLink
-          fontSize="16px"
-          fontWeight={600}
-          color="gray.600"
-          {...(isActive ? activeLinkStyles : {})}
-          style={{
-            ...(isActive ? textDecorationStyles : {}),
-          }}
-        >
-          {label}
-        </ChakraLink>
+      <Link
+        href={href}
+        fontSize="16px"
+        fontWeight={600}
+        color="gray.600"
+        {...(isActive ? activeLinkStyles : {})}
+        style={{
+          ...(isActive ? textDecorationStyles : {}),
+        }}
+      >
+        {label}
       </Link>
     </Flex>
   );

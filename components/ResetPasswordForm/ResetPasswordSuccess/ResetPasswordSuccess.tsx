@@ -1,13 +1,5 @@
 import React, { FC } from "react";
-
-import Link from "next/link";
-import {
-  Fade,
-  Flex,
-  Link as ChakraLink,
-  Text,
-  ScaleFade,
-} from "@chakra-ui/react";
+import { Fade, Flex, Link, Text, ScaleFade } from "@chakra-ui/react";
 
 import SolidSuccessCircle from "../../../Icons/SolidSuccessCircle";
 
@@ -28,10 +20,12 @@ const ResetPasswordSuccess: FC = () => (
 
       <Text color="gray.600" textAlign="center" fontSize="14px">
         {"Please "}
-        <Link href="/login">
-          <ChakraLink fontWeight={600} _hover={{ textDecoration: "underline" }}>
-            {"login"}
-          </ChakraLink>
+        <Link
+          href="/login"
+          fontWeight={600}
+          _hover={{ textDecoration: "underline" }}
+        >
+          {"login"}
         </Link>
         {" to continue."}
       </Text>

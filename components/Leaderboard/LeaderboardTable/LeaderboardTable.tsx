@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import Link from "next/link";
 import flag from "country-code-emoji";
 
 import {
@@ -14,7 +13,7 @@ import {
   Tr,
   Th,
   Tbody,
-  Link as ChakraLink,
+  Link,
 } from "@chakra-ui/react";
 
 import LeaderTablePlaceholder from "../../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
@@ -87,9 +86,7 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
           )}
         </Box>
         <Link href={`/profile/${userId}`}>
-          <ChakraLink>
-            <Text fontWeight="bold">{username}</Text>
-          </ChakraLink>
+          <Text fontWeight="bold">{username}</Text>
         </Link>
         {username === user?.username && (
           <Text ml={2} fontWeight={600} color="gray.500">

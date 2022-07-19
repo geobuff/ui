@@ -12,13 +12,11 @@ import {
   FormErrorMessage,
   FormLabel,
   Input,
-  Link as ChakraLink,
+  Link,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { Formik, Field, Form } from "formik";
-
-import Link from "next/link";
 
 import AuthView from "../AuthView";
 import AuthCard from "../AuthCard";
@@ -181,9 +179,7 @@ const ResetPasswordForm: FC<Props> = ({
               _hover={{ cursor: "pointer" }}
             >
               <Link href="/">
-                <ChakraLink>
-                  <Logo height="42px" width="200px" />
-                </ChakraLink>
+                <Logo height="42px" width="200px" />
               </Link>
             </Flex>
 
@@ -193,9 +189,7 @@ const ResetPasswordForm: FC<Props> = ({
       ) : (
         <Flex direction="column" padding={5} marginBottom={4}>
           <Link href="/">
-            <ChakraLink>
-              <Logo height="42px" width="200px" />
-            </ChakraLink>
+            <Logo height="42px" width="200px" />
           </Link>
           {getViewComponent()}
         </Flex>

@@ -1,5 +1,6 @@
 import React, { FC } from "react";
 import { DateTime } from "luxon";
+
 import {
   Alert,
   AlertIcon,
@@ -8,7 +9,6 @@ import {
   Divider,
   Flex,
   Heading,
-  Link,
   Select,
   Table,
   Tbody,
@@ -16,7 +16,7 @@ import {
   Thead,
   Tr,
   useBreakpointValue,
-  Link as ChakraLink,
+  Link,
 } from "@chakra-ui/react";
 
 import TableCell from "../TableCell";
@@ -112,9 +112,7 @@ const AdminOrdersTable: FC<Props> = ({
             <Tr key={index} fontWeight={600}>
               <TableCell paddingY={3} paddingX={6}>
                 <Link onClick={() => onOrderClick(order)}>
-                  <ChakraLink>
-                    {`${order.firstName} ${order.lastName}`}
-                  </ChakraLink>
+                  {`${order.firstName} ${order.lastName}`}
                 </Link>
               </TableCell>
               <TableCell paddingY={3} paddingX={6}>

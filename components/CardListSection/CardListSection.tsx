@@ -1,11 +1,10 @@
 import React, { FC } from "react";
-import Link from "next/link";
 
 import {
   Flex,
   FlexProps,
   Heading,
-  Link as ChakraLink,
+  Link,
   Spinner,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -56,14 +55,13 @@ const CardListSection: FC<Props> = ({
           )}
         </Flex>
         {linkHref && (
-          <Link href={linkHref}>
-            <ChakraLink
-              fontWeight="semibold"
-              fontSize={{ base: "sm", md: "medium" }}
-            >
-              {`See all${isMobile ? "" : ` ${linkVerb}`}`}
-              <OutlinedChevronRight height="16px" width="16px" mb="1px" />
-            </ChakraLink>
+          <Link
+            href={linkHref}
+            fontWeight="semibold"
+            fontSize={{ base: "sm", md: "medium" }}
+          >
+            {`See all${isMobile ? "" : ` ${linkVerb}`}`}
+            <OutlinedChevronRight height="16px" width="16px" mb="1px" />
           </Link>
         )}
       </Flex>

@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useRef } from "react";
+
 import {
   Text,
   Accordion,
@@ -9,9 +10,8 @@ import {
   Box,
   ListItem,
   OrderedList,
-  Link as ChakraLink,
+  Link,
 } from "@chakra-ui/react";
-import Link from "next/link";
 
 interface Props {
   index?: string;
@@ -68,12 +68,10 @@ const FAQSection: FC<Props> = ({ index = "" }) => {
         </h2>
         <AccordionPanel pb={4}>
           <Text>
-            <Link href="/forgot-password">
-              <ChakraLink>Click here</ChakraLink>
-            </Link>{" "}
-            to navigate to the password reset form. Once you have submitted your
-            email address you will receive an email with instructions on how to
-            reset your password.
+            <Link href="/forgot-password">Click here</Link> to navigate to the
+            password reset form. Once you have submitted your email address you
+            will receive an email with instructions on how to reset your
+            password.
           </Text>
         </AccordionPanel>
       </AccordionItem>
@@ -90,11 +88,9 @@ const FAQSection: FC<Props> = ({ index = "" }) => {
         <AccordionPanel pb={4}>
           If you see a player in the leaderboard with a username that is
           offensive and/or breaks the rules of our{" "}
-          <Link href="/terms-of-service">
-            <ChakraLink>Terms of Service</ChakraLink>
-          </Link>
-          , please create a support request above and include the username in
-          the message so the team can begin an investigation.
+          <Link href="/terms-of-service">Terms of Service</Link>, please create
+          a support request above and include the username in the message so the
+          team can begin an investigation.
         </AccordionPanel>
       </AccordionItem>
 
