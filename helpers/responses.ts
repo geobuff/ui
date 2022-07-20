@@ -1,4 +1,3 @@
-// TODO: Refine responses
 export const PERFECT_SCORE_RESPONSES = [
   "Perfect score! Well done!",
   "Oh wow! Perfect score!",
