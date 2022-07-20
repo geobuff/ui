@@ -161,6 +161,9 @@ const AdminGeneralContainer: FC = () => {
           imageUrl: question.imageUrl,
           imageAttributeName: question.imageAttributeName,
           imageAttributeUrl: question.imageAttributeUrl,
+          imageWidth: question.imageWidth,
+          imageHeight: question.imageHeight,
+          imageAlt: question.imageAlt,
           answers: question.answers,
         })),
       };
