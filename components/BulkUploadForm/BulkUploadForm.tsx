@@ -28,6 +28,8 @@ import { BulkUploadType, BulkUploadTypes } from "../../types/bulk-upload-type";
 import TrueFalseFormField from "../FormFields/TrueFalseFormField";
 import { validateBulkUploadCsvHeaders } from "../../helpers/csv";
 import { getTriviaQuestionTypeId } from "../../helpers/trivia-question-type";
+import { ManualTriviaQuestionPayload } from "../../types/manual-trivia-payload";
+import { TriviaQuestionTypeValues } from "../../types/trivia-question-types";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select an upload type."),
@@ -82,16 +84,16 @@ const BulkUploadForm: FC<Props> = ({
             const typeId = getTriviaQuestionTypeId(x["Type"], setError);
             const answers = x["Answers"].split(", ");
             const correctAnswer = x["Correct"];
-            return {
+
+            const result: ManualTriviaQuestionPayload = {
               typeId: typeId,
               categoryId: parseInt(x["Category"]),
               question: x["Question"],
               explainer: x["Explainer"],
-              imageUrl: typeId === 2 ? x["Resource"] : "",
-              imageAttributeName: typeId === 2 ? x["ImageAttributeName"] : "",
-              imageAttributeUrl: typeId === 2 ? x["ImageAttributeUrl"] : "",
-              map: typeId === 3 ? x["Resource"] : "",
-              flagCode: typeId === 4 ? x["Resource"] : "",
+              quizDate: {
+                Time: new Date(),
+                Valid: false,
+              },
               answers: answers.map((a) => {
                 return {
                   text: a,
@@ -99,6 +101,21 @@ const BulkUploadForm: FC<Props> = ({
                 };
               }),
             };
+
+            if (typeId === TriviaQuestionTypeValues.Image) {
+              result.imageUrl = x["Resource"];
+              result.imageAttributeName = x["ImageAttributeName"];
+              result.imageAttributeUrl = x["ImageAttributeUrl"];
+              result.imageWidth = parseInt(x["ImageWidth"]);
+              result.imageHeight = parseInt(x["ImageHeight"]);
+              result.imageAlt = x["ImageAlt"];
+            } else if (typeId === TriviaQuestionTypeValues.Flag) {
+              result.flagCode = x["Resource"];
+            } else if (typeId === TriviaQuestionTypeValues.Map) {
+              result.map = x["Resource"];
+            }
+
+            return result;
           })
         );
       },
