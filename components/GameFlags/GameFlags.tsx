@@ -1,9 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Flex, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 
 import DraggableFlag from "../DraggableFlag";
 import DraggableFlagCarousel from "../DraggableFlagCarousel";
 import useFlagGroups from "../../hooks/UseFlagGroups";
+import { FlagGameContext } from "../../context/FlagGameContext";
+import DraggableFlagPreview from "../DraggableFlagPreview";
 
 interface Props {
   codes?: string[];
@@ -15,9 +17,11 @@ const GameFlags: FC<Props> = ({
   onCheckSubmission = (): void => {},
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
+  const { dragItem } = useContext(FlagGameContext);
   const { getFlagUrlByCode } = useFlagGroups();
 
   if (isMobile) {
+    const imageUrl = getFlagUrlByCode(dragItem?.code);
     return (
       <Flex
         width="100%"
@@ -26,6 +30,9 @@ const GameFlags: FC<Props> = ({
         marginRight={10}
         alignItems="center"
       >
+        {imageUrl && (
+          <DraggableFlagPreview code={dragItem?.code} imageUrl={imageUrl} />
+        )}
         <DraggableFlagCarousel
           codes={codes}
           onCheckSubmission={onCheckSubmission}
