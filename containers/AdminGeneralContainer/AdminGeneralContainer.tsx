@@ -28,6 +28,8 @@ const deployDevUIWeb = process.env.NEXT_PUBLIC_DEPLOY_DEV_UI;
 
 const NEW_TRIVIA_COUNT = 30;
 
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
+
 const getTaskSettings = (key: BackgroundTaskKey) => {
   switch (key) {
     case DeployDevWeb:
@@ -124,28 +126,26 @@ const AdminGeneralContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
-  const handleBulkUploadSubmit = (values: BulkUploadValues) => {
+  const handleBulkUploadSubmit = async (values: BulkUploadValues) => {
     setIsSubmitting(true);
     if (values.typeId === BulkUploadType.ManualTrivia) {
-      const requests = values.questions.map((x) =>
-        setTimeout(
-          () =>
-            axiosClient.post(
-              `/manual-trivia-questions`,
-              x,
-              session?.authConfig
-            ),
-          1000
-        )
-      );
+      try {
+        for (let i = 0; i < values.questions.length; i++) {
+          await axiosClient.post(
+            `/manual-trivia-questions`,
+            values.questions[i],
+            session?.authConfig
+          );
 
-      Promise.all(requests)
-        .then(() => {
-          toast(bulkUploadToast(BulkUploadType.ManualTrivia));
-          onClose();
-        })
-        .catch((error) => setError(error.response.data))
-        .finally(() => setIsSubmitting(false));
+          await delay(1000);
+        }
+        toast(bulkUploadToast(BulkUploadType.ManualTrivia));
+      } catch (error) {
+        setError(error.message);
+      }
+
+      onClose();
+      setIsSubmitting(false);
     } else {
       const payload: CommunityQuizPayload = {
         userId: user?.id,
