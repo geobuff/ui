@@ -9,7 +9,6 @@ import MainView from "../MainView";
 import GameTriviaHeader from "./GameTriviaHeader";
 import GameTriviaContent from "./GameTriviaContent";
 import GameTriviaAnswers from "./GameTriviaAnswers";
-import GameTriviaGameOver from "./GameTriviaGameOver";
 
 import { AppContext } from "../../context/AppContext";
 import { TriviaQuestion } from "../../types/trivia-question";
@@ -18,6 +17,9 @@ import { Trivia } from "../../types/trivia";
 import { useRouter } from "next/router";
 import { getTriviaScoreMessage } from "../../helpers/clipboard";
 import { copyScoreToast } from "../../helpers/toasts";
+import dynamic from "next/dynamic";
+
+const GameTriviaGameOver = dynamic(() => import("./GameTriviaGameOver"));
 
 export interface Props {
   trivia: Trivia;

@@ -97,7 +97,7 @@ const MerchSummary: FC<Props> = ({
         <Flex justifyContent="center" margin={6}>
           {item?.sizeGuideImageUrl.Valid && (
             <Image
-              src={item?.sizeGuideImageUrl.String}
+              src={item.sizeGuideImageUrl.String}
               alt="Size guide"
               width={385}
               height={513}

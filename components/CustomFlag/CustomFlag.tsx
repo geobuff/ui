@@ -23,9 +23,6 @@ const CustomFlag: FC<Props> = ({
       width={width}
       height={height}
       objectFit="cover"
-      style={{
-        borderRadius: 22,
-      }}
       priority
     />
   </Box>

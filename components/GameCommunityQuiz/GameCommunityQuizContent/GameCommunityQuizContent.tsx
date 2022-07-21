@@ -76,14 +76,17 @@ const GameCommunityQuizContent: FC<Props> = ({
   const getContentByType = (): JSX.Element => {
     switch (type) {
       case "Flag":
-        return (
-          <CustomFlag
-            url={getFlagUrlByCode(flagCode)}
-            code={flagCode}
-            width={300}
-            height={187.5}
-          />
-        );
+        const flagUrl = getFlagUrlByCode(flagCode);
+        if (flagUrl) {
+          return (
+            <CustomFlag
+              url={flagUrl}
+              code={flagCode}
+              width={300}
+              height={187.5}
+            />
+          );
+        }
       case "Map":
         const gameMap = getGameMap(Maps[map], map);
         highlighted && highlightSection(gameMap, map, highlighted);

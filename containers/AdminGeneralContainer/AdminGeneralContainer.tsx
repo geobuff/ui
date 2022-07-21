@@ -13,7 +13,6 @@ import {
 } from "../../helpers/toasts";
 import { BackgroundTaskKey } from "../../types/background-task";
 import { useSession } from "next-auth/react";
-import axios from "axios";
 import BulkUploadModal from "../../components/BulkUploadModal";
 import { BulkUploadType } from "../../types/bulk-upload-type";
 import { BulkUploadValues } from "../../types/bulk-upload-values";
@@ -129,11 +128,18 @@ const AdminGeneralContainer: FC = () => {
     setIsSubmitting(true);
     if (values.typeId === BulkUploadType.ManualTrivia) {
       const requests = values.questions.map((x) =>
-        axiosClient.post(`/manual-trivia-questions`, x, session?.authConfig)
+        setTimeout(
+          () =>
+            axiosClient.post(
+              `/manual-trivia-questions`,
+              x,
+              session?.authConfig
+            ),
+          1000
+        )
       );
 
-      axios
-        .all(requests)
+      Promise.all(requests)
         .then(() => {
           toast(bulkUploadToast(BulkUploadType.ManualTrivia));
           onClose();

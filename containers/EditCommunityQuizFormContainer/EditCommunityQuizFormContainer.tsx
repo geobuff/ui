@@ -143,7 +143,7 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       }),
     };
 
-    await axios.all(
+    await Promise.all(
       values.questions.map(
         (x) =>
           parseInt(x.typeId) === TriviaQuestionTypeValues.Image &&

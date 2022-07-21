@@ -117,14 +117,17 @@ const UserProfileSummary: FC<Props> = ({
     }
 
     if (countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG) {
-      return (
-        <CustomFlag
-          url={getFlagUrl(countryCode)}
-          code={countryCode}
-          boxSizing="border-box"
-          border="2px solid #dae2ea"
-        />
-      );
+      const flagUrl = getFlagUrl(countryCode);
+      if (flagUrl) {
+        return (
+          <CustomFlag
+            url={flagUrl}
+            code={countryCode}
+            boxSizing="border-box"
+            border="2px solid #dae2ea"
+          />
+        );
+      }
     }
 
     return <Twemoji emoji={flag(countryCode)} />;

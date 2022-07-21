@@ -90,6 +90,7 @@ const socialIcons = (
           href="https://twitter.com/teamgeobuff"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Twitter link"
         >
           <Twitter />
         </Link>
@@ -99,6 +100,7 @@ const socialIcons = (
           href="https://instagram.com/teamgeobuff"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Instagram link"
         >
           <Instagram />
         </Link>
@@ -108,6 +110,7 @@ const socialIcons = (
           href="https://facebook.com/teamgeobuff"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Facebook link"
         >
           <Facebook />
         </Link>
@@ -117,6 +120,7 @@ const socialIcons = (
           href="https://reddit.com/r/GeoBuff"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Reddit link"
         >
           <Reddit />
         </Link>
@@ -126,6 +130,7 @@ const socialIcons = (
           href={process.env.NEXT_PUBLIC_DISCORD_LINK}
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Discord link"
         >
           <Discord />
         </Link>
@@ -135,6 +140,7 @@ const socialIcons = (
           href="https://github.com/GeoBuff"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="GitHub link"
         >
           <GitHub />
         </Link>
@@ -144,6 +150,7 @@ const socialIcons = (
           href="https://www.youtube.com/channel/UCDsUu_8r98ORJqsILXGRlEQ"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="YouTube link"
         >
           <YouTube />
         </Link>
@@ -153,6 +160,7 @@ const socialIcons = (
           href="https://www.twitch.tv/teamgeobuff"
           target="_blank"
           rel="noopener noreferrer"
+          aria-label="Twitch link"
         >
           <Twitch />
         </Link>

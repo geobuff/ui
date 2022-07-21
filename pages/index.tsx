@@ -93,8 +93,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
     const requests = [quizRequest, communityQuizRequest, triviaRequest];
 
     setIsSearching(true);
-    axios
-      .all(requests)
+    Promise.all(requests)
       .then((responses) => {
         const quizzes = responses[0].data.quizzes;
         const communityQuizzes = responses[1].data.quizzes;

@@ -33,6 +33,7 @@ const AvatarSelect: FC<Props> = ({
   ): void => {},
 }) => {
   const { getFlagUrl } = UseWorldFlagGroup();
+  const flagUrl = getFlagUrl(current?.countryCode);
 
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "avatarId",
@@ -62,11 +63,13 @@ const AvatarSelect: FC<Props> = ({
             <Flex>
               <Heading size="md">{current?.name}</Heading>
               <Flex direction="column" justifyContent="center">
-                <CustomFlag
-                  url={getFlagUrl(current?.countryCode)}
-                  code={current?.countryCode}
-                  ml={3}
-                />
+                {flagUrl && (
+                  <CustomFlag
+                    url={flagUrl}
+                    code={current?.countryCode}
+                    ml={3}
+                  />
+                )}
               </Flex>
             </Flex>
             <Text color="gray.500">{current?.type}</Text>
