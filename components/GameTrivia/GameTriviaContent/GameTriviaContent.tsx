@@ -87,6 +87,7 @@ const GameTriviaContent: FC<Props> = ({
             />
           );
         }
+        break;
       case "Map":
         const gameMap = getGameMap(Maps[map], map);
         highlighted && highlightSection(gameMap, map, highlighted);
