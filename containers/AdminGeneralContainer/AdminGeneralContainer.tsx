@@ -13,7 +13,6 @@ import {
 } from "../../helpers/toasts";
 import { BackgroundTaskKey } from "../../types/background-task";
 import { useSession } from "next-auth/react";
-import axios from "axios";
 import BulkUploadModal from "../../components/BulkUploadModal";
 import { BulkUploadType } from "../../types/bulk-upload-type";
 import { BulkUploadValues } from "../../types/bulk-upload-values";
@@ -28,6 +27,8 @@ const deployProdUIWeb = process.env.NEXT_PUBLIC_DEPLOY_PROD_UI;
 const deployDevUIWeb = process.env.NEXT_PUBLIC_DEPLOY_DEV_UI;
 
 const NEW_TRIVIA_COUNT = 30;
+
+const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
 const getTaskSettings = (key: BackgroundTaskKey) => {
   switch (key) {
@@ -125,21 +126,26 @@ const AdminGeneralContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
-  const handleBulkUploadSubmit = (values: BulkUploadValues) => {
+  const handleBulkUploadSubmit = async (values: BulkUploadValues) => {
     setIsSubmitting(true);
     if (values.typeId === BulkUploadType.ManualTrivia) {
-      const requests = values.questions.map((x) =>
-        axiosClient.post(`/manual-trivia-questions`, x, session?.authConfig)
-      );
+      try {
+        for (let i = 0; i < values.questions.length; i++) {
+          await axiosClient.post(
+            `/manual-trivia-questions`,
+            values.questions[i],
+            session?.authConfig
+          );
 
-      axios
-        .all(requests)
-        .then(() => {
-          toast(bulkUploadToast(BulkUploadType.ManualTrivia));
-          onClose();
-        })
-        .catch((error) => setError(error.response.data))
-        .finally(() => setIsSubmitting(false));
+          await delay(1000);
+        }
+        toast(bulkUploadToast(BulkUploadType.ManualTrivia));
+      } catch (error) {
+        setError(error.message);
+      }
+
+      onClose();
+      setIsSubmitting(false);
     } else {
       const payload: CommunityQuizPayload = {
         userId: user?.id,

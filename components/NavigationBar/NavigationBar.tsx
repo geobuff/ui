@@ -48,7 +48,11 @@ const NavigationBar: FC = () => {
   const desktopLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
       <Flex alignItems="center">
-        <Link href="/" _hover={{ textDecoration: "none" }}>
+        <Link
+          href="/"
+          _hover={{ textDecoration: "none" }}
+          aria-label="Home link"
+        >
           <Logo />
         </Link>
 

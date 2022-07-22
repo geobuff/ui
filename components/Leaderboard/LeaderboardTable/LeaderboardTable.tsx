@@ -71,16 +71,21 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
     username: string,
     countryCode: string
   ): React.ReactNode => {
+    const flagUrl = getFlagUrl(countryCode);
     const mainContent = (
       <Flex alignItems="center">
         <Box marginRight={3} marginTop="5.5px" alignItems="center">
           {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG ? (
-            <CustomFlag
-              url={getFlagUrl(countryCode)}
-              code={countryCode}
-              boxSizing="border-box"
-              border="2px solid #dae2ea"
-            />
+            <>
+              {flagUrl && (
+                <CustomFlag
+                  url={flagUrl}
+                  code={countryCode}
+                  boxSizing="border-box"
+                  border="2px solid #dae2ea"
+                />
+              )}
+            </>
           ) : (
             <Twemoji emoji={flag(countryCode)} />
           )}

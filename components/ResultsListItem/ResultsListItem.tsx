@@ -27,13 +27,14 @@ const ResultsListItem: FC<Props> = ({
   ...props
 }) => {
   const { getFlagUrlByCode } = useFlagGroups();
+  const flagUrl = code ? getFlagUrlByCode(code) : "";
 
   const mainContent = (
     <Flex alignItems="center" marginY={2} {...props}>
       {hasFlag ? (
         <>
-          {!isHidden && !isMissedResult ? (
-            <CustomFlag url={getFlagUrlByCode(code)} code={code} />
+          {!isHidden && !isMissedResult && flagUrl ? (
+            <CustomFlag url={flagUrl} code={code} />
           ) : (
             <FlagFallback />
           )}

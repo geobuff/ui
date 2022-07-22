@@ -18,13 +18,23 @@ import {
   GetCommunityQuizAnswer,
 } from "../../types/get-community-quiz-dto";
 import GameCommunityQuizHeader from "./GameCommunityQuizHeader";
-import GameCommunityQuizGameOver from "./GameCommunityQuizGameOver";
-import GameCommunityQuizContent from "./GameCommunityQuizContent";
-import GameCommunityQuizAnswers from "./GameCommunityQuizAnswers";
 import GameCommunityQuizStart from "./GameCommunityQuizStart";
 import { getCommunityQuizScoreMessage } from "../../helpers/clipboard";
 import { useRouter } from "next/router";
 import { copyScoreToast } from "../../helpers/toasts";
+import dynamic from "next/dynamic";
+
+const GameCommunityQuizGameOver = dynamic(
+  () => import("./GameCommunityQuizGameOver")
+);
+
+const GameCommunityQuizContent = dynamic(
+  () => import("./GameCommunityQuizContent")
+);
+
+const GameCommunityQuizAnswers = dynamic(
+  () => import("./GameCommunityQuizAnswers")
+);
 
 export interface Props {
   quiz: GetCommunityQuiz;

@@ -1,8 +1,6 @@
 import React, { FC } from "react";
-import { Box, Button, ButtonProps, Flex } from "@chakra-ui/react";
-
+import { Button, ButtonProps, Flex } from "@chakra-ui/react";
 import CustomFlag from "../../CustomFlag";
-import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 const getStylesByStatus = (status: CommunityQuizButtonStatus) => {
   switch (status) {
@@ -45,17 +43,18 @@ export interface Props extends ButtonProps {
   isCondensed: boolean;
   status?: CommunityQuizButtonStatus;
   flagCode?: string;
+  flagUrl?: string;
 }
 
 const GameCommunityQuizButton: FC<Props> = ({
-  flagCode,
+  text,
   isCondensed = false,
   status = "idle",
-  text,
+  flagCode = "",
+  flagUrl = "",
   ...props
 }) => {
   const buttonStyles = getStylesByStatus(status);
-  const { getFlagUrlByCode } = useFlagGroups();
 
   return (
     <Button
@@ -73,10 +72,8 @@ const GameCommunityQuizButton: FC<Props> = ({
       {...props}
     >
       <Flex alignItems="center" textAlign="center" width="100%">
-        {flagCode && (
-          <Box marginRight={4}>
-            <CustomFlag url={getFlagUrlByCode(flagCode)} code={flagCode} />
-          </Box>
+        {flagCode && flagUrl && (
+          <CustomFlag url={flagUrl} code={flagCode} marginRight={4} />
         )}
         {text}
       </Flex>
