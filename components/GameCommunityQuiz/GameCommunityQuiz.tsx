@@ -1,5 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 import Head from "next/head";
+import { use100vh } from "react-div-100vh";
+
 import {
   Alert,
   AlertIcon,
@@ -8,33 +10,23 @@ import {
   useBreakpointValue,
   useToast,
 } from "@chakra-ui/react";
-import { use100vh } from "react-div-100vh";
 
-import MainView from "../MainView";
-
-import { AppContext } from "../../context/AppContext";
 import {
   GetCommunityQuiz,
   GetCommunityQuizAnswer,
 } from "../../types/get-community-quiz-dto";
+
+import MainView from "../MainView";
 import GameCommunityQuizHeader from "./GameCommunityQuizHeader";
 import GameCommunityQuizStart from "./GameCommunityQuizStart";
+import GameCommunityQuizGameOver from "./GameCommunityQuizGameOver";
+import GameCommunityQuizContent from "./GameCommunityQuizContent";
+import GameCommunityQuizAnswers from "./GameCommunityQuizAnswers";
+
+import { AppContext } from "../../context/AppContext";
 import { getCommunityQuizScoreMessage } from "../../helpers/clipboard";
 import { useRouter } from "next/router";
 import { copyScoreToast } from "../../helpers/toasts";
-import dynamic from "next/dynamic";
-
-const GameCommunityQuizGameOver = dynamic(
-  () => import("./GameCommunityQuizGameOver")
-);
-
-const GameCommunityQuizContent = dynamic(
-  () => import("./GameCommunityQuizContent")
-);
-
-const GameCommunityQuizAnswers = dynamic(
-  () => import("./GameCommunityQuizAnswers")
-);
 
 export interface Props {
   quiz: GetCommunityQuiz;
