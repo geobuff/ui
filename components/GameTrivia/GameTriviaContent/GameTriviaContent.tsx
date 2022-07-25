@@ -112,8 +112,8 @@ const GameTriviaContent: FC<Props> = ({
                   <Image
                     src={imageUrl}
                     alt={imageAlt ?? "Unsplash stock image"}
-                    height={imageHeight !== 0 ? imageHeight : 300}
-                    width={imageWidth !== 0 ? imageWidth : 600}
+                    height={imageHeight !== 0 ? imageHeight : 320}
+                    width={imageWidth !== 0 ? imageWidth : 640}
                     objectFit={imageWidth === 0 ? "cover" : "contain"}
                     style={{
                       marginLeft: "auto",
