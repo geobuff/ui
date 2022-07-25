@@ -6,6 +6,7 @@ module.exports = {
       "upload.wikimedia.org",
       "images.unsplash.com",
       "ik.imagekit.io",
+      "www.worldatlas.com",
     ],
   },
 };
