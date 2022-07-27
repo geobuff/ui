@@ -58,7 +58,7 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
               {"Create your own using our custom quiz builder!"}
             </Link>
           ) : (
-            <Link href="/community-quiz/about">
+            <Link href="/create/community-quizzes">
               {"Learn more about our custom quiz builder!"}
             </Link>
           )}
