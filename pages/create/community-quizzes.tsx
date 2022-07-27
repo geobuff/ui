@@ -7,7 +7,7 @@ const rows: LandingPageRow[] = [
     imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/quiz-builder.png`,
     imageAlt: "Quiz builder example",
     explainer:
-      "Use our quiz builder to create the perfect brain scratcher for your friends, students or workmates!",
+      "Looking to create custom quizzes with high quality maps, flags and images? Use our quiz builder to create the perfect brain scratcher for your friends, students or workmates!",
   },
   {
     imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/resources.png`,
@@ -32,7 +32,7 @@ const rows: LandingPageRow[] = [
 const CreateCommunityQuizzes: FC = () => (
   <LandingPage
     title="Create Community Quizzes"
-    description="Think you've got what it takes to go head-to-head with our community of GeoBuff's? Test your knowledge with our collection of user generated quizzes!"
+    description="Looking to create custom quizzes with high quality maps, flags and images? Use our quiz builder to create the perfect brain scratcher for your friends, students or workmates!"
     rows={rows}
     question="Heard enough?"
     actionText="Sign up today to start creating your own!"
