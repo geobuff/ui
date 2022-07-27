@@ -43,7 +43,7 @@ const HeroBanner: FC<Props> = ({
         {
           link: session?.user
             ? "/community-quiz/create"
-            : "/community-quiz/about",
+            : "/create/community-quizzes",
           value: "build a community quiz to share with your peers",
         },
         { link: "/merch", value: "cop an item from our winter collection" },
