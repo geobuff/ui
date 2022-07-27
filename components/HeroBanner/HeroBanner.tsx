@@ -44,9 +44,21 @@ const HeroBanner: FC<Props> = ({
           link: session?.user
             ? "/community-quiz/create"
             : "/create/community-quizzes",
-          value: "build a community quiz to share with your peers",
+          value: "create a community quiz to share with your peers",
         },
         { link: "/merch", value: "cop an item from our winter collection" },
+        {
+          link: "/play/map-games",
+          value: "play one of our interactive map games",
+        },
+        {
+          link: "/play/flag-games",
+          value: "play one of our drag and drop flag games",
+        },
+        {
+          link: "/play/daily-trivia",
+          value: "test yourself with our auto-generated daily trivia",
+        },
       ];
 
       setActions(actions);
