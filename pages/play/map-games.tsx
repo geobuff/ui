@@ -13,7 +13,7 @@ const rows: LandingPageRow[] = [
     imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/map-games/game-start.png`,
     imageAlt: "Game start example",
     explainer:
-      "Our responsive UI works seamlessly between desktop and mobile so you can learn on the fly or on at home on the big screen.",
+      "Our responsive UI works seamlessly between desktop and mobile so you can learn on the fly or at home on the big screen.",
   },
   {
     imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/map-games/mid-game.png`,

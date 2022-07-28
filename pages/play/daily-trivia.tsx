@@ -13,7 +13,7 @@ const rows: LandingPageRow[] = [
     imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/daily-trivia/mobile-image-question.png`,
     imageAlt: "Mobile image question",
     explainer:
-      "Unlike other platforms, our responsive UI works seamlessly between desktop and mobile so you can learn on the fly or at home on the big screen.",
+      "Our responsive UI works seamlessly between desktop and mobile so you can learn on the fly or at home on the big screen.",
   },
   {
     imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/daily-trivia/game-over.png`,
@@ -25,7 +25,7 @@ const rows: LandingPageRow[] = [
 
 const PlayMapGames: FC = () => (
   <LandingPage
-    title="Play Daily Trivia"
+    title="Geography Daily Trivia"
     description="Dog ate your Geography homework? With questions on maps, flags, landmarks, currencies, national sports and more, our auto-generated daily trivia is perfect for getting you back up to speed on everything geo-related."
     rows={rows}
     question="Heard enough?"

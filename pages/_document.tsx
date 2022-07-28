@@ -10,7 +10,6 @@ export default class MyDocument extends Document {
           <>
             <Script
               src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_GOOGLE_ANALYTICS}`}
-              strategy="lazyOnload"
             />
             <Script
               // eslint-disable-next-line react/no-danger
@@ -24,7 +23,6 @@ export default class MyDocument extends Document {
                   });
                 `,
               }}
-              strategy="lazyOnload"
             />
             <Script
               dangerouslySetInnerHTML={{
