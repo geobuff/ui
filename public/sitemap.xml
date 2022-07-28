@@ -215,4 +215,16 @@
     <url>
         <loc>https://geobuff.com/merch/sticker-pack</loc>
     </url>
+    <url>
+        <loc>https://geobuff.com/play/map-games</loc>
+    </url>
+    <url>
+        <loc>https://geobuff.com/play/flag-games</loc>
+    </url>
+    <url>
+        <loc>https://geobuff.com/play/daily-trivia</loc>
+    </url>
+      <url>
+        <loc>https://geobuff.com/create/community-quizzes</loc>
+    </url>
 </urlset>
