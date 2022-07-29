@@ -17,7 +17,7 @@ const Checkout: FC = () => {
         <title>Checkout - GeoBuff</title>
         <meta
           name="description"
-          content="Merch for every occasion. Cop one of our tees, socks, posters or stickers and let the squad know you're ready to drop those countries of the world at a moments notice!"
+          content="Add your details so we can ship you GeoBuff merch straight to your doorstep."
         />
         <script
           src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`}

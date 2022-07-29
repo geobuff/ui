@@ -88,9 +88,8 @@ const socialIcons = (
       <Flex direction="column" justifyContent="center" mx={3}>
         <Link
           href="https://twitter.com/teamgeobuff"
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="Twitter link"
+          isExternal
         >
           <Twitter />
         </Link>
@@ -98,9 +97,8 @@ const socialIcons = (
       <Flex direction="column" justifyContent="center" mx={3}>
         <Link
           href="https://instagram.com/teamgeobuff"
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="Instagram link"
+          isExternal
         >
           <Instagram />
         </Link>
@@ -108,9 +106,8 @@ const socialIcons = (
       <Flex direction="column" justifyContent="center" mx={3}>
         <Link
           href="https://facebook.com/teamgeobuff"
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="Facebook link"
+          isExternal
         >
           <Facebook />
         </Link>
@@ -118,9 +115,8 @@ const socialIcons = (
       <Flex direction="column" justifyContent="center" mx={3}>
         <Link
           href="https://reddit.com/r/GeoBuff"
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="Reddit link"
+          isExternal
         >
           <Reddit />
         </Link>
@@ -128,9 +124,8 @@ const socialIcons = (
       <Flex direction="column" justifyContent="center" mx={3}>
         <Link
           href={process.env.NEXT_PUBLIC_DISCORD_LINK}
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="Discord link"
+          isExternal
         >
           <Discord />
         </Link>
@@ -138,9 +133,8 @@ const socialIcons = (
       <Flex direction="column" justifyContent="center" mx={3}>
         <Link
           href="https://github.com/GeoBuff"
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="GitHub link"
+          isExternal
         >
           <GitHub />
         </Link>
@@ -148,9 +142,8 @@ const socialIcons = (
       <Flex direction="column" justifyContent="center" mx={3}>
         <Link
           href="https://www.youtube.com/channel/UCDsUu_8r98ORJqsILXGRlEQ"
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="YouTube link"
+          isExternal
         >
           <YouTube />
         </Link>
@@ -158,9 +151,8 @@ const socialIcons = (
       <Flex direction="column" justifyContent="center" mx={3}>
         <Link
           href="https://www.twitch.tv/teamgeobuff"
-          target="_blank"
-          rel="noopener noreferrer"
           aria-label="Twitch link"
+          isExternal
         >
           <Twitch />
         </Link>

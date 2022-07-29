@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Flex, Fade, Text } from "@chakra-ui/react";
+import { Box, Flex, Fade, Text, Heading } from "@chakra-ui/react";
 
 interface Props {
   heading?: string;
@@ -32,14 +32,15 @@ const HeroHeader: FC<Props> = ({ heading = "", subtitle = "", ...props }) => (
       >
         {!!heading && (
           <Fade in>
-            <Text
+            <Heading
+              as="h1"
               color="white"
               fontSize={["38px", "42px", "56px"]}
               fontWeight="black"
               lineHeight={{ base: "1.1", md: "1" }}
             >
               {heading}
-            </Text>
+            </Heading>
           </Fade>
         )}
         {!!subtitle && (

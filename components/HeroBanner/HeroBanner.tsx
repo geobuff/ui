@@ -1,5 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
-import { Box, Flex, Text } from "@chakra-ui/react";
+import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import HeroBannerText from "./HeroBannerText";
@@ -122,14 +122,15 @@ const HeroBanner: FC<Props> = ({
         height="100%"
         textAlign="center"
       >
-        <Text
+        <Heading
+          as="h1"
           color={textColor}
           fontSize={["42px", "42px", "56px"]}
           fontWeight="black"
           lineHeight={{ base: "1.1", md: "1" }}
         >
           {title}
-        </Text>
+        </Heading>
 
         <Box
           marginY={5}
