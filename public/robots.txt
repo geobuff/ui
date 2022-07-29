@@ -1,2 +1,3 @@
 User-agent: *
 Sitemap: https://geobuff.com/sitemap.xml
+Disallow: /admin

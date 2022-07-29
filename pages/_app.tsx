@@ -52,15 +52,10 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
           content="GeoBuff is New Zealand's leading platform for Geography education and trivia. Sign up today!"
         />
         <link rel="icon" href="/favicon.ico" />
-        {isAppMobile && (
-          <>
-            <meta name="robots" content="noindex" />
-            <meta
-              name="viewport"
-              content="width=device-width, initial-scale=1, maximum-scale=1"
-            />
-          </>
-        )}
+        <link
+          rel="canonical"
+          href={process.env.NEXT_PUBLIC_SITE_URL + router.asPath}
+        />
 
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
@@ -104,6 +99,22 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
           sizes="180x180"
           href="/apple-touch-icon-180x180.png"
         />
+
+        {isAppMobile ? (
+          <>
+            <meta name="robots" content="noindex" />
+            <meta name="googlebot" content="noindex" />
+            <meta
+              name="viewport"
+              content="width=device-width, initial-scale=1, maximum-scale=1"
+            />
+          </>
+        ) : (
+          <>
+            <meta name="robots" content="all" />
+            <meta name="googlebot" content="all" />
+          </>
+        )}
       </Head>
       <SessionProvider session={session}>
         <ChakraProvider theme={theme}>

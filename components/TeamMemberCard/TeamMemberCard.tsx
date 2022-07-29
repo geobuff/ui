@@ -22,7 +22,7 @@ const TeamMemberCard: FC<Props> = ({
   link = "",
 }) => (
   <Box textAlign="center">
-    <Link href={link} target="_blank" rel="noopener noreferrer">
+    <Link href={link} isExternal>
       <ProfileUserAvatar
         primaryImageUrl={primaryImageUrl}
         secondaryImageUrl={secondaryImageUrl}
