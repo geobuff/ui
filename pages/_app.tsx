@@ -46,9 +46,8 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
   return (
     <>
       <Head>
-        <title key="title">GeoBuff - Get Your Geo Flex On</title>
+        <title>GeoBuff - Get Your Geo Flex On</title>
         <meta
-          key="description"
           name="description"
           content="GeoBuff is New Zealand's leading platform for Geography education and trivia. Sign up today!"
         />

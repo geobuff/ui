@@ -1,6 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import Head from "next/head";
 
 import MerchSummaryContainer from "../../containers/MerchSummaryContainer";
 import MainView from "../../components/MainView";
