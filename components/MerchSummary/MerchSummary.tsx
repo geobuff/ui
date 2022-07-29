@@ -9,6 +9,7 @@ import MerchSummaryShowcase from "./MerchSummaryShowcase";
 import MerchSummaryDetails from "./MerchSummaryDetails";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 interface Props {
   item?: MerchItem;
@@ -30,6 +31,13 @@ const MerchSummary: FC<Props> = ({
 
   return (
     <>
+      <Head>
+        <title>{`${item?.name}`} - GeoBuff</title>
+        <meta
+          name="description"
+          content={`${item?.description.substring(0, 150)}...`}
+        />
+      </Head>
       <Flex
         background="white"
         width="100%"
