@@ -38,7 +38,7 @@ const LandingPage: FC<Props> = ({
   return (
     <MainView>
       <Head>
-        <title>{title}</title>
+        <title>{`${title} - GeoBuff`}</title>
         <meta name="description" content={description} />
       </Head>
       <HeroHeader heading={title} />
