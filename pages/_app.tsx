@@ -18,10 +18,6 @@ import { CurrentUserContextProvider } from "../context/CurrentUserContext/Curren
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
-const defaultTitle = "GeoBuff - Get Your Geo Flex On";
-const defaultDescription =
-  "GeoBuff is NZ's leading platform for Geography education and trivia. Sign up today!";
-
 interface Props {
   session: Session;
   Component: any;
@@ -36,35 +32,10 @@ NProgress.configure({ showSpinner: false });
 
 const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
   const router = useRouter();
-  const [title, setTitle] = useState(defaultTitle);
-  const [description, setDescription] = useState(defaultDescription);
   const [canonicalHref, setCanonicalHref] = useState("");
-
-  const updateTitleDescription = () => {
-    switch (window.location.href) {
-      case "https://www.geobuff.com":
-      case "https://www.geobuff.com/":
-        setTitle("GeoBuff - Get Your Geo Flex On!");
-        setDescription(
-          "GeoBuff is NZ's leading platform for Geography education and trivia. Sign up today..."
-        );
-        break;
-      case "https://geobuff.com/":
-        setTitle("GeoBuff - Get Your Geo Flex ON");
-        setDescription(
-          "GeoBuff is NZ's leading platform for Geography education and trivia. Sign up today."
-        );
-        break;
-      default:
-        setTitle(defaultTitle);
-        setDescription(defaultDescription);
-        break;
-    }
-  };
 
   useEffect(() => {
     setCanonicalHref(window.location.href);
-    updateTitleDescription();
     const handleRouteChange = (url: URL) => {
       gtag.pageview(url);
     };
@@ -77,8 +48,13 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
   return (
     <>
       <Head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
+        <title>GeoBuff - Get Your Geo Flex On</title>
+        <meta
+          name="description"
+          content={
+            "GeoBuff is NZ's leading platform for Geography education and trivia. Sign up today!"
+          }
+        />
         <link rel="icon" href="/favicon.ico" />
         <link rel="canonical" href={canonicalHref} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
