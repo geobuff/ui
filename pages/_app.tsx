@@ -1,4 +1,4 @@
-import React, { useEffect, FC } from "react";
+import React, { useEffect, FC, useState } from "react";
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
 import { ChakraProvider } from "@chakra-ui/react";
@@ -32,8 +32,10 @@ NProgress.configure({ showSpinner: false });
 
 const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
   const router = useRouter();
+  const [canonicalHref, setCanonicalHref] = useState("");
 
   useEffect(() => {
+    setCanonicalHref(window.location.href);
     const handleRouteChange = (url: URL) => {
       gtag.pageview(url);
     };
@@ -52,11 +54,7 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
           content="GeoBuff is NZ's leading platform for Geography education and trivia. Sign up today!"
         />
         <link rel="icon" href="/favicon.ico" />
-        <link
-          rel="canonical"
-          href={process.env.NEXT_PUBLIC_SITE_URL + router.asPath}
-        />
-
+        <link rel="canonical" href={canonicalHref} />
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
         <link
