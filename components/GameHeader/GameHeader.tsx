@@ -27,6 +27,7 @@ const GameHeader: FC<Props> = ({
 
   return (
     <Heading
+      as="h1"
       size="md"
       textAlign="center"
       {...props}

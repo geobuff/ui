@@ -11,6 +11,7 @@ import {
   Text,
   Button,
   Fade,
+  Heading,
 } from "@chakra-ui/react";
 import { Field } from "formik";
 
@@ -49,9 +50,9 @@ const RegisterFormStepOne: FC<Props> = ({
         </Link>
       </Flex>
 
-      <Text fontSize="26px" marginY={1} fontWeight="extrabold">
+      <Heading as="h1" fontSize="26px" marginY={2} fontWeight="extrabold">
         {"Create an Account"}
-      </Text>
+      </Heading>
       <Text fontSize="12px" marginY={1} color="gray.500">
         {welcomeHelperText}
       </Text>

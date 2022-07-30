@@ -1,3 +1,4 @@
 User-agent: *
 Sitemap: https://geobuff.com/sitemap.xml
 Disallow: /admin
+Disallow: /orders

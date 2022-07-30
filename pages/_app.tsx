@@ -49,7 +49,7 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
         <title>GeoBuff - Get Your Geo Flex On</title>
         <meta
           name="description"
-          content="GeoBuff is New Zealand's leading platform for Geography education and trivia. Sign up today!"
+          content="GeoBuff is NZ's leading platform for Geography education and trivia. Sign up today!"
         />
         <link rel="icon" href="/favicon.ico" />
         <link

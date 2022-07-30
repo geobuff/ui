@@ -61,7 +61,7 @@ const furtherInfoLinks = [
 ];
 
 const footerCopy =
-  "GeoBuff is New Zealand's leading platform for Geography education and trivia.";
+  "GeoBuff is NZ's leading platform for Geography education and trivia.";
 
 const currentYear = new Date().getFullYear();
 const footerLegal = `© ${currentYear} GeoBuff. All rights reserved.`;

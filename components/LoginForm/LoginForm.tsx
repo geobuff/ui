@@ -8,9 +8,9 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Heading,
   Input,
   Link,
-  Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
@@ -68,9 +68,9 @@ const LoginForm: FC<Props> = ({
         </Link>
       </Flex>
 
-      <Text fontSize="26px" marginY={2} fontWeight="800">
+      <Heading as="h1" fontSize="26px" marginY={3} fontWeight="800">
         {"Login"}
-      </Text>
+      </Heading>
 
       <Formik
         initialValues={initialValues}

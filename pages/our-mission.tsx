@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
-import { Box, Divider, Text, Link, SimpleGrid } from "@chakra-ui/react";
+import { Box, Divider, Text, SimpleGrid } from "@chakra-ui/react";
 
 import TeamMemberCard from "../components/TeamMemberCard/TeamMemberCard";
 import MainView from "../components/MainView";

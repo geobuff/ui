@@ -11,6 +11,7 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Heading,
   Input,
   Link,
   Text,
@@ -98,9 +99,9 @@ const ForgotPasswordForm: FC<Props> = ({
         </Link>
       </Flex>
 
-      <Text fontSize="26px" marginY={2} fontWeight="800">
+      <Heading as="h1" fontSize="26px" marginY={3} fontWeight="800">
         {"Forgotten Password"}
-      </Text>
+      </Heading>
 
       <Text marginTop={2} color="gray.600" fontSize="14px">
         {forgotPasswordExplainer}

@@ -13,7 +13,7 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
   return (
     <>
       <Head>
-        <title> {"Map Games - GeoBuff"}</title>
+        <title>Map Games - GeoBuff</title>
         <meta
           name="description"
           content="Rate yourself as a budding cartographer? Test your knowledge on our variety of interactive map games!"
