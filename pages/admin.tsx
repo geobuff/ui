@@ -57,7 +57,11 @@ const AdminManualTriviaQuestionTableContainer = dynamic(
   () => import("../containers/AdminManualTriviaQuestionTableContainer")
 );
 
-const tabs = ["general", "users", "quizzes", "trivia", "merch"];
+const AdminFlagsTableContainer = dynamic(
+  () => import("../containers/AdminFlagsTableContainer")
+);
+
+const tabs = ["general", "users", "quizzes", "trivia", "merch", "flags"];
 
 export default function Admin(): JSX.Element {
   const { data: session, status } = useSession();
@@ -118,6 +122,7 @@ export default function Admin(): JSX.Element {
               <Tab fontWeight="medium">Quizzes</Tab>
               <Tab fontWeight="medium">Trivia</Tab>
               <Tab fontWeight="medium">Merch</Tab>
+              <Tab fontWeight="medium">Flags</Tab>
             </TabList>
           </Flex>
 
@@ -184,6 +189,18 @@ export default function Admin(): JSX.Element {
                   <AdminMerchTableContainer />
                   <AdminDiscountsTableContainer />
                   <AdminOrdersContainer />
+                </Flex>
+              </Flex>
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminFlagsTableContainer />
                 </Flex>
               </Flex>
             </TabPanel>
