@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { debounce } from "throttle-debounce";
@@ -49,6 +49,8 @@ import Search from "../../Icons/Search";
 import UnsplashImageGrid from "../UnsplashImageGrid";
 import { UnsplashImage } from "../../types/unsplash-image";
 import useFlagGroups from "../../hooks/UseFlagGroups";
+import useFlagUrl from "../../hooks/UseFlagUrl";
+import axiosClient from "../../axios";
 
 const initialValues: ManualTriviaQuestionFormSubmit = {
   typeId: "1",
@@ -138,17 +140,34 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
   isEmptyImageSearch = false,
   onChangeSearchImage = () => {},
 }) => {
-  const { data: flagGroups, getFlagUrl, getFlagEntriesByKey } = useFlagGroups();
+  const { data: flagGroups } = useFlagGroups();
 
   const initialHasFlagAnswers = editValues?.hasFlagAnswers || false;
   const isEditing = !!editValues;
 
   const [hasFlagAnswers, setHasFlagAnswers] = useState(initialHasFlagAnswers);
   const [flagCategory, setFlagCategory] = useState("world");
+  const [flagUrl, setFlagUrl] = useState("");
+  const [flagEntries, setFlagEntries] = useState([]);
+  const [isFlagEntriesLoading, setIsFlagEntriesLoading] = useState(false);
+
+  useEffect(() => {
+    setIsFlagEntriesLoading(true);
+    axiosClient
+      .get(`flags/${flagCategory}`)
+      .then((response) => setFlagEntries(response.data))
+      .finally(() => setIsFlagEntriesLoading(false));
+  }, [flagCategory]);
 
   const handleSearchImageDebounced = debounce(1500, (event) =>
     onChangeSearchImage(event.target.value)
   );
+
+  const getFlagUrl = (code: string): void => {
+    axiosClient
+      .get(`/flags/url/${code}`)
+      .then((response) => setFlagUrl(response.data));
+  };
 
   return (
     <>
@@ -492,10 +511,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                       icon={
                                         values.flagCode ? (
                                           <Image
-                                            src={getFlagUrl(
-                                              flagCategory,
-                                              values.flagCode
-                                            )}
+                                            src={flagUrl}
                                             alt="Flag example"
                                             marginRight="16px"
                                             minHeight="22px"
@@ -507,20 +523,22 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                           <ChevronDownIcon stroke="black" />
                                         )
                                       }
+                                      onClick={() =>
+                                        getFlagUrl(values.flagCode)
+                                      }
                                     >
                                       <option value="">
                                         {"select a flag code..."}
                                       </option>
-                                      {getFlagEntriesByKey(flagCategory).map(
-                                        (entry, index) => (
+                                      {!isFlagEntriesLoading &&
+                                        flagEntries.map((entry, index) => (
                                           <option
                                             key={index}
                                             value={entry.code}
                                           >
                                             {entry.code}
                                           </option>
-                                        )
-                                      )}
+                                        ))}
                                     </Select>
                                   )}
                                   <FormErrorMessage fontSize="11px">

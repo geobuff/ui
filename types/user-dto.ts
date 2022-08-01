@@ -8,6 +8,7 @@ export interface UserDto {
   username: string;
   email: string;
   countryCode: string;
+  flagUrl: string;
   xp: number;
   isAdmin: boolean;
   joined: string;

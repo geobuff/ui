@@ -65,11 +65,12 @@ const SelectFormField: FC<Props> = ({
               onChange={onChange}
             >
               <option value={defaultValue.value}>{defaultValue.label}</option>
-              {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
+              {options &&
+                options.map((option) => (
+                  <option key={option.value} value={option.value}>
+                    {option.label}
+                  </option>
+                ))}
             </Select>
 
             {helper && <FormHelperText marginTop={0}>{helper}</FormHelperText>}

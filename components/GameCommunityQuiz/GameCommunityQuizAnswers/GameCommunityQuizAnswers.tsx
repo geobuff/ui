@@ -16,7 +16,7 @@ import {
   GetCommunityQuizQuestion,
 } from "../../../types/get-community-quiz-dto";
 import GameCommunityQuizButton from "../GameCommunityQuizButton";
-import useFlagGroups from "../../../hooks/UseFlagGroups";
+import useFlagUrl from "../../../hooks/UseFlagUrl";
 
 export interface Props {
   question: GetCommunityQuizQuestion;
@@ -50,7 +50,6 @@ const GameCommunityQuizAnswers: FC<Props> = ({
   onNextQuestion = () => {},
   onGameStop = () => {},
 }) => {
-  const { getFlagUrlByCode } = useFlagGroups();
   const height = use100vh();
   const isMobile = useBreakpointValue({ base: false, md: true });
   const isTinyMobile = height < 625;
@@ -61,30 +60,20 @@ const GameCommunityQuizAnswers: FC<Props> = ({
   return (
     <Flex direction="column" marginTop="auto" width="100%">
       <SimpleGrid columns={{ base: 1, md: 2 }} spacing={{ base: 2, md: 4 }}>
-        {question?.answers?.map((answer) => {
-          const flagUrl = answer.flagCode
-            ? getFlagUrlByCode(answer.flagCode)
-            : "";
-
-          if (!answer.flagCode || (answer.flagCode && flagUrl)) {
-            return (
-              <GameCommunityQuizButton
-                status={
-                  (hasAnswered && getButtonStatus(selectedAnswer, answer)) ||
-                  "idle"
-                }
-                key={answer?.text}
-                text={answer.text}
-                flagCode={answer?.flagCode}
-                flagUrl={flagUrl}
-                isCondensed={isTinyMobile}
-                onClick={() => onAnswerQuestion(answer)}
-                isDisabled={hasAnswered}
-                _disabled={{ opacity: "1", cursor: "not-allowed" }}
-              />
-            );
-          }
-        })}
+        {question?.answers?.map((answer) => (
+          <GameCommunityQuizButton
+            status={
+              (hasAnswered && getButtonStatus(selectedAnswer, answer)) || "idle"
+            }
+            key={answer?.text}
+            text={answer.text}
+            flagCode={answer?.flagCode}
+            isCondensed={isTinyMobile}
+            onClick={() => onAnswerQuestion(answer)}
+            isDisabled={hasAnswered}
+            _disabled={{ opacity: "1", cursor: "not-allowed" }}
+          />
+        ))}
       </SimpleGrid>
 
       {hasAnswered && question?.explainer && (

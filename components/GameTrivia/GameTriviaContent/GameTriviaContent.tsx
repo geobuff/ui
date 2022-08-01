@@ -23,7 +23,7 @@ import {
   getMapStyles,
   highlightSection,
 } from "../../../helpers/map";
-import useFlagGroups from "../../../hooks/UseFlagGroups";
+import useFlagUrl from "../../../hooks/UseFlagUrl";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
 
@@ -64,7 +64,7 @@ const GameTriviaContent: FC<Props> = ({
   imageHeight = 0,
   imageAlt = "",
 }) => {
-  const { getFlagUrlByCode } = useFlagGroups();
+  const { data: flagUrl } = useFlagUrl(flagCode);
 
   const isMobile = useBreakpointValue({ base: false, md: true });
   const height = use100vh();
@@ -76,7 +76,6 @@ const GameTriviaContent: FC<Props> = ({
   const getContentByType = (): JSX.Element => {
     switch (type) {
       case "Flag":
-        const flagUrl = getFlagUrlByCode(flagCode);
         if (flagUrl) {
           return (
             <CustomFlag

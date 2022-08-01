@@ -13,7 +13,7 @@ import { Avatar } from "../../types/avatar";
 import RadioCard from "./RadioCard";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import CustomFlag from "../CustomFlag";
-import UseWorldFlagGroup from "../../hooks/UseWorldFlagGroup";
+import useFlagUrl from "../../hooks/UseFlagUrl";
 
 interface Props {
   fieldProps?: FieldProps;
@@ -32,8 +32,7 @@ const AvatarSelect: FC<Props> = ({
     shouldValidate?: boolean
   ): void => {},
 }) => {
-  const { getFlagUrl } = UseWorldFlagGroup();
-  const flagUrl = getFlagUrl(current?.countryCode);
+  const { data: flagUrl } = useFlagUrl(current?.countryCode);
 
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "avatarId",

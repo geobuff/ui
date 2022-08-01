@@ -5,7 +5,7 @@ import FlagFallback from "./FlagFallback/FlagFallback";
 import CustomFlag from "../CustomFlag";
 
 import Twemoji from "../Twemoji";
-import useFlagGroups from "../../hooks/UseFlagGroups";
+import useFlagUrl from "../../hooks/UseFlagUrl";
 
 export interface Props {
   code?: string;
@@ -26,8 +26,7 @@ const ResultsListItem: FC<Props> = ({
   shouldFadeIn = false,
   ...props
 }) => {
-  const { getFlagUrlByCode } = useFlagGroups();
-  const flagUrl = code ? getFlagUrlByCode(code) : "";
+  const { data: flagUrl } = useFlagUrl(code);
 
   const mainContent = (
     <Flex alignItems="center" marginY={2} {...props}>

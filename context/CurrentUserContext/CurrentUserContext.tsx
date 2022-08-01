@@ -33,6 +33,7 @@ export const CurrentUserContextProvider: FC<Props> = ({ children = null }) => {
       username: window.localStorage.getItem("geobuff.username"),
       email: window.localStorage.getItem("geobuff.email"),
       countryCode: window.localStorage.getItem("geobuff.countryCode"),
+      flagUrl: window.localStorage.getItem("geobuff.flagUrl"),
       isAdmin: window.localStorage.getItem("geobuff.isAdmin") === "true",
       xp: parseInt(window.localStorage.getItem("geobuff.xp")),
       joined: window.localStorage.getItem("geobuff.joined"),

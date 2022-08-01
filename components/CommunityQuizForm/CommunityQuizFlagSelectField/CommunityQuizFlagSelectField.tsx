@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Field } from "formik";
 import {
   Flex,
@@ -13,7 +13,7 @@ import { ChevronDownIcon } from "@chakra-ui/icons";
 
 import Image from "../../Image";
 import CountrySelect from "../../CountrySelect";
-import useFlagGroups from "../../../hooks/UseFlagGroups";
+import axiosClient from "../../../axios";
 
 export interface Props extends SelectProps {
   flagCategory?: string;
@@ -29,7 +29,28 @@ const CommunityQuizFlagSelect: FC<Props> = ({
   flagCode,
   ...props
 }) => {
-  const { getFlagUrl, getFlagEntriesByKey } = useFlagGroups();
+  const [flagUrl, setFlagUrl] = useState("");
+  const [flagEntries, setFlagEntries] = useState([]);
+  const [isFlagEntriesLoading, setIsFlagEntriesLoading] = useState(false);
+
+  useEffect(() => {
+    if (flagCode) {
+      setFlagUrl("");
+      axiosClient
+        .get(`flags/url/${flagCode}`)
+        .then((response) => setFlagUrl(response.data));
+    }
+  }, [flagCode]);
+
+  useEffect(() => {
+    if (flagCategory) {
+      setIsFlagEntriesLoading(true);
+      axiosClient
+        .get(`flags/${flagCategory}`)
+        .then((response) => setFlagEntries(response.data))
+        .finally(() => setIsFlagEntriesLoading(false));
+    }
+  }, [flagCategory]);
 
   return (
     <Flex width="100%">
@@ -67,9 +88,9 @@ const CommunityQuizFlagSelect: FC<Props> = ({
                 _placeholder={{ color: "gray.500" }}
                 _hover={{ background: "#e0e0e0" }}
                 icon={
-                  flagCode ? (
+                  flagUrl ? (
                     <Image
-                      src={getFlagUrl(flagCategory, flagCode)}
+                      src={flagUrl}
                       alt="Flag example"
                       marginRight="16px"
                       minHeight="22px"
@@ -83,11 +104,12 @@ const CommunityQuizFlagSelect: FC<Props> = ({
                 }
               >
                 <option value="">{"select a flag code..."}</option>
-                {getFlagEntriesByKey(flagCategory).map((entry, index) => (
-                  <option key={index} value={entry.code}>
-                    {entry.code}
-                  </option>
-                ))}
+                {!isFlagEntriesLoading &&
+                  flagEntries.map((entry, index) => (
+                    <option key={index} value={entry.code}>
+                      {entry.code}
+                    </option>
+                  ))}
               </Select>
             )}
             <FormErrorMessage fontSize="11px">

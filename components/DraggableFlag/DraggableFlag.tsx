@@ -7,6 +7,7 @@ import Image from "next/image";
 import { FlagGameContext } from "../../context/FlagGameContext";
 import { ItemTypes } from "../../types/item-types";
 import { DragResult } from "../../types/drag-result";
+import useFlagUrl from "../../hooks/UseFlagUrl";
 
 interface CollectResult {
   isDragging: boolean;
@@ -15,17 +16,16 @@ interface CollectResult {
 
 interface Props extends BoxProps {
   code?: string;
-  imageUrl: string;
   checkSubmission?: (submission: string) => void;
 }
 
 const DraggableFlag: FC<Props> = ({
   code = "",
-  imageUrl,
   checkSubmission = (): void => {},
   ...props
 }) => {
   const { handleDragging } = useContext(FlagGameContext);
+  const { data: flagUrl } = useFlagUrl(code);
 
   const [{ isDragging }, drag] = useDrag(() => ({
     type: ItemTypes.FLAG,
@@ -56,18 +56,20 @@ const DraggableFlag: FC<Props> = ({
       position="relative"
       {...props}
     >
-      <Image
-        src={imageUrl}
-        alt={`Flag for ${code}`}
-        draggable="false"
-        width={100}
-        height={64}
-        objectFit="cover"
-        style={{
-          borderRadius: 6,
-        }}
-        priority
-      />
+      {flagUrl && (
+        <Image
+          src={flagUrl}
+          alt={`Flag for ${code}`}
+          draggable="false"
+          width={100}
+          height={64}
+          objectFit="cover"
+          style={{
+            borderRadius: 6,
+          }}
+          priority
+        />
+      )}
     </Box>
   );
 };
