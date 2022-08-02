@@ -36,7 +36,6 @@ const AdminFlags: FC<Props> = ({
         <Flex
           direction="column"
           justifyContent="space-between"
-          minHeight="750px"
           paddingTop={2}
           paddingBottom={{ base: 1, md: 3 }}
         >
