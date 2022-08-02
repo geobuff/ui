@@ -20,7 +20,7 @@ const map: ResultMap = {
       svgName: "Afghanistan",
       alternativeNames: [],
       prefixes: [],
-      group: "asia",
+      grouping: "asia",
     },
     {
       id: 0,
@@ -30,7 +30,7 @@ const map: ResultMap = {
       svgName: "Armenia",
       alternativeNames: [],
       prefixes: [],
-      group: "asia",
+      grouping: "asia",
     },
   ],
   oceania: [
@@ -42,7 +42,7 @@ const map: ResultMap = {
       svgName: "Australia",
       alternativeNames: [],
       prefixes: [],
-      group: "oceania",
+      grouping: "oceania",
     },
     {
       id: 0,
@@ -52,7 +52,7 @@ const map: ResultMap = {
       svgName: "Fiji",
       alternativeNames: [],
       prefixes: [],
-      group: "oceania",
+      grouping: "oceania",
     },
     {
       id: 0,
@@ -62,7 +62,7 @@ const map: ResultMap = {
       svgName: "New Zealand",
       alternativeNames: [],
       prefixes: [],
-      group: "oceania",
+      grouping: "oceania",
     },
   ],
 };
@@ -76,7 +76,7 @@ const checked: MappingEntry[] = [
     svgName: "Australia",
     alternativeNames: [],
     prefixes: [],
-    group: "oceania",
+    grouping: "oceania",
     checked: true,
   },
   {
@@ -87,7 +87,7 @@ const checked: MappingEntry[] = [
     svgName: "New Zealand",
     alternativeNames: [],
     prefixes: [],
-    group: "oceania",
+    grouping: "oceania",
     checked: true,
   },
   {
@@ -98,7 +98,7 @@ const checked: MappingEntry[] = [
     svgName: "Afghanistan",
     alternativeNames: [],
     prefixes: [],
-    group: "asia",
+    grouping: "asia",
     checked: true,
   },
 ];
