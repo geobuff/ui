@@ -2,8 +2,8 @@ import React, { FC } from "react";
 import { Divider, Flex } from "@chakra-ui/react";
 import Card from "../Card";
 import { FlagGroup } from "../../types/flag-group";
-import AdminFlagsTable from "./AdminMappingsTable";
-import AdminFlagsFilters from "./AdminMappingsFilters";
+import AdminMappingsTable from "./AdminMappingsTable";
+import AdminMappingsFilters from "./AdminMappingsFilters";
 import useMappingEntries from "../../hooks/UseMappingEntries";
 import AdminMappingsHeader from "./AdminMappingsHeader";
 
@@ -45,14 +45,14 @@ const AdminMappings: FC<Props> = ({
 
           <Divider borderWidth={1} marginBottom={6} />
 
-          <AdminFlagsFilters
+          <AdminMappingsFilters
             groups={groups}
             group={group}
             isLoading={isLoading || isEntriesLoading}
             setGroup={setGroup}
           />
 
-          <AdminFlagsTable
+          <AdminMappingsTable
             entries={entries}
             isLoading={isLoading || isEntriesLoading}
           />

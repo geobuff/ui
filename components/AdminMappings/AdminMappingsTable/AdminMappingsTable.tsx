@@ -44,8 +44,8 @@ const AdminMappingsTable: FC<Props> = ({ entries = [], isLoading = true }) => {
         </Thead>
 
         <Tbody>
-          {entries.map((entry, index) => (
-            <Tr key={index} fontWeight={600}>
+          {entries.map((entry) => (
+            <Tr key={entry.id} fontWeight={600}>
               <TableCell paddingY={4} paddingX={6} minWidth="260px">
                 {entry.name}
               </TableCell>
