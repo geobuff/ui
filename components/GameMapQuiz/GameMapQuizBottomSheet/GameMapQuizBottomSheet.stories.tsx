@@ -1,6 +1,6 @@
 import React from "react";
 import GameMapQuizBottomSheet from ".";
-import { Mapping } from "../../../types/mapping";
+import { MappingEntry } from "../../../types/mapping-entry";
 import { Result } from "../../../types/result";
 import { Props } from "./GameMapQuizBottomSheet";
 
@@ -13,8 +13,10 @@ const Template = (args: Props): React.ReactNode => (
   <GameMapQuizBottomSheet {...args} />
 );
 
-const mapping: Mapping[] = [
+const mapping: MappingEntry[] = [
   {
+    id: 0,
+    groupId: 0,
     name: "australia",
     code: "au",
     svgName: "Australia",
@@ -24,6 +26,8 @@ const mapping: Mapping[] = [
     checked: false,
   },
   {
+    id: 0,
+    groupId: 0,
     name: "new zealand",
     code: "nz",
     svgName: "New Zealand",
@@ -33,6 +37,8 @@ const mapping: Mapping[] = [
     checked: false,
   },
   {
+    id: 0,
+    groupId: 0,
     name: "afghanistan",
     code: "af",
     svgName: "Afghanistan",
@@ -43,8 +49,10 @@ const mapping: Mapping[] = [
   },
 ];
 
-const checked: Mapping[] = [
+const checked: MappingEntry[] = [
   {
+    id: 0,
+    groupId: 0,
     name: "australia",
     code: "au",
     svgName: "Australia",
@@ -54,6 +62,8 @@ const checked: Mapping[] = [
     checked: true,
   },
   {
+    id: 0,
+    groupId: 0,
     name: "new zealand",
     code: "nz",
     svgName: "New Zealand",
@@ -63,6 +73,8 @@ const checked: Mapping[] = [
     checked: true,
   },
   {
+    id: 0,
+    groupId: 0,
     name: "afghanistan",
     code: "af",
     svgName: "Afghanistan",

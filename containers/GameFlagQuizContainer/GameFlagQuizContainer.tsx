@@ -7,11 +7,11 @@ import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import { isMobile } from "react-device-detect";
 import { Quiz } from "../../types/quiz";
-import { Mapping } from "../../types/mapping";
+import { MappingEntry } from "../../types/mapping-entry";
 
 interface Props {
   quiz: Quiz;
-  mapping: Mapping[];
+  mapping: MappingEntry[];
 }
 
 const GameFlagQuizContainer: FC<Props> = ({ quiz, mapping }) => {

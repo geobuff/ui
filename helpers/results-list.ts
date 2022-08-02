@@ -1,10 +1,10 @@
-import { Mapping } from "../types/mapping";
+import { MappingEntry } from "../types/mapping-entry";
 import { Result } from "../types/result";
 import { mergeArrayByName } from "./array";
 
 export const getResults = (
-  mapping: Mapping[],
-  checked: Mapping[],
+  mapping: MappingEntry[],
+  checked: MappingEntry[],
   hasGameStopped: boolean
 ): Result[] => {
   return hasGameStopped

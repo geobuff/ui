@@ -1,5 +1,5 @@
 import React from "react";
-import { Mapping } from "../../types/mapping";
+import { MappingEntry } from "../../types/mapping-entry";
 import { ResultMap } from "../../types/result-map";
 import ResultsMap, { Props } from "./ResultsMap";
 
@@ -13,6 +13,8 @@ const Template = (args: Props): React.ReactNode => <ResultsMap {...args} />;
 const map: ResultMap = {
   asia: [
     {
+      id: 0,
+      groupId: 0,
       name: "afghanistan",
       code: "af",
       svgName: "Afghanistan",
@@ -21,6 +23,8 @@ const map: ResultMap = {
       group: "asia",
     },
     {
+      id: 0,
+      groupId: 0,
       name: "armenia",
       code: "am",
       svgName: "Armenia",
@@ -31,6 +35,8 @@ const map: ResultMap = {
   ],
   oceania: [
     {
+      id: 0,
+      groupId: 0,
       name: "australia",
       code: "au",
       svgName: "Australia",
@@ -39,6 +45,8 @@ const map: ResultMap = {
       group: "oceania",
     },
     {
+      id: 0,
+      groupId: 0,
       name: "fiji",
       code: "fj",
       svgName: "Fiji",
@@ -47,6 +55,8 @@ const map: ResultMap = {
       group: "oceania",
     },
     {
+      id: 0,
+      groupId: 0,
       name: "new zealand",
       code: "nz",
       svgName: "New Zealand",
@@ -57,8 +67,10 @@ const map: ResultMap = {
   ],
 };
 
-const checked: Mapping[] = [
+const checked: MappingEntry[] = [
   {
+    id: 0,
+    groupId: 0,
     name: "australia",
     code: "au",
     svgName: "Australia",
@@ -68,6 +80,8 @@ const checked: Mapping[] = [
     checked: true,
   },
   {
+    id: 0,
+    groupId: 0,
     name: "new zealand",
     code: "nz",
     svgName: "New Zealand",
@@ -77,6 +91,8 @@ const checked: Mapping[] = [
     checked: true,
   },
   {
+    id: 0,
+    groupId: 0,
     name: "afghanistan",
     code: "af",
     svgName: "Afghanistan",

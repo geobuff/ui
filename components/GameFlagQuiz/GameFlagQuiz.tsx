@@ -26,7 +26,7 @@ import FlagDropZone from "../FlagDropZone/FlagDropZone";
 import { groupMapping } from "../../helpers/mapping";
 import { findSubmissionByCode } from "../../helpers/game";
 import GameFlagQuizBottomSheet from "./GameFlagQuizBottomSheet";
-import { Mapping } from "../../types/mapping";
+import { MappingEntry } from "../../types/mapping-entry";
 import { Result } from "../../types/result";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import {
@@ -53,7 +53,7 @@ interface Props {
   hasLeaderboard?: boolean;
   hasFlags?: boolean;
   hasGrouping?: boolean;
-  mapping?: Mapping[];
+  mapping?: MappingEntry[];
 }
 
 const GameFlagQuiz: FC<Props> = ({
@@ -82,7 +82,9 @@ const GameFlagQuiz: FC<Props> = ({
     ? NUMBER_OF_FLAGS_MOBILE
     : NUMBER_OF_FLAGS_DESKTOP;
 
-  const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
+  const [checkedSubmissions, setCheckedSubmissions] = useState<MappingEntry[]>(
+    []
+  );
   const [recentSubmissions, setRecentSubmissions] = useState<Result[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [hasError, setHasError] = useState(false);

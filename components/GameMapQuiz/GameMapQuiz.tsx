@@ -43,7 +43,7 @@ import {
   findSubmissionByNames,
   findSubmissionsByPrefixes,
 } from "../../helpers/game";
-import { Mapping } from "../../types/mapping";
+import { MappingEntry } from "../../types/mapping-entry";
 import { SVGBase } from "../../types/svg-base";
 import { Result } from "../../types/result";
 import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
@@ -68,7 +68,7 @@ interface Props {
   hasLeaderboard?: boolean;
   hasFlags?: boolean;
   hasGrouping?: boolean;
-  mapping?: Mapping[];
+  mapping?: MappingEntry[];
   map?: SVGBase;
   mapClassName?: string;
 }
@@ -93,7 +93,9 @@ const GameMapQuiz: FC<Props> = ({
   const isUserAuthenticated = status === "authenticated";
 
   const pathSelectedFill = getPathSelectedFill(mapClassName);
-  const [checkedSubmissions, setCheckedSubmissions] = useState<Mapping[]>([]);
+  const [checkedSubmissions, setCheckedSubmissions] = useState<MappingEntry[]>(
+    []
+  );
   const [recentSubmissions, setRecentSubmissions] = useState<Result[]>([]);
   const [errorMessage, setErrorMessage] = useState("");
   const [hasError, setHasError] = useState(false);

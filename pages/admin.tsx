@@ -61,7 +61,19 @@ const AdminFlagsTableContainer = dynamic(
   () => import("../containers/AdminFlagsTableContainer")
 );
 
-const tabs = ["general", "users", "quizzes", "trivia", "merch", "flags"];
+const AdminMappingsTableContainer = dynamic(
+  () => import("../containers/AdminMappingsTableContainer")
+);
+
+const tabs = [
+  "general",
+  "users",
+  "quizzes",
+  "trivia",
+  "merch",
+  "flags",
+  "mappings",
+];
 
 export default function Admin(): JSX.Element {
   const { data: session, status } = useSession();
@@ -123,6 +135,7 @@ export default function Admin(): JSX.Element {
               <Tab fontWeight="medium">Trivia</Tab>
               <Tab fontWeight="medium">Merch</Tab>
               <Tab fontWeight="medium">Flags</Tab>
+              <Tab fontWeight="medium">Mappings</Tab>
             </TabList>
           </Flex>
 
@@ -201,6 +214,18 @@ export default function Admin(): JSX.Element {
                   maxWidth={1300}
                 >
                   <AdminFlagsTableContainer />
+                </Flex>
+              </Flex>
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminMappingsTableContainer />
                 </Flex>
               </Flex>
             </TabPanel>
