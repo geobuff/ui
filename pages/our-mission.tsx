@@ -76,7 +76,7 @@ const OurMission: FC = () => (
               <Link href="/resources//flags" color="teal.500">
                 flag
               </Link>{" "}
-              resources so that others can build off of our resources
+              resources so that others can use them in their own projects
             </Text>
           </Box>
           <Box color="#828282" fontSize="15px" mb={12}>

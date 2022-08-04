@@ -59,6 +59,10 @@ const HeroBanner: FC<Props> = ({
           link: "/play/daily-trivia",
           value: "test yourself with our auto-generated daily trivia",
         },
+        {
+          link: "/resources",
+          value: "use our collection of resources in your own project",
+        },
       ];
 
       setActions(actions);

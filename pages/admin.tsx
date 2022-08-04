@@ -61,6 +61,10 @@ const AdminFlagsTableContainer = dynamic(
   () => import("../containers/AdminFlagsTableContainer")
 );
 
+const AdminMapsTableContainer = dynamic(
+  () => import("../containers/AdminMapsTableContainer")
+);
+
 const AdminMappingsTableContainer = dynamic(
   () => import("../containers/AdminMappingsTableContainer")
 );
@@ -72,6 +76,7 @@ const tabs = [
   "trivia",
   "merch",
   "flags",
+  "maps",
   "mappings",
 ];
 
@@ -135,6 +140,7 @@ export default function Admin(): JSX.Element {
               <Tab fontWeight="medium">Trivia</Tab>
               <Tab fontWeight="medium">Merch</Tab>
               <Tab fontWeight="medium">Flags</Tab>
+              <Tab fontWeight="medium">Maps</Tab>
               <Tab fontWeight="medium">Mappings</Tab>
             </TabList>
           </Flex>
@@ -214,6 +220,18 @@ export default function Admin(): JSX.Element {
                   maxWidth={1300}
                 >
                   <AdminFlagsTableContainer />
+                </Flex>
+              </Flex>
+            </TabPanel>
+            <TabPanel>
+              <Flex justifyContent="center">
+                <Flex
+                  direction="column"
+                  height="100%"
+                  width="100%"
+                  maxWidth={1300}
+                >
+                  <AdminMapsTableContainer />
                 </Flex>
               </Flex>
             </TabPanel>

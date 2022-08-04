@@ -8,6 +8,7 @@ import {
   Tr,
   Alert,
   AlertIcon,
+  Link,
 } from "@chakra-ui/react";
 
 import TableCell from "../../TableCell";
@@ -46,7 +47,7 @@ const AdminFlagsTable: FC<Props> = ({ entries = [], isLoading = true }) => {
                 {entry.code}
               </TableCell>
               <TableCell paddingY={4} paddingX={6}>
-                {entry.url}
+                <Link href={entry.url}>{entry.url}</Link>
               </TableCell>
             </Tr>
           ))}

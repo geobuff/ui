@@ -198,8 +198,20 @@
     <url>
         <loc>https://geobuff.com/play/daily-trivia</loc>
     </url>
-      <url>
+    <url>
         <loc>https://geobuff.com/create/community-quizzes</loc>
+    </url>
+    <url>
+        <loc>https://geobuff.com/resources</loc>
+    </url>
+    <url>
+        <loc>https://geobuff.com/resources/maps</loc>
+    </url>
+    <url>
+        <loc>https://geobuff.com/resources/flags</loc>
+    </url>
+    <url>
+        <loc>https://geobuff.com/resources/mappings</loc>
     </url>
 </urlset>
 </xml>
