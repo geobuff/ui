@@ -7,6 +7,7 @@ import AdminManualTriviaQuestions from "../../components/AdminManualTriviaQuesti
 import CreateEditTriviaQuestionModal from "../../components/CreateEditTriviaQuestionModal";
 import DeleteTriviaQuestionModal from "../../components/DeleteTriviaQuestionModal";
 import { manualTriviaQuestionToast } from "../../helpers/toasts";
+import useMaps from "../../hooks/UseMaps";
 import useTriviaQuestionCategories from "../../hooks/UseTriviaQuestionCategories";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
@@ -21,7 +22,7 @@ import { UnsplashImage } from "../../types/unsplash-image";
 const AdminManualTriviaQuestionTableContainer: FC = () => {
   const toast = useToast();
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
-
+  const { data: maps, isLoading: isMapsLoading } = useMaps();
   const { data: session, status } = useSession();
 
   const { data: categories, isLoading: isCategoriesLoading } =
@@ -302,7 +303,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         categories={categories}
         editValues={selectedQuestion}
         isOpen={isCreateEditQuestionModalOpen}
-        isLoading={isTypesLoading || isCategoriesLoading}
+        isLoading={isTypesLoading || isCategoriesLoading || isMapsLoading}
         isSubmitting={isSubmitting}
         error={error}
         onSubmit={handleCreateEditSubmit}
@@ -311,6 +312,7 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         isSearchingImages={isSearchingImages}
         isEmptyImageSearch={isEmptyImageSearch}
         onChangeSearchImage={handleChangeSearchImage}
+        maps={maps}
       />
     </>
   );

@@ -30,6 +30,7 @@ import {
 import CommunityQuizRadioGroupFormField from "./CommunityQuizRadioGroupFormField";
 import CommunityQuizTextAreaFormField from "./CommunityQuizTextAreaFormField";
 import { UnsplashImage } from "../../types/unsplash-image";
+import { GetMapsDto } from "../../types/get-maps-dto";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Please enter a name for your quiz."),
@@ -57,6 +58,7 @@ export interface Props {
   isSearchingImages?: boolean;
   isEmptyImageSearch?: boolean;
   onChangeSearchImage?: (query: string) => void;
+  maps?: GetMapsDto[];
 }
 
 const CommunityQuizForm: FC<Props> = ({
@@ -70,6 +72,7 @@ const CommunityQuizForm: FC<Props> = ({
   isSearchingImages = false,
   isEmptyImageSearch = false,
   onChangeSearchImage = () => {},
+  maps = [],
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -246,6 +249,7 @@ const CommunityQuizForm: FC<Props> = ({
                   isSearchingImages={isSearchingImages}
                   isEmptyImageSearch={isEmptyImageSearch}
                   onChangeSearchImage={onChangeSearchImage}
+                  maps={maps}
                 />
               </Flex>
             </Modal>

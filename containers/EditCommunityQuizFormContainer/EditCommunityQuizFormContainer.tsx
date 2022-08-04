@@ -18,6 +18,7 @@ import { AuthUser } from "../../types/auth-user";
 import axios from "axios";
 import { UnsplashImage } from "../../types/unsplash-image";
 import { TriviaQuestionTypeValues } from "../../types/trivia-question-types";
+import useMaps from "../../hooks/UseMaps";
 
 interface Props {
   quizId: number;
@@ -26,6 +27,8 @@ interface Props {
 const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
   const { data: types, isLoading: isQuestionTypesLoading } =
     useTriviaQuestionTypes();
+
+  const { data: maps, isLoading: isMapsLoading } = useMaps();
 
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
@@ -197,13 +200,14 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       values={!isQuizLoading && getValuesFromQuiz(quiz)}
       error={error}
       types={types}
-      isLoading={isQuestionTypesLoading || isQuizLoading}
+      isLoading={isQuestionTypesLoading || isQuizLoading || isMapsLoading}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
       images={images}
       isSearchingImages={isSearchingImages}
       isEmptyImageSearch={isEmptyImageSearch}
       onChangeSearchImage={handleChangeSearchImage}
+      maps={maps}
     />
   );
 };

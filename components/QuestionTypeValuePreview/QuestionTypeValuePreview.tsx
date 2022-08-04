@@ -3,10 +3,10 @@ import React, { FC } from "react";
 import { QuestionType } from "../../types/manual-trivia-question-form-submit";
 
 import { SVGMap } from "@geobuff/svg-map";
-import * as Maps from "@geobuff/svg-maps";
 import { Box, Flex, Text, Link } from "@chakra-ui/react";
 import Image from "next/image";
 import { getGameMap, getMapStyles, highlightSection } from "../../helpers/map";
+import useMap from "../../hooks/UseMap";
 
 export interface Props {
   typeId?: string;
@@ -31,14 +31,16 @@ const QuestionTypeValuePreview: FC<Props> = ({
   imageHeight = 0,
   imageAlt = "",
 }) => {
+  const { data: svgMap, isLoading: isMapLoading } = useMap(map);
+
   const getContentByType = (): JSX.Element => {
     switch (typeId) {
       case QuestionType.Map:
-        if (!map) {
+        if (!map || isMapLoading) {
           return <></>;
         }
 
-        const gameMap = getGameMap(Maps[map], map);
+        const gameMap = getGameMap(svgMap, map);
         highlighted && highlightSection(gameMap, map, highlighted);
         return (
           <Box marginTop="40px" marginBottom="10px">

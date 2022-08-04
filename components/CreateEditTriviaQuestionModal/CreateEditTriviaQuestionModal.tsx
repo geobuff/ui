@@ -1,6 +1,7 @@
 import { Flex } from "@chakra-ui/react";
 import { FormikHelpers } from "formik";
 import React, { FC } from "react";
+import { GetMapsDto } from "../../types/get-maps-dto";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import { ManualTriviaQuestionFormSubmit } from "../../types/manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
@@ -26,6 +27,7 @@ export interface Props {
   isSearchingImages?: boolean;
   isEmptyImageSearch?: boolean;
   onChangeSearchImage?: (query: string) => void;
+  maps?: GetMapsDto[];
 }
 
 const CreateEditTriviaQuestionModal: FC<Props> = ({
@@ -42,6 +44,7 @@ const CreateEditTriviaQuestionModal: FC<Props> = ({
   isSearchingImages = false,
   isEmptyImageSearch = false,
   onChangeSearchImage = (): void => {},
+  maps = [],
 }) => (
   <Modal
     isOpen={isOpen}
@@ -63,6 +66,7 @@ const CreateEditTriviaQuestionModal: FC<Props> = ({
         isSearchingImages={isSearchingImages}
         isEmptyImageSearch={isEmptyImageSearch}
         onChangeSearchImage={onChangeSearchImage}
+        maps={maps}
       />
     </Flex>
   </Modal>

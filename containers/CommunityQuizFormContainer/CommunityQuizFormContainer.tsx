@@ -17,9 +17,11 @@ import { AuthUser } from "../../types/auth-user";
 import axios from "axios";
 import { UnsplashImage } from "../../types/unsplash-image";
 import { TriviaQuestionTypeValues } from "../../types/trivia-question-types";
+import useMaps from "../../hooks/UseMaps";
 
 const CommunityQuizFormContainer: FC = () => {
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
+  const { data: maps, isLoading: isMapsLoading } = useMaps();
 
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
@@ -128,13 +130,14 @@ const CommunityQuizFormContainer: FC = () => {
     <CommunityQuizForm
       error={error}
       types={types}
-      isLoading={isTypesLoading}
+      isLoading={isTypesLoading || isMapsLoading}
       isSubmitting={isSubmitting}
       onSubmit={handleSubmit}
       images={images}
       isSearchingImages={isSearchingImages}
       isEmptyImageSearch={isEmptyImageSearch}
       onChangeSearchImage={handleChangeSearchImage}
+      maps={maps}
     />
   );
 };
