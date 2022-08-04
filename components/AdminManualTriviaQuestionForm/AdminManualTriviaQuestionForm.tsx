@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
 import { debounce } from "throttle-debounce";
@@ -43,12 +43,13 @@ import { QuizType } from "../../types/quiz-type";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import CloseLine from "../../Icons/CloseLine";
 import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
-import { getHighlightRegionsByMap, getMapCategories } from "../../helpers/map";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
 import Search from "../../Icons/Search";
 import UnsplashImageGrid from "../UnsplashImageGrid";
 import { UnsplashImage } from "../../types/unsplash-image";
 import useFlagGroups from "../../hooks/UseFlagGroups";
+import axiosClient from "../../axios";
+import { GetMapsDto } from "../../types/get-maps-dto";
 
 const initialValues: ManualTriviaQuestionFormSubmit = {
   typeId: "1",
@@ -122,6 +123,7 @@ export interface Props {
   isSearchingImages?: boolean;
   isEmptyImageSearch?: boolean;
   onChangeSearchImage?: (query: string) => void;
+  maps?: GetMapsDto[];
 }
 
 const AdminManualTriviaQuestionForm: FC<Props> = ({
@@ -137,18 +139,43 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
   isSearchingImages = false,
   isEmptyImageSearch = false,
   onChangeSearchImage = () => {},
+  maps = [],
 }) => {
-  const { data: flagGroups, getFlagUrl, getFlagEntriesByKey } = useFlagGroups();
+  const { data: flagGroups } = useFlagGroups();
 
   const initialHasFlagAnswers = editValues?.hasFlagAnswers || false;
   const isEditing = !!editValues;
 
   const [hasFlagAnswers, setHasFlagAnswers] = useState(initialHasFlagAnswers);
   const [flagCategory, setFlagCategory] = useState("world");
+  const [flagUrl, setFlagUrl] = useState("");
+  const [flagEntries, setFlagEntries] = useState([]);
+  const [isFlagEntriesLoading, setIsFlagEntriesLoading] = useState(false);
+  const [highlightedRegions, setHighlightedRegions] = useState([]);
+
+  useEffect(() => {
+    setIsFlagEntriesLoading(true);
+    axiosClient
+      .get(`flags/${flagCategory}`)
+      .then((response) => setFlagEntries(response.data))
+      .finally(() => setIsFlagEntriesLoading(false));
+  }, [flagCategory]);
 
   const handleSearchImageDebounced = debounce(1500, (event) =>
     onChangeSearchImage(event.target.value)
   );
+
+  const getFlagUrl = (code: string): void => {
+    axiosClient
+      .get(`/flags/url/${code}`)
+      .then((response) => setFlagUrl(response.data));
+  };
+
+  const getHighlightRegionsByMap = (className: string): void => {
+    axiosClient
+      .get(`/maps/highlighted/${className}`)
+      .then((response) => setHighlightedRegions(response.data));
+  };
 
   return (
     <>
@@ -492,10 +519,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                       icon={
                                         values.flagCode ? (
                                           <Image
-                                            src={getFlagUrl(
-                                              flagCategory,
-                                              values.flagCode
-                                            )}
+                                            src={flagUrl}
                                             alt="Flag example"
                                             marginRight="16px"
                                             minHeight="22px"
@@ -507,20 +531,22 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                           <ChevronDownIcon stroke="black" />
                                         )
                                       }
+                                      onClick={() =>
+                                        getFlagUrl(values.flagCode)
+                                      }
                                     >
                                       <option value="">
                                         {"select a flag code..."}
                                       </option>
-                                      {getFlagEntriesByKey(flagCategory).map(
-                                        (entry, index) => (
+                                      {!isFlagEntriesLoading &&
+                                        flagEntries.map((entry, index) => (
                                           <option
                                             key={index}
                                             value={entry.code}
                                           >
                                             {entry.code}
                                           </option>
-                                        )
-                                      )}
+                                        ))}
                                     </Select>
                                   )}
                                   <FormErrorMessage fontSize="11px">
@@ -546,20 +572,24 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                   <FormLabel htmlFor="map" fontWeight="bold">
                                     {"Map"}
                                   </FormLabel>
-                                  <Select {...field}>
+                                  <Select
+                                    {...field}
+                                    onChange={({ target }) => {
+                                      getHighlightRegionsByMap(target?.value);
+                                      setFieldValue("map", target?.value);
+                                    }}
+                                  >
                                     <option value="">
                                       {"Select a map..."}
                                     </option>
-                                    {getMapCategories().map(
-                                      (mapCategory, index) => (
-                                        <option
-                                          key={index}
-                                          value={mapCategory.value}
-                                        >
-                                          {mapCategory.label}
-                                        </option>
-                                      )
-                                    )}
+                                    {maps.map((mapCategory, index) => (
+                                      <option
+                                        key={index}
+                                        value={mapCategory.value}
+                                      >
+                                        {mapCategory.label}
+                                      </option>
+                                    ))}
                                   </Select>
 
                                   <FormErrorMessage fontSize="11px">
@@ -589,16 +619,14 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                     <option value="">
                                       {"Select highlighted..."}
                                     </option>
-                                    {getHighlightRegionsByMap(values.map)?.map(
-                                      (region) => (
-                                        <option
-                                          key={region.value}
-                                          value={region.value}
-                                        >
-                                          {region.label}
-                                        </option>
-                                      )
-                                    )}
+                                    {highlightedRegions.map((region) => (
+                                      <option
+                                        key={region.value}
+                                        value={region.value}
+                                      >
+                                        {region.label}
+                                      </option>
+                                    ))}
                                   </Select>
                                   <FormHelperText lineHeight="1.50">
                                     {

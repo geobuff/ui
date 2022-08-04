@@ -1,6 +1,7 @@
 import React, { FC } from "react";
 import { Button, ButtonProps, Flex } from "@chakra-ui/react";
 import CustomFlag from "../../CustomFlag";
+import useFlagUrl from "../../../hooks/UseFlagUrl";
 
 const getStylesByStatus = (status: TriviaButtonStatus) => {
   switch (status) {
@@ -39,7 +40,6 @@ export interface Props extends ButtonProps {
   isCondensed: boolean;
   status?: TriviaButtonStatus;
   flagCode?: string;
-  flagUrl?: string;
 }
 
 const GameTriviaButton: FC<Props> = ({
@@ -47,10 +47,10 @@ const GameTriviaButton: FC<Props> = ({
   isCondensed = false,
   status = "idle",
   flagCode = "",
-  flagUrl = "",
   ...props
 }) => {
   const buttonStyles = getStylesByStatus(status);
+  const { data: flagUrl } = useFlagUrl(flagCode);
 
   return (
     <Button

@@ -1,5 +1,5 @@
 import React from "react";
-import { Mapping } from "../../types/mapping";
+import { MappingEntry } from "../../types/mapping-entry";
 import { ResultMap } from "../../types/result-map";
 import ResultsMap, { Props } from "./ResultsMap";
 
@@ -13,76 +13,92 @@ const Template = (args: Props): React.ReactNode => <ResultsMap {...args} />;
 const map: ResultMap = {
   asia: [
     {
+      id: 0,
+      groupId: 0,
       name: "afghanistan",
       code: "af",
       svgName: "Afghanistan",
       alternativeNames: [],
       prefixes: [],
-      group: "asia",
+      grouping: "asia",
     },
     {
+      id: 0,
+      groupId: 0,
       name: "armenia",
       code: "am",
       svgName: "Armenia",
       alternativeNames: [],
       prefixes: [],
-      group: "asia",
+      grouping: "asia",
     },
   ],
   oceania: [
     {
+      id: 0,
+      groupId: 0,
       name: "australia",
       code: "au",
       svgName: "Australia",
       alternativeNames: [],
       prefixes: [],
-      group: "oceania",
+      grouping: "oceania",
     },
     {
+      id: 0,
+      groupId: 0,
       name: "fiji",
       code: "fj",
       svgName: "Fiji",
       alternativeNames: [],
       prefixes: [],
-      group: "oceania",
+      grouping: "oceania",
     },
     {
+      id: 0,
+      groupId: 0,
       name: "new zealand",
       code: "nz",
       svgName: "New Zealand",
       alternativeNames: [],
       prefixes: [],
-      group: "oceania",
+      grouping: "oceania",
     },
   ],
 };
 
-const checked: Mapping[] = [
+const checked: MappingEntry[] = [
   {
+    id: 0,
+    groupId: 0,
     name: "australia",
     code: "au",
     svgName: "Australia",
     alternativeNames: [],
     prefixes: [],
-    group: "oceania",
+    grouping: "oceania",
     checked: true,
   },
   {
+    id: 0,
+    groupId: 0,
     name: "new zealand",
     code: "nz",
     svgName: "New Zealand",
     alternativeNames: [],
     prefixes: [],
-    group: "oceania",
+    grouping: "oceania",
     checked: true,
   },
   {
+    id: 0,
+    groupId: 0,
     name: "afghanistan",
     code: "af",
     svgName: "Afghanistan",
     alternativeNames: [],
     prefixes: [],
-    group: "asia",
+    grouping: "asia",
     checked: true,
   },
 ];

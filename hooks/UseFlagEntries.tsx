@@ -1,17 +1,17 @@
 import useSWR from "swr";
 import { fetcher } from "../helpers/fetcher";
-import { FlagGroup } from "../types/flag-group";
+import { FlagEntry } from "../types/flag-group";
 
 interface Result {
-  data: FlagGroup;
+  data: FlagEntry[];
   isLoading: boolean;
 }
 
 const useFlagGroup = (key: string): Result => {
-  const { data } = useSWR(`/flags/${key}`, fetcher);
+  const { data } = useSWR(() => (key ? `/flags/${key}` : null), fetcher);
 
   return {
-    data: data,
+    data: data ?? [],
     isLoading: !data,
   };
 };

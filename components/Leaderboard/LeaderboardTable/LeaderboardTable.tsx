@@ -26,7 +26,6 @@ import { LeaderboardEntry } from "../../../types/leaderboard-entry";
 import CustomFlag from "../../CustomFlag";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../../types/auth-user";
-import UseWorldFlagGroup from "../../../hooks/UseWorldFlagGroup";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -36,8 +35,6 @@ interface Props {
 const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
-
-  const { getFlagUrl } = UseWorldFlagGroup();
 
   if (isLoading && !entries.length) {
     return <LeaderTablePlaceholder />;
@@ -71,21 +68,16 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
     username: string,
     countryCode: string
   ): React.ReactNode => {
-    const flagUrl = getFlagUrl(countryCode);
     const mainContent = (
       <Flex alignItems="center">
         <Box marginRight={3} marginTop="5.5px" alignItems="center">
           {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG ? (
-            <>
-              {flagUrl && (
-                <CustomFlag
-                  url={flagUrl}
-                  code={countryCode}
-                  boxSizing="border-box"
-                  border="2px solid #dae2ea"
-                />
-              )}
-            </>
+            <CustomFlag
+              url={"https://ik.imagekit.io/ucszu5sud3vz/flag-geobuff-sm"}
+              code={countryCode}
+              boxSizing="border-box"
+              border="2px solid #dae2ea"
+            />
           ) : (
             <Twemoji emoji={flag(countryCode)} />
           )}

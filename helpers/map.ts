@@ -1,5 +1,3 @@
-import * as Maps from "@geobuff/svg-maps";
-import { Option } from "../types/option";
 import { SVGBase } from "../types/svg-base";
 import {
   GEOBUFF_BLUE,
@@ -13,21 +11,6 @@ import {
 const OCEAN_QUIZ_CLASSNAMES = ["UkSeas", "WorldOceans"];
 const CIRCLE_QUIZ_CLASSNAMES = ["UkMajorCities"];
 const IMAGE_QUIZ_CLASSNAMES = ["SevenSummits", "WorldLongestRivers"];
-
-export const getHighlightRegionsByMap = (map: string): Option[] => {
-  const selectedMap: SVGBase = Maps[map];
-
-  if (selectedMap !== undefined) {
-    return selectedMap.elements
-      .filter(
-        (x, index, a) => x.id && a.findIndex((y) => y.name === x.name) === index
-      )
-      .map(({ svgName, name }) => ({
-        value: svgName,
-        label: name,
-      }));
-  }
-};
 
 export const getGameMap = (map: SVGBase, mapClassName: string): any => {
   let result: SVGBase = JSON.parse(JSON.stringify(map));
@@ -192,17 +175,3 @@ export const getPathSelectedFill = (map: string): string =>
     : CIRCLE_QUIZ_CLASSNAMES.includes(map)
     ? GEOBUFF_RED
     : GEOBUFF_GREEN;
-
-interface MapCategory {
-  label: string;
-  value: string;
-}
-
-export const getMapCategories = (): MapCategory[] =>
-  Object.keys(Maps)
-    .filter((x) => x !== "default")
-    .sort()
-    .map((m) => ({
-      label: m,
-      value: m,
-    }));

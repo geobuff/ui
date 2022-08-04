@@ -1,13 +1,13 @@
 import React, { FC } from "react";
-import * as Maps from "@geobuff/svg-maps";
 
 import MainView from "../../components/MainView";
-
 import { QuizTypes } from "../../types/quiz-types";
-import GameMapQuiz from "../../components/GameMapQuiz";
 import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 import axiosClient from "../../axios";
 import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
+import GameMapQuizContainer from "../../containers/GameMapQuizContainer";
+import { MappingEntry } from "../../types/mapping-entry";
+import { Quiz } from "../../types/quiz";
 
 const getQuizData = async (id: string) => {
   const body: QuizzesFilterDto = {
@@ -56,29 +56,13 @@ interface Props {
 }
 
 const Quiz: FC<Props> = ({ ...pageProps }) => {
-  const quiz = pageProps.pageProps.quiz;
-  const mapping = pageProps.pageProps.mapping;
+  const quiz: Quiz = pageProps.pageProps.quiz;
+  const mapping: MappingEntry[] = pageProps.pageProps.mapping;
 
   const getQuizComponent = (): React.ReactNode => {
     switch (quiz.typeId) {
       case QuizTypes.MAP:
-        return (
-          <GameMapQuiz
-            time={quiz?.time}
-            name={quiz?.name}
-            typeId={quiz?.typeId}
-            maxScore={quiz?.maxScore}
-            plural={quiz?.plural}
-            route={quiz?.route}
-            id={quiz?.id}
-            mapping={mapping}
-            map={Maps[`${quiz.mapSVG}`]}
-            mapClassName={quiz.mapSVG}
-            hasLeaderboard={quiz?.hasLeaderboard}
-            hasFlags={quiz?.hasFlags}
-            hasGrouping={quiz?.hasGrouping}
-          />
-        );
+        return <GameMapQuizContainer quiz={quiz} mapping={mapping} />;
       case QuizTypes.FLAG:
         return <GameFlagQuizContainer quiz={quiz} mapping={mapping} />;
       default:

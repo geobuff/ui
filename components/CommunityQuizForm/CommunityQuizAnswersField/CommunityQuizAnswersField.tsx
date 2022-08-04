@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import {
   Flex,
   FlexProps,
@@ -10,7 +10,7 @@ import {
 import { Field } from "formik";
 
 import SelectFormField from "../../FormFields/SelectFormField";
-import useFlagGroups from "../../../hooks/UseFlagGroups";
+import axiosClient from "../../../axios";
 
 export interface Props extends FlexProps {
   name: string;
@@ -36,7 +36,18 @@ const CommunityQuizAnswersField: FC<Props> = ({
   onChangeFlagCode = () => {},
   ...props
 }) => {
-  const { getFlagEntriesByKey } = useFlagGroups();
+  const [flagEntries, setFlagEntries] = useState([]);
+  const [isFlagEntriesLoading, setIsFlagEntriesLoading] = useState(false);
+
+  useEffect(() => {
+    if (flagAnswerCategory) {
+      setIsFlagEntriesLoading(true);
+      axiosClient
+        .get(`flags/${flagAnswerCategory}`)
+        .then((response) => setFlagEntries(response.data))
+        .finally(() => setIsFlagEntriesLoading(false));
+    }
+  }, [flagAnswerCategory]);
 
   return (
     <Flex
@@ -83,12 +94,14 @@ const CommunityQuizAnswersField: FC<Props> = ({
                         name.includes("0")) ||
                       (!isChecked && form.errors.answers && name.includes("1"))
                     }
-                    options={getFlagEntriesByKey(flagAnswerCategory).map(
-                      (entry) => ({
+                    options={
+                      !isFlagEntriesLoading &&
+                      flagEntries &&
+                      flagEntries.map((entry) => ({
                         label: entry.code,
                         value: entry.code,
-                      })
-                    )}
+                      }))
+                    }
                     onChange={({ target }) => onChangeFlagCode(target.value)}
                   />
                 </FormControl>

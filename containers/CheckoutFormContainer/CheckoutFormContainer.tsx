@@ -10,7 +10,11 @@ import { AuthUser } from "../../types/auth-user";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { CheckoutPayload } from "../../types/checkout-payload";
 
-const CheckoutFormContainer: FC = () => {
+interface Props {
+  isMapsApiLoading?: boolean;
+}
+
+const CheckoutFormContainer: FC<Props> = ({ isMapsApiLoading = true }) => {
   const { data: session, status } = useSession();
   const isUserLoading = status === "loading";
   const user = session?.user as AuthUser;
@@ -65,6 +69,7 @@ const CheckoutFormContainer: FC = () => {
       shippingOptions={shippingOptions}
       email={user?.email}
       isLoading={isLoading}
+      isMapsApiLoading={isMapsApiLoading}
       onSubmit={handleSubmit}
     />
   );

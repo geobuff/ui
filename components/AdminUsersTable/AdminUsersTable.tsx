@@ -25,7 +25,6 @@ import ArrowRight from "../../Icons/ArrowRight";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import AdminUsersTablePlaceholder from "../../placeholders/AdminUsersTablePlaceholder";
 import Card from "../Card";
-import UseWorldFlagGroup from "../../hooks/UseWorldFlagGroup";
 
 export interface Props {
   currentUserId?: number;
@@ -47,7 +46,6 @@ const AdminUsersTable: FC<Props> = ({
   onPreviousPage = (): void => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
-  const { getFlagUrl } = UseWorldFlagGroup();
 
   const getTable = () => {
     if (userPage?.users.length === 0) {
@@ -73,43 +71,38 @@ const AdminUsersTable: FC<Props> = ({
         </Thead>
 
         <Tbody>
-          {userPage?.users?.map((user, index) => {
-            const flagUrl = getFlagUrl(user.countryCode);
-            return (
-              <Tr key={index} fontWeight={600}>
-                <TableCell paddingY={3} paddingX={6}>
-                  <Link href={`/profile/${user.id}`}>{user.username}</Link>
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  {user.email}
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  <Box marginRight={4}>
-                    {flagUrl && (
-                      <CustomFlag url={flagUrl} code={user.countryCode} />
-                    )}
-                  </Box>
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  {user.avatarName}
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  {DateTime.fromISO(user.joined).toLocaleString(
-                    DateTime.DATE_MED
-                  )}
-                </TableCell>
-                <TableCell paddingY={3} paddingX={6}>
-                  <Button
-                    colorScheme="red"
-                    onClick={() => onDeleteUser(user.id)}
-                    disabled={user.id === currentUserId}
-                  >
-                    DELETE
-                  </Button>
-                </TableCell>
-              </Tr>
-            );
-          })}
+          {userPage?.users?.map((user, index) => (
+            <Tr key={index} fontWeight={600}>
+              <TableCell paddingY={3} paddingX={6}>
+                <Link href={`/profile/${user.id}`}>{user.username}</Link>
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {user.email}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                <Box marginRight={4}>
+                  <CustomFlag url={user.flagUrl} code={user.countryCode} />
+                </Box>
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {user.avatarName}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                {DateTime.fromISO(user.joined).toLocaleString(
+                  DateTime.DATE_MED
+                )}
+              </TableCell>
+              <TableCell paddingY={3} paddingX={6}>
+                <Button
+                  colorScheme="red"
+                  onClick={() => onDeleteUser(user.id)}
+                  disabled={user.id === currentUserId}
+                >
+                  DELETE
+                </Button>
+              </TableCell>
+            </Tr>
+          ))}
         </Tbody>
       </Table>
     );

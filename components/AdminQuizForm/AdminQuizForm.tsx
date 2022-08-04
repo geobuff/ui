@@ -274,7 +274,7 @@ const AdminQuizForm: FC<Props> = ({
                                   </FormErrorMessage>
                                 </Box>
                                 <FormHelperText lineHeight="1.50">
-                                  {`JavaScript map object defined in https://github.com/geobuff/svg-maps e.g. WorldCountries.`}
+                                  {`Find value under 'ClassName' in https://geobuff.com/resources/maps e.g. WorldCountries.`}
                                 </FormHelperText>
                               </FormControl>
                             )}

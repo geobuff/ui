@@ -1,9 +1,11 @@
-export interface Mapping {
+export interface MappingEntry {
+  id: number;
+  groupId: number;
   name: string;
   code: string;
   svgName: string;
   alternativeNames: string[];
   prefixes: string[];
-  group: string;
+  grouping: string;
   checked?: boolean;
 }

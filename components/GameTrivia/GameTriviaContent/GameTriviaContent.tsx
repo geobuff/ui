@@ -12,7 +12,6 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
-import * as Maps from "@geobuff/svg-maps";
 import { use100vh } from "react-div-100vh";
 
 import CustomFlag from "../../CustomFlag";
@@ -23,7 +22,8 @@ import {
   getMapStyles,
   highlightSection,
 } from "../../../helpers/map";
-import useFlagGroups from "../../../hooks/UseFlagGroups";
+import useFlagUrl from "../../../hooks/UseFlagUrl";
+import useMap from "../../../hooks/UseMap";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
 
@@ -64,7 +64,8 @@ const GameTriviaContent: FC<Props> = ({
   imageHeight = 0,
   imageAlt = "",
 }) => {
-  const { getFlagUrlByCode } = useFlagGroups();
+  const { data: flagUrl } = useFlagUrl(flagCode);
+  const { data: svgMap, isLoading: isMapLoading } = useMap(map);
 
   const isMobile = useBreakpointValue({ base: false, md: true });
   const height = use100vh();
@@ -76,7 +77,6 @@ const GameTriviaContent: FC<Props> = ({
   const getContentByType = (): JSX.Element => {
     switch (type) {
       case "Flag":
-        const flagUrl = getFlagUrlByCode(flagCode);
         if (flagUrl) {
           return (
             <CustomFlag
@@ -89,7 +89,11 @@ const GameTriviaContent: FC<Props> = ({
         }
         break;
       case "Map":
-        const gameMap = getGameMap(Maps[map], map);
+        if (!map || isMapLoading) {
+          return <></>;
+        }
+
+        const gameMap = getGameMap(svgMap, map);
         highlighted && highlightSection(gameMap, map, highlighted);
         return <SVGMap map={gameMap} mapStyle={getMapStyles(map)} />;
       case "Image":

@@ -1,25 +1,17 @@
 import useSWR from "swr";
-import useQuiz from "./UseQuiz";
 import { fetcher } from "../helpers/fetcher";
-import { Mapping } from "../types/mapping";
+import { MappingEntry } from "../types/mapping-entry";
 
 interface Result {
-  mapping: Mapping[];
+  data: MappingEntry[];
   isLoading: boolean;
 }
 
-const useMapping = (quizId: number): Result => {
-  const { quiz } = useQuiz(quizId);
-
-  const shouldFetch = !!quiz && quiz.apiPath;
-
-  const { data } = useSWR(
-    () => (shouldFetch ? `/mappings/${quiz.apiPath}` : null),
-    fetcher
-  );
+const useMappingEntries = (key: string): Result => {
+  const { data } = useSWR(`/mappings/${key}`, fetcher);
 
   return {
-    mapping:
+    data:
       data?.map((mapping) => ({
         ...mapping,
         alternativeNames: mapping.alternativeNames.map((altName) =>
@@ -31,4 +23,4 @@ const useMapping = (quizId: number): Result => {
   };
 };
 
-export default useMapping;
+export default useMappingEntries;

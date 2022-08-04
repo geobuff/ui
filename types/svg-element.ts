@@ -1,4 +1,6 @@
-export interface SVGChild {
+export interface SVGElement {
+  mapId: string;
+  type: string;
   id: string;
   name: string;
   svgName: string;

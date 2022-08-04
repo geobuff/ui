@@ -1,9 +1,9 @@
-import { Mapping } from "../types/mapping";
+import { MappingEntry } from "../types/mapping-entry";
 
 export const findSubmissionByNames = (
-  collection: Mapping[],
+  collection: MappingEntry[],
   submissionName: string
-): Mapping =>
+): MappingEntry =>
   collection?.find(
     ({ name, alternativeNames }) =>
       name.toLowerCase() === submissionName.toLowerCase() ||
@@ -11,14 +11,14 @@ export const findSubmissionByNames = (
   );
 
 export const findSubmissionsByPrefixes = (
-  collection: Mapping[],
+  collection: MappingEntry[],
   submissionName: string
-): Mapping[] =>
+): MappingEntry[] =>
   collection.filter((submission) =>
     submission.prefixes.includes(submissionName.toLowerCase())
   );
 
 export const findSubmissionByCode = (
-  collection: Mapping[],
+  collection: MappingEntry[],
   submissionCode: string
-): Mapping => collection?.find(({ code }) => code === submissionCode);
+): MappingEntry => collection?.find(({ code }) => code === submissionCode);

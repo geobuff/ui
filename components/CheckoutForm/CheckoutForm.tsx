@@ -15,6 +15,7 @@ import {
   useRadioGroup,
   HStack,
   FormHelperText,
+  Spinner,
 } from "@chakra-ui/react";
 
 import PlacesAutocomplete from "react-places-autocomplete";
@@ -46,6 +47,7 @@ export interface Props {
   email?: string;
   shippingOptions?: ShippingOption[];
   isLoading?: boolean;
+  isMapsApiLoading?: boolean;
   onSubmit?: (values: CheckoutFormSubmit) => void;
 }
 
@@ -53,6 +55,7 @@ const CheckoutForm: FC<Props> = ({
   email = "",
   shippingOptions = [],
   isLoading = false,
+  isMapsApiLoading = true,
   onSubmit = (values: CheckoutFormSubmit): void => {},
 }) => {
   const router = useRouter();
@@ -311,15 +314,19 @@ const CheckoutForm: FC<Props> = ({
                           <FormHelperText lineHeight="1.50" mb={2}>
                             {`NOTE: We are currently only delivering to New Zealand addresses.`}
                           </FormHelperText>
-                          <PlacesAutocomplete
-                            value={values.address}
-                            onChange={(value) =>
-                              setFieldValue("address", value)
-                            }
-                            searchOptions={searchOptions}
-                          >
-                            {renderAddressInput}
-                          </PlacesAutocomplete>
+                          {isMapsApiLoading ? (
+                            <Spinner mt={3} />
+                          ) : (
+                            <PlacesAutocomplete
+                              value={values.address}
+                              onChange={(value) =>
+                                setFieldValue("address", value)
+                              }
+                              searchOptions={searchOptions}
+                            >
+                              {renderAddressInput}
+                            </PlacesAutocomplete>
+                          )}
                           <Box position="absolute" top="68px" left="2px">
                             <FormErrorMessage fontSize="11px">
                               {form.errors.address}

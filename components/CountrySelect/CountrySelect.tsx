@@ -1,5 +1,4 @@
-import React, { FC } from "react";
-
+import React, { FC, useEffect, useState } from "react";
 import { Select, SelectProps } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
@@ -7,7 +6,7 @@ import Image from "../Image";
 
 import useCountries from "../../hooks/useCountries";
 import { FieldProps } from "../../types/field-props";
-import UseWorldFlagGroup from "../../hooks/UseWorldFlagGroup";
+import axiosClient from "../../axios";
 
 export interface Props extends SelectProps {
   fieldProps?: FieldProps;
@@ -22,7 +21,16 @@ const CountrySelect: FC<Props> = ({
   ...props
 }) => {
   const { countries, isLoading } = useCountries();
-  const { getFlagUrl } = UseWorldFlagGroup();
+  const [flagUrl, setFlagUrl] = useState("");
+
+  useEffect(() => {
+    if (fieldProps?.value) {
+      setFlagUrl("");
+      axiosClient
+        .get(`flags/url/${fieldProps.value}`)
+        .then((response) => setFlagUrl(response.data));
+    }
+  }, [fieldProps]);
 
   return (
     <Select
@@ -46,9 +54,9 @@ const CountrySelect: FC<Props> = ({
         color: "#e56161",
       }}
       icon={
-        fieldProps.value ? (
+        flagUrl ? (
           <Image
-            src={getFlagUrl(fieldProps?.value)}
+            src={flagUrl}
             alt="Flag example"
             marginRight="16px"
             minHeight="22px"

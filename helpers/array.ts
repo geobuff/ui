@@ -1,9 +1,9 @@
-import { Mapping } from "../types/mapping";
+import { MappingEntry } from "../types/mapping-entry";
 
 export const mergeArrayByName = (
-  mapping: Mapping[],
-  checked: Mapping[]
-): Mapping[] =>
+  mapping: MappingEntry[],
+  checked: MappingEntry[]
+): MappingEntry[] =>
   mapping.map((x) => ({
     ...checked.find((item) => item.name === x.name && item),
     ...x,

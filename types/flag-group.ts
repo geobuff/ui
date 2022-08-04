@@ -1,10 +1,12 @@
 export interface FlagGroup {
+  id: number;
   key: string;
   label: string;
-  entries: FlagEntry[];
 }
 
 export interface FlagEntry {
+  id: number;
+  groupId: number;
   code: string;
   url: string;
 }

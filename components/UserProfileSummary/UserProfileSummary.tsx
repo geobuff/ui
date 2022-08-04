@@ -24,7 +24,6 @@ import DeleteAccountModal from "../DeleteAccountModal";
 import axiosClient from "../../axios";
 import { signOut, useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
-import UseWorldFlagGroup from "../../hooks/UseWorldFlagGroup";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -99,7 +98,6 @@ const UserProfileSummary: FC<Props> = ({
   };
 
   const { countries } = useCountries();
-  const { getFlagUrl } = UseWorldFlagGroup();
 
   const downloadData = isAppMobile ? [] : [["email"], [email]];
 
@@ -117,17 +115,14 @@ const UserProfileSummary: FC<Props> = ({
     }
 
     if (countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG) {
-      const flagUrl = getFlagUrl(countryCode);
-      if (flagUrl) {
-        return (
-          <CustomFlag
-            url={flagUrl}
-            code={countryCode}
-            boxSizing="border-box"
-            border="2px solid #dae2ea"
-          />
-        );
-      }
+      return (
+        <CustomFlag
+          url={"https://ik.imagekit.io/ucszu5sud3vz/flag-geobuff-sm"}
+          code={countryCode}
+          boxSizing="border-box"
+          border="2px solid #dae2ea"
+        />
+      );
     }
 
     return <Twemoji emoji={flag(countryCode)} />;

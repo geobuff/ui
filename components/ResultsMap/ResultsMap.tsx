@@ -7,7 +7,7 @@ import { getResults } from "../../helpers/results-list";
 
 import VirtualizedSectionList from "../SectionList";
 import ResultsListItem from "../ResultsListItem";
-import { Mapping } from "../../types/mapping";
+import { MappingEntry } from "../../types/mapping-entry";
 import { ResultMap } from "../../types/result-map";
 
 const HEADER_HEIGHT = 50;
@@ -15,7 +15,7 @@ const ROW_HEIGHT = 28;
 
 export interface Props {
   map?: ResultMap;
-  checked?: Mapping[];
+  checked?: MappingEntry[];
   hasHeader?: boolean;
   hasGameStopped?: boolean;
   hasGroupings?: boolean;

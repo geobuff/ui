@@ -13,7 +13,7 @@ import {
 } from "../../helpers/toasts";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { TempScore } from "../../types/temp-score";
-import { Mapping } from "../../types/mapping";
+import { MappingEntry } from "../../types/mapping-entry";
 import { Result } from "../../types/result";
 import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
 import { AppContext } from "../../context/AppContext";
@@ -28,7 +28,7 @@ interface Props {
   maxScore?: number;
   score?: number;
   time?: number;
-  checkedSubmissions?: Mapping[];
+  checkedSubmissions?: MappingEntry[];
   recentSubmissions?: Result[];
   isOpen?: boolean;
   onClose?: () => void;

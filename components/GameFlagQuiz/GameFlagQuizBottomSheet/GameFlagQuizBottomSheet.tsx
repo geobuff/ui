@@ -8,7 +8,7 @@ import GameFlags from "../../GameFlags";
 import GameHeader from "../../GameHeader";
 
 import { groupMapping } from "../../../helpers/mapping";
-import { Mapping } from "../../../types/mapping";
+import { MappingEntry } from "../../../types/mapping-entry";
 import { ChevronUpIcon } from "@chakra-ui/icons";
 import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
 import GameInputCardTimer from "../../GameInputCard/GameInputCardTimer";
@@ -25,8 +25,8 @@ const motionDivStyles: Record<string, any> = {
 };
 
 interface Props {
-  checkedSubmissions?: Mapping[];
-  mapping?: Mapping[];
+  checkedSubmissions?: MappingEntry[];
+  mapping?: MappingEntry[];
   hasLeaderboard?: boolean;
   id?: number;
   name?: string;

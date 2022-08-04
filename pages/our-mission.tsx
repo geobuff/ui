@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
-import { Box, Divider, Text, SimpleGrid } from "@chakra-ui/react";
+import { Box, Divider, Text, SimpleGrid, Link } from "@chakra-ui/react";
 
 import TeamMemberCard from "../components/TeamMemberCard/TeamMemberCard";
 import MainView from "../components/MainView";
@@ -60,7 +60,23 @@ const OurMission: FC = () => (
               textAlign="center"
               mx="auto"
             >
-              Dominate the leaderboard 😤
+              Share{" "}
+              <Link href="https://github.com/geobuff/svg-map" color="teal.500">
+                map
+              </Link>
+              ,{" "}
+              <Link href="/resources/maps" color="teal.500">
+                maps
+              </Link>
+              ,{" "}
+              <Link href="/resources/mappings" color="teal.500">
+                mapping
+              </Link>{" "}
+              and{" "}
+              <Link href="/resources//flags" color="teal.500">
+                flag
+              </Link>{" "}
+              resources so that others can use them in their own projects
             </Text>
           </Box>
           <Box color="#828282" fontSize="15px" mb={12}>

@@ -14,7 +14,7 @@ import ResultsList from "../../ResultsList";
 import ResultsMap from "../../ResultsMap";
 
 import { groupMapping } from "../../../helpers/mapping";
-import { Mapping } from "../../../types/mapping";
+import { MappingEntry } from "../../../types/mapping-entry";
 import { Result } from "../../../types/result";
 import { AppContext } from "../../../context/AppContext";
 
@@ -28,8 +28,8 @@ export interface Props {
   plural?: string;
   hasFlags?: boolean;
   hasGrouping?: boolean;
-  mapping?: Mapping[];
-  checked?: Mapping[];
+  mapping?: MappingEntry[];
+  checked?: MappingEntry[];
   recents?: Result[];
   hasGameRunOnce?: boolean;
   hasGameStarted?: boolean;

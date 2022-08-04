@@ -1,5 +1,5 @@
-import { Mapping } from "./mapping";
+import { MappingEntry } from "./mapping-entry";
 
 export interface ResultMap {
-  [x: string]: Mapping[];
+  [x: string]: MappingEntry[];
 }

@@ -23,10 +23,6 @@ import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
 import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
 import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
 import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
-import {
-  getHighlightRegionsByMap,
-  getMapCategories,
-} from "../../../helpers/map";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
 import InlineErrorMessage from "../../InlineErrorMessage";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
@@ -35,6 +31,9 @@ import Search from "../../../Icons/Search";
 import UnsplashImageGrid from "../../UnsplashImageGrid";
 import { UnsplashImage } from "../../../types/unsplash-image";
 import useFlagGroups from "../../../hooks/UseFlagGroups";
+import { GetMapsDto } from "../../../types/get-maps-dto";
+import { FormOption } from "../../../types/form";
+import axiosClient from "../../../axios";
 
 const answers = [
   "Answer One",
@@ -92,6 +91,7 @@ export interface Props {
   isSearchingImages?: boolean;
   isEmptyImageSearch?: boolean;
   onChangeSearchImage: (query: string) => void;
+  maps?: GetMapsDto[];
 }
 
 const CommunityQuizQuestionForm: FC<Props> = ({
@@ -102,11 +102,14 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   isSearchingImages = false,
   isEmptyImageSearch = false,
   onChangeSearchImage = () => {},
+  maps = [],
   ...props
 }) => {
   const [flagCategory, setFlagCategory] = useState("");
   const [flagAnswerCategory, setFlagAnswerCategory] = useState("");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
+
+  const [highlightedRegions, setHighlightedRegions] = useState([]);
 
   const { data: flagGroups } = useFlagGroups();
 
@@ -125,6 +128,12 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   const handleSearchImageDebounced = debounce(1500, (event) =>
     onChangeSearchImage(event.target.value)
   );
+
+  const getHighlightRegionsByMap = (className: string): void => {
+    axiosClient
+      .get(`/maps/highlighted/${className}`)
+      .then((response) => setHighlightedRegions(response.data));
+  };
 
   return (
     <Flex width="100%" {...props}>
@@ -260,17 +269,18 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   <SelectFormField
                     name="map"
                     label="Map"
-                    options={getMapCategories()}
-                    onChange={({ target }) =>
-                      setFieldValue("map", target?.value)
-                    }
+                    options={maps}
+                    onChange={({ target }) => {
+                      getHighlightRegionsByMap(target?.value);
+                      setFieldValue("map", target?.value);
+                    }}
                     width="50%"
                     marginRight={2}
                   />
                   <SelectFormField
                     name="highlighted"
                     label="Highlighted"
-                    options={getHighlightRegionsByMap(values.map)}
+                    options={highlightedRegions}
                     onChange={({ target }) =>
                       setFieldValue("highlighted", target?.value)
                     }

@@ -83,7 +83,7 @@ const BulkUploadForm: FC<Props> = ({
           results.data.map((x) => {
             const typeId = getTriviaQuestionTypeId(x["Type"], setError);
             const answers = x["Answers"].split(", ");
-            const correctAnswer = x["Correct"];
+            const correctAnswer = x["Correct"].trim();
 
             const result: ManualTriviaQuestionPayload = {
               typeId: typeId,
@@ -95,9 +95,10 @@ const BulkUploadForm: FC<Props> = ({
                 Valid: false,
               },
               answers: answers.map((a) => {
+                const text = a.trim();
                 return {
-                  text: a,
-                  isCorrect: a === correctAnswer,
+                  text: text,
+                  isCorrect: text.toLowerCase() === correctAnswer.toLowerCase(),
                 };
               }),
             };
