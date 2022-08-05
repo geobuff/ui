@@ -51,13 +51,12 @@ const AdminMapsTable: FC<Props> = ({ maps = [], isLoading = true }) => {
                 {entry.name}
               </TableCell>
               <TableCell paddingY={4} paddingX={6}>
-                {`${entry.key}.svg`}
-                {/* <Link
+                <Link
                   href={`${process.env.NEXT_PUBLIC_MAPS_URL}/${entry.key}.svg`}
                   isExternal
                 >
                   {`${entry.key}.svg`}
-                </Link> */}
+                </Link>
               </TableCell>
             </Tr>
           ))}
