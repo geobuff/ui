@@ -45,17 +45,17 @@ const AdminMapsTable: FC<Props> = ({ maps = [], isLoading = true }) => {
         </Thead>
 
         <Tbody>
-          {maps.map((map, index) => (
-            <Tr key={index} fontWeight={600}>
+          {maps.map((entry) => (
+            <Tr key={entry.key} fontWeight={600}>
               <TableCell paddingY={4} paddingX={6} minWidth="260px">
-                {map.name}
+                {entry.name}
               </TableCell>
               <TableCell paddingY={4} paddingX={6}>
                 <Link
-                  href={`${process.env.NEXT_PUBLIC_MAPS_URL}/${map.key}.svg`}
+                  href={`${process.env.NEXT_PUBLIC_MAPS_URL}/${entry.key}.svg`}
                   isExternal
                 >
-                  {`${map.key}.svg`}
+                  {`${entry.key}.svg`}
                 </Link>
               </TableCell>
             </Tr>

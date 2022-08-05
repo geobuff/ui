@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Box, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import MainView from "../../components/MainView";
 import Head from "next/head";
 import AdminMapsTableContainer from "../../containers/AdminMapsTableContainer";
