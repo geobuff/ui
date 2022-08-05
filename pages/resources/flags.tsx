@@ -5,7 +5,7 @@ import Head from "next/head";
 import HeroHeader from "../../components/HeroHeader";
 import AdminFlagsTableContainer from "../../containers/AdminFlagsTableContainer";
 
-const MappingResources: FC = () => {
+const FlagResources: FC = () => {
   return (
     <MainView>
       <Head>
@@ -33,4 +33,4 @@ const MappingResources: FC = () => {
   );
 };
 
-export default MappingResources;
+export default FlagResources;
