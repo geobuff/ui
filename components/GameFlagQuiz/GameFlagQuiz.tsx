@@ -36,6 +36,7 @@ import {
 import GameBannerButton from "../GameBannerButton";
 import { AppContext } from "../../context/AppContext";
 import { useSession } from "next-auth/react";
+import { FlagDetails } from "../../types/flag-details";
 
 const INCORRECT_ANSWER_THRESHOLD = 1;
 
@@ -105,8 +106,13 @@ const GameFlagQuiz: FC<Props> = ({
   const [incorrectCount, setIncorrectCount] = useState(0);
   const [disableSkipButton, setDisableSkipButton] = useState(true);
 
-  const [flagDragItems, setFlagDragItems] = useState(() =>
-    getRandomCollectionItems(mapping, flagOptionCount).map((c) => c.code)
+  const [flagDragItems, setFlagDragItems] = useState<FlagDetails[]>(() =>
+    getRandomCollectionItems(mapping, flagOptionCount).map((mapping) => {
+      return {
+        code: mapping.code,
+        url: mapping.flagUrl,
+      };
+    })
   );
   useWarnIfActiveGame(hasGameStarted);
 
@@ -128,6 +134,7 @@ const GameFlagQuiz: FC<Props> = ({
               return {
                 name: x.name,
                 code: x.code,
+                flagUrl: x.flagUrl,
                 svgName: x.svgName,
                 isHidden: false,
                 isMissedResult: false,
@@ -166,7 +173,7 @@ const GameFlagQuiz: FC<Props> = ({
   useEffect(() => {
     if (flagDragItems.length) {
       const nextFlagCode = getRandomCollectionItem(flagDragItems);
-      const nextFlagObject = mapping.find((m) => m.code === nextFlagCode);
+      const nextFlagObject = mapping.find((m) => m.code === nextFlagCode.code);
       setAcceptedFlag(nextFlagObject);
     }
   }, [flagDragItems, mapping]);
@@ -275,6 +282,7 @@ const GameFlagQuiz: FC<Props> = ({
           return {
             name: x.name,
             code: x.code,
+            flagUrl: x.flagUrl,
             svgName: x.svgName,
             isHidden: false,
             isMissedResult: false,
@@ -292,7 +300,12 @@ const GameFlagQuiz: FC<Props> = ({
           getRandomCollectionItems(
             updatedRemainingAnswers,
             flagOptionCount
-          ).map((c) => c.code)
+          ).map((mapping) => {
+            return {
+              code: mapping.code,
+              url: mapping.flagUrl,
+            };
+          })
         );
       }
 
@@ -421,7 +434,7 @@ const GameFlagQuiz: FC<Props> = ({
                 </Flex>
                 {!isMobile && (
                   <GameFlags
-                    codes={flagDragItems}
+                    flags={flagDragItems}
                     onCheckSubmission={async (submission): Promise<void> =>
                       setCurrentSubmission(submission)
                     }

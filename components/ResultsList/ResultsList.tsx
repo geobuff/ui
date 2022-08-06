@@ -31,6 +31,7 @@ const ResultsList: FC<Props> = ({
         <ResultsListItem
           key={result.code}
           code={result.code}
+          flagUrl={result.flagUrl}
           svgName={result.svgName}
           isHidden={result.isHidden}
           isMissedResult={result.isMissedResult}

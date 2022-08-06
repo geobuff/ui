@@ -3,6 +3,7 @@ export interface MappingEntry {
   groupId: number;
   name: string;
   code: string;
+  flagUrl: string;
   svgName: string;
   alternativeNames: string[];
   prefixes: string[];

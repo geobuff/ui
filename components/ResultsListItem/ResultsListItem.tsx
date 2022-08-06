@@ -5,10 +5,10 @@ import FlagFallback from "./FlagFallback/FlagFallback";
 import CustomFlag from "../CustomFlag";
 
 import Twemoji from "../Twemoji";
-import useFlagUrl from "../../hooks/UseFlagUrl";
 
 export interface Props {
   code?: string;
+  flagUrl?: string;
   isHidden?: boolean;
   isMissedResult?: boolean;
   svgName?: string;
@@ -19,6 +19,7 @@ export interface Props {
 
 const ResultsListItem: FC<Props> = ({
   code = "",
+  flagUrl = "",
   isHidden = false,
   isMissedResult = false,
   svgName = "",
@@ -26,8 +27,6 @@ const ResultsListItem: FC<Props> = ({
   shouldFadeIn = false,
   ...props
 }) => {
-  const { data: flagUrl } = useFlagUrl(code);
-
   const mainContent = (
     <Flex alignItems="center" marginY={2} {...props}>
       {hasFlag ? (
