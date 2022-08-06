@@ -12,6 +12,7 @@ export const getResults = (
         return {
           name: x.name,
           code: x.code,
+          flagUrl: x.flagUrl,
           svgName: x.svgName,
           isHidden: false,
           isMissedResult: !checked.map((x) => x.name).includes(x.name),
@@ -21,6 +22,7 @@ export const getResults = (
         return {
           name: x.name,
           code: x.code,
+          flagUrl: x.flagUrl,
           svgName: x.svgName,
           isHidden: !checked.map((x) => x.name).includes(x.name),
           isMissedResult: false,

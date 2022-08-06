@@ -3,6 +3,7 @@ import React, { createContext, useState, FC } from "react";
 export interface DragItem {
   isDragging: boolean;
   code: string;
+  url: string;
 }
 
 export const FlagGameContext = createContext({
@@ -19,6 +20,7 @@ export const FlagGameContextProvider: FC<Props> = ({ children = null }) => {
   const [dragItem, setDragItem] = useState<DragItem>({
     isDragging: false,
     code: "",
+    url: "",
   });
 
   const handleDragging = (dragItem: DragItem): void => {

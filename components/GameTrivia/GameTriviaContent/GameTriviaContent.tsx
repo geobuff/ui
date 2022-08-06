@@ -22,8 +22,7 @@ import {
   getMapStyles,
   highlightSection,
 } from "../../../helpers/map";
-import useFlagUrl from "../../../hooks/UseFlagUrl";
-import useMap from "../../../hooks/UseMap";
+import { SVGBase } from "../../../types/svg-base";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
 
@@ -40,9 +39,11 @@ const getHeaderFontSize = (
 export interface Props {
   text: string;
   type?: TriviaQuestionTypes;
-  map?: string;
+  map?: SVGBase;
+  mapName?: string;
   highlighted?: string;
   flagCode?: string;
+  flagUrl?: string;
   imageUrl?: string;
   imageAttributeName?: string;
   imageAttributeUrl?: string;
@@ -54,9 +55,11 @@ export interface Props {
 const GameTriviaContent: FC<Props> = ({
   text,
   type = "Text",
-  map = "",
+  map = null,
+  mapName = "",
   highlighted = "",
   flagCode = "",
+  flagUrl = "",
   imageUrl = "",
   imageAttributeName = "",
   imageAttributeUrl = "",
@@ -64,9 +67,6 @@ const GameTriviaContent: FC<Props> = ({
   imageHeight = 0,
   imageAlt = "",
 }) => {
-  const { data: flagUrl } = useFlagUrl(flagCode);
-  const { data: svgMap, isLoading: isMapLoading } = useMap(map);
-
   const isMobile = useBreakpointValue({ base: false, md: true });
   const height = use100vh();
   const isTinyMobile = height < 625;
@@ -89,13 +89,13 @@ const GameTriviaContent: FC<Props> = ({
         }
         break;
       case "Map":
-        if (!map || isMapLoading) {
+        if (!map) {
           return <></>;
         }
 
-        const gameMap = getGameMap(svgMap, map);
-        highlighted && highlightSection(gameMap, map, highlighted);
-        return <SVGMap map={gameMap} mapStyle={getMapStyles(map)} />;
+        const gameMap = getGameMap(map, mapName);
+        highlighted && highlightSection(gameMap, mapName, highlighted);
+        return <SVGMap map={gameMap} mapStyle={getMapStyles(mapName)} />;
       case "Image":
         return (
           <Flex

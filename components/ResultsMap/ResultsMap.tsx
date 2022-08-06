@@ -55,6 +55,7 @@ const ResultsMap: FC<Props> = ({
     <Box key={key} style={style}>
       <ResultsListItem
         code={item.code}
+        flagUrl={item.flagUrl}
         svgName={item.svgName}
         isHidden={item.isHidden}
         isMissedResult={item.isMissedResult}
@@ -67,6 +68,7 @@ const ResultsMap: FC<Props> = ({
     <Box key={key} style={style}>
       <ResultsListItem
         code={resultRows[index].code}
+        flagUrl={resultRows[index].flagUrl}
         svgName={resultRows[index].svgName}
         isHidden={resultRows[index].isHidden}
         isMissedResult={resultRows[index].isMissedResult}

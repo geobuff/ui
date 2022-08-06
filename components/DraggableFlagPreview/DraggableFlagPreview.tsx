@@ -5,11 +5,11 @@ import { isMobile } from "react-device-detect";
 import { FlagGameContext } from "../../context/FlagGameContext";
 
 interface Props {
-  code?: string;
-  imageUrl?: string;
+  code: string;
+  imageUrl: string;
 }
 
-const DraggableFlagPreview: FC<Props> = ({ code = "", imageUrl = "" }) => {
+const DraggableFlagPreview: FC<Props> = ({ code, imageUrl }) => {
   const { display, style } = usePreview();
   const { isDragging } = useContext(FlagGameContext);
 

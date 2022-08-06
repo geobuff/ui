@@ -1,4 +1,6 @@
+import { NullString } from "./null-string";
 import { NullTime } from "./null-time";
+import { SVGBase } from "./svg-base";
 import { TriviaAnswer } from "./trivia-answer";
 import { TriviaQuestionTypes } from "./trivia-question-types";
 
@@ -7,9 +9,11 @@ export interface TriviaQuestion {
   typeId: number;
   type: TriviaQuestionTypes;
   question: string;
-  map?: string;
+  mapName?: string;
+  map?: SVGBase;
   highlighted?: string;
   flagCode?: string;
+  flagUrl?: NullString;
   imageUrl?: string;
   imageAttributeName?: string;
   imageAttributeUrl?: string;

@@ -9,6 +9,7 @@ import { FlagGameContext } from "../../context/FlagGameContext";
 import DelayedRender from "../DelayedRender";
 import DraggableFlag from "../DraggableFlag";
 import CarouselButton from "./CarouselButton";
+import { FlagDetails } from "../../types/flag-details";
 
 const responsiveConfig: ResponsiveType = {
   tablet: {
@@ -47,12 +48,12 @@ const getCarouselThreshold = (
 };
 
 export interface Props {
-  codes?: string[];
+  flags?: FlagDetails[];
   onCheckSubmission?: (submission: string) => void;
 }
 
 const DraggableFlagCarousel: FC<Props> = ({
-  codes = [],
+  flags = [],
   onCheckSubmission,
 }) => {
   const { handleDragging } = useContext(FlagGameContext);
@@ -70,12 +71,12 @@ const DraggableFlagCarousel: FC<Props> = ({
   );
 
   useEffect(() => {
-    if (codes.length <= carouselThreshold) {
-      handleDragging({ code: "", isDragging: false });
+    if (flags.length <= carouselThreshold) {
+      handleDragging({ code: "", isDragging: false, url: "" });
     }
     // including handleDragging here will cause infinite loop
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [codes, carouselThreshold]);
+  }, [flags, carouselThreshold]);
 
   /**
    *  The carousel bugs out if you have less flags than the breakpoint config,
@@ -84,7 +85,7 @@ const DraggableFlagCarousel: FC<Props> = ({
    *  To fix this we render the flags without the carousel if they can fit on the
    *  given breakpoint.
    *  */
-  if (codes.length <= carouselThreshold) {
+  if (flags.length <= carouselThreshold) {
     return (
       <Flex
         width="100%"
@@ -93,11 +94,12 @@ const DraggableFlagCarousel: FC<Props> = ({
         alignItems="center"
         justifyContent="center"
       >
-        {codes.length ? (
-          [...Array.from(new Set(codes))]?.map((code) => (
+        {flags.length ? (
+          [...Array.from(new Set(flags))]?.map((flag) => (
             <DraggableFlag
-              key={code}
-              code={code}
+              key={flag.code}
+              code={flag.code}
+              url={flag.url}
               checkSubmission={onCheckSubmission}
               mx={3}
             />
@@ -128,10 +130,11 @@ const DraggableFlagCarousel: FC<Props> = ({
       itemClass="flex center"
       containerClass="fade-in"
     >
-      {[...Array.from(new Set(codes))]?.map((code) => (
+      {[...Array.from(new Set(flags))]?.map((flag) => (
         <DraggableFlag
-          key={code}
-          code={code}
+          key={flag.code}
+          code={flag.code}
+          url={flag.url}
           checkSubmission={onCheckSubmission}
           mx={2}
         />

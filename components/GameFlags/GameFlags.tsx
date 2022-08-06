@@ -5,20 +5,19 @@ import DraggableFlag from "../DraggableFlag";
 import DraggableFlagCarousel from "../DraggableFlagCarousel";
 import { FlagGameContext } from "../../context/FlagGameContext";
 import DraggableFlagPreview from "../DraggableFlagPreview";
-import useFlagUrl from "../../hooks/UseFlagUrl";
+import { FlagDetails } from "../../types/flag-details";
 
 interface Props {
-  codes?: string[];
+  flags?: FlagDetails[];
   onCheckSubmission?: (submission: string) => void;
 }
 
 const GameFlags: FC<Props> = ({
-  codes = [],
+  flags = [],
   onCheckSubmission = (): void => {},
 }) => {
   const isMobile = useBreakpointValue({ base: true, lg: false });
   const { dragItem } = useContext(FlagGameContext);
-  const { data: flagUrl } = useFlagUrl(dragItem?.code);
 
   if (isMobile) {
     return (
@@ -29,11 +28,11 @@ const GameFlags: FC<Props> = ({
         marginRight={10}
         alignItems="center"
       >
-        {flagUrl && (
-          <DraggableFlagPreview code={dragItem?.code} imageUrl={flagUrl} />
+        {dragItem?.url && (
+          <DraggableFlagPreview code={dragItem.code} imageUrl={dragItem.url} />
         )}
         <DraggableFlagCarousel
-          codes={codes}
+          flags={flags}
           onCheckSubmission={onCheckSubmission}
         />
       </Flex>
@@ -51,10 +50,11 @@ const GameFlags: FC<Props> = ({
       paddingLeft="390px"
     >
       <SimpleGrid columns={5} spacingX={6} spacingY={6}>
-        {[...Array.from(new Set(codes))]?.map((code) => (
+        {[...Array.from(new Set(flags))]?.map((flag) => (
           <DraggableFlag
-            key={code}
-            code={code}
+            key={flag.code}
+            code={flag.code}
+            url={flag.url}
             checkSubmission={onCheckSubmission}
           />
         ))}

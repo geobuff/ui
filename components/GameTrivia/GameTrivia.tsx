@@ -123,8 +123,12 @@ const GameTrivia: FC<Props> = ({
                   text={question?.question}
                   type={question?.type}
                   map={question?.map}
+                  mapName={question?.mapName}
                   highlighted={question?.highlighted}
                   flagCode={question?.flagCode}
+                  flagUrl={
+                    question.flagUrl.Valid ? question.flagUrl.String : ""
+                  }
                   imageUrl={question?.imageUrl}
                   imageAttributeName={question?.imageAttributeName}
                   imageAttributeUrl={question?.imageAttributeUrl}

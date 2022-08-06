@@ -13,6 +13,7 @@ import { ChevronUpIcon } from "@chakra-ui/icons";
 import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
 import GameInputCardTimer from "../../GameInputCard/GameInputCardTimer";
 import DelayedRender from "../../DelayedRender";
+import { FlagDetails } from "../../../types/flag-details";
 
 const motionDivStyles: Record<string, any> = {
   backgroundColor: "white",
@@ -35,7 +36,7 @@ interface Props {
   hasGameStopped?: boolean;
   hasFlags?: boolean;
   isNotchedIphone?: boolean;
-  flagDragItems?: string[];
+  flagDragItems?: FlagDetails[];
   timeRemaining?: number;
   expiryTimestamp?: ExpiryTimestamp;
   onCheckSubmission?: (submission: string) => void;
@@ -150,7 +151,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
             {!showResultList && (
               <Fade in unmountOnExit>
                 <GameFlags
-                  codes={flagDragItems}
+                  flags={flagDragItems}
                   onCheckSubmission={onCheckSubmission}
                 />
                 {resultHeaderButton}

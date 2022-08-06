@@ -15,12 +15,14 @@ const recents: Result[] = [
   {
     name: "new zealand",
     code: "NZ",
+    flagUrl: "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1f3-1f1ff.svg",
     svgName: "New Zealand",
     isHidden: false,
     isMissedResult: false,
   },
   {
     name: "brazil",
+    flagUrl: "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1e7-1f1f7.svg",
     code: "BR",
     svgName: "Brasil",
     isHidden: false,
@@ -29,6 +31,7 @@ const recents: Result[] = [
   {
     name: "france",
     code: "FR",
+    flagUrl: "https://twemoji.maxcdn.com/v/13.0.1/svg/1f1eb-1f1f7.svg",
     svgName: "France",
     isHidden: false,
     isMissedResult: false,
