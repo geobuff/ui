@@ -275,7 +275,7 @@ const GameMapQuiz: FC<Props> = ({
           return {
             name: x.name,
             code: x.code,
-            flagUrl: x.code,
+            flagUrl: x.flagUrl,
             svgName: x.svgName,
             isHidden: false,
             isMissedResult: false,
