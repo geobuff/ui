@@ -1,11 +1,15 @@
 import React, { FC } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Button, Flex, Text } from "@chakra-ui/react";
 import MainView from "../../components/MainView";
 import Head from "next/head";
 import HeroHeader from "../../components/HeroHeader";
 import AdminFlagsTableContainer from "../../containers/AdminFlagsTableContainer";
+import ArrowLeft from "../../Icons/ArrowLeft";
+import { useRouter } from "next/router";
 
 const FlagResources: FC = () => {
+  const router = useRouter();
+
   return (
     <MainView>
       <Head>
@@ -27,6 +31,22 @@ const FlagResources: FC = () => {
         fontSize={{ base: "12px", md: "inherit" }}
         justifyContent="center"
       >
+        <Flex>
+          <Button
+            alignItems="center"
+            backgroundColor="transparent"
+            _hover={{
+              textDecoration: "underline",
+              cursor: "pointer",
+            }}
+            onClick={() => router.push("/resources")}
+          >
+            <ArrowLeft height={5} width={5} marginRight={1} />
+            <Text fontWeight="bold" fontSize="14px">
+              {"Back to Resources"}
+            </Text>
+          </Button>
+        </Flex>
         <AdminFlagsTableContainer />
       </Flex>
     </MainView>

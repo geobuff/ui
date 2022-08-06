@@ -71,7 +71,7 @@ const AdminMapsTable: FC<Props> = ({ maps = [], isLoading = true }) => {
       maxWidth={{ base: "100%", md: 1300 }}
       marginX="auto"
       marginBottom={14}
-      marginTop={{ base: 10, sm: 10, md: 14 }}
+      marginTop={6}
       paddingX={3}
       width="100%"
     >

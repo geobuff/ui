@@ -53,7 +53,7 @@ const Resources: FC = () => {
         fontSize={{ base: "12px", md: "inherit" }}
         justifyContent="center"
       >
-        <Card marginY={10} padding={6}>
+        <Card marginY={{ base: 3, md: 10 }} padding={6}>
           <Heading size="md" mb={3}>{`Like what you see?`}</Heading>
           <Text mb={6}>
             {`We've bundled and shared all of our resources so that others can use them in their own projects.`}
