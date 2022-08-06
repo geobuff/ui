@@ -92,6 +92,13 @@ const NavigationBar: FC = () => {
         />
 
         <NavigationBarLink
+          href="/resources"
+          label="Resources"
+          isActive={route === "/resources"}
+          marginLeft={6}
+        />
+
+        <NavigationBarLink
           href="/merch"
           label="Merch"
           isActive={route === "/merch"}

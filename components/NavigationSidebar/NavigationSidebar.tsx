@@ -70,6 +70,11 @@ const quickLinks = [
     emoji: "🎌",
   },
   {
+    href: "/resources",
+    label: "Resources",
+    emoji: "🧰",
+  },
+  {
     href: "/merch",
     label: "Merch",
     emoji: "👕",
