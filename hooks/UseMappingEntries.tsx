@@ -14,6 +14,7 @@ const useMappingEntries = (key: string): Result => {
     data:
       data?.map((mapping) => ({
         ...mapping,
+        flagUrl: mapping.flagUrl.Valid ? mapping.flagUrl.String : "",
         alternativeNames: mapping.alternativeNames.map((altName) =>
           altName.toLowerCase()
         ),
