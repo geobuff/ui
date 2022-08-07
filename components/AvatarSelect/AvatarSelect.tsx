@@ -13,7 +13,6 @@ import { Avatar } from "../../types/avatar";
 import RadioCard from "./RadioCard";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import CustomFlag from "../CustomFlag";
-import useFlagUrl from "../../hooks/UseFlagUrl";
 
 interface Props {
   fieldProps?: FieldProps;
@@ -32,8 +31,6 @@ const AvatarSelect: FC<Props> = ({
     shouldValidate?: boolean
   ): void => {},
 }) => {
-  const { data: flagUrl } = useFlagUrl(current?.countryCode);
-
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "avatarId",
     defaultValue: fieldProps?.value,
@@ -62,9 +59,9 @@ const AvatarSelect: FC<Props> = ({
             <Flex>
               <Heading size="md">{current?.name}</Heading>
               <Flex direction="column" justifyContent="center">
-                {flagUrl && (
+                {current?.flagUrl && (
                   <CustomFlag
-                    url={flagUrl}
+                    url={current?.flagUrl}
                     code={current?.countryCode}
                     ml={3}
                   />

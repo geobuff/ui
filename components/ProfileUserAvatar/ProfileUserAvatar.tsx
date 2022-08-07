@@ -1,7 +1,6 @@
 import React, { FC, useState, MouseEventHandler } from "react";
-import { Box, BoxProps } from "@chakra-ui/react";
-
 import Image from "next/image";
+import { Box, BoxProps } from "@chakra-ui/react";
 import DelayedRender from "../DelayedRender";
 
 export interface Props extends BoxProps {
@@ -56,7 +55,7 @@ const ProfileUserAvatar: FC<Props> = ({
           height={height - 24}
           width={width - 24}
           style={{
-            marginTop: "0.5px",
+            marginTop: 0.5,
           }}
           priority
         />
@@ -67,7 +66,7 @@ const ProfileUserAvatar: FC<Props> = ({
           height={height - 24}
           width={width - 24}
           style={{
-            marginTop: "0.5px",
+            marginTop: 0.5,
           }}
           onMouseEnter={(): void => setShouldShowSecondary(true)}
           priority

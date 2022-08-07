@@ -64,8 +64,9 @@ const GameTriviaAnswers: FC<Props> = ({
               "idle"
             }
             key={answer?.text}
-            text={answer.text}
+            text={answer?.text}
             flagCode={answer?.flagCode}
+            flagUrl={answer?.flagUrl.Valid ? answer.flagUrl.String : ""}
             isCondensed={isTinyMobile}
             onClick={() => onAnswerQuestion(answer)}
             isDisabled={hasAnswered}
