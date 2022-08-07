@@ -6,11 +6,11 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 import { isMobile } from "react-device-detect";
-import { Quiz } from "../../types/quiz";
 import { MappingEntry } from "../../types/mapping-entry";
+import { QuizDto } from "../../types/quiz-dto";
 
 interface Props {
-  quiz: Quiz;
+  quiz: QuizDto;
   mapping: MappingEntry[];
 }
 

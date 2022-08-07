@@ -16,7 +16,6 @@ import {
   GetCommunityQuizQuestion,
 } from "../../../types/get-community-quiz-dto";
 import GameCommunityQuizButton from "../GameCommunityQuizButton";
-import useFlagUrl from "../../../hooks/UseFlagUrl";
 
 export interface Props {
   question: GetCommunityQuizQuestion;
@@ -68,6 +67,7 @@ const GameCommunityQuizAnswers: FC<Props> = ({
             key={answer?.text}
             text={answer.text}
             flagCode={answer?.flagCode}
+            flagUrl={answer?.flagUrl.Valid ? answer.flagUrl.String : ""}
             isCondensed={isTinyMobile}
             onClick={() => onAnswerQuestion(answer)}
             isDisabled={hasAnswered}

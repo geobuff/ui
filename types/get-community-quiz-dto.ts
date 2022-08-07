@@ -1,3 +1,5 @@
+import { NullString } from "./null-string";
+import { SVGBase } from "./svg-base";
 import { TriviaQuestionTypes } from "./trivia-question-types";
 
 export interface GetCommunityQuiz {
@@ -16,9 +18,11 @@ export interface GetCommunityQuizQuestion {
   type: TriviaQuestionTypes;
   question: string;
   explainer: string;
-  map: string;
+  mapName?: string;
+  map?: SVGBase;
   highlighted: string;
   flagCode: string;
+  flagUrl?: NullString;
   imageUrl: string;
   imageAttributeName: string;
   imageAttributeUrl: string;
@@ -33,4 +37,5 @@ export interface GetCommunityQuizAnswer {
   text: string;
   isCorrect: boolean;
   flagCode: string;
+  flagUrl: NullString;
 }
