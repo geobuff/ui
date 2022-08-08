@@ -13,7 +13,7 @@ const rows: LandingPageRow[] = [
     imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/daily-trivia/mobile-flag-question.png`,
     imageAlt: "Mobile flag question",
     explainer:
-      "Our responsive UI works seamlessly between desktop and mobile so you can learn on the fly or at home on the big screen.",
+      "Our responsive UI works seamlessly between desktop and mobile so you can learn on the go or at home on the big screen.",
   },
   {
     imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/daily-trivia/desktop-image-question.png`,
