@@ -26,18 +26,27 @@ const companyLinks = [
   {
     href: "/our-mission",
     text: "Our Mission",
+    isExternal: false,
+  },
+  {
+    href: "/our-values",
+    text: "Our Values",
+    isExternal: false,
+  },
+  {
+    href: "/team",
+    text: "Meet the Team",
+    isExternal: false,
+  },
+  {
+    href: "/resources",
+    text: "Resources",
+    isExternal: false,
   },
   {
     href: process.env.NEXT_PUBLIC_DISCORD_LINK,
     text: "Support",
-  },
-  {
-    href: "/faq",
-    text: "F.A.Q.",
-  },
-  {
-    href: "/merch",
-    text: "Merch",
+    isExternal: true,
   },
 ];
 
@@ -57,6 +66,10 @@ const furtherInfoLinks = [
   {
     href: "/acceptable-use-policy",
     text: "Acceptable Use Policy",
+  },
+  {
+    href: "/faq",
+    text: "F.A.Q.",
   },
 ];
 
@@ -191,7 +204,7 @@ const extendedFooter = (isMobile: boolean) => (
             {"Company"}
           </Text>
           <Flex direction="column">
-            {companyLinks.map(({ href, text }) => (
+            {companyLinks.map(({ href, text, isExternal }) => (
               <Link
                 key={href}
                 href={href}
@@ -199,6 +212,7 @@ const extendedFooter = (isMobile: boolean) => (
                 fontSize="14px"
                 fontWeight="medium"
                 marginY={{ base: 1, md: 1 }}
+                isExternal={isExternal}
               >
                 {text}
               </Link>
