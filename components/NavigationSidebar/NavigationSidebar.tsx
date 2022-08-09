@@ -79,6 +79,11 @@ const quickLinks = [
     label: "Merch",
     emoji: "👕",
   },
+  {
+    href: "/blog",
+    label: "Blog",
+    emoji: "🗞️",
+  },
 ];
 
 const popularQuizzes = [

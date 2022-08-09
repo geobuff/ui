@@ -34,6 +34,39 @@ const theme = extendTheme({
         backgroundColor: "#F0F0F0",
         ...(isAppMobile ? mobileStyles.body : {}),
       },
+      ".mdx-prose": {
+        h1: {
+          fontSize: "4xl",
+          lineHeight: "1.2",
+          fontWeight: 700,
+          mt: 12,
+          mb: 3,
+        },
+        h2: {
+          fontSize: "3xl",
+          lineHeight: "1.2",
+          fontWeight: 700,
+          mt: 12,
+          mb: 3,
+        },
+        h3: {
+          fontSize: "2xl",
+          lineHeight: "1.2",
+          fontWeight: 700,
+          mt: 12,
+          mb: 3,
+        },
+        h4: {
+          fontSize: "xl",
+          lineHeight: "1.2",
+          fontWeight: 700,
+          mt: 12,
+          mb: 3,
+        },
+        p: {
+          mb: 3,
+        },
+      },
     },
   },
 });

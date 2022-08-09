@@ -66,14 +66,14 @@ const NavigationBar: FC = () => {
         <NavigationBarLink
           href="/daily-trivia"
           label="Trivia"
-          isActive={route === "/daily-trivia"}
+          isActive={route.includes("/daily-trivia")}
           marginLeft={6}
         />
 
         <NavigationBarLink
           href="/community-quiz"
           label="Community"
-          isActive={route === "/community-quiz"}
+          isActive={route.includes("/community-quiz")}
           marginLeft={6}
         />
 
@@ -94,14 +94,20 @@ const NavigationBar: FC = () => {
         <NavigationBarLink
           href="/resources"
           label="Resources"
-          isActive={route === "/resources"}
+          isActive={route.includes("/resources")}
           marginLeft={6}
         />
 
         <NavigationBarLink
           href="/merch"
           label="Merch"
-          isActive={route === "/merch"}
+          isActive={route.includes("/merch")}
+          marginLeft={6}
+        />
+        <NavigationBarLink
+          href="/blog"
+          label="Blog"
+          isActive={route.includes("/blog")}
           marginLeft={6}
         />
       </Flex>
