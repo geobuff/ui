@@ -38,7 +38,10 @@ const OurMission: FC = () => (
               textAlign="center"
               mx="auto"
             >
-              {`Create the world's most interactive and diverse auto-generating daily Geography trivia`}
+              {`Create the world's best auto-generating `}
+              <Link href="/daily-trivia/today" color="teal.500">
+                daily Geography trivia
+              </Link>
             </Text>
           </Box>
         </Box>
@@ -56,7 +59,11 @@ const OurMission: FC = () => (
               textAlign="center"
               mx="auto"
             >
-              {`Build a custom quiz-builder that teachers can use to keep students engaged in the classroom`}
+              {`Build a `}
+              <Link href="/create/community-quizzes" color="teal.500">
+                custom quiz-builder
+              </Link>
+              {` that teachers can use to keep students engaged in the classroom`}
             </Text>
           </Box>
         </Box>
