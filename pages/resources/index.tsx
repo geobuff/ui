@@ -63,14 +63,17 @@ const Resources: FC = () => {
               <Divider borderWidth={1} my={2} />
               <Flex
                 key={index}
-                direction="row"
+                direction={{ base: "column", md: "row" }}
                 justifyContent="space-between"
                 alignItems="center"
                 marginY={2}
                 marginX={1}
               >
-                <Flex direction="column">
-                  <Text fontSize={18} fontWeight="bold">
+                <Flex
+                  direction="column"
+                  textAlign={{ base: "center", md: "inherit" }}
+                >
+                  <Text fontSize={18} fontWeight="bold" mb={{ base: 1, md: 0 }}>
                     {resource.title}
                   </Text>
                   <Text color="gray.500">{resource.subtitle}</Text>
@@ -79,6 +82,7 @@ const Resources: FC = () => {
                   onClick={() => router.push(resource.href)}
                   colorScheme="teal"
                   width="100px"
+                  my={{ base: 3, md: 0 }}
                 >
                   {"View"}
                 </Button>

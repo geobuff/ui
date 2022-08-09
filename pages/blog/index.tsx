@@ -17,7 +17,7 @@ const Blog: FC = () => {
         />
       </Head>
       <HeroHeader heading="Blog" />
-      <Box width={800} mx="auto" py={9}>
+      <Box width={{ base: "90%", md: 800 }} mx="auto" py={9}>
         {posts.length === 0 ? (
           <Alert status="info" borderRadius={6} marginBottom={3}>
             <AlertIcon />
