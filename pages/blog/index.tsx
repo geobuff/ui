@@ -1,9 +1,10 @@
 import React, { FC } from "react";
-import { Alert, AlertIcon, Box, Link } from "@chakra-ui/react";
+import { Alert, AlertIcon, Box } from "@chakra-ui/react";
 import MainView from "../../components/MainView";
 import Head from "next/head";
 import HeroHeader from "../../components/HeroHeader";
 import posts from "./posts";
+import BlogPostCard from "../../components/Blog/BlogPostCard";
 
 const Blog: FC = () => {
   return (
@@ -25,9 +26,13 @@ const Blog: FC = () => {
         ) : (
           <>
             {posts.map((post, index) => (
-              <Link key={index} href={`/blog/${post.slug}`}>
-                {post.title}
-              </Link>
+              <BlogPostCard
+                key={index}
+                slug={post.slug}
+                date={post.date}
+                title={post.title}
+                description={post.description}
+              />
             ))}
           </>
         )}

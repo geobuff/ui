@@ -23,7 +23,13 @@ const OurValues: FC = () => (
         py={9}
         fontSize={{ base: "12px", md: "inherit" }}
       >
-        <Box mt={6} mb={12} width={600} mx="auto" lineHeight="28px">
+        <Box
+          mt={6}
+          mb={12}
+          width={{ base: "90%", md: 600 }}
+          mx="auto"
+          lineHeight="28px"
+        >
           <Box textAlign="center">
             <Twemoji emoji="🙌" height="75px" width="75px" mb={3} />
             <Flex direction="column" textAlign="center">
@@ -32,7 +38,12 @@ const OurValues: FC = () => (
             </Flex>
           </Box>
         </Box>
-        <Box mb={12} width={600} mx="auto" lineHeight="28px">
+        <Box
+          mb={12}
+          width={{ base: "90%", md: 600 }}
+          mx="auto"
+          lineHeight="28px"
+        >
           <Box textAlign="center">
             <Twemoji emoji="🗺️" height="75px" width="75px" mb={3} />
             <Flex direction="column" textAlign="center">
@@ -41,7 +52,12 @@ const OurValues: FC = () => (
             </Flex>
           </Box>
         </Box>
-        <Box mb={24} width={600} mx="auto" lineHeight="28px">
+        <Box
+          mb={24}
+          width={{ base: "90%", md: 600 }}
+          mx="auto"
+          lineHeight="28px"
+        >
           <Box textAlign="center">
             <Twemoji emoji="🧗‍♀️" height="75px" width="75px" mb={3} />
             <Flex direction="column" textAlign="center">
@@ -50,7 +66,7 @@ const OurValues: FC = () => (
             </Flex>
           </Box>
         </Box>
-        <Box width={600} mx="auto" mb={12}>
+        <Box width={{ base: "90%", md: 600 }} mx="auto" mb={12}>
           <Heading
             size="md"
             mb={6}

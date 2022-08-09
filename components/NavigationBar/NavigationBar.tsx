@@ -66,14 +66,14 @@ const NavigationBar: FC = () => {
         <NavigationBarLink
           href="/daily-trivia"
           label="Trivia"
-          isActive={route === "/daily-trivia"}
+          isActive={route.includes("/daily-trivia")}
           marginLeft={6}
         />
 
         <NavigationBarLink
           href="/community-quiz"
           label="Community"
-          isActive={route === "/community-quiz"}
+          isActive={route.includes("/community-quiz")}
           marginLeft={6}
         />
 

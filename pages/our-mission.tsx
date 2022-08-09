@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 import Head from "next/head";
-import { Box, Text, Link, Flex } from "@chakra-ui/react";
+import { Box, Text, Link } from "@chakra-ui/react";
 
 import MainView from "../components/MainView";
 import HeroHeader from "../components/HeroHeader";
