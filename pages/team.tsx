@@ -58,7 +58,7 @@ const MeetTheTeam: FC = () => (
           />
         </SimpleGrid>
       </Box>
-      <Box width={600} mx="auto" mb={12}>
+      <Box width={{ base: "90%", md: 600 }} mx="auto" mb={12}>
         <Heading size="md" mb={6}>{`Interested in joining?`}</Heading>
         <Text
           mb={3}

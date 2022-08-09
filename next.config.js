@@ -1,4 +1,8 @@
-module.exports = {
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const withMDX = require("@next/mdx")();
+
+module.exports = withMDX({
+  pageExtensions: ["tsx", "mdx"],
   images: {
     domains: [
       "geobuff.sgp1.digitaloceanspaces.com",
@@ -9,4 +13,4 @@ module.exports = {
       "www.worldatlas.com",
     ],
   },
-};
+});
