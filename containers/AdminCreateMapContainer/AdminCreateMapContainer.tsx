@@ -2,12 +2,14 @@ import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminCreateMap from "../../components/AdminCreateMap";
 import { SVGBase } from "../../types/svg-base";
-import { useDisclosure } from "@chakra-ui/react";
-import AdminCreateMapModal from "../../components/AdminCreateMap/AdminCreateMapModal";
+import { Alert, AlertIcon, useDisclosure } from "@chakra-ui/react";
+import AdminCreateMapModal from "../../components/AdminCreateMapModal";
 
 const AdminCreateMapContainer: FC = () => {
   const [file, setFile] = useState(null);
   const [svgMap, setSvgMap] = useState<SVGBase>();
+  const [error, setError] = useState("");
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleUpload = (e) => {
@@ -23,10 +25,13 @@ const AdminCreateMapContainer: FC = () => {
         const { result } = e.target;
         if (result && !isCancel) {
           const payload = { svg: result };
-          axiosClient.post(`/maps/preview`, payload).then((response) => {
-            setSvgMap(response.data);
-            onOpen();
-          });
+          axiosClient
+            .post(`/maps/preview`, payload)
+            .then((response) => {
+              setSvgMap(response.data);
+              onOpen();
+            })
+            .catch((error) => setError(error.response.data));
         }
       };
 
@@ -42,8 +47,19 @@ const AdminCreateMapContainer: FC = () => {
 
   return (
     <>
+      {error && (
+        <Alert status="error" borderRadius={6} marginBottom={3}>
+          <AlertIcon />
+          {error}
+        </Alert>
+      )}
       <AdminCreateMap onUpload={handleUpload} />
-      <AdminCreateMapModal svgMap={svgMap} isOpen={isOpen} onClose={onClose} />
+      <AdminCreateMapModal
+        svgMap={svgMap}
+        isOpen={isOpen}
+        onClose={onClose}
+        setError={setError}
+      />
     </>
   );
 };
