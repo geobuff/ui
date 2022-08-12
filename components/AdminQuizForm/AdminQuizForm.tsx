@@ -69,6 +69,9 @@ export interface Props {
     helpers: FormikHelpers<QuizFormSubmit>
   ) => void;
   onClose?: () => void;
+  hideTitle?: boolean;
+  closeButtonText?: string;
+  submitButtonText?: string;
 }
 
 const AdminQuizForm: FC<Props> = ({
@@ -81,6 +84,9 @@ const AdminQuizForm: FC<Props> = ({
   isLoading = false,
   onSubmit = (): void => {},
   onClose = () => {},
+  hideTitle = false,
+  closeButtonText = "",
+  submitButtonText = "",
 }) => {
   const isEditing = !!editValues;
 
@@ -158,10 +164,15 @@ const AdminQuizForm: FC<Props> = ({
 
               return (
                 <Box maxWidth="600px" width="100%">
-                  <Heading fontSize="22px">
-                    {`${isEditing ? "Edit" : "Create"} Quiz`}
-                  </Heading>
-                  <Divider marginY={5} />
+                  {!hideTitle && (
+                    <>
+                      <Heading fontSize="22px">
+                        {`${isEditing ? "Edit" : "Create"} Quiz`}
+                      </Heading>
+                      <Divider marginY={5} />
+                    </>
+                  )}
+
                   <Form>
                     <Flex direction="column">
                       <Flex marginBottom={6}>
@@ -780,7 +791,7 @@ const AdminQuizForm: FC<Props> = ({
                               onClick={onClose}
                               marginRight={3}
                             >
-                              {"Close"}
+                              {closeButtonText ?? "Close"}
                             </Button>
                           )}
                           <Button
@@ -790,7 +801,11 @@ const AdminQuizForm: FC<Props> = ({
                             isLoading={isLoading}
                             disabled={isLoading || isSubmitting}
                           >
-                            {isEditing ? "Update" : "Create"}
+                            {submitButtonText
+                              ? submitButtonText
+                              : isEditing
+                              ? "Update"
+                              : "Create"}
                           </Button>
                         </Flex>
                       </Flex>
