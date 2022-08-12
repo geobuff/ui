@@ -88,8 +88,17 @@ const AdminCreateMapModal: FC<Props> = ({
     };
 
     const payload: CreateSvgMapPayload = {
-      svgMap: svgMap,
-      mappings: mappings,
+      svgMap: {
+        ...svgMap,
+        key: values.apiPath,
+        className: values.mapSVG,
+        label: values.name,
+      },
+      mappings: {
+        key: values.apiPath,
+        label: values.name,
+        entries: mappings,
+      },
       quiz: {
         typeId: parseInt(values.typeId),
         badgeId: badgeId,

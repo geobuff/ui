@@ -1,9 +1,9 @@
 import { CreateEditQuizPayload } from "./create-edit-quiz-payload";
-import { CreateMappingEntry } from "./create-mapping-entry";
+import { CreateMappingsPayload } from "./create-mappings-payload";
 import { SVGBase } from "./svg-base";
 
 export interface CreateSvgMapPayload {
   svgMap: SVGBase;
-  mappings: CreateMappingEntry[];
+  mappings: CreateMappingsPayload;
   quiz: CreateEditQuizPayload;
 }
