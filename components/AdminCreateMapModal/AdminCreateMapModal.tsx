@@ -35,7 +35,7 @@ const AdminCreateMapModal: FC<Props> = ({
   const toast = useToast();
 
   const [index, setIndex] = useState(0);
-  const [mappings, setMappings] = useState<CreateMappingEntry[]>([]);
+  const [mappings, setMappings] = useState<CreateMappingsSubmit>();
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const { data: types } = useQuizTypes();
@@ -44,25 +44,26 @@ const AdminCreateMapModal: FC<Props> = ({
 
   useEffect(() => {
     if (svgMap) {
-      setMappings(
-        svgMap.elements.map((x) => {
+      setMappings({
+        groupName: "",
+        entries: svgMap.elements.map((x) => {
           return {
             name: x.name,
             code: x.id,
           };
-        })
-      );
+        }),
+      });
     }
   }, [svgMap]);
 
   const handleMappingsBack = (values: CreateMappingsSubmit): void => {
-    setMappings(values.mappings);
-    updateMap(values.mappings);
+    setMappings(values);
+    updateMap(values.entries);
     setIndex(index - 1);
   };
 
   const handleMappingsSubmit = (values: CreateMappingsSubmit): void => {
-    setMappings(values.mappings);
+    setMappings(values);
     setIndex(index + 1);
   };
 
@@ -75,7 +76,7 @@ const AdminCreateMapModal: FC<Props> = ({
 
   const handleQuizSubmit = (values: QuizFormSubmit): void => {
     setIsSubmitting(true);
-    updateMap(mappings);
+    updateMap(mappings.entries);
 
     const badgeId: NullInt = {
       Int64: values.badgeId ? parseInt(values.badgeId) : 0,
@@ -96,8 +97,8 @@ const AdminCreateMapModal: FC<Props> = ({
       },
       mappings: {
         key: values.apiPath,
-        label: values.name,
-        entries: mappings,
+        label: mappings.groupName,
+        entries: mappings.entries,
       },
       quiz: {
         typeId: parseInt(values.typeId),
@@ -148,7 +149,7 @@ const AdminCreateMapModal: FC<Props> = ({
       case 1: {
         return (
           <AdminCreateMapMappingsForm
-            mappings={mappings}
+            values={mappings}
             onSubmit={handleMappingsSubmit}
             onPreviousPage={handleMappingsBack}
           />
@@ -163,7 +164,7 @@ const AdminCreateMapModal: FC<Props> = ({
           country: "",
           singular: "",
           name: "",
-          maxScore: mappings.length.toString(),
+          maxScore: mappings.entries.length.toString(),
           time: "0",
           mapSVG: "",
           imageUrl: "",
