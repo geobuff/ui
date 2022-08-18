@@ -1,5 +1,5 @@
 /* eslint-disable no-case-declarations */
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import {
   AspectRatio,
@@ -10,6 +10,7 @@ import {
   useBreakpointValue,
   Text,
   Link,
+  Spinner,
 } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
 import { use100vh } from "react-div-100vh";
@@ -23,6 +24,7 @@ import {
   highlightSection,
 } from "../../../helpers/map";
 import { SVGBase } from "../../../types/svg-base";
+import usePrevious from "../../../hooks/UsePrevious";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
 
@@ -74,6 +76,20 @@ const GameCommunityQuizContent: FC<Props> = ({
   const isTextQuestion = type === "Text";
   const isImageQuestion = type === "Image";
 
+  const [currentImageUrl, setCurrentImageUrl] = useState("");
+  const prevImageUrl = usePrevious(imageUrl);
+
+  useEffect(() => {
+    if (imageUrl) {
+      if (prevImageUrl) {
+        setCurrentImageUrl("");
+        setTimeout(() => setCurrentImageUrl(imageUrl));
+      } else {
+        setCurrentImageUrl(imageUrl);
+      }
+    }
+  }, [imageUrl]);
+
   const getContentByType = (): JSX.Element => {
     switch (type) {
       case "Flag":
@@ -112,32 +128,38 @@ const GameCommunityQuizContent: FC<Props> = ({
                 maxHeight={"100%"}
                 marginX="auto"
               >
-                <Flex direction="column">
-                  <Image
-                    src={imageUrl}
-                    alt={imageAlt ?? "Unsplash stock image"}
-                    height={imageHeight !== 0 ? imageHeight : 320}
-                    width={imageWidth !== 0 ? imageWidth : 640}
-                    objectFit={imageWidth === 0 ? "cover" : "contain"}
-                    style={{
-                      marginLeft: "auto",
-                      marginRight: "auto",
-                    }}
-                    priority
-                  />
-                  {imageAttributeName && (
-                    <Text fontSize="10px" mt={1} color="white">
-                      {`Photo by `}
-                      <Link href={imageAttributeUrl}>{imageAttributeName}</Link>
-                      {` on `}
-                      <Link
-                        href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
-                      >
-                        Unsplash
-                      </Link>
-                    </Text>
-                  )}
-                </Flex>
+                {currentImageUrl ? (
+                  <Flex direction="column">
+                    <Image
+                      src={imageUrl}
+                      alt={imageAlt ?? "Unsplash stock image"}
+                      height={imageHeight !== 0 ? imageHeight : 320}
+                      width={imageWidth !== 0 ? imageWidth : 640}
+                      objectFit={imageWidth === 0 ? "cover" : "contain"}
+                      style={{
+                        marginLeft: "auto",
+                        marginRight: "auto",
+                      }}
+                      priority
+                    />
+                    {imageAttributeName && (
+                      <Text fontSize="10px" mt={1} color="white">
+                        {`Photo by `}
+                        <Link href={imageAttributeUrl}>
+                          {imageAttributeName}
+                        </Link>
+                        {` on `}
+                        <Link
+                          href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
+                        >
+                          Unsplash
+                        </Link>
+                      </Text>
+                    )}
+                  </Flex>
+                ) : (
+                  <></>
+                )}
               </AspectRatio>
             </Box>
           </Flex>
