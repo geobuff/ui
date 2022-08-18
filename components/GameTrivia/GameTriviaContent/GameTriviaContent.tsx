@@ -80,11 +80,13 @@ const GameTriviaContent: FC<Props> = ({
   const prevImageUrl = usePrevious(imageUrl);
 
   useEffect(() => {
-    if (imageUrl && prevImageUrl) {
-      setCurrentImageUrl("");
-      setTimeout(() => setCurrentImageUrl(imageUrl));
-    } else {
-      setCurrentImageUrl(imageUrl);
+    if (imageUrl) {
+      if (prevImageUrl) {
+        setCurrentImageUrl("");
+        setTimeout(() => setCurrentImageUrl(imageUrl));
+      } else {
+        setCurrentImageUrl(imageUrl);
+      }
     }
   }, [imageUrl]);
 
@@ -126,8 +128,8 @@ const GameTriviaContent: FC<Props> = ({
                 maxHeight={"100%"}
                 marginX="auto"
               >
-                <Flex direction="column">
-                  {currentImageUrl ? (
+                {currentImageUrl ? (
+                  <Flex direction="column">
                     <Image
                       src={currentImageUrl}
                       alt={imageAlt}
@@ -140,22 +142,24 @@ const GameTriviaContent: FC<Props> = ({
                       }}
                       priority
                     />
-                  ) : (
-                    <Spinner mb={6} />
-                  )}
-                  {imageAttributeName && (
-                    <Text fontSize="10px" mt={1} color="white">
-                      {`Photo by `}
-                      <Link href={imageAttributeUrl}>{imageAttributeName}</Link>
-                      {` on `}
-                      <Link
-                        href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
-                      >
-                        Unsplash
-                      </Link>
-                    </Text>
-                  )}
-                </Flex>
+                    {imageAttributeName && (
+                      <Text fontSize="10px" mt={1} color="white">
+                        {`Photo by `}
+                        <Link href={imageAttributeUrl}>
+                          {imageAttributeName}
+                        </Link>
+                        {` on `}
+                        <Link
+                          href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
+                        >
+                          Unsplash
+                        </Link>
+                      </Text>
+                    )}
+                  </Flex>
+                ) : (
+                  <></>
+                )}
               </AspectRatio>
             </Box>
           </Flex>
