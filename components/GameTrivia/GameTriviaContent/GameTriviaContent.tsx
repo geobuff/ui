@@ -80,13 +80,11 @@ const GameTriviaContent: FC<Props> = ({
   const prevImageUrl = usePrevious(imageUrl);
 
   useEffect(() => {
-    if (imageUrl) {
-      if (prevImageUrl) {
-        setCurrentImageUrl("");
-        setTimeout(() => setCurrentImageUrl(imageUrl));
-      } else {
-        setCurrentImageUrl(imageUrl);
-      }
+    if (imageUrl && prevImageUrl) {
+      setCurrentImageUrl("");
+      setTimeout(() => setCurrentImageUrl(imageUrl), 1);
+    } else {
+      setCurrentImageUrl(imageUrl);
     }
   }, [imageUrl]);
 
