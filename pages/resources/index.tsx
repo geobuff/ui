@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Button, Divider, Flex, Heading, Text } from "@chakra-ui/react";
+import { Button, Divider, Flex, Heading, Link, Text } from "@chakra-ui/react";
 import MainView from "../../components/MainView";
 import Head from "next/head";
 import HeroHeader from "../../components/HeroHeader";
@@ -38,7 +38,7 @@ const Resources: FC = () => {
         <title>Resources - GeoBuff</title>
         <meta
           name="description"
-          content="Like what you see? We've bundled and shared all of our map, flag and mapping resources so that others can use them in their own projects."
+          content="Like what you see? Get in touch with the team at teamgeobuff@gmail.com to find out more about hooking into our API and utilizing our resources in your own project."
         />
       </Head>
       <HeroHeader heading="Resources" />
@@ -56,7 +56,11 @@ const Resources: FC = () => {
         <Card marginY={{ base: 3, md: 10 }} padding={6}>
           <Heading size="md" mb={3}>{`Like what you see?`}</Heading>
           <Text mb={6}>
-            {`We've bundled and shared all of our resources so that others can use them in their own projects.`}
+            {`Get in touch with the team at `}
+            <Link href="mailto: teamgeobuff@gmail.com">
+              teamgeobuff@gmail.com
+            </Link>
+            {` to find out more about hooking into our API and utilizing our resources in your own project.`}
           </Text>
           {resources.map((resource, index) => (
             <React.Fragment key={index}>

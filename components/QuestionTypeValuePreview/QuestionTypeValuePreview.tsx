@@ -48,7 +48,11 @@ const QuestionTypeValuePreview: FC<Props> = ({
           </Box>
         );
       case QuestionType.Image:
-        return imageUrl ? (
+        if (!imageUrl) {
+          return <></>;
+        }
+
+        return (
           <Flex direction="column">
             <Image
               src={imageUrl}
@@ -74,8 +78,6 @@ const QuestionTypeValuePreview: FC<Props> = ({
               </Link>
             </Text>
           </Flex>
-        ) : (
-          <></>
         );
       default:
         return <></>;
