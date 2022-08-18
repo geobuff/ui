@@ -11,7 +11,7 @@ const useTriviaQuestionCategories = (): Result => {
   const { data } = useSWR("/trivia-question-categories", fetcher);
 
   return {
-    data: data || [],
+    data: data?.filter((x) => x.isActive) || [],
     isLoading: !data,
   };
 };
