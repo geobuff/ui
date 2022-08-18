@@ -10,6 +10,7 @@ import {
   useBreakpointValue,
   Text,
   Link,
+  Spinner,
 } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
 import { use100vh } from "react-div-100vh";
@@ -140,7 +141,7 @@ const GameTriviaContent: FC<Props> = ({
                       priority
                     />
                   ) : (
-                    <></>
+                    <Spinner mb={6} />
                   )}
                   {imageAttributeName && (
                     <Text fontSize="10px" mt={1} color="white">
