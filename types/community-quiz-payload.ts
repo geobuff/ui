@@ -6,6 +6,7 @@ export interface CommunityQuizPayload {
   description: string;
   maxScore: number;
   isPublic: boolean;
+  isVerified: boolean;
   questions: CommunityQuizQuestionPayload[];
 }
 

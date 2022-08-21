@@ -49,6 +49,12 @@ const validationSchema = Yup.object().shape({
       "Must choose is public for community quiz upload."
     ),
   }),
+  isVerified: Yup.string().when("typeId", {
+    is: BulkUploadType.CommunityQuiz,
+    then: Yup.string().required(
+      "Must choose is verified for community quiz upload."
+    ),
+  }),
 });
 
 export interface Props {
@@ -140,6 +146,7 @@ const BulkUploadForm: FC<Props> = ({
               name: "",
               description: "",
               isPublic: "true",
+              isVerified: "true",
               questions: [],
             }}
             validationSchema={validationSchema}
@@ -303,6 +310,27 @@ const BulkUploadForm: FC<Props> = ({
                                     name={"isPublic"}
                                     label={"Is Public?"}
                                     selectedValue={values.isPublic}
+                                    setFieldHelper={setFieldValue}
+                                    color="teal"
+                                  />
+                                </FormControl>
+                              )}
+                            </Field>
+                          </Flex>
+
+                          <Flex marginY={3}>
+                            <Field name="isVerified">
+                              {({ form }): React.ReactNode => (
+                                <FormControl
+                                  isInvalid={
+                                    form.errors.isVerified &&
+                                    form.touched.isVerified
+                                  }
+                                >
+                                  <TrueFalseFormField
+                                    name="isVerified"
+                                    label="Is Verified?"
+                                    selectedValue={values.isVerified}
                                     setFieldHelper={setFieldValue}
                                     color="teal"
                                   />

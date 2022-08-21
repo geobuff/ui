@@ -152,6 +152,7 @@ const AdminGeneralContainer: FC = () => {
         name: values.name,
         description: values.description,
         isPublic: values.isPublic === "true",
+        isVerified: values.isVerified === "true",
         maxScore: values.questions?.length || 0,
         questions: values.questions?.map((question) => ({
           id: {
