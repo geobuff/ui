@@ -39,9 +39,7 @@ import { useSession } from "next-auth/react";
 import { FlagDetails } from "../../types/flag-details";
 
 const INCORRECT_ANSWER_THRESHOLD = 1;
-
-const NUMBER_OF_FLAGS_DESKTOP = 10;
-const NUMBER_OF_FLAGS_MOBILE = 6;
+const NUMBER_OF_FLAGS = 10;
 
 interface Props {
   id?: number;
@@ -70,18 +68,15 @@ const GameFlagQuiz: FC<Props> = ({
   hasGrouping = false,
   mapping = [],
 }) => {
+  const isMobile = useBreakpointValue({ base: true, lg: false });
   const router = useRouter();
+
   const { isNotchedIphone } = useContext(AppContext);
+
   const { status } = useSession();
   const isUserAuthenticated = status === "authenticated";
 
   const { isOpen, onOpen, onClose } = useDisclosure();
-
-  const isMobile = useBreakpointValue({ base: true, lg: false });
-
-  const flagOptionCount = isMobile
-    ? NUMBER_OF_FLAGS_MOBILE
-    : NUMBER_OF_FLAGS_DESKTOP;
 
   const [checkedSubmissions, setCheckedSubmissions] = useState<MappingEntry[]>(
     []
@@ -107,7 +102,7 @@ const GameFlagQuiz: FC<Props> = ({
   const [disableSkipButton, setDisableSkipButton] = useState(true);
 
   const [flagDragItems, setFlagDragItems] = useState<FlagDetails[]>(() =>
-    getRandomCollectionItems(mapping, flagOptionCount).map((mapping) => {
+    getRandomCollectionItems(mapping, NUMBER_OF_FLAGS).map((mapping) => {
       return {
         code: mapping.code,
         url: mapping.flagUrl,
@@ -158,7 +153,10 @@ const GameFlagQuiz: FC<Props> = ({
   }, [score, isUserAuthenticated, router.query]);
 
   useEffect(() => {
-    checkSubmission(currentSubmission);
+    if (currentSubmission && hasGameStarted) {
+      checkSubmission(currentSubmission);
+      setCurrentSubmission("");
+    }
   }, [currentSubmission]);
 
   useEffect(() => {
@@ -211,7 +209,7 @@ const GameFlagQuiz: FC<Props> = ({
     if (hasGameRunOnce) {
       const nextDragItems = getRandomCollectionItems(
         mapping,
-        flagOptionCount
+        NUMBER_OF_FLAGS
       ).map((c) => c.code);
       setFlagDragItems(nextDragItems);
       setAcceptedFlag(getRandomCollectionItem(nextDragItems));
@@ -241,10 +239,6 @@ const GameFlagQuiz: FC<Props> = ({
 
   const checkSubmission = useCallback(
     (submission) => {
-      if (!hasGameStarted) {
-        return;
-      }
-
       const matchedSubmission = findSubmissionByCode(mapping, submission);
       const isAcceptedAnswer = submission === acceptedFlag.code;
 
@@ -299,7 +293,7 @@ const GameFlagQuiz: FC<Props> = ({
         setFlagDragItems(
           getRandomCollectionItems(
             updatedRemainingAnswers,
-            flagOptionCount
+            NUMBER_OF_FLAGS
           ).map((mapping) => {
             return {
               code: mapping.code,
@@ -335,7 +329,7 @@ const GameFlagQuiz: FC<Props> = ({
 
   const handleSkipQuestion = (): void => {
     setFlagDragItems(
-      getRandomCollectionItems(remainingAnswers, flagOptionCount).map(
+      getRandomCollectionItems(remainingAnswers, NUMBER_OF_FLAGS).map(
         (c) => c.code
       )
     );
