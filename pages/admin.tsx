@@ -65,10 +65,6 @@ const AdminMapsTableContainer = dynamic(
   () => import("../containers/AdminMapsTableContainer")
 );
 
-const AdminCreateMapContainer = dynamic(
-  () => import("../containers/AdminCreateMapContainer")
-);
-
 const AdminMappingsTableContainer = dynamic(
   () => import("../containers/AdminMappingsTableContainer")
 );
@@ -235,7 +231,6 @@ export default function Admin(): JSX.Element {
                   width="100%"
                   maxWidth={1300}
                 >
-                  <AdminCreateMapContainer />
                   <AdminMapsTableContainer />
                 </Flex>
               </Flex>

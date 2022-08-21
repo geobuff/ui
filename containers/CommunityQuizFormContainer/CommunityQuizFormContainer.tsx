@@ -46,6 +46,7 @@ const CommunityQuizFormContainer: FC = () => {
       name: values.name,
       description: values.description,
       isPublic: values.isPublic === "true",
+      isVerified: false,
       maxScore: values.questions?.length || 0,
       questions: values.questions?.map((question) => {
         const typeId = parseInt(question.typeId);

@@ -5,5 +5,6 @@ export interface BulkUploadValues {
   name: string;
   description: string;
   isPublic: string;
+  isVerified: string;
   questions: ManualTriviaQuestionPayload[];
 }
