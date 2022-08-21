@@ -9,7 +9,6 @@ import {
   Alert,
   AlertIcon,
   Flex,
-  Heading,
   Divider,
   Link,
 } from "@chakra-ui/react";
@@ -18,13 +17,19 @@ import TableCell from "../TableCell";
 import AdminFlagsTablePlaceholder from "../../placeholders/AdminFlagsTablePlaceholder";
 import Card from "../Card";
 import { GetMapsDto } from "../../types/get-maps-dto";
+import AdminMapsHeader from "./AdminMapsHeader/AdminMapsHeader";
 
 export interface Props {
   maps?: GetMapsDto[];
   isLoading?: boolean;
+  onUpload?: (event: any) => void;
 }
 
-const AdminMapsTable: FC<Props> = ({ maps = [], isLoading = true }) => {
+const AdminMapsTable: FC<Props> = ({
+  maps = [],
+  isLoading = true,
+  onUpload = () => {},
+}) => {
   const getTable = (): JSX.Element => {
     if (maps.length === 0) {
       return (
@@ -82,14 +87,7 @@ const AdminMapsTable: FC<Props> = ({ maps = [], isLoading = true }) => {
           paddingTop={2}
           paddingBottom={{ base: 1, md: 3 }}
         >
-          <Flex
-            justifyContent="space-between"
-            alignItems="center"
-            marginBottom={5}
-            marginX={2}
-          >
-            <Heading fontSize="24px">{"Maps"}</Heading>
-          </Flex>
+          <AdminMapsHeader onUpload={onUpload} />
 
           <Divider borderWidth={1} marginBottom={6} />
 
