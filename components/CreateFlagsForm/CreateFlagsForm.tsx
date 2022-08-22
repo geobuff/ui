@@ -18,6 +18,12 @@ import { MappingsWithoutFlagsDto } from "../../types/mappings-without-flags-dto"
 const validationSchema = Yup.object().shape({
   label: Yup.string().required("Please enter a flag group label."),
   key: Yup.string().required("Please select a mapping key."),
+  entries: Yup.array().of(
+    Yup.object().shape({
+      code: Yup.string().required("Please enter a code for flag entry."),
+      url: Yup.string().required("Please enter a url for flag entry."),
+    })
+  ),
 });
 
 export interface Props {
@@ -50,7 +56,9 @@ const CreateFlagsForm: FC<Props> = ({
           <Flex my={3}>
             <Field name="label">
               {({ field, form }) => (
-                <FormControl>
+                <FormControl
+                  isInvalid={form.errors.label && form.touched.label}
+                >
                   <FormLabel htmlFor="label" fontWeight="bold">
                     {"Label"}
                   </FormLabel>
@@ -90,7 +98,7 @@ const CreateFlagsForm: FC<Props> = ({
                         (x) => x.key === key
                       );
 
-                      setFieldValue("entries", mapping.entries);
+                      setFieldValue("entries", mapping ? mapping.entries : []);
                     }}
                   >
                     <option>{"Select a key..."}</option>

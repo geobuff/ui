@@ -1,3 +1,6 @@
+import React, { FC } from "react";
+import * as Yup from "yup";
+
 import {
   Button,
   Flex,
@@ -6,9 +9,19 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
+
 import { Field, FieldArray, Form, Formik } from "formik";
-import React, { FC } from "react";
 import { CreateMappingsSubmit } from "../../../types/create-mappings-submit";
+
+const validationSchema = Yup.object().shape({
+  groupName: Yup.string().required("Please enter a group name."),
+  entries: Yup.array().of(
+    Yup.object().shape({
+      name: Yup.string().required("Please enter a name for mapping entry."),
+      code: Yup.string().required("Please enter a code for mapping entry."),
+    })
+  ),
+});
 
 export interface Props {
   values?: CreateMappingsSubmit;
@@ -22,7 +35,11 @@ const AdminCreateMapMappingsForm: FC<Props> = ({
   onPreviousPage = () => {},
 }) => {
   return (
-    <Formik initialValues={values} onSubmit={onSubmit}>
+    <Formik
+      initialValues={values}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
       {({ values }) => (
         <Form>
           <Flex>
