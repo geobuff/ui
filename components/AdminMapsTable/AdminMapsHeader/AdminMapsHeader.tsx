@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Flex, Heading, Input } from "@chakra-ui/react";
+import { Flex, Heading, Input, useBreakpointValue } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../../types/auth-user";
 
@@ -8,6 +8,8 @@ export interface Props {
 }
 
 const AdminMapsHeader: FC<Props> = ({ onUpload = () => {} }) => {
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
   const { data: session, status } = useSession();
   const user = session?.user as AuthUser;
 
@@ -20,7 +22,7 @@ const AdminMapsHeader: FC<Props> = ({ onUpload = () => {} }) => {
     >
       <Heading fontSize="24px">{"Maps"}</Heading>
 
-      {status === "authenticated" && user.isAdmin && (
+      {!isMobile && status === "authenticated" && user.isAdmin && (
         <Input
           type="file"
           name="file"

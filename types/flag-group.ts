@@ -5,8 +5,8 @@ export interface FlagGroup {
 }
 
 export interface FlagEntry {
-  id: number;
-  groupId: number;
+  id?: number;
+  groupId?: number;
   code: string;
   url: string;
 }
