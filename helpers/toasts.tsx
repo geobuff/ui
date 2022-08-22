@@ -209,3 +209,14 @@ export const bulkUploadToast = (
   duration: 6000,
   isClosable: true,
 });
+
+export const createFlagsToast = (
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: "Create Flags",
+  description: "Successfully created new flags.",
+  status: "success",
+  duration: 6000,
+  isClosable: true,
+});

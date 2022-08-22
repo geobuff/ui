@@ -12,6 +12,7 @@ interface Props {
   groups?: FlagGroup[];
   setGroup?: React.Dispatch<React.SetStateAction<string>>;
   isLoading?: boolean;
+  onCreateFlagsClick?: () => void;
 }
 
 const AdminFlags: FC<Props> = ({
@@ -19,6 +20,7 @@ const AdminFlags: FC<Props> = ({
   groups = [],
   setGroup = (): void => {},
   isLoading = false,
+  onCreateFlagsClick = (): void => {},
 }) => {
   const { data: entries, isLoading: isEntriesLoading } = useFlagGroup(group);
 
@@ -39,7 +41,7 @@ const AdminFlags: FC<Props> = ({
           paddingTop={2}
           paddingBottom={{ base: 1, md: 3 }}
         >
-          <AdminFlagsHeader />
+          <AdminFlagsHeader onCreateFlagsClick={onCreateFlagsClick} />
 
           <Divider borderWidth={1} marginBottom={6} />
 
