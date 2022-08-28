@@ -5,10 +5,13 @@ import React, {
   FC,
   ChangeEvent,
 } from "react";
+
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { debounce } from "throttle-debounce";
 import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+import { DateTime } from "luxon";
 
 import {
   Box,
@@ -20,34 +23,24 @@ import {
 } from "@chakra-ui/react";
 
 import { useTimer } from "react-timer-hook";
-import { DateTime } from "luxon";
-
+import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
-import ResultsMap from "../ResultsMap";
 import GameMap from "../GameMap";
-
-import GameOverModalContainer from "../../containers/GameOverModalContainer";
-
 import SolidChevronUp from "../../Icons/SolidChevronUp";
 import SolidChevronDown from "../../Icons/SolidChevronDown";
-
-import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
-
+import { MappingEntry } from "../../types/mapping-entry";
+import { SVGBase } from "../../types/svg-base";
+import { Result } from "../../types/result";
+import { GameOverRedirect } from "../../types/game-over-redirect";
 import axiosClient from "../../axios/axiosClient";
-
 import { groupMapping } from "../../helpers/mapping";
 
 import {
   findSubmissionByNames,
   findSubmissionsByPrefixes,
 } from "../../helpers/game";
-import { MappingEntry } from "../../types/mapping-entry";
-import { SVGBase } from "../../types/svg-base";
-import { Result } from "../../types/result";
-import GameMapQuizBottomSheet from "./GameMapQuizBottomSheet";
-import { GameOverRedirect } from "../../types/game-over-redirect";
 
 import {
   clearMapFill,
@@ -56,6 +49,16 @@ import {
   updateMapOnGameStop,
   updateMapOnSuccessfulSubmission,
 } from "../../helpers/map";
+
+const GameMapQuizBottomSheet = dynamic(
+  () => import("./GameMapQuizBottomSheet")
+);
+
+const GameOverModalContainer = dynamic(
+  () => import("../../containers/GameOverModalContainer")
+);
+
+const ResultsMap = dynamic(() => import("../ResultsMap"));
 
 interface Props {
   time?: number;
