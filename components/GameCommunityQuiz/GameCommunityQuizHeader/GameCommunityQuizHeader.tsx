@@ -33,8 +33,6 @@ const GameCommunityQuizHeader: FC<Props> = ({
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  if (isMobile === undefined) return null;
-
   return (
     <Flex direction="column" {...props}>
       <Flex justifyContent="space-between">

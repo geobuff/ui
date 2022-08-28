@@ -50,11 +50,7 @@ const GameCommunityQuizAnswers: FC<Props> = ({
   onGameStop = () => {},
 }) => {
   const height = use100vh();
-  const isMobile = useBreakpointValue({ base: false, md: true });
   const isTinyMobile = height < 625;
-
-  // Fix text from shifting in size on load.
-  if (isMobile === undefined) return null;
 
   return (
     <Flex direction="column" marginTop="auto" width="100%">

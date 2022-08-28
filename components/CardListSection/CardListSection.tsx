@@ -31,8 +31,6 @@ const CardListSection: FC<Props> = ({
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  if (isMobile === undefined) return null;
-
   return (
     <>
       <Flex

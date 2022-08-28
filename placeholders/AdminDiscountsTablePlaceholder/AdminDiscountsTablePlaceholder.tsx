@@ -16,13 +16,6 @@ interface Props {
 }
 
 const AdminDiscountsTablePlaceholder: FC<Props> = ({ rows = 10 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
-  // Prevent layout shift on load
-  if (isMobile === undefined) {
-    return null;
-  }
-
   return (
     <Table size="md" variant="striped" colorScheme="gray">
       <Thead>

@@ -173,8 +173,6 @@ const GameCommunityQuizContent: FC<Props> = ({
     isImageQuestion
   );
 
-  if (isMobile === undefined) return null;
-
   return (
     <Flex
       direction="column"

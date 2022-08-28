@@ -1,4 +1,4 @@
 export interface FlagDetails {
-    code: string;
-    url: string;
+  code: string;
+  url: string;
 }

@@ -59,11 +59,6 @@ const Modal: FC<ModalProps> = ({
     }
   }, [isOpen]);
 
-  // Prevent layout shifts on load
-  if (isMobile === undefined) {
-    return null;
-  }
-
   return (
     <>
       {isMobile ? (

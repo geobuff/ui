@@ -342,10 +342,6 @@ const GameFlagQuiz: FC<Props> = ({
     );
   };
 
-  if (isMobile === undefined) {
-    return null;
-  }
-
   return (
     <>
       <Head>

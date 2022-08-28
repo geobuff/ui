@@ -18,7 +18,7 @@ const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
 });
 
 const NavigationBar: FC = () => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
   const { route } = useRouter();
 
   const [zIndex, setZIndex] = useState(5);

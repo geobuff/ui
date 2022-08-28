@@ -47,8 +47,6 @@ const AdminManualTriviaQuestions: FC<Props> = ({
   onEditQuestionClick = (): void => {},
   onDeleteQuestionClick = (): void => {},
 }) => {
-  const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
-
   const handleChangeType = (
     event: React.ChangeEvent<HTMLSelectElement>
   ): void => {
@@ -99,11 +97,6 @@ const AdminManualTriviaQuestions: FC<Props> = ({
   const handlePreviousPage = (): void => {
     onChangeFilterParams({ ...filterParams, page: filterParams.page - 1 });
   };
-
-  // Prevent layout shifts on load
-  if (shouldRenderOnMobile === undefined) {
-    return null;
-  }
 
   if (error) {
     return (

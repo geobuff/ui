@@ -100,8 +100,6 @@ const GameCommunityQuiz: FC<Props> = ({
     toast(copyScoreToast());
   };
 
-  if (isMobile === undefined) return null;
-
   if (error) {
     return (
       <Alert status="error" borderRadius={6} marginBottom={3}>

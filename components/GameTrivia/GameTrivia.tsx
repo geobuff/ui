@@ -83,8 +83,6 @@ const GameTrivia: FC<Props> = ({
     setHasGameStopped(false);
   };
 
-  if (isMobile === undefined) return null;
-
   return (
     <>
       <Head>

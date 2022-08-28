@@ -22,11 +22,6 @@ const GameMapInteraction: FC<Props> = ({ children = null, ...props }) => {
   const handleReset = (): void => setValue(defaultValue);
   const handleChange = (value): void => setValue(value);
 
-  // Prevents flickering
-  if (isMobile === undefined) {
-    return null;
-  }
-
   return (
     <Box
       position="absolute"
