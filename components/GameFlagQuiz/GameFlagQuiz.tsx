@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useCallback, FC, useContext } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { DateTime } from "luxon";
+import dynamic from "next/dynamic";
 
 import {
   Box,
@@ -11,32 +13,37 @@ import {
 } from "@chakra-ui/react";
 
 import { useTimer } from "react-timer-hook";
-import { DateTime } from "luxon";
-
 import GameInputCard from "../GameInputCard";
 import Sidebar from "../Sidebar";
-import ResultsMap from "../ResultsMap";
-import GameOverModalContainer from "../../containers/GameOverModalContainer";
 import SolidChevronUp from "../../Icons/SolidChevronUp";
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 import axiosClient from "../../axios/axiosClient";
 import GameFlags from "../GameFlags/GameFlags";
 import FlagDropZone from "../FlagDropZone/FlagDropZone";
-
 import { groupMapping } from "../../helpers/mapping";
 import { findSubmissionByCode } from "../../helpers/game";
-import GameFlagQuizBottomSheet from "./GameFlagQuizBottomSheet";
 import { MappingEntry } from "../../types/mapping-entry";
 import { Result } from "../../types/result";
 import { GameOverRedirect } from "../../types/game-over-redirect";
-import {
-  getRandomCollectionItems,
-  getRandomCollectionItem,
-} from "../../helpers/random";
 import GameBannerButton from "../GameBannerButton";
 import { AppContext } from "../../context/AppContext";
 import { useSession } from "next-auth/react";
 import { FlagDetails } from "../../types/flag-details";
+
+import {
+  getRandomCollectionItems,
+  getRandomCollectionItem,
+} from "../../helpers/random";
+
+const GameOverModalContainer = dynamic(
+  () => import("../../containers/GameOverModalContainer")
+);
+
+const GameFlagQuizBottomSheet = dynamic(
+  () => import("./GameFlagQuizBottomSheet")
+);
+
+const ResultsMap = dynamic(() => import("../ResultsMap"));
 
 const INCORRECT_ANSWER_THRESHOLD = 1;
 const NUMBER_OF_FLAGS = 10;
