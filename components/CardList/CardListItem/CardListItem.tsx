@@ -20,7 +20,7 @@ const CardListItem: FC<Props> = ({
   children,
   ...props
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   return (
     <GridItem {...props}>

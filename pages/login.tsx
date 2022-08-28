@@ -8,12 +8,10 @@ import LoginContainer from "../containers/LoginContainer";
 import { FooterVariant } from "../types/footer-variant";
 
 const Login: FC = () => {
-  const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
-
-  // Stops page flickering while it figures out backgroundColor
-  if (!backgroundColor) {
-    return null;
-  }
+  const backgroundColor = useBreakpointValue(
+    { base: "#FFF", md: "#F0F0F0" },
+    { ssr: true }
+  );
 
   return (
     <>

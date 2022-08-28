@@ -17,7 +17,7 @@ interface Props {
 }
 
 const LeaderboardTablePlaceholder: FC<Props> = ({ rows = 10 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   if (isMobile) {
     return (

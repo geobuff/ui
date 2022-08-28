@@ -58,7 +58,7 @@ const RegisterForm: FC<Props> = ({
   onSubmit = () => {},
   isSubmitting = false,
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   const [currentStep, setCurrentStep] = useState(0);
 

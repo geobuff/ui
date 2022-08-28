@@ -10,7 +10,7 @@ interface Props {
 const AdminFlagsHeader: FC<Props> = ({
   onCreateFlagsClick = (): void => {},
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   const { data: session, status } = useSession();
   const user = session?.user as AuthUser;

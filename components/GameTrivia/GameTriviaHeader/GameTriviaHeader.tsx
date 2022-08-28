@@ -31,7 +31,7 @@ const GameTriviaHeader: FC<Props> = ({
   maxQuestionNumber = 10,
   ...props
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   return (
     <Flex direction="column" {...props}>

@@ -302,7 +302,7 @@ interface Props {
 }
 
 const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   switch (variant) {
     case FooterVariant.SIMPLE:

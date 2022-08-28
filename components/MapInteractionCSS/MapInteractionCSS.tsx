@@ -13,7 +13,7 @@ const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 const MapInteractionCSS: FC<BoxProps> = ({ children = null, ...props }) => {
   const [value, setValue] = useState(defaultValue);
 
-  const isMobile = useBreakpointValue({ base: true, lg: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false }, { ssr: true });
 
   const handleReset = (): void => setValue(defaultValue);
   const handleChange = (value): void => setValue(value);

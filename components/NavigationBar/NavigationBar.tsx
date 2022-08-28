@@ -38,13 +38,6 @@ const NavigationBar: FC = () => {
     }
   }, [isOpen]);
 
-  const getViewLayout = (): React.ReactNode => {
-    if (isMobile === undefined) {
-      return null;
-    }
-    return isMobile ? mobileLayout : desktopLayout;
-  };
-
   const desktopLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
       <Flex alignItems="center">
@@ -158,7 +151,7 @@ const NavigationBar: FC = () => {
         zIndex={zIndex}
         minHeight="56px"
       >
-        {getViewLayout()}
+        {isMobile ? mobileLayout : desktopLayout}
       </Box>
       {isMobile && (
         <NavigationSidebar

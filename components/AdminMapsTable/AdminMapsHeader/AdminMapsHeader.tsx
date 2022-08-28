@@ -8,7 +8,7 @@ export interface Props {
 }
 
 const AdminMapsHeader: FC<Props> = ({ onUpload = () => {} }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   const { data: session, status } = useSession();
   const user = session?.user as AuthUser;

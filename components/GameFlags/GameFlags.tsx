@@ -16,7 +16,7 @@ const GameFlags: FC<Props> = ({
   flags = [],
   onCheckSubmission = (): void => {},
 }) => {
-  const isMobile = useBreakpointValue({ base: true, lg: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false }, { ssr: true });
   const { dragItem } = useContext(FlagGameContext);
 
   if (isMobile) {

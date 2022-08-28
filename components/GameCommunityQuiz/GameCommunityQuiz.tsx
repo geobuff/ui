@@ -52,7 +52,7 @@ const GameCommunityQuiz: FC<Props> = ({
   const [hasGameStopped, setHasGameStopped] = useState(false);
 
   const { isNotchedIphone } = useContext(AppContext);
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
   const height = use100vh();
 
   const isLastQuestion = questionNumber === quiz.questions.length;

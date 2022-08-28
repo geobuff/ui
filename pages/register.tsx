@@ -7,12 +7,11 @@ import RegisterContainer from "../containers/RegisterContainer";
 import { FooterVariant } from "../types/footer-variant";
 
 const Register: FC = () => {
-  const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
+  const backgroundColor = useBreakpointValue(
+    { base: "#FFF", md: "#F0F0F0" },
+    { ssr: true }
+  );
 
-  // Stops page flickering while it figures out backgroundColor
-  if (!backgroundColor) {
-    return null;
-  }
   return (
     <>
       <Head>
