@@ -1,16 +1,15 @@
-import { useRouter } from "next/router";
-import React, { FC, useEffect } from "react";
-import GameSpinner from "../../components/GameSpinner";
+import React from "react";
 import { DateTime } from "luxon";
 
-const Today: FC = () => {
-  const router = useRouter();
-
-  useEffect(() => {
-    router.push(`/daily-trivia/${DateTime.now().toFormat("yyyy-MM-dd")}`);
-  }, []);
-
-  return <GameSpinner />;
-};
+const Today = () => <></>;
 
 export default Today;
+
+export async function getServerSideProps() {
+  return {
+    redirect: {
+      destination: `/daily-trivia/${DateTime.now().toFormat("yyyy-MM-dd")}`,
+      permanent: false,
+    },
+  };
+}
