@@ -17,15 +17,10 @@ interface Props {
 const GameMapInteraction: FC<Props> = ({ children = null, ...props }) => {
   const [value, setValue] = useState(defaultValue);
 
-  const isMobile = useBreakpointValue({ base: true, lg: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false }, { ssr: true });
 
   const handleReset = (): void => setValue(defaultValue);
   const handleChange = (value): void => setValue(value);
-
-  // Prevents flickering
-  if (isMobile === undefined) {
-    return null;
-  }
 
   return (
     <Box

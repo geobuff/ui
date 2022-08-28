@@ -55,12 +55,6 @@ const GameOverModal: FC<Props> = ({
   onSubmit = (existingEntry: LeaderboardEntry): void => {},
   onRedirectWithScore = (path: string): void => {},
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
-  if (isMobile === undefined) {
-    return null;
-  }
-
   const footer = onSubmit ? (
     <Button
       colorScheme="green"

@@ -29,9 +29,7 @@ const CardListSection: FC<Props> = ({
   lessItemsThanGrid = false,
   ...props
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
-  if (isMobile === undefined) return null;
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   return (
     <>

@@ -31,9 +31,7 @@ const GameCommunityQuizHeader: FC<Props> = ({
   maxQuestionNumber = 10,
   ...props
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
-  if (isMobile === undefined) return null;
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   return (
     <Flex direction="column" {...props}>

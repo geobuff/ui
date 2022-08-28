@@ -68,7 +68,7 @@ const EditCommunityQuizForm: FC<Props> = ({
   maps = [],
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   const [selectedQuestion, setSelectedQuestion] =
     useState<CommunityQuizFormQuestion>();

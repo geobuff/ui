@@ -33,7 +33,7 @@ const LandingPage: FC<Props> = ({
   actionText = "",
   actionHref = "",
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   return (
     <MainView>

@@ -18,7 +18,7 @@ const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
 });
 
 const NavigationBar: FC = () => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
   const { route } = useRouter();
 
   const [zIndex, setZIndex] = useState(5);
@@ -37,13 +37,6 @@ const NavigationBar: FC = () => {
       }, 200);
     }
   }, [isOpen]);
-
-  const getViewLayout = (): React.ReactNode => {
-    if (isMobile === undefined) {
-      return null;
-    }
-    return isMobile ? mobileLayout : desktopLayout;
-  };
 
   const desktopLayout = (
     <Flex alignItems="center" justifyContent="space-between" minHeight="56px">
@@ -158,7 +151,7 @@ const NavigationBar: FC = () => {
         zIndex={zIndex}
         minHeight="56px"
       >
-        {getViewLayout()}
+        {isMobile ? mobileLayout : desktopLayout}
       </Box>
       {isMobile && (
         <NavigationSidebar

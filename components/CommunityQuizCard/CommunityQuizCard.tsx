@@ -35,7 +35,7 @@ const CommunityQuizCard: FC<Props> = ({
   verified = false,
   ...props
 }) => {
-  const isMobile = useBreakpointValue({ base: true, sm: false });
+  const isMobile = useBreakpointValue({ base: true, sm: false }, { ssr: true });
 
   return (
     <Box

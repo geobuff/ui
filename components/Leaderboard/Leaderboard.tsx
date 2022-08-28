@@ -40,8 +40,6 @@ const Leaderboard: FC<Props> = ({
   rank = "",
   setRank = (): void => {},
 }) => {
-  const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
-
   const handleChangeQuiz = (
     event: React.ChangeEvent<HTMLSelectElement>
   ): void => {
@@ -99,11 +97,6 @@ const Leaderboard: FC<Props> = ({
   const handlePreviousPage = (): void => {
     onChangeFilterParams({ ...filterParams, page: filterParams.page - 1 });
   };
-
-  // Prevent layout shifts on load
-  if (shouldRenderOnMobile === undefined) {
-    return null;
-  }
 
   return (
     <Flex

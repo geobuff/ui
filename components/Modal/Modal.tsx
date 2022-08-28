@@ -41,7 +41,7 @@ const Modal: FC<ModalProps> = ({
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [shouldDisplay, setShouldDisplay] = useState(false);
 
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
 
   useEffect(() => {
     setTimeout(() => {
@@ -58,11 +58,6 @@ const Modal: FC<ModalProps> = ({
       setShouldDisplay(true);
     }
   }, [isOpen]);
-
-  // Prevent layout shifts on load
-  if (isMobile === undefined) {
-    return null;
-  }
 
   return (
     <>

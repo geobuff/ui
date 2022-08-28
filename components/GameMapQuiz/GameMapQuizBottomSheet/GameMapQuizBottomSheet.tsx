@@ -57,7 +57,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
   onGameStop = (): void => {},
 }) => {
   const ref = createRef<any>();
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
   const { isNavSidebarOpen } = useContext(AppContext);
 
   // Push modal down on game start

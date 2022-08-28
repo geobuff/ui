@@ -1,5 +1,5 @@
 export interface LandingPageRow {
-    imageUrl: string;
-    imageAlt: string;
-    explainer: string;
+  imageUrl: string;
+  imageAlt: string;
+  explainer: string;
 }

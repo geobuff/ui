@@ -75,7 +75,7 @@ const GameFlagQuiz: FC<Props> = ({
   hasGrouping = false,
   mapping = [],
 }) => {
-  const isMobile = useBreakpointValue({ base: true, lg: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false }, { ssr: true });
   const router = useRouter();
 
   const { isNotchedIphone } = useContext(AppContext);
@@ -341,10 +341,6 @@ const GameFlagQuiz: FC<Props> = ({
       )
     );
   };
-
-  if (isMobile === undefined) {
-    return null;
-  }
 
   return (
     <>

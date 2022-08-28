@@ -13,15 +13,10 @@ const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 const MapInteractionCSS: FC<BoxProps> = ({ children = null, ...props }) => {
   const [value, setValue] = useState(defaultValue);
 
-  const isMobile = useBreakpointValue({ base: true, lg: false });
+  const isMobile = useBreakpointValue({ base: true, lg: false }, { ssr: true });
 
   const handleReset = (): void => setValue(defaultValue);
   const handleChange = (value): void => setValue(value);
-
-  // Prevents flickering
-  if (isMobile === undefined) {
-    return null;
-  }
 
   return (
     <Box position="relative" {...props}>
