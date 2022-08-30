@@ -47,15 +47,6 @@ const MeetTheTeam: FC = () => (
             secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/pearl-secondary.svg`}
             link="https://www.linkedin.com/in/pearl-pan/"
           />
-          <TeamMemberCard
-            title="Lewis Johnson"
-            position="Researcher"
-            city="Wellington"
-            country="New Zealand"
-            primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/lewis-primary.svg`}
-            secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/lewis-secondary.svg`}
-            link="https://nz.linkedin.com/in/lewis-johnson-470620183"
-          />
         </SimpleGrid>
       </Box>
       <Box width={{ base: "90%", md: 600 }} mx="auto" mb={12}>
