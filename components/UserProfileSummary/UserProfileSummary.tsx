@@ -15,7 +15,6 @@ import Card from "../Card";
 import UpdateUserFormContainer from "../../containers/UpdaterUserFormContainer";
 import useCountries from "../../hooks/useCountries";
 import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContainer";
-import CustomFlag from "../CustomFlag";
 import Twemoji from "../Twemoji";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import ProfileUserAvatar from "../ProfileUserAvatar";
@@ -24,6 +23,7 @@ import DeleteAccountModal from "../DeleteAccountModal";
 import axiosClient from "../../axios";
 import { signOut, useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
+import AdminFlag from "../AdminFlag";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -114,15 +114,8 @@ const UserProfileSummary: FC<Props> = ({
       );
     }
 
-    if (countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG) {
-      return (
-        <CustomFlag
-          url={"https://ik.imagekit.io/ucszu5sud3vz/flag-geobuff-sm"}
-          code={countryCode}
-          boxSizing="border-box"
-          border="2px solid #dae2ea"
-        />
-      );
+    if (countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG_CODE) {
+      return <AdminFlag />;
     }
 
     return <Twemoji emoji={flag(countryCode)} />;
@@ -169,7 +162,7 @@ const UserProfileSummary: FC<Props> = ({
                   {flagNode}
                 </Flex>
                 <Text color="gray.500" fontWeight={600}>
-                  {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG
+                  {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG_CODE
                     ? "GeoBuff HQ"
                     : matchedCountry}
                 </Text>

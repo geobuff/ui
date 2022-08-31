@@ -9,7 +9,6 @@ module.exports = withMDX({
       "twemoji.maxcdn.com",
       "upload.wikimedia.org",
       "images.unsplash.com",
-      "ik.imagekit.io",
       "www.worldatlas.com",
       "static1.thetravelimages.com",
       "www.indiewire.com",
