@@ -11,6 +11,10 @@ module.exports = withMDX({
       "images.unsplash.com",
       "ik.imagekit.io",
       "www.worldatlas.com",
+      "static1.thetravelimages.com",
+      "www.indiewire.com",
+      "m.media-amazon.com",
+      "static.wikia.nocookie.net",
     ],
   },
 });
