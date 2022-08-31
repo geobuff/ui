@@ -23,9 +23,9 @@ import TableCell from "../../TableCell";
 import { secondsToMinutesString } from "../../../helpers/time";
 import Sparkles from "../../Sparkles/Sparkles";
 import { LeaderboardEntry } from "../../../types/leaderboard-entry";
-import CustomFlag from "../../CustomFlag";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../../types/auth-user";
+import AdminFlag from "../../AdminFlag";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -71,13 +71,8 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
     const mainContent = (
       <Flex alignItems="center">
         <Box marginRight={3} marginTop="5.5px" alignItems="center">
-          {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG ? (
-            <CustomFlag
-              url={"https://ik.imagekit.io/ucszu5sud3vz/flag-geobuff-sm"}
-              code={countryCode}
-              boxSizing="border-box"
-              border="2px solid #dae2ea"
-            />
+          {countryCode === process.env.NEXT_PUBLIC_ADMIN_FLAG_CODE ? (
+            <AdminFlag />
           ) : (
             <Twemoji emoji={flag(countryCode)} />
           )}
