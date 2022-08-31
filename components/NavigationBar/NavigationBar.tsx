@@ -18,7 +18,7 @@ const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
 });
 
 const NavigationBar: FC = () => {
-  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
+  const isMobile = useBreakpointValue({ base: true, md: false });
   const { route } = useRouter();
 
   const [zIndex, setZIndex] = useState(5);
@@ -135,6 +135,11 @@ const NavigationBar: FC = () => {
       </Box>
     </Flex>
   );
+
+  // Avoid flicker on load or rerender for mobile.
+  if (isMobile === undefined) {
+    return null;
+  }
 
   return (
     <>
