@@ -20,7 +20,12 @@ const CardListItem: FC<Props> = ({
   children,
   ...props
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
+  // Avoid flicker on load or rerender for mobile.
+  if (isMobile === undefined) {
+    return null;
+  }
 
   return (
     <GridItem {...props}>
