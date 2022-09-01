@@ -8,10 +8,7 @@ import LoginContainer from "../containers/LoginContainer";
 import { FooterVariant } from "../types/footer-variant";
 
 const Login: FC = () => {
-  const backgroundColor = useBreakpointValue(
-    { base: "#FFF", md: "#F0F0F0" },
-    { ssr: true }
-  );
+  const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
 
   return (
     <>

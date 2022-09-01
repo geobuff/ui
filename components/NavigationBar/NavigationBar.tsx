@@ -13,9 +13,7 @@ import ShoppingCartLink from "../ShoppingCartLink";
 import { AppContext } from "../../context/AppContext";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
-const UserAvatarMenuNoSSR = dynamic(() => import("../UserAvatarMenu"), {
-  ssr: false,
-});
+const UserAvatarMenu = dynamic(() => import("../UserAvatarMenu"));
 
 const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -111,7 +109,7 @@ const NavigationBar: FC = () => {
             <ShoppingCartLink itemCount={getItemCount()} marginRight={6} />
           </Fade>
         )}
-        <UserAvatarMenuNoSSR />
+        <UserAvatarMenu />
       </Flex>
     </Flex>
   );
@@ -131,15 +129,10 @@ const NavigationBar: FC = () => {
       </Link>
 
       <Box minWidth="60px">
-        <UserAvatarMenuNoSSR isCondensed />
+        <UserAvatarMenu isCondensed />
       </Box>
     </Flex>
   );
-
-  // Avoid flicker on load or rerender for mobile.
-  if (isMobile === undefined) {
-    return null;
-  }
 
   return (
     <>

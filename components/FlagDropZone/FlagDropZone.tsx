@@ -38,7 +38,7 @@ const FlagDropZone: FC<Props> = ({
   isSkipButtonDisabled = false,
   onSkipQuestion = (): void => {},
 }) => {
-  const isMobile = useBreakpointValue({ base: true, lg: false }, { ssr: true });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
   const iconButtonSize = useBreakpointValue({ base: "xs", md: "sm" });
 
   const height = use100vh();

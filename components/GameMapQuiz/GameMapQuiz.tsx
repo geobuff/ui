@@ -116,10 +116,7 @@ const GameMapQuiz: FC<Props> = ({
 
   const { isOpen, onOpen, onClose } = useDisclosure();
 
-  const shouldDisplayOnMobile = useBreakpointValue(
-    { base: true, lg: false },
-    { ssr: true }
-  );
+  const shouldDisplayOnMobile = useBreakpointValue({ base: true, lg: false });
 
   const quizDateTime = useCallback(
     () => DateTime.now().plus({ seconds: time }),

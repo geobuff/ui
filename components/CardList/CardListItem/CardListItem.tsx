@@ -22,11 +22,6 @@ const CardListItem: FC<Props> = ({
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
 
-  // Avoid flicker on load or rerender for mobile.
-  if (isMobile === undefined) {
-    return null;
-  }
-
   return (
     <GridItem {...props}>
       <Link href={isEnabled ? href : "/"}>

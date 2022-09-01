@@ -8,10 +8,7 @@ import ResetPasswordContainer from "../../../containers/ResetPasswordContainer";
 import { FooterVariant } from "../../../types/footer-variant";
 
 const ResetPassword: FC = () => {
-  const backgroundColor = useBreakpointValue(
-    { base: "#FFF", md: "#F0F0F0" },
-    { ssr: true }
-  );
+  const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
 
   return (
     <>
