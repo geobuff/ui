@@ -26,7 +26,7 @@ const Leaderboard: FC<AppProps> = ({ pageProps }) => {
       </Head>
       <MainView>
         <LeaderboardContainer
-          defaultQuizId={quizId && (quizId as string)}
+          quizIdParam={quizId && (quizId as string)}
           rankParam={rank && (rank as string)}
           quizzes={quizzes}
         />

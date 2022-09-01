@@ -7,17 +7,17 @@ import { LeaderboardFilterParams } from "../../types/leaderboard-filter-params";
 import { Quiz } from "../../types/quiz";
 
 interface Props {
-  defaultQuizId?: string;
+  quizIdParam?: string;
   rankParam?: string;
   quizzes?: Quiz[];
 }
 
 const LeaderboardContainer: FC<Props> = ({
-  defaultQuizId = "1",
+  quizIdParam = "",
   rankParam = "",
   quizzes = [],
 }) => {
-  const [quizId, setQuizId] = useState(() => defaultQuizId);
+  const [quizId, setQuizId] = useState("1");
   const [entries, setEntries] = useState([]);
   const [isLoadingEntries, setIsLoadingEntries] = useState(true);
   const [hasMoreEntries, setHasMoreEntries] = useState(false);
@@ -40,6 +40,12 @@ const LeaderboardContainer: FC<Props> = ({
       setRankSet(true);
     }
   }, [rank, rankParam, rankSet]);
+
+  useEffect(() => {
+    if (quizIdParam) {
+      setQuizId(quizIdParam);
+    }
+  }, [quizIdParam]);
 
   useEffect(() => {
     setIsLoadingEntries(true);
