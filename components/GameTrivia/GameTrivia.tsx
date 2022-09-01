@@ -39,7 +39,7 @@ const GameTrivia: FC<Props> = ({
   const [hasGameStopped, setHasGameStopped] = useState(false);
 
   const { isNotchedIphone } = useContext(AppContext);
-  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
+  const isMobile = useBreakpointValue({ base: true, md: false });
   const height = use100vh();
 
   const isLastQuestion = questionNumber === trivia.questions.length;

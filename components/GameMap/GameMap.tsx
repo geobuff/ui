@@ -22,7 +22,7 @@ const GameMap: FC<Props> = ({
   const [tooltipTop, setTooltipTop] = useState(0);
   const [tooltipLeft, setTooltipLeft] = useState(0);
 
-  const isMobile = useBreakpointValue({ base: true, lg: false }, { ssr: true });
+  const isMobile = useBreakpointValue({ base: true, lg: false });
 
   const mapStyle = {
     height: isMobile ? "initial" : "90vh",

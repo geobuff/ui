@@ -41,7 +41,7 @@ const Modal: FC<ModalProps> = ({
   const [shouldAnimate, setShouldAnimate] = useState(false);
   const [shouldDisplay, setShouldDisplay] = useState(false);
 
-  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   useEffect(() => {
     setTimeout(() => {

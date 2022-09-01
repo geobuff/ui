@@ -10,7 +10,7 @@ const CardList: FC<CardListProps> = ({
   lessItemsThanGrid = false,
   children,
 }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   if (isMobile) {
     return (

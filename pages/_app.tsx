@@ -15,6 +15,7 @@ import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
 import { Session } from "next-auth";
 import AuthGuard from "../components/AuthGuard";
 import { CurrentUserContextProvider } from "../context/CurrentUserContext/CurrentUserContext";
+import ClientOnly from "../components/ClientOnly";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -121,13 +122,15 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
           <AppContextProvider>
             <CurrentUserContextProvider>
               <ShoppingCartContextProvider>
-                {Component.requireAuth ? (
-                  <AuthGuard>
+                <ClientOnly>
+                  {Component.requireAuth ? (
+                    <AuthGuard>
+                      <Component {...pageProps} />
+                    </AuthGuard>
+                  ) : (
                     <Component {...pageProps} />
-                  </AuthGuard>
-                ) : (
-                  <Component {...pageProps} />
-                )}
+                  )}
+                </ClientOnly>
               </ShoppingCartContextProvider>
             </CurrentUserContextProvider>
           </AppContextProvider>

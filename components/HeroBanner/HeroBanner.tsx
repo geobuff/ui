@@ -148,13 +148,11 @@ const HeroBanner: FC<Props> = ({
             fontWeight="medium"
           >
             {"Create an account and"}{" "}
-            <ClientOnly>
-              <HeroBannerText
-                isLoading={isSessionLoading}
-                href={actions[index]?.link}
-                text={actions[index]?.value}
-              />
-            </ClientOnly>
+            <HeroBannerText
+              isLoading={isSessionLoading}
+              href={actions[index]?.link}
+              text={actions[index]?.value}
+            />
           </Text>
         </Box>
       </Flex>

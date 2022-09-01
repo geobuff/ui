@@ -132,7 +132,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
     }
   };
 
-  const isMobile = useBreakpointValue({ base: true, md: false }, { ssr: true });
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const numberToSlice = isMobile ? 14 : 10;
 

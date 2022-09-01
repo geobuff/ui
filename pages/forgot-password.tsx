@@ -8,10 +8,7 @@ import ForgotPasswordContainer from "../containers/ForgotPasswordContainer";
 import { FooterVariant } from "../types/footer-variant";
 
 const ForgotPassword: FC = () => {
-  const backgroundColor = useBreakpointValue(
-    { base: "#FFF", md: "#F0F0F0" },
-    { ssr: true }
-  );
+  const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
 
   return (
     <>
