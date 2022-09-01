@@ -48,6 +48,16 @@ const ResultsMap = dynamic(() => import("../ResultsMap"));
 const INCORRECT_ANSWER_THRESHOLD = 1;
 const NUMBER_OF_FLAGS = 10;
 
+const getRandomFlagItems = (entries: MappingEntry[]) =>
+  getRandomCollectionItems(entries, NUMBER_OF_FLAGS).map(
+    (entry: MappingEntry) => {
+      return {
+        code: entry.code,
+        url: entry.flagUrl,
+      };
+    }
+  );
+
 interface Props {
   id?: number;
   time?: number;
@@ -109,12 +119,7 @@ const GameFlagQuiz: FC<Props> = ({
   const [disableSkipButton, setDisableSkipButton] = useState(true);
 
   const [flagDragItems, setFlagDragItems] = useState<FlagDetails[]>(() =>
-    getRandomCollectionItems(mapping, NUMBER_OF_FLAGS).map((mapping) => {
-      return {
-        code: mapping.code,
-        url: mapping.flagUrl,
-      };
-    })
+    getRandomFlagItems(mapping)
   );
   useWarnIfActiveGame(hasGameStarted);
 
@@ -214,10 +219,7 @@ const GameFlagQuiz: FC<Props> = ({
 
   const handleGameStart = (): void => {
     if (hasGameRunOnce) {
-      const nextDragItems = getRandomCollectionItems(
-        mapping,
-        NUMBER_OF_FLAGS
-      ).map((c) => c.code);
+      const nextDragItems = getRandomFlagItems(mapping);
       setFlagDragItems(nextDragItems);
       setAcceptedFlag(getRandomCollectionItem(nextDragItems));
     }
@@ -297,17 +299,7 @@ const GameFlagQuiz: FC<Props> = ({
       );
 
       if (updatedRemainingAnswers?.length) {
-        setFlagDragItems(
-          getRandomCollectionItems(
-            updatedRemainingAnswers,
-            NUMBER_OF_FLAGS
-          ).map((mapping) => {
-            return {
-              code: mapping.code,
-              url: mapping.flagUrl,
-            };
-          })
-        );
+        setFlagDragItems(getRandomFlagItems(updatedRemainingAnswers));
       }
 
       setScore(updatedCheckedSubmissions.length);
@@ -335,11 +327,7 @@ const GameFlagQuiz: FC<Props> = ({
   };
 
   const handleSkipQuestion = (): void => {
-    setFlagDragItems(
-      getRandomCollectionItems(remainingAnswers, NUMBER_OF_FLAGS).map(
-        (c) => c.code
-      )
-    );
+    setFlagDragItems(getRandomFlagItems(remainingAnswers));
   };
 
   return (

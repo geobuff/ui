@@ -14,6 +14,7 @@ module.exports = withMDX({
       "www.indiewire.com",
       "m.media-amazon.com",
       "static.wikia.nocookie.net",
+      "ik.imagekit.io",
     ],
   },
 });
