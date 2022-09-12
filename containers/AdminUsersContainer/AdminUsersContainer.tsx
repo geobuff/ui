@@ -6,6 +6,7 @@ import AdminUsersTable from "../../components/AdminUsersTable";
 import DeleteAccountModal from "../../components/DeleteAccountModal";
 import { AuthUser } from "../../types/auth-user";
 import { UserPageDto } from "../../types/user-page-dto";
+import { UsersFilterParams } from "../../types/users-filter-params";
 
 const AdminUsersContainer: FC = () => {
   const { data: session, status } = useSession();
@@ -18,6 +19,11 @@ const AdminUsersContainer: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState(false);
 
+  const [filterParams, setFilterParams] = useState<UsersFilterParams>({
+    page: 0,
+    limit: 10,
+  });
+
   const {
     isOpen: isDeleteAccountModalOpen,
     onOpen: onDeleteAccountModalOpen,
@@ -28,7 +34,7 @@ const AdminUsersContainer: FC = () => {
     if (status === "authenticated") {
       setIsLoading(true);
       axiosClient
-        .get(`/users?page=${page}`, session?.authConfig)
+        .post(`/users/all`, filterParams, session?.authConfig)
         .then((response) => {
           setUserPage(response.data);
         })

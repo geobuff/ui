@@ -1,13 +1,5 @@
 import React, { FC } from "react";
-
-import {
-  Alert,
-  AlertIcon,
-  Divider,
-  Flex,
-  useBreakpointValue,
-} from "@chakra-ui/react";
-
+import { Alert, AlertIcon, Divider, Flex } from "@chakra-ui/react";
 import Card from "../Card";
 import AdminManualTriviaQuestionsTable from "./AdminManualTriviaQuestionsTable";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
