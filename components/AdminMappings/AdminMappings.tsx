@@ -1,11 +1,11 @@
 import React, { FC } from "react";
-import { Divider, Flex } from "@chakra-ui/react";
+import { Flex } from "@chakra-ui/react";
 import Card from "../Card";
 import { FlagGroup } from "../../types/flag-group";
 import AdminMappingsTable from "./AdminMappingsTable";
 import AdminMappingsFilters from "./AdminMappingsFilters";
 import useMappingEntries from "../../hooks/UseMappingEntries";
-import AdminMappingsHeader from "./AdminMappingsHeader";
+import TableHeader from "../Table/TableHeader/TableHeader";
 
 interface Props {
   group?: string;
@@ -40,9 +40,7 @@ const AdminMappings: FC<Props> = ({
           paddingTop={2}
           paddingBottom={{ base: 1, md: 3 }}
         >
-          <AdminMappingsHeader />
-
-          <Divider borderWidth={1} marginBottom={6} />
+          <TableHeader heading="Mappings" />
 
           <AdminMappingsFilters
             groups={groups}

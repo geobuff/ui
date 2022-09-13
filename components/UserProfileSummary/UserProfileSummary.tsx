@@ -63,7 +63,7 @@ const UserProfileSummary: FC<Props> = ({
 
   const [isDeleteAccountSubmitting, setIsDeleteAccountSubmitting] =
     useState(false);
-  const [deleteAccountError, setDeleteAccountError] = useState(false);
+  const [deleteAccountError, setDeleteAccountError] = useState("");
 
   const {
     isOpen: isUserModalOpen,
@@ -85,7 +85,7 @@ const UserProfileSummary: FC<Props> = ({
 
   const handleDeleteAccountSubmit = (): void => {
     setIsDeleteAccountSubmitting(true);
-    setDeleteAccountError(false);
+    setDeleteAccountError("");
 
     axiosClient
       .delete(`/users/${user?.id}`, session?.authConfig)
@@ -93,7 +93,7 @@ const UserProfileSummary: FC<Props> = ({
         onDeleteAccountModalClose();
         signOut();
       })
-      .catch(() => setDeleteAccountError(true))
+      .catch((error) => setDeleteAccountError(error.response.data))
       .finally(() => setIsDeleteAccountSubmitting(false));
   };
 

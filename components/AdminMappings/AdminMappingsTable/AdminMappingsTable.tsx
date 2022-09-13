@@ -10,7 +10,7 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 
-import TableCell from "../../TableCell";
+import TableCell from "../../Table/TableCell";
 import { MappingEntry } from "../../../types/mapping-entry";
 import AdminMappingsTablePlaceholder from "../../../placeholders/AdminMappingsTablePlaceholder";
 

@@ -13,7 +13,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 
-import TableCell from "../TableCell";
+import TableCell from "../Table/TableCell";
 import AdminFlagsTablePlaceholder from "../../placeholders/AdminFlagsTablePlaceholder";
 import Card from "../Card";
 import { GetMapsDto } from "../../types/get-maps-dto";

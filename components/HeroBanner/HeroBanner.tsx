@@ -21,7 +21,7 @@ export interface Props {
 }
 
 const HeroBanner: FC<Props> = ({
-  title = "Get Your Geo Flex On",
+  title = "Eat, Sleep, Quiz, Repeat",
   textColor = "white",
   backgroundColor = "linear-gradient(90deg, #27AE60 0%, #219250 100%)",
   imageUrl = `${process.env.NEXT_PUBLIC_CDN_URL}/headers/world-map.svg`,

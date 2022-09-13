@@ -4,6 +4,7 @@ import { debounce } from "throttle-debounce";
 import axios from "axios";
 import axiosClient from "../axios";
 import dynamic from "next/dynamic";
+import Head from "next/head";
 
 import { Box, useBreakpointValue } from "@chakra-ui/react";
 import { DateTime } from "luxon";
@@ -196,6 +197,13 @@ const Home: FC<AppProps> = ({ pageProps }) => {
 
   return (
     <MainView>
+      <Head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4707219290548480"
+          crossOrigin="anonymous"
+        />
+      </Head>
       <HomeHeader
         inputValue={inputValue}
         onChange={handleChange}

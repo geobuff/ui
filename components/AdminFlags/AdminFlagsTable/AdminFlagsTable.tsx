@@ -11,7 +11,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 
-import TableCell from "../../TableCell";
+import TableCell from "../../Table/TableCell";
 import { FlagEntry } from "../../../types/flag-group";
 import AdminFlagsTablePlaceholder from "../../../placeholders/AdminFlagsTablePlaceholder";
 

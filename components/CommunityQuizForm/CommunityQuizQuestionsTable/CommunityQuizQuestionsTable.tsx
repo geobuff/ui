@@ -10,7 +10,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import TableCell from "../../TableCell";
+import TableCell from "../../Table/TableCell";
 import { getType } from "../../../helpers/trivia-types";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
 

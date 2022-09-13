@@ -16,7 +16,7 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 
-import TableCell from "../TableCell";
+import TableCell from "../Table/TableCell";
 import { QuizTypes } from "../../types/quiz-types";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import ArrowRight from "../../Icons/ArrowRight";

@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 
 import Image from "next/image";
-import TableCell from "../../TableCell";
+import TableCell from "../../Table/TableCell";
 import { toTwoDecimalPlaces } from "../../../helpers/number";
 
 export interface Props {

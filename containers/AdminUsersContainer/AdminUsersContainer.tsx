@@ -2,21 +2,26 @@ import { useDisclosure } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
-import AdminUsersTable from "../../components/AdminUsersTable";
+import AdminUsersTable from "../../components/AdminUsers";
 import DeleteAccountModal from "../../components/DeleteAccountModal";
 import { AuthUser } from "../../types/auth-user";
 import { UserPageDto } from "../../types/user-page-dto";
+import { UsersFilterParams } from "../../types/users-filter-params";
 
 const AdminUsersContainer: FC = () => {
   const { data: session, status } = useSession();
   const user = session?.user as AuthUser;
 
   const [userPage, setUserPage] = useState<UserPageDto>();
-  const [page, setPage] = useState(0);
   const [userId, setUserId] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
+
+  const [filterParams, setFilterParams] = useState<UsersFilterParams>({
+    page: 0,
+    limit: 10,
+  });
 
   const {
     isOpen: isDeleteAccountModalOpen,
@@ -28,17 +33,17 @@ const AdminUsersContainer: FC = () => {
     if (status === "authenticated") {
       setIsLoading(true);
       axiosClient
-        .get(`/users?page=${page}`, session?.authConfig)
+        .post(`/users/all`, filterParams, session?.authConfig)
         .then((response) => {
           setUserPage(response.data);
         })
         .finally(() => setIsLoading(false));
     }
-  }, [status, session, page]);
+  }, [status, session, filterParams]);
 
   const handleSubmit = (): void => {
     setIsSubmitting(true);
-    setError(false);
+    setError("");
 
     axiosClient
       .delete(`/users/${userId}`, session?.authConfig)
@@ -49,7 +54,7 @@ const AdminUsersContainer: FC = () => {
         });
         onDeleteAccountModalClose();
       })
-      .catch(() => setError(true))
+      .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
 
@@ -58,24 +63,17 @@ const AdminUsersContainer: FC = () => {
     onDeleteAccountModalOpen();
   };
 
-  const handlePreviousPage = (): void => {
-    setPage(page - 1);
-  };
-
-  const handleNextPage = (): void => {
-    setPage(page + 1);
-  };
-
   return (
     <>
       <AdminUsersTable
         currentUserId={user?.id}
-        userPage={userPage}
-        page={page}
+        users={userPage?.users}
+        hasMoreUsers={userPage?.hasMore}
+        error={error}
+        filterParams={filterParams}
+        onChangeFilterParams={setFilterParams}
         isLoading={isLoading}
         onDeleteUser={handleDeleteUser}
-        onNextPage={handleNextPage}
-        onPreviousPage={handlePreviousPage}
       />
       <DeleteAccountModal
         isOpen={isDeleteAccountModalOpen}
