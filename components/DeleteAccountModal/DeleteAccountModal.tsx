@@ -6,7 +6,7 @@ export interface Props {
   isOpen?: boolean;
   possessive?: string;
   isSubmitting?: boolean;
-  error?: boolean;
+  error?: string;
   onClose?: () => void;
   onSubmit?: () => void;
 }
@@ -15,7 +15,7 @@ const DeleteAccountModal: FC<Props> = ({
   isOpen = false,
   possessive = "your",
   isSubmitting = false,
-  error = false,
+  error = "",
   onClose = (): void => {},
   onSubmit = (): void => {},
 }) => {
@@ -46,7 +46,7 @@ const DeleteAccountModal: FC<Props> = ({
         {error && (
           <Alert status="error" borderRadius={6} marginBottom={3}>
             <AlertIcon />
-            Error deleting user. Please refresh page and try again.
+            {error}
           </Alert>
         )}
         <Text>{`Are you sure you want to delete ${possessive} account? You will not be able to recover any of the data once this action is complete.`}</Text>

@@ -19,7 +19,7 @@ import {
   Link,
 } from "@chakra-ui/react";
 
-import TableCell from "../TableCell";
+import TableCell from "../Table/TableCell";
 import { OrderPageDto } from "../../types/order-page-dto";
 import AdminOrdersTablePlaceholder from "../../placeholders/AdminOrdersTablePlaceholder";
 import ArrowLeft from "../../Icons/ArrowLeft";

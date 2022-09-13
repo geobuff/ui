@@ -11,7 +11,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { Discount } from "../../types/discount";
-import TableCell from "../TableCell";
+import TableCell from "../Table/TableCell";
 import Card from "../Card";
 import AdminDiscountsTablePlaceholder from "../../placeholders/AdminDiscountsTablePlaceholder";
 

@@ -18,7 +18,7 @@ import {
 
 import LeaderTablePlaceholder from "../../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
 import Twemoji from "../../Twemoji";
-import TableCell from "../../TableCell";
+import TableCell from "../../Table/TableCell";
 
 import { secondsToMinutesString } from "../../../helpers/time";
 import Sparkles from "../../Sparkles/Sparkles";

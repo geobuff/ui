@@ -1,10 +1,7 @@
 import React, { FC } from "react";
-
-import { Flex, useBreakpointValue } from "@chakra-ui/react";
-
+import { Flex } from "@chakra-ui/react";
 import LeaderboardHeader from "./LeaderboardHeader/LeaderboardHeader";
 import LeaderboardFilters from "./LeaderboardFilters/LeaderboardFilters";
-import LeaderboardPaginationControls from "./LeaderboardPaginationControls/LeaderboardPaginationControls";
 import LeaderboardTable from "./LeaderboardTable";
 
 import Card from "../Card";
@@ -12,6 +9,7 @@ import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import { LeaderboardFilterParams } from "../../types/leaderboard-filter-params";
 import { Quiz } from "../../types/quiz";
 import router from "next/router";
+import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -134,7 +132,7 @@ const Leaderboard: FC<Props> = ({
         >
           <LeaderboardTable entries={entries} isLoading={isLoading} />
 
-          <LeaderboardPaginationControls
+          <TablePaginationControls
             hasMoreEntries={hasMoreEntries}
             isLoading={isLoading}
             page={filterParams.page}

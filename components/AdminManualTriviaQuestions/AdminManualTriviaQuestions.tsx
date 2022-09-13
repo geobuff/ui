@@ -1,14 +1,14 @@
 import React, { FC } from "react";
-import { Alert, AlertIcon, Divider, Flex } from "@chakra-ui/react";
+import { Alert, AlertIcon, Flex } from "@chakra-ui/react";
 import Card from "../Card";
 import AdminManualTriviaQuestionsTable from "./AdminManualTriviaQuestionsTable";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
-import AdminManualTriviaQuestionsHeader from "./AdminManualTriviaQuestionsHeader";
-import AdminManualTriviaQuestionsPaginationControls from "./AdminManualTriviaQuestionsPaginationControls";
 import AdminManualTriviaQuestionsFilters from "./AdminManualTriviaQuestionsFilters";
 import { TriviaQuestionType } from "../../types/trivia-question-type";
 import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
+import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
+import TableHeader from "../Table/TableHeader/TableHeader";
 
 interface Props {
   entries?: ManualTriviaQuestion[];
@@ -117,11 +117,11 @@ const AdminManualTriviaQuestions: FC<Props> = ({
           paddingTop={2}
           paddingBottom={{ base: 1, md: 3 }}
         >
-          <AdminManualTriviaQuestionsHeader
-            onCreateQuestionClick={onCreateQuestionClick}
+          <TableHeader
+            heading="Manual Trivia Questions"
+            action="Create Question"
+            onClick={onCreateQuestionClick}
           />
-
-          <Divider borderWidth={1} marginBottom={6} />
 
           <AdminManualTriviaQuestionsFilters
             types={types}
@@ -143,7 +143,7 @@ const AdminManualTriviaQuestions: FC<Props> = ({
             onDeleteQuestionClick={onDeleteQuestionClick}
           />
 
-          <AdminManualTriviaQuestionsPaginationControls
+          <TablePaginationControls
             hasMoreEntries={hasMoreEntries}
             isLoading={isLoading}
             page={filterParams.page}

@@ -12,7 +12,7 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import TableCell from "../TableCell";
+import TableCell from "../Table/TableCell";
 import { FlattenedMerchSize } from "../../helpers/merch";
 import Card from "../Card";
 import AdminMerchTablePlaceholder from "../../placeholders/AdminMerchTablePlaceholder";

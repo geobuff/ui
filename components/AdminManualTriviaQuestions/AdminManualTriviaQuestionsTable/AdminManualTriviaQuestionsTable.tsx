@@ -13,7 +13,7 @@ import {
   AlertIcon,
 } from "@chakra-ui/react";
 
-import TableCell from "../../TableCell";
+import TableCell from "../../Table/TableCell";
 import AdminManualTriviaQuestionsTablePlaceholder from "../../../placeholders/AdminManualTriviaQuestionsTablePlaceholder";
 
 import { ManualTriviaQuestion } from "../../../types/manual-trivia-question";
