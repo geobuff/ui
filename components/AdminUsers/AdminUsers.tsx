@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Flex, Heading, Divider, Alert, AlertIcon } from "@chakra-ui/react";
+import { Alert, AlertIcon } from "@chakra-ui/react";
 
 import Card from "../Card";
 import AdminUsersTable from "./AdminUsersTable/AdminUsersTable";
