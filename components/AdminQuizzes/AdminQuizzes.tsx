@@ -6,6 +6,7 @@ import { UsersFilterParams } from "../../types/users-filter-params";
 import { QuizPageDto } from "../../types/quiz-page-dto";
 import { Quiz } from "../../types/quiz";
 import Card from "../Card";
+import { AdminQuizFilters } from "./AdminQuizFilters/AdminQuizFilters";
 
 export interface Props {
   quizPage?: QuizPageDto;
@@ -43,9 +44,24 @@ const AdminQuizzes: FC<Props> = ({
     onChangeFilterParams({ ...filterParams, page: filterParams.page - 1 });
   };
 
+  const handleChangeSearch = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ): void => {
+    onChangeFilterParams({
+      ...filterParams,
+      filter: event.target.value,
+      page: 0,
+    });
+  };
+
   return (
     <Card marginY={10} padding={6}>
       <TableHeader heading="Quizzes" action="Create Quiz" onClick={onCreate} />
+
+      <AdminQuizFilters
+        isLoading={isLoading}
+        onChangeSearch={handleChangeSearch}
+      />
 
       <AdminQuizTable
         quizzes={quizPage?.quizzes}
