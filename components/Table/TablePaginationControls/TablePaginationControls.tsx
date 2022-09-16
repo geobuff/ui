@@ -21,7 +21,7 @@ interface Props {
   onPreviousPage?: () => void;
 }
 
-const AdminManualTriviaQuestionsPaginationControls: FC<Props> = ({
+const TablePaginationControls: FC<Props> = ({
   isLoading = false,
   hasMoreEntries = false,
   page = 0,
@@ -88,4 +88,4 @@ const AdminManualTriviaQuestionsPaginationControls: FC<Props> = ({
   );
 };
 
-export default AdminManualTriviaQuestionsPaginationControls;
+export default TablePaginationControls;
