@@ -69,7 +69,6 @@ const GameOverModalContainer: FC<Props> = ({
   const [entry, setEntry] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isPlaysUpdated, setIsPlaysUpdated] = useState(false);
 
   useEffect(() => {
     if (!isOpen) {
@@ -81,11 +80,7 @@ const GameOverModalContainer: FC<Props> = ({
       return;
     }
 
-    if (!isPlaysUpdated) {
-      axiosClient.put(`/quiz-plays/${id}`);
-      setIsPlaysUpdated(true);
-    }
-
+    axiosClient.put(`/quiz-plays/${id}`);
     if (status === "unauthenticated" || score === 0) {
       setIsLoading(false);
       return;
