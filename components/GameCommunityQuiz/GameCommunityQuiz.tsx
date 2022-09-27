@@ -1,15 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 import Head from "next/head";
 import { use100vh } from "react-div-100vh";
-
-import {
-  Alert,
-  AlertIcon,
-  Box,
-  Flex,
-  useBreakpointValue,
-  useToast,
-} from "@chakra-ui/react";
+import { Alert, AlertIcon, Box, Flex, useToast } from "@chakra-ui/react";
 
 import {
   GetCommunityQuiz,
@@ -52,7 +44,6 @@ const GameCommunityQuiz: FC<Props> = ({
   const [hasGameStopped, setHasGameStopped] = useState(false);
 
   const { isNotchedIphone } = useContext(AppContext);
-  const isMobile = useBreakpointValue({ base: true, md: false });
   const height = use100vh();
 
   const isLastQuestion = questionNumber === quiz.questions.length;
@@ -169,6 +160,11 @@ const GameCommunityQuiz: FC<Props> = ({
         <meta
           name="description"
           content={`${quiz.name} - ${quiz.description}`}
+        />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4707219290548480"
+          crossOrigin="anonymous"
         />
       </Head>
       <MainView hasFooter={false} backgroundColor="#276F86">

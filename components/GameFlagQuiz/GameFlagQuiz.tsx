@@ -338,6 +338,11 @@ const GameFlagQuiz: FC<Props> = ({
           name="description"
           content={`Call yourself a flag enthusiast? Test your knowledge on ${name}!`}
         />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4707219290548480"
+          crossOrigin="anonymous"
+        />
       </Head>
       <Flex flex={1} direction="column">
         <Flex height="100%" minHeight="100%" direction="column" flex={1}>
