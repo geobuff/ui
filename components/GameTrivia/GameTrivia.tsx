@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from "react";
 import Head from "next/head";
-import { Box, Flex, useBreakpointValue, useToast } from "@chakra-ui/react";
+import { Box, Flex, useToast } from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
 import { DateTime } from "luxon";
 
@@ -39,7 +39,6 @@ const GameTrivia: FC<Props> = ({
   const [hasGameStopped, setHasGameStopped] = useState(false);
 
   const { isNotchedIphone } = useContext(AppContext);
-  const isMobile = useBreakpointValue({ base: true, md: false });
   const height = use100vh();
 
   const isLastQuestion = questionNumber === trivia.questions.length;
@@ -90,6 +89,11 @@ const GameTrivia: FC<Props> = ({
         <meta
           name="description"
           content="Ten questions covering everything geography - from maps and flags, to rivers and mountains, our famous daily trivia will keep you coming back every single day."
+        />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4707219290548480"
+          crossOrigin="anonymous"
         />
       </Head>
       <MainView hasFooter={false} backgroundColor="#276F86">

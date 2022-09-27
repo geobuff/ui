@@ -317,6 +317,11 @@ const GameMapQuiz: FC<Props> = ({
           name="description"
           content={`Rate yourself as a budding cartographer? Test your knowledge on ${name}!`}
         />
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4707219290548480"
+          crossOrigin="anonymous"
+        />
       </Head>
 
       <Flex
