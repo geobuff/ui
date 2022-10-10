@@ -220,3 +220,16 @@ export const createFlagsToast = (
   duration: 6000,
   isClosable: true,
 });
+
+export const genericSuccessToast = (
+  title: string,
+  description: string,
+  position: ToastPosition = defaultPosition
+): UseToastOptions => ({
+  position: position,
+  title: title,
+  description: description,
+  status: "success",
+  duration: 6000,
+  isClosable: true,
+});
