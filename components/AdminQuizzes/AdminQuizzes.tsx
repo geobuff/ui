@@ -56,7 +56,10 @@ const AdminQuizzes: FC<Props> = ({
 
   return (
     <Card marginY={10} padding={6}>
-      <TableHeader heading="Quizzes" action="Create Quiz" onClick={onCreate} />
+      <TableHeader
+        heading="Quizzes"
+        actions={[{ name: "Create Quiz", callback: onCreate }]}
+      />
 
       <AdminQuizFilters
         isLoading={isLoading}

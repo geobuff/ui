@@ -1,17 +1,17 @@
 import React, { FC } from "react";
-import { Heading, Flex, Button, Divider } from "@chakra-ui/react";
+import { Heading, Flex, Button, Divider, Box } from "@chakra-ui/react";
+
+interface Action {
+  name: string;
+  callback: () => void;
+}
 
 interface Props {
   heading: string;
-  action?: string;
-  onClick?: () => void;
+  actions?: Action[];
 }
 
-const TableHeader: FC<Props> = ({
-  heading = "",
-  action = "",
-  onClick = (): void => {},
-}) => (
+const TableHeader: FC<Props> = ({ heading = "", actions = [] }) => (
   <>
     <Flex
       justifyContent="space-between"
@@ -21,11 +21,19 @@ const TableHeader: FC<Props> = ({
     >
       <Heading fontSize="24px">{heading}</Heading>
 
-      {action && (
-        <Button colorScheme="teal" size="md" onClick={onClick}>
-          {action}
-        </Button>
-      )}
+      <Box>
+        {actions.map((action, index) => (
+          <Button
+            key={index}
+            colorScheme="teal"
+            size="md"
+            onClick={action.callback}
+            mr={actions.length > 1 && index !== actions.length - 1 && 3}
+          >
+            {action.name}
+          </Button>
+        ))}
+      </Box>
     </Flex>
     <Divider borderWidth={1} marginBottom={6} />
   </>

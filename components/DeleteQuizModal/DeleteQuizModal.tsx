@@ -47,7 +47,7 @@ const DeleteQuizModal: FC<Props> = ({
             Error deleting quiz. Please refresh page and try again.
           </Alert>
         )}
-        <Text>{`Are you sure you want to delete this quiz? All corresponding quiz plays and leaderboard entries will be deleted with it.`}</Text>
+        <Text>{`Are you sure you want to delete this quiz? All corresponding quiz plays, leaderboard entries and svg maps will be deleted with it.`}</Text>
       </Box>
     </Modal>
   );
