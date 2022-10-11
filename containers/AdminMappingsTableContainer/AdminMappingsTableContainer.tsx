@@ -6,6 +6,9 @@ import AdminMappings from "../../components/AdminMappings";
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import { genericSuccessToast } from "../../helpers/toasts";
 import useMappingGroups from "../../hooks/UseMappingGroups";
+import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
+import { MappingGroup } from "../../types/mapping-group";
+import EditMappingModalContainer from "../EditMappingModalContainer/EditMappingModalContainer";
 
 const AdminMappingsTableContainer: FC = () => {
   const toast = useToast();
@@ -16,12 +19,24 @@ const AdminMappingsTableContainer: FC = () => {
   const [group, setGroup] = useState("world-countries");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const [selectedGroup, setSelectedGroup] = useState<MappingGroup>(null);
 
   const {
     isOpen: isDeleteMappingModalOpen,
     onOpen: onDeleteMappingModalOpen,
     onClose: onDeleteMappingModalClose,
   } = useDisclosure();
+
+  const {
+    isOpen: isEditMappingModalOpen,
+    onOpen: onEditMappingModalOpen,
+    onClose: onEditMappingModalClose,
+  } = useDisclosure();
+
+  const handleEdit = (): void => {
+    setSelectedGroup(groups.find((x) => x.key === group));
+    onEditMappingModalOpen();
+  };
 
   const handleDeleteMappingSubmit = (): void => {
     setError("");
@@ -42,6 +57,10 @@ const AdminMappingsTableContainer: FC = () => {
       .finally(() => setIsSubmitting(false));
   };
 
+  const handleEditMappingSubmit = (values: EditMappingGroupSubmit): void => {
+    console.log(values);
+  };
+
   return (
     <>
       <AdminMappings
@@ -49,6 +68,7 @@ const AdminMappingsTableContainer: FC = () => {
         groups={groups}
         isLoading={isGroupsLoading}
         setGroup={setGroup}
+        onEdit={handleEdit}
         onDelete={onDeleteMappingModalOpen}
       />
       <DeleteModal
@@ -57,6 +77,14 @@ const AdminMappingsTableContainer: FC = () => {
         message={`Are you sure you want to delete the ${group} mapping?`}
         onClose={onDeleteMappingModalClose}
         onSubmit={handleDeleteMappingSubmit}
+        isSubmitting={isSubmitting}
+        error={error}
+      />
+      <EditMappingModalContainer
+        group={selectedGroup}
+        isOpen={isEditMappingModalOpen}
+        onClose={onEditMappingModalClose}
+        onSubmit={handleEditMappingSubmit}
         isSubmitting={isSubmitting}
         error={error}
       />
