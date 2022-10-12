@@ -28,7 +28,7 @@ export const EditMappingForm: FC<Props> = ({
     <Formik initialValues={values} onSubmit={onSubmit}>
       {({ values }) => (
         <Form>
-          <Flex>
+          <Flex width={500}>
             <Field name="label">
               {({ field, form }) => (
                 <FormControl
@@ -69,7 +69,7 @@ export const EditMappingForm: FC<Props> = ({
                   {values.entries &&
                     values.entries.length > 0 &&
                     values.entries.map((_, index) => (
-                      <Flex justifyContent="space-between" key={index} mb={3}>
+                      <Flex key={index} mb={3}>
                         <Field name={`entries.${index}.name`}>
                           {({ field }) => (
                             <FormControl>
@@ -89,12 +89,91 @@ export const EditMappingForm: FC<Props> = ({
                             </FormControl>
                           )}
                         </Field>
-                        <Field name={`entries.${index}.code`} key={index}>
+                        <Field name={`entries.${index}.code`}>
                           {({ field }) => (
                             <FormControl>
                               <Input
                                 {...field}
                                 id={`entries.${index}.code`}
+                                type="text"
+                                size="lg"
+                                fontSize="16px"
+                                fontWeight={400}
+                                background="#F6F6F6"
+                                borderRadius={6}
+                                _placeholder={{ color: "gray.500" }}
+                                _hover={{ background: "#e0e0e0" }}
+                                maxW={250}
+                              />
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name={`entries.${index}.svgName`}>
+                          {({ field }) => (
+                            <FormControl>
+                              <Input
+                                {...field}
+                                id={`entries.${index}.svgName`}
+                                type="text"
+                                size="lg"
+                                fontSize="16px"
+                                fontWeight={400}
+                                background="#F6F6F6"
+                                borderRadius={6}
+                                _placeholder={{ color: "gray.500" }}
+                                _hover={{ background: "#e0e0e0" }}
+                                maxW={250}
+                              />
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field
+                          name={`entries.${index}.alternativeNames`}
+                          mr={3}
+                        >
+                          {({ field }) => (
+                            <FormControl>
+                              <Input
+                                {...field}
+                                id={`entries.${index}.svgName`}
+                                type="text"
+                                size="lg"
+                                fontSize="16px"
+                                fontWeight={400}
+                                background="#F6F6F6"
+                                borderRadius={6}
+                                _placeholder={{ color: "gray.500" }}
+                                _hover={{ background: "#e0e0e0" }}
+                                maxW={250}
+                              />
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name={`entries.${index}.prefixes`}>
+                          {({ field }) => (
+                            <FormControl>
+                              <Input
+                                {...field}
+                                id={`entries.${index}.svgName`}
+                                type="text"
+                                size="lg"
+                                fontSize="16px"
+                                fontWeight={400}
+                                background="#F6F6F6"
+                                borderRadius={6}
+                                _placeholder={{ color: "gray.500" }}
+                                _hover={{ background: "#e0e0e0" }}
+                                maxW={250}
+                              />
+                            </FormControl>
+                          )}
+                        </Field>
+                        <Field name={`entries.${index}.grouping`}>
+                          {({ field }) => (
+                            <FormControl>
+                              <Input
+                                {...field}
+                                id={`entries.${index}.svgName`}
                                 type="text"
                                 size="lg"
                                 fontSize="16px"

@@ -25,7 +25,7 @@ export const EditMappingModal: FC<Props> = ({
     isOpen={isOpen}
     onClose={onClose}
     maxHeight={{ base: "100%", md: "700px" }}
-    minWidth="660px"
+    minWidth={1200}
   >
     <Flex padding={10} width="100%" overflow="scroll">
       {error && (
