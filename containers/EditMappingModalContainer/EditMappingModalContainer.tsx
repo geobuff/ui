@@ -3,6 +3,23 @@ import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
 import useMappingEntries from "../../hooks/UseMappingEntries";
 import { EditMappingModal } from "../../components/EditMappingModal/EditMappingModal";
 import { MappingGroup } from "../../types/mapping-group";
+import { MappingEntry } from "../../types/mapping-entry";
+
+const getMapping = (
+  label: string,
+  entries: MappingEntry[]
+): EditMappingGroupSubmit => {
+  return {
+    label: label,
+    entries: entries.map((x) => {
+      return {
+        ...x,
+        alternativeNames: x.alternativeNames.toString(),
+        prefixes: x.prefixes.toString(),
+      };
+    }),
+  };
+};
 
 export interface Props {
   group?: MappingGroup;
@@ -29,10 +46,7 @@ const EditMappingModalContainer: FC<Props> = ({
 
   return (
     <EditMappingModal
-      mapping={{
-        label: group.label,
-        entries: entries,
-      }}
+      mapping={getMapping(group.label, entries)}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={onSubmit}

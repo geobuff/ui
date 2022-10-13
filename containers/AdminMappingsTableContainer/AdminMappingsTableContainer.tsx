@@ -13,18 +13,6 @@ import {
 import { MappingGroup } from "../../types/mapping-group";
 import EditMappingModalContainer from "../EditMappingModalContainer/EditMappingModalContainer";
 
-const handleArrayInput = (value: string | object): string[] => {
-  if (typeof value === "string" || value instanceof String) {
-    return value.split(",");
-  }
-
-  if (Array.isArray(value) && value.length > 0) {
-    return value;
-  }
-
-  return [];
-};
-
 const AdminMappingsTableContainer: FC = () => {
   const toast = useToast();
 
@@ -81,8 +69,8 @@ const AdminMappingsTableContainer: FC = () => {
       entries: values.entries.map((x) => {
         return {
           ...x,
-          alternativeNames: handleArrayInput(x.alternativeNames),
-          prefixes: handleArrayInput(x.prefixes),
+          alternativeNames: x.alternativeNames.split(","),
+          prefixes: x.prefixes.split(","),
         };
       }),
     };
