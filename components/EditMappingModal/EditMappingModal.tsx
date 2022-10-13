@@ -1,4 +1,4 @@
-import { Alert, AlertIcon, Flex } from "@chakra-ui/react";
+import { Alert, AlertIcon, Flex, VStack } from "@chakra-ui/react";
 import React, { FC } from "react";
 import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
 import { EditMappingForm } from "../EditMappingForm/EditMappingForm";
@@ -28,18 +28,20 @@ export const EditMappingModal: FC<Props> = ({
     minWidth={1200}
   >
     <Flex padding={10} width="100%" overflow="scroll">
-      {error && (
-        <Alert status="error" borderRadius={6} marginBottom={3}>
-          <AlertIcon />
-          {error}
-        </Alert>
-      )}
-      <EditMappingForm
-        values={mapping}
-        isSubmitting={isSubmitting}
-        onSubmit={onSubmit}
-        onClose={onClose}
-      />
+      <VStack>
+        {error && (
+          <Alert status="error" borderRadius={6} marginBottom={3}>
+            <AlertIcon />
+            {error}
+          </Alert>
+        )}
+        <EditMappingForm
+          values={mapping}
+          isSubmitting={isSubmitting}
+          onSubmit={onSubmit}
+          onClose={onClose}
+        />
+      </VStack>
     </Flex>
   </Modal>
 );

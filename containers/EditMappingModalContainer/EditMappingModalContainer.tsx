@@ -3,7 +3,6 @@ import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
 import useMappingEntries from "../../hooks/UseMappingEntries";
 import { EditMappingModal } from "../../components/EditMappingModal/EditMappingModal";
 import { MappingGroup } from "../../types/mapping-group";
-import { Spinner } from "@chakra-ui/react";
 
 export interface Props {
   group?: MappingGroup;
@@ -25,7 +24,7 @@ const EditMappingModalContainer: FC<Props> = ({
   const { data: entries, isLoading } = useMappingEntries(group?.key);
 
   if (isLoading) {
-    return <Spinner />;
+    return null;
   }
 
   return (

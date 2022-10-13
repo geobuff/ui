@@ -6,9 +6,24 @@ import AdminMappings from "../../components/AdminMappings";
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import { genericSuccessToast } from "../../helpers/toasts";
 import useMappingGroups from "../../hooks/UseMappingGroups";
-import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
+import {
+  EditMappingGroupPayload,
+  EditMappingGroupSubmit,
+} from "../../types/edit-mapping-group-submit";
 import { MappingGroup } from "../../types/mapping-group";
 import EditMappingModalContainer from "../EditMappingModalContainer/EditMappingModalContainer";
+
+const handleArrayInput = (value: string | object): string[] => {
+  if (typeof value === "string" || value instanceof String) {
+    return value.split(",");
+  }
+
+  if (Array.isArray(value) && value.length > 0) {
+    return value;
+  }
+
+  return [];
+};
 
 const AdminMappingsTableContainer: FC = () => {
   const toast = useToast();
@@ -58,7 +73,33 @@ const AdminMappingsTableContainer: FC = () => {
   };
 
   const handleEditMappingSubmit = (values: EditMappingGroupSubmit): void => {
-    console.log(values);
+    setIsSubmitting(true);
+    setError("");
+
+    const payload: EditMappingGroupPayload = {
+      label: values.label,
+      entries: values.entries.map((x) => {
+        return {
+          ...x,
+          alternativeNames: handleArrayInput(x.alternativeNames),
+          prefixes: handleArrayInput(x.prefixes),
+        };
+      }),
+    };
+
+    axiosClient
+      .put(`mappings/${group}`, payload, session?.authConfig)
+      .then(() => {
+        toast(
+          genericSuccessToast(
+            "Edit Mapping",
+            `Successfully updated ${group} mapping.`
+          )
+        );
+        onEditMappingModalClose();
+      })
+      .catch((error) => setError(error.response.data))
+      .finally(() => setIsSubmitting(false));
   };
 
   return (

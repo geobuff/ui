@@ -72,7 +72,7 @@ export const EditMappingForm: FC<Props> = ({
                       <Flex key={index} mb={3}>
                         <Field name={`entries.${index}.name`}>
                           {({ field }) => (
-                            <FormControl>
+                            <FormControl mr={3}>
                               <Input
                                 {...field}
                                 id={`entries.${index}.name`}
@@ -84,14 +84,14 @@ export const EditMappingForm: FC<Props> = ({
                                 borderRadius={6}
                                 _placeholder={{ color: "gray.500" }}
                                 _hover={{ background: "#e0e0e0" }}
-                                maxW={250}
+                                width={150}
                               />
                             </FormControl>
                           )}
                         </Field>
                         <Field name={`entries.${index}.code`}>
                           {({ field }) => (
-                            <FormControl>
+                            <FormControl mr={3}>
                               <Input
                                 {...field}
                                 id={`entries.${index}.code`}
@@ -103,14 +103,14 @@ export const EditMappingForm: FC<Props> = ({
                                 borderRadius={6}
                                 _placeholder={{ color: "gray.500" }}
                                 _hover={{ background: "#e0e0e0" }}
-                                maxW={250}
+                                width={75}
                               />
                             </FormControl>
                           )}
                         </Field>
                         <Field name={`entries.${index}.svgName`}>
                           {({ field }) => (
-                            <FormControl>
+                            <FormControl mr={3}>
                               <Input
                                 {...field}
                                 id={`entries.${index}.svgName`}
@@ -122,7 +122,7 @@ export const EditMappingForm: FC<Props> = ({
                                 borderRadius={6}
                                 _placeholder={{ color: "gray.500" }}
                                 _hover={{ background: "#e0e0e0" }}
-                                maxW={250}
+                                width={150}
                               />
                             </FormControl>
                           )}
@@ -132,10 +132,10 @@ export const EditMappingForm: FC<Props> = ({
                           mr={3}
                         >
                           {({ field }) => (
-                            <FormControl>
+                            <FormControl mr={3}>
                               <Input
                                 {...field}
-                                id={`entries.${index}.svgName`}
+                                id={`entries.${index}.alternativeNames`}
                                 type="text"
                                 size="lg"
                                 fontSize="16px"
@@ -144,17 +144,17 @@ export const EditMappingForm: FC<Props> = ({
                                 borderRadius={6}
                                 _placeholder={{ color: "gray.500" }}
                                 _hover={{ background: "#e0e0e0" }}
-                                maxW={250}
+                                width={275}
                               />
                             </FormControl>
                           )}
                         </Field>
                         <Field name={`entries.${index}.prefixes`}>
                           {({ field }) => (
-                            <FormControl>
+                            <FormControl mr={3}>
                               <Input
                                 {...field}
-                                id={`entries.${index}.svgName`}
+                                id={`entries.${index}.prefixes`}
                                 type="text"
                                 size="lg"
                                 fontSize="16px"
@@ -163,17 +163,17 @@ export const EditMappingForm: FC<Props> = ({
                                 borderRadius={6}
                                 _placeholder={{ color: "gray.500" }}
                                 _hover={{ background: "#e0e0e0" }}
-                                maxW={250}
+                                width={275}
                               />
                             </FormControl>
                           )}
                         </Field>
                         <Field name={`entries.${index}.grouping`}>
                           {({ field }) => (
-                            <FormControl>
+                            <FormControl mr={3}>
                               <Input
                                 {...field}
-                                id={`entries.${index}.svgName`}
+                                id={`entries.${index}.grouping`}
                                 type="text"
                                 size="lg"
                                 fontSize="16px"
@@ -182,7 +182,7 @@ export const EditMappingForm: FC<Props> = ({
                                 borderRadius={6}
                                 _placeholder={{ color: "gray.500" }}
                                 _hover={{ background: "#e0e0e0" }}
-                                maxW={250}
+                                w={150}
                               />
                             </FormControl>
                           )}
