@@ -12,6 +12,8 @@ interface Props {
   groups?: FlagGroup[];
   setGroup?: React.Dispatch<React.SetStateAction<string>>;
   isLoading?: boolean;
+  onEdit?: () => void;
+  onDelete?: () => void;
 }
 
 const AdminMappings: FC<Props> = ({
@@ -19,6 +21,8 @@ const AdminMappings: FC<Props> = ({
   groups = [],
   setGroup = (): void => {},
   isLoading = false,
+  onEdit = () => {},
+  onDelete = () => {},
 }) => {
   const { data: entries, isLoading: isEntriesLoading } =
     useMappingEntries(group);
@@ -40,7 +44,13 @@ const AdminMappings: FC<Props> = ({
           paddingTop={2}
           paddingBottom={{ base: 1, md: 3 }}
         >
-          <TableHeader heading="Mappings" />
+          <TableHeader
+            heading="Mappings"
+            actions={[
+              { name: "Edit Mapping", callback: onEdit },
+              { name: "Delete Mapping", callback: onDelete },
+            ]}
+          />
 
           <AdminMappingsFilters
             groups={groups}

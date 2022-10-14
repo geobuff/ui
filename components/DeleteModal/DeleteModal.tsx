@@ -4,16 +4,22 @@ import Modal from "../Modal";
 
 export interface Props {
   isOpen?: boolean;
+  header?: string;
+  message?: string;
+  action?: string;
   isSubmitting?: boolean;
-  error?: boolean;
+  error?: string;
   onClose?: () => void;
   onSubmit?: () => void;
 }
 
-const DeleteQuizModal: FC<Props> = ({
+export const DeleteModal: FC<Props> = ({
   isOpen = false,
+  header = "",
+  message = "",
+  action = "Delete",
   isSubmitting = false,
-  error = false,
+  error = "",
   onClose = (): void => {},
   onSubmit = (): void => {},
 }) => {
@@ -28,29 +34,22 @@ const DeleteQuizModal: FC<Props> = ({
         disabled={isSubmitting}
         ml={3}
       >
-        Delete
+        {action}
       </Button>
     </>
   );
 
   return (
-    <Modal
-      isOpen={isOpen}
-      onClose={onClose}
-      header="Delete Quiz"
-      footer={footer}
-    >
+    <Modal isOpen={isOpen} onClose={onClose} header={header} footer={footer}>
       <Box paddingX={6}>
         {error && (
           <Alert status="error" borderRadius={6} marginBottom={3}>
             <AlertIcon />
-            Error deleting quiz. Please refresh page and try again.
+            {error}
           </Alert>
         )}
-        <Text>{`Are you sure you want to delete this quiz? All corresponding quiz plays, leaderboard entries and svg maps will be deleted with it.`}</Text>
+        <Text>{message}</Text>
       </Box>
     </Modal>
   );
 };
-
-export default DeleteQuizModal;

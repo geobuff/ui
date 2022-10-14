@@ -8,7 +8,7 @@ interface Result {
 }
 
 const useMappingEntries = (key: string): Result => {
-  const { data } = useSWR(`/mappings/${key}`, fetcher);
+  const { data } = useSWR(() => (key ? `/mappings/${key}` : null), fetcher);
 
   return {
     data:

@@ -119,8 +119,9 @@ const AdminManualTriviaQuestions: FC<Props> = ({
         >
           <TableHeader
             heading="Manual Trivia Questions"
-            action="Create Question"
-            onClick={onCreateQuestionClick}
+            actions={[
+              { name: "Create Question", callback: onCreateQuestionClick },
+            ]}
           />
 
           <AdminManualTriviaQuestionsFilters
