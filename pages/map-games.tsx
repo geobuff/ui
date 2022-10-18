@@ -42,7 +42,7 @@ export const getStaticProps: GetStaticProps = async () => {
     `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
     {
       page: 0,
-      limit: 100,
+      limit: 150,
       filter: "map",
     }
   );
