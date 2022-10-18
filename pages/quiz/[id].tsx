@@ -98,7 +98,7 @@ export async function getStaticPaths() {
   const body: QuizzesFilterDto = {
     filter: "",
     page: 0,
-    limit: 100,
+    limit: 150,
     orderByPopularity: false,
   };
 
