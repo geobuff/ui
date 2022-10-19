@@ -3,7 +3,7 @@ import { useSession } from "next-auth/react";
 import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminUsersTable from "../../components/AdminUsers";
-import DeleteAccountModal from "../../components/DeleteAccountModal";
+import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import { AuthUser } from "../../types/auth-user";
 import { UserPageDto } from "../../types/user-page-dto";
 import { UsersFilterParams } from "../../types/users-filter-params";
@@ -75,9 +75,10 @@ const AdminUsersContainer: FC = () => {
         isLoading={isLoading}
         onDeleteUser={handleDeleteUser}
       />
-      <DeleteAccountModal
+      <DeleteModal
+        header="Delete Account"
+        message="Are you sure you want to delete this account? You will not be able to recover any of the data once this action is complete."
         isOpen={isDeleteAccountModalOpen}
-        possessive={"this"}
         onClose={onDeleteAccountModalClose}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}

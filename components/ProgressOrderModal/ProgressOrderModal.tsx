@@ -7,7 +7,7 @@ export interface Props {
   previous?: string;
   next?: string;
   isSubmitting?: boolean;
-  error?: boolean;
+  error?: string;
   onClose?: () => void;
   onSubmit?: () => void;
 }
@@ -17,7 +17,7 @@ const ProgressOrderModal: FC<Props> = ({
   previous = "",
   next = "",
   isSubmitting = false,
-  error = false,
+  error = "",
   onClose = (): void => {},
   onSubmit = (): void => {},
 }) => {
@@ -48,7 +48,7 @@ const ProgressOrderModal: FC<Props> = ({
         {error && (
           <Alert status="error" borderRadius={6} marginBottom={3}>
             <AlertIcon />
-            Error updating order. Please refresh page and try again.
+            {error}
           </Alert>
         )}
         <Text>{`Are you sure you want to progress this order from ${previous} to ${next}?`}</Text>

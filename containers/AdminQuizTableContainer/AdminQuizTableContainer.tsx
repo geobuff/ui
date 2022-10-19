@@ -1,9 +1,9 @@
-import { filter, Flex, useDisclosure } from "@chakra-ui/react";
+import { Flex, useDisclosure } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import React, { FC, useEffect, useState } from "react";
 import axiosClient from "../../axios";
 import AdminQuizzes from "../../components/AdminQuizzes";
-import DeleteQuizModal from "../../components/DeleteQuizModal";
+import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import Modal from "../../components/Modal";
 import { Quiz } from "../../types/quiz";
 import { QuizEditValues } from "../../types/quiz-edit-values";
@@ -22,7 +22,7 @@ const AdminQuizTableContainer: FC = () => {
   const [quizPage, setQuizPage] = useState<QuizPageDto>();
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [quizId, setQuizId] = useState(0);
   const [selectedQuiz, setSelectedQuiz] = useState<QuizEditValues>(null);
 
@@ -79,14 +79,14 @@ const AdminQuizTableContainer: FC = () => {
   };
 
   const handleDeleteQuiz = (quizId: number): void => {
-    setError(false);
+    setError("");
     setQuizId(quizId);
     onDeleteQuizModalOpen();
   };
 
   const handleSubmit = (): void => {
     setIsSubmitting(true);
-    setError(false);
+    setError("");
 
     axiosClient
       .delete(`/quizzes/${quizId}`, session?.authConfig)
@@ -97,7 +97,7 @@ const AdminQuizTableContainer: FC = () => {
         });
         onDeleteQuizModalClose();
       })
-      .catch(() => setError(true))
+      .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
 
@@ -112,7 +112,9 @@ const AdminQuizTableContainer: FC = () => {
         onEdit={handleEdit}
         onCreate={handleCreate}
       />
-      <DeleteQuizModal
+      <DeleteModal
+        header="Delete Quiz"
+        message="Are you sure you want to delete this quiz? All corresponding quiz plays, leaderboard entries and svg maps will be deleted with it."
         isOpen={isDeleteQuizModalOpen}
         onClose={onDeleteQuizModalClose}
         onSubmit={handleSubmit}

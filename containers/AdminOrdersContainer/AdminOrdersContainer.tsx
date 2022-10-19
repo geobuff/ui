@@ -4,12 +4,12 @@ import AdminOrdersTable from "../../components/AdminOrdersTable";
 import { OrderStatuses } from "../../types/order-statuses";
 import { OrderPageDto } from "../../types/order-page-dto";
 import { OrdersFilterDto } from "../../types/orders-filter-dto";
-import DeleteOrderModal from "../../components/DeleteOrderModal";
 import ProgressOrderModal from "../../components/ProgressOrderModal";
 import { useDisclosure } from "@chakra-ui/react";
 import { Order } from "../../types/order";
 import OrderItemsModal from "../../components/OrderItemsModal";
 import { useSession } from "next-auth/react";
+import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 
 const AdminOrdersContainer: FC = () => {
   const {
@@ -38,7 +38,7 @@ const AdminOrdersContainer: FC = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [orderId, setOrderId] = useState(0);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [selectedItems, setSelectedItems] = useState([]);
 
   useEffect(() => {
@@ -60,7 +60,7 @@ const AdminOrdersContainer: FC = () => {
   }, [status, session, page, statusId]);
 
   const handleProgressToShipped = (): void => {
-    setError(false);
+    setError("");
     setIsSubmitting(true);
     const payload = { statusId: OrderStatuses.SHIPPED };
 
@@ -73,12 +73,12 @@ const AdminOrdersContainer: FC = () => {
         });
         onProgressOrderModalClose();
       })
-      .catch(() => setError(true))
+      .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
 
   const handleDeleteOrder = (): void => {
-    setError(false);
+    setError("");
     setIsSubmitting(true);
     axiosClient
       .delete(`/orders/${orderId}`, session?.authConfig)
@@ -89,14 +89,14 @@ const AdminOrdersContainer: FC = () => {
         });
         onDeleteOrderModalClose();
       })
-      .catch(() => setError(true))
+      .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
 
   const handleStatusChange = (statusId: number): void => {
     setStatusId(statusId);
     setPage(0);
-    setError(false);
+    setError("");
   };
 
   const handlePreviousPage = (): void => {
@@ -146,7 +146,9 @@ const AdminOrdersContainer: FC = () => {
         onClose={onOrderItemsModalClose}
         items={selectedItems}
       />
-      <DeleteOrderModal
+      <DeleteModal
+        header="Delete Order"
+        message="Are you sure you want to delete this order?"
         isOpen={isDeleteOrderModalOpen}
         onClose={onDeleteOrderModalClose}
         isSubmitting={isSubmitting}

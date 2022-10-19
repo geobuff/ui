@@ -19,11 +19,11 @@ import Twemoji from "../Twemoji";
 import FlagFallback from "../ResultsListItem/FlagFallback";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
-import DeleteAccountModal from "../DeleteAccountModal";
 import axiosClient from "../../axios";
 import { signOut, useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
 import AdminFlag from "../AdminFlag";
+import { DeleteModal } from "../DeleteModal/DeleteModal";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -202,7 +202,9 @@ const UserProfileSummary: FC<Props> = ({
         isOpen={isUserModalOpen}
         onClose={onUserModalClose}
       />
-      <DeleteAccountModal
+      <DeleteModal
+        header="Delete Account"
+        message="Are you sure you want to delete your account? You will not be able to recover any of the data once this action is complete."
         isOpen={isDeleteAccountModalOpen}
         onClose={onDeleteAccountModalClose}
         onSubmit={handleDeleteAccountSubmit}
