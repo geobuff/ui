@@ -18,7 +18,7 @@ import GameCommunityQuizAnswers from "./GameCommunityQuizAnswers";
 import { AppContext } from "../../context/AppContext";
 import { getCommunityQuizScoreMessage } from "../../helpers/clipboard";
 import { useRouter } from "next/router";
-import { copyScoreToast } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 
 export interface Props {
   quiz: GetCommunityQuiz;
@@ -88,7 +88,9 @@ const GameCommunityQuiz: FC<Props> = ({
       asPath
     );
     navigator.clipboard.writeText(message);
-    toast(copyScoreToast());
+    toast(
+      genericToast("Copy Score", "Successfully copied score to clipboard.")
+    );
   };
 
   if (error) {

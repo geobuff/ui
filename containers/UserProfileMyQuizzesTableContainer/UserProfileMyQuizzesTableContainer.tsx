@@ -4,11 +4,7 @@ import React, { FC, useState } from "react";
 import axiosClient from "../../axios";
 import DeleteCommunityQuizModal from "../../components/DeleteCommunityQuizModal";
 import UserProfileMyQuizzesTable from "../../components/UserProfileMyQuizzes/UserProfileMyQuizzesTable";
-
-import {
-  copyCommunityQuizLinkToast,
-  deleteCommunityQuizToast,
-} from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 
 export interface Props {
@@ -48,7 +44,13 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
       .delete(`/community-quizzes/${quizId}`, session?.authConfig)
       .then(() => {
         setMyQuizzes(myQuizzes.filter((x) => x.id !== quizId));
-        toast(deleteCommunityQuizToast());
+        toast(
+          genericToast(
+            "Delete Community Quiz",
+            "Successfully deleted community quiz.",
+            9000
+          )
+        );
         onDeleteQuizModalClose();
       })
       .catch(() => setError(true))
@@ -60,7 +62,12 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
       `${process.env.NEXT_PUBLIC_SITE_URL}/community-quiz/${quizId}`
     );
 
-    toast(copyCommunityQuizLinkToast(name));
+    toast(
+      genericToast(
+        `Copy ${name} Link`,
+        "Successfully copied link to clipboard."
+      )
+    );
   };
 
   return (

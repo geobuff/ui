@@ -4,7 +4,7 @@ import React, { FC, useState } from "react";
 import axiosClient from "../../axios";
 import AdminMappings from "../../components/AdminMappings";
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
-import { genericSuccessToast } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import useMappingGroups from "../../hooks/UseMappingGroups";
 import {
   EditMappingGroupPayload,
@@ -48,7 +48,7 @@ const AdminMappingsTableContainer: FC = () => {
       .delete(`/mappings/${group}`, session?.authConfig)
       .then(() => {
         toast(
-          genericSuccessToast(
+          genericToast(
             "Delete Mapping",
             `Successfully deleted the ${group} mapping.`
           )
@@ -79,10 +79,7 @@ const AdminMappingsTableContainer: FC = () => {
       .put(`mappings/${group}`, payload, session?.authConfig)
       .then(() => {
         toast(
-          genericSuccessToast(
-            "Edit Mapping",
-            `Successfully updated ${group} mapping.`
-          )
+          genericToast("Edit Mapping", `Successfully updated ${group} mapping.`)
         );
         onEditMappingModalClose();
       })
