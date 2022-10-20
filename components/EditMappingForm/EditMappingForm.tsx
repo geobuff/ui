@@ -1,15 +1,33 @@
 import React, { FC } from "react";
+import * as Yup from "yup";
+
 import {
+  Box,
   Button,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
   Input,
+  VStack,
 } from "@chakra-ui/react";
 
 import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
 import { Field, FieldArray, Form, Formik } from "formik";
+import { FieldArrayErrorMessage } from "../FieldArrayErrorMessage/FieldArrayErrorMessage";
+
+const validationSchema = Yup.object().shape({
+  label: Yup.string().required("Please enter a group label."),
+  entries: Yup.array().of(
+    Yup.object().shape({
+      name: Yup.string().required("Please enter a name for mapping entry."),
+      code: Yup.string().required("Please enter a code for mapping entry."),
+      svgName: Yup.string().required(
+        "Please enter a svg name for mapping entry."
+      ),
+    })
+  ),
+});
 
 export interface Props {
   values: EditMappingGroupSubmit;
@@ -25,7 +43,11 @@ export const EditMappingForm: FC<Props> = ({
   onClose = () => {},
 }) => {
   return (
-    <Formik initialValues={values} onSubmit={onSubmit}>
+    <Formik
+      initialValues={values}
+      onSubmit={onSubmit}
+      validationSchema={validationSchema}
+    >
       {({ values }) => (
         <Form>
           <Flex width={500}>
@@ -70,123 +92,137 @@ export const EditMappingForm: FC<Props> = ({
                     values.entries.length > 0 &&
                     values.entries.map((_, index) => (
                       <Flex key={index} mb={3}>
-                        <Field name={`entries.${index}.name`}>
-                          {({ field }) => (
-                            <FormControl mr={3}>
-                              <Input
-                                {...field}
-                                id={`entries.${index}.name`}
-                                type="text"
-                                size="lg"
-                                fontSize="16px"
-                                fontWeight={400}
-                                background="#F6F6F6"
-                                borderRadius={6}
-                                _placeholder={{ color: "gray.500" }}
-                                _hover={{ background: "#e0e0e0" }}
-                                width={150}
-                              />
-                            </FormControl>
-                          )}
-                        </Field>
-                        <Field name={`entries.${index}.code`}>
-                          {({ field }) => (
-                            <FormControl mr={3}>
-                              <Input
-                                {...field}
-                                id={`entries.${index}.code`}
-                                type="text"
-                                size="lg"
-                                fontSize="16px"
-                                fontWeight={400}
-                                background="#F6F6F6"
-                                borderRadius={6}
-                                _placeholder={{ color: "gray.500" }}
-                                _hover={{ background: "#e0e0e0" }}
-                                width={75}
-                              />
-                            </FormControl>
-                          )}
-                        </Field>
-                        <Field name={`entries.${index}.svgName`}>
-                          {({ field }) => (
-                            <FormControl mr={3}>
-                              <Input
-                                {...field}
-                                id={`entries.${index}.svgName`}
-                                type="text"
-                                size="lg"
-                                fontSize="16px"
-                                fontWeight={400}
-                                background="#F6F6F6"
-                                borderRadius={6}
-                                _placeholder={{ color: "gray.500" }}
-                                _hover={{ background: "#e0e0e0" }}
-                                width={150}
-                              />
-                            </FormControl>
-                          )}
-                        </Field>
-                        <Field
-                          name={`entries.${index}.alternativeNames`}
-                          mr={3}
-                        >
-                          {({ field }) => (
-                            <FormControl mr={3}>
-                              <Input
-                                {...field}
-                                id={`entries.${index}.alternativeNames`}
-                                type="text"
-                                size="lg"
-                                fontSize="16px"
-                                fontWeight={400}
-                                background="#F6F6F6"
-                                borderRadius={6}
-                                _placeholder={{ color: "gray.500" }}
-                                _hover={{ background: "#e0e0e0" }}
-                                width={275}
-                              />
-                            </FormControl>
-                          )}
-                        </Field>
-                        <Field name={`entries.${index}.prefixes`}>
-                          {({ field }) => (
-                            <FormControl mr={3}>
-                              <Input
-                                {...field}
-                                id={`entries.${index}.prefixes`}
-                                type="text"
-                                size="lg"
-                                fontSize="16px"
-                                fontWeight={400}
-                                background="#F6F6F6"
-                                borderRadius={6}
-                                _placeholder={{ color: "gray.500" }}
-                                _hover={{ background: "#e0e0e0" }}
-                                width={275}
-                              />
-                            </FormControl>
-                          )}
-                        </Field>
-                        <Field name={`entries.${index}.grouping`}>
-                          {({ field }) => (
-                            <FormControl mr={3}>
-                              <Input
-                                {...field}
-                                id={`entries.${index}.grouping`}
-                                type="text"
-                                size="lg"
-                                fontSize="16px"
-                                fontWeight={400}
-                                background="#F6F6F6"
-                                borderRadius={6}
-                                _placeholder={{ color: "gray.500" }}
-                                _hover={{ background: "#e0e0e0" }}
-                                w={150}
-                              />
-                            </FormControl>
-                          )}
-                        </Field>
+                        <VStack>
+                          <Flex>
+                            <Field name={`entries.${index}.name`}>
+                              {({ field }) => (
+                                <FormControl mr={3}>
+                                  <Input
+                                    {...field}
+                                    id={`entries.${index}.name`}
+                                    type="text"
+                                    size="lg"
+                                    fontSize="16px"
+                                    fontWeight={400}
+                                    background="#F6F6F6"
+                                    borderRadius={6}
+                                    _placeholder={{ color: "gray.500" }}
+                                    _hover={{ background: "#e0e0e0" }}
+                                    width={150}
+                                  />
+                                </FormControl>
+                              )}
+                            </Field>
+                            <Field name={`entries.${index}.code`}>
+                              {({ field }) => (
+                                <FormControl mr={3}>
+                                  <Input
+                                    {...field}
+                                    id={`entries.${index}.code`}
+                                    type="text"
+                                    size="lg"
+                                    fontSize="16px"
+                                    fontWeight={400}
+                                    background="#F6F6F6"
+                                    borderRadius={6}
+                                    _placeholder={{ color: "gray.500" }}
+                                    _hover={{ background: "#e0e0e0" }}
+                                    width={75}
+                                  />
+                                </FormControl>
+                              )}
+                            </Field>
+                            <Field name={`entries.${index}.svgName`}>
+                              {({ field }) => (
+                                <FormControl mr={3}>
+                                  <Input
+                                    {...field}
+                                    id={`entries.${index}.svgName`}
+                                    type="text"
+                                    size="lg"
+                                    fontSize="16px"
+                                    fontWeight={400}
+                                    background="#F6F6F6"
+                                    borderRadius={6}
+                                    _placeholder={{ color: "gray.500" }}
+                                    _hover={{ background: "#e0e0e0" }}
+                                    width={150}
+                                  />
+                                </FormControl>
+                              )}
+                            </Field>
+                            <Field
+                              name={`entries.${index}.alternativeNames`}
+                              mr={3}
+                            >
+                              {({ field }) => (
+                                <FormControl mr={3}>
+                                  <Input
+                                    {...field}
+                                    id={`entries.${index}.alternativeNames`}
+                                    type="text"
+                                    size="lg"
+                                    fontSize="16px"
+                                    fontWeight={400}
+                                    background="#F6F6F6"
+                                    borderRadius={6}
+                                    _placeholder={{ color: "gray.500" }}
+                                    _hover={{ background: "#e0e0e0" }}
+                                    width={275}
+                                  />
+                                </FormControl>
+                              )}
+                            </Field>
+                            <Field name={`entries.${index}.prefixes`}>
+                              {({ field }) => (
+                                <FormControl mr={3}>
+                                  <Input
+                                    {...field}
+                                    id={`entries.${index}.prefixes`}
+                                    type="text"
+                                    size="lg"
+                                    fontSize="16px"
+                                    fontWeight={400}
+                                    background="#F6F6F6"
+                                    borderRadius={6}
+                                    _placeholder={{ color: "gray.500" }}
+                                    _hover={{ background: "#e0e0e0" }}
+                                    width={275}
+                                  />
+                                </FormControl>
+                              )}
+                            </Field>
+                            <Field name={`entries.${index}.grouping`}>
+                              {({ field }) => (
+                                <FormControl mr={3}>
+                                  <Input
+                                    {...field}
+                                    id={`entries.${index}.grouping`}
+                                    type="text"
+                                    size="lg"
+                                    fontSize="16px"
+                                    fontWeight={400}
+                                    background="#F6F6F6"
+                                    borderRadius={6}
+                                    _placeholder={{ color: "gray.500" }}
+                                    _hover={{ background: "#e0e0e0" }}
+                                    w={150}
+                                  />
+                                </FormControl>
+                              )}
+                            </Field>
+                          </Flex>
+
+                          <FieldArrayErrorMessage
+                            name={`entries[${index}].name`}
+                          />
+                          <FieldArrayErrorMessage
+                            name={`entries[${index}].code`}
+                          />
+                          <FieldArrayErrorMessage
+                            name={`entries[${index}].svgName`}
+                          />
+                        </VStack>
                       </Flex>
                     ))}
                 </div>
