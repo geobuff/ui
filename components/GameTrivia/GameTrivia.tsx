@@ -14,7 +14,7 @@ import { TriviaAnswer } from "../../types/trivia-answer";
 import { Trivia } from "../../types/trivia";
 import { useRouter } from "next/router";
 import { getTriviaScoreMessage } from "../../helpers/clipboard";
-import { copyScoreToast } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import dynamic from "next/dynamic";
 
 const GameTriviaGameOver = dynamic(() => import("./GameTriviaGameOver"));
@@ -70,7 +70,9 @@ const GameTrivia: FC<Props> = ({
       asPath
     );
     navigator.clipboard.writeText(message);
-    toast(copyScoreToast());
+    toast(
+      genericToast("Copy Score", "Successfully copied score to clipboard.")
+    );
   };
 
   const handlePlayAgain = () => {

@@ -4,7 +4,7 @@ import { useToast, useBreakpointValue, ToastPosition } from "@chakra-ui/react";
 import UpdateUserFormModal from "../../components/UpdateUserFormModal";
 
 import axiosClient from "../../axios/axiosClient";
-import { userUpdated } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 import { AppContext } from "../../context/AppContext";
 import { useSession } from "next-auth/react";
@@ -59,7 +59,14 @@ const UpdateUserFormContainer: FC<Props> = ({
         });
 
         onClose();
-        toast(userUpdated(toastPosition));
+        toast(
+          genericToast(
+            "User Updated",
+            "Successfully updated user details.",
+            9000,
+            toastPosition
+          )
+        );
       })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));

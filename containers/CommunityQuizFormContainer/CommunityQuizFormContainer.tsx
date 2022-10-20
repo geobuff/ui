@@ -3,7 +3,7 @@ import { useToast } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
 import axiosClient from "../../axios/axiosClient";
-import { createCommunityQuizToast } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 
 import CommunityQuizForm from "../../components/CommunityQuizForm";
@@ -92,7 +92,13 @@ const CommunityQuizFormContainer: FC = () => {
     axiosClient
       .post(`/community-quizzes`, payload, session?.authConfig)
       .then(() => {
-        toast(createCommunityQuizToast());
+        toast(
+          genericToast(
+            "Create Community Quiz",
+            "Successfully created community quiz.",
+            9000
+          )
+        );
         router.push(`/profile/${user?.id}`);
       })
       .catch((error) => setError(error.response.data))

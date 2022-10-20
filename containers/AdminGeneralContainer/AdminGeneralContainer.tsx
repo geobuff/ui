@@ -4,13 +4,7 @@ import axiosClient from "../../axios";
 import AdminGeneral from "../../components/AdminGeneral";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 
-import {
-  bulkUploadToast,
-  clearOldTriviaToast,
-  createTriviaToast,
-  deployUIToast,
-  regenerateTriviaToast,
-} from "../../helpers/toasts";
+import { deployUIToast, genericToast } from "../../helpers/toasts";
 import { BackgroundTaskKey } from "../../types/background-task";
 import { useSession } from "next-auth/react";
 import BulkUploadModal from "../../components/BulkUploadModal";
@@ -90,7 +84,15 @@ const AdminGeneralContainer: FC = () => {
     axiosClient
       .post("/trivia")
       .then(() => {
-        toast(createTriviaToast(DateTime.now().toFormat("yyyy-MM-dd")));
+        toast(
+          genericToast(
+            "Created Trivia",
+            `Successfully created trivia for ${DateTime.now().toFormat(
+              "yyyy-MM-dd"
+            )}.`,
+            9000
+          )
+        );
       })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
@@ -106,7 +108,12 @@ const AdminGeneralContainer: FC = () => {
     axiosClient
       .put(`/trivia/${dateString}`, null, session?.authConfig)
       .then(() => {
-        toast(regenerateTriviaToast(dateString));
+        toast(
+          genericToast(
+            "Regenerate Trivia",
+            `Successfully created new trivia for ${dateString}.`
+          )
+        );
         setRegenerateDate("");
       })
       .catch((error) => setError(error.response.data))
@@ -120,7 +127,13 @@ const AdminGeneralContainer: FC = () => {
     axiosClient
       .delete(`/trivia/old/${NEW_TRIVIA_COUNT}`, session?.authConfig)
       .then(() => {
-        toast(clearOldTriviaToast(NEW_TRIVIA_COUNT));
+        toast(
+          genericToast(
+            "Clear Old Trivia",
+            `Successfully deleted all trivia older than ${NEW_TRIVIA_COUNT} days old.`,
+            9000
+          )
+        );
       })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
@@ -139,7 +152,12 @@ const AdminGeneralContainer: FC = () => {
 
           await delay(1000);
         }
-        toast(bulkUploadToast(BulkUploadType.ManualTrivia));
+        toast(
+          genericToast(
+            "Bulk Upload",
+            "Successfully parsed and uploaded manual trivia questions."
+          )
+        );
       } catch (error) {
         setError(error.message);
       }
@@ -179,7 +197,12 @@ const AdminGeneralContainer: FC = () => {
       axiosClient
         .post("/community-quizzes", payload, session?.authConfig)
         .then(() => {
-          toast(bulkUploadToast(BulkUploadType.CommunityQuiz));
+          toast(
+            genericToast(
+              "Bulk Upload",
+              "Successfully parsed and uploaded community quiz."
+            )
+          );
           onClose();
         })
         .catch((error) => setError(error.response.data))

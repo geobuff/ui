@@ -2,13 +2,9 @@ import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import React, { FC, useState } from "react";
 import axiosClient from "../../axios";
-import DeleteCommunityQuizModal from "../../components/DeleteCommunityQuizModal";
+import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import UserProfileMyQuizzesTable from "../../components/UserProfileMyQuizzes/UserProfileMyQuizzesTable";
-
-import {
-  copyCommunityQuizLinkToast,
-  deleteCommunityQuizToast,
-} from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 
 export interface Props {
@@ -25,7 +21,7 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
 
   const [myQuizzes, setMyQuizzes] = useState(quizzes);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState(false);
+  const [error, setError] = useState("");
   const [quizId, setQuizId] = useState(0);
 
   const {
@@ -35,23 +31,29 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
   } = useDisclosure();
 
   const handleDeleteQuiz = (quizId: number): void => {
-    setError(false);
+    setError("");
     setQuizId(quizId);
     onDeleteQuizModalOpen();
   };
 
   const handleSubmit = (): void => {
     setIsSubmitting(true);
-    setError(false);
+    setError("");
 
     axiosClient
       .delete(`/community-quizzes/${quizId}`, session?.authConfig)
       .then(() => {
         setMyQuizzes(myQuizzes.filter((x) => x.id !== quizId));
-        toast(deleteCommunityQuizToast());
+        toast(
+          genericToast(
+            "Delete Community Quiz",
+            "Successfully deleted community quiz.",
+            9000
+          )
+        );
         onDeleteQuizModalClose();
       })
-      .catch(() => setError(true))
+      .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
   };
 
@@ -60,7 +62,12 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
       `${process.env.NEXT_PUBLIC_SITE_URL}/community-quiz/${quizId}`
     );
 
-    toast(copyCommunityQuizLinkToast(name));
+    toast(
+      genericToast(
+        `Copy ${name} Link`,
+        "Successfully copied link to clipboard."
+      )
+    );
   };
 
   return (
@@ -71,7 +78,9 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
         onDeleteQuiz={handleDeleteQuiz}
         onCopyLink={handleCopyLink}
       />
-      <DeleteCommunityQuizModal
+      <DeleteModal
+        header="Delete Community Quiz"
+        message="Are you sure you want to delete this quiz? All corresponding questions, answers and quiz plays will be deleted with it."
         isOpen={isDeleteQuizModalOpen}
         onClose={onDeleteQuizModalClose}
         onSubmit={handleSubmit}

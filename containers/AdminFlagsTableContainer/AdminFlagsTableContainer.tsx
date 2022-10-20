@@ -6,7 +6,7 @@ import CreateFlagsModal from "../../components/CreateFlagsModal";
 import { FlagsFormSubmit } from "../../types/flags-form-submit";
 import axiosClient from "../../axios";
 import { useSession } from "next-auth/react";
-import { createFlagsToast } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 
 const AdminFlagsTableContainer: FC = () => {
   const toast = useToast();
@@ -25,7 +25,7 @@ const AdminFlagsTableContainer: FC = () => {
     axiosClient
       .post("/flags", values, session?.authConfig)
       .then(() => {
-        toast(createFlagsToast());
+        toast(genericToast("Create Flags", "Successfully created new flags."));
         onClose();
       })
       .catch((error) => setError(error.response.data))

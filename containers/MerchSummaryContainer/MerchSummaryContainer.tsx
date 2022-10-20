@@ -2,7 +2,7 @@ import React, { FC, useContext, useState } from "react";
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 
 import MerchSummary from "../../components/MerchSummary";
-import { addedToCart } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import useMerch from "../../hooks/UseMerch";
 import MerchSummaryPlaceholder from "../../placeholders/MerchSummaryPlaceholder";
 import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";
@@ -54,7 +54,14 @@ const MerchSummaryContainer: FC<Props> = ({ route = "" }) => {
 
     setIsSubmitting(false);
     setSubmitted(true);
-    toast(addedToCart(toastPosition));
+    toast(
+      genericToast(
+        "Item Added to Cart",
+        "Successfully added item to cart.",
+        9000,
+        toastPosition
+      )
+    );
   };
 
   if (isMerchLoading || isCartLoading) {

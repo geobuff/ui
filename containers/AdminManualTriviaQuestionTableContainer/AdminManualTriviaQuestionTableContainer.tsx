@@ -5,7 +5,7 @@ import axios from "../../axios";
 import axiosClient from "../../axios";
 import AdminManualTriviaQuestions from "../../components/AdminManualTriviaQuestions";
 import CreateEditTriviaQuestionModal from "../../components/CreateEditTriviaQuestionModal";
-import DeleteTriviaQuestionModal from "../../components/DeleteTriviaQuestionModal";
+import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import { manualTriviaQuestionToast } from "../../helpers/toasts";
 import useMaps from "../../hooks/UseMaps";
 import useTriviaQuestionCategories from "../../hooks/UseTriviaQuestionCategories";
@@ -291,7 +291,9 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         onEditQuestionClick={handleEditQuestionClick}
         onDeleteQuestionClick={handleDeleteQuestion}
       />
-      <DeleteTriviaQuestionModal
+      <DeleteModal
+        header="Delete Manual Trivia Question"
+        message="Are you sure you want to delete this manual trivia question? All corresponding answers will be deleted with it."
         isOpen={isDeleteQuestionModalOpen}
         onClose={onDeleteQuestionModalClose}
         onSubmit={handleDeleteSubmit}

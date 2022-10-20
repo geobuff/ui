@@ -2,7 +2,7 @@ import React, { FC, useContext, useState } from "react";
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 import axiosClient from "../../axios";
 
-import { avatarUpdated } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
 import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
 import { AppContext } from "../../context/AppContext";
@@ -59,7 +59,14 @@ const UpdateAvatarFormContainer: FC<Props> = ({
         });
 
         onClose();
-        toast(avatarUpdated(toastPosition));
+        toast(
+          genericToast(
+            "Avatar Updated",
+            "Successfully updated user avatar.",
+            9000,
+            toastPosition
+          )
+        );
       })
       .catch((error) => setError(error.response.data))
       .finally(() => setIsSubmitting(false));
