@@ -21,6 +21,7 @@ import ShoppingCartLink from "../ShoppingCartLink";
 import { insert } from "../../helpers/array";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
+import LanguageSelect from "../LanguageSelect/LanguageSelect";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -188,6 +189,8 @@ const NavigationSidebar: FC<Props> = ({
                 ))}
               </Flex>
             </Flex>
+
+            <LanguageSelect mt={6} />
 
             {!user && (
               <Flex width="100%" direction="column" marginY={2}>

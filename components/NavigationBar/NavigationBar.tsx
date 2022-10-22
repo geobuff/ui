@@ -12,11 +12,13 @@ import ShoppingCartLink from "../ShoppingCartLink";
 
 import { AppContext } from "../../context/AppContext";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import LanguageSelect from "../LanguageSelect/LanguageSelect";
 
 const UserAvatarMenu = dynamic(() => import("../UserAvatarMenu"));
 
 const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const isLarge = useBreakpointValue({ base: false, lg: true });
   const { route } = useRouter();
 
   const [zIndex, setZIndex] = useState(5);
@@ -68,39 +70,37 @@ const NavigationBar: FC = () => {
           marginLeft={6}
         />
 
-        <NavigationBarLink
-          href="/map-games"
-          label="Map"
-          isActive={route === "/map-games"}
-          marginLeft={6}
-        />
+        {isLarge && (
+          <>
+            <NavigationBarLink
+              href="/map-games"
+              label="Map"
+              isActive={route === "/map-games"}
+              marginLeft={6}
+            />
 
-        <NavigationBarLink
-          href="/flag-games"
-          label="Flag"
-          isActive={route === "/flag-games"}
-          marginLeft={6}
-        />
+            <NavigationBarLink
+              href="/flag-games"
+              label="Flag"
+              isActive={route === "/flag-games"}
+              marginLeft={6}
+            />
 
-        <NavigationBarLink
-          href="/resources"
-          label="Resources"
-          isActive={route.includes("/resources")}
-          marginLeft={6}
-        />
+            <NavigationBarLink
+              href="/resources"
+              label="Resources"
+              isActive={route.includes("/resources")}
+              marginLeft={6}
+            />
 
-        <NavigationBarLink
-          href="/merch"
-          label="Merch"
-          isActive={route.includes("/merch")}
-          marginLeft={6}
-        />
-        <NavigationBarLink
-          href="/blog"
-          label="Blog"
-          isActive={route.includes("/blog")}
-          marginLeft={6}
-        />
+            <NavigationBarLink
+              href="/merch"
+              label="Merch"
+              isActive={route.includes("/merch")}
+              marginLeft={6}
+            />
+          </>
+        )}
       </Flex>
 
       <Flex alignItems="center">
@@ -110,6 +110,7 @@ const NavigationBar: FC = () => {
           </Fade>
         )}
         <UserAvatarMenu />
+        <LanguageSelect ml={3} />
       </Flex>
     </Flex>
   );

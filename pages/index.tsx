@@ -4,7 +4,6 @@ import { debounce } from "throttle-debounce";
 import axios from "axios";
 import axiosClient from "../axios";
 import dynamic from "next/dynamic";
-import Head from "next/head";
 
 import { Box, useBreakpointValue } from "@chakra-ui/react";
 import { DateTime } from "luxon";
