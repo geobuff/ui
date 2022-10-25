@@ -76,7 +76,7 @@ const NavigationBar: FC = () => {
           <>
             <NavigationBarLink
               href="/map-games"
-              label={t.navigation.map}
+              label={t.global.map}
               isActive={route === "/map-games"}
               marginLeft={6}
             />
@@ -90,14 +90,14 @@ const NavigationBar: FC = () => {
 
             <NavigationBarLink
               href="/resources"
-              label={t.navigation.resources}
+              label={t.global.resources}
               isActive={route.includes("/resources")}
               marginLeft={6}
             />
 
             <NavigationBarLink
               href="/merch"
-              label={t.navigation.merch}
+              label={t.global.merch}
               isActive={route.includes("/merch")}
               marginLeft={6}
             />

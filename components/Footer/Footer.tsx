@@ -128,7 +128,7 @@ const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
     },
     {
       href: "/resources",
-      text: t.navigation.resources,
+      text: t.global.resources,
       isExternal: false,
     },
     {

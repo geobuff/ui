@@ -83,17 +83,17 @@ const NavigationSidebar: FC<Props> = ({
     },
     {
       href: "/resources",
-      label: t.navigation.resources,
+      label: t.global.resources,
       emoji: "🧰",
     },
     {
       href: "/merch",
-      label: t.navigation.merch,
+      label: t.global.merch,
       emoji: "👕",
     },
     {
       href: "/blog",
-      label: t.navigation.blog,
+      label: t.global.blog,
       emoji: "🗞️",
     },
   ];

@@ -11,10 +11,18 @@ export default {
     flagGamesUpper: "Marcar juegos",
     flagGamesLower: "marcar juegos",
     leaderboard: "Tabla de clasificación",
+    resources: "Recursos",
+    merch: "Mercancías",
+    blog: "Blog",
     perPage: "Por Página",
     previous: "Previo",
     next: "Próximo",
     noQuizzesAlert: "No hay cuestionarios para mostrar.",
+    map: "Mapa",
+    maps: "Mapas",
+    flags: "Banderas",
+    mappings: "Asignaciones",
+    view: "Vista",
   },
   navigation: {
     home: "Hogar",
@@ -25,11 +33,7 @@ export default {
     logout: "Cerrar sesión",
     trivia: "Trivialidades",
     community: "Comunidad",
-    map: "Mapa",
     flag: "Bandera",
-    resources: "Recursos",
-    merch: "Mercancías",
-    blog: "Blog",
     ourMission: "Nuestra misión",
     ourValues: "Nuestros valores",
     meetTheTeam: "Conocer al equipo",
@@ -91,6 +95,18 @@ export default {
       "¡Cree el suyo usando nuestro creador de cuestionarios personalizados!",
     upsellLearnMore:
       "¡Aprenda más sobre nuestro creador de cuestionarios personalizados!",
+  },
+  resources: {
+    title: "¿Te gusta lo que ves?",
+    descriptionOne: "Póngase en contacto con el equipo en ",
+    descriptionTwo:
+      " para obtener más información sobre cómo conectarse a nuestra API y utilizar nuestros recursos en su propio proyecto.",
+    mapDescription:
+      "El componente React utilizado para mostrar nuestros mapas.",
+    mapsDescription: "Nuestra colección de mapas SVG de uso gratuito.",
+    flagsDescription: "Nuestra colección de URL de marca de uso gratuito.",
+    mappingsDescription:
+      "La colección de asignaciones que impulsan nuestros juegos.",
   },
   footer: {
     company: "Compañía",

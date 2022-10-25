@@ -1,47 +1,49 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Button, Divider, Flex, Heading, Link, Text } from "@chakra-ui/react";
 import MainView from "../../components/MainView";
 import Head from "next/head";
 import HeroHeader from "../../components/HeroHeader";
 import Card from "../../components/Card";
 import { useRouter } from "next/router";
-
-const resources = [
-  {
-    title: "Map",
-    subtitle: "The React component used to display our maps.",
-    href: "https://github.com/geobuff/svg-map",
-  },
-  {
-    title: "Maps",
-    subtitle: "Our collection of free-to-use SVG maps.",
-    href: "/resources/maps",
-  },
-  {
-    title: "Flags",
-    subtitle: "Our collection of free-to-use flag urls.",
-    href: "/resources/flags",
-  },
-  {
-    title: "Mappings",
-    subtitle: "The collection of mappings that drive our games.",
-    href: "/resources/mappings",
-  },
-];
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const Resources: FC = () => {
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
+
+  const resources = [
+    {
+      title: t.global.map,
+      subtitle: t.resources.mapDescription,
+      href: "https://github.com/geobuff/svg-map",
+    },
+    {
+      title: t.global.maps,
+      subtitle: t.resources.mapsDescription,
+      href: "/resources/maps",
+    },
+    {
+      title: t.global.flags,
+      subtitle: t.resources.flagsDescription,
+      href: "/resources/flags",
+    },
+    {
+      title: t.global.mappings,
+      subtitle: t.resources.mappingsDescription,
+      href: "/resources/mappings",
+    },
+  ];
 
   return (
     <MainView>
       <Head>
-        <title>Resources - GeoBuff</title>
+        <title>{`${t.global.resources} - GeoBuff`}</title>
         <meta
           name="description"
           content="Like what you see? Get in touch with the team at teamgeobuff@gmail.com to find out more about hooking into our API and utilizing our resources in your own project."
         />
       </Head>
-      <HeroHeader heading="Resources" />
+      <HeroHeader heading={t.global.resources} />
       <Flex
         direction="column"
         height="100%"
@@ -54,13 +56,15 @@ const Resources: FC = () => {
         justifyContent="center"
       >
         <Card marginY={{ base: 3, md: 10 }} padding={6}>
-          <Heading size="md" mb={3}>{`Like what you see?`}</Heading>
+          <Heading size="md" mb={3}>
+            {t.resources.title}
+          </Heading>
           <Text mb={6}>
-            {`Get in touch with the team at `}
+            {t.resources.descriptionOne}
             <Link href="mailto: teamgeobuff@gmail.com">
               teamgeobuff@gmail.com
             </Link>
-            {` to find out more about hooking into our API and utilizing our resources in your own project.`}
+            {t.resources.descriptionTwo}
           </Text>
           {resources.map((resource, index) => (
             <React.Fragment key={index}>
@@ -88,7 +92,7 @@ const Resources: FC = () => {
                   width="100px"
                   my={{ base: 3, md: 0 }}
                 >
-                  {"View"}
+                  {t.global.view}
                 </Button>
               </Flex>
             </React.Fragment>
