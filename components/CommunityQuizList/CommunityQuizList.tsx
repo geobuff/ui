@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Alert,
@@ -14,6 +14,7 @@ import DelayedRender from "../DelayedRender";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import CommunityQuizCard from "../CommunityQuizCard";
 import { useSession } from "next-auth/react";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -21,13 +22,15 @@ export interface Props {
 
 const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
   const { status } = useSession();
+  const { t } = useContext(LanguageContext);
+
   const containerMaxWidth = quizzes.length < 5 ? 1000 : 1400;
 
   if (quizzes.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
         <AlertIcon />
-        {`No community quizzes to display.`}
+        {t.communityQuizList.noQuizzesAlert}
       </Alert>
     );
   }
@@ -52,14 +55,14 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
       >
         <AlertIcon />
         <Text>
-          {"Like what you see? "}
+          {t.communityQuizList.upsellPre}
           {status === "authenticated" ? (
             <Link href="/community-quiz/create">
-              {"Create your own using our custom quiz builder!"}
+              {t.communityQuizList.upsellAuthenticatedAction}
             </Link>
           ) : (
             <Link href="/create/community-quizzes">
-              {"Learn more about our custom quiz builder!"}
+              {t.communityQuizList.upsellLearnMore}
             </Link>
           )}
         </Text>

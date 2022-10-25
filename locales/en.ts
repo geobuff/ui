@@ -10,6 +10,7 @@ export default {
     mapGamesLower: "map games",
     flagGamesUpper: "Flag Games",
     flagGamesLower: "flag games",
+    leaderboard: "Leaderboard",
     perPage: "Per Page",
     previous: "Previous",
     next: "Next",
@@ -21,7 +22,6 @@ export default {
     profile: "Profile",
     myOrders: "My Orders",
     logout: "Logout",
-    leaderboard: "Leaderboard",
     trivia: "Trivia",
     community: "Community",
     map: "Map",
@@ -78,6 +78,15 @@ export default {
     username: "USERNAME",
     time: "TIME",
     score: "SCORE",
+  },
+  triviaList: {
+    noTriviaAlert: "No trivia to display.",
+  },
+  communityQuizList: {
+    noQuizzesAlert: "No quizzes to display.",
+    upsellPre: "Like what you see? ",
+    upsellAuthenticatedAction: "Create your own using our custom quiz builder!",
+    upsellLearnMore: "Learn more about our custom quiz builder!",
   },
   footer: {
     company: "Company",

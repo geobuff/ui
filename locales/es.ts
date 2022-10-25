@@ -10,6 +10,7 @@ export default {
     mapGamesLower: "juegos de mapas",
     flagGamesUpper: "Marcar juegos",
     flagGamesLower: "marcar juegos",
+    leaderboard: "Tabla de clasificación",
     perPage: "Por Página",
     previous: "Previo",
     next: "Próximo",
@@ -21,7 +22,6 @@ export default {
     profile: "Perfil",
     myOrders: "Mis ordenes",
     logout: "Cerrar sesión",
-    leaderboard: "Tabla de clasificación",
     trivia: "Trivialidades",
     community: "Comunidad",
     map: "Mapa",
@@ -80,6 +80,17 @@ export default {
     username: "NOMBRE DE USUARIO",
     time: "TIEMPO",
     score: "PUNTAJE",
+  },
+  triviaList: {
+    noTriviaAlert: "No hay curiosidades para mostrar.",
+  },
+  communityQuizList: {
+    noQuizzesAlert: "No hay cuestionarios para mostrar.",
+    upsellPre: "¿Te gusta lo que ves? ",
+    upsellAuthenticatedAction:
+      "¡Cree el suyo usando nuestro creador de cuestionarios personalizados!",
+    upsellLearnMore:
+      "¡Aprenda más sobre nuestro creador de cuestionarios personalizados!",
   },
   footer: {
     company: "Compañía",

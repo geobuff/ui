@@ -32,7 +32,7 @@ const LeaderboardHeader: FC<Props> = ({ isLoading = false, ...props }) => {
           fontSize={{ base: "28px", sm: "36px", md: "48px" }}
           fontWeight="bold"
         >
-          {t.navigation.leaderboard}
+          {t.global.leaderboard}
         </Heading>
       </Box>
       <Fade in={isLoading} unmountOnExit>

@@ -53,7 +53,7 @@ const NavigationBar: FC = () => {
 
         <NavigationBarLink
           href="/leaderboard"
-          label={t.navigation.leaderboard}
+          label={t.global.leaderboard}
           isActive={route === "/leaderboard"}
           marginLeft={6}
         />

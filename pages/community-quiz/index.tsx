@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 import { Flex } from "@chakra-ui/react";
@@ -7,8 +7,10 @@ import HeroHeader from "../../components/HeroHeader";
 import MainView from "../../components/MainView";
 
 import CommunityQuizListContainer from "../../containers/CommunityQuizListContainer";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const CommunityQuiz: FC<AppProps> = () => {
+  const { t } = useContext(LanguageContext);
   return (
     <>
       <Head>
@@ -19,7 +21,7 @@ const CommunityQuiz: FC<AppProps> = () => {
         />
       </Head>
       <MainView>
-        <HeroHeader heading="Community Quizzes" />
+        <HeroHeader heading={t.global.communityQuizzesUpper} />
         <Flex flex={1} width="100%">
           <Flex
             direction="column"

@@ -58,7 +58,7 @@ const NavigationSidebar: FC<Props> = ({
     },
     {
       href: "/leaderboard",
-      label: t.navigation.leaderboard,
+      label: t.global.leaderboard,
       emoji: "🏆",
     },
     {
