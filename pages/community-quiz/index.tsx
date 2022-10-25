@@ -11,10 +11,11 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const CommunityQuiz: FC<AppProps> = () => {
   const { t } = useContext(LanguageContext);
+
   return (
     <>
       <Head>
-        <title> {"Community Quizzes - GeoBuff"}</title>
+        <title>{`${t.global.communityQuizzesUpper} - GeoBuff`}</title>
         <meta
           name="description"
           content="Think you've got what it takes to go head-to-head with our community of GeoBuff's? Test your knowledge with our collection of user generated quizzes!"

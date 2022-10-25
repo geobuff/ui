@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { GetStaticProps } from "next";
 import type { AppProps } from "next/app";
 
@@ -9,16 +9,19 @@ import LeaderboardContainer from "../containers/LeaderboardContainer";
 import MainView from "../components/MainView";
 import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
 import axiosClient from "../axios";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 const Leaderboard: FC<AppProps> = ({ pageProps }) => {
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
+
   const { quizId, rank } = router.query;
   const { quizzes } = pageProps;
 
   return (
     <>
       <Head>
-        <title>{"Leaderboard - GeoBuff"}</title>
+        <title>{`${t.global.leaderboard} - GeoBuff`}</title>
         <meta
           name="description"
           content="Earn your place on the GeoBuff leaderboard! Every game features a competitive leaderboard so you can compete with your friends and foes from all over the world."

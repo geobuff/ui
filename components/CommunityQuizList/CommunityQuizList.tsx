@@ -30,7 +30,7 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
     return (
       <Alert status="info" borderRadius={6}>
         <AlertIcon />
-        {t.communityQuizList.noQuizzesAlert}
+        {t.global.noQuizzesAlert}
       </Alert>
     );
   }

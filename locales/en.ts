@@ -14,6 +14,7 @@ export default {
     perPage: "Per Page",
     previous: "Previous",
     next: "Next",
+    noQuizzesAlert: "No quizzes to display.",
   },
   navigation: {
     home: "Home",
@@ -83,7 +84,6 @@ export default {
     noTriviaAlert: "No trivia to display.",
   },
   communityQuizList: {
-    noQuizzesAlert: "No quizzes to display.",
     upsellPre: "Like what you see? ",
     upsellAuthenticatedAction: "Create your own using our custom quiz builder!",
     upsellLearnMore: "Learn more about our custom quiz builder!",

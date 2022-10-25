@@ -14,6 +14,7 @@ export default {
     perPage: "Por Página",
     previous: "Previo",
     next: "Próximo",
+    noQuizzesAlert: "No hay cuestionarios para mostrar.",
   },
   navigation: {
     home: "Hogar",
@@ -85,7 +86,6 @@ export default {
     noTriviaAlert: "No hay curiosidades para mostrar.",
   },
   communityQuizList: {
-    noQuizzesAlert: "No hay cuestionarios para mostrar.",
     upsellPre: "¿Te gusta lo que ves? ",
     upsellAuthenticatedAction:
       "¡Cree el suyo usando nuestro creador de cuestionarios personalizados!",

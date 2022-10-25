@@ -17,7 +17,7 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
   return (
     <>
       <Head>
-        <title> {"Daily Trivia - GeoBuff"}</title>
+        <title>{`${t.global.dailyTriviaUpper} - GeoBuff`}</title>
         <meta
           name="description"
           content="Ten questions covering everything geography - from maps and flags, to rivers and mountains, our famous daily trivia will keep you coming back every single day."
