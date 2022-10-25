@@ -44,14 +44,6 @@ export default {
       "Don't have an account? Sign up today to earn XP, unlock badges and compete with friends!",
     createAnAccount: "Create An Account",
   },
-  footer: {
-    company: "Company",
-    furtherInformation: "Further Information",
-    description:
-      "GeoBuff is NZ's leading platform for Geography education and trivia.",
-    allRightsReserved: "All rights reserved",
-    quizzesPlayed: "quizzes played",
-  },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",
     subtitle: "Create an account and ",
@@ -65,5 +57,20 @@ export default {
   },
   homeHeader: {
     searchPlaceholder: "Enter quiz name...",
+  },
+  homeSearchResults: {
+    searchingFor: "Searching for",
+    searchResultsFor: "Search results for",
+  },
+  homeNoSearchResults: {
+    alertPre: "There were no results for",
+  },
+  footer: {
+    company: "Company",
+    furtherInformation: "Further Information",
+    description:
+      "GeoBuff is NZ's leading platform for Geography education and trivia.",
+    allRightsReserved: "All rights reserved",
+    quizzesPlayed: "quizzes played",
   },
 };

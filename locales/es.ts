@@ -44,14 +44,6 @@ export default {
       "¿No tienes una cuenta? ¡Regístrese hoy para ganar XP, desbloquear insignias y competir con amigos!",
     createAnAccount: "Crea una cuenta",
   },
-  footer: {
-    company: "Compañía",
-    furtherInformation: "Más información",
-    description:
-      "GeoBuff es la plataforma líder de Nueva Zelanda para la educación y trivia de Geografía.",
-    allRightsReserved: "Reservados todos los derechos",
-    quizzesPlayed: "cuestionarios jugados",
-  },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
     subtitle: "Crear una cuenta y ",
@@ -67,5 +59,20 @@ export default {
   },
   homeHeader: {
     searchPlaceholder: "Ingrese el nombre del cuestionario...",
+  },
+  homeSearchResults: {
+    searchingFor: "Buscando",
+    searchResultsFor: "Resultados de la búsqueda de",
+  },
+  homeNoSearchResults: {
+    alertPre: "No hubo resultados para",
+  },
+  footer: {
+    company: "Compañía",
+    furtherInformation: "Más información",
+    description:
+      "GeoBuff es la plataforma líder de Nueva Zelanda para la educación y trivia de Geografía.",
+    allRightsReserved: "Reservados todos los derechos",
+    quizzesPlayed: "cuestionarios jugados",
   },
 };
