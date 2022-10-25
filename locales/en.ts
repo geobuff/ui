@@ -28,6 +28,7 @@ export default {
     home: "Home",
     login: "Login",
     register: "Register",
+    adminDashboard: "Admin Dashboard",
     profile: "Profile",
     myOrders: "My Orders",
     logout: "Logout",
@@ -101,6 +102,9 @@ export default {
     mapsDescription: "Our collection of free-to-use SVG maps.",
     flagsDescription: "Our collection of free-to-use flag urls.",
     mappingsDescription: "The collection of mappings that drive our games.",
+  },
+  merch: {
+    subtitle: "Currently only available in New Zealand!",
   },
   footer: {
     company: "Company",

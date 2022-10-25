@@ -28,6 +28,7 @@ export default {
     home: "Hogar",
     login: "Acceso",
     register: "Registro",
+    adminDashboard: "Panel de Administración",
     profile: "Perfil",
     myOrders: "Mis ordenes",
     logout: "Cerrar sesión",
@@ -107,6 +108,9 @@ export default {
     flagsDescription: "Nuestra colección de URL de marca de uso gratuito.",
     mappingsDescription:
       "La colección de asignaciones que impulsan nuestros juegos.",
+  },
+  merch: {
+    subtitle: "Actualmente solo disponible en Nueva Zelanda!",
   },
   footer: {
     company: "Compañía",
