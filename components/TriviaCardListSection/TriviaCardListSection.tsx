@@ -1,9 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Trivia } from "../../types/trivia";
 import CardListSection from "../CardListSection";
 import CardListItem from "../CardList/CardListItem";
 import TriviaCard from "../TriviaCard/TriviaCard";
 import { formatDate } from "../../helpers/date";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const GRID_LENGTH = 5;
 
@@ -12,11 +13,13 @@ export interface Props {
 }
 
 const TriviaCardListSection: FC<Props> = ({ trivia = [] }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <CardListSection
-      title="Daily Trivia"
+      title={t.global.dailyTriviaUpper}
       linkHref="/daily-trivia"
-      linkVerb="daily trivia"
+      linkVerb={t.global.dailyTriviaLower}
       marginTop={0}
       paddingX={{ base: 3, md: 0 }}
       lessItemsThanGrid={trivia.length < GRID_LENGTH}

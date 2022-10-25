@@ -13,6 +13,7 @@ import ShoppingCartLink from "../ShoppingCartLink";
 import { AppContext } from "../../context/AppContext";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 import LanguageSelect from "../LanguageSelect/LanguageSelect";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const UserAvatarMenu = dynamic(() => import("../UserAvatarMenu"));
 
@@ -20,6 +21,7 @@ const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const isLarge = useBreakpointValue({ base: false, lg: true });
   const { route } = useRouter();
+  const { t } = useContext(LanguageContext);
 
   const [zIndex, setZIndex] = useState(5);
 
@@ -51,21 +53,21 @@ const NavigationBar: FC = () => {
 
         <NavigationBarLink
           href="/leaderboard"
-          label="Leaderboard"
+          label={t.navigation.leaderboard}
           isActive={route === "/leaderboard"}
           marginLeft={6}
         />
 
         <NavigationBarLink
           href="/daily-trivia"
-          label="Trivia"
+          label={t.navigation.trivia}
           isActive={route.includes("/daily-trivia")}
           marginLeft={6}
         />
 
         <NavigationBarLink
           href="/community-quiz"
-          label="Community"
+          label={t.navigation.community}
           isActive={route.includes("/community-quiz")}
           marginLeft={6}
         />
@@ -74,28 +76,28 @@ const NavigationBar: FC = () => {
           <>
             <NavigationBarLink
               href="/map-games"
-              label="Map"
+              label={t.navigation.map}
               isActive={route === "/map-games"}
               marginLeft={6}
             />
 
             <NavigationBarLink
               href="/flag-games"
-              label="Flag"
+              label={t.navigation.flag}
               isActive={route === "/flag-games"}
               marginLeft={6}
             />
 
             <NavigationBarLink
               href="/resources"
-              label="Resources"
+              label={t.navigation.resources}
               isActive={route.includes("/resources")}
               marginLeft={6}
             />
 
             <NavigationBarLink
               href="/merch"
-              label="Merch"
+              label={t.navigation.merch}
               isActive={route.includes("/merch")}
               marginLeft={6}
             />

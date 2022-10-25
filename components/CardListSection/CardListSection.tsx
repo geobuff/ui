@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Flex,
@@ -11,6 +11,7 @@ import {
 
 import OutlinedChevronRight from "../../Icons/OutlinedChevronRight";
 import CardList from "../CardList";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface Props extends FlexProps {
   title: string;
@@ -29,6 +30,7 @@ const CardListSection: FC<Props> = ({
   lessItemsThanGrid = false,
   ...props
 }) => {
+  const { t } = useContext(LanguageContext);
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
@@ -58,7 +60,7 @@ const CardListSection: FC<Props> = ({
             fontWeight="semibold"
             fontSize={{ base: "sm", md: "medium" }}
           >
-            {`See all${isMobile ? "" : ` ${linkVerb}`}`}
+            {`${t.global.seeAll}${isMobile ? "" : ` ${linkVerb}`}`}
             <OutlinedChevronRight height="16px" width="16px" mb="1px" />
           </Link>
         )}
