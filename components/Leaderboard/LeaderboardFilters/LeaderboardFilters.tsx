@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useContext, useState } from "react";
 import { debounce } from "throttle-debounce";
 
 import {
@@ -15,6 +15,7 @@ import {
 import Search from "../../../Icons/Search";
 import { Quiz } from "../../../types/quiz";
 import SolidCloseCircle from "../../../Icons/SolidCloseCircle";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 enum RangeFilters {
   All = "All Time",
@@ -43,6 +44,8 @@ const LeaderboardFilters: FC<Props> = ({
   onChangeSearchUsers = () => {},
   onChangeSearchRank = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const [rankValue, setRankValue] = useState(rank);
 
   const handleChangeSearchRankDebounced = debounce(500, (event) => {
@@ -134,7 +137,7 @@ const LeaderboardFilters: FC<Props> = ({
             height="42px"
             marginLeft="auto"
             paddingLeft="46px"
-            placeholder="Search users..."
+            placeholder={t.leaderboardFilters.searchUsersPlaceholder}
             onChange={handleSearchUsersDebounced}
             isDisabled={isLoading}
             _disabled={{ backgroundColor: "transparent", opacity: 0.4 }}
@@ -151,7 +154,7 @@ const LeaderboardFilters: FC<Props> = ({
             borderRadius={8}
             height="42px"
             marginLeft={3}
-            placeholder="Enter rank..."
+            placeholder={t.leaderboardFilters.searchRankPlaceholder}
             onChange={handleChangeSearchRank}
             isDisabled={isLoading}
             _disabled={{ backgroundColor: "transparent", opacity: 0.4 }}

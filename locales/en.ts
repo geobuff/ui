@@ -10,6 +10,9 @@ export default {
     mapGamesLower: "map games",
     flagGamesUpper: "Flag Games",
     flagGamesLower: "flag games",
+    perPage: "Per Page",
+    previous: "Previous",
+    next: "Next",
   },
   navigation: {
     home: "Home",
@@ -64,6 +67,17 @@ export default {
   },
   homeNoSearchResults: {
     alertPre: "There were no results for",
+  },
+  leaderboardFilters: {
+    searchUsersPlaceholder: "Search users...",
+    searchRankPlaceholder: "Enter rank...",
+  },
+  leaderboardTable: {
+    you: "(You)",
+    rank: "RANK",
+    username: "USERNAME",
+    time: "TIME",
+    score: "SCORE",
   },
   footer: {
     company: "Company",

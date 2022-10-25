@@ -10,6 +10,9 @@ export default {
     mapGamesLower: "juegos de mapas",
     flagGamesUpper: "Marcar juegos",
     flagGamesLower: "marcar juegos",
+    perPage: "Por Página",
+    previous: "Previo",
+    next: "Próximo",
   },
   navigation: {
     home: "Hogar",
@@ -66,6 +69,17 @@ export default {
   },
   homeNoSearchResults: {
     alertPre: "No hubo resultados para",
+  },
+  leaderboardFilters: {
+    searchUsersPlaceholder: "Buscar usuarios...",
+    searchRankPlaceholder: "Ingrese el rango...",
+  },
+  leaderboardTable: {
+    you: "(tú)",
+    rank: "RANGO",
+    username: "NOMBRE DE USUARIO",
+    time: "TIEMPO",
+    score: "PUNTAJE",
   },
   footer: {
     company: "Compañía",
