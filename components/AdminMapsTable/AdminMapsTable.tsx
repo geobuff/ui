@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import {
   Box,
   Table,
@@ -18,6 +18,7 @@ import AdminFlagsTablePlaceholder from "../../placeholders/AdminFlagsTablePlaceh
 import Card from "../Card";
 import { GetMapsDto } from "../../types/get-maps-dto";
 import AdminMapsHeader from "./AdminMapsHeader/AdminMapsHeader";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   maps?: GetMapsDto[];
@@ -30,12 +31,14 @@ const AdminMapsTable: FC<Props> = ({
   isLoading = true,
   onUpload = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const getTable = (): JSX.Element => {
     if (maps.length === 0) {
       return (
         <Alert status="info" borderRadius={6} marginBottom={3}>
           <AlertIcon />
-          No maps to display.
+          {t.adminMapsTable.noMapsAlert}
         </Alert>
       );
     }
@@ -44,8 +47,8 @@ const AdminMapsTable: FC<Props> = ({
       <Table size="md" variant="striped" colorScheme="gray">
         <Thead>
           <Tr>
-            <Th textAlign="left">{"NAME"} </Th>
-            <Th textAlign="left">{"SVG"}</Th>
+            <Th textAlign="left">{t.adminMapsTable.name} </Th>
+            <Th textAlign="left">{t.adminMapsTable.svg}</Th>
           </Tr>
         </Thead>
 

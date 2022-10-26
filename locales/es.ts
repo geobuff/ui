@@ -23,6 +23,8 @@ export default {
     flags: "Banderas",
     mappings: "Asignaciones",
     view: "Vista",
+    selectGroup: "Selecciona un grupo...",
+    loadingGroups: "Cargando grupos...",
   },
   navigation: {
     home: "Hogar",
@@ -108,6 +110,23 @@ export default {
     flagsDescription: "Nuestra colección de URL de marca de uso gratuito.",
     mappingsDescription:
       "La colección de asignaciones que impulsan nuestros juegos.",
+    backToResources: "Volver a Recursos",
+  },
+  mapResources: {
+    title: "Recursos del mapa",
+  },
+  adminMapsTable: {
+    name: "NOMBRE",
+    svg: "SVG",
+    noMapsAlert: "No hay mapas para mostrar.",
+  },
+  flagResources: {
+    title: "Marcar recursos",
+  },
+  adminFlagsTable: {
+    noFlagsAlert: "No hay banderas para mostrar.",
+    code: "CÓDIGO",
+    url: "URL",
   },
   merch: {
     subtitle: "Actualmente solo disponible en Nueva Zelanda!",

@@ -23,6 +23,8 @@ export default {
     flags: "Flags",
     mappings: "Mappings",
     view: "View",
+    selectGroup: "Select a group...",
+    loadingGroups: "Loading groups...",
   },
   navigation: {
     home: "Home",
@@ -102,6 +104,23 @@ export default {
     mapsDescription: "Our collection of free-to-use SVG maps.",
     flagsDescription: "Our collection of free-to-use flag urls.",
     mappingsDescription: "The collection of mappings that drive our games.",
+    backToResources: "Back to Resources",
+  },
+  mapResources: {
+    title: "Map Resources",
+  },
+  adminMapsTable: {
+    name: "NAME",
+    svg: "SVG",
+    noMapsAlert: "No maps to display.",
+  },
+  flagResources: {
+    title: "Flag Resources",
+  },
+  adminFlagsTable: {
+    noFlagsAlert: "No flags to display.",
+    code: "CODE",
+    url: "URL",
   },
   merch: {
     subtitle: "Currently only available in New Zealand!",

@@ -1,7 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Flex, Heading, Input, useBreakpointValue } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../../types/auth-user";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   onUpload?: (event: any) => void;
@@ -9,6 +10,7 @@ export interface Props {
 
 const AdminMapsHeader: FC<Props> = ({ onUpload = () => {} }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const { t } = useContext(LanguageContext);
 
   const { data: session, status } = useSession();
   const user = session?.user as AuthUser;
@@ -20,7 +22,7 @@ const AdminMapsHeader: FC<Props> = ({ onUpload = () => {} }) => {
       marginBottom={5}
       marginX={2}
     >
-      <Heading fontSize="24px">{"Maps"}</Heading>
+      <Heading fontSize="24px">{t.global.maps}</Heading>
 
       {!isMobile && status === "authenticated" && user.isAdmin && (
         <Input
