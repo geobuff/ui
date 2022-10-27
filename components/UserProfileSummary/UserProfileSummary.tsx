@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import { DateTime } from "luxon";
 import flag from "country-code-emoji";
 
@@ -24,18 +24,9 @@ import { signOut, useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
 import AdminFlag from "../AdminFlag";
 import { DeleteModal } from "../DeleteModal/DeleteModal";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
-
-const geocoinExplainerText = (
-  <Box padding={2}>
-    <Text>
-      {`GeoCoin is our in-game currency that you earn each time you score
-      greater than zero on a quiz. The amount of coins you earn scales based
-      on how well you perform.`}
-    </Text>
-  </Box>
-);
 
 interface Props {
   isCurrentUser?: boolean;
@@ -60,6 +51,8 @@ const UserProfileSummary: FC<Props> = ({
 }) => {
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
+
+  const { t } = useContext(LanguageContext);
 
   const [isDeleteAccountSubmitting, setIsDeleteAccountSubmitting] =
     useState(false);
@@ -104,6 +97,12 @@ const UserProfileSummary: FC<Props> = ({
   const matchedCountry = countries?.find(
     ({ value }) => value === countryCode
   )?.label;
+
+  const geocoinExplainerText = (
+    <Box padding={2}>
+      <Text>{t.global.geoCoinExplainer}</Text>
+    </Box>
+  );
 
   const getFlagNode = (): React.ReactNode => {
     if (!countryCode) {
@@ -184,12 +183,11 @@ const UserProfileSummary: FC<Props> = ({
               alignItems="center"
               marginY={2}
             >
-              <Text
-                color="gray.500"
-                fontWeight={600}
-              >{`Member since ${DateTime.fromISO(joined).toLocaleString(
-                DateTime.DATE_MED
-              )}`}</Text>
+              <Text color="gray.500" fontWeight={600}>
+                {`${t.userProfileSummary.memberSince} ${DateTime.fromISO(
+                  joined
+                ).toLocaleString(DateTime.DATE_MED)}`}
+              </Text>
             </Flex>
           </Box>
         </Box>

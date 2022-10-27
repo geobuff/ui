@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Box,
@@ -13,31 +13,36 @@ import {
 } from "@chakra-ui/react";
 
 import Card from "../../components/Card";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-const UserProfileLeaderboardEntriesPlaceholder: FC = () => (
-  <Card paddingX={{ base: 4, md: 6 }} paddingY={2}>
-    <Skeleton>
-      <Heading size="md" m={6}>
-        Leaderboard Entries
-      </Heading>
-    </Skeleton>
-    <Box my={6}>
+const UserProfileLeaderboardEntriesPlaceholder: FC = () => {
+  const { t } = useContext(LanguageContext);
+
+  return (
+    <Card paddingX={{ base: 4, md: 6 }} paddingY={2}>
       <Skeleton>
-        <Table>
-          <Thead>
-            <Tr>
-              <Th>HEADER</Th>
-            </Tr>
-          </Thead>
-          <Tbody>
-            <Tr>
-              <Td>ENTRY</Td>
-            </Tr>
-          </Tbody>
-        </Table>
+        <Heading size="md" m={6}>
+          {t.userProfileLeaderboardEntries.title}
+        </Heading>
       </Skeleton>
-    </Box>
-  </Card>
-);
+      <Box my={6}>
+        <Skeleton>
+          <Table>
+            <Thead>
+              <Tr>
+                <Th>HEADER</Th>
+              </Tr>
+            </Thead>
+            <Tbody>
+              <Tr>
+                <Td>ENTRY</Td>
+              </Tr>
+            </Tbody>
+          </Table>
+        </Skeleton>
+      </Box>
+    </Card>
+  );
+};
 
 export default UserProfileLeaderboardEntriesPlaceholder;

@@ -60,11 +60,32 @@ export default {
     ourMission: "Our Mission",
     ourValues: "Our Values",
     meetTheTeam: "Meet the Team",
+    geoCoinExplainer:
+      "GeoCoin is our in-game currency that you earn each time you score greater than zero on a quiz. The amount of coins you earn scales based on how well you perform.",
+    profile: "Profile",
+    quiz: "Quiz",
+    rank: "Rank",
+    score: "Score",
+    time: "Time",
+    added: "Added",
+    name: "Name",
+    plays: "Plays",
+    visibility: "Visibility",
+    status: "Status",
+    actions: "Actions",
+    noEntriesAlert: "No entries to display.",
+    my: "My",
+    quizzes: "Quizzes",
+    createQuiz: "Create Quiz",
+    public: "Public",
+    private: "Private",
+    copyLink: "Copy Link",
+    edit: "Edit",
+    delete: "Delete",
   },
   navigation: {
     home: "Home",
     adminDashboard: "Admin Dashboard",
-    profile: "Profile",
     myOrders: "My Orders",
     logout: "Logout",
     trivia: "Trivia",
@@ -241,6 +262,23 @@ export default {
     joinExplainerOne:
       "We're on the lookout for researchers that can help us generate more trivia questions, writers that want to create content for our blog or admin machines that want to assist in parsing SVG's so we can generate more quizzes.",
     joinExplainerTwo: "If this sounds like you, flick us a line at",
+  },
+  userProfileSummary: {
+    memberSince: "Member since",
+  },
+  userProfileSummaryMenu: {
+    editProfile: "Edit Profile",
+    editAvatar: "Edit Avatar",
+    downloadData: "Download Data",
+    downloadDataExplainer:
+      "Downloads all personal information collected by GeoBuff.",
+    deleteAccount: "Delete Account",
+  },
+  userProfileAchievements: {
+    title: "Achievements",
+  },
+  userProfileLeaderboardEntries: {
+    title: "Leaderboard Entries",
   },
   footer: {
     company: "Company",
