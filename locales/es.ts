@@ -25,6 +25,7 @@ export default {
     view: "Vista",
     selectGroup: "Selecciona un grupo...",
     loadingGroups: "Cargando grupos...",
+    addToCart: "Añadir al carrito",
   },
   navigation: {
     home: "Hogar",
@@ -137,6 +138,15 @@ export default {
   },
   merch: {
     subtitle: "Actualmente solo disponible en Nueva Zelanda!",
+  },
+  merchSummary: {
+    backToMerch: "Volver a Merchandising",
+    sizeGuide: "Guia de tallas",
+  },
+  merchSummaryDetails: {
+    selectASize: "Seleccione una talla...",
+    soldOut: "Vendido",
+    sizeValidationMessage: "Por favor, elija un tamaño disponible.",
   },
   footer: {
     company: "Compañía",

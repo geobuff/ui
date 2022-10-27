@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Button, Flex, useDisclosure, Text } from "@chakra-ui/react";
 
 import Image from "next/image";
@@ -10,6 +10,7 @@ import MerchSummaryDetails from "./MerchSummaryDetails";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 interface Props {
   item?: MerchItem;
@@ -28,6 +29,7 @@ const MerchSummary: FC<Props> = ({
 }) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
 
   return (
     <>
@@ -57,7 +59,7 @@ const MerchSummary: FC<Props> = ({
             >
               <ArrowLeft height={5} width={5} marginRight={1} />
               <Text fontWeight="bold" fontSize="14px">
-                {"Back to Merch"}
+                {t.merchSummary.backToMerch}
               </Text>
             </Button>
           </Flex>
@@ -99,14 +101,14 @@ const MerchSummary: FC<Props> = ({
       <Modal
         isOpen={isOpen}
         onClose={onClose}
-        header="Size Guide"
+        header={t.merchSummary.sizeGuide}
         hasCloseButton
       >
         <Flex justifyContent="center" margin={6}>
           {item?.sizeGuideImageUrl.Valid && (
             <Image
               src={item.sizeGuideImageUrl.String}
-              alt="Size guide"
+              alt={t.merchSummary.sizeGuide}
               width={385}
               height={513}
             />
