@@ -29,7 +29,10 @@ export default {
     login: "Login",
     email: "Email",
     emailPlaceholder: "Enter email...",
-    emailRequiredValidation: "Please enter a valid email address.",
+    emailRequiredValidation: "Please enter an email address.",
+    emailValidValidation: "Must be a valid email address.",
+    emailExistsValidationPartOne: "An account with email",
+    emailExistsValidationPartTwo: "already exists.",
     password: "Password",
     passwordPlaceholder: "Enter password...",
     passwordRequiredValidation: "Please enter a password.",
@@ -37,6 +40,20 @@ export default {
       "Must contain at least 8 characters, one uppercase letter, one lowercase letter and one number.",
     register: "Register",
     reset: "Reset",
+    avatarRequiredValidation: "Please select an avatar.",
+    usernameRequiredValidation: "Please include a username.",
+    usernameMinValidaton: "Must be at least 3 characters long.",
+    usernameMaxValidaton: "Must be 20 or less characters long.",
+    usernameMatchValidaton: "Cannot contain spaces.",
+    countryRequiredValidation: "Please select a country.",
+    avatar: "Avatar",
+    username: "Username",
+    usernamePlaceholder: "Enter username...",
+    country: "Country",
+    selectCountry: "select a country...",
+    loadingCountries: "Loading countries...",
+    privacyPolicy: "Privacy Policy",
+    termsOfService: "Terms of Service",
   },
   navigation: {
     home: "Home",
@@ -51,8 +68,6 @@ export default {
     ourValues: "Our Values",
     meetTheTeam: "Meet the Team",
     support: "Support",
-    privacyPolicy: "Privacy Policy",
-    termsOfService: "Terms of Service",
     cookiePolicy: "Cookie Policy",
     acceptableUsePolicy: "Acceptable Use Policy",
     faq: "F.A.Q.",
@@ -166,6 +181,27 @@ export default {
     title: "Forgotten Password",
     explainer:
       "Enter the email address you used when you joined and we'll send you a link to reset your password.",
+  },
+  loginLink: {
+    message: "Already signed up?",
+    action: "Login to your account",
+  },
+  registerFormStepOne: {
+    title: "Create an Account",
+    explainer:
+      "Cheers for your interest in signing up! Let's get started by entering your email and password. These will be used to sign you in.",
+  },
+  registerFormStepTwo: {
+    selectYourAvatar: "Select Your Avatar",
+  },
+  registerFormStepThree: {
+    pickYourUsername: "Pick Your Username",
+    usernameExplainer:
+      "Pick a unique name for your account. If you change your mind you can update this later in your profile.",
+    countryExplainer:
+      "Select the country you'd like to represent on the leaderboard.",
+    termsMessage: "I agree to the",
+    createAccount: "Create Account",
   },
   footer: {
     company: "Company",

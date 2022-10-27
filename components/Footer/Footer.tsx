@@ -141,11 +141,11 @@ const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
   const furtherInfoLinks = [
     {
       href: "/privacy-policy",
-      text: t.navigation.privacyPolicy,
+      text: t.global.privacyPolicy,
     },
     {
       href: "/terms-of-service",
-      text: t.navigation.termsOfService,
+      text: t.global.termsOfService,
     },
     {
       href: "/cookie-policy",

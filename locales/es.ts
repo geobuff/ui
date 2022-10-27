@@ -30,7 +30,11 @@ export default {
     email: "Correo electrónico",
     emailPlaceholder: "Ingrese correo electrónico...",
     emailRequiredValidation:
-      "Por favor, introduce una dirección de correo electrónico válida.",
+      "Por favor introduzca una dirección de correo eléctronico.",
+    emailValidValidation:
+      "Debe ser una dirección de correo electrónico válida.",
+    emailExistsValidationPartOne: "Una cuenta con correo electrónico",
+    emailExistsValidationPartTwo: "ya existe.",
     password: "Clave",
     passwordPlaceholder: "Introducir la contraseña...",
     passwordRequiredValidation: "Porfavor ingrese una contraseña.",
@@ -38,6 +42,20 @@ export default {
       "Debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.",
     register: "Registro",
     reset: "Reiniciar",
+    avatarRequiredValidation: "Seleccione un avatar.",
+    usernameRequiredValidation: "Por favor, ingrese un nombre de usuario.",
+    usernameMinValidaton: "Debe tener al menos 3 caracteres de longitud.",
+    usernameMaxValidaton: "Debe tener 20 caracteres o menos.",
+    usernameMatchValidaton: "No puede contener espacios.",
+    countryRequiredValidation: "Por favor seleccione un país.",
+    avatar: "Avatar",
+    username: "Nombre de usuario",
+    usernamePlaceholder: "Introduzca su nombre de usuario...",
+    country: "País",
+    selectCountry: "Seleccione un país...",
+    loadingCountries: "Cargando países...",
+    privacyPolicy: "Política de privacidad",
+    termsOfService: "Términos de servicio",
   },
   navigation: {
     home: "Hogar",
@@ -52,8 +70,6 @@ export default {
     ourValues: "Nuestros valores",
     meetTheTeam: "Conocer al equipo",
     support: "Apoyo",
-    privacyPolicy: "Política de privacidad",
-    termsOfService: "Términos de servicio",
     cookiePolicy: "Política de cookies",
     acceptableUsePolicy: "Política de uso aceptable",
     faq: "Preguntas frecuentes",
@@ -173,6 +189,27 @@ export default {
     title: "Contraseña olvidada",
     explainer:
       "Ingrese la dirección de correo electrónico que utilizó cuando se unió y le enviaremos un enlace para restablecer su contraseña.",
+  },
+  loginLink: {
+    message: "¿Ya te registraste?",
+    action: "Ingrese a su cuenta",
+  },
+  registerFormStepOne: {
+    title: "Crea una cuenta",
+    explainer:
+      "¡Saludos por su interés en registrarse! Comencemos ingresando su correo electrónico y contraseña. Estos se utilizarán para iniciar sesión.",
+  },
+  registerFormStepTwo: {
+    selectYourAvatar: "Selecciona tu avatar",
+  },
+  registerFormStepThree: {
+    pickYourUsername: "Elegir su nombre de usuario",
+    usernameExplainer:
+      "Elija un nombre único para su cuenta. Si cambia de opinión, puede actualizar esto más tarde en su perfil.",
+    countryExplainer:
+      "Seleccione el país que le gustaría representar en la tabla de clasificación.",
+    termsMessage: "Estoy de acuerdo con la",
+    createAccount: "Crear una cuenta",
   },
   footer: {
     company: "Compañía",

@@ -48,7 +48,9 @@ const LoginForm: FC<Props> = ({
   const { t } = useContext(LanguageContext);
 
   const validationSchema = Yup.object().shape({
-    email: Yup.string().required(t.global.emailRequiredValidation),
+    email: Yup.string()
+      .required(t.global.emailRequiredValidation)
+      .email(t.global.emailValidValidation),
     password: Yup.string()
       .required(t.global.passwordRequiredValidation)
       .matches(
