@@ -122,6 +122,13 @@ export default {
     code: "CODE",
     url: "URL",
   },
+  mappingResources: {
+    title: "Mapping Resources",
+  },
+  adminMappings: {
+    editMapping: "Edit Mapping",
+    deleteMapping: "Delete Mapping",
+  },
   merch: {
     subtitle: "Currently only available in New Zealand!",
   },

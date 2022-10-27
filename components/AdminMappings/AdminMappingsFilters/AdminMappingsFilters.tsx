@@ -1,6 +1,7 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Select, Flex } from "@chakra-ui/react";
 import { FlagGroup } from "../../../types/flag-group";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 interface Props {
   group?: string;
@@ -15,6 +16,8 @@ const AdminMappingsFilters: FC<Props> = ({
   isLoading = false,
   setGroup = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Flex
       marginBottom={{ base: 3, md: 1 }}
@@ -36,7 +39,7 @@ const AdminMappingsFilters: FC<Props> = ({
         isDisabled={isLoading}
       >
         <option value="">
-          {isLoading ? "Loading groups..." : "Select a group..."}
+          {isLoading ? t.global.loadingGroups : t.global.selectGroup}
         </option>
         {groups.map((group) => (
           <option key={group.key} value={group.key}>

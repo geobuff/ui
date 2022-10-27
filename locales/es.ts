@@ -128,6 +128,13 @@ export default {
     code: "CÓDIGO",
     url: "URL",
   },
+  mappingResources: {
+    title: "Recursos de mapeo",
+  },
+  adminMappings: {
+    editMapping: "Editar asignación",
+    deleteMapping: "Eliminar asignación",
+  },
   merch: {
     subtitle: "Actualmente solo disponible en Nueva Zelanda!",
   },

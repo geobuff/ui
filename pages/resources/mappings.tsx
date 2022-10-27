@@ -15,13 +15,13 @@ const MappingResources: FC = () => {
   return (
     <MainView>
       <Head>
-        <title>Mapping Resources - GeoBuff</title>
+        <title>{`${t.mappingResources.title} - GeoBuff`}</title>
         <meta
           name="description"
           content="Like the look of our game mappings? We've bundled and shared all of our mapping resources so that others can use them in their own projects."
         />
       </Head>
-      <HeroHeader heading="Mapping Resources" />
+      <HeroHeader heading={t.mappingResources.title} />
       <Flex
         direction="column"
         height="100%"
