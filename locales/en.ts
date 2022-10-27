@@ -26,11 +26,20 @@ export default {
     selectGroup: "Select a group...",
     loadingGroups: "Loading groups...",
     addToCart: "Add to Cart",
+    login: "Login",
+    email: "Email",
+    emailPlaceholder: "Enter email...",
+    emailRequiredValidation: "Please enter a valid email address.",
+    password: "Password",
+    passwordPlaceholder: "Enter password...",
+    passwordRequiredValidation: "Please enter a password.",
+    passwordMatchValidation:
+      "Must contain at least 8 characters, one uppercase letter, one lowercase letter and one number.",
+    register: "Register",
+    reset: "Reset",
   },
   navigation: {
     home: "Home",
-    login: "Login",
-    register: "Register",
     adminDashboard: "Admin Dashboard",
     profile: "Profile",
     myOrders: "My Orders",
@@ -141,6 +150,22 @@ export default {
     selectASize: "Select a size...",
     soldOut: "Sold Out",
     sizeValidationMessage: "Please choose an available size.",
+  },
+  loginForm: {
+    forgotPassword: "Forgot password?",
+  },
+  registerLink: {
+    message: "Don't have an account?",
+    action: "Sign up today",
+  },
+  forgotPassword: {
+    title: "Forgot Password",
+  },
+  forgotPasswordForm: {
+    backToLogin: "Back to Login",
+    title: "Forgotten Password",
+    explainer:
+      "Enter the email address you used when you joined and we'll send you a link to reset your password.",
   },
   footer: {
     company: "Company",

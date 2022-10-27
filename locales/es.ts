@@ -26,11 +26,21 @@ export default {
     selectGroup: "Selecciona un grupo...",
     loadingGroups: "Cargando grupos...",
     addToCart: "Añadir al carrito",
+    login: "Acceso",
+    email: "Correo electrónico",
+    emailPlaceholder: "Ingrese correo electrónico...",
+    emailRequiredValidation:
+      "Por favor, introduce una dirección de correo electrónico válida.",
+    password: "Clave",
+    passwordPlaceholder: "Introducir la contraseña...",
+    passwordRequiredValidation: "Porfavor ingrese una contraseña.",
+    passwordMatchValidation:
+      "Debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.",
+    register: "Registro",
+    reset: "Reiniciar",
   },
   navigation: {
     home: "Hogar",
-    login: "Acceso",
-    register: "Registro",
     adminDashboard: "Panel de Administración",
     profile: "Perfil",
     myOrders: "Mis ordenes",
@@ -147,6 +157,22 @@ export default {
     selectASize: "Seleccione una talla...",
     soldOut: "Vendido",
     sizeValidationMessage: "Por favor, elija un tamaño disponible.",
+  },
+  loginForm: {
+    forgotPassword: "¿Se te olvidó tu contraseña?",
+  },
+  registerLink: {
+    message: "¿No tienes una cuenta?",
+    action: "Regístrate hoy",
+  },
+  forgotPassword: {
+    title: "Has olvidado tu contraseña",
+  },
+  forgotPasswordForm: {
+    backToLogin: "Atrás para iniciar sesión",
+    title: "Contraseña olvidada",
+    explainer:
+      "Ingrese la dirección de correo electrónico que utilizó cuando se unió y le enviaremos un enlace para restablecer su contraseña.",
   },
   footer: {
     company: "Compañía",

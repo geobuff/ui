@@ -167,14 +167,14 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
           onClick={(): Promise<boolean> => router.push("/login")}
           mr={4}
         >
-          {t.navigation.login}
+          {t.global.login}
         </Button>
         {!isCondensed && (
           <Button
             colorScheme="green"
             onClick={(): Promise<boolean> => router.push("/register")}
           >
-            {t.navigation.register}
+            {t.global.register}
           </Button>
         )}
       </Flex>
