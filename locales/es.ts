@@ -20,7 +20,9 @@ export default {
     noQuizzesAlert: "No hay cuestionarios para mostrar.",
     map: "Mapa",
     maps: "Mapas",
+    flag: "bandera",
     flags: "Banderas",
+    mapping: "cartografía",
     mappings: "Asignaciones",
     view: "Vista",
     selectGroup: "Selecciona un grupo...",
@@ -56,6 +58,8 @@ export default {
     loadingCountries: "Cargando países...",
     privacyPolicy: "Política de privacidad",
     termsOfService: "Términos de servicio",
+    and: "y",
+    ourMission: "Nuestra misión",
   },
   navigation: {
     home: "Hogar",
@@ -66,7 +70,6 @@ export default {
     trivia: "Trivialidades",
     community: "Comunidad",
     flag: "Bandera",
-    ourMission: "Nuestra misión",
     ourValues: "Nuestros valores",
     meetTheTeam: "Conocer al equipo",
     support: "Apoyo",
@@ -210,6 +213,21 @@ export default {
       "Seleccione el país que le gustaría representar en la tabla de clasificación.",
     termsMessage: "Estoy de acuerdo con la",
     createAccount: "Crear una cuenta",
+  },
+  ourMission: {
+    goalOneMessage: "Cree la mejor generación automática del mundo",
+    goalOneLink: "curiosidades diarias de geografía",
+    goalTwoMessageOne: "Construir un",
+    goalTwoLink: "creador de cuestionarios personalizado",
+    goalTwoMessageTwo:
+      "que los maestros pueden usar para mantener a los estudiantes comprometidos en el aula",
+    goalThreeMessageOne: "Comparte nuestro",
+    goalThreeMessageTwo:
+      "recursos para que otros puedan utilizarlos en sus propios proyectos",
+    quoteOne:
+      "Puede parecer que la tecnología supera las distancias entre nosotros tanto en el espacio mental como físico, pero es fácil olvidar que la tierra donde vivimos, trabajamos y criamos a nuestros hijos es muy importante, y que las elecciones de quienes gobiernan a los siete mil millones de habitantes de este planeta, hasta cierto punto, siempre estará conformado por los ríos, las montañas, los desiertos, los lagos y los mares que nos restringen a todos, como siempre lo han hecho.",
+    quoteTwo:
+      "Un buen lugar para entender el presente y hacer preguntas sobre el futuro es sobre el terreno, viajando lo más lento posible.",
   },
   footer: {
     company: "Compañía",

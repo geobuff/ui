@@ -20,7 +20,9 @@ export default {
     noQuizzesAlert: "No quizzes to display.",
     map: "Map",
     maps: "Maps",
+    flag: "flag",
     flags: "Flags",
+    mapping: "mapping",
     mappings: "Mappings",
     view: "View",
     selectGroup: "Select a group...",
@@ -54,6 +56,8 @@ export default {
     loadingCountries: "Loading countries...",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
+    and: "and",
+    ourMission: "Our Mission",
   },
   navigation: {
     home: "Home",
@@ -64,7 +68,6 @@ export default {
     trivia: "Trivia",
     community: "Community",
     flag: "Flag",
-    ourMission: "Our Mission",
     ourValues: "Our Values",
     meetTheTeam: "Meet the Team",
     support: "Support",
@@ -202,6 +205,21 @@ export default {
       "Select the country you'd like to represent on the leaderboard.",
     termsMessage: "I agree to the",
     createAccount: "Create Account",
+  },
+  ourMission: {
+    goalOneMessage: "Create the world's best auto-generating",
+    goalOneLink: "daily Geography trivia",
+    goalTwoMessageOne: "Build a",
+    goalTwoLink: "custom quiz-builder",
+    goalTwoMessageTwo:
+      "that teachers can use to keep students engaged in the classroom",
+    goalThreeMessageOne: "Share our",
+    goalThreeMessageTwo:
+      "resources so that others can use them in their own projects",
+    quoteOne:
+      "Technology may seem to overcome the distances between us in both mental and physical space, but it is easy to forget that the land where we live, work and raise our children is hugely important, and that the choices of those who lead the seven billion inhabitants of this planet will to some degree always be shaped by the rivers, mountains, deserts, lakes and seas that constrain us all - as they always have.",
+    quoteTwo:
+      "A good place to understand the present, and to ask questions about the future, is on the ground, travelling as slowly as possible.",
   },
   footer: {
     company: "Company",

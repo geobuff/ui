@@ -113,7 +113,7 @@ const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
   const companyLinks = [
     {
       href: "/our-mission",
-      text: t.navigation.ourMission,
+      text: t.global.ourMission,
       isExternal: false,
     },
     {
