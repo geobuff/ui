@@ -83,7 +83,7 @@ const NavigationBar: FC = () => {
 
             <NavigationBarLink
               href="/flag-games"
-              label={t.navigation.flag}
+              label={t.global.flag}
               isActive={route === "/flag-games"}
               marginLeft={6}
             />

@@ -20,7 +20,7 @@ export default {
     noQuizzesAlert: "No quizzes to display.",
     map: "Map",
     maps: "Maps",
-    flag: "flag",
+    flag: "Flag",
     flags: "Flags",
     mapping: "mapping",
     mappings: "Mappings",
@@ -58,6 +58,7 @@ export default {
     termsOfService: "Terms of Service",
     and: "and",
     ourMission: "Our Mission",
+    ourValues: "Our Values",
   },
   navigation: {
     home: "Home",
@@ -67,8 +68,6 @@ export default {
     logout: "Logout",
     trivia: "Trivia",
     community: "Community",
-    flag: "Flag",
-    ourValues: "Our Values",
     meetTheTeam: "Meet the Team",
     support: "Support",
     cookiePolicy: "Cookie Policy",
@@ -220,6 +219,19 @@ export default {
       "Technology may seem to overcome the distances between us in both mental and physical space, but it is easy to forget that the land where we live, work and raise our children is hugely important, and that the choices of those who lead the seven billion inhabitants of this planet will to some degree always be shaped by the rivers, mountains, deserts, lakes and seas that constrain us all - as they always have.",
     quoteTwo:
       "A good place to understand the present, and to ask questions about the future, is on the ground, travelling as slowly as possible.",
+  },
+  ourValues: {
+    valueOneTitle: "Quality",
+    valueOneDescription:
+      "We're dedicated to delivering the highest quality of user experience across platforms so that users can learn on the go or at home on the big screen.",
+    valueTwoTitle: "Diversity",
+    valueTwoDescription:
+      "We aim to create trivia questions, build quizzes and share resources that represent people, places and cultures from all over the world.",
+    valueThreeTitle: "Challenge",
+    valueThreeDescription:
+      "Learning is more fun when you're pushing yourself. We want to deliver content that challenges our users so they can incrementally improve over time.",
+    feedbackTitle: "Feel like we're falling short on one of these values?",
+    feedbackMessage: "Let us know how you think we can do better at",
   },
   footer: {
     company: "Company",

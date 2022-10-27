@@ -98,7 +98,7 @@ const OurMission: FC = () => {
                 </Link>
                 {` ${t.global.and} `}
                 <Link href="/resources/flags" color="teal.500">
-                  {t.global.flag}
+                  {t.global.flag.toLowerCase()}
                 </Link>
                 {` ${t.ourMission.goalThreeMessageTwo}`}
               </Text>

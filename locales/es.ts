@@ -20,7 +20,7 @@ export default {
     noQuizzesAlert: "No hay cuestionarios para mostrar.",
     map: "Mapa",
     maps: "Mapas",
-    flag: "bandera",
+    flag: "Bandera",
     flags: "Banderas",
     mapping: "cartografía",
     mappings: "Asignaciones",
@@ -60,6 +60,7 @@ export default {
     termsOfService: "Términos de servicio",
     and: "y",
     ourMission: "Nuestra misión",
+    ourValues: "Nuestros valores",
   },
   navigation: {
     home: "Hogar",
@@ -69,8 +70,6 @@ export default {
     logout: "Cerrar sesión",
     trivia: "Trivialidades",
     community: "Comunidad",
-    flag: "Bandera",
-    ourValues: "Nuestros valores",
     meetTheTeam: "Conocer al equipo",
     support: "Apoyo",
     cookiePolicy: "Política de cookies",
@@ -228,6 +227,20 @@ export default {
       "Puede parecer que la tecnología supera las distancias entre nosotros tanto en el espacio mental como físico, pero es fácil olvidar que la tierra donde vivimos, trabajamos y criamos a nuestros hijos es muy importante, y que las elecciones de quienes gobiernan a los siete mil millones de habitantes de este planeta, hasta cierto punto, siempre estará conformado por los ríos, las montañas, los desiertos, los lagos y los mares que nos restringen a todos, como siempre lo han hecho.",
     quoteTwo:
       "Un buen lugar para entender el presente y hacer preguntas sobre el futuro es sobre el terreno, viajando lo más lento posible.",
+  },
+  ourValues: {
+    valueOneTitle: "Calidad",
+    valueOneDescription:
+      "Estamos dedicados a brindar la más alta calidad de experiencia de usuario en todas las plataformas para que los usuarios puedan aprender sobre la marcha o en casa en la pantalla grande.",
+    valueTwoTitle: "Diversidad",
+    valueTwoDescription:
+      "Nuestro objetivo es crear preguntas de trivia, crear cuestionarios y compartir recursos que representen a personas, lugares y culturas de todo el mundo.",
+    valueThreeTitle: "Desafío",
+    valueThreeDescription:
+      "Aprender es más divertido cuando te esfuerzas. Queremos entregar contenido que desafíe a nuestros usuarios para que puedan mejorar gradualmente con el tiempo.",
+    feedbackTitle:
+      "¿Sientes que nos estamos quedando cortos en uno de estos valores?",
+    feedbackMessage: "Háganos saber cómo cree que podemos hacerlo mejor en",
   },
   footer: {
     company: "Compañía",
