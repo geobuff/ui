@@ -123,7 +123,7 @@ const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
     },
     {
       href: "/team",
-      text: t.navigation.meetTheTeam,
+      text: t.global.meetTheTeam,
       isExternal: false,
     },
     {

@@ -61,6 +61,7 @@ export default {
     and: "y",
     ourMission: "Nuestra misión",
     ourValues: "Nuestros valores",
+    meetTheTeam: "Conocer al equipo",
   },
   navigation: {
     home: "Hogar",
@@ -70,7 +71,6 @@ export default {
     logout: "Cerrar sesión",
     trivia: "Trivialidades",
     community: "Comunidad",
-    meetTheTeam: "Conocer al equipo",
     support: "Apoyo",
     cookiePolicy: "Política de cookies",
     acceptableUsePolicy: "Política de uso aceptable",
@@ -241,6 +241,15 @@ export default {
     feedbackTitle:
       "¿Sientes que nos estamos quedando cortos en uno de estos valores?",
     feedbackMessage: "Háganos saber cómo cree que podemos hacerlo mejor en",
+  },
+  team: {
+    founder: "Fundador",
+    marketing: "Marketing",
+    nz: "Nueva Zelanda",
+    joinTitle: "¿Interesado en unirte?",
+    joinExplainerOne:
+      "Estamos buscando investigadores que puedan ayudarnos a generar más preguntas de trivia, escritores que quieran crear contenido para nuestro blog o máquinas de administración que quieran ayudar a analizar los SVG para que podamos generar más cuestionarios.",
+    joinExplainerTwo: "Si esto suena como usted, envíenos una línea a",
   },
   footer: {
     company: "Compañía",

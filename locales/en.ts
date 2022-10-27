@@ -59,6 +59,7 @@ export default {
     and: "and",
     ourMission: "Our Mission",
     ourValues: "Our Values",
+    meetTheTeam: "Meet the Team",
   },
   navigation: {
     home: "Home",
@@ -68,7 +69,6 @@ export default {
     logout: "Logout",
     trivia: "Trivia",
     community: "Community",
-    meetTheTeam: "Meet the Team",
     support: "Support",
     cookiePolicy: "Cookie Policy",
     acceptableUsePolicy: "Acceptable Use Policy",
@@ -232,6 +232,15 @@ export default {
       "Learning is more fun when you're pushing yourself. We want to deliver content that challenges our users so they can incrementally improve over time.",
     feedbackTitle: "Feel like we're falling short on one of these values?",
     feedbackMessage: "Let us know how you think we can do better at",
+  },
+  team: {
+    founder: "Founder",
+    marketing: "Marketing",
+    nz: "New Zealand",
+    joinTitle: "Interested in joining?",
+    joinExplainerOne:
+      "We're on the lookout for researchers that can help us generate more trivia questions, writers that want to create content for our blog or admin machines that want to assist in parsing SVG's so we can generate more quizzes.",
+    joinExplainerTwo: "If this sounds like you, flick us a line at",
   },
   footer: {
     company: "Company",
