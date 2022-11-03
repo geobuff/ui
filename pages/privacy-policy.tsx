@@ -57,166 +57,75 @@ const PrivacyPolicy: FC = () => {
             </Stack>
 
             <Heading as="h4" size="md">
-              Log Data
+              {t.privacyPolicy.logDataHeader}
             </Heading>
             <Stack spacing={3} mt={3} mb={6}>
-              <Text>
-                When you visit our website, our servers may automatically log
-                the standard data provided by your web browser. It may include
-                your device’s Internet Protocol (IP) address, your browser type
-                and version, the pages you visit, the time and date of your
-                visit, the time spent on each page, and other details about your
-                visit.{" "}
-              </Text>
-              <Text>
-                Additionally, if you encounter certain errors while using the
-                site, we may automatically collect data about the error and the
-                circumstances surrounding its occurrence. This data may include
-                technical details about your device, what you were trying to do
-                when the error happened, and other technical information
-                relating to the problem. You may or may not receive notice of
-                such errors, even in the moment they occur, that they have
-                occurred, or what the nature of the error is.{" "}
-              </Text>
-              <Text>
-                Please be aware that while this information may not be
-                personally identifying by itself, it may be possible to combine
-                it with other data to personally identify individual persons.{" "}
-              </Text>
+              <Text>{t.privacyPolicy.logDataPartOne}</Text>
+              <Text>{t.privacyPolicy.logDataPartTwo}</Text>
+              <Text>{t.privacyPolicy.logDataPartThree}</Text>
             </Stack>
 
             <Heading as="h4" size="md">
-              Personal Information
+              {t.privacyPolicy.personalInformationHeading}
             </Heading>
             <Box mb={6}>
               <Stack spacing={3} my={3}>
-                <Text>
-                  We may ask for personal information — for example, when you
-                  subscribe to our newsletter or when you contact us — which may
-                  include one or more of the following:{" "}
-                </Text>
+                <Text>{t.privacyPolicy.personalInformationPartOne}</Text>
               </Stack>
               <UnorderedList>
-                <ListItem>Email</ListItem>
+                <ListItem>{t.global.email}</ListItem>
               </UnorderedList>
             </Box>
 
             <Heading as="h4" size="md">
-              User-Generated Content
+              {t.privacyPolicy.userGeneratedContentHeading}
             </Heading>
             <Stack spacing={3} mt={3} mb={6}>
-              <Text>
-                {`We consider 'user-generated content' to be materials
-              (text, image and/or video content) voluntarily supplied to us by
-              our users for the purpose of publication, processing, or usage on
-              our platform. All user-generated content is associated with the
-              account or email address used to submit the materials.`}
-              </Text>
-              <Text>
-                Please be aware that any content you submit for the purpose of
-                publication will be public after posting (and subsequent review
-                or vetting process). Once published it may be accessible to
-                third parties not covered under this privacy policy.{" "}
-              </Text>
+              <Text>{t.privacyPolicy.userGeneratedContentPartOne}</Text>
+              <Text>{t.privacyPolicy.userGeneratedContentPartTwo}</Text>
             </Stack>
 
             <Heading as="h4" size="md">
-              Transaction Data
+              {t.privacyPolicy.transactionDataHeading}
             </Heading>
             <Stack spacing={3} mt={3} mb={6}>
-              <Text>
-                Transaction data refers to data that accumulates over the normal
-                course of operation on our platform. This may include
-                transaction records, stored files, user profiles, analytics data
-                and other metrics, as well as other types of information,
-                created or generated, as users interact with our services.{" "}
-              </Text>
+              <Text>{t.privacyPolicy.transactionDataPartOne}</Text>
             </Stack>
 
             <Heading as="h4" size="md">
-              Legitimate Reasons for Processing Your Personal Information
+              {t.privacyPolicy.legitimateHeading}
             </Heading>
             <Stack spacing={3} mt={3} mb={6}>
-              <Text>
-                We only collect and use your personal information when we have a
-                legitimate reason for doing so. In which instance we only
-                collect personal information that is reasonably necessary to
-                provide our services to you.{" "}
-              </Text>
+              <Text>{t.privacyPolicy.legitimatePartOne}</Text>
             </Stack>
 
             <Heading as="h4" size="md">
-              Collection and Use of Information
+              {t.privacyPolicy.collectionHeading}
             </Heading>
-            <Text my={3}>
-              We may collect personal information from you when you do any of
-              the following on our website:{" "}
-            </Text>
+            <Text my={3}>{t.privacyPolicy.collectionPartOne}</Text>
             <UnorderedList>
-              <ListItem>Register for an account</ListItem>
-              <ListItem>Purchase a subscription</ListItem>
-              <ListItem>
-                Enter any of our competitions, contests, sweepstakes, and
-                surveys
-              </ListItem>
-              <ListItem>
-                Sign up to receive updates from us via email or social media
-                channels
-              </ListItem>
-              <ListItem>
-                Use a mobile device or web browser to access our content
-              </ListItem>
-              <ListItem>
-                Contact us via email, social media, or on any similar
-                technologies
-              </ListItem>
-              <ListItem>When you mention us on social media</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartTwo}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartThree}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartFour}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartFive}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartSix}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartSeven}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartEight}</ListItem>
             </UnorderedList>
-            <Text my={3}>
-              We may collect, hold, use and disclose information for the
-              following purposes, and personal information will not be further
-              processed in a manner that is incompatible with these purposes:{" "}
-            </Text>
+            <Text my={3}>{t.privacyPolicy.collectionPartNine}</Text>
             <UnorderedList>
-              <ListItem>
-                {`to provide you with our platform's core features and
-              services`}
-              </ListItem>
-              <ListItem>to deliver products and/or services to you</ListItem>
-              <ListItem>to contact and communicate with you</ListItem>
-              <ListItem>
-                for analytics, market research, and business development,
-                including to operate and improve our website, associated
-                applications, and associated social media platforms
-              </ListItem>
-              <ListItem>
-                for advertising and marketing, including to send you promotional
-                information about our products and services and information
-                about third parties that we consider may be of interest to you
-              </ListItem>
-              <ListItem>
-                to enable you to access and use our website, associated
-                applications, and associated social media platforms
-              </ListItem>
-              <ListItem>
-                for internal record keeping and administrative purposes
-              </ListItem>
-              <ListItem>
-                to run competitions, sweepstakes, and/or offer additional
-                benefits to you
-              </ListItem>
-              <ListItem>
-                to comply with our legal obligations and resolve any disputes
-                that we may have
-              </ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartTen}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartEleven}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartTwelve}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartThirteen}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartFourteen}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartFifteen}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartSixteen}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartSeventeen}</ListItem>
+              <ListItem>{t.privacyPolicy.collectionPartEighteen}</ListItem>
             </UnorderedList>
             <Text mt={3} mb={6}>
-              We may combine voluntarily provided and automatically collected
-              personal information with general information or research data we
-              receive from other trusted sources. For example, If you provide us
-              with your location, we may combine this with general information
-              about currency and language to provide you with an enhanced
-              experience of our site and service.{" "}
+              {t.privacyPolicy.collectionPartNineteen}
             </Text>
 
             <Heading as="h4" size="md">

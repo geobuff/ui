@@ -292,6 +292,61 @@ export default {
     informationWeCollectPartOne: `Information we collect falls into one of two categories: 'voluntarily provided' information and 'automatically collected' information.`,
     informationWeCollectPartTwo: `'Voluntarily provided' information refers to any information you knowingly and actively provide us when using or participating in any of our services and promotions.`,
     informationWeCollectPartThree: `'Automatically collected' information refers to any information automatically sent by your devices in the course of accessing our products and services.`,
+    logDataHeading: "Log Data",
+    logDataPartOne:
+      "When you visit our website, our servers may automatically log the standard data provided by your web browser. It may include your device's Internet Protocol (IP) address, your browser type and version, the pages you visit, the time and date of your visit, the time spent on each page, and other details about your visit.",
+    logDataPartTwo:
+      "Additionally, if you encounter certain errors while using the site, we may automatically collect data about the error and the circumstances surrounding its occurrence. This data may include technical details about your device, what you were trying to do when the error happened, and other technical information relating to the problem. You may or may not receive notice of such errors, even in the moment they occur, that they have occurred, or what the nature of the error is.",
+    logDataPartThree:
+      "Please be aware that while this information may not be personally identifying by itself, it may be possible to combine it with other data to personally identify individual persons.",
+    personalInformationHeading: "Personal Information",
+    personalInformationPartOne:
+      "We may ask for personal information — for example, when you subscribe to our newsletter or when you contact us — which may include one or more of the following:",
+    userGeneratedContentHeading: "User-Generated Content",
+    userGeneratedContentPartOne: `We consider 'user-generated content' to be materials (text, image and/or video content) voluntarily supplied to us by our users for the purpose of publication, processing, or usage on our platform. All user-generated content is associated with the account or email address used to submit the materials.`,
+    userGeneratedContentPartTwo:
+      "Please be aware that any content you submit for the purpose of publication will be public after posting (and subsequent review or vetting process). Once published it may be accessible to third parties not covered under this privacy policy.",
+    transactionDataHeading: "Transaction Data",
+    transactionDataPartOne:
+      "Transaction data refers to data that accumulates over the normal course of operation on our platform. This may include transaction records, stored files, user profiles, analytics data and other metrics, as well as other types of information, created or generated, as users interact with our services.",
+    legitimateHeading:
+      "Legitimate Reasons for Processing Your Personal Information",
+    legitimatePartOne:
+      "We only collect and use your personal information when we have a legitimate reason for doing so. In which instance we only collect personal information that is reasonably necessary to provide our services to you.",
+    collectionHeading: "Collection and Use of Information",
+    collectionPartOne:
+      "We may collect personal information from you when you do any of the following on our website:",
+    collectionPartTwo: "Register for an account",
+    collectionPartThree: "Purchase a subscription",
+    collectionPartFour:
+      "Enter any of our competitions, contests, sweepstakes, and surveys",
+    collectionPartFive:
+      "Sign up to receive updates from us via email or social media channels",
+    collectionPartSix:
+      "Use a mobile device or web browser to access our content",
+    collectionPartSeven:
+      "Contact us via email, social media, or on any similar technologies",
+    collectionPartEight: "When you mention us on social media",
+    collectionPartNine:
+      "We may collect, hold, use and disclose information for the following purposes, and personal information will not be further processed in a manner that is incompatible with these purposes:",
+    collectionPartTen:
+      "to provide you with our platform's core features and services",
+    collectionPartEleven: "to deliver products and/or services to you",
+    collectionPartTwelve: "to contact and communicate with you",
+    collectionPartThirteen:
+      "for analytics, market research, and business development, including to operate and improve our website, associated applications, and associated social media platforms",
+    collectionPartFourteen:
+      "for advertising and marketing, including to send you promotional information about our products and services and information about third parties that we consider may be of interest to you",
+    collectionPartFifteen:
+      "to enable you to access and use our website, associated applications, and associated social media platforms",
+    collectionPartSixteen:
+      "for internal record keeping and administrative purposes",
+    collectionPartSeventeen:
+      "to run competitions, sweepstakes, and/or offer additional benefits to you",
+    collectionPartEighteen:
+      "to comply with our legal obligations and resolve any disputes that we may have",
+    collectionPartNineteen:
+      "We may combine voluntarily provided and automatically collected personal information with general information or research data we receive from other trusted sources. For example, If you provide us with your location, we may combine this with general information about currency and language to provide you with an enhanced experience of our site and service.",
   },
   footer: {
     company: "Company",
