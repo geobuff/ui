@@ -84,8 +84,9 @@ export default {
     copyLink: "Copiar link",
     edit: "Editar",
     delete: "Borrar",
-  },
-  navigation: {
+    cookiePolicy: "Política de cookies",
+    acceptableUsePolicy: "Política de uso aceptable",
+    faq: "Preguntas frecuentes",
     home: "Hogar",
     adminDashboard: "Panel de Administración",
     myOrders: "Mis ordenes",
@@ -93,9 +94,6 @@ export default {
     trivia: "Trivialidades",
     community: "Comunidad",
     support: "Apoyo",
-    cookiePolicy: "Política de cookies",
-    acceptableUsePolicy: "Política de uso aceptable",
-    faq: "Preguntas frecuentes",
     countriesOfTheWorld: "Países del mundo",
     capitalsOfTheWorld: "Capitales del mundo",
     flagsOfTheWorld: "Banderas del mundo",
@@ -288,6 +286,21 @@ export default {
   },
   userProfileLeaderboardEntries: {
     title: "Entradas de clasificación",
+  },
+  privacyPolicy: {
+    sectionOnePartOne:
+      "Su privacidad es importante para nosotros. Es política de GeoBuff respetar su privacidad y cumplir con cualquier ley y regulación aplicable con respecto a cualquier información personal que podamos recopilar sobre usted, incluso en nuestro sitio web,",
+    sectionOnePartTwo: ", y otros sitios que poseemos y operamos.",
+    sectionTwo:
+      "La información personal es cualquier información sobre usted que se puede utilizar para identificarlo. Esto incluye información sobre usted como persona (como nombre, dirección y fecha de nacimiento), sus dispositivos, detalles de pago e incluso información sobre cómo usa un sitio web o un servicio en línea.",
+    sectionThree:
+      "En caso de que nuestro sitio contenga enlaces a sitios y servicios de terceros, tenga en cuenta que esos sitios y servicios tienen sus propias políticas de privacidad. Después de seguir un enlace a cualquier contenido de terceros, debe leer la información de su política de privacidad publicada sobre cómo recopilan y usan la información personal. Esta Política de privacidad no se aplica a ninguna de sus actividades después de que abandone nuestro sitio.",
+    sectionFour: "Esta política es efectiva a partir del 15 de julio de 2021.",
+    sectionFive: "Última actualización: 15 de julio de 2021",
+    informationWeCollectHeading: "Información que recopilamos",
+    informationWeCollectPartOne: `La información que recopilamos se divide en una de dos categorías: información 'proporcionada voluntariamente' e información 'recopilada automáticamente'.`,
+    informationWeCollectPartTwo: `La información "proporcionada voluntariamente" se refiere a cualquier información que usted nos proporcione consciente y activamente al usar o participar en cualquiera de nuestros servicios y promociones.`,
+    informationWeCollectPartThree: `La información 'recopilada automáticamente' se refiere a cualquier información enviada automáticamente por sus dispositivos en el curso del acceso a nuestros productos y servicios.`,
   },
   footer: {
     company: "Compañía",

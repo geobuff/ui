@@ -133,7 +133,7 @@ const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
     },
     {
       href: process.env.NEXT_PUBLIC_DISCORD_LINK,
-      text: t.navigation.support,
+      text: t.global.support,
       isExternal: true,
     },
   ];
@@ -149,15 +149,15 @@ const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
     },
     {
       href: "/cookie-policy",
-      text: t.navigation.cookiePolicy,
+      text: t.global.cookiePolicy,
     },
     {
       href: "/acceptable-use-policy",
-      text: t.navigation.acceptableUsePolicy,
+      text: t.global.acceptableUsePolicy,
     },
     {
       href: "/faq",
-      text: t.navigation.faq,
+      text: t.global.faq,
     },
   ];
 

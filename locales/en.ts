@@ -82,8 +82,9 @@ export default {
     copyLink: "Copy Link",
     edit: "Edit",
     delete: "Delete",
-  },
-  navigation: {
+    cookiePolicy: "Cookie Policy",
+    acceptableUsePolicy: "Acceptable Use Policy",
+    faq: "F.A.Q.",
     home: "Home",
     adminDashboard: "Admin Dashboard",
     myOrders: "My Orders",
@@ -91,9 +92,6 @@ export default {
     trivia: "Trivia",
     community: "Community",
     support: "Support",
-    cookiePolicy: "Cookie Policy",
-    acceptableUsePolicy: "Acceptable Use Policy",
-    faq: "F.A.Q.",
     countriesOfTheWorld: "Countries of the World",
     capitalsOfTheWorld: "Capitals of the World",
     flagsOfTheWorld: "Flags of the World",
@@ -279,6 +277,21 @@ export default {
   },
   userProfileLeaderboardEntries: {
     title: "Leaderboard Entries",
+  },
+  privacyPolicy: {
+    sectionOnePartOne:
+      "Your privacy is important to us. It is GeoBuff's policy to respect your privacy and comply with any applicable law and regulation regarding any personal information we may collect about you, including across our website,",
+    sectionOnePartTwo: ", and other sites we own and operate.",
+    sectionTwo:
+      "Personal information is any information about you which can be used to identify you. This includes information about you as a person (such as name, address, and date of birth), your devices, payment details, and even information about how you use a website or online service.",
+    sectionThree:
+      "In the event our site contains links to third-party sites and services, please be aware that those sites and services have their own privacy policies. After following a link to any third-party content, you should read their posted privacy policy information about how they collect and use personal information. This Privacy Policy does not apply to any of your activities after you leave our site.",
+    sectionFour: "This policy is effective as of 15 July 2021.",
+    sectionFive: "Last updated: 15 July 2021",
+    informationWeCollectHeading: "Information We Collect",
+    informationWeCollectPartOne: `Information we collect falls into one of two categories: 'voluntarily provided' information and 'automatically collected' information.`,
+    informationWeCollectPartTwo: `'Voluntarily provided' information refers to any information you knowingly and actively provide us when using or participating in any of our services and promotions.`,
+    informationWeCollectPartThree: `'Automatically collected' information refers to any information automatically sent by your devices in the course of accessing our products and services.`,
   },
   footer: {
     company: "Company",

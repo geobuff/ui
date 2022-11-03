@@ -53,7 +53,7 @@ const NavigationSidebar: FC<Props> = ({
   const quickLinks = [
     {
       href: "/",
-      label: t.navigation.home,
+      label: t.global.home,
       emoji: "🏡",
     },
     {
@@ -101,19 +101,19 @@ const NavigationSidebar: FC<Props> = ({
   const popularQuizzes = [
     {
       href: "/quiz/countries-of-the-world",
-      label: t.navigation.countriesOfTheWorld,
+      label: t.global.countriesOfTheWorld,
     },
     {
       href: "/quiz/capitals-of-the-world",
-      label: t.navigation.capitalsOfTheWorld,
+      label: t.global.capitalsOfTheWorld,
     },
     {
       href: "/quiz/flags-of-the-world",
-      label: t.navigation.flagsOfTheWorld,
+      label: t.global.flagsOfTheWorld,
     },
     {
       href: "/quiz/us-states",
-      label: t.navigation.usStates,
+      label: t.global.usStates,
     },
   ];
 
@@ -175,7 +175,7 @@ const NavigationSidebar: FC<Props> = ({
                   marginTop={8}
                   marginBottom={3}
                 >
-                  {t.navigation.popularQuizzes}
+                  {t.global.popularQuizzes}
                 </Text>
 
                 {popularQuizzes.map(({ href, label }) => (
@@ -202,7 +202,7 @@ const NavigationSidebar: FC<Props> = ({
                   color="gray.600"
                   fontWeight={600}
                 >
-                  {t.navigation.createAccountExplainer}
+                  {t.global.createAccountExplainer}
                 </Text>
                 <Link href="/register">
                   <Button
@@ -212,7 +212,7 @@ const NavigationSidebar: FC<Props> = ({
                     height="60px"
                     fontWeight="bold"
                   >
-                    {t.navigation.createAnAccount}
+                    {t.global.createAnAccount}
                   </Button>
                 </Link>
               </Flex>

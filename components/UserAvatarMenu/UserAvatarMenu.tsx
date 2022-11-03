@@ -135,7 +135,7 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
             <>
               <MenuItem onClick={(): Promise<boolean> => router.push(`/admin`)}>
                 <Twemoji emoji="👑" width={5} mr={2} />{" "}
-                {t.navigation.adminDashboard}
+                {t.global.adminDashboard}
               </MenuItem>
               <MenuDivider />
             </>
@@ -148,10 +148,10 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
             {t.global.profile}
           </MenuItem>
           <MenuItem onClick={(): Promise<boolean> => router.push("/orders")}>
-            {t.navigation.myOrders}
+            {t.global.myOrders}
           </MenuItem>
           <MenuDivider />
-          <MenuItem onClick={logout}>{t.navigation.logout}</MenuItem>
+          <MenuItem onClick={logout}>{t.global.logout}</MenuItem>
         </MenuList>
       </Menu>
     );
