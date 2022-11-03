@@ -356,6 +356,18 @@ export default {
       "para cumplir con nuestras obligaciones legales y resolver cualquier disputa que podamos tener",
     collectionPartNineteen:
       "Podemos combinar información personal proporcionada voluntariamente y recopilada automáticamente con información general o datos de investigación que recibimos de otras fuentes confiables. Por ejemplo, si nos proporciona su ubicación, podemos combinarla con información general sobre moneda e idioma para brindarle una experiencia mejorada de nuestro sitio y servicio.",
+    securityHeading: "Seguridad de su información personal",
+    securityPartOne:
+      "Cuando recopilamos y procesamos información personal, y mientras conservamos esta información, la protegeremos dentro de los medios comercialmente aceptables para evitar pérdidas y robos, así como acceso, divulgación, copia, uso o modificación no autorizados.",
+    securityPartTwo:
+      "Aunque haremos todo lo posible para proteger la información personal que nos proporcione, le informamos que ningún método de transmisión o almacenamiento electrónico es 100 % seguro y nadie puede garantizar la seguridad absoluta de los datos.",
+    securityPartThree:
+      "Usted es responsable de seleccionar cualquier contraseña y su nivel de seguridad general, lo que garantiza la seguridad de su propia información dentro de los límites de nuestros servicios. Por ejemplo, asegurarse de que las contraseñas asociadas con el acceso a su información personal y cuentas sean seguras y confidenciales.",
+    howLongHeading: "Cuánto tiempo conservamos su información personal",
+    howLongPartOne:
+      "Mantenemos su información personal solo durante el tiempo que sea necesario. Este período de tiempo puede depender de para qué estemos usando su información, de acuerdo con esta política de privacidad. Por ejemplo, si nos ha proporcionado información personal como parte de la creación de una cuenta con nosotros, podemos retener esta información mientras su cuenta exista en nuestro sistema. Si su información personal ya no es necesaria para este propósito, la eliminaremos o la convertiremos en anónima eliminando todos los detalles que lo identifican.",
+    howLongPartTwo:
+      "Sin embargo, si es necesario, podemos conservar su información personal para cumplir con una obligación legal, contable o de informes o para fines de archivo en interés público, fines de investigación científica o histórica o fines estadísticos.",
   },
   footer: {
     company: "Compañía",

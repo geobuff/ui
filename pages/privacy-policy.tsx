@@ -129,54 +129,21 @@ const PrivacyPolicy: FC = () => {
             </Text>
 
             <Heading as="h4" size="md">
-              Security of Your Personal Information
+              {t.privacyPolicy.securityHeading}
             </Heading>
             <Stack spacing={3} mt={3} mb={6}>
-              <Text>
-                When we collect and process personal information, and while we
-                retain this information, we will protect it within commercially
-                acceptable means to prevent loss and theft, as well as
-                unauthorised access, disclosure, copying, use or modification.{" "}
-              </Text>
-              <Text>
-                Although we will do our best to protect the personal information
-                you provide to us, we advise that no method of electronic
-                transmission or storage is 100% secure and no one can guarantee
-                absolute data security.{" "}
-              </Text>
-              <Text>
-                You are responsible for selecting any password and its overall
-                security strength, ensuring the security of your own information
-                within the bounds of our services. For example, ensuring any
-                passwords associated with accessing your personal information
-                and accounts are secure and confidential.{" "}
-              </Text>
+              <Text>{t.privacyPolicy.securityPartOne}</Text>
+              <Text>{t.privacyPolicy.securityPartTwo}</Text>
+              <Text>{t.privacyPolicy.securityPartThree}</Text>
             </Stack>
 
             <Heading as="h4" size="md">
-              How Long We Keep Your Personal Information
+              {t.privacyPolicy.howLongHeading}
             </Heading>
             <Stack spacing={3} mt={3} mb={6}>
-              <Text>
-                We keep your personal information only for as long as we need
-                to. This time period may depend on what we are using your
-                information for, in accordance with this privacy policy. For
-                example, if you have provided us with personal information as
-                part of creating an account with us, we may retain this
-                information for the duration your account exists on our system.
-                If your personal information is no longer required for this
-                purpose, we will delete it or make it anonymous by removing all
-                details that identify you.{" "}
-              </Text>
-              <Text>
-                However, if necessary, we may retain your personal information
-                for our compliance with a legal, accounting, or reporting
-                obligation or for archiving purposes in the public interest,
-                scientific, or historical research purposes or statistical
-                purposes.{" "}
-              </Text>
+              <Text>{t.privacyPolicy.howLongPartOne}</Text>
+              <Text>{t.privacyPolicy.howLongPartTwo}</Text>
             </Stack>
-
             <Heading as="h3" size="lg">
               Children’s Privacy
             </Heading>
