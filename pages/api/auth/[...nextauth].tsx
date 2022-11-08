@@ -3,10 +3,11 @@ import CredentialsProvider from "next-auth/providers/credentials";
 import { DecodedToken } from "../../../types/decoded-token";
 import jwt_decode from "jwt-decode";
 import { JWT } from "next-auth/jwt";
+import { AuthUser } from "../../../types/auth-user";
 
-const refreshAccessToken = async (token: JWT): Promise<JWT> => {
+const refreshAccessToken = async (token: JWT, email: string): Promise<JWT> => {
   const payload = {
-    token: token.accessToken,
+    email: email,
   };
 
   const response = await fetch(
@@ -48,7 +49,7 @@ const refreshAccessToken = async (token: JWT): Promise<JWT> => {
   return {
     ...token,
     accessToken: data,
-    accessTokenExpires: Date.now() + decoded.exp * 1000,
+    accessTokenExpires: decoded.exp,
     user: user,
   };
 };
@@ -97,7 +98,7 @@ export default NextAuth({
           isAdmin: decoded.isAdmin,
           isPremium: decoded.isPremium,
           joined: decoded.joined,
-          expiresAt: Date.now() + decoded.exp * 1000,
+          expiresAt: decoded.exp,
           token: data,
         };
 
@@ -134,9 +135,12 @@ export default NextAuth({
         };
       }
 
-      return Date.now() < token.accessTokenExpires
-        ? token
-        : refreshAccessToken(token);
+      if (Date.now() < token.accessTokenExpires) {
+        return token;
+      }
+
+      const authUser = token.user as AuthUser;
+      return refreshAccessToken(token, authUser.email);
     },
   },
   debug: process.env.NEXT_PUBLIC_ENV === "DEV",
