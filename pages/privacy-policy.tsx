@@ -145,16 +145,14 @@ const PrivacyPolicy: FC = () => {
               <Text>{t.privacyPolicy.howLongPartTwo}</Text>
             </Stack>
             <Heading as="h3" size="lg">
-              Children’s Privacy
+              {t.privacyPolicy.childrensPrivacyHeading}
             </Heading>
             <Text mt={3} mb={6}>
-              We do not aim any of our products or services directly at children
-              under the age of 13 and we do not knowingly collect personal
-              information about children under 13.{" "}
+              {t.privacyPolicy.childrensPrivacyPartOne}
             </Text>
 
             <Heading as="h3" size="lg">
-              Disclosure of Personal Information to Third Parties
+              {t.privacyPolicy.disclosureHeading}
             </Heading>
             <Text my={3}>We may disclose personal information to: </Text>
             <UnorderedList>

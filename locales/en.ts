@@ -359,6 +359,10 @@ export default {
       "We keep your personal information only for as long as we need to. This time period may depend on what we are using your information for, in accordance with this privacy policy. For example, if you have provided us with personal information as part of creating an account with us, we may retain this information for the duration your account exists on our system. If your personal information is no longer required for this purpose, we will delete it or make it anonymous by removing all details that identify you.",
     howLongPartTwo:
       "However, if necessary, we may retain your personal information for our compliance with a legal, accounting, or reporting obligation or for archiving purposes in the public interest, scientific, or historical research purposes or statistical purposes.",
+    childrensPrivacyHeading: "Children's Privacy",
+    childrensPrivacyPartOne:
+      "We do not aim any of our products or services directly at children under the age of 13 and we do not knowingly collect personal information about children under 13.",
+    disclosureHeading: "Disclosure of Personal Information to Third Parties",
   },
   footer: {
     company: "Company",

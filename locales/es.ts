@@ -368,6 +368,10 @@ export default {
       "Mantenemos su información personal solo durante el tiempo que sea necesario. Este período de tiempo puede depender de para qué estemos usando su información, de acuerdo con esta política de privacidad. Por ejemplo, si nos ha proporcionado información personal como parte de la creación de una cuenta con nosotros, podemos retener esta información mientras su cuenta exista en nuestro sistema. Si su información personal ya no es necesaria para este propósito, la eliminaremos o la convertiremos en anónima eliminando todos los detalles que lo identifican.",
     howLongPartTwo:
       "Sin embargo, si es necesario, podemos conservar su información personal para cumplir con una obligación legal, contable o de informes o para fines de archivo en interés público, fines de investigación científica o histórica o fines estadísticos.",
+    childrensPrivacyHeading: "Política de privacidad para niños",
+    childrensPrivacyPartOne:
+      "No dirigimos ninguno de nuestros productos o servicios directamente a niños menores de 13 años y no recopilamos deliberadamente información personal sobre niños menores de 13 años.",
+    disclosureHeading: "Divulgación de información personal a terceros",
   },
   footer: {
     company: "Compañía",
