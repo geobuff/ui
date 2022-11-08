@@ -15,7 +15,7 @@ export const AuthErrorRedirect: FC<Props> = ({ children }) => {
     if (session?.error === "RefreshAccessTokenError") {
       // Force sign out to hopefully resolve error.
       // See https://next-auth.js.org/tutorials/refresh-token-rotation#client-side.
-      console.error(session?.errorMessage);
+      console.error(session?.errorMessage, "authError");
       signOut();
     }
   }, [session, router.asPath]);
