@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import flag from "country-code-emoji";
 
 import {
@@ -26,6 +26,7 @@ import { LeaderboardEntry } from "../../../types/leaderboard-entry";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../../types/auth-user";
 import AdminFlag from "../../AdminFlag";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 interface Props {
   entries?: LeaderboardEntry[];
@@ -35,6 +36,8 @@ interface Props {
 const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
+
+  const { t } = useContext(LanguageContext);
 
   if (isLoading && !entries.length) {
     return <LeaderTablePlaceholder />;
@@ -82,7 +85,7 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
         </Link>
         {username === user?.username && (
           <Text ml={2} fontWeight={600} color="gray.500">
-            {"(You)"}
+            {t.leaderboardTable.you}
           </Text>
         )}
       </Flex>
@@ -104,10 +107,10 @@ const LeaderboardTable: FC<Props> = ({ entries = [], isLoading = true }) => {
       <Table size="md" variant="striped" colorScheme="gray">
         <Thead>
           <Tr>
-            <Th textAlign="left">{"RANK"} </Th>
-            <Th textAlign="left">{"USERNAME"}</Th>
-            <Th textAlign="right">{"TIME"}</Th>
-            <Th textAlign="right">{"SCORE"}</Th>
+            <Th textAlign="left">{t.leaderboardTable.rank} </Th>
+            <Th textAlign="left">{t.leaderboardTable.username}</Th>
+            <Th textAlign="right">{t.leaderboardTable.time}</Th>
+            <Th textAlign="right">{t.leaderboardTable.score}</Th>
           </Tr>
         </Thead>
 

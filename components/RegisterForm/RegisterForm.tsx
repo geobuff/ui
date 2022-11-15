@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import * as Yup from "yup";
 
 import { Box, useBreakpointValue } from "@chakra-ui/react";
@@ -13,6 +13,7 @@ import RegisterFormStepOneContainer from "../../containers/RegisterContainer/Reg
 import RegisterFormStepThreeContainer from "../../containers/RegisterContainer/RegisterFormStepThreeContainer";
 
 import { RegisterFormSubmit } from "../../types/register-form-submit";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const initialValues = {
   avatarId: "7",
@@ -21,31 +22,6 @@ const initialValues = {
   countryCode: "",
   password: "",
 };
-
-const validationSchema = [
-  Yup.object().shape({
-    email: Yup.string()
-      .required("Please include an email.")
-      .email("Must be a valid email address."),
-    password: Yup.string()
-      .required("Please include a password.")
-      .matches(
-        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-        "Must contain at least 8 characters, one uppercase letter, one lowercase letter and one number."
-      ),
-  }),
-  Yup.object().shape({
-    avatarId: Yup.number().required("Please select an avatar."),
-  }),
-  Yup.object().shape({
-    username: Yup.string()
-      .required("Please include a username.")
-      .min(3, "Must be at least 3 characters long.")
-      .max(20, "Must be 20 or less characters long.")
-      .matches(/^\S*$/, "Cannot contain spaces."),
-    countryCode: Yup.string().required("Please select a country."),
-  }),
-];
 
 interface Props {
   error?: string;
@@ -59,8 +35,34 @@ const RegisterForm: FC<Props> = ({
   isSubmitting = false,
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const { t } = useContext(LanguageContext);
 
   const [currentStep, setCurrentStep] = useState(0);
+
+  const validationSchema = [
+    Yup.object().shape({
+      email: Yup.string()
+        .required(t.global.emailRequiredValidation)
+        .email(t.global.emailValidValidation),
+      password: Yup.string()
+        .required(t.global.passwordRequiredValidation)
+        .matches(
+          /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+          t.global.passwordMatchValidation
+        ),
+    }),
+    Yup.object().shape({
+      avatarId: Yup.number().required(t.global.avatarRequiredValidation),
+    }),
+    Yup.object().shape({
+      username: Yup.string()
+        .required(t.global.usernameRequiredValidation)
+        .min(3, t.global.usernameMinValidation)
+        .max(20, t.global.usernameMaxValidation)
+        .matches(/^\S*$/, t.global.usernameMatchValidation),
+      countryCode: Yup.string().required(t.global.countryRequiredValidation),
+    }),
+  ];
 
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);

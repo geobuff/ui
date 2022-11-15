@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Flex } from "@chakra-ui/react";
 import Card from "../Card";
 import { FlagGroup } from "../../types/flag-group";
@@ -6,6 +6,7 @@ import AdminMappingsTable from "./AdminMappingsTable";
 import AdminMappingsFilters from "./AdminMappingsFilters";
 import useMappingEntries from "../../hooks/UseMappingEntries";
 import TableHeader from "../Table/TableHeader/TableHeader";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 interface Props {
   group?: string;
@@ -24,6 +25,8 @@ const AdminMappings: FC<Props> = ({
   onEdit = () => {},
   onDelete = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const { data: entries, isLoading: isEntriesLoading } =
     useMappingEntries(group);
 
@@ -45,10 +48,10 @@ const AdminMappings: FC<Props> = ({
           paddingBottom={{ base: 1, md: 3 }}
         >
           <TableHeader
-            heading="Mappings"
+            heading={t.global.mappings}
             actions={[
-              { name: "Edit Mapping", callback: onEdit },
-              { name: "Delete Mapping", callback: onDelete },
+              { name: t.adminMappings.editMapping, callback: onEdit },
+              { name: t.adminMappings.deleteMapping, callback: onDelete },
             ]}
           />
 

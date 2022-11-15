@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import * as Yup from "yup";
 
 import {
@@ -26,13 +26,7 @@ import Logo from "../Logo";
 import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import { useRouter } from "next/router";
-
-const forgotPasswordExplainer =
-  "Enter the email address you used when you joined and we’ll send you a link to reset your password.";
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string().required("Please include an email."),
-});
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 interface Props {
   error?: string;
@@ -51,6 +45,13 @@ const ForgotPasswordForm: FC<Props> = ({
 }) => {
   const router = useRouter();
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
+  const { t } = useContext(LanguageContext);
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .required(t.global.emailRequiredValidation)
+      .email(t.global.emailValidValidation),
+  });
 
   const success = (
     <>
@@ -84,7 +85,7 @@ const ForgotPasswordForm: FC<Props> = ({
         >
           <ArrowLeft height={5} width={5} marginRight={1} />
           <Text fontWeight="bold" fontSize="14px">
-            {"Back to Login"}
+            {t.forgotPasswordForm.backToLogin}
           </Text>
         </Button>
       </Flex>
@@ -100,11 +101,11 @@ const ForgotPasswordForm: FC<Props> = ({
       </Flex>
 
       <Heading as="h1" fontSize="26px" marginY={3} fontWeight="800">
-        {"Forgotten Password"}
+        {t.forgotPasswordForm.backToLogin}
       </Heading>
 
       <Text marginTop={2} color="gray.600" fontSize="14px">
-        {forgotPasswordExplainer}
+        {t.forgotPasswordForm.explainer}
       </Text>
 
       <Formik
@@ -124,14 +125,14 @@ const ForgotPasswordForm: FC<Props> = ({
                   isInvalid={form.errors.email && form.touched.email}
                 >
                   <FormLabel htmlFor="email" hidden>
-                    {"Email"}
+                    {t.global.email}
                   </FormLabel>
 
                   <Input
                     {...field}
                     id="email"
                     type="email"
-                    placeholder="Enter email..."
+                    placeholder={t.global.emailPlaceholder}
                     size="lg"
                     fontSize="16px"
                     background="#F6F6F6"
@@ -183,7 +184,7 @@ const ForgotPasswordForm: FC<Props> = ({
                 isLoading={isSubmitting}
                 disabled={isLoading}
               >
-                {"Reset"}
+                {t.global.reset}
               </Button>
             </Flex>
           </Form>

@@ -12,12 +12,16 @@ import ShoppingCartLink from "../ShoppingCartLink";
 
 import { AppContext } from "../../context/AppContext";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import LanguageSelect from "../LanguageSelect/LanguageSelect";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const UserAvatarMenu = dynamic(() => import("../UserAvatarMenu"));
 
 const NavigationBar: FC = () => {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const isLarge = useBreakpointValue({ base: false, lg: true });
   const { route } = useRouter();
+  const { t } = useContext(LanguageContext);
 
   const [zIndex, setZIndex] = useState(5);
 
@@ -49,58 +53,56 @@ const NavigationBar: FC = () => {
 
         <NavigationBarLink
           href="/leaderboard"
-          label="Leaderboard"
+          label={t.global.leaderboard}
           isActive={route === "/leaderboard"}
           marginLeft={6}
         />
 
         <NavigationBarLink
           href="/daily-trivia"
-          label="Trivia"
+          label={t.global.trivia}
           isActive={route.includes("/daily-trivia")}
           marginLeft={6}
         />
 
         <NavigationBarLink
           href="/community-quiz"
-          label="Community"
+          label={t.global.community}
           isActive={route.includes("/community-quiz")}
           marginLeft={6}
         />
 
-        <NavigationBarLink
-          href="/map-games"
-          label="Map"
-          isActive={route === "/map-games"}
-          marginLeft={6}
-        />
+        {isLarge && (
+          <>
+            <NavigationBarLink
+              href="/map-games"
+              label={t.global.map}
+              isActive={route === "/map-games"}
+              marginLeft={6}
+            />
 
-        <NavigationBarLink
-          href="/flag-games"
-          label="Flag"
-          isActive={route === "/flag-games"}
-          marginLeft={6}
-        />
+            <NavigationBarLink
+              href="/flag-games"
+              label={t.global.flag}
+              isActive={route === "/flag-games"}
+              marginLeft={6}
+            />
 
-        <NavigationBarLink
-          href="/resources"
-          label="Resources"
-          isActive={route.includes("/resources")}
-          marginLeft={6}
-        />
+            <NavigationBarLink
+              href="/resources"
+              label={t.global.resources}
+              isActive={route.includes("/resources")}
+              marginLeft={6}
+            />
 
-        <NavigationBarLink
-          href="/merch"
-          label="Merch"
-          isActive={route.includes("/merch")}
-          marginLeft={6}
-        />
-        <NavigationBarLink
-          href="/blog"
-          label="Blog"
-          isActive={route.includes("/blog")}
-          marginLeft={6}
-        />
+            <NavigationBarLink
+              href="/merch"
+              label={t.global.merch}
+              isActive={route.includes("/merch")}
+              marginLeft={6}
+            />
+          </>
+        )}
       </Flex>
 
       <Flex alignItems="center">
@@ -110,6 +112,7 @@ const NavigationBar: FC = () => {
           </Fade>
         )}
         <UserAvatarMenu />
+        <LanguageSelect ml={3} />
       </Flex>
     </Flex>
   );

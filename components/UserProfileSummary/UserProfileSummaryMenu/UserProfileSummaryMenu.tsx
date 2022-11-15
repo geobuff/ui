@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import {
   Flex,
   IconButton,
@@ -15,9 +15,7 @@ import SolidDotsVertical from "../../../Icons/SolidDotsVertical";
 import SolidPencil from "../../../Icons/SolidPencil";
 import User from "../../../Icons/User";
 import DeleteBinLine from "../../../Icons/DeleteBinLine";
-
-const downloadDataExplainer =
-  "Downloads all personal information collected by GeoBuff.";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   downloadData?: string[][];
@@ -32,6 +30,8 @@ const UserProfileSummaryMenu: FC<Props> = ({
   onAvatarModalOpen = () => {},
   onDeleteAccountModalOpen = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Menu>
       <MenuButton as={IconButton} backgroundColor="inherit">
@@ -47,7 +47,7 @@ const UserProfileSummaryMenu: FC<Props> = ({
               height={4}
               width={4}
             />
-            {"Edit Profile"}
+            {t.userProfileSummaryMenu.editProfile}
           </Flex>
         </MenuItem>
         <MenuItem onClick={onAvatarModalOpen}>
@@ -60,7 +60,7 @@ const UserProfileSummaryMenu: FC<Props> = ({
               height={4}
               width={4}
             />
-            {"Edit Avatar"}
+            {t.userProfileSummaryMenu.editAvatar}
           </Flex>
         </MenuItem>
 
@@ -75,9 +75,9 @@ const UserProfileSummaryMenu: FC<Props> = ({
                   height={4}
                   width={4}
                 />
-                {"Download Data"}
+                {t.userProfileSummaryMenu.downloadData}
                 <Text fontSize="xs" marginTop={2} color="gray.500">
-                  {downloadDataExplainer}
+                  {t.userProfileSummaryMenu.downloadDataExplainer}
                 </Text>
               </CSVLink>
             </Flex>
@@ -92,7 +92,7 @@ const UserProfileSummaryMenu: FC<Props> = ({
               height={4}
               width={4}
             />
-            {"Delete Account"}
+            {t.userProfileSummaryMenu.deleteAccount}
           </Flex>
         </MenuItem>
       </MenuList>

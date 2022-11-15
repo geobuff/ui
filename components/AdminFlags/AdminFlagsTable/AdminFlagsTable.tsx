@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import {
   Box,
   Table,
@@ -14,6 +14,7 @@ import {
 import TableCell from "../../Table/TableCell";
 import { FlagEntry } from "../../../types/flag-group";
 import AdminFlagsTablePlaceholder from "../../../placeholders/AdminFlagsTablePlaceholder";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   entries?: FlagEntry[];
@@ -21,12 +22,14 @@ export interface Props {
 }
 
 const AdminFlagsTable: FC<Props> = ({ entries = [], isLoading = true }) => {
+  const { t } = useContext(LanguageContext);
+
   const getTable = (): JSX.Element => {
     if (entries.length === 0) {
       return (
         <Alert status="info" borderRadius={6} marginBottom={3}>
           <AlertIcon />
-          No flags to display.
+          {t.adminFlagsTable.noFlagsAlert}
         </Alert>
       );
     }
@@ -35,8 +38,8 @@ const AdminFlagsTable: FC<Props> = ({ entries = [], isLoading = true }) => {
       <Table size="md" variant="striped" colorScheme="gray">
         <Thead>
           <Tr>
-            <Th textAlign="left">{"CODE"} </Th>
-            <Th textAlign="left">{"URL"}</Th>
+            <Th textAlign="left">{t.adminFlagsTable.code} </Th>
+            <Th textAlign="left">{t.adminFlagsTable.url}</Th>
           </Tr>
         </Thead>
 

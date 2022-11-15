@@ -16,6 +16,7 @@ import { Session } from "next-auth";
 import AuthGuard from "../components/AuthGuard";
 import { CurrentUserContextProvider } from "../context/CurrentUserContext/CurrentUserContext";
 import ClientOnly from "../components/ClientOnly";
+import { LanguageContextProvider } from "../context/LanguageContext/LanguageContext";
 import { AuthErrorRedirect } from "../components/AuthErrorRedirect/AuthErrorRedirect";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
@@ -121,21 +122,23 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
       <SessionProvider session={session}>
         <ChakraProvider theme={theme}>
           <AppContextProvider>
-            <CurrentUserContextProvider>
-              <ShoppingCartContextProvider>
-                <ClientOnly>
-                  <AuthErrorRedirect>
-                    {Component.requireAuth ? (
-                      <AuthGuard>
+            <LanguageContextProvider>
+              <CurrentUserContextProvider>
+                <ShoppingCartContextProvider>
+                  <ClientOnly>
+                    <AuthErrorRedirect>
+                      {Component.requireAuth ? (
+                        <AuthGuard>
+                          <Component {...pageProps} />
+                        </AuthGuard>
+                      ) : (
                         <Component {...pageProps} />
-                      </AuthGuard>
-                    ) : (
-                      <Component {...pageProps} />
-                    )}
-                  </AuthErrorRedirect>
-                </ClientOnly>
-              </ShoppingCartContextProvider>
-            </CurrentUserContextProvider>
+                      )}
+                    </AuthErrorRedirect>
+                  </ClientOnly>
+                </ShoppingCartContextProvider>
+              </CurrentUserContextProvider>
+            </LanguageContextProvider>
           </AppContextProvider>
         </ChakraProvider>
       </SessionProvider>

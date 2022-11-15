@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useContext, useState } from "react";
 import {
   Button,
   Checkbox,
@@ -20,12 +20,7 @@ import RegisterFormBackButton from "../RegisterFormBackButton";
 import ProfileUserAvatar from "../../ProfileUserAvatar";
 
 import useAvatars from "../../../hooks/UseAvatars";
-
-const usernameHelperText =
-  "Pick a unique name for your account. If you change your mind you can update this later in your profile.";
-
-const countryCodeHelperText =
-  "Select the country you'd like to represent on the leaderboard.";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   values: any;
@@ -46,6 +41,7 @@ const RegisterFormStepThree: FC<Props> = ({
 }) => {
   const [hasAgreedToGeoTerms, setHasAgreedToGeoTerms] = useState(false);
   const { avatars } = useAvatars();
+  const { t } = useContext(LanguageContext);
 
   const currentAvatar = avatars?.find(
     (x) => x.id === parseInt(values?.avatarId)
@@ -57,7 +53,7 @@ const RegisterFormStepThree: FC<Props> = ({
   return (
     <Fade in>
       <RegisterFormBackButton onClick={onPreviousStep}>
-        {"Pick Your Username"}
+        {t.registerFormStepThree.pickYourUsername}
       </RegisterFormBackButton>
       <Flex direction="column" marginY={6}>
         <ProfileUserAvatar
@@ -77,14 +73,14 @@ const RegisterFormStepThree: FC<Props> = ({
               isInvalid={form.errors.username && form.touched.username}
             >
               <FormLabel fontWeight="bold" htmlFor="username">
-                {"Username"}
+                {t.global.username}
               </FormLabel>
               <Input
                 {...field}
                 id="username"
                 isDisabled={isSubmitting || isValidating}
                 autoComplete="off"
-                placeholder="Enter username..."
+                placeholder={t.global.usernamePlaceholder}
                 type="text"
                 size="lg"
                 height="40px"
@@ -102,7 +98,7 @@ const RegisterFormStepThree: FC<Props> = ({
                 </FormErrorMessage>
               ) : (
                 <FormHelperText fontSize="12px" lineHeight={"1.45"}>
-                  {usernameHelperText}
+                  {t.registerFormStepThree.usernameExplainer}
                 </FormHelperText>
               )}
             </FormControl>
@@ -118,7 +114,7 @@ const RegisterFormStepThree: FC<Props> = ({
               isDisabled={isSubmitting || isValidating}
             >
               <FormLabel htmlFor="countryCode" fontWeight="bold">
-                {"Country"}
+                {t.global.country}
               </FormLabel>
 
               <CountrySelect
@@ -131,7 +127,7 @@ const RegisterFormStepThree: FC<Props> = ({
                 </FormErrorMessage>
               ) : (
                 <FormHelperText fontSize="12px" lineHeight={"1.45"}>
-                  {countryCodeHelperText}
+                  {t.registerFormStepThree.countryExplainer}
                 </FormHelperText>
               )}
             </FormControl>
@@ -146,14 +142,14 @@ const RegisterFormStepThree: FC<Props> = ({
         onChange={handleChange}
       >
         <Text color="gray.500" fontSize="small">
-          {"I agree to the"}
+          {t.registerFormStepThree.termsMessage}
           <Link
             marginX={1}
             fontWeight="medium"
             href="/terms-of-service"
             isExternal
           >
-            {"Terms of Service"}
+            {t.global.termsOfService}
           </Link>
           {"&"}
           <Link
@@ -162,7 +158,7 @@ const RegisterFormStepThree: FC<Props> = ({
             href="/privacy-policy"
             isExternal
           >
-            {"Privacy Policy"}
+            {t.global.privacyPolicy}
           </Link>
           {"."}
         </Text>
@@ -179,7 +175,7 @@ const RegisterFormStepThree: FC<Props> = ({
           values?.username && onCheckUsernameValidity(values?.username)
         }
       >
-        {"Create Account"}
+        {t.registerFormStepThree.createAccount}
       </Button>
     </Fade>
   );

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Box,
@@ -17,9 +17,7 @@ import { Field } from "formik";
 
 import Logo from "../../Logo";
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
-
-const welcomeHelperText =
-  "Cheers for your interest in signing up! Let's get started by entering your email and password. These will be used to sign you in.";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   errors: Record<string, string>;
@@ -32,10 +30,12 @@ export interface Props {
 const RegisterFormStepOne: FC<Props> = ({
   hasSubmittedOnce = false,
   errors = {},
-  values = {},
+  values = null,
   onCheckEmailValidity = () => {},
   isValidating = false,
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Fade in>
       <Flex
@@ -51,10 +51,10 @@ const RegisterFormStepOne: FC<Props> = ({
       </Flex>
 
       <Heading as="h1" fontSize="26px" marginY={2} fontWeight="extrabold">
-        {"Create an Account"}
+        {t.registerFormStepOne.title}
       </Heading>
       <Text fontSize="12px" marginY={1} color="gray.500">
-        {welcomeHelperText}
+        {t.registerFormStepOne.explainer}
       </Text>
       <Box marginTop={10} marginBottom={16}>
         <Flex marginY={6}>
@@ -69,14 +69,14 @@ const RegisterFormStepOne: FC<Props> = ({
                 }
               >
                 <FormLabel fontWeight="bold" htmlFor="email">
-                  {"Email"}
+                  {t.global.email}
                 </FormLabel>
                 <Input
                   {...field}
                   isDisabled={isValidating}
                   id="email"
                   autoComplete="off"
-                  placeholder="Enter email..."
+                  placeholder={t.global.emailPlaceholder}
                   type="email"
                   size="lg"
                   height="40px"
@@ -101,7 +101,7 @@ const RegisterFormStepOne: FC<Props> = ({
                 isInvalid={form.errors.password && form.touched.password}
               >
                 <FormLabel htmlFor="password" fontWeight="bold">
-                  {"Password"}
+                  {t.global.password}
                 </FormLabel>
                 <Input
                   {...field}
@@ -109,7 +109,7 @@ const RegisterFormStepOne: FC<Props> = ({
                   id="password"
                   type="password"
                   autoComplete="new-password"
-                  placeholder="Enter password..."
+                  placeholder={t.global.passwordPlaceholder}
                   size="lg"
                   height="40px"
                   fontSize="16px"
@@ -139,7 +139,7 @@ const RegisterFormStepOne: FC<Props> = ({
           values?.email && !errors?.email && onCheckEmailValidity(values?.email)
         }
       >
-        {"Next"}
+        {t.global.next}
       </Button>
     </Fade>
   );

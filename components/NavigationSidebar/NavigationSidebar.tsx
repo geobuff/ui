@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSwipeable } from "react-swipeable";
@@ -21,11 +21,10 @@ import ShoppingCartLink from "../ShoppingCartLink";
 import { insert } from "../../helpers/array";
 import { useSession } from "next-auth/react";
 import { AuthUser } from "../../types/auth-user";
+import LanguageSelect from "../LanguageSelect/LanguageSelect";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
-
-const createAccountExplainer =
-  "Don't have an account? Sign up today to earn XP, unlock badges and compete with friends!";
 
 const buildCartLink = (itemCount: number) => ({
   href: "/shopping-cart",
@@ -38,73 +37,6 @@ const buildCartLink = (itemCount: number) => ({
   ),
 });
 
-const quickLinks = [
-  {
-    href: "/",
-    label: "Home",
-    emoji: "🏡",
-  },
-  {
-    href: "/leaderboard",
-    label: "Leaderboard",
-    emoji: "🏆",
-  },
-  {
-    href: "/daily-trivia",
-    label: "Daily Trivia",
-    emoji: "❓",
-  },
-  {
-    href: "/community-quiz",
-    label: "Community Quizzes",
-    emoji: "🧠",
-  },
-  {
-    href: "/map-games",
-    label: "Map Games",
-    emoji: "🗺",
-  },
-  {
-    href: "/flag-games",
-    label: "Flag Games",
-    emoji: "🎌",
-  },
-  {
-    href: "/resources",
-    label: "Resources",
-    emoji: "🧰",
-  },
-  {
-    href: "/merch",
-    label: "Merch",
-    emoji: "👕",
-  },
-  {
-    href: "/blog",
-    label: "Blog",
-    emoji: "🗞️",
-  },
-];
-
-const popularQuizzes = [
-  {
-    href: "/quiz/countries-of-the-world",
-    label: "Countries of the World",
-  },
-  {
-    href: "/quiz/capitals-of-the-world",
-    label: "Capitals of the World",
-  },
-  {
-    href: "/quiz/flags-of-the-world",
-    label: "Flags of the World",
-  },
-  {
-    href: "/quiz/us-states",
-    label: "US States",
-  },
-];
-
 export interface Props {
   onClose: () => void;
   isOpen: boolean;
@@ -116,6 +48,75 @@ const NavigationSidebar: FC<Props> = ({
   isOpen,
   shoppingCartItemCount = 0,
 }) => {
+  const { t } = useContext(LanguageContext);
+
+  const quickLinks = [
+    {
+      href: "/",
+      label: t.global.home,
+      emoji: "🏡",
+    },
+    {
+      href: "/leaderboard",
+      label: t.global.leaderboard,
+      emoji: "🏆",
+    },
+    {
+      href: "/daily-trivia",
+      label: t.global.dailyTriviaUpper,
+      emoji: "❓",
+    },
+    {
+      href: "/community-quiz",
+      label: t.global.communityQuizzesUpper,
+      emoji: "🧠",
+    },
+    {
+      href: "/map-games",
+      label: t.global.mapGamesUpper,
+      emoji: "🗺",
+    },
+    {
+      href: "/flag-games",
+      label: t.global.flagGamesUpper,
+      emoji: "🎌",
+    },
+    {
+      href: "/resources",
+      label: t.global.resources,
+      emoji: "🧰",
+    },
+    {
+      href: "/merch",
+      label: t.global.merch,
+      emoji: "👕",
+    },
+    {
+      href: "/blog",
+      label: t.global.blog,
+      emoji: "🗞️",
+    },
+  ];
+
+  const popularQuizzes = [
+    {
+      href: "/quiz/countries-of-the-world",
+      label: t.global.countriesOfTheWorld,
+    },
+    {
+      href: "/quiz/capitals-of-the-world",
+      label: t.global.capitalsOfTheWorld,
+    },
+    {
+      href: "/quiz/flags-of-the-world",
+      label: t.global.flagsOfTheWorld,
+    },
+    {
+      href: "/quiz/us-states",
+      label: t.global.usStates,
+    },
+  ];
+
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
 
@@ -174,7 +175,7 @@ const NavigationSidebar: FC<Props> = ({
                   marginTop={8}
                   marginBottom={3}
                 >
-                  {"POPULAR QUIZZES"}
+                  {t.global.popularQuizzes}
                 </Text>
 
                 {popularQuizzes.map(({ href, label }) => (
@@ -189,6 +190,8 @@ const NavigationSidebar: FC<Props> = ({
               </Flex>
             </Flex>
 
+            <LanguageSelect mt={6} />
+
             {!user && (
               <Flex width="100%" direction="column" marginY={2}>
                 <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />
@@ -199,7 +202,7 @@ const NavigationSidebar: FC<Props> = ({
                   color="gray.600"
                   fontWeight={600}
                 >
-                  {createAccountExplainer}
+                  {t.global.createAccountExplainer}
                 </Text>
                 <Link href="/register">
                   <Button
@@ -209,7 +212,7 @@ const NavigationSidebar: FC<Props> = ({
                     height="60px"
                     fontWeight="bold"
                   >
-                    {"Create An Account"}
+                    {t.global.createAnAccount}
                   </Button>
                 </Link>
               </Flex>

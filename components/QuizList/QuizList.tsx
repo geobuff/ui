@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import Link from "next/link";
 
 import {
@@ -11,12 +11,15 @@ import {
 
 import QuizCard from "../QuizCard";
 import { Quiz } from "../../types/quiz";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 interface Props {
   quizzes?: Quiz[];
 }
 
 const QuizList: FC<Props> = ({ quizzes = [] }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Box
       width="100%"
@@ -33,7 +36,7 @@ const QuizList: FC<Props> = ({ quizzes = [] }) => {
       {!quizzes.length ? (
         <Alert status="info" borderRadius={6} p={5} mt={5}>
           <AlertIcon />
-          {"No quizzes to display."}
+          {t.global.noQuizzesAlert}
         </Alert>
       ) : (
         <>

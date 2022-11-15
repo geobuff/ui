@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { DateTime } from "luxon";
 
 import {
@@ -15,6 +15,7 @@ import {
 } from "@chakra-ui/react";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import { useRouter } from "next/router";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -30,21 +31,22 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
   onCopyLink = (): void => {},
 }) => {
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
 
   return (
     <Box overflow="auto">
       <Table variant="striped" colorScheme="gray">
         <Thead>
           <Tr>
-            <Th>Name</Th>
-            <Th>Questions</Th>
-            <Th>Plays</Th>
-            <Th>Added</Th>
+            <Th>{t.global.name}</Th>
+            <Th>{t.global.questions}</Th>
+            <Th>{t.global.plays}</Th>
+            <Th>{t.global.added}</Th>
             {isCurrentUser && (
               <>
-                <Th>Visibility</Th>
-                <Th>Status</Th>
-                <Th>Actions</Th>
+                <Th>{t.global.visibility}</Th>
+                <Th>{t.global.status}</Th>
+                <Th>{t.global.actions}</Th>
               </>
             )}
           </Tr>
@@ -62,7 +64,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
               </Td>
               {isCurrentUser && (
                 <>
-                  <Td>{quiz.isPublic ? "Public" : "Private"}</Td>
+                  <Td>{quiz.isPublic ? t.global.public : t.global.private}</Td>
                   <Td>{quiz.status}</Td>
                   <Td>
                     <Flex alignItems="center" justifyContent="flex-end">
@@ -74,7 +76,7 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
                           onClick={() => onCopyLink(quiz.id, quiz.name)}
                           marginRight={4}
                         >
-                          {"Copy Link"}
+                          {t.global.copyLink}
                         </Button>
                       )}
                       <Button
@@ -86,14 +88,14 @@ const UserProfileMyQuizzesTable: FC<Props> = ({
                         }
                         marginRight={4}
                       >
-                        {"Edit"}
+                        {t.global.edit}
                       </Button>
                       <Button
                         colorScheme="red"
                         variant="link"
                         onClick={() => onDeleteQuiz(quiz.id)}
                       >
-                        {"Delete"}
+                        {t.global.delete}
                       </Button>
                     </Flex>
                   </Td>

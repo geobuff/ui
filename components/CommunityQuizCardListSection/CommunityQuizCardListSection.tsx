@@ -1,4 +1,5 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import CardListItem from "../CardList/CardListItem";
 import CardListSection from "../CardListSection";
@@ -11,11 +12,13 @@ export interface Props {
 }
 
 const CommunityQuizCardListSection: FC<Props> = ({ quizzes = [] }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <CardListSection
-      title="Community Quizzes"
+      title={t.global.communityQuizzesUpper}
       linkHref="/community-quiz"
-      linkVerb="community quizzes"
+      linkVerb={t.global.communityQuizzesLower}
       paddingX={{ base: 3, md: 0 }}
       lessItemsThanGrid={quizzes.length < GRID_LENGTH}
     >

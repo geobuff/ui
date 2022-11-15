@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import type { AppProps } from "next/app";
 import { GetStaticProps } from "next";
 import Head from "next/head";
@@ -9,19 +9,22 @@ import MainView from "../../components/MainView";
 
 import TriviaList from "../../components/TriviaList";
 import axiosClient from "../../axios";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <>
       <Head>
-        <title> {"Daily Trivia - GeoBuff"}</title>
+        <title>{`${t.global.dailyTriviaUpper} - GeoBuff`}</title>
         <meta
           name="description"
           content="Ten questions covering everything geography - from maps and flags, to rivers and mountains, our famous daily trivia will keep you coming back every single day."
         />
       </Head>
       <MainView>
-        <HeroHeader heading="Daily Trivia" />
+        <HeroHeader heading={t.global.dailyTriviaUpper} />
         <Flex flex={1} width="100%">
           <Flex
             direction="column"

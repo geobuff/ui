@@ -12,9 +12,9 @@ export interface Props {
 }
 
 const QuizCardListSection: FC<Props> = ({
-  title = "Map Games",
-  linkHref = "/map-games",
-  linkVerb = "map games",
+  title = "",
+  linkHref = "",
+  linkVerb = "",
   quizzes = [],
 }) => {
   return (

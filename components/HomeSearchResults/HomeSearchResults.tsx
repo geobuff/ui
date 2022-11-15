@@ -1,4 +1,5 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useContext, useMemo } from "react";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import { QuizSearchResults } from "../../types/quiz-search-results";
 import CardListSection from "../CardListSection";
 import HomeSearchResultItems from "./HomeSearchResultItems";
@@ -14,6 +15,8 @@ const HomeSearchResults: FC<Props> = ({
   searchResults = null,
   filter = "",
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const searchResultItems = useMemo(
     () => <HomeSearchResultItems searchResults={searchResults} />,
     [searchResults]
@@ -23,8 +26,8 @@ const HomeSearchResults: FC<Props> = ({
     <CardListSection
       title={
         isSearching
-          ? `Searching for '${filter}' `
-          : `Search results for '${filter}'`
+          ? `${t.homeSearchResults.searchingFor} '${filter}' `
+          : `${t.homeSearchResults.searchResultsFor} '${filter}'`
       }
       isLoading={isSearching}
       paddingX={3}

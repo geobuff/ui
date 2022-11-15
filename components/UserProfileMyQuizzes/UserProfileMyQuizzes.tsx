@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import {
   Alert,
   AlertIcon,
@@ -12,6 +12,7 @@ import { CommunityQuiz } from "../../types/community-quiz-dto";
 import Card from "../Card";
 import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
 import { useRouter } from "next/router";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -27,6 +28,7 @@ const UserProfileMyQuizzes: FC<Props> = ({
   error = false,
 }) => {
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
 
   const getContent = () => {
     if (error) {
@@ -42,7 +44,7 @@ const UserProfileMyQuizzes: FC<Props> = ({
       return (
         <Alert borderRadius={6}>
           <AlertIcon />
-          No entries to display.
+          {t.global.noEntriesAlert}
         </Alert>
       );
     }
@@ -64,7 +66,9 @@ const UserProfileMyQuizzes: FC<Props> = ({
         marginX={2}
       >
         <Heading fontSize="26px">
-          {`${username && !isCurrentUser ? `${username}'s` : "My"} Quizzes`}
+          {`${username && !isCurrentUser ? `${username}'s` : t.global.my} ${
+            t.global.quizzes
+          }`}
         </Heading>
         {isCurrentUser && (
           <Button
@@ -72,7 +76,7 @@ const UserProfileMyQuizzes: FC<Props> = ({
             size="md"
             onClick={() => router.push("/community-quiz/create")}
           >
-            {"Create Quiz"}
+            {t.global.createQuiz}
           </Button>
         )}
       </Flex>
