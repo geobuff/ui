@@ -16,7 +16,6 @@ import DelayedRender from "../components/DelayedRender";
 import { FilteredTrivia } from "../components/TriviaList/TriviaList";
 import { TriviaFilterDto } from "../types/trivia-filter-dto";
 import { CommunityQuizFilterDto } from "../types/community-quiz-filter-dto";
-import { signIn, useSession } from "next-auth/react";
 import TriviaCardListSection from "../components/TriviaCardListSection";
 import HomeHeader from "../components/HomeHeader";
 import { QuizSearchResults } from "../types/quiz-search-results";
@@ -39,21 +38,12 @@ const HomeSearchResults = dynamic(
 );
 
 const Home: FC<AppProps> = ({ pageProps }) => {
-  const { data: session } = useSession();
   const { t } = useContext(LanguageContext);
 
   const [filter, setFilter] = useState("");
   const [searchResults, setSearchResults] = useState<QuizSearchResults>();
   const [isSearching, setIsSearching] = useState(false);
   const [inputValue, setInputValue] = useState("");
-
-  useEffect(() => {
-    if (session?.error === "RefreshAccessTokenError") {
-      // Force sign in to hopefully resolve error.
-      // See https://next-auth.js.org/tutorials/refresh-token-rotation#client-side.
-      signIn();
-    }
-  }, [session]);
 
   useEffect(() => {
     if (filter.trim().length < 3) {
