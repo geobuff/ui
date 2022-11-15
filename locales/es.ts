@@ -372,6 +372,62 @@ export default {
     childrensPrivacyPartOne:
       "No dirigimos ninguno de nuestros productos o servicios directamente a niños menores de 13 años y no recopilamos deliberadamente información personal sobre niños menores de 13 años.",
     disclosureHeading: "Divulgación de información personal a terceros",
+    disclosureSectionOne: "Podemos divulgar información personal a:",
+    disclosureSectionTwo:
+      "una empresa matriz, subsidiaria o afiliada de nuestra empresa",
+    disclosureSectionThree:
+      "proveedores de servicios externos con el fin de permitirles brindar sus servicios, incluidos (sin limitación) proveedores de servicios de TI, almacenamiento de datos, proveedores de servidores y alojamiento, análisis, registradores de errores, cobradores de deudas, proveedores de mantenimiento o resolución de problemas, proveedores de marketing, asesores profesionales y operadores de sistemas de pago",
+    disclosureSectionFour:
+      "nuestros empleados, contratistas y/o entidades relacionadas",
+    disclosureSectionFive:
+      "nuestros agentes o socios comerciales existentes o potenciales",
+    disclosureSectionSix:
+      "patrocinadores o promotores de cualquier competencia, sorteo o promoción que realicemos",
+    disclosureSectionSeven:
+      "agencias de informes crediticios, juzgados, tribunales y autoridades reguladoras, en caso de que no pague los bienes o servicios que le hemos proporcionado",
+    disclosureSectionEight:
+      "juzgados, tribunales, autoridades reguladoras y funcionarios encargados de hacer cumplir la ley, según lo requiera la ley, en relación con cualquier procedimiento legal real o potencial, o para establecer, ejercer o defender nuestros derechos legales",
+    disclosureSectionNine:
+      "terceros, incluidos agentes o subcontratistas que nos ayudan a proporcionarle información, productos, servicios o marketing directo",
+    disclosureSectionTen: "terceros para recopilar y procesar datos",
+    disclosureSectionEleven:
+      "una entidad que compra, o a la que transferimos todos o sustancialmente todos nuestros activos y negocios",
+    disclosureSectionTwelve:
+      "Los terceros que utilizamos actualmente incluyen:",
+    disclosureSectionThirteen: "Google Analitico",
+    disclosureSectionFourteen: "SendGrid",
+    disclosureSectionFifteen: "Stripe",
+    rightsHeading: "Sus derechos y control de su información personal",
+    rightsSectionOneStrong: "Tu elección:",
+    rightsSectionOneText:
+      "Al proporcionarnos información personal, usted comprende que recopilaremos, conservaremos, usaremos y divulgaremos su información personal de acuerdo con esta política de privacidad. No tiene que proporcionarnos información personal; sin embargo, si no lo hace, puede afectar su uso de nuestro sitio web o los productos y/o servicios ofrecidos en él oa través de él.",
+    rightsSectionTwoStrong: "Información de terceros:",
+    rightsSectionTwoText:
+      "Si recibimos información personal sobre usted de un tercero, la protegeremos como se establece en esta política de privacidad. Si usted es un tercero que proporciona información personal sobre otra persona, declara y garantiza que tiene el consentimiento de dicha persona para proporcionarnos la información personal.",
+    rightsSectionThreeStrong: "Permiso de comercialización:",
+    rightsSectionThreeText:
+      "Si previamente ha aceptado que usemos su información personal para fines de marketing directo, puede cambiar de opinión en cualquier momento comunicándose con nosotros utilizando los detalles a continuación.",
+    rightsSectionFourStrong: "Acceso:",
+    rightsSectionFourText:
+      "Puede solicitar detalles de la información personal que tenemos sobre usted.",
+    rightsSectionFiveStrong: "Corrección:",
+    rightsSectionFiveText:
+      "Si cree que la información que tenemos sobre usted es inexacta, desactualizada, incompleta, irrelevante o engañosa, comuníquese con nosotros utilizando los detalles proporcionados en esta política de privacidad. Tomaremos las medidas razonables para corregir cualquier información que se considere inexacta, incompleta, engañosa o desactualizada.",
+    rightsSectionSixStrong: "No discriminación:",
+    rightsSectionSixText:
+      "No lo discriminaremos por ejercer cualquiera de sus derechos sobre su información personal. A menos que se requiera su información personal para brindarle un servicio u oferta en particular (por ejemplo, procesar datos de transacciones), no le negaremos bienes o servicios ni le cobraremos precios o tarifas diferentes por bienes o servicios, incluso mediante la concesión de descuentos o otros beneficios, o imponer sanciones, o proporcionarle un nivel o calidad diferente de bienes o servicios.",
+    rightsSectionSevenStrong: "Descarga de Información Personal:",
+    rightsSectionSevenText:
+      "Proporcionamos un medio para que descargue la información personal que ha compartido a través de nuestro sitio. Por favor contáctenos para más información.",
+    rightsSectionEightStrong: "Notificación de violaciones de datos:",
+    rightsSectionEightText:
+      "Cumpliremos con las leyes aplicables a nosotros con respecto a cualquier violación de datos.",
+    rightsSectionNineStrong: "Quejas:",
+    rightsSectionNineText:
+      "Si cree que hemos infringido una ley de protección de datos relevante y desea presentar una queja, comuníquese con nosotros utilizando los detalles a continuación y proporciónenos los detalles completos de la supuesta infracción. Investigaremos su queja de inmediato y le responderemos por escrito, exponiendo el resultado de nuestra investigación y los pasos que tomaremos para tratar su queja. También tiene derecho a ponerse en contacto con un organismo regulador o una autoridad de protección de datos en relación con su queja.",
+    rightsSectionTenStrong: "Darse de baja:",
+    rightsSectionTenText:
+      "Para darse de baja de nuestra base de datos de correo electrónico o darse de baja de las comunicaciones (incluidas las comunicaciones de marketing), comuníquese con nosotros utilizando los detalles proporcionados en esta política de privacidad, o opte por no utilizar las funciones de exclusión voluntaria proporcionadas en la comunicación. Es posible que necesitemos solicitarle información específica para ayudarnos a confirmar su identidad.",
   },
   footer: {
     company: "Compañía",

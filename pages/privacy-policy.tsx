@@ -154,134 +154,69 @@ const PrivacyPolicy: FC = () => {
             <Heading as="h3" size="lg">
               {t.privacyPolicy.disclosureHeading}
             </Heading>
-            <Text my={3}>We may disclose personal information to: </Text>
+            <Text my={3}>{t.privacyPolicy.disclosureSectionOne}</Text>
             <UnorderedList>
-              <ListItem>
-                a parent, subsidiary or affiliate of our company
-              </ListItem>
-              <ListItem>
-                third-party service providers for the purpose of enabling them
-                to provide their services including (without limitation) IT
-                service providers, data storage, hosting and server providers,
-                analytics, error loggers, debt collectors, maintenance or
-                problem-solving providers, marketing providers, professional
-                advisors, and payment systems operators
-              </ListItem>
-              <ListItem>
-                our employees, contractors, and/or related entities
-              </ListItem>
-              <ListItem>
-                our existing or potential agents or business partners
-              </ListItem>
-              <ListItem>
-                sponsors or promoters of any competition, sweepstakes, or
-                promotion we run
-              </ListItem>
-              <ListItem>
-                credit reporting agencies, courts, tribunals, and regulatory
-                authorities, in the event you fail to pay for goods or services
-                we have provided to you
-              </ListItem>
-              <ListItem>
-                courts, tribunals, regulatory authorities, and law enforcement
-                officers, as required by law, in connection with any actual or
-                prospective legal proceedings, or in order to establish,
-                exercise, or defend our legal rights
-              </ListItem>
-              <ListItem>
-                third parties, including agents or sub-contractors who assist us
-                in providing information, products, services, or direct
-                marketing to you
-              </ListItem>
-              <ListItem>third parties to collect and process data</ListItem>
-              <ListItem>
-                an entity that buys, or to which we transfer all or
-                substantially all of our assets and business
-              </ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionTwo}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionThree}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionFour}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionFive}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionSix}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionSeven}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionEight}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionNine}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionTen}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionEleven}</ListItem>
             </UnorderedList>
-            <Text my={3}>Third parties we currently use include: </Text>
+            <Text my={3}>{t.privacyPolicy.disclosureSectionTwelve}</Text>
             <UnorderedList mb={6}>
-              <ListItem>Google Analytics</ListItem>
-              <ListItem>SendGrid</ListItem>
-              <ListItem>Stripe</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionThirteen}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionFourteen}</ListItem>
+              <ListItem>{t.privacyPolicy.disclosureSectionFifteen}</ListItem>
             </UnorderedList>
 
             <Heading as="h3" size="lg">
-              Your Rights and Controlling Your Personal Information
+              {t.privacyPolicy.rightsHeading}
             </Heading>
             <Stack spacing={3} mt={3} mb={6}>
               <Text>
-                <strong>Your choice:</strong> By providing personal information
-                to us, you understand we will collect, hold, use, and disclose
-                your personal information in accordance with this privacy
-                policy. You do not have to provide personal information to us,
-                however, if you do not, it may affect your use of our website or
-                the products and/or services offered on or through it.{" "}
+                <strong>{t.privacyPolicy.rightsSectionOneStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionOneText}
               </Text>
               <Text>
-                <strong>Information from third parties:</strong> If we receive
-                personal information about you from a third party, we will
-                protect it as set out in this privacy policy. If you are a third
-                party providing personal information about somebody else, you
-                represent and warrant that you have such person’s consent to
-                provide the personal information to us.{" "}
+                <strong>{t.privacyPolicy.rightsSectionTwoStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionTwoText}
               </Text>
               <Text>
-                <strong>Marketing permission:</strong> If you have previously
-                agreed to us using your personal information for direct
-                marketing purposes, you may change your mind at any time by
-                contacting us using the details below.{" "}
+                <strong>{t.privacyPolicy.rightsSectionThreeStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionThreeText}
               </Text>
               <Text>
-                <strong>Access:</strong> You may request details of the personal
-                information that we hold about you.{" "}
+                <strong>{t.privacyPolicy.rightsSectionFourStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionFourText}
               </Text>
               <Text>
-                <strong>Correction:</strong> If you believe that any information
-                we hold about you is inaccurate, out of date, incomplete,
-                irrelevant, or misleading, please contact us using the details
-                provided in this privacy policy. We will take reasonable steps
-                to correct any information found to be inaccurate, incomplete,
-                misleading, or out of date.{" "}
+                <strong>{t.privacyPolicy.rightsSectionFiveStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionFiveText}
               </Text>
               <Text>
-                <strong>Non-discrimination:</strong> We will not discriminate
-                against you for exercising any of your rights over your personal
-                information. Unless your personal information is required to
-                provide you with a particular service or offer (for example
-                processing transaction data), we will not deny you goods or
-                services and/or charge you different prices or rates for goods
-                or services, including through granting discounts or other
-                benefits, or imposing penalties, or provide you with a different
-                level or quality of goods or services.{" "}
+                <strong>{t.privacyPolicy.rightsSectionSixStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionSixText}
               </Text>
               <Text>
-                <strong>Downloading of Personal Information:</strong> We provide
-                a means for you to download the personal information you have
-                shared through our site. Please contact us for more information.{" "}
+                <strong>{t.privacyPolicy.rightsSectionSevenStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionSevenText}
               </Text>
               <Text>
-                <strong>Notification of data breaches:</strong> We will comply
-                with laws applicable to us in respect of any data breach.{" "}
+                <strong>{t.privacyPolicy.rightsSectionEightStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionEightText}
               </Text>
               <Text>
-                <strong>Complaints:</strong> If you believe that we have
-                breached a relevant data protection law and wish to make a
-                complaint, please contact us using the details below and provide
-                us with full details of the alleged breach. We will promptly
-                investigate your complaint and respond to you, in writing,
-                setting out the outcome of our investigation and the steps we
-                will take to deal with your complaint. You also have the right
-                to contact a regulatory body or data protection authority in
-                relation to your complaint.{" "}
+                <strong>{t.privacyPolicy.rightsSectionNineStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionNineText}
               </Text>
               <Text>
-                <strong>Unsubscribe:</strong> To unsubscribe from our email
-                database or opt-out of communications (including marketing
-                communications), please contact us using the details provided in
-                this privacy policy, or opt-out using the opt-out facilities
-                provided in the communication. We may need to request specific
-                information from you to help us confirm your identity.{" "}
+                <strong>{t.privacyPolicy.rightsSectionTenStrong}</strong>{" "}
+                {t.privacyPolicy.rightsSectionTenText}
               </Text>
             </Stack>
 
