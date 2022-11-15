@@ -17,4 +17,8 @@ module.exports = withMDX({
       "ik.imagekit.io",
     ],
   },
+  i18n: {
+    locales: ["en", "es"],
+    defaultLocale: "en",
+  },
 });

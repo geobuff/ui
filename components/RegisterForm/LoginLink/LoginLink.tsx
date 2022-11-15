@@ -1,7 +1,10 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { Flex, Text, Link } from "@chakra-ui/react";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 const LoginLink: FC = () => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Flex
       direction="row"
@@ -9,7 +12,7 @@ const LoginLink: FC = () => {
       marginRight={{ base: 0, md: 5 }}
     >
       <Text fontSize="14px" marginRight={1} fontWeight="500">
-        {"Already signed up?"}
+        {t.loginLink.message}
       </Text>
       <Link
         href="/login"
@@ -18,7 +21,7 @@ const LoginLink: FC = () => {
         textDecoration="underline"
         _hover={{ color: "#5c5c5c" }}
       >
-        {"Login to your account"}
+        {t.loginLink.action}
       </Link>
     </Flex>
   );

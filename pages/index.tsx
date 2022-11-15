@@ -1,4 +1,4 @@
-import React, { useState, FC, ChangeEvent, useEffect } from "react";
+import React, { useState, FC, ChangeEvent, useEffect, useContext } from "react";
 import type { AppProps } from "next/app";
 import { debounce } from "throttle-debounce";
 import axios from "axios";
@@ -19,6 +19,7 @@ import { CommunityQuizFilterDto } from "../types/community-quiz-filter-dto";
 import TriviaCardListSection from "../components/TriviaCardListSection";
 import HomeHeader from "../components/HomeHeader";
 import { QuizSearchResults } from "../types/quiz-search-results";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 const QuizCardListSection = dynamic(
   () => import("../components/QuizCardListSection")
@@ -37,6 +38,8 @@ const HomeSearchResults = dynamic(
 );
 
 const Home: FC<AppProps> = ({ pageProps }) => {
+  const { t } = useContext(LanguageContext);
+
   const [filter, setFilter] = useState("");
   const [searchResults, setSearchResults] = useState<QuizSearchResults>();
   const [isSearching, setIsSearching] = useState(false);
@@ -154,14 +157,19 @@ const Home: FC<AppProps> = ({ pageProps }) => {
             )}
 
             {mapQuizzes.length > 0 && (
-              <QuizCardListSection quizzes={mapQuizzes} />
+              <QuizCardListSection
+                title={t.global.mapGamesUpper}
+                linkHref="/map-games"
+                linkVerb={t.global.mapGamesLower}
+                quizzes={mapQuizzes}
+              />
             )}
 
             {flagQuizzes.length > 0 && (
               <QuizCardListSection
-                title="Flag Games"
+                title={t.global.flagGamesUpper}
                 linkHref="/flag-games"
-                linkVerb="flag games"
+                linkVerb={t.global.flagGamesLower}
                 quizzes={flagQuizzes}
               />
             )}

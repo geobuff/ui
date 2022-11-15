@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import Image from "next/image";
 
 import {
@@ -14,12 +14,15 @@ import Card from "../Card";
 
 import SolidLock from "../../Icons/SolidLock";
 import { Badge } from "../../types/badge";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 interface Props {
   badges?: Badge[];
 }
 
 const UserProfileAchievements: FC<Props> = ({ badges = [] }) => {
+  const { t } = useContext(LanguageContext);
+
   const getLabel = (badge: Badge): React.ReactNode => (
     <Box>
       <Heading size="md">{badge.name}</Heading>
@@ -31,7 +34,7 @@ const UserProfileAchievements: FC<Props> = ({ badges = [] }) => {
   return (
     <Card paddingX={{ base: 4, md: 6 }} paddingY={{ base: 5, md: 6 }}>
       <Heading fontSize="26px" textAlign="left" marginLeft={2} marginBottom={8}>
-        {"Achievements"}
+        {t.userProfileAchievements.title}
       </Heading>
 
       <Flex direction="column" justifyContent="center" marginX={2}>

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Box,
@@ -14,6 +14,7 @@ import Image from "next/image";
 import Twemoji from "../Twemoji";
 import User from "../../Icons/User";
 import { cardImageStyle } from "../../helpers/style";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
@@ -36,6 +37,7 @@ const CommunityQuizCard: FC<Props> = ({
   ...props
 }) => {
   const isMobile = useBreakpointValue({ base: true, sm: false });
+  const { t } = useContext(LanguageContext);
 
   return (
     <Box
@@ -122,7 +124,7 @@ const CommunityQuizCard: FC<Props> = ({
                 maxWidth={{ base: "65px", md: "85px" }}
                 noOfLines={1}
               >
-                {`${maxScore} Questions`}
+                {`${maxScore} ${t.global.questions}`}
               </Text>
             </Flex>
           </Flex>

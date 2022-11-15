@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import {
   Box,
   Heading,
@@ -14,10 +14,7 @@ import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
 import { MerchSize } from "../../../types/merch-item";
 import { MerchSummaryFormSubmit } from "../../../types/merch-summary-form-submit";
-
-const validationSchema = Yup.object().shape({
-  size: Yup.string().required("Please choose an available size."),
-});
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   name?: string;
@@ -44,6 +41,12 @@ const MerchSummaryDetails: FC<Props> = ({
   submitted = false,
   onOpen = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
+  const validationSchema = Yup.object().shape({
+    size: Yup.string().required(t.merchSummaryDetails.sizeValidationMessage),
+  });
+
   return (
     <>
       <Heading>{name}</Heading>
@@ -74,7 +77,7 @@ const MerchSummaryDetails: FC<Props> = ({
                     >
                       <Select {...field}>
                         <option value="" disabled>
-                          Select a size...
+                          {t.merchSummaryDetails.selectASize}
                         </option>
                         {sizes.map((size) => (
                           <option
@@ -86,7 +89,7 @@ const MerchSummaryDetails: FC<Props> = ({
                           >
                             {size.size}{" "}
                             {(size.quantity === 0 || !isAvailable(size.id)) &&
-                              " - Sold Out"}
+                              ` - ${t.merchSummaryDetails.soldOut}`}
                           </option>
                         ))}
                       </Select>
@@ -101,7 +104,7 @@ const MerchSummaryDetails: FC<Props> = ({
                 {sizeGuideImageUrl && (
                   <Flex direction="column" justifyContent="center">
                     <Button onClick={onOpen} marginLeft={3}>
-                      {"Size Guide"}
+                      {t.merchSummary.sizeGuide}
                     </Button>
                   </Flex>
                 )}
@@ -115,7 +118,7 @@ const MerchSummaryDetails: FC<Props> = ({
               isLoading={isSubmitting}
               mt={3}
             >
-              {"Add To Cart"}
+              {t.global.addToCart}
             </Button>
           </Form>
         )}

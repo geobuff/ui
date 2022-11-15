@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import {
   Button,
   Fade,
@@ -12,6 +12,7 @@ import { Field } from "formik";
 
 import AvatarSelectContainer from "../../../containers/AvatarSelectContainer";
 import RegisterFormBackButton from "../RegisterFormBackButton";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   onPreviousStep: () => void;
@@ -24,11 +25,12 @@ const RegisterFormStepTwo: FC<Props> = ({
   onPreviousStep = () => {},
   onNextStep = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Fade in>
-      {/* <SlideFade in offsetX={"-36px"} offsetY={0}> */}
       <RegisterFormBackButton onClick={onPreviousStep}>
-        {"Select Your Avatar"}
+        {t.registerFormStepTwo.selectYourAvatar}
       </RegisterFormBackButton>
 
       <Flex marginY={6}>
@@ -38,7 +40,7 @@ const RegisterFormStepTwo: FC<Props> = ({
               isInvalid={form.errors.avatarId && form.touched.avatarId}
             >
               <VisuallyHidden>
-                <FormLabel htmlFor="avatarId">{"Avatar"}</FormLabel>
+                <FormLabel htmlFor="avatarId">{t.global.avatar}</FormLabel>
               </VisuallyHidden>
 
               <AvatarSelectContainer
@@ -59,7 +61,7 @@ const RegisterFormStepTwo: FC<Props> = ({
         type="button"
         onClick={onNextStep}
       >
-        {"Next"}
+        {t.global.next}
       </Button>
     </Fade>
   );

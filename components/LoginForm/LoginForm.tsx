@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import * as Yup from "yup";
 
 import {
@@ -24,21 +24,12 @@ import ErrorAlertBanner from "../ErrorAlertBanner";
 import RegisterLink from "./RegisterLink";
 import { LoginFormSubmit } from "../../types/login-form-submit";
 import { getCsrfToken } from "next-auth/react";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const initialValues = {
   email: "",
   password: "",
 };
-
-const validationSchema = Yup.object().shape({
-  email: Yup.string().required("Please include an email."),
-  password: Yup.string()
-    .required("Please include a password.")
-    .matches(
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-      "Must contain at least 8 characters, one uppercase letter, one lowercase letter and one number."
-    ),
-});
 
 interface Props {
   csrfToken?: string;
@@ -54,6 +45,19 @@ const LoginForm: FC<Props> = ({
   isSubmitting = false,
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
+  const { t } = useContext(LanguageContext);
+
+  const validationSchema = Yup.object().shape({
+    email: Yup.string()
+      .required(t.global.emailRequiredValidation)
+      .email(t.global.emailValidValidation),
+    password: Yup.string()
+      .required(t.global.passwordRequiredValidation)
+      .matches(
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+        t.global.passwordMatchValidation
+      ),
+  });
 
   const mainContent = (
     <>
@@ -69,7 +73,7 @@ const LoginForm: FC<Props> = ({
       </Flex>
 
       <Heading as="h1" fontSize="26px" marginY={3} fontWeight="800">
-        {"Login"}
+        {t.global.login}
       </Heading>
 
       <Formik
@@ -88,7 +92,7 @@ const LoginForm: FC<Props> = ({
                     isInvalid={form.errors.email && form.touched.email}
                   >
                     <FormLabel fontWeight="bold" htmlFor="email">
-                      {"Email"}
+                      {t.global.email}
                     </FormLabel>
                     <Input
                       {...field}
@@ -97,7 +101,7 @@ const LoginForm: FC<Props> = ({
                       size="lg"
                       height="40px"
                       fontSize="16px"
-                      placeholder="Enter email..."
+                      placeholder={t.global.emailPlaceholder}
                       background="#F6F6F6"
                       borderRadius={6}
                       _placeholder={{ color: "gray.500" }}
@@ -121,7 +125,7 @@ const LoginForm: FC<Props> = ({
                   >
                     <Flex direction="row" justifyContent="space-between">
                       <FormLabel fontWeight="bold" htmlFor="password">
-                        {"Password"}
+                        {t.global.password}
                       </FormLabel>
                       <Link
                         href="/forgot-password"
@@ -130,14 +134,14 @@ const LoginForm: FC<Props> = ({
                         fontSize="11px"
                         fontWeight="500"
                       >
-                        {"Forgot password?"}
+                        {t.loginForm.forgotPassword}
                       </Link>
                     </Flex>
                     <Input
                       {...field}
                       id="password"
                       type="password"
-                      placeholder="Enter password..."
+                      placeholder={t.global.passwordPlaceholder}
                       background="#F6F6F6"
                       borderRadius={6}
                       size="lg"
@@ -164,7 +168,7 @@ const LoginForm: FC<Props> = ({
                 type="submit"
                 isLoading={isSubmitting}
               >
-                {"Login"}
+                {t.global.login}
               </Button>
             </Flex>
           </Form>

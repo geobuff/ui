@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Flex,
@@ -19,81 +19,9 @@ import GitHub from "../GitHub";
 import Reddit from "../Reddit";
 import YouTube from "../YouTube";
 import Twitch from "../Twitch";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
-
-const companyLinks = [
-  {
-    href: "/our-mission",
-    text: "Our Mission",
-    isExternal: false,
-  },
-  {
-    href: "/our-values",
-    text: "Our Values",
-    isExternal: false,
-  },
-  {
-    href: "/team",
-    text: "Meet the Team",
-    isExternal: false,
-  },
-  {
-    href: "/resources",
-    text: "Resources",
-    isExternal: false,
-  },
-  {
-    href: process.env.NEXT_PUBLIC_DISCORD_LINK,
-    text: "Support",
-    isExternal: true,
-  },
-];
-
-const furtherInfoLinks = [
-  {
-    href: "/privacy-policy",
-    text: "Privacy Policy",
-  },
-  {
-    href: "/terms-of-service",
-    text: "Terms of Service",
-  },
-  {
-    href: "/cookie-policy",
-    text: "Cookie Policy",
-  },
-  {
-    href: "/acceptable-use-policy",
-    text: "Acceptable Use Policy",
-  },
-  {
-    href: "/faq",
-    text: "F.A.Q.",
-  },
-];
-
-const footerCopy =
-  "GeoBuff is NZ's leading platform for Geography education and trivia.";
-
-const currentYear = new Date().getFullYear();
-const footerLegal = `© ${currentYear} GeoBuff. All rights reserved.`;
-
-const simpleFooter = (
-  <Flex
-    as="footer"
-    direction="column"
-    justifyContent="center"
-    marginTop="auto"
-    paddingY={6}
-  >
-    <Flex alignSelf="center">
-      <Text color="gray.500" fontSize={{ base: "11px", md: "14px" }}>
-        {footerLegal}
-      </Text>
-    </Flex>
-  </Flex>
-);
 
 const socialIcons = (
   <Flex justifyContent="center" mt={{ base: 12, md: 0 }}>
@@ -174,135 +102,206 @@ const socialIcons = (
   </Flex>
 );
 
-const extendedFooter = (isMobile: boolean) => (
-  <Flex
-    as="footer"
-    borderTop="2px solid #E3E1E1"
-    direction="column"
-    justifyContent="space-between"
-    marginTop="auto"
-    paddingY={3}
-  >
+interface Props {
+  variant?: FooterVariant;
+}
+
+const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
+  const { t } = useContext(LanguageContext);
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
+  const companyLinks = [
+    {
+      href: "/our-mission",
+      text: t.global.ourMission,
+      isExternal: false,
+    },
+    {
+      href: "/our-values",
+      text: t.global.ourValues,
+      isExternal: false,
+    },
+    {
+      href: "/team",
+      text: t.global.meetTheTeam,
+      isExternal: false,
+    },
+    {
+      href: "/resources",
+      text: t.global.resources,
+      isExternal: false,
+    },
+    {
+      href: process.env.NEXT_PUBLIC_DISCORD_LINK,
+      text: t.global.support,
+      isExternal: true,
+    },
+  ];
+
+  const furtherInfoLinks = [
+    {
+      href: "/privacy-policy",
+      text: t.global.privacyPolicy,
+    },
+    {
+      href: "/terms-of-service",
+      text: t.global.termsOfService,
+    },
+    {
+      href: "/cookie-policy",
+      text: t.global.cookiePolicy,
+    },
+    {
+      href: "/acceptable-use-policy",
+      text: t.global.acceptableUsePolicy,
+    },
+    {
+      href: "/faq",
+      text: t.global.faq,
+    },
+  ];
+
+  const currentYear = new Date().getFullYear();
+  const footerLegal = `© ${currentYear} GeoBuff. ${t.footer.allRightsReserved}.`;
+
+  const simpleFooter = (
     <Flex
-      direction={{ base: "column", md: "row" }}
-      marginY={5}
-      paddingX={{ base: 6, md: 10 }}
-      width="100%"
+      as="footer"
+      direction="column"
+      justifyContent="center"
+      marginTop="auto"
+      paddingY={6}
+    >
+      <Flex alignSelf="center">
+        <Text color="gray.500" fontSize={{ base: "11px", md: "14px" }}>
+          {footerLegal}
+        </Text>
+      </Flex>
+    </Flex>
+  );
+
+  const extendedFooter = (isMobile: boolean) => (
+    <Flex
+      as="footer"
+      borderTop="2px solid #E3E1E1"
+      direction="column"
+      justifyContent="space-between"
+      marginTop="auto"
+      paddingY={3}
     >
       <Flex
-        direction="row"
+        direction={{ base: "column", md: "row" }}
+        marginY={5}
+        paddingX={{ base: 6, md: 10 }}
         width="100%"
-        justifyContent="space-between"
-        paddingX={{ base: "5%", md: 0 }}
       >
         <Flex
-          direction="column"
-          marginBottom={{ base: 10, md: 0 }}
-          textAlign={{ base: "center", md: "left" }}
+          direction="row"
+          width="100%"
+          justifyContent="space-between"
+          paddingX={{ base: "5%", md: 0 }}
         >
-          <Text color="#8a8a8a" fontWeight={600} marginBottom={2}>
-            {"Company"}
-          </Text>
-          <Flex direction="column">
-            {companyLinks.map(({ href, text, isExternal }) => (
-              <Link
-                key={href}
-                href={href}
-                color="#B0B0B0"
-                fontSize="14px"
-                fontWeight="medium"
-                marginY={{ base: 1, md: 1 }}
-                isExternal={isExternal}
-              >
-                {text}
-              </Link>
-            ))}
+          <Flex
+            direction="column"
+            marginBottom={{ base: 10, md: 0 }}
+            textAlign={{ base: "center", md: "left" }}
+          >
+            <Text color="#8a8a8a" fontWeight={600} marginBottom={2}>
+              {t.footer.company}
+            </Text>
+            <Flex direction="column">
+              {companyLinks.map(({ href, text, isExternal }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  color="#B0B0B0"
+                  fontSize="14px"
+                  fontWeight="medium"
+                  marginY={{ base: 1, md: 1 }}
+                  isExternal={isExternal}
+                >
+                  {text}
+                </Link>
+              ))}
+            </Flex>
+          </Flex>
+
+          <Flex
+            direction="column"
+            marginX={{ base: 0, md: 24 }}
+            marginBottom={{ base: 10, md: 0 }}
+            marginRight={{ base: 0, md: "auto" }}
+            textAlign={{ base: "center", md: "left" }}
+          >
+            <Text color="#8a8a8a" fontWeight={600} marginBottom={2}>
+              {t.footer.furtherInformation}
+            </Text>
+            <Flex direction="column">
+              {furtherInfoLinks.map(({ href, text }) => (
+                <Link
+                  key={href}
+                  href={href}
+                  color="#B0B0B0"
+                  fontSize="14px"
+                  fontWeight="medium"
+                  marginY={{ base: 1, md: 1 }}
+                >
+                  {text}
+                </Link>
+              ))}
+            </Flex>
           </Flex>
         </Flex>
 
         <Flex
-          direction="column"
-          marginX={{ base: 0, md: 24 }}
-          marginBottom={{ base: 10, md: 0 }}
-          marginRight={{ base: 0, md: "auto" }}
-          textAlign={{ base: "center", md: "left" }}
+          direction={{ base: "column", md: "row" }}
+          marginLeft={{ base: 0, md: "auto" }}
+          justifyContent="flex-end"
         >
-          <Text color="#8a8a8a" fontWeight={600} marginBottom={2}>
-            {"Further Information"}
-          </Text>
-          <Flex direction="column">
-            {furtherInfoLinks.map(({ href, text }) => (
-              <Link
-                key={href}
-                href={href}
-                color="#B0B0B0"
-                fontSize="14px"
-                fontWeight="medium"
-                marginY={{ base: 1, md: 1 }}
+          <Flex
+            direction="column"
+            marginBottom={{ base: 5, md: 0 }}
+            justifyContent="center"
+          >
+            <Flex
+              width="100%"
+              justifyContent={{ base: "center", md: "flex-end" }}
+            >
+              <Logo isGrayScale />
+            </Flex>
+            <Flex justifyContent={{ base: "center", md: "center" }}>
+              <Text
+                marginTop={4}
+                marginLeft={1}
+                color="#8a8a8a"
+                maxWidth={"400px"}
+                textAlign={{ base: "center", md: "right" }}
               >
-                {text}
-              </Link>
-            ))}
+                {t.footer.description}
+              </Text>
+            </Flex>
+            {isMobile && socialIcons}
           </Flex>
         </Flex>
       </Flex>
 
       <Flex
         direction={{ base: "column", md: "row" }}
-        marginLeft={{ base: 0, md: "auto" }}
-        justifyContent="flex-end"
+        alignItems="center"
+        justifyContent="space-between"
+        borderTop="2px solid #E3E1E1"
+        paddingTop={{ base: 3, md: 5 }}
+        paddingBottom={{ base: isAppMobile ? 6 : 2, md: 3 }}
+        paddingX={{ base: 2, md: 10 }}
       >
-        <Flex
-          direction="column"
-          marginBottom={{ base: 5, md: 0 }}
-          justifyContent="center"
-        >
-          <Flex
-            width="100%"
-            justifyContent={{ base: "center", md: "flex-end" }}
-          >
-            <Logo isGrayScale />
-          </Flex>
-          <Flex justifyContent={{ base: "center", md: "center" }}>
-            <Text
-              marginTop={4}
-              marginLeft={1}
-              color="#8a8a8a"
-              maxWidth={"400px"}
-              textAlign={{ base: "center", md: "right" }}
-            >
-              {footerCopy}
-            </Text>
-          </Flex>
-          {isMobile && socialIcons}
-        </Flex>
+        <Text color="#B0B0B0" fontSize="14px" marginBottom={{ base: 2, md: 0 }}>
+          {footerLegal}
+        </Text>
+        {!isMobile && socialIcons}
+        <FooterPlaysContainer />
       </Flex>
     </Flex>
-
-    <Flex
-      direction={{ base: "column", md: "row" }}
-      alignItems="center"
-      justifyContent="space-between"
-      borderTop="2px solid #E3E1E1"
-      paddingTop={{ base: 3, md: 5 }}
-      paddingBottom={{ base: isAppMobile ? 6 : 2, md: 3 }}
-      paddingX={{ base: 2, md: 10 }}
-    >
-      <Text color="#B0B0B0" fontSize="14px" marginBottom={{ base: 2, md: 0 }}>
-        {footerLegal}
-      </Text>
-      {!isMobile && socialIcons}
-      <FooterPlaysContainer />
-    </Flex>
-  </Flex>
-);
-
-interface Props {
-  variant?: FooterVariant;
-}
-
-const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
-  const isMobile = useBreakpointValue({ base: true, md: false });
+  );
 
   switch (variant) {
     case FooterVariant.SIMPLE:

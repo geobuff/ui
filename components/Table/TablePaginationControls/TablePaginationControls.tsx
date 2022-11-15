@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Box,
@@ -10,6 +10,7 @@ import {
 
 import ArrowLeft from "../../../Icons/ArrowLeft";
 import ArrowRight from "../../../Icons/ArrowRight";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 interface Props {
   isLoading?: boolean;
@@ -31,6 +32,7 @@ const TablePaginationControls: FC<Props> = ({
   onPreviousPage = (): void => {},
 }) => {
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
+  const { t } = useContext(LanguageContext);
 
   return (
     <Flex marginTop="auto" pt={4}>
@@ -44,9 +46,9 @@ const TablePaginationControls: FC<Props> = ({
         _hover={{ backgroundColor: "#e6e6e6" }}
         isDisabled={isLoading}
       >
-        <option value={10}>{"10 Per Page"}</option>
-        <option value={20}>{"20 Per Page"}</option>
-        <option value={50}>{"50 Per Page"}</option>
+        <option value={10}>{`10 ${t.global.perPage}`}</option>
+        <option value={20}>{`20 ${t.global.perPage}`}</option>
+        <option value={50}>{`50 ${t.global.perPage}`}</option>
       </Select>
 
       <Box marginLeft="auto">
@@ -64,7 +66,7 @@ const TablePaginationControls: FC<Props> = ({
             height="20px"
             width="20px"
           />
-          {shouldRenderOnMobile && "Previous"}
+          {shouldRenderOnMobile && t.global.previous}
         </Button>
 
         <Button
@@ -76,7 +78,7 @@ const TablePaginationControls: FC<Props> = ({
           width={{ base: "46px", md: "132px" }}
           _hover={{ backgroundColor: "#e6e6e6" }}
         >
-          {shouldRenderOnMobile && "Next"}
+          {shouldRenderOnMobile && t.global.next}
           <ArrowRight
             marginLeft={{ base: 0, md: "6px" }}
             height="20px"

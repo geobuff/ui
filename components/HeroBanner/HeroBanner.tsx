@@ -1,9 +1,9 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import HeroBannerText from "./HeroBannerText";
-import ClientOnly from "../ClientOnly";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const NEXT_ACTION_DELAY = 10000;
 const FADE_OUT_DELAY = 1000;
@@ -14,20 +14,20 @@ interface SubHeaderAction {
 }
 
 export interface Props {
-  title?: string;
   textColor?: string;
   backgroundColor?: string;
   imageUrl?: string;
 }
 
 const HeroBanner: FC<Props> = ({
-  title = "Eat, Sleep, Quiz, Repeat",
   textColor = "white",
   backgroundColor = "linear-gradient(90deg, #27AE60 0%, #219250 100%)",
   imageUrl = `${process.env.NEXT_PUBLIC_CDN_URL}/headers/world-map.svg`,
 }) => {
   const { data: session, status } = useSession();
   const isSessionLoading = status === "loading";
+
+  const { language, t } = useContext(LanguageContext);
 
   const [actions, setActions] = useState<SubHeaderAction[]>([]);
   const [index, setIndex] = useState(0);
@@ -38,37 +38,37 @@ const HeroBanner: FC<Props> = ({
       const actions = [
         {
           link: "/leaderboard",
-          value: "compete with players from all over the globe!",
+          value: t.heroBanner.actionOne,
         },
         {
           link: session?.user
             ? "/community-quiz/create"
             : "/create/community-quizzes",
-          value: "create a community quiz to share with your peers",
+          value: t.heroBanner.actionTwo,
         },
-        { link: "/merch", value: "cop an item from our winter collection" },
+        { link: "/merch", value: t.heroBanner.actionThree },
         {
           link: "/play/map-games",
-          value: "play one of our interactive map games",
+          value: t.heroBanner.actionFour,
         },
         {
           link: "/play/flag-games",
-          value: "play one of our drag and drop flag games",
+          value: t.heroBanner.actionFive,
         },
         {
           link: "/play/daily-trivia",
-          value: "test yourself with our auto-generated daily trivia",
+          value: t.heroBanner.actionSix,
         },
         {
           link: "/resources",
-          value: "use our collection of resources in your own project",
+          value: t.heroBanner.actionSeven,
         },
       ];
 
       setActions(actions);
       setIndex(Math.floor(Math.random() * actions.length));
     }
-  }, [session, isSessionLoading]);
+  }, [session, isSessionLoading, language]);
 
   const delayedSetFadeOut = () =>
     setTimeout(() => {
@@ -133,7 +133,7 @@ const HeroBanner: FC<Props> = ({
           fontWeight="black"
           lineHeight={{ base: "1.1", md: "1" }}
         >
-          {title}
+          {t.heroBanner.title}
         </Heading>
 
         <Box
@@ -147,7 +147,7 @@ const HeroBanner: FC<Props> = ({
             fontSize={["18px", "18px", "24px"]}
             fontWeight="medium"
           >
-            {"Create an account and"}{" "}
+            {t.heroBanner.subtitle}
             <HeroBannerText
               isLoading={isSessionLoading}
               href={actions[index]?.link}

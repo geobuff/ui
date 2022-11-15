@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import Link from "next/link";
 import {
   Alert,
@@ -13,6 +13,7 @@ import { Trivia } from "../../types/trivia";
 import TriviaCard from "../TriviaCard";
 import DelayedRender from "../DelayedRender";
 import { isDateBefore, formatDate } from "../../helpers/date";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface FilteredTrivia extends Trivia {
   isActive: boolean;
@@ -24,12 +25,13 @@ export interface Props {
 
 const TriviaList: FC<Props> = ({ trivia = [] }) => {
   const containerMaxWidth = trivia.length < 5 ? 1000 : 1400;
+  const { t } = useContext(LanguageContext);
 
   if (trivia.length === 0) {
     return (
       <Alert status="info" borderRadius={6}>
         <AlertIcon />
-        {`No daily trivia's to display.`}
+        {t.triviaList.noTriviaAlert}
       </Alert>
     );
   }

@@ -1,6 +1,7 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 import axiosClient from "../../../axios";
 import RegisterFormStepOne from "../../../components/RegisterForm/RegisterFormStepOne";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
 
 export interface Props {
@@ -19,6 +20,8 @@ const RegisterFormStepOneContainer: FC<Props> = ({
   const [isValidating, setIsValidating] = useState(false);
   const [hasSubmittedOnce, setHasSubmittedOnce] = useState(false);
 
+  const { t } = useContext(LanguageContext);
+
   const handleCheckEmailValidity = async (email: string) => {
     setIsValidating(true);
 
@@ -29,7 +32,10 @@ const RegisterFormStepOneContainer: FC<Props> = ({
         onNextStep();
       }, 20);
     } else {
-      setFieldError("email", `An account with email ${email} already exists.`);
+      setFieldError(
+        "email",
+        `${t.global.emailExistsValidationPartOne} ${email} ${t.global.emailExistsValidationPartTwo}`
+      );
     }
 
     setHasSubmittedOnce(true);

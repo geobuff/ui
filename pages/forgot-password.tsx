@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import Head from "next/head";
 
 import { useBreakpointValue } from "@chakra-ui/react";
@@ -6,14 +6,16 @@ import { useBreakpointValue } from "@chakra-ui/react";
 import MainView from "../components/MainView";
 import ForgotPasswordContainer from "../containers/ForgotPasswordContainer";
 import { FooterVariant } from "../types/footer-variant";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 const ForgotPassword: FC = () => {
   const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });
+  const { t } = useContext(LanguageContext);
 
   return (
     <>
       <Head>
-        <title>Forgot Password - GeoBuff</title>
+        <title>{`${t.forgotPassword.title}- GeoBuff`}</title>
         <meta
           name="description"
           content="Forgot your password? Not to worry, we've got you covered. Get a reset link sent to your email and we'll have you back in action in no time."

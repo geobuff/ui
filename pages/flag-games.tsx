@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import type { AppProps } from "next/app";
 import { GetStaticProps } from "next";
 import Head from "next/head";
@@ -8,19 +8,22 @@ import axiosClient from "../axios";
 import HeroHeader from "../components/HeroHeader";
 import MainView from "../components/MainView";
 import QuizList from "../components/QuizList";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <>
       <Head>
-        <title> {"Flag Games - GeoBuff"}</title>
+        <title>{`${t.global.flagGamesUpper} - GeoBuff`}</title>
         <meta
           name="description"
           content="Call yourself a flag enthusiast? Test your knowledge on our variety of interactive flag games!"
         />
       </Head>
       <MainView>
-        <HeroHeader heading="Flag Games" />
+        <HeroHeader heading={t.global.flagGamesUpper} />
         <Flex flex={1} width="100%">
           <Flex
             direction="column"

@@ -22,6 +22,7 @@ import SolidChevronDown from "../../Icons/SolidChevronDown";
 import Twemoji from "../Twemoji";
 import { signOut, useSession } from "next-auth/react";
 import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 interface Props {
   isCondensed?: boolean;
@@ -29,6 +30,7 @@ interface Props {
 
 const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
 
   const { status } = useSession();
   const { user, clearUser } = useContext(CurrentUserContext);
@@ -132,7 +134,8 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
           {user?.isAdmin && (
             <>
               <MenuItem onClick={(): Promise<boolean> => router.push(`/admin`)}>
-                <Twemoji emoji="👑" width={5} mr={2} /> {"Admin Dashboard"}
+                <Twemoji emoji="👑" width={5} mr={2} />{" "}
+                {t.global.adminDashboard}
               </MenuItem>
               <MenuDivider />
             </>
@@ -142,13 +145,13 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
               router.push(`/profile/${user?.id}`)
             }
           >
-            {"Profile"}
+            {t.global.profile}
           </MenuItem>
           <MenuItem onClick={(): Promise<boolean> => router.push("/orders")}>
-            {"My Orders"}
+            {t.global.myOrders}
           </MenuItem>
           <MenuDivider />
-          <MenuItem onClick={logout}>{"Logout"}</MenuItem>
+          <MenuItem onClick={logout}>{t.global.logout}</MenuItem>
         </MenuList>
       </Menu>
     );
@@ -164,14 +167,14 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
           onClick={(): Promise<boolean> => router.push("/login")}
           mr={4}
         >
-          {"Login"}
+          {t.global.login}
         </Button>
         {!isCondensed && (
           <Button
             colorScheme="green"
             onClick={(): Promise<boolean> => router.push("/register")}
           >
-            {"Register"}
+            {t.global.register}
           </Button>
         )}
       </Flex>
