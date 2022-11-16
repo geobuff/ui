@@ -30,12 +30,12 @@ const UserProfileLeaderboardEntriesPlaceholder: FC = () => {
           <Table>
             <Thead>
               <Tr>
-                <Th>HEADER</Th>
+                <Th />
               </Tr>
             </Thead>
             <Tbody>
               <Tr>
-                <Td>ENTRY</Td>
+                <Td />
               </Tr>
             </Tbody>
           </Table>

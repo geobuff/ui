@@ -28,7 +28,6 @@ export const LanguageContextProvider: FC<Props> = ({ children = null }) => {
     setLanguage(language);
     setT(getT(language));
     updateLocalStorage(language);
-    router.push(router.asPath, undefined, { locale: language });
   };
 
   useEffect(() => {
@@ -40,7 +39,6 @@ export const LanguageContextProvider: FC<Props> = ({ children = null }) => {
     } else {
       setLanguage(language);
       setT(getT(language));
-      router.push(router.asPath, undefined, { locale: language });
     }
 
     setIsLoading(false);
