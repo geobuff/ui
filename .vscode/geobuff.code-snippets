@@ -1,0 +1,47 @@
+{
+  "Component": {
+    "prefix": ["react-fc", "fc"],
+    "scope": "typescriptreact",
+    "body": [
+      "import React, { FC } from 'react';",
+      "",
+      "import { Flex } from '@chakra-ui/react';",
+      "",
+      "interface Props {",
+      "}",
+      "",
+      "export const ${1:${TM_FILENAME_BASE}}: FC<Props> = ({}) => {",
+      "\treturn (",
+      "\t\t<Flex>{\"Insert content here...\"}</Flex>",
+      "\t)",
+      "};",
+      "",
+    ],
+    "description": "Boilerplate for a functional component."
+  },
+  "Hook": {
+    "prefix": ["hook"],
+    "scope": "typescriptreact",
+    "body": [
+      "import useSWR from 'swr';",
+      "",
+      "import { fetcher } from '../helpers/fetcher';",
+      "",
+      "interface Result {",
+      "\tdata: any;",
+      "\tisLoading: boolean;",
+      "}",
+      "",
+      "export const ${1:${TM_FILENAME_BASE}} = (): Result => {",
+      "\tconst { data } = useSWR('/route', fetcher);",
+      "\t",
+      "\treturn {",
+      "\t\tdata: data,",
+      "\t\tisLoading: !data",
+      "\t};",
+      "};",
+      "",
+    ],
+    "description": "Boilerplate for a hook."
+  },
+}
