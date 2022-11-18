@@ -1,13 +1,14 @@
 import React, { FC } from "react";
+
 import { Alert, AlertIcon } from "@chakra-ui/react";
 
-import Card from "../Card";
-import AdminUsersTable from "./AdminUsersTable/AdminUsersTable";
 import { UserDto } from "../../types/user-dto";
 import { UsersFilterParams } from "../../types/users-filter-params";
-import AdminUsersFilters from "./AdminUsersFilters/AdminUsersFilters";
-import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
+import Card from "../Card";
 import TableHeader from "../Table/TableHeader/TableHeader";
+import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
+import AdminUsersFilters from "./AdminUsersFilters/AdminUsersFilters";
+import AdminUsersTable from "./AdminUsersTable/AdminUsersTable";
 
 export interface Props {
   currentUserId?: number;

@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
+
 import UserProfile from "../../components/UserProfile";
+
+import axiosClient from "../../axios";
 import { UserDto } from "../../types/user-dto";
 
 export interface Props {

@@ -2,22 +2,23 @@ import React, { FC, useContext } from "react";
 
 import {
   Box,
+  Button,
+  Fade,
   Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Link,
-  Input,
-  Text,
-  Button,
-  Fade,
   Heading,
+  Input,
+  Link,
+  Text,
 } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import Logo from "../../Logo";
-import { RegisterFormSubmit } from "../../../types/register-form-submit";
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
+import { RegisterFormSubmit } from "../../../types/register-form-submit";
+import Logo from "../../Logo";
 
 export interface Props {
   errors: Record<string, string>;

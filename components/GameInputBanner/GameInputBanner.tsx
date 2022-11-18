@@ -1,4 +1,4 @@
-import React, { createRef, useEffect, FC } from "react";
+import React, { FC, createRef, useEffect } from "react";
 
 import {
   Box,
@@ -13,11 +13,10 @@ import {
 } from "@chakra-ui/react";
 
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
-
-import GameInputBannerTimer from "./GameInputBannerTimer/GameInputBannerTimer";
-import GameInputBannerError from "./GameInputBannerError/GameInputBannerError";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 import { QuizTypes } from "../../types/quiz-types";
+import GameInputBannerError from "./GameInputBannerError/GameInputBannerError";
+import GameInputBannerTimer from "./GameInputBannerTimer/GameInputBannerTimer";
 
 export interface Props {
   typeId?: number;

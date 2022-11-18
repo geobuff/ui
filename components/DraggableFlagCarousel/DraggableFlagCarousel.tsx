@@ -6,10 +6,10 @@ import "react-multi-carousel/lib/styles.css";
 
 import { FlagGameContext } from "../../context/FlagGameContext";
 
+import { FlagDetails } from "../../types/flag-details";
 import DelayedRender from "../DelayedRender";
 import DraggableFlag from "../DraggableFlag";
 import CarouselButton from "./CarouselButton";
-import { FlagDetails } from "../../types/flag-details";
 
 const responsiveConfig: ResponsiveType = {
   tablet: {

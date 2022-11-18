@@ -1,5 +1,7 @@
 import React, { FC } from "react";
+
 import LandingPage from "../../components/LandingPage/LandingPage";
+
 import { LandingPageRow } from "../../types/landing-page-row";
 
 const rows: LandingPageRow[] = [

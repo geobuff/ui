@@ -1,8 +1,10 @@
 import React, { FC } from "react";
+
 import { Box } from "@chakra-ui/react";
-import MainView from "../../MainView";
 import Head from "next/head";
+
 import HeroHeader from "../../HeroHeader";
+import MainView from "../../MainView";
 
 interface Meta {
   date: string;

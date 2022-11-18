@@ -1,11 +1,12 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { FC, useEffect, useState } from "react";
+
+import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import axiosClient from "../../axios/axiosClient";
-
 import ResetPasswordForm from "../../components/ResetPasswordForm";
+
+import axiosClient from "../../axios/axiosClient";
 import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
-import { useSession } from "next-auth/react";
 
 const ResetPasswordContainer: FC = () => {
   const router = useRouter();

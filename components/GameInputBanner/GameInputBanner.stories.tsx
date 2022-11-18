@@ -1,4 +1,5 @@
 import React from "react";
+
 import GameInputBanner, { Props } from "./GameInputBanner";
 
 export default {

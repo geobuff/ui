@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   Box,
   Divider,
@@ -10,10 +11,11 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-import { Discount } from "../../types/discount";
-import TableCell from "../Table/TableCell";
-import Card from "../Card";
+
 import AdminDiscountsTablePlaceholder from "../../placeholders/AdminDiscountsTablePlaceholder";
+import { Discount } from "../../types/discount";
+import Card from "../Card";
+import TableCell from "../Table/TableCell";
 
 export interface Props {
   discounts?: Discount[];

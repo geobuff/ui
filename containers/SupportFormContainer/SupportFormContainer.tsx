@@ -1,7 +1,10 @@
-import { useSession } from "next-auth/react";
 import React, { FC, useState } from "react";
-import axiosClient from "../../axios";
+
+import { useSession } from "next-auth/react";
+
 import SupportFormModal from "../../components/SupportFormModal";
+
+import axiosClient from "../../axios";
 import { AuthUser } from "../../types/auth-user";
 import { SupportFormSubmit } from "../../types/support-form-submit";
 

@@ -1,17 +1,18 @@
 import React, { FC, useContext } from "react";
-import Link from "next/link";
 
 import {
-  AspectRatio,
-  Box,
   Alert,
   AlertIcon,
+  AspectRatio,
+  Box,
   SimpleGrid,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
-import QuizCard from "../QuizCard";
-import { Quiz } from "../../types/quiz";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import { Quiz } from "../../types/quiz";
+import QuizCard from "../QuizCard";
 
 interface Props {
   quizzes?: Quiz[];

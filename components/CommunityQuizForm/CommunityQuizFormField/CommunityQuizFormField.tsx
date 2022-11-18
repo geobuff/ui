@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   Flex,
   FlexProps,
@@ -9,6 +10,7 @@ import {
   Input,
 } from "@chakra-ui/react";
 import { Field } from "formik";
+
 import { CommunityQuizFormSubmit } from "../../../types/community-quiz-form-submit";
 
 export interface Props extends FlexProps {

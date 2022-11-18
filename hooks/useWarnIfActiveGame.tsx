@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+
 import Router from "next/router";
 
 const useWarnIfActiveGame = (unsavedChanges: boolean): void => {

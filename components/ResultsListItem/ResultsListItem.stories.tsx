@@ -1,4 +1,5 @@
 import React from "react";
+
 import ResultsListItem, { Props } from "./ResultsListItem";
 
 export default {

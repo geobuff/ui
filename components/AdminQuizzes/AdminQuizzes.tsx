@@ -1,12 +1,13 @@
 import React, { FC } from "react";
-import TableHeader from "../Table/TableHeader/TableHeader";
-import { AdminQuizTable } from "./AdminQuizTable/AdminQuizTable";
-import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
-import { UsersFilterParams } from "../../types/users-filter-params";
-import { QuizPageDto } from "../../types/quiz-page-dto";
+
 import { Quiz } from "../../types/quiz";
+import { QuizPageDto } from "../../types/quiz-page-dto";
+import { UsersFilterParams } from "../../types/users-filter-params";
 import Card from "../Card";
+import TableHeader from "../Table/TableHeader/TableHeader";
+import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
 import { AdminQuizFilters } from "./AdminQuizFilters/AdminQuizFilters";
+import { AdminQuizTable } from "./AdminQuizTable/AdminQuizTable";
 
 export interface Props {
   quizPage?: QuizPageDto;

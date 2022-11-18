@@ -1,5 +1,4 @@
 import React, { FC, useContext } from "react";
-import flag from "country-code-emoji";
 
 import {
   Alert,
@@ -7,26 +6,27 @@ import {
   Box,
   Fade,
   Flex,
-  Text,
+  Link,
   Table,
+  Tbody,
+  Text,
+  Th,
   Thead,
   Tr,
-  Th,
-  Tbody,
-  Link,
 } from "@chakra-ui/react";
+import flag from "country-code-emoji";
+import { useSession } from "next-auth/react";
 
-import LeaderTablePlaceholder from "../../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
-import Twemoji from "../../Twemoji";
-import TableCell from "../../Table/TableCell";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { secondsToMinutesString } from "../../../helpers/time";
-import Sparkles from "../../Sparkles/Sparkles";
-import { LeaderboardEntry } from "../../../types/leaderboard-entry";
-import { useSession } from "next-auth/react";
+import LeaderTablePlaceholder from "../../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";
 import { AuthUser } from "../../../types/auth-user";
+import { LeaderboardEntry } from "../../../types/leaderboard-entry";
 import AdminFlag from "../../AdminFlag";
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import Sparkles from "../../Sparkles/Sparkles";
+import TableCell from "../../Table/TableCell";
+import Twemoji from "../../Twemoji";
 
 interface Props {
   entries?: LeaderboardEntry[];

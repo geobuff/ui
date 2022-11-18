@@ -1,6 +1,8 @@
-import React, { useEffect, FC, useState } from "react";
-import { useRouter } from "next/router";
+import React, { FC, useEffect, useState } from "react";
+
 import { Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+
 import axiosClient from "../../axios";
 
 const Canceled: FC = () => {

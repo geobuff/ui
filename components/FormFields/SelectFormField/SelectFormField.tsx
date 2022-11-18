@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { Field } from "formik";
+import { ChangeEvent } from "react";
 
 import {
   Flex,
@@ -10,9 +10,9 @@ import {
   FormLabel,
   Select,
 } from "@chakra-ui/react";
+import { Field } from "formik";
 
 import { FormOption } from "../../../types/form";
-import { ChangeEvent } from "react";
 
 export interface Props extends Omit<FlexProps, "defaultValue" | "onChange"> {
   options: FormOption[];

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Flex, FlexProps } from "@chakra-ui/react";
 
 const AuthView: FC<FlexProps> = ({ children, ...props }) => (

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Heading, Skeleton, SimpleGrid, Flex } from "@chakra-ui/react";
+import { Flex, Heading, SimpleGrid, Skeleton } from "@chakra-ui/react";
 
 import Card from "../../components/Card";
 

@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import * as Yup from "yup";
 
 import {
   Button,
@@ -9,8 +8,9 @@ import {
   FormLabel,
   Input,
 } from "@chakra-ui/react";
-
 import { Field, FieldArray, Form, Formik } from "formik";
+import * as Yup from "yup";
+
 import { CreateMappingsSubmit } from "../../../types/create-mappings-submit";
 
 const validationSchema = Yup.object().shape({

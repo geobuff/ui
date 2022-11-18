@@ -2,24 +2,26 @@ import React, { FC, useContext } from "react";
 
 import {
   Flex,
-  Text,
   Link,
-  useBreakpointValue,
   SimpleGrid,
+  Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
-import Logo from "../Logo";
-import FooterPlaysContainer from "../../containers/FooterPlaysContainer";
-import { FooterVariant } from "../../types/footer-variant";
-import Twitter from "../Twitter";
-import Instagram from "../Instagram/Instagram";
-import Facebook from "../Facebook";
-import Discord from "../Discord";
-import GitHub from "../GitHub";
-import Reddit from "../Reddit";
-import YouTube from "../YouTube";
-import Twitch from "../Twitch";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import FooterPlaysContainer from "../../containers/FooterPlaysContainer";
+
+import { FooterVariant } from "../../types/footer-variant";
+import Discord from "../Discord";
+import Facebook from "../Facebook";
+import GitHub from "../GitHub";
+import Instagram from "../Instagram/Instagram";
+import Logo from "../Logo";
+import Reddit from "../Reddit";
+import Twitch from "../Twitch";
+import Twitter from "../Twitter";
+import YouTube from "../YouTube";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 

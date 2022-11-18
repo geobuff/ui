@@ -1,5 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
-import { Field } from "formik";
+
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Flex,
   FormControl,
@@ -8,12 +9,11 @@ import {
   Select,
   SelectProps,
 } from "@chakra-ui/react";
+import { Field } from "formik";
 
-import { ChevronDownIcon } from "@chakra-ui/icons";
-
-import Image from "../../Image";
-import CountrySelect from "../../CountrySelect";
 import axiosClient from "../../../axios";
+import CountrySelect from "../../CountrySelect";
+import Image from "../../Image";
 
 export interface Props extends SelectProps {
   flagCategory?: string;

@@ -1,11 +1,14 @@
 import React, { FC } from "react";
+
 import { Divider, Flex } from "@chakra-ui/react";
-import Card from "../Card";
+
+import useFlagGroup from "../../hooks/UseFlagEntries";
+
 import { FlagGroup } from "../../types/flag-group";
+import Card from "../Card";
+import AdminFlagsFilters from "./AdminFlagsFilters";
 import AdminFlagsHeader from "./AdminFlagsHeader";
 import AdminFlagsTable from "./AdminFlagsTable";
-import AdminFlagsFilters from "./AdminFlagsFilters";
-import useFlagGroup from "../../hooks/UseFlagEntries";
 
 interface Props {
   group?: string;

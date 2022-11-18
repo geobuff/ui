@@ -1,9 +1,12 @@
 import React, { FC } from "react";
-import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
+
 import useMappingEntries from "../../hooks/UseMappingEntries";
+
 import { EditMappingModal } from "../../components/EditMappingModal/EditMappingModal";
-import { MappingGroup } from "../../types/mapping-group";
+
+import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
 import { MappingEntry } from "../../types/mapping-entry";
+import { MappingGroup } from "../../types/mapping-group";
 
 const getMapping = (
   label: string,

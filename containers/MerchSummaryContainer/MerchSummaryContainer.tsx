@@ -1,12 +1,16 @@
 import React, { FC, useContext, useState } from "react";
+
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 
-import MerchSummary from "../../components/MerchSummary";
-import { genericToast } from "../../helpers/toasts";
+import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+
 import useMerch from "../../hooks/UseMerch";
+
+import MerchSummary from "../../components/MerchSummary";
+
+import { genericToast } from "../../helpers/toasts";
 import MerchSummaryPlaceholder from "../../placeholders/MerchSummaryPlaceholder";
 import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";
-import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
 interface Props {
   route?: string;

@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import * as Yup from "yup";
 
 import {
   Button,
@@ -10,8 +9,9 @@ import {
   Input,
   Select,
 } from "@chakra-ui/react";
-
 import { Field, FieldArray, Form, Formik } from "formik";
+import * as Yup from "yup";
+
 import { FlagsFormSubmit } from "../../types/flags-form-submit";
 import { MappingsWithoutFlagsDto } from "../../types/mappings-without-flags-dto";
 

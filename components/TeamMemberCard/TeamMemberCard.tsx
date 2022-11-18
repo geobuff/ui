@@ -1,5 +1,7 @@
 import React, { FC } from "react";
-import { Link, Box, Text } from "@chakra-ui/react";
+
+import { Box, Link, Text } from "@chakra-ui/react";
+
 import ProfileUserAvatar from "../ProfileUserAvatar";
 
 interface Props {

@@ -1,10 +1,10 @@
 import React, { FC } from "react";
 
 import { Box, Divider, Flex, Tag, Text } from "@chakra-ui/react";
-
-import Twemoji from "../Twemoji";
 import Image from "next/image";
+
 import { cardImageStyle } from "../../helpers/style";
+import Twemoji from "../Twemoji";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 

@@ -1,9 +1,12 @@
+import React, { FC, useState } from "react";
+
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import React, { FC, useState } from "react";
-import axiosClient from "../../axios";
+
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import UserProfileMyQuizzesTable from "../../components/UserProfileMyQuizzes/UserProfileMyQuizzesTable";
+
+import axiosClient from "../../axios";
 import { genericToast } from "../../helpers/toasts";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 

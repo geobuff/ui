@@ -1,4 +1,5 @@
-import React, { createContext, useState, FC, useEffect } from "react";
+import React, { FC, createContext, useEffect, useState } from "react";
+
 import { UserDto } from "../../types/user-dto";
 
 export const CurrentUserContext = createContext({

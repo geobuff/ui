@@ -1,16 +1,18 @@
 import React, { FC, useContext } from "react";
-import { Button, Flex, useDisclosure, Text } from "@chakra-ui/react";
 
+import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
+import Head from "next/head";
 import Image from "next/image";
-import Modal from "../Modal";
+import { useRouter } from "next/router";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import ArrowLeft from "../../Icons/ArrowLeft";
 import { MerchItem } from "../../types/merch-item";
 import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";
-import MerchSummaryShowcase from "./MerchSummaryShowcase";
+import Modal from "../Modal";
 import MerchSummaryDetails from "./MerchSummaryDetails";
-import ArrowLeft from "../../Icons/ArrowLeft";
-import { useRouter } from "next/router";
-import Head from "next/head";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import MerchSummaryShowcase from "./MerchSummaryShowcase";
 
 interface Props {
   item?: MerchItem;

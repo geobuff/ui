@@ -1,8 +1,10 @@
-import { useFormikContext } from "formik";
 import React, { FC, useState } from "react";
 
-import axiosClient from "../../../axios";
+import { useFormikContext } from "formik";
+
 import RegisterFormStepThree from "../../../components/RegisterForm/RegisterFormStepThree";
+
+import axiosClient from "../../../axios";
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
 
 export interface Props {

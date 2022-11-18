@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { Heading, Flex, useBreakpointValue } from "@chakra-ui/react";
+
+import { Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
 import {
   CartesianGrid,
   Line,

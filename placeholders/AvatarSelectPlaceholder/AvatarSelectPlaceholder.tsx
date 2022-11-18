@@ -1,3 +1,5 @@
+import React, { FC } from "react";
+
 import {
   Box,
   Flex,
@@ -5,7 +7,6 @@ import {
   Skeleton,
   SkeletonText,
 } from "@chakra-ui/react";
-import React, { FC } from "react";
 
 interface Props {
   avatarCount?: number;

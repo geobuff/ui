@@ -1,18 +1,19 @@
 import React, { FC, useContext } from "react";
-import Head from "next/head";
 
 import {
   Box,
-  Text,
   Heading,
-  UnorderedList,
   ListItem,
   Stack,
+  Text,
+  UnorderedList,
 } from "@chakra-ui/react";
+import Head from "next/head";
 
-import MainView from "../components/MainView";
-import HeroHeader from "../components/HeroHeader";
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+
+import HeroHeader from "../components/HeroHeader";
+import MainView from "../components/MainView";
 
 const PrivacyPolicy: FC = () => {
   const { t } = useContext(LanguageContext);

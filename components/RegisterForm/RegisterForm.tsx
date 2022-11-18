@@ -1,19 +1,20 @@
 import React, { FC, useContext, useState } from "react";
-import * as Yup from "yup";
 
 import { Box, useBreakpointValue } from "@chakra-ui/react";
-import { Formik, Form } from "formik";
+import { Form, Formik } from "formik";
+import * as Yup from "yup";
 
-import AuthView from "../AuthView";
-import AuthCard from "../AuthCard";
-import ErrorAlertBanner from "../ErrorAlertBanner";
-import LoginLink from "./LoginLink";
-import RegisterFormStepTwo from "./RegisterFormStepTwo";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import RegisterFormStepOneContainer from "../../containers/RegisterContainer/RegisterFormStepOneContainer";
 import RegisterFormStepThreeContainer from "../../containers/RegisterContainer/RegisterFormStepThreeContainer";
 
 import { RegisterFormSubmit } from "../../types/register-form-submit";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import AuthCard from "../AuthCard";
+import AuthView from "../AuthView";
+import ErrorAlertBanner from "../ErrorAlertBanner";
+import LoginLink from "./LoginLink";
+import RegisterFormStepTwo from "./RegisterFormStepTwo";
 
 const initialValues = {
   avatarId: "7",

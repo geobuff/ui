@@ -1,22 +1,25 @@
 import React, { FC, useEffect, useState } from "react";
+
 import { Divider, Flex, Heading, useToast } from "@chakra-ui/react";
-import Modal from "../Modal";
-import { SVGBase } from "../../types/svg-base";
-import AdminCreateMapPreview from "./AdminCreateMapPreview";
-import AdminCreateMapMappingsForm from "./AdminCreateMapMappingsForm";
-import { CreateMappingsSubmit } from "../../types/create-mappings-submit";
-import { CreateMappingEntry } from "../../types/create-mapping-entry";
-import { QuizFormSubmit } from "../../types/quiz-form-submit";
-import AdminQuizForm from "../AdminQuizForm";
-import useQuizTypes from "../../hooks/UseQuizTypes";
-import useContinents from "../../hooks/UseContinents";
-import useBadges from "../../hooks/UseBadges";
-import { QuizEditValues } from "../../types/quiz-edit-values";
-import { NullInt } from "../../types/null-int";
 import { useSession } from "next-auth/react";
-import { CreateSvgMapPayload } from "../../types/create-svg-map-payload";
-import { quizToast } from "../../helpers/toasts";
+
+import useBadges from "../../hooks/UseBadges";
+import useContinents from "../../hooks/UseContinents";
+import useQuizTypes from "../../hooks/UseQuizTypes";
+
 import axiosClient from "../../axios";
+import { quizToast } from "../../helpers/toasts";
+import { CreateMappingEntry } from "../../types/create-mapping-entry";
+import { CreateMappingsSubmit } from "../../types/create-mappings-submit";
+import { CreateSvgMapPayload } from "../../types/create-svg-map-payload";
+import { NullInt } from "../../types/null-int";
+import { QuizEditValues } from "../../types/quiz-edit-values";
+import { QuizFormSubmit } from "../../types/quiz-form-submit";
+import { SVGBase } from "../../types/svg-base";
+import AdminQuizForm from "../AdminQuizForm";
+import Modal from "../Modal";
+import AdminCreateMapMappingsForm from "./AdminCreateMapMappingsForm";
+import AdminCreateMapPreview from "./AdminCreateMapPreview";
 
 export interface Props {
   svgMap?: SVGBase;

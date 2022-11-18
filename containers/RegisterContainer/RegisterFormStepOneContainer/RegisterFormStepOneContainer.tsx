@@ -1,7 +1,10 @@
 import React, { FC, useContext, useState } from "react";
-import axiosClient from "../../../axios";
-import RegisterFormStepOne from "../../../components/RegisterForm/RegisterFormStepOne";
+
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
+import RegisterFormStepOne from "../../../components/RegisterForm/RegisterFormStepOne";
+
+import axiosClient from "../../../axios";
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
 
 export interface Props {

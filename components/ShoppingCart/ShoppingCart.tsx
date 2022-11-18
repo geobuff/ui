@@ -1,26 +1,26 @@
 import React, { FC } from "react";
 
 import {
-  Flex,
-  Table,
-  Thead,
-  Tr,
-  Th,
-  Tbody,
-  Text,
-  Button,
   Alert,
   AlertIcon,
   Box,
+  Button,
+  Flex,
+  Table,
+  Tbody,
+  Text,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
+import ArrowLeft from "../../Icons/ArrowLeft";
 import { CartItem } from "../../types/cart-item";
 import Card from "../Card";
-import ArrowLeft from "../../Icons/ArrowLeft";
-import { useRouter } from "next/router";
-import ShoppingCartItem from "./ShoppingCartItem";
 import DiscountFooter from "./DiscountFooter";
 import PriceSummary from "./PriceSummary";
+import ShoppingCartItem from "./ShoppingCartItem";
 
 export interface Props {
   cart?: CartItem[];

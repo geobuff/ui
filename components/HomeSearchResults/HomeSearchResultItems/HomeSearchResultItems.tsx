@@ -1,10 +1,11 @@
 import React, { FC } from "react";
-import CardListItem from "../../CardList/CardListItem";
-import TriviaCard from "../../TriviaCard";
-import CommunityQuizCard from "../../CommunityQuizCard";
-import QuizCard from "../../QuizCard";
+
 import { formatDate } from "../../../helpers/date";
 import { QuizSearchResults } from "../../../types/quiz-search-results";
+import CardListItem from "../../CardList/CardListItem";
+import CommunityQuizCard from "../../CommunityQuizCard";
+import QuizCard from "../../QuizCard";
+import TriviaCard from "../../TriviaCard";
 
 export interface Props {
   searchResults?: QuizSearchResults;

@@ -1,10 +1,12 @@
 import React, { FC, useContext } from "react";
-import { Box, BoxProps, Divider, Flex, Text } from "@chakra-ui/react";
 
+import { Box, BoxProps, Divider, Flex, Text } from "@chakra-ui/react";
 import Image from "next/image";
-import Twemoji from "../Twemoji";
-import { cardImageStyle } from "../../helpers/style";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import { cardImageStyle } from "../../helpers/style";
+import Twemoji from "../Twemoji";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 

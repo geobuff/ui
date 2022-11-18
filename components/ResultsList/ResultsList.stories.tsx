@@ -1,4 +1,5 @@
 import React from "react";
+
 import { Result } from "../../types/result";
 import ResultsList, { Props } from "./ResultsList";
 

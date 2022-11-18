@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
+
 import CommunityQuizList from "../../components/CommunityQuizList";
+
+import axiosClient from "../../axios";
 import QuizListPlaceholder from "../../placeholders/QuizListPlaceholder";
 
 const CommunityQuizListContainer: FC = () => {

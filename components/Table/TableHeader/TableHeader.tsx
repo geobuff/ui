@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { Heading, Flex, Button, Divider, Box } from "@chakra-ui/react";
+
+import { Box, Button, Divider, Flex, Heading } from "@chakra-ui/react";
 
 interface Action {
   name: string;

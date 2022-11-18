@@ -1,7 +1,10 @@
-import { useSession } from "next-auth/react";
 import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
+
+import { useSession } from "next-auth/react";
+
 import AdminDiscountsTable from "../../components/AdminDiscountsTable";
+
+import axiosClient from "../../axios";
 
 const AdminDiscountsTableContainer: FC = () => {
   const { data: session, status } = useSession();

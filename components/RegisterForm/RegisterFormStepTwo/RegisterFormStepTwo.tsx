@@ -1,4 +1,5 @@
 import React, { FC, useContext } from "react";
+
 import {
   Button,
   Fade,
@@ -10,9 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import AvatarSelectContainer from "../../../containers/AvatarSelectContainer";
-import RegisterFormBackButton from "../RegisterFormBackButton";
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
+import AvatarSelectContainer from "../../../containers/AvatarSelectContainer";
+
+import RegisterFormBackButton from "../RegisterFormBackButton";
 
 export interface Props {
   onPreviousStep: () => void;

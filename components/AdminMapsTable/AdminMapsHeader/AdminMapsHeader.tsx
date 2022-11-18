@@ -1,8 +1,11 @@
 import React, { FC, useContext } from "react";
+
 import { Flex, Heading, Input, useBreakpointValue } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import { AuthUser } from "../../../types/auth-user";
+
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
+import { AuthUser } from "../../../types/auth-user";
 
 export interface Props {
   onUpload?: (event: any) => void;

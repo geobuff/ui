@@ -11,10 +11,10 @@ import {
   NumberInputStepper,
   Text,
 } from "@chakra-ui/react";
-
 import Image from "next/image";
-import TableCell from "../../Table/TableCell";
+
 import { toTwoDecimalPlaces } from "../../../helpers/number";
+import TableCell from "../../Table/TableCell";
 
 export interface Props {
   id?: number;

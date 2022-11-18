@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Skeleton } from "@chakra-ui/react";
 
 const AdminUserCountPlaceholder: FC = () => (

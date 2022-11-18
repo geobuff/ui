@@ -1,20 +1,21 @@
 import React, { FC } from "react";
-import { Formik, Field, Form } from "formik";
-import * as Yup from "yup";
 
 import {
   Box,
-  FormControl,
-  Flex,
   Button,
+  Flex,
+  FormControl,
   FormErrorMessage,
   Heading,
 } from "@chakra-ui/react";
+import { Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 
-import Modal from "../Modal";
 import AvatarSelectContainer from "../../containers/AvatarSelectContainer";
-import ErrorAlertBanner from "../ErrorAlertBanner";
+
 import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
+import ErrorAlertBanner from "../ErrorAlertBanner";
+import Modal from "../Modal";
 
 const validationSchema = Yup.object().shape({
   avatarId: Yup.number().required("Please select an avatar."),

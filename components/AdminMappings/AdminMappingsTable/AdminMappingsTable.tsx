@@ -1,18 +1,19 @@
 import React, { FC } from "react";
+
 import {
+  Alert,
+  AlertIcon,
   Box,
   Table,
   Tbody,
   Th,
   Thead,
   Tr,
-  Alert,
-  AlertIcon,
 } from "@chakra-ui/react";
 
-import TableCell from "../../Table/TableCell";
-import { MappingEntry } from "../../../types/mapping-entry";
 import AdminMappingsTablePlaceholder from "../../../placeholders/AdminMappingsTablePlaceholder";
+import { MappingEntry } from "../../../types/mapping-entry";
+import TableCell from "../../Table/TableCell";
 
 export interface Props {
   entries?: MappingEntry[];

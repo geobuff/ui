@@ -1,15 +1,17 @@
 import React, { FC, useContext } from "react";
-import type { AppProps } from "next/app";
-import { GetStaticProps } from "next";
-import Head from "next/head";
+
 import { Flex } from "@chakra-ui/react";
+import { GetStaticProps } from "next";
+import type { AppProps } from "next/app";
+import Head from "next/head";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import HeroHeader from "../../components/HeroHeader";
 import MainView from "../../components/MainView";
-
 import TriviaList from "../../components/TriviaList";
+
 import axiosClient from "../../axios";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
   const { t } = useContext(LanguageContext);

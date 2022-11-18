@@ -1,7 +1,9 @@
 import React, { FC } from "react";
 
 import useMerch from "../../hooks/UseMerch";
+
 import MerchList from "../../components/MerchList";
+
 import MerchListPlaceholder from "../../placeholders/MerchListPlaceholder";
 
 const MerchListContainer: FC = () => {

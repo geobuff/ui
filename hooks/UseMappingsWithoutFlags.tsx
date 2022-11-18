@@ -1,4 +1,5 @@
 import useSWR from "swr";
+
 import { fetcher } from "../helpers/fetcher";
 import { MappingsWithoutFlagsDto } from "../types/mappings-without-flags-dto";
 

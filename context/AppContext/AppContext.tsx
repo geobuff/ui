@@ -1,6 +1,7 @@
-import React, { createContext, useState, FC, useEffect } from "react";
-import { Router } from "next/router";
+import React, { FC, createContext, useEffect, useState } from "react";
+
 import { useLocalStorage } from "@rehooks/local-storage";
+import { Router } from "next/router";
 
 import { OperatingSystem } from "../../types/operating-system";
 

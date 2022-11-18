@@ -1,7 +1,10 @@
 import React, { FC, useEffect, useState } from "react";
+
 import { useSession } from "next-auth/react";
-import axiosClient from "../../axios";
+
 import MyOrders from "../../components/MyOrders";
+
+import axiosClient from "../../axios";
 import MyOrdersPlaceholder from "../../placeholders/MyOrdersPlaceholder";
 import { AuthUser } from "../../types/auth-user";
 import { Order } from "../../types/order";

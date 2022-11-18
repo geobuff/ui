@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Fade, Flex, Spinner } from "@chakra-ui/react";
 
 const GameSpinner: FC = () => (

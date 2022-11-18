@@ -1,4 +1,5 @@
 import React from "react";
+
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import GameOverModal, { Props } from "./GameOverModal";
 

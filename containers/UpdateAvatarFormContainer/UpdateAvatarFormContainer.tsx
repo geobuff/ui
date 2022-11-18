@@ -1,13 +1,16 @@
 import React, { FC, useContext, useState } from "react";
-import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
-import axiosClient from "../../axios";
 
-import { genericToast } from "../../helpers/toasts";
-import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
-import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
-import { AppContext } from "../../context/AppContext";
+import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+
+import { AppContext } from "../../context/AppContext";
 import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+
+import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
+
+import axiosClient from "../../axios";
+import { genericToast } from "../../helpers/toasts";
+import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
 
 interface Props {
   isOpen?: boolean;

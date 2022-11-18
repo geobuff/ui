@@ -1,17 +1,10 @@
 import React, {
-  useState,
-  useEffect,
-  useCallback,
-  FC,
   ChangeEvent,
+  FC,
+  useCallback,
+  useEffect,
+  useState,
 } from "react";
-
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { debounce } from "throttle-debounce";
-import { useSession } from "next-auth/react";
-import dynamic from "next/dynamic";
-import { DateTime } from "luxon";
 
 import {
   Box,
@@ -21,27 +14,23 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
-
+import { DateTime } from "luxon";
+import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import { useTimer } from "react-timer-hook";
-import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
-import GameInputBanner from "../GameInputBanner";
-import GameInputCard from "../GameInputCard";
-import Sidebar from "../Sidebar";
-import GameMap from "../GameMap";
-import SolidChevronUp from "../../Icons/SolidChevronUp";
-import SolidChevronDown from "../../Icons/SolidChevronDown";
-import { MappingEntry } from "../../types/mapping-entry";
-import { SVGBase } from "../../types/svg-base";
-import { Result } from "../../types/result";
-import { GameOverRedirect } from "../../types/game-over-redirect";
-import axiosClient from "../../axios/axiosClient";
-import { groupMapping } from "../../helpers/mapping";
+import { debounce } from "throttle-debounce";
 
+import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
+
+import SolidChevronDown from "../../Icons/SolidChevronDown";
+import SolidChevronUp from "../../Icons/SolidChevronUp";
+import axiosClient from "../../axios/axiosClient";
 import {
   findSubmissionByNames,
   findSubmissionsByPrefixes,
 } from "../../helpers/game";
-
 import {
   clearMapFill,
   getPathSelectedFill,
@@ -49,6 +38,15 @@ import {
   updateMapOnGameStop,
   updateMapOnSuccessfulSubmission,
 } from "../../helpers/map";
+import { groupMapping } from "../../helpers/mapping";
+import { GameOverRedirect } from "../../types/game-over-redirect";
+import { MappingEntry } from "../../types/mapping-entry";
+import { Result } from "../../types/result";
+import { SVGBase } from "../../types/svg-base";
+import GameInputBanner from "../GameInputBanner";
+import GameInputCard from "../GameInputCard";
+import GameMap from "../GameMap";
+import Sidebar from "../Sidebar";
 
 const GameMapQuizBottomSheet = dynamic(
   () => import("./GameMapQuizBottomSheet")

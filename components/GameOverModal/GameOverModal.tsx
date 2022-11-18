@@ -10,14 +10,12 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
-import { secondsToMinutesString } from "../../helpers/time";
-
-import GameOverModalExplainerText from "./GameOverModalExplainerText";
-import Modal from "../Modal";
-
 import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
+import { secondsToMinutesString } from "../../helpers/time";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
+import Modal from "../Modal";
+import GameOverModalExplainerText from "./GameOverModalExplainerText";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
 

@@ -1,7 +1,4 @@
 import React, { FC } from "react";
-import { Field, Form, Formik } from "formik";
-import * as Yup from "yup";
-import Papa from "papaparse";
 
 import {
   Alert,
@@ -13,23 +10,25 @@ import {
   FormControl,
   FormErrorMessage,
   FormLabel,
-  Heading,
   HStack,
-  useRadioGroup,
-  VStack,
+  Heading,
   Input,
+  VStack,
+  useRadioGroup,
 } from "@chakra-ui/react";
+import { Field, Form, Formik } from "formik";
+import Papa from "papaparse";
 import "react-datepicker/dist/react-datepicker.css";
+import * as Yup from "yup";
 
-import RadioButton from "../RadioButton";
-
-import { BulkUploadValues } from "../../types/bulk-upload-values";
-import { BulkUploadType, BulkUploadTypes } from "../../types/bulk-upload-type";
-import TrueFalseFormField from "../FormFields/TrueFalseFormField";
 import { validateBulkUploadCsvHeaders } from "../../helpers/csv";
 import { getTriviaQuestionTypeId } from "../../helpers/trivia-question-type";
+import { BulkUploadType, BulkUploadTypes } from "../../types/bulk-upload-type";
+import { BulkUploadValues } from "../../types/bulk-upload-values";
 import { ManualTriviaQuestionPayload } from "../../types/manual-trivia-payload";
 import { TriviaQuestionTypeValues } from "../../types/trivia-question-types";
+import TrueFalseFormField from "../FormFields/TrueFalseFormField";
+import RadioButton from "../RadioButton";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select an upload type."),

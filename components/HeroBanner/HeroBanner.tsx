@@ -1,9 +1,12 @@
 import React, { FC, useContext, useEffect, useState } from "react";
+
 import { Box, Flex, Heading, Text } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
-import HeroBannerText from "./HeroBannerText";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import HeroBannerText from "./HeroBannerText";
 
 const NEXT_ACTION_DELAY = 10000;
 const FADE_OUT_DELAY = 1000;

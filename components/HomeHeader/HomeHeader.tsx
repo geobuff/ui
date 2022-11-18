@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FC, useContext } from "react";
+
 import {
   Box,
   Fade,
@@ -8,10 +9,12 @@ import {
   InputLeftElement,
   InputRightElement,
 } from "@chakra-ui/react";
-import HeroBanner from "../HeroBanner";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import Search from "../../Icons/Search";
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import HeroBanner from "../HeroBanner";
 
 export interface Props {
   inputValue?: string;

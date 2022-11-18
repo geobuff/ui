@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   Alert,
   AlertIcon,
@@ -8,11 +9,11 @@ import {
   Heading,
   Text,
 } from "@chakra-ui/react";
-import Card from "../Card";
-import { BackgroundTaskKey } from "../../types/background-task";
-
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+
+import { BackgroundTaskKey } from "../../types/background-task";
+import Card from "../Card";
 
 const { DeployDevWeb, DeployProdAll, DeployProdMobile, DeployProdWeb } =
   BackgroundTaskKey;

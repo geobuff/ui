@@ -1,3 +1,5 @@
+import React, { FC } from "react";
+
 import {
   Flex,
   FlexProps,
@@ -7,7 +9,7 @@ import {
   FormLabel,
 } from "@chakra-ui/react";
 import { Field } from "formik";
-import React, { FC } from "react";
+
 import { FormSetFieldValue, FormValue } from "../../../types/form";
 import TrueFalseFormField from "../../FormFields/TrueFalseFormField";
 

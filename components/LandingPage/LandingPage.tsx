@@ -2,15 +2,17 @@ import React, { FC } from "react";
 
 import {
   Box,
+  Divider,
   Flex,
   Heading,
   Link,
   useBreakpointValue,
-  Divider,
 } from "@chakra-ui/react";
-import MainView from "../../components/MainView";
 import Head from "next/head";
+
 import HeroHeader from "../../components/HeroHeader";
+import MainView from "../../components/MainView";
+
 import { LandingPageRow } from "../../types/landing-page-row";
 import LandingPageRowItem from "./LandingPageRowItem";
 

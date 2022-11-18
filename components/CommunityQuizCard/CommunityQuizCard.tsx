@@ -5,16 +5,17 @@ import {
   BoxProps,
   Divider,
   Flex,
-  Text,
   Link,
+  Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-
 import Image from "next/image";
-import Twemoji from "../Twemoji";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import User from "../../Icons/User";
 import { cardImageStyle } from "../../helpers/style";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import Twemoji from "../Twemoji";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 

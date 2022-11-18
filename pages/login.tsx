@@ -1,10 +1,12 @@
 import React, { FC } from "react";
-import Head from "next/head";
 
 import { useBreakpointValue } from "@chakra-ui/react";
+import Head from "next/head";
+
+import LoginContainer from "../containers/LoginContainer";
 
 import MainView from "../components/MainView";
-import LoginContainer from "../containers/LoginContainer";
+
 import { FooterVariant } from "../types/footer-variant";
 
 const Login: FC = () => {

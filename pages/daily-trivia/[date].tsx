@@ -1,11 +1,12 @@
-import { GetStaticPaths, GetStaticProps } from "next";
 import React, { FC } from "react";
+
 import { DateTime } from "luxon";
+import { GetStaticPaths, GetStaticProps } from "next";
+
+import GameTrivia from "../../components/GameTrivia";
 
 import axiosClient from "../../axios";
 import { Trivia } from "../../types/trivia";
-
-import GameTrivia from "../../components/GameTrivia";
 
 export interface Props {
   pageProps: {

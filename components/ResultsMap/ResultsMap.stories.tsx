@@ -1,4 +1,5 @@
 import React from "react";
+
 import { MappingEntry } from "../../types/mapping-entry";
 import { ResultMap } from "../../types/result-map";
 import ResultsMap, { Props } from "./ResultsMap";

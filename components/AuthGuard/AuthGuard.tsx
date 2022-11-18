@@ -1,7 +1,9 @@
 import React from "react";
+import { FC, useEffect, useState } from "react";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import { FC, useEffect, useState } from "react";
+
 import GameSpinner from "../GameSpinner";
 
 interface Props {

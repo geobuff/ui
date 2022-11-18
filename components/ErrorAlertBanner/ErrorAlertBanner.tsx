@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Box, Collapse, Text } from "@chakra-ui/react";
 
 interface Props {

@@ -1,4 +1,5 @@
 import React, { FC, useEffect, useState } from "react";
+
 import {
   Flex,
   FlexProps,
@@ -9,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import SelectFormField from "../../FormFields/SelectFormField";
 import axiosClient from "../../../axios";
+import SelectFormField from "../../FormFields/SelectFormField";
 
 export interface Props extends FlexProps {
   name: string;

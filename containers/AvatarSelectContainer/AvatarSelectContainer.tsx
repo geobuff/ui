@@ -1,7 +1,9 @@
 import React, { FC } from "react";
 
-import AvatarSelect from "../../components/AvatarSelect";
 import useAvatars from "../../hooks/UseAvatars";
+
+import AvatarSelect from "../../components/AvatarSelect";
+
 import AvatarSelectPlaceholder from "../../placeholders/AvatarSelectPlaceholder";
 import { FieldProps } from "../../types/field-props";
 

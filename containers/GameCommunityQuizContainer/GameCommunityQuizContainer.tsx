@@ -1,7 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
+
 import GameCommunityQuiz from "../../components/GameCommunityQuiz";
-import axiosClient from "../../axios";
 import GameSpinner from "../../components/GameSpinner";
+
+import axiosClient from "../../axios";
 import { GetCommunityQuiz } from "../../types/get-community-quiz-dto";
 
 export interface Props {

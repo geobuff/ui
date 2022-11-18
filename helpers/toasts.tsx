@@ -1,5 +1,7 @@
 import React from "react";
+
 import { AlertStatus, ToastPosition, UseToastOptions } from "@chakra-ui/react";
+
 import GeoCoinToast from "../components/GeoCoinToast";
 
 const defaultPosition: ToastPosition = "bottom-right";

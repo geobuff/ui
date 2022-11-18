@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Button, Flex, Text, ScaleFade } from "@chakra-ui/react";
+import { Button, Flex, ScaleFade, Text } from "@chakra-ui/react";
 import Link from "next/link";
 
 import SolidSubtractCircle from "../../../Icons/SolidSubtractCircle";

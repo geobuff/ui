@@ -1,30 +1,33 @@
 import React, { FC, useContext, useState } from "react";
-import { DateTime } from "luxon";
-import flag from "country-code-emoji";
 
 import {
   Box,
-  Heading,
   Flex,
+  Heading,
   Text,
-  useDisclosure,
   Tooltip,
+  useDisclosure,
 } from "@chakra-ui/react";
-
-import Card from "../Card";
-import UpdateUserFormContainer from "../../containers/UpdaterUserFormContainer";
-import useCountries from "../../hooks/useCountries";
-import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContainer";
-import Twemoji from "../Twemoji";
-import FlagFallback from "../ResultsListItem/FlagFallback";
-import ProfileUserAvatar from "../ProfileUserAvatar";
-import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
-import axiosClient from "../../axios";
+import flag from "country-code-emoji";
+import { DateTime } from "luxon";
 import { signOut, useSession } from "next-auth/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContainer";
+import UpdateUserFormContainer from "../../containers/UpdaterUserFormContainer";
+
+import useCountries from "../../hooks/useCountries";
+
+import axiosClient from "../../axios";
 import { AuthUser } from "../../types/auth-user";
 import AdminFlag from "../AdminFlag";
+import Card from "../Card";
 import { DeleteModal } from "../DeleteModal/DeleteModal";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import ProfileUserAvatar from "../ProfileUserAvatar";
+import FlagFallback from "../ResultsListItem/FlagFallback";
+import Twemoji from "../Twemoji";
+import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 

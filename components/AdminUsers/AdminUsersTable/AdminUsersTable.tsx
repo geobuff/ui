@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   Alert,
   AlertIcon,
@@ -11,12 +12,12 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-
-import { UserDto } from "../../../types/user-dto";
-import TableCell from "../../Table/TableCell";
-import CustomFlag from "../../CustomFlag";
 import { DateTime } from "luxon";
+
 import AdminUsersTablePlaceholder from "../../../placeholders/AdminUsersTablePlaceholder";
+import { UserDto } from "../../../types/user-dto";
+import CustomFlag from "../../CustomFlag";
+import TableCell from "../../Table/TableCell";
 
 export interface Props {
   currentUserId?: number;

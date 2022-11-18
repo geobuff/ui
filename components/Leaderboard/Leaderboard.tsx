@@ -1,15 +1,16 @@
 import React, { FC } from "react";
-import { Flex } from "@chakra-ui/react";
-import LeaderboardHeader from "./LeaderboardHeader/LeaderboardHeader";
-import LeaderboardFilters from "./LeaderboardFilters/LeaderboardFilters";
-import LeaderboardTable from "./LeaderboardTable";
 
-import Card from "../Card";
+import { Flex } from "@chakra-ui/react";
+import router from "next/router";
+
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import { LeaderboardFilterParams } from "../../types/leaderboard-filter-params";
 import { Quiz } from "../../types/quiz";
-import router from "next/router";
+import Card from "../Card";
 import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
+import LeaderboardFilters from "./LeaderboardFilters/LeaderboardFilters";
+import LeaderboardHeader from "./LeaderboardHeader/LeaderboardHeader";
+import LeaderboardTable from "./LeaderboardTable";
 
 interface Props {
   entries?: LeaderboardEntry[];

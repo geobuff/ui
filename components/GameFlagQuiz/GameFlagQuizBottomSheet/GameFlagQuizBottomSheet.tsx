@@ -1,19 +1,18 @@
-import React, { useState, FC } from "react";
+import React, { FC, useState } from "react";
 
+import { ChevronUpIcon } from "@chakra-ui/icons";
 import { Box, Divider, Fade, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-import ResultsMap from "../../ResultsMap";
+import { groupMapping } from "../../../helpers/mapping";
+import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
+import { FlagDetails } from "../../../types/flag-details";
+import { MappingEntry } from "../../../types/mapping-entry";
+import DelayedRender from "../../DelayedRender";
 import GameFlags from "../../GameFlags";
 import GameHeader from "../../GameHeader";
-
-import { groupMapping } from "../../../helpers/mapping";
-import { MappingEntry } from "../../../types/mapping-entry";
-import { ChevronUpIcon } from "@chakra-ui/icons";
-import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
 import GameInputCardTimer from "../../GameInputCard/GameInputCardTimer";
-import DelayedRender from "../../DelayedRender";
-import { FlagDetails } from "../../../types/flag-details";
+import ResultsMap from "../../ResultsMap";
 
 const motionDivStyles: Record<string, any> = {
   backgroundColor: "white",

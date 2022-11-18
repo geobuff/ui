@@ -1,21 +1,23 @@
 import React, { FC, useContext } from "react";
-import { DateTime } from "luxon";
 
 import {
   Box,
   Button,
   Flex,
+  Link,
   Table,
   Tbody,
   Td,
   Th,
   Thead,
   Tr,
-  Link,
 } from "@chakra-ui/react";
-import { CommunityQuiz } from "../../types/community-quiz-dto";
+import { DateTime } from "luxon";
 import { useRouter } from "next/router";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import { CommunityQuiz } from "../../types/community-quiz-dto";
 
 export interface Props {
   quizzes?: CommunityQuiz[];

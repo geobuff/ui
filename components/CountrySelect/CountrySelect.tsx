@@ -1,12 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
-import { Select, SelectProps } from "@chakra-ui/react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
-import Image from "../Image";
+import { Select, SelectProps } from "@chakra-ui/react";
 
 import useCountries from "../../hooks/useCountries";
-import { FieldProps } from "../../types/field-props";
+
 import axiosClient from "../../axios";
+import { FieldProps } from "../../types/field-props";
+import Image from "../Image";
 
 export interface Props extends SelectProps {
   fieldProps?: FieldProps;

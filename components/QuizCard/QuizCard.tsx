@@ -1,11 +1,11 @@
 import React, { FC } from "react";
 
 import { Box, Divider, Flex, FlexProps, Text } from "@chakra-ui/react";
-
-import Twemoji from "../Twemoji";
 import Image from "next/image";
-import { secondsToMinutesString } from "../../helpers/time";
+
 import { cardImageStyle } from "../../helpers/style";
+import { secondsToMinutesString } from "../../helpers/time";
+import Twemoji from "../Twemoji";
 
 const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 

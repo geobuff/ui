@@ -2,19 +2,20 @@ import React, { FC, ReactNode, useEffect, useState } from "react";
 
 import {
   Box,
-  Flex,
+  Button,
   Modal as ChakraModal,
+  ModalProps as ChakraModalProps,
+  Flex,
+  Heading,
   ModalBody,
   ModalContent,
   ModalFooter,
   ModalHeader,
   ModalOverlay,
-  ModalProps as ChakraModalProps,
-  useBreakpointValue,
-  Heading,
-  Button,
   ResponsiveValue,
+  useBreakpointValue,
 } from "@chakra-ui/react";
+
 import ArrowLeft from "../../Icons/ArrowLeft";
 
 export interface ModalProps extends ChakraModalProps {

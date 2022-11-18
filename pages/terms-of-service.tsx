@@ -1,18 +1,18 @@
 import React, { FC } from "react";
-import Head from "next/head";
 
 import {
   Box,
-  Text,
   Heading,
-  OrderedList,
-  ListItem,
-  Stack,
   Link,
+  ListItem,
+  OrderedList,
+  Stack,
+  Text,
 } from "@chakra-ui/react";
+import Head from "next/head";
 
-import MainView from "../components/MainView";
 import HeroHeader from "../components/HeroHeader";
+import MainView from "../components/MainView";
 
 const TermsOfService: FC = () => (
   <MainView>

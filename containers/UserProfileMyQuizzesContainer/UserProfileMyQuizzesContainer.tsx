@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
+
 import UserProfileMyQuizzes from "../../components/UserProfileMyQuizzes";
+
+import axiosClient from "../../axios";
 import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";
 import { CommunityQuizStatus } from "../../types/community-quiz-status";
 

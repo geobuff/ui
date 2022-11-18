@@ -1,5 +1,7 @@
-import { useRouter } from "next/router";
 import React, { FC, useEffect, useState } from "react";
+
+import { useRouter } from "next/router";
+
 import GameCommunityQuizContainer from "../../containers/GameCommunityQuizContainer/GameCommunityQuizContainer";
 
 const PlayCommunityQuiz: FC = () => {

@@ -1,20 +1,20 @@
 import React, { FC, useContext } from "react";
-import Image from "next/image";
 
 import {
   Box,
-  Tooltip,
   Flex,
-  Text,
   Heading,
   SimpleGrid,
+  Text,
+  Tooltip,
 } from "@chakra-ui/react";
+import Image from "next/image";
 
-import Card from "../Card";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import SolidLock from "../../Icons/SolidLock";
 import { Badge } from "../../types/badge";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import Card from "../Card";
 
 interface Props {
   badges?: Badge[];

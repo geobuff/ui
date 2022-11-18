@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
-import Head from "next/head";
-import { Box, Flex } from "@chakra-ui/react";
 
-import MainView from "../components/MainView";
-import HeroHeader from "../components/HeroHeader";
-import FAQSection from "../components/FAQSection";
+import { Box, Flex } from "@chakra-ui/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
+
+import FAQSection from "../components/FAQSection";
+import HeroHeader from "../components/HeroHeader";
+import MainView from "../components/MainView";
 
 const FAQ: FC = () => {
   const router = useRouter();

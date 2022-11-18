@@ -1,10 +1,11 @@
+import React, { FC, useEffect, useState } from "react";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-import React, { useState, FC, useEffect } from "react";
-
-import axiosClient from "../../axios/axiosClient";
 
 import ForgotPasswordForm from "../../components/ForgotPasswordForm";
+
+import axiosClient from "../../axios/axiosClient";
 import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
 
 const ForgotPasswordContainer: FC = () => {

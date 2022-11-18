@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import Image from "next/image";
+
 import { Flex, Link, Text } from "@chakra-ui/react";
+import Image from "next/image";
 
 export interface Props {
   src: string;

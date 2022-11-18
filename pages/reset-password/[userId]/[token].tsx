@@ -1,10 +1,12 @@
 import React, { FC } from "react";
-import Head from "next/head";
 
 import { useBreakpointValue } from "@chakra-ui/react";
+import Head from "next/head";
+
+import ResetPasswordContainer from "../../../containers/ResetPasswordContainer";
 
 import MainView from "../../../components/MainView";
-import ResetPasswordContainer from "../../../containers/ResetPasswordContainer";
+
 import { FooterVariant } from "../../../types/footer-variant";
 
 const ResetPassword: FC = () => {

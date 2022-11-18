@@ -1,13 +1,15 @@
 import React, { FC, useContext } from "react";
+
+import { Flex } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
-import { Flex } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import CommunityQuizListContainer from "../../containers/CommunityQuizListContainer";
 
 import HeroHeader from "../../components/HeroHeader";
 import MainView from "../../components/MainView";
-
-import CommunityQuizListContainer from "../../containers/CommunityQuizListContainer";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const CommunityQuiz: FC<AppProps> = () => {
   const { t } = useContext(LanguageContext);

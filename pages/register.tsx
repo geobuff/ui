@@ -1,9 +1,12 @@
 import React, { FC } from "react";
-import Head from "next/head";
+
 import { useBreakpointValue } from "@chakra-ui/react";
+import Head from "next/head";
+
+import RegisterContainer from "../containers/RegisterContainer";
 
 import MainView from "../components/MainView";
-import RegisterContainer from "../containers/RegisterContainer";
+
 import { FooterVariant } from "../types/footer-variant";
 
 const Register: FC = () => {

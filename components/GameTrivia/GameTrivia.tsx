@@ -1,21 +1,23 @@
 import React, { FC, useContext, useState } from "react";
-import Head from "next/head";
-import { Box, Flex, useToast } from "@chakra-ui/react";
-import { use100vh } from "react-div-100vh";
-import { DateTime } from "luxon";
 
-import MainView from "../MainView";
-import GameTriviaHeader from "./GameTriviaHeader";
-import GameTriviaContent from "./GameTriviaContent";
-import GameTriviaAnswers from "./GameTriviaAnswers";
-import { AppContext } from "../../context/AppContext";
-import { TriviaQuestion } from "../../types/trivia-question";
-import { TriviaAnswer } from "../../types/trivia-answer";
-import { Trivia } from "../../types/trivia";
+import { Box, Flex, useToast } from "@chakra-ui/react";
+import { DateTime } from "luxon";
+import dynamic from "next/dynamic";
+import Head from "next/head";
 import { useRouter } from "next/router";
+import { use100vh } from "react-div-100vh";
+
+import { AppContext } from "../../context/AppContext";
+
 import { getTriviaScoreMessage } from "../../helpers/clipboard";
 import { genericToast } from "../../helpers/toasts";
-import dynamic from "next/dynamic";
+import { Trivia } from "../../types/trivia";
+import { TriviaAnswer } from "../../types/trivia-answer";
+import { TriviaQuestion } from "../../types/trivia-question";
+import MainView from "../MainView";
+import GameTriviaAnswers from "./GameTriviaAnswers";
+import GameTriviaContent from "./GameTriviaContent";
+import GameTriviaHeader from "./GameTriviaHeader";
 
 const GameTriviaGameOver = dynamic(() => import("./GameTriviaGameOver"));
 

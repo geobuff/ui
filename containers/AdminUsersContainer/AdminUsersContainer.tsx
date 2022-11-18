@@ -1,9 +1,12 @@
+import React, { FC, useEffect, useState } from "react";
+
 import { useDisclosure } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
+
 import AdminUsersTable from "../../components/AdminUsers";
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
+
+import axiosClient from "../../axios";
 import { AuthUser } from "../../types/auth-user";
 import { UserPageDto } from "../../types/user-page-dto";
 import { UsersFilterParams } from "../../types/users-filter-params";

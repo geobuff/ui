@@ -1,4 +1,5 @@
 import React, { FC, useContext } from "react";
+
 import {
   Flex,
   IconButton,
@@ -10,12 +11,13 @@ import {
 } from "@chakra-ui/react";
 import { CSVLink } from "react-csv";
 
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
+import DeleteBinLine from "../../../Icons/DeleteBinLine";
 import SaveAlt from "../../../Icons/SaveAlt";
 import SolidDotsVertical from "../../../Icons/SolidDotsVertical";
 import SolidPencil from "../../../Icons/SolidPencil";
 import User from "../../../Icons/User";
-import DeleteBinLine from "../../../Icons/DeleteBinLine";
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   downloadData?: string[][];

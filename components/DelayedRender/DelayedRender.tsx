@@ -1,5 +1,6 @@
+import React, { FC, useEffect, useState } from "react";
+
 import { Fade } from "@chakra-ui/react";
-import React, { FC, useState, useEffect } from "react";
 
 type Props = {
   waitBeforeShow?: number;

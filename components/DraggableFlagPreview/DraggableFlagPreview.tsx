@@ -1,7 +1,9 @@
 import React, { FC, useContext } from "react";
+
 import Image from "next/image";
-import { usePreview } from "react-dnd-preview";
 import { isMobile } from "react-device-detect";
+import { usePreview } from "react-dnd-preview";
+
 import { FlagGameContext } from "../../context/FlagGameContext";
 
 interface Props {

@@ -1,8 +1,11 @@
-import { useSession } from "next-auth/react";
 import React, { FC, useContext } from "react";
 
-import UserProfile from "../../components/UserProfile";
+import { useSession } from "next-auth/react";
+
 import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+
+import UserProfile from "../../components/UserProfile";
+
 import OtherUserProfileContainer from "../OtherUserProfileContainer";
 
 interface Props {

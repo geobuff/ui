@@ -1,7 +1,8 @@
 import React, { FC } from "react";
-import Lottie from "react-lottie-player";
-import { Flex, IconButton, Text } from "@chakra-ui/react";
+
 import { CloseIcon } from "@chakra-ui/icons";
+import { Flex, IconButton, Text } from "@chakra-ui/react";
+import Lottie from "react-lottie-player";
 
 import animationData from "../../lotties/coin-spin.json";
 

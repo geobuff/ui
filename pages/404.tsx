@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 
 import { Flex } from "@chakra-ui/react";
-
-import MainView from "../components/MainView";
-import ErrorView from "../components/ErrorView";
 import Head from "next/head";
+
+import ErrorView from "../components/ErrorView";
+import MainView from "../components/MainView";
+
 import { StatusCode } from "../types/statusCode";
 
 const Custom404: FC = () => {

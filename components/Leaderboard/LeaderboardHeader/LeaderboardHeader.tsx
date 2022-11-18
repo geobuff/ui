@@ -1,8 +1,10 @@
 import React, { FC, useContext } from "react";
-import { Box, Heading, Fade, Flex, Spinner } from "@chakra-ui/react";
+
+import { Box, Fade, Flex, Heading, Spinner } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import Twemoji from "../../Twemoji";
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 interface Props {
   isLoading?: boolean;

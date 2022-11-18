@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Box, Grid, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 
 type CardListProps = {

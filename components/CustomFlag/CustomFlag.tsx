@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import Image from "next/image";
+
 import { Box, BoxProps } from "@chakra-ui/react";
+import Image from "next/image";
 
 interface Props extends BoxProps {
   url?: string;

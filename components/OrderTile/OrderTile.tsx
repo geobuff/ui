@@ -1,6 +1,8 @@
 import React, { FC } from "react";
+
+import { Flex, SimpleGrid, Tag, Text } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-import { Text, Tag, Flex, SimpleGrid } from "@chakra-ui/react";
+
 import { Order } from "../../types/order";
 import OrderTileItem from "./OrderTileItem";
 

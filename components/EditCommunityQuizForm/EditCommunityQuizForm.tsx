@@ -1,5 +1,5 @@
 import React, { FC, useState } from "react";
-import { Form, Formik } from "formik";
+
 import {
   Alert,
   AlertIcon,
@@ -9,28 +9,28 @@ import {
   Heading,
   IconButton,
   Text,
+  VStack,
   useBreakpointValue,
   useDisclosure,
-  VStack,
 } from "@chakra-ui/react";
+import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import Modal from "../Modal";
 import ArrowLeft from "../../Icons/ArrowLeft";
-
-import { TriviaQuestionType } from "../../types/trivia-question-type";
-import { FormSetFieldValue } from "../../types/form";
 import {
   CommunityQuizFormQuestion,
   CommunityQuizFormSubmit,
 } from "../../types/community-quiz-form-submit";
+import { FormSetFieldValue } from "../../types/form";
+import { GetMapsDto } from "../../types/get-maps-dto";
+import { TriviaQuestionType } from "../../types/trivia-question-type";
+import { UnsplashImage } from "../../types/unsplash-image";
 import CommunityQuizFormField from "../CommunityQuizForm/CommunityQuizFormField";
-import CommunityQuizQuestionsField from "../CommunityQuizForm/CommunityQuizQuestionsField";
 import CommunityQuizQuestionForm from "../CommunityQuizForm/CommunityQuizQuestionForm";
+import CommunityQuizQuestionsField from "../CommunityQuizForm/CommunityQuizQuestionsField";
 import CommunityQuizRadioGroupFormField from "../CommunityQuizForm/CommunityQuizRadioGroupFormField";
 import CommunityQuizTextAreaFormField from "../CommunityQuizForm/CommunityQuizTextAreaFormField";
-import { UnsplashImage } from "../../types/unsplash-image";
-import { GetMapsDto } from "../../types/get-maps-dto";
+import Modal from "../Modal";
 
 const validationSchema = Yup.object().shape({
   name: Yup.string().required("Please enter a name for your quiz."),

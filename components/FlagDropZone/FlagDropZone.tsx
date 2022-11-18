@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   AspectRatio,
   Fade,
@@ -7,12 +8,12 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { use100vh } from "react-div-100vh";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 
-import { ItemTypes } from "../../types/item-types";
-import { DragResult } from "../../types/drag-result";
 import SolidRefresh from "../../Icons/SolidRefresh";
-import { use100vh } from "react-div-100vh";
+import { DragResult } from "../../types/drag-result";
+import { ItemTypes } from "../../types/item-types";
 
 interface CollectResult {
   isOver: boolean;

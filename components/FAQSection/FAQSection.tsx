@@ -1,16 +1,16 @@
 import React, { FC, useEffect, useRef } from "react";
 
 import {
-  Text,
   Accordion,
   AccordionButton,
   AccordionIcon,
   AccordionItem,
   AccordionPanel,
   Box,
+  Link,
   ListItem,
   OrderedList,
-  Link,
+  Text,
 } from "@chakra-ui/react";
 
 interface Props {

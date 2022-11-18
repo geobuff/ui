@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   Box,
   BoxProps,
@@ -8,6 +9,7 @@ import {
   Link,
   Text,
 } from "@chakra-ui/react";
+
 import { StatusCode } from "../../types/statusCode";
 
 const hoverStyles = {

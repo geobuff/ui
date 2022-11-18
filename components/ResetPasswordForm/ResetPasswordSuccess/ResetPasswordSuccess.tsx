@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { Fade, Flex, Link, Text, ScaleFade } from "@chakra-ui/react";
+
+import { Fade, Flex, Link, ScaleFade, Text } from "@chakra-ui/react";
 
 import SolidSuccessCircle from "../../../Icons/SolidSuccessCircle";
 

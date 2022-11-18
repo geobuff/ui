@@ -1,7 +1,11 @@
 import React, { FC, useContext } from "react";
-import ShoppingCart from "../../components/ShoppingCart";
+
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+
 import useMerch from "../../hooks/UseMerch";
+
+import ShoppingCart from "../../components/ShoppingCart";
+
 import ShoppingCartPlaceholder from "../../placeholders/ShoppingCartPlaceholder";
 
 const ShoppingCartContainer: FC = () => {

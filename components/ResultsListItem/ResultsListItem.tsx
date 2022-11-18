@@ -1,10 +1,10 @@
 import React, { FC } from "react";
+
 import { Fade, Flex, Text } from "@chakra-ui/react";
 
-import FlagFallback from "./FlagFallback/FlagFallback";
 import CustomFlag from "../CustomFlag";
-
 import Twemoji from "../Twemoji";
+import FlagFallback from "./FlagFallback/FlagFallback";
 
 export interface Props {
   code?: string;

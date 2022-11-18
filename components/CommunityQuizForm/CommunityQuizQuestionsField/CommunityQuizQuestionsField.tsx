@@ -1,7 +1,9 @@
 import React, { FC } from "react";
+
 import { Button, Flex, Text } from "@chakra-ui/react";
-import CommunityQuizQuestionsTable from "../CommunityQuizQuestionsTable";
+
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
+import CommunityQuizQuestionsTable from "../CommunityQuizQuestionsTable";
 
 export interface Props {
   questions: CommunityQuizFormQuestion[];

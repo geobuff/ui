@@ -1,13 +1,15 @@
 import React, { FC } from "react";
 
+import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
+
+import GameMapQuiz from "../../components/GameMapQuiz";
 import MainView from "../../components/MainView";
+
+import axiosClient from "../../axios";
+import { MappingEntry } from "../../types/mapping-entry";
+import { QuizDto } from "../../types/quiz-dto";
 import { QuizTypes } from "../../types/quiz-types";
 import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
-import axiosClient from "../../axios";
-import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
-import { MappingEntry } from "../../types/mapping-entry";
-import GameMapQuiz from "../../components/GameMapQuiz";
-import { QuizDto } from "../../types/quiz-dto";
 
 interface Props {
   [x: string]: any;

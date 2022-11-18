@@ -1,8 +1,10 @@
 import React, { FC, useState } from "react";
+
 import { Box, SimpleGrid } from "@chakra-ui/react";
-import MapInteractionCSS from "../../MapInteractionCSS";
 import Image from "next/image";
+
 import { MerchImage } from "../../../types/merch-item";
+import MapInteractionCSS from "../../MapInteractionCSS";
 
 export interface Props {
   name?: string;

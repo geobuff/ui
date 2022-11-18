@@ -1,14 +1,16 @@
 import React, { FC } from "react";
+
 import { Alert, AlertIcon, Flex } from "@chakra-ui/react";
-import Card from "../Card";
-import AdminManualTriviaQuestionsTable from "./AdminManualTriviaQuestionsTable";
+
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
-import AdminManualTriviaQuestionsFilters from "./AdminManualTriviaQuestionsFilters";
-import { TriviaQuestionType } from "../../types/trivia-question-type";
-import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
-import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
+import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
+import { TriviaQuestionType } from "../../types/trivia-question-type";
+import Card from "../Card";
 import TableHeader from "../Table/TableHeader/TableHeader";
+import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
+import AdminManualTriviaQuestionsFilters from "./AdminManualTriviaQuestionsFilters";
+import AdminManualTriviaQuestionsTable from "./AdminManualTriviaQuestionsTable";
 
 interface Props {
   entries?: ManualTriviaQuestion[];

@@ -1,13 +1,13 @@
 import React, { FC } from "react";
 
 import {
+  Skeleton,
   Table,
-  Thead,
-  Tr,
-  Th,
   Tbody,
   Td,
-  Skeleton,
+  Th,
+  Thead,
+  Tr,
   useBreakpointValue,
 } from "@chakra-ui/react";
 

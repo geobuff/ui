@@ -1,5 +1,7 @@
-import { Alert, AlertIcon, Box, Button, Text } from "@chakra-ui/react";
 import React, { FC } from "react";
+
+import { Alert, AlertIcon, Box, Button, Text } from "@chakra-ui/react";
+
 import Modal from "../Modal";
 
 export interface Props {

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
 import {
   CartesianGrid,
@@ -8,6 +9,7 @@ import {
   XAxis,
   YAxis,
 } from "recharts";
+
 import Card from "../Card";
 
 export interface Props {

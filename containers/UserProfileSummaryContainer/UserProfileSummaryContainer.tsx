@@ -1,6 +1,7 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 
 import UserProfileSummary from "../../components/UserProfileSummary";
+
 import UserProfileSummaryPlaceholder from "../../placeholders/UserProfileSummaryPlaceholder";
 import { UserDto } from "../../types/user-dto";
 

@@ -1,10 +1,13 @@
+import React, { FC, useEffect, useState } from "react";
+
 import { Flex, useDisclosure } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
-import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
+
 import AdminQuizzes from "../../components/AdminQuizzes";
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import Modal from "../../components/Modal";
+
+import axiosClient from "../../axios";
 import { Quiz } from "../../types/quiz";
 import { QuizEditValues } from "../../types/quiz-edit-values";
 import { QuizPageDto } from "../../types/quiz-page-dto";

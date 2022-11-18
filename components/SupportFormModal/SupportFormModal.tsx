@@ -1,18 +1,19 @@
+import React, { FC } from "react";
+
 import {
   Box,
   Button,
+  Flex,
   FormControl,
   FormErrorMessage,
   FormLabel,
+  Heading,
   Input,
   Textarea,
-  Flex,
-  Heading,
 } from "@chakra-ui/react";
-
-import * as Yup from "yup";
 import { Field, Form, Formik } from "formik";
-import React, { FC } from "react";
+import * as Yup from "yup";
+
 import { SupportFormSubmit } from "../../types/support-form-submit";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import Modal from "../Modal";

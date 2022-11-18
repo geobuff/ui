@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import { DateTime } from "luxon";
 
 import {
   Alert,
@@ -9,6 +8,7 @@ import {
   Divider,
   Flex,
   Heading,
+  Link,
   Select,
   Table,
   Tbody,
@@ -16,17 +16,17 @@ import {
   Thead,
   Tr,
   useBreakpointValue,
-  Link,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
-import TableCell from "../Table/TableCell";
-import { OrderPageDto } from "../../types/order-page-dto";
-import AdminOrdersTablePlaceholder from "../../placeholders/AdminOrdersTablePlaceholder";
 import ArrowLeft from "../../Icons/ArrowLeft";
 import ArrowRight from "../../Icons/ArrowRight";
+import AdminOrdersTablePlaceholder from "../../placeholders/AdminOrdersTablePlaceholder";
+import { Order } from "../../types/order";
+import { OrderPageDto } from "../../types/order-page-dto";
 import { OrderStatuses } from "../../types/order-statuses";
 import Card from "../Card";
-import { Order } from "../../types/order";
+import TableCell from "../Table/TableCell";
 
 export interface Props {
   orderPage?: OrderPageDto;

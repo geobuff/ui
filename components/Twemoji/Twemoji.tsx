@@ -1,7 +1,7 @@
 import React, { FC } from "react";
-import twemoji from "twemoji";
 
 import { Box, BoxProps } from "@chakra-ui/react";
+import twemoji from "twemoji";
 
 export interface Props extends BoxProps {
   emoji?: string;

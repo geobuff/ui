@@ -1,15 +1,15 @@
 import React, { FC } from "react";
 
 import {
+  Flex,
+  Skeleton,
   Table,
-  Thead,
-  Tr,
-  Th,
   Tbody,
   Td,
-  Skeleton,
+  Th,
+  Thead,
+  Tr,
   useBreakpointValue,
-  Flex,
 } from "@chakra-ui/react";
 
 interface Props {

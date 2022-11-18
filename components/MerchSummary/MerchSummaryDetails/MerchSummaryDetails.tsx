@@ -1,20 +1,23 @@
 import React, { FC, useContext } from "react";
+
 import {
   Box,
-  Heading,
-  Text,
+  Button,
   Flex,
   FormControl,
-  Select,
   FormErrorMessage,
-  Button,
+  Heading,
+  Select,
+  Text,
 } from "@chakra-ui/react";
+import { Field, Form, Formik } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
-import { Field, Form, Formik } from "formik";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
 import { MerchSize } from "../../../types/merch-item";
 import { MerchSummaryFormSubmit } from "../../../types/merch-summary-form-submit";
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   name?: string;

@@ -1,7 +1,10 @@
 import React, { FC, useContext } from "react";
-import { Select, Flex } from "@chakra-ui/react";
-import { FlagGroup } from "../../../types/flag-group";
+
+import { Flex, Select } from "@chakra-ui/react";
+
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
+import { FlagGroup } from "../../../types/flag-group";
 
 interface Props {
   group?: string;

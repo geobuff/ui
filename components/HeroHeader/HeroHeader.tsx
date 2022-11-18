@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { Box, Flex, Fade, Text, Heading } from "@chakra-ui/react";
+
+import { Box, Fade, Flex, Heading, Text } from "@chakra-ui/react";
 
 interface Props {
   heading?: string;

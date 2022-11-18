@@ -1,6 +1,8 @@
+import React, { FC } from "react";
+
 import { Flex } from "@chakra-ui/react";
 import { FormikHelpers } from "formik";
-import React, { FC } from "react";
+
 import { GetMapsDto } from "../../types/get-maps-dto";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import { ManualTriviaQuestionFormSubmit } from "../../types/manual-trivia-question-form-submit";

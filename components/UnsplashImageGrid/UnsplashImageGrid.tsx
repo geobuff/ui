@@ -1,7 +1,9 @@
 import React, { FC } from "react";
+
 import { Alert, AlertIcon, Flex, SimpleGrid, Spinner } from "@chakra-ui/react";
-import RadioImage from "../RadioImage";
+
 import { UnsplashImage } from "../../types/unsplash-image";
+import RadioImage from "../RadioImage";
 
 export interface Props {
   images?: UnsplashImage[];

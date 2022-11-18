@@ -1,30 +1,30 @@
 import React, { FC } from "react";
-import * as Yup from "yup";
 
 import {
-  Text,
+  Box,
   Button,
+  Divider,
   Flex,
   FormControl,
-  FormLabel,
-  Input,
-  Box,
   FormErrorMessage,
-  Heading,
-  Divider,
-  useRadioGroup,
-  HStack,
   FormHelperText,
+  FormLabel,
+  HStack,
+  Heading,
+  Input,
   Spinner,
+  Text,
+  useRadioGroup,
 } from "@chakra-ui/react";
-
-import PlacesAutocomplete from "react-places-autocomplete";
-import ArrowLeft from "../../Icons/ArrowLeft";
-import Card from "../Card";
-import { useRouter } from "next/router";
 import { Field, Form, Formik } from "formik";
+import { useRouter } from "next/router";
+import PlacesAutocomplete from "react-places-autocomplete";
+import * as Yup from "yup";
+
+import ArrowLeft from "../../Icons/ArrowLeft";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { ShippingOption } from "../../types/shipping-option";
+import Card from "../Card";
 import RadioButton from "../RadioButton";
 
 const validationSchema = Yup.object().shape({
