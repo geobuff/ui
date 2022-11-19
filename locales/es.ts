@@ -102,6 +102,9 @@ export default {
     createAccountExplainer:
       "¿No tienes una cuenta? ¡Regístrese hoy para ganar XP, desbloquear insignias y competir con amigos!",
     createAnAccount: "Crea una cuenta",
+    contactUs: "Contacta con nosotros",
+    ashleyMidgley: "Ashley Midgley",
+    companyEmail: "teamgeobuff@gmail.com",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
@@ -428,6 +431,116 @@ export default {
     rightsSectionTenStrong: "Darse de baja:",
     rightsSectionTenText:
       "Para darse de baja de nuestra base de datos de correo electrónico o darse de baja de las comunicaciones (incluidas las comunicaciones de marketing), comuníquese con nosotros utilizando los detalles proporcionados en esta política de privacidad, o opte por no utilizar las funciones de exclusión voluntaria proporcionadas en la comunicación. Es posible que necesitemos solicitarle información específica para ayudarnos a confirmar su identidad.",
+    cookiesHeading: "Uso de cookies",
+    cookiesSectionOne:
+      "Usamos 'cookies' para recopilar información sobre usted y su actividad en nuestro sitio. Una cookie es un pequeño fragmento de datos que nuestro sitio web almacena en su computadora y al que se accede cada vez que lo visita, para que podamos entender cómo usa nuestro sitio. Esto nos ayuda a brindarle contenido en función de las preferencias que haya especificado.",
+    cookiesSectionTwo:
+      "Consulte nuestra Política de cookies para obtener más información.",
+    transfersHeader: "Transferencias comerciales",
+    transfersSectionOne:
+      "Si nosotros o nuestros activos son adquiridos, o en el improbable caso de que cerremos el negocio o entremos en bancarrota, incluiremos datos, incluida su información personal, entre los activos transferidos a cualquier parte que nos adquiera. Usted reconoce que tales transferencias pueden ocurrir, y que cualquier parte que nos adquiera puede, en la medida permitida por la ley aplicable, continuar usando su información personal de acuerdo con esta política, que deberán asumir como base para cualquier derechos de propiedad o uso que tenemos sobre dicha información.",
+    limitsHeading: "Límites de nuestra política",
+    limitsSectionOne:
+      "Nuestro sitio web puede tener enlaces a sitios externos que no son operados por nosotros. Tenga en cuenta que no tenemos control sobre el contenido y las políticas de esos sitios, y no podemos aceptar responsabilidad alguna por sus respectivas prácticas de privacidad.",
+    changesHeading: "Cambios a esta política",
+    changesSectionOne:
+      "A nuestra discreción, podemos cambiar nuestra política de privacidad para reflejar las actualizaciones de nuestros procesos comerciales, las prácticas aceptables actuales o los cambios legislativos o reglamentarios. Si decidimos cambiar esta política de privacidad, publicaremos los cambios aquí en el mismo enlace por el que accede a esta política de privacidad.",
+    changesSectionTwo:
+      "Si los cambios son significativos, o si lo requiere la ley aplicable, nos comunicaremos con usted (según sus preferencias seleccionadas para las comunicaciones de nosotros) y todos nuestros usuarios registrados con los nuevos detalles y enlaces a la política actualizada o modificada.",
+    changesSectionThree:
+      "Si lo exige la ley, obtendremos su permiso o le daremos la oportunidad de aceptar o rechazar, según corresponda, cualquier nuevo uso de su información personal.",
+    apacHeading:
+      "Divulgaciones adicionales para el cumplimiento de la Ley de Privacidad de Australia (AU)",
+    apacHeadingTwo: "Transferencias internacionales de información personal",
+    apacSectionOne:
+      "Cuando la divulgación de su información personal esté sujeta únicamente a las leyes de privacidad de Australia, usted reconoce que es posible que algunos terceros no estén regulados por la Ley de Privacidad y los Principios de Privacidad de Australia en la Ley de Privacidad. Usted reconoce que si un tercero participa en cualquier acto o práctica que contravenga los Principios de Privacidad de Australia, no será responsable en virtud de la Ley de Privacidad y usted no podrá solicitar una reparación en virtud de la Ley de Privacidad.",
+    gdprHeading:
+      "Divulgaciones adicionales para el cumplimiento del Reglamento general de protección de datos (RGPD) (UE)",
+    gdprHeadingTwo: "Controlador de datos / procesador de datos",
+    gdprSectionOne:
+      "El RGPD distingue entre organizaciones que procesan información personal para sus propios fines (conocidas como 'controladores de datos') y organizaciones que procesan información personal en nombre de otras organizaciones (conocidas como 'procesadores de datos'). Nosotros, GeoBuff, ubicados en la dirección proporcionada en nuestra sección Contáctenos, somos un controlador de datos con respecto a la información personal que nos proporciona.",
+    legalBasesHeading: "Bases legales para procesar su información personal",
+    legalBasesSectionOne:
+      "Solo recopilaremos y utilizaremos su información personal cuando tengamos el derecho legal de hacerlo. En cuyo caso, recopilaremos y utilizaremos su información personal de manera lícita, justa y transparente. Si buscamos su consentimiento para procesar su información personal y usted es menor de 16 años, buscaremos el consentimiento de sus padres o tutores legales para procesar su información personal para ese propósito específico.",
+    legalBasesSectionTwo:
+      "Nuestras bases legales dependen de los servicios que utilice y cómo los utilice. Esto significa que solo recopilamos y usamos su información por los siguientes motivos:",
+    legalBasesHeadingTwo: "Consentimiento de usted",
+    legalBasesSectionThree:
+      "Cuando nos da su consentimiento para recopilar y utilizar su información personal para un propósito específico. Puede retirar su consentimiento en cualquier momento utilizando las instalaciones que proporcionamos; sin embargo, esto no afectará ningún uso de su información que ya haya tenido lugar. Puede dar su consentimiento para proporcionar su nombre y datos de contacto con el fin de participar en un sorteo o promoción. Si bien puede retirar su entrada en cualquier momento, esto no afectará ninguna selección o evaluación que ya haya tenido lugar. Si tiene más consultas sobre cómo retirar su consentimiento, no dude en consultarnos utilizando los detalles proporcionados en la sección Contáctenos de esta política de privacidad.",
+    legalBasesHeadingThree: "Ejecución de un Contrato o Transacción",
+    legalBasesSectionFour:
+      "Cuando haya celebrado un contrato o transacción con nosotros, o para tomar medidas preparatorias antes de que celebremos un contrato o transacción con usted. Por ejemplo, si nos compra un producto, servicio o suscripción, es posible que necesitemos usar su información personal y de pago para procesar y entregar su pedido.",
+    legalBasesHeadingFour: "Nuestros intereses legítimos",
+    legalBasesSectionFive:
+      "Cuando lo evaluamos es necesario para nuestros intereses legítimos, como para que podamos proporcionar, operar, mejorar y comunicar nuestros servicios. Consideramos que nuestros intereses legítimos incluyen investigación y desarrollo, comprensión de nuestra audiencia, marketing y promoción de nuestros servicios, medidas tomadas para operar nuestros servicios de manera eficiente, análisis de marketing y medidas tomadas para proteger nuestros derechos e intereses legales.",
+    legalBasesHeadingFive: "Cumplimiento de la Ley",
+    legalBasesSectionSix:
+      "En algunos casos, es posible que tengamos la obligación legal de utilizar o conservar su información personal. Dichos casos pueden incluir (entre otros) órdenes judiciales, investigaciones penales, solicitudes gubernamentales y obligaciones reglamentarias. Si tiene más consultas sobre cómo conservamos la información personal para cumplir con la ley, no dude en consultar utilizando los detalles proporcionados en la sección Contáctenos de esta política de privacidad.",
+    eeaHeading:
+      "Transferencias internacionales fuera del Espacio Económico Europeo (EEE)",
+    eeaSectionOne:
+      "Nos aseguraremos de que cualquier transferencia de información personal desde países del Espacio Económico Europeo (EEE) a países fuera del EEE esté protegida por las garantías adecuadas, por ejemplo, mediante el uso de cláusulas estándar de protección de datos aprobadas por la Comisión Europea, o el uso de normas societarias u otros medios legalmente aceptados.",
+    yourRightsHeading: "Sus derechos y control de su información personal",
+    yourRightsSectionOneStrong: "Restringir:",
+    yourRightsSectionOneText:
+      "Tiene derecho a solicitar que restrinjamos el procesamiento de su información personal si (i) le preocupa la exactitud de su información personal; (ii) cree que su información personal ha sido procesada ilegalmente; (iii) necesita que mantengamos la información personal únicamente con el propósito de un reclamo legal; o (iv) estamos en el proceso de considerar su objeción en relación con el procesamiento sobre la base de intereses legítimos.",
+    yourRightsSectionTwoStrong: "Objeción al procesamiento:",
+    yourRightsSectionTwoText:
+      "Tiene derecho a oponerse al procesamiento de su información personal que se basa en nuestros intereses legítimos o el interés público. Si se hace esto, debemos proporcionar motivos legítimos convincentes para el procesamiento que prevalezcan sobre sus intereses, derechos y libertades, a fin de continuar con el procesamiento de su información personal.",
+    yourRightsSectionThreeStrong: "Portabilidad de datos:",
+    yourRightsSectionThreeText:
+      "Es posible que tenga derecho a solicitar una copia de la información personal que tenemos sobre usted. Siempre que sea posible, proporcionaremos esta información en formato CSV u otro formato de máquina de fácil lectura. También puede tener derecho a solicitar que transfiramos esta información personal a un tercero.",
+    yourRightsSectionFourStrong: "Supresión:",
+    yourRightsSectionFourText:
+      "Puede tener derecho a solicitar que eliminemos la información personal que tenemos sobre usted en cualquier momento, y tomaremos las medidas razonables para eliminar su información personal de nuestros registros actuales. Si nos solicita que eliminemos su información personal, le informaremos cómo la eliminación afecta su uso de nuestro sitio web o productos y servicios. Puede haber excepciones a este derecho por razones legales específicas que, en su caso, le expondremos en respuesta a su solicitud. Si cancela o elimina su cuenta, eliminaremos su información personal dentro de los 30 días posteriores a la eliminación de su cuenta. Tenga en cuenta que los motores de búsqueda y terceros similares aún pueden conservar copias de su información personal que se haya hecho pública al menos una vez, como cierta información de perfil y comentarios públicos, incluso después de haber eliminado la información de nuestros servicios o desactivado su cuenta.",
+    californiaHeading:
+      "Divulgaciones adicionales para el cumplimiento de California (EE. UU.)",
+    californiaSectionOne:
+      "Según la Sección 1798.83 del Código Civil de California, si vive en California y su relación comercial con nosotros es principalmente para fines personales, familiares o domésticos, puede preguntarnos sobre la información que divulgamos a otras organizaciones para sus fines de marketing.",
+    californiaSectionTwo:
+      "Para realizar dicha solicitud, comuníquese con nosotros utilizando los detalles provistos en esta política de privacidad con 'Solicitud de información de privacidad de California' en la línea de asunto. Puede realizar este tipo de solicitud una vez cada año calendario. Le enviaremos por correo electrónico una lista de categorías de información personal que revelamos a otras organizaciones para sus fines de marketing en el último año calendario junto con sus nombres y direcciones. No toda la información personal compartida de esta manera está cubierta por la Sección 1798.83 del Código Civil de California.",
+    doNotTrackHeading: "No rastrear",
+    doNotTrackSectionOne:
+      "Algunos navegadores tienen una función 'No rastrear' que le permite decirles a los sitios web que no desea que se rastreen sus actividades en línea. En este momento no respondemos a las señales de 'No rastrear' del navegador.",
+    doNotTrackSectionTwo:
+      "Cumplimos con los estándares descritos en esta política de privacidad para garantizar que recopilamos y procesamos información personal de manera legal, justa, transparente y con motivos legales legítimos para hacerlo.",
+    cookiesAndPixelsHeading: "Cookies y píxeles",
+    cookiesAndPixelsSectionOne:
+      "En todo momento puede rechazar las cookies de nuestro sitio si su navegador lo permite. La mayoría de los navegadores le permiten activar la configuración en su navegador para rechazar la configuración de todas o algunas cookies. En consecuencia, su capacidad para limitar las cookies se basa únicamente en las capacidades de su navegador. Consulte la sección Cookies de esta política de privacidad para obtener más información.",
+    ccpaHeading: "Incentivos financieros permitidos por la CCPA",
+    ccpaSectionOne:
+      "De acuerdo con su derecho a la no discriminación, podemos ofrecerle ciertos incentivos financieros permitidos por la CCPA que pueden resultar en diferentes precios, tarifas o niveles de calidad para los bienes o servicios que brindamos.",
+    ccpaSectionTwo:
+      "Cualquier incentivo financiero permitido por la CCPA que ofrezcamos se relacionará razonablemente con el valor de su información personal y proporcionaremos términos por escrito que describan claramente la naturaleza de dicha oferta. La participación en un programa de incentivos financieros requiere su consentimiento previo, que puede revocar en cualquier momento.",
+    caliNoticeHeading: "Aviso de colección de California",
+    caliNoticeSectionOne:
+      "En los últimos 12 meses, hemos recopilado las siguientes categorías de información personal enumeradas en la Ley de Privacidad del Consumidor de California:",
+    caliNoticeSectionTwo:
+      "Para obtener más información sobre la información que recopilamos, incluidas las fuentes de las que recibimos información, consulte la sección 'Información que recopilamos'. Recopilamos y usamos estas categorías de información personal para los fines comerciales descritos en la sección 'Recopilación y uso de información', incluso para proporcionar y administrar nuestro Servicio.",
+    rightToKnowHeading: "Derecho a saber y eliminar",
+    rightToKnowSectionOne:
+      "Si es residente de California, tiene derecho a eliminar la información personal que recopilamos y conocer cierta información sobre nuestras prácticas de datos en los 12 meses anteriores. En particular, tiene derecho a solicitarnos lo siguiente:",
+    rightToKnowSectionTwo:
+      "Las categorías de información personal que hemos recopilado sobre usted;",
+    rightToKnowSectionThree:
+      "Las categorías de fuentes de las que se recopiló la información personal;",
+    rightToKnowSectionFour:
+      "Las categorías de información personal sobre usted que divulgamos con fines comerciales o vendemos;",
+    rightToKnowSectionFive:
+      "Las categorías de terceros a quienes se divulgó la información personal con fines comerciales o se vendió;",
+    rightToKnowSectionSix:
+      "El propósito comercial o empresarial para recopilar o vender la información personal; y",
+    rightToKnowSectionSeven:
+      "Las piezas específicas de información personal que hemos recopilado sobre usted.",
+    rightToKnowSectionEight:
+      "Para ejercer cualquiera de estos derechos, póngase en contacto con nosotros utilizando los datos proporcionados en esta política de privacidad.",
+    shineTheLightHeading: "Brilla la luz",
+    shineTheLightSectionOne:
+      "Si es residente de California, además de los derechos discutidos anteriormente, tiene derecho a solicitarnos información sobre la manera en que compartimos cierta información personal según lo define 'Shine the Light' de California con terceros y afiliados para su propios fines de marketing directo.",
+    shineTheLightSectionTwo:
+      "Para recibir esta información, envíenos una solicitud utilizando los datos de contacto proporcionados en esta política de privacidad. Las solicitudes deben incluir 'Solicitud de derechos de privacidad de California' en la primera línea de la descripción e incluir su nombre, dirección, ciudad, estado y código postal.",
+    contactUsSectionOne:
+      "Para cualquier pregunta o inquietud con respecto a su privacidad, puede comunicarse con nosotros utilizando los siguientes detalles:",
   },
   footer: {
     company: "Compañía",
