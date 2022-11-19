@@ -1,28 +1,27 @@
 import React, { FC, useContext } from "react";
 
-import { useRouter } from "next/router";
-
 import {
   Button,
-  Flex,
   Fade,
+  Flex,
   Menu,
-  MenuList,
-  MenuItem,
-  MenuDivider,
   MenuButton,
+  MenuDivider,
+  MenuItem,
+  MenuList,
   Skeleton,
   SkeletonCircle,
   Text,
 } from "@chakra-ui/react";
-
+import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/router";
+
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import SolidChevronDown from "../../Icons/SolidChevronDown";
 import Twemoji from "../Twemoji";
-import { signOut, useSession } from "next-auth/react";
-import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 interface Props {
   isCondensed?: boolean;

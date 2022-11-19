@@ -1,6 +1,8 @@
 import React, { FC, useState } from "react";
+
 import { Button, Flex, Tooltip } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
+
 import { getMapStyles } from "../../../helpers/map";
 import { SVGBase } from "../../../types/svg-base";
 

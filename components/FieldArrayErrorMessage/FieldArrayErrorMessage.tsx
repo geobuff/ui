@@ -1,6 +1,7 @@
 import React from "react";
-import { Field, getIn } from "formik";
+
 import { Box, Text } from "@chakra-ui/react";
+import { Field, getIn } from "formik";
 
 export const FieldArrayErrorMessage = ({ name }) => (
   <Field

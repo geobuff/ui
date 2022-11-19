@@ -1,7 +1,10 @@
-import { useSession } from "next-auth/react";
 import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
+
+import { useSession } from "next-auth/react";
+
 import AdminLastWeekTriviaPlays from "../../components/AdminLastWeekTriviaPlays";
+
+import axiosClient from "../../axios";
 import { getTriviaPlaysData } from "../../helpers/charts";
 import AdminLastWeekTriviaPlaysPlaceholder from "../../placeholders/AdminLastWeekTriviaPlaysPlaceholder";
 

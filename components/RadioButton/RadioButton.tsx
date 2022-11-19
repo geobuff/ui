@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { Box, RadioProps, useRadio, UseRadioProps } from "@chakra-ui/react";
+
+import { Box, RadioProps, UseRadioProps, useRadio } from "@chakra-ui/react";
 
 export interface Props extends RadioProps {
   color?: string;

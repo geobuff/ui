@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Box, keyframes } from "@chakra-ui/react";
 
 import useRandomInterval from "../../hooks/useRandomInterval";

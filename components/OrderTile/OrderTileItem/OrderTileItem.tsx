@@ -1,7 +1,9 @@
 import React, { FC } from "react";
-import { Flex, Text, Tag, BoxProps, VStack, Box } from "@chakra-ui/react";
-import { OrderItem } from "../../../types/order";
+
+import { Box, BoxProps, Flex, Tag, Text, VStack } from "@chakra-ui/react";
 import Image from "next/image";
+
+import { OrderItem } from "../../../types/order";
 
 export interface Props extends BoxProps {
   item?: OrderItem;

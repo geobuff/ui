@@ -1,5 +1,7 @@
-import { Flex, Skeleton } from "@chakra-ui/react";
 import React, { FC } from "react";
+
+import { Flex, Skeleton } from "@chakra-ui/react";
+
 import Card from "../../components/Card";
 
 const MyOrdersPlaceholder: FC = () => (

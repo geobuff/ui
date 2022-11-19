@@ -1,15 +1,18 @@
 import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
-import AdminOrdersTable from "../../components/AdminOrdersTable";
-import { OrderStatuses } from "../../types/order-statuses";
-import { OrderPageDto } from "../../types/order-page-dto";
-import { OrdersFilterDto } from "../../types/orders-filter-dto";
-import ProgressOrderModal from "../../components/ProgressOrderModal";
+
 import { useDisclosure } from "@chakra-ui/react";
-import { Order } from "../../types/order";
-import OrderItemsModal from "../../components/OrderItemsModal";
 import { useSession } from "next-auth/react";
+
+import AdminOrdersTable from "../../components/AdminOrdersTable";
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
+import OrderItemsModal from "../../components/OrderItemsModal";
+import ProgressOrderModal from "../../components/ProgressOrderModal";
+
+import axiosClient from "../../axios";
+import { Order } from "../../types/order";
+import { OrderPageDto } from "../../types/order-page-dto";
+import { OrderStatuses } from "../../types/order-statuses";
+import { OrdersFilterDto } from "../../types/orders-filter-dto";
 
 const AdminOrdersContainer: FC = () => {
   const {

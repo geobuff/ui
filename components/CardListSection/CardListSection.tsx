@@ -9,9 +9,10 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import OutlinedChevronRight from "../../Icons/OutlinedChevronRight";
 import CardList from "../CardList";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface Props extends FlexProps {
   title: string;

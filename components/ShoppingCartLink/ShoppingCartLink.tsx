@@ -1,5 +1,7 @@
 import React, { FC } from "react";
-import { Flex, Tag, Link, FlexProps } from "@chakra-ui/react";
+
+import { Flex, FlexProps, Link, Tag } from "@chakra-ui/react";
+
 import Twemoji, { Props as TwemojiProps } from "../Twemoji";
 
 export interface Props extends FlexProps {

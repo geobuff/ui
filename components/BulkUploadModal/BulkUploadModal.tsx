@@ -1,5 +1,7 @@
-import { Flex } from "@chakra-ui/react";
 import React, { FC } from "react";
+
+import { Flex } from "@chakra-ui/react";
+
 import { BulkUploadValues } from "../../types/bulk-upload-values";
 import BulkUploadForm from "../BulkUploadForm";
 import Modal from "../Modal";

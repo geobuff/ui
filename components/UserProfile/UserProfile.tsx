@@ -1,13 +1,14 @@
 import React, { FC } from "react";
-import { Flex, Divider, Alert, AlertIcon } from "@chakra-ui/react";
 
-import HeroHeader from "../HeroHeader";
+import { Alert, AlertIcon, Divider, Flex } from "@chakra-ui/react";
 
-import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer";
 import UserProfileAchievementsContainer from "../../containers/UserProfileAchievementsContainer";
-import { UserDto } from "../../types/user-dto";
-import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
+import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer";
 import UserProfileMyQuizzesContainer from "../../containers/UserProfileMyQuizzesContainer";
+import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
+
+import { UserDto } from "../../types/user-dto";
+import HeroHeader from "../HeroHeader";
 
 const divider = <Divider borderColor="transparent" my={3} />;
 

@@ -1,6 +1,8 @@
 import React, { FC } from "react";
-import Link from "next/link";
+
 import { Flex, Heading, Tag, Text } from "@chakra-ui/react";
+import Link from "next/link";
+
 import Card from "../../Card";
 
 export interface Props {

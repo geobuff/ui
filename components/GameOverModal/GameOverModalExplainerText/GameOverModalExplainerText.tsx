@@ -1,8 +1,9 @@
 import React, { FC } from "react";
+
 import { Box, Button, Text } from "@chakra-ui/react";
 
-import GameExistingEntry from "../../GameExistingEntry";
 import { LeaderboardEntry } from "../../../types/leaderboard-entry";
+import GameExistingEntry from "../../GameExistingEntry";
 
 const explainerScoreQuizLoggedIn =
   "If this score is greater than your existing score, we will update it behind the scenes.";

@@ -1,22 +1,23 @@
-import React, { createRef, useEffect, FC, useContext } from "react";
+import React, { FC, createRef, useContext, useEffect } from "react";
+
 import {
   Box,
   Button,
   Divider,
-  Text,
   Flex,
+  Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Sheet from "react-modal-sheet";
 
-import GameHeader from "../../GameHeader";
-import ResultsList from "../../ResultsList";
-import ResultsMap from "../../ResultsMap";
+import { AppContext } from "../../../context/AppContext";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { MappingEntry } from "../../../types/mapping-entry";
 import { Result } from "../../../types/result";
-import { AppContext } from "../../../context/AppContext";
+import GameHeader from "../../GameHeader";
+import ResultsList from "../../ResultsList";
+import ResultsMap from "../../ResultsMap";
 
 const snapPoints = [600, 400, 300, 90];
 const initialSnap = snapPoints.length - 2;

@@ -1,8 +1,9 @@
-import React, { useEffect, useState, FC } from "react";
+import React, { FC, useEffect, useState } from "react";
+
 import {
   Image as ChakraImage,
-  Skeleton,
   ImageProps,
+  Skeleton,
   SkeletonProps,
 } from "@chakra-ui/react";
 

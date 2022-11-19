@@ -1,12 +1,16 @@
 import React, { FC, useContext } from "react";
+
 import { Flex } from "@chakra-ui/react";
-import Card from "../Card";
-import { FlagGroup } from "../../types/flag-group";
-import AdminMappingsTable from "./AdminMappingsTable";
-import AdminMappingsFilters from "./AdminMappingsFilters";
-import useMappingEntries from "../../hooks/UseMappingEntries";
-import TableHeader from "../Table/TableHeader/TableHeader";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import useMappingEntries from "../../hooks/UseMappingEntries";
+
+import { FlagGroup } from "../../types/flag-group";
+import Card from "../Card";
+import TableHeader from "../Table/TableHeader/TableHeader";
+import AdminMappingsFilters from "./AdminMappingsFilters";
+import AdminMappingsTable from "./AdminMappingsTable";
 
 interface Props {
   group?: string;

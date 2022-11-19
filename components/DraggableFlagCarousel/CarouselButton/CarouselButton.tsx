@@ -1,5 +1,6 @@
-import { IconButton } from "@chakra-ui/react";
 import React, { FC } from "react";
+
+import { IconButton } from "@chakra-ui/react";
 
 import ArrowLeft from "../../../Icons/ArrowLeft";
 import ArrowRight from "../../../Icons/ArrowRight";

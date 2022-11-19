@@ -1,5 +1,4 @@
 import React, { FC, useContext } from "react";
-import * as Yup from "yup";
 
 import {
   Box,
@@ -13,18 +12,18 @@ import {
   Link,
   useBreakpointValue,
 } from "@chakra-ui/react";
-
-import { Formik, Field, Form } from "formik";
-
-import AuthView from "../AuthView";
-import AuthCard from "../AuthCard";
-import Logo from "../Logo";
-
-import ErrorAlertBanner from "../ErrorAlertBanner";
-import RegisterLink from "./RegisterLink";
-import { LoginFormSubmit } from "../../types/login-form-submit";
+import { Field, Form, Formik } from "formik";
 import { getCsrfToken } from "next-auth/react";
+import * as Yup from "yup";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import { LoginFormSubmit } from "../../types/login-form-submit";
+import AuthCard from "../AuthCard";
+import AuthView from "../AuthView";
+import ErrorAlertBanner from "../ErrorAlertBanner";
+import Logo from "../Logo";
+import RegisterLink from "./RegisterLink";
 
 const initialValues = {
   email: "",

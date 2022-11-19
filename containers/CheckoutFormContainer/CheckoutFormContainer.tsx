@@ -1,10 +1,15 @@
+import React, { FC, useContext, useState } from "react";
+
 import { useStripe } from "@stripe/react-stripe-js";
 import { useSession } from "next-auth/react";
-import React, { FC, useContext, useState } from "react";
-import axiosClient from "../../axios";
-import CheckoutForm from "../../components/CheckoutForm";
+
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+
 import useShippingOptions from "../../hooks/UseShippingOptions";
+
+import CheckoutForm from "../../components/CheckoutForm";
+
+import axiosClient from "../../axios";
 import CheckoutFormPlaceholder from "../../placeholders/CheckoutFormPlaceholder";
 import { AuthUser } from "../../types/auth-user";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";

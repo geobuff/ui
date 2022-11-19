@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
 import { Bar, BarChart, CartesianGrid, Tooltip, XAxis, YAxis } from "recharts";
 

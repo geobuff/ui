@@ -1,4 +1,5 @@
 import React, { ChangeEvent, FC, useContext, useState } from "react";
+
 import {
   Button,
   Checkbox,
@@ -15,12 +16,13 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import CountrySelect from "../../CountrySelect";
-import RegisterFormBackButton from "../RegisterFormBackButton";
-import ProfileUserAvatar from "../../ProfileUserAvatar";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import useAvatars from "../../../hooks/UseAvatars";
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
+import CountrySelect from "../../CountrySelect";
+import ProfileUserAvatar from "../../ProfileUserAvatar";
+import RegisterFormBackButton from "../RegisterFormBackButton";
 
 export interface Props {
   values: any;

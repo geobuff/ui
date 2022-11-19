@@ -1,16 +1,17 @@
 import React, { FC, Key } from "react";
-import { Field } from "formik";
 
 import {
   FormControl,
   FormLabel,
   HStack,
   Text,
-  useRadioGroup,
   VStack,
+  useRadioGroup,
 } from "@chakra-ui/react";
-import RadioButton from "../../RadioButton";
+import { Field } from "formik";
+
 import { FormOption, FormSetFieldValue, FormValue } from "../../../types/form";
+import RadioButton from "../../RadioButton";
 
 export interface Props {
   name: string;

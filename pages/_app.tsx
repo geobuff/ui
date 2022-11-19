@@ -1,23 +1,27 @@
-import React, { useEffect, FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
+
+import { ChakraProvider } from "@chakra-ui/react";
+import { Session } from "next-auth";
+import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
-import { ChakraProvider } from "@chakra-ui/react";
-import { SessionProvider } from "next-auth/react";
-import NProgress from "nprogress"; //nprogress module
-import "nprogress/nprogress.css"; //styles of nprogress
-
-import "../styles/globals.css";
-import theme from "../styles/theme";
-import * as gtag from "../helpers/gtag";
+import NProgress from "nprogress";
+//nprogress module
+import "nprogress/nprogress.css";
 
 import { AppContextProvider } from "../context/AppContext";
-import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
-import { Session } from "next-auth";
-import AuthGuard from "../components/AuthGuard";
 import { CurrentUserContextProvider } from "../context/CurrentUserContext/CurrentUserContext";
-import ClientOnly from "../components/ClientOnly";
 import { LanguageContextProvider } from "../context/LanguageContext/LanguageContext";
+import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
+
 import { AuthErrorRedirect } from "../components/AuthErrorRedirect/AuthErrorRedirect";
+import AuthGuard from "../components/AuthGuard";
+import ClientOnly from "../components/ClientOnly";
+
+import * as gtag from "../helpers/gtag";
+//styles of nprogress
+import "../styles/globals.css";
+import theme from "../styles/theme";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 

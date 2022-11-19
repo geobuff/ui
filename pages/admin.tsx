@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-import Head from "next/head";
-import dynamic from "next/dynamic";
 
 import {
   Flex,
@@ -10,12 +8,15 @@ import {
   TabPanels,
   Tabs,
 } from "@chakra-ui/react";
-
-import MainView from "../components/MainView";
-import { useRouter } from "next/router";
 import { useSession } from "next-auth/react";
-import { AuthUser } from "../types/auth-user";
+import dynamic from "next/dynamic";
+import Head from "next/head";
+import { useRouter } from "next/router";
+
 import GameSpinner from "../components/GameSpinner";
+import MainView from "../components/MainView";
+
+import { AuthUser } from "../types/auth-user";
 
 const AdminTotalUserCountContainer = dynamic(
   () => import("../containers/AdminTotalUserCountContainer")

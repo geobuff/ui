@@ -1,6 +1,7 @@
-import React, { useEffect, FC } from "react";
-import { useRouter } from "next/router";
+import React, { FC, useEffect } from "react";
+
 import { Text } from "@chakra-ui/react";
+import { useRouter } from "next/router";
 
 const Success: FC = () => {
   const router = useRouter();

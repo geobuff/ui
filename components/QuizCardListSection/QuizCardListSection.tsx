@@ -1,8 +1,9 @@
 import React, { FC } from "react";
-import CardListSection from "../CardListSection";
-import CardListItem from "../CardList/CardListItem";
-import QuizCard from "../QuizCard/QuizCard";
+
 import { Quiz } from "../../types/quiz";
+import CardListItem from "../CardList/CardListItem";
+import CardListSection from "../CardListSection";
+import QuizCard from "../QuizCard/QuizCard";
 
 export interface Props {
   title?: string;

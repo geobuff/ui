@@ -1,18 +1,19 @@
 import React, { FC } from "react";
+
 import {
-  Flex,
-  Text,
-  Heading,
-  useRadioGroup,
-  SimpleGrid,
   Box,
+  Flex,
+  Heading,
+  SimpleGrid,
+  Text,
+  useRadioGroup,
 } from "@chakra-ui/react";
 
-import { FieldProps } from "../../types/field-props";
 import { Avatar } from "../../types/avatar";
-import RadioCard from "./RadioCard";
-import ProfileUserAvatar from "../ProfileUserAvatar";
+import { FieldProps } from "../../types/field-props";
 import CustomFlag from "../CustomFlag";
+import ProfileUserAvatar from "../ProfileUserAvatar";
+import RadioCard from "./RadioCard";
 
 interface Props {
   fieldProps?: FieldProps;

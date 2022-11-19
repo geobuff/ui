@@ -1,12 +1,16 @@
 import React, { FC, useState } from "react";
-import useFlagGroups from "../../hooks/UseFlagGroups";
-import AdminFlags from "../../components/AdminFlags";
+
 import { useDisclosure, useToast } from "@chakra-ui/react";
-import CreateFlagsModal from "../../components/CreateFlagsModal";
-import { FlagsFormSubmit } from "../../types/flags-form-submit";
-import axiosClient from "../../axios";
 import { useSession } from "next-auth/react";
+
+import useFlagGroups from "../../hooks/UseFlagGroups";
+
+import AdminFlags from "../../components/AdminFlags";
+import CreateFlagsModal from "../../components/CreateFlagsModal";
+
+import axiosClient from "../../axios";
 import { genericToast } from "../../helpers/toasts";
+import { FlagsFormSubmit } from "../../types/flags-form-submit";
 
 const AdminFlagsTableContainer: FC = () => {
   const toast = useToast();

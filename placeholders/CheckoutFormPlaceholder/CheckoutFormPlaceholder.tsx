@@ -1,7 +1,10 @@
 import React, { FC } from "react";
-import { Flex, Button, Text, Skeleton } from "@chakra-ui/react";
-import ArrowLeft from "../../Icons/ArrowLeft";
+
+import { Button, Flex, Skeleton, Text } from "@chakra-ui/react";
+
 import Card from "../../components/Card";
+
+import ArrowLeft from "../../Icons/ArrowLeft";
 
 const CheckoutFormPlaceholder: FC = () => (
   <Flex

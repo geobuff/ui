@@ -1,4 +1,5 @@
 import useSWR from "swr";
+
 import { fetcher } from "../helpers/fetcher";
 
 interface Result {

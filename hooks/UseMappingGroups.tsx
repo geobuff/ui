@@ -1,4 +1,5 @@
 import useSWR from "swr";
+
 import { fetcher } from "../helpers/fetcher";
 import { MappingGroup } from "../types/mapping-group";
 

@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   Box,
   Button,
@@ -13,8 +14,9 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
 import Card from "../../components/Card";
+
+import ArrowLeft from "../../Icons/ArrowLeft";
 
 export interface Props {
   noOfItems?: number;

@@ -1,14 +1,16 @@
-import React, { useEffect, useState, FC, useContext } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
+
+import { signIn, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import axiosClient from "../../axios/axiosClient";
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 
 import RegisterForm from "../../components/RegisterForm";
-import { RegisterFormSubmit } from "../../types/register-form-submit";
-import { GameOverRedirect } from "../../types/game-over-redirect";
-import { signIn, useSession } from "next-auth/react";
+
+import axiosClient from "../../axios/axiosClient";
 import { AuthUser } from "../../types/auth-user";
-import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { GameOverRedirect } from "../../types/game-over-redirect";
+import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 const RegisterContainer: FC = () => {
   const router = useRouter();

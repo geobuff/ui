@@ -1,19 +1,19 @@
-import React, { useEffect, useState, FC, useContext } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
+
+import { Box, Fade, Flex, Link, useBreakpointValue } from "@chakra-ui/react";
+import { Squash as Hamburger } from "hamburger-react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
-import { Box, Flex, Link, useBreakpointValue, Fade } from "@chakra-ui/react";
-import { Squash as Hamburger } from "hamburger-react";
+import { AppContext } from "../../context/AppContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
+import LanguageSelect from "../LanguageSelect/LanguageSelect";
 import Logo from "../Logo";
-import NavigationBarLink from "./NavigationBarLink";
 import NavigationSidebar from "../NavigationSidebar";
 import ShoppingCartLink from "../ShoppingCartLink";
-
-import { AppContext } from "../../context/AppContext";
-import { ShoppingCartContext } from "../../context/ShoppingCartContext";
-import LanguageSelect from "../LanguageSelect/LanguageSelect";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import NavigationBarLink from "./NavigationBarLink";
 
 const UserAvatarMenu = dynamic(() => import("../UserAvatarMenu"));
 

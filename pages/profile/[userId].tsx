@@ -1,10 +1,13 @@
 import React, { FC, useContext, useEffect, useState } from "react";
+
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import MainView from "../../components/MainView";
-import UserProfileContainer from "../../containers/UserProfileContainer";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import UserProfileContainer from "../../containers/UserProfileContainer";
+
+import MainView from "../../components/MainView";
 
 const Profile: FC = () => {
   const router = useRouter();

@@ -1,6 +1,9 @@
 import React, { FC } from "react";
-import CreateFlagsForm from "../../components/CreateFlagsForm";
+
 import useMappingsWithoutFlags from "../../hooks/UseMappingsWithoutFlags";
+
+import CreateFlagsForm from "../../components/CreateFlagsForm";
+
 import { FlagsFormSubmit } from "../../types/flags-form-submit";
 
 export interface Props {

@@ -1,23 +1,23 @@
 import React, { FC } from "react";
-import { Formik, Field, Form } from "formik";
-import * as Yup from "yup";
 
 import {
   Box,
-  FormControl,
-  FormLabel,
-  Input,
-  Flex,
   Button,
+  Flex,
+  FormControl,
   FormErrorMessage,
+  FormLabel,
   Heading,
+  Input,
 } from "@chakra-ui/react";
+import { Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 
-import Modal from "../Modal";
+import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
+import { UserDto } from "../../types/user-dto";
 import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
-import { UserDto } from "../../types/user-dto";
-import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
+import Modal from "../Modal";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()

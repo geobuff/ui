@@ -1,8 +1,11 @@
 import React, { FC, useContext } from "react";
-import { Heading, Flex, Button, useBreakpointValue } from "@chakra-ui/react";
-import { AuthUser } from "../../../types/auth-user";
+
+import { Button, Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
+import { AuthUser } from "../../../types/auth-user";
 
 interface Props {
   onCreateFlagsClick?: () => void;

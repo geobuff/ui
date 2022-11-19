@@ -1,20 +1,22 @@
 import React, { FC, useContext } from "react";
+
 import {
+  Alert,
+  AlertIcon,
   Box,
+  Link,
   Table,
   Tbody,
   Th,
   Thead,
   Tr,
-  Alert,
-  AlertIcon,
-  Link,
 } from "@chakra-ui/react";
 
-import TableCell from "../../Table/TableCell";
-import { FlagEntry } from "../../../types/flag-group";
-import AdminFlagsTablePlaceholder from "../../../placeholders/AdminFlagsTablePlaceholder";
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
+import AdminFlagsTablePlaceholder from "../../../placeholders/AdminFlagsTablePlaceholder";
+import { FlagEntry } from "../../../types/flag-group";
+import TableCell from "../../Table/TableCell";
 
 export interface Props {
   entries?: FlagEntry[];

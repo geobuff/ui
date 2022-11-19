@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Flex, Text } from "@chakra-ui/react";
 
 export interface Props {

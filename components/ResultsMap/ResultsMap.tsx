@@ -1,14 +1,13 @@
-import React, { useMemo, FC } from "react";
+import React, { FC, useMemo } from "react";
 
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { AutoSizer, List as VirtualizedList } from "react-virtualized";
 
 import { getResults } from "../../helpers/results-list";
-
-import VirtualizedSectionList from "../SectionList";
-import ResultsListItem from "../ResultsListItem";
 import { MappingEntry } from "../../types/mapping-entry";
 import { ResultMap } from "../../types/result-map";
+import ResultsListItem from "../ResultsListItem";
+import VirtualizedSectionList from "../SectionList";
 
 const HEADER_HEIGHT = 50;
 const ROW_HEIGHT = 28;

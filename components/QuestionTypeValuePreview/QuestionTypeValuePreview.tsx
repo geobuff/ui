@@ -1,12 +1,14 @@
 /* eslint-disable no-case-declarations */
 import React, { FC } from "react";
-import { QuestionType } from "../../types/manual-trivia-question-form-submit";
 
+import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
-import { Box, Flex, Text, Link } from "@chakra-ui/react";
 import Image from "next/image";
-import { getGameMap, getMapStyles, highlightSection } from "../../helpers/map";
+
 import useMap from "../../hooks/UseMap";
+
+import { getGameMap, getMapStyles, highlightSection } from "../../helpers/map";
+import { QuestionType } from "../../types/manual-trivia-question-form-submit";
 
 export interface Props {
   typeId?: string;

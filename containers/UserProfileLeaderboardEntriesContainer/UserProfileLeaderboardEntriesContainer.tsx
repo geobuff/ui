@@ -1,7 +1,9 @@
 import React, { FC } from "react";
 
-import UserProfileLeaderboardEntries from "../../components/UserProfileLeaderboardEntries";
 import useUserLeaderboardEntries from "../../hooks/UseUserLeaderboardEntries";
+
+import UserProfileLeaderboardEntries from "../../components/UserProfileLeaderboardEntries";
+
 import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";
 
 interface Props {

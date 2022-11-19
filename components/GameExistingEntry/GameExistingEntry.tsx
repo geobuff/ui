@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Box, Flex, Skeleton, Text } from "@chakra-ui/react";
 
 import { formatNumber } from "../../helpers/number";

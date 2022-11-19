@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
+
 import { Flex, Heading } from "@chakra-ui/react";
 import Head from "next/head";
-
-import MainView from "../../../components/MainView";
-import HeroHeader from "../../../components/HeroHeader";
-import Card from "../../../components/Card";
 import { useRouter } from "next/router";
+
 import EditCommunityQuizFormContainer from "../../../containers/EditCommunityQuizFormContainer";
+
+import Card from "../../../components/Card";
+import HeroHeader from "../../../components/HeroHeader";
+import MainView from "../../../components/MainView";
 
 export default function Edit(): JSX.Element {
   const router = useRouter();

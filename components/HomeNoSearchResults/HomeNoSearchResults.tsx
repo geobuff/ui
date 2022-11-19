@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
+
 import { Alert, AlertIcon, Flex } from "@chakra-ui/react";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface Props {

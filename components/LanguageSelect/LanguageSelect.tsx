@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
+
 import { FlexProps, FormControl, Select } from "@chakra-ui/react";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const LanguageSelect: FC<FlexProps> = ({ ...props }) => {

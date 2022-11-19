@@ -8,6 +8,7 @@ import {
   Skeleton,
   SkeletonText,
 } from "@chakra-ui/react";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 interface Props {

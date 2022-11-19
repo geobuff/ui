@@ -6,25 +6,26 @@ import {
   Box,
   Flex,
   Heading,
-  ResponsiveValue,
-  useBreakpointValue,
-  Text,
   Link,
+  ResponsiveValue,
   Spinner,
+  Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
+import Image from "next/image";
 import { use100vh } from "react-div-100vh";
 
-import CustomFlag from "../../CustomFlag";
-import Image from "next/image";
-import { TriviaQuestionTypes } from "../../../types/trivia-question-types";
+import usePrevious from "../../../hooks/UsePrevious";
+
 import {
   getGameMap,
   getMapStyles,
   highlightSection,
 } from "../../../helpers/map";
 import { SVGBase } from "../../../types/svg-base";
-import usePrevious from "../../../hooks/UsePrevious";
+import { TriviaQuestionTypes } from "../../../types/trivia-question-types";
+import CustomFlag from "../../CustomFlag";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
 

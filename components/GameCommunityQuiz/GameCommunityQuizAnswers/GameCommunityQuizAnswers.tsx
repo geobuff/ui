@@ -1,16 +1,16 @@
 import React, { FC } from "react";
+
 import {
   Button,
   Fade,
   Flex,
   SimpleGrid,
-  useBreakpointValue,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
 
 import ArrowRight from "../../../Icons/ArrowRight";
-
 import {
   GetCommunityQuizAnswer,
   GetCommunityQuizQuestion,

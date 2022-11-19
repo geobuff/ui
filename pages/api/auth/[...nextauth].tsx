@@ -1,9 +1,10 @@
-import NextAuth from "next-auth";
-import CredentialsProvider from "next-auth/providers/credentials";
-import { DecodedToken } from "../../../types/decoded-token";
 import jwt_decode from "jwt-decode";
+import NextAuth from "next-auth";
 import { JWT } from "next-auth/jwt";
+import CredentialsProvider from "next-auth/providers/credentials";
+
 import { AuthUser } from "../../../types/auth-user";
+import { DecodedToken } from "../../../types/decoded-token";
 
 const refreshAccessToken = async (token: JWT, email: string): Promise<JWT> => {
   const payload = {

@@ -1,29 +1,29 @@
 import React, { FC, useContext } from "react";
-import { DateTime } from "luxon";
 
 import {
+  Alert,
+  AlertIcon,
   Box,
+  Flex,
   Heading,
+  Link,
   Table,
-  Text,
   Tbody,
+  Td,
+  Text,
+  Th,
   Thead,
   Tooltip,
   Tr,
-  Th,
-  Td,
-  Alert,
-  AlertIcon,
-  Flex,
-  Link,
 } from "@chakra-ui/react";
+import { DateTime } from "luxon";
 
-import Card from "../Card";
-import CustomFlag from "../CustomFlag";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { secondsToMinutesString } from "../../helpers/time";
 import { UserLeaderboardEntry } from "../../types/user-leaderboard-entry";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import Card from "../Card";
+import CustomFlag from "../CustomFlag";
 
 interface Props {
   entries?: UserLeaderboardEntry[];

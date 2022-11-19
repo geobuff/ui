@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import * as Yup from "yup";
 
 import {
   Alert,
@@ -16,15 +15,15 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { Formik, Field, Form } from "formik";
+import { Field, Form, Formik } from "formik";
+import * as Yup from "yup";
 
-import AuthView from "../AuthView";
+import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
 import AuthCard from "../AuthCard";
+import AuthView from "../AuthView";
 import Logo from "../Logo";
-
 import ResetPasswordError from "./ResetPasswordError";
 import ResetPasswordSuccess from "./ResetPasswordSuccess";
-import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()

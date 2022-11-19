@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Box, BoxProps, Text } from "@chakra-ui/react";
 
 import { toMinTwoDigits } from "../../../helpers/format-text";

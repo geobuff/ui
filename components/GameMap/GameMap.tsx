@@ -1,10 +1,11 @@
-import React, { useState, FC, useMemo } from "react";
+import React, { FC, useMemo, useState } from "react";
+
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
 
-import GameMapInteraction from "../GameMapInteraction";
-import { SVGBase } from "../../types/svg-base";
 import { getInitialMapFill } from "../../helpers/map";
+import { SVGBase } from "../../types/svg-base";
+import GameMapInteraction from "../GameMapInteraction";
 
 interface Props {
   showTooltip?: boolean;

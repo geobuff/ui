@@ -1,8 +1,4 @@
-import React, { useState, useEffect, useCallback, FC, useContext } from "react";
-import Head from "next/head";
-import { useRouter } from "next/router";
-import { DateTime } from "luxon";
-import dynamic from "next/dynamic";
+import React, { FC, useCallback, useContext, useEffect, useState } from "react";
 
 import {
   Box,
@@ -11,29 +7,34 @@ import {
   useBreakpointValue,
   useDisclosure,
 } from "@chakra-ui/react";
-
+import { DateTime } from "luxon";
+import { useSession } from "next-auth/react";
+import dynamic from "next/dynamic";
+import Head from "next/head";
+import { useRouter } from "next/router";
 import { useTimer } from "react-timer-hook";
-import GameInputCard from "../GameInputCard";
-import Sidebar from "../Sidebar";
-import SolidChevronUp from "../../Icons/SolidChevronUp";
+
+import { AppContext } from "../../context/AppContext";
+
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
+
+import SolidChevronUp from "../../Icons/SolidChevronUp";
 import axiosClient from "../../axios/axiosClient";
-import GameFlags from "../GameFlags/GameFlags";
-import FlagDropZone from "../FlagDropZone/FlagDropZone";
-import { groupMapping } from "../../helpers/mapping";
 import { findSubmissionByCode } from "../../helpers/game";
+import { groupMapping } from "../../helpers/mapping";
+import {
+  getRandomCollectionItem,
+  getRandomCollectionItems,
+} from "../../helpers/random";
+import { FlagDetails } from "../../types/flag-details";
+import { GameOverRedirect } from "../../types/game-over-redirect";
 import { MappingEntry } from "../../types/mapping-entry";
 import { Result } from "../../types/result";
-import { GameOverRedirect } from "../../types/game-over-redirect";
+import FlagDropZone from "../FlagDropZone/FlagDropZone";
 import GameBannerButton from "../GameBannerButton";
-import { AppContext } from "../../context/AppContext";
-import { useSession } from "next-auth/react";
-import { FlagDetails } from "../../types/flag-details";
-
-import {
-  getRandomCollectionItems,
-  getRandomCollectionItem,
-} from "../../helpers/random";
+import GameFlags from "../GameFlags/GameFlags";
+import GameInputCard from "../GameInputCard";
+import Sidebar from "../Sidebar";
 
 const GameOverModalContainer = dynamic(
   () => import("../../containers/GameOverModalContainer")

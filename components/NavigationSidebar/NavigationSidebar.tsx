@@ -1,7 +1,4 @@
 import React, { FC, useContext } from "react";
-import Link from "next/link";
-import { useRouter } from "next/router";
-import { useSwipeable } from "react-swipeable";
 
 import {
   Box,
@@ -14,15 +11,19 @@ import {
   Flex,
   Text,
 } from "@chakra-ui/react";
-
-import NavigationSidebarQuicklink from "./NavigationSidebarQuicklink";
-import NavigationBarLink from "../NavigationBar/NavigationBarLink";
-import ShoppingCartLink from "../ShoppingCartLink";
-import { insert } from "../../helpers/array";
 import { useSession } from "next-auth/react";
+import Link from "next/link";
+import { useRouter } from "next/router";
+import { useSwipeable } from "react-swipeable";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import { insert } from "../../helpers/array";
 import { AuthUser } from "../../types/auth-user";
 import LanguageSelect from "../LanguageSelect/LanguageSelect";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import NavigationBarLink from "../NavigationBar/NavigationBarLink";
+import ShoppingCartLink from "../ShoppingCartLink";
+import NavigationSidebarQuicklink from "./NavigationSidebarQuicklink";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -190,7 +191,7 @@ const NavigationSidebar: FC<Props> = ({
               </Flex>
             </Flex>
 
-            <LanguageSelect mt={6} />
+            <LanguageSelect mt={6} mb={user && 6} />
 
             {!user && (
               <Flex width="100%" direction="column" marginY={2}>

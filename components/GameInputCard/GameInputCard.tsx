@@ -1,26 +1,25 @@
-import React, { useEffect, createRef, FC } from "react";
+import React, { FC, createRef, useEffect } from "react";
 
 import {
   Box,
   Button,
   Divider,
-  Text,
+  Fade,
+  Flex,
   IconButton,
   Input,
   InputGroup,
   InputRightElement,
-  Fade,
-  Flex,
+  Text,
 } from "@chakra-ui/react";
 
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
-
+import { ExpiryTimestamp } from "../../types/expiry-timestamp";
+import { QuizTypes } from "../../types/quiz-types";
+import { Result } from "../../types/result";
 import ResultsList from "../ResultsList";
 import GameInputCardScore from "./GameInputCardScore/GameInputCardScore";
 import GameInputCardTimer from "./GameInputCardTimer/GameInputCardTimer";
-import { QuizTypes } from "../../types/quiz-types";
-import { Result } from "../../types/result";
-import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 

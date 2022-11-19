@@ -1,8 +1,9 @@
 import React, { FC } from "react";
 
-import ResultsListItem from "../ResultsListItem";
 import { Box, Text } from "@chakra-ui/react";
+
 import { Result } from "../../types/result";
+import ResultsListItem from "../ResultsListItem";
 
 export interface Props {
   results?: Result[];

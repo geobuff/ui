@@ -1,24 +1,26 @@
 import React, { FC, useContext } from "react";
+
 import {
+  Alert,
+  AlertIcon,
   Box,
+  Divider,
+  Flex,
+  Link,
   Table,
   Tbody,
   Th,
   Thead,
   Tr,
-  Alert,
-  AlertIcon,
-  Flex,
-  Divider,
-  Link,
 } from "@chakra-ui/react";
 
-import TableCell from "../Table/TableCell";
-import AdminFlagsTablePlaceholder from "../../placeholders/AdminFlagsTablePlaceholder";
-import Card from "../Card";
-import { GetMapsDto } from "../../types/get-maps-dto";
-import AdminMapsHeader from "./AdminMapsHeader/AdminMapsHeader";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import AdminFlagsTablePlaceholder from "../../placeholders/AdminFlagsTablePlaceholder";
+import { GetMapsDto } from "../../types/get-maps-dto";
+import Card from "../Card";
+import TableCell from "../Table/TableCell";
+import AdminMapsHeader from "./AdminMapsHeader/AdminMapsHeader";
 
 export interface Props {
   maps?: GetMapsDto[];

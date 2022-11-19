@@ -1,11 +1,13 @@
 import React, { FC, useContext } from "react";
+
 import { Flex, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 
+import { FlagGameContext } from "../../context/FlagGameContext";
+
+import { FlagDetails } from "../../types/flag-details";
 import DraggableFlag from "../DraggableFlag";
 import DraggableFlagCarousel from "../DraggableFlagCarousel";
-import { FlagGameContext } from "../../context/FlagGameContext";
 import DraggableFlagPreview from "../DraggableFlagPreview";
-import { FlagDetails } from "../../types/flag-details";
 
 interface Props {
   flags?: FlagDetails[];

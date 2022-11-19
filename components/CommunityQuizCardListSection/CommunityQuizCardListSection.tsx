@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import CardListItem from "../CardList/CardListItem";
 import CardListSection from "../CardListSection";

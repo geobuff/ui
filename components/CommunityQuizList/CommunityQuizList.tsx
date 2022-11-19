@@ -5,16 +5,17 @@ import {
   AlertIcon,
   AspectRatio,
   Box,
+  Link,
   SimpleGrid,
   Text,
-  Link,
 } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
 
-import DelayedRender from "../DelayedRender";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import CommunityQuizCard from "../CommunityQuizCard";
-import { useSession } from "next-auth/react";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import DelayedRender from "../DelayedRender";
 
 export interface Props {
   quizzes?: CommunityQuiz[];

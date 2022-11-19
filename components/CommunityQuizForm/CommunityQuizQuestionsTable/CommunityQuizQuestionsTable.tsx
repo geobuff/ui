@@ -1,18 +1,19 @@
 import React, { FC } from "react";
+
 import {
   Button,
   Flex,
   Table,
   Tbody,
+  Text,
   Th,
   Thead,
   Tr,
-  Text,
 } from "@chakra-ui/react";
 
-import TableCell from "../../Table/TableCell";
 import { getType } from "../../../helpers/trivia-types";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
+import TableCell from "../../Table/TableCell";
 
 export interface Props {
   questions: CommunityQuizFormQuestion[];

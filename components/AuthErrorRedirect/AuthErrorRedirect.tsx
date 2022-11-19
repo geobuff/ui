@@ -1,5 +1,6 @@
 import { FC, useEffect } from "react";
-import { useSession, signOut } from "next-auth/react";
+
+import { signOut, useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
 interface Props {

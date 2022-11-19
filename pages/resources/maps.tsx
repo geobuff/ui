@@ -1,12 +1,17 @@
 import React, { FC, useContext } from "react";
+
 import { Button, Flex, Text } from "@chakra-ui/react";
-import MainView from "../../components/MainView";
 import Head from "next/head";
-import AdminMapsTableContainer from "../../containers/AdminMapsTableContainer";
-import HeroHeader from "../../components/HeroHeader";
-import ArrowLeft from "../../Icons/ArrowLeft";
 import { useRouter } from "next/router";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import AdminMapsTableContainer from "../../containers/AdminMapsTableContainer";
+
+import HeroHeader from "../../components/HeroHeader";
+import MainView from "../../components/MainView";
+
+import ArrowLeft from "../../Icons/ArrowLeft";
 
 const MapResources: FC = () => {
   const router = useRouter();

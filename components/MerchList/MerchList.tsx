@@ -1,16 +1,16 @@
 import React, { FC } from "react";
-import Link from "next/link";
 
 import {
-  AspectRatio,
   Alert,
   AlertIcon,
+  AspectRatio,
   Box,
   SimpleGrid,
 } from "@chakra-ui/react";
+import Link from "next/link";
 
-import MerchCard from "../MerchCard";
 import { MerchItem } from "../../types/merch-item";
+import MerchCard from "../MerchCard";
 
 interface Props {
   merch?: MerchItem[];

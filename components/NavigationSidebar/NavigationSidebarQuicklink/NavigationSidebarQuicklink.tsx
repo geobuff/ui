@@ -1,5 +1,7 @@
 import React, { FC, isValidElement } from "react";
+
 import { Flex, Link, Text } from "@chakra-ui/react";
+
 import Twemoji from "../../Twemoji";
 
 export interface Props {

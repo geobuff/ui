@@ -1,4 +1,5 @@
 import React from "react";
+
 import GameInputCardScore, { Props } from "./GameInputCardScore";
 
 export default {

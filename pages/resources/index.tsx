@@ -1,11 +1,14 @@
 import React, { FC, useContext } from "react";
+
 import { Button, Divider, Flex, Heading, Link, Text } from "@chakra-ui/react";
-import MainView from "../../components/MainView";
 import Head from "next/head";
-import HeroHeader from "../../components/HeroHeader";
-import Card from "../../components/Card";
 import { useRouter } from "next/router";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import Card from "../../components/Card";
+import HeroHeader from "../../components/HeroHeader";
+import MainView from "../../components/MainView";
 
 const Resources: FC = () => {
   const router = useRouter();

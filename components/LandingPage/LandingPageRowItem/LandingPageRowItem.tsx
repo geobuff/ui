@@ -1,5 +1,6 @@
-import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import React, { FC } from "react";
+
+import { Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
 export interface Props {

@@ -1,10 +1,12 @@
 import React, { FC, useContext } from "react";
-import { Trivia } from "../../types/trivia";
-import CardListSection from "../CardListSection";
-import CardListItem from "../CardList/CardListItem";
-import TriviaCard from "../TriviaCard/TriviaCard";
-import { formatDate } from "../../helpers/date";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import { formatDate } from "../../helpers/date";
+import { Trivia } from "../../types/trivia";
+import CardListItem from "../CardList/CardListItem";
+import CardListSection from "../CardListSection";
+import TriviaCard from "../TriviaCard/TriviaCard";
 
 const GRID_LENGTH = 5;
 

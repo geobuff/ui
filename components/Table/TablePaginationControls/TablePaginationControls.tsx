@@ -3,14 +3,15 @@ import React, { FC, useContext } from "react";
 import {
   Box,
   Button,
-  Select,
   Flex,
+  Select,
   useBreakpointValue,
 } from "@chakra-ui/react";
 
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
 import ArrowLeft from "../../../Icons/ArrowLeft";
 import ArrowRight from "../../../Icons/ArrowRight";
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 interface Props {
   isLoading?: boolean;

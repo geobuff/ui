@@ -1,5 +1,5 @@
 import React, { FC, useContext } from "react";
-import Link from "next/link";
+
 import {
   Alert,
   AlertIcon,
@@ -8,12 +8,14 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
+import Link from "next/link";
 
-import { Trivia } from "../../types/trivia";
-import TriviaCard from "../TriviaCard";
-import DelayedRender from "../DelayedRender";
-import { isDateBefore, formatDate } from "../../helpers/date";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import { formatDate, isDateBefore } from "../../helpers/date";
+import { Trivia } from "../../types/trivia";
+import DelayedRender from "../DelayedRender";
+import TriviaCard from "../TriviaCard";
 
 export interface FilteredTrivia extends Trivia {
   isActive: boolean;

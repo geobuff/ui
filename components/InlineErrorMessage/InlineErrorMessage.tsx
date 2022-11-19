@@ -1,6 +1,7 @@
 import React, { FC } from "react";
-import { Flex, FlexProps, Text } from "@chakra-ui/react";
+
 import { WarningTwoIcon } from "@chakra-ui/icons";
+import { Flex, FlexProps, Text } from "@chakra-ui/react";
 
 export interface Props extends FlexProps {
   message: string;

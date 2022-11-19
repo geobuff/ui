@@ -1,5 +1,6 @@
 import React, { FC } from "react";
-import { Box, useRadio, UseRadioProps } from "@chakra-ui/react";
+
+import { Box, UseRadioProps, useRadio } from "@chakra-ui/react";
 import Image from "next/image";
 
 export interface Props {

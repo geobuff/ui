@@ -2,18 +2,19 @@ import React, { FC, useContext } from "react";
 
 import {
   Box,
-  Skeleton,
   Heading,
+  Skeleton,
   Table,
-  Thead,
-  Tr,
-  Th,
   Tbody,
   Td,
+  Th,
+  Thead,
+  Tr,
 } from "@chakra-ui/react";
 
-import Card from "../../components/Card";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import Card from "../../components/Card";
 
 const UserProfileLeaderboardEntriesPlaceholder: FC = () => {
   const { t } = useContext(LanguageContext);

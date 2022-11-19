@@ -1,22 +1,22 @@
 import React, { FC } from "react";
+
 import {
+  Alert,
+  AlertIcon,
   Box,
   Button,
   Flex,
   Table,
   Tbody,
+  Text,
   Th,
   Thead,
   Tr,
-  Text,
-  Alert,
-  AlertIcon,
 } from "@chakra-ui/react";
 
-import TableCell from "../../Table/TableCell";
 import AdminManualTriviaQuestionsTablePlaceholder from "../../../placeholders/AdminManualTriviaQuestionsTablePlaceholder";
-
 import { ManualTriviaQuestion } from "../../../types/manual-trivia-question";
+import TableCell from "../../Table/TableCell";
 
 export interface Props {
   entries?: ManualTriviaQuestion[];

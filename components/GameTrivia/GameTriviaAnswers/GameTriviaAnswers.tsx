@@ -1,19 +1,19 @@
 import React, { FC } from "react";
+
 import {
   Button,
   Fade,
   Flex,
   SimpleGrid,
-  useBreakpointValue,
   Text,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
 
 import ArrowRight from "../../../Icons/ArrowRight";
-import GameTriviaButton from "../GameTriviaButton";
-
-import { TriviaQuestion } from "../../../types/trivia-question";
 import { TriviaAnswer } from "../../../types/trivia-answer";
+import { TriviaQuestion } from "../../../types/trivia-question";
+import GameTriviaButton from "../GameTriviaButton";
 
 export interface Props {
   question: TriviaQuestion;

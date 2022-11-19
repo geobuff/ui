@@ -100,6 +100,9 @@ export default {
     createAccountExplainer:
       "Don't have an account? Sign up today to earn XP, unlock badges and compete with friends!",
     createAnAccount: "Create An Account",
+    contactUs: "Contact Us",
+    ashleyMidgley: "Ashley Midgley",
+    companyEmail: "teamgeobuff@gmail.com",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",
@@ -417,6 +420,115 @@ export default {
     rightsSectionTenStrong: "Unsubscribe:",
     rightsSectionTenText:
       "To unsubscribe from our email database or opt-out of communications (including marketing communications), please contact us using the details provided in this privacy policy, or opt-out using the opt-out facilities provided in the communication. We may need to request specific information from you to help us confirm your identity.",
+    cookiesHeading: "Use of Cookies",
+    cookiesSectionOne:
+      "We use 'cookies' to collect information about you and your activity across our site. A cookie is a small piece of data that our website stores on your computer, and accesses each time you visit, so we can understand how you use our site. This helps us serve you content based on preferences you have specified.",
+    cookiesSectionTwo:
+      "Please refer to our Cookie Policy for more information.",
+    transfersHeader: "Business Transfers",
+    transfersSectionOne:
+      "If we or our assets are acquired, or in the unlikely event that we go out of business or enter bankruptcy, we would include data, including your personal information, among the assets transferred to any parties who acquire us. You acknowledge that such transfers may occur, and that any parties who acquire us may, to the extent permitted by applicable law, continue to use your personal information according to this policy, which they will be required to assume as it is the basis for any ownership or use rights we have over such information.",
+    limitsHeading: "Limits of Our Policy",
+    limitsSectionOne:
+      "Our website may link to external sites that are not operated by us. Please be aware that we have no control over the content and policies of those sites, and cannot accept responsibility or liability for their respective privacy practices.",
+    changesHeading: "Changes to This Policy",
+    changesSectionOne:
+      " At our discretion, we may change our privacy policy to reflect updates to our business processes, current acceptable practices, or legislative or regulatory changes. If we decide to change this privacy policy, we will post the changes here at the same link by which you are accessing this privacy policy.",
+    changesSectionTwo:
+      "If the changes are significant, or if required by applicable law, we will contact you (based on your selected preferences for communications from us) and all our registered users with the new details and links to the updated or changed policy.",
+    changesSectionThree:
+      "If required by law, we will get your permission or give you the opportunity to opt in to or opt out of, as applicable, any new uses of your personal information.",
+    apacHeading:
+      "Additional Disclosures for Australian Privacy Act Compliance (AU)",
+    apacHeadingTwo: "International Transfers of Personal Information",
+    apacSectionOne:
+      "Where the disclosure of your personal information is solely subject to Australian privacy laws, you acknowledge that some third parties may not be regulated by the Privacy Act and the Australian Privacy Principles in the Privacy Act. You acknowledge that if any such third party engages in any act or practice that contravenes the Australian Privacy Principles, it would not be accountable under the Privacy Act, and you will not be able to seek redress under the Privacy Act.",
+    gdprHeading:
+      "Additional Disclosures for General Data Protection Regulation (GDPR) Compliance (EU)",
+    gdprHeadingTwo: "Data Controller / Data Processor",
+    gdprSectionOne:
+      "The GDPR distinguishes between organisations that process personal information for their own purposes (known as 'data controllers') and organizations that process personal information on behalf of other organizations (known as 'data processors'). We, GeoBuff, located at the address provided in our Contact Us section, are a Data Controller with respect to the personal information you provide to us.",
+    legalBasesHeading: "Legal Bases for Processing Your Personal Information",
+    legalBasesSectionOne:
+      "We will only collect and use your personal information when we have a legal right to do so. In which case, we will collect and use your personal information lawfully, fairly and in a transparent manner. If we seek your consent to process your personal information, and you are under 16 years of age, we will seek your parent or legal guardian's consent to process your personal information for that specific purpose.",
+    legalBasesSectionTwo:
+      "Our lawful bases depend on the services you use and how you use them. This means we only collect and use your information on the following grounds:",
+    legalBasesHeadingTwo: "Consent From You",
+    legalBasesSectionThree:
+      "Where you give us consent to collect and use your personal information for a specific purpose. You may withdraw your consent at any time using the facilities we provide; however this will not affect any use of your information that has already taken place. You may consent to providing your name and contact details for the purpose of entering a giveaway or promotion. While you may withdraw your entry at any time, this will not affect any selection or judging that has already taken place. If you have any further enquiries about how to withdraw your consent, please feel free to enquire using the details provided in the Contact Us section of this privacy policy.",
+    legalBasesHeadingThree: "Performance of a Contract or Transaction",
+    legalBasesSectionFour:
+      "Where you have entered into a contract or transaction with us, or in order to take preparatory steps prior to our entering into a contract or transaction with you. For example, if you purchase a product, service, or subscription from us, we may need to use your personal and payment information in order to process and deliver your order.",
+    legalBasesHeadingFour: "Our Legitimate Interests",
+    legalBasesSectionFive:
+      "Where we assess it is necessary for our legitimate interests, such as for us to provide, operate, improve and communicate our services. We consider our legitimate interests to include research and development, understanding our audience, marketing and promoting our services, measures taken to operate our services efficiently, marketing analysis, and measures taken to protect our legal rights and interests.",
+    legalBasesHeadingFive: "Compliance with Law",
+    legalBasesSectionSix:
+      "In some cases, we may have a legal obligation to use or keep your personal information. Such cases may include (but are not limited to) court orders, criminal investigations, government requests, and regulatory obligations. If you have any further enquiries about how we retain personal information in order to comply with the law, please feel free to enquire using the details provided in the Contact Us section of this privacy policy.",
+    eeaHeading:
+      "International Transfers Outside of the European Economic Area (EEA)",
+    eeaSectionOne:
+      "We will ensure that any transfer of personal information from countries in the European Economic Area (EEA) to countries outside the EEA will be protected by appropriate safeguards, for example by using standard data protection clauses approved by the European Commission, or the use of binding corporate rules or other legally accepted means.",
+    yourRightsHeading: "Your Rights and Controlling Your Personal Information",
+    yourRightsSectionOneStrong: "Restrict:",
+    yourRightsSectionOneText:
+      "You have the right to request that we restrict the processing of your personal information if (i) you are concerned about the accuracy of your personal information; (ii) you believe your personal information has been unlawfully processed; (iii) you need us to maintain the personal information solely for the purpose of a legal claim; or (iv) we are in the process of considering your objection in relation to processing on the basis of legitimate interests.",
+    yourRightsSectionTwoStrong: "Objecting to processing:",
+    yourRightsSectionTwoText:
+      "You have the right to object to processing of your personal information that is based on our legitimate interests or public interest. If this is done, we must provide compelling legitimate grounds for the processing which overrides your interests, rights, and freedoms, in order to proceed with the processing of your personal information.",
+    yourRightsSectionThreeStrong: "Data portability:",
+    yourRightsSectionThreeText:
+      "You may have the right to request a copy of the personal information we hold about you. Where possible, we will provide this information in CSV format or other easily readable machine format. You may also have the right to request that we transfer this personal information to a third party.",
+    yourRightsSectionFourStrong: "Deletion:",
+    yourRightsSectionFourText:
+      "You may have a right to request that we delete the personal information we hold about you at any time, and we will take reasonable steps to delete your personal information from our current records. If you ask us to delete your personal information, we will let you know how the deletion affects your use of our website or products and services. There may be exceptions to this right for specific legal reasons which, if applicable, we will set out for you in response to your request. If you terminate or delete your account, we will delete your personal information within 30 days of the deletion of your account. Please be aware that search engines and similar third parties may still retain copies of your personal information that has been made public at least once, like certain profile information and public comments, even after you have deleted the information from our services or deactivated your account.",
+    californiaHeading: "Additional Disclosures for California Compliance (US)",
+    californiaSectionOne:
+      "Under California Civil Code Section 1798.83, if you live in California and your business relationship with us is mainly for personal, family, or household purposes, you may ask us about the information we release to other organizations for their marketing purposes.",
+    californiaSectionTwo:
+      "To make such a request, please contact us using the details provided in this privacy policy with 'Request for California privacy information' in the subject line. You may make this type of request once every calendar year. We will email you a list of categories of personal information we revealed to other organisations for their marketing purposes in the last calendar year along with their names and addresses. Not all personal information shared in this way is covered by Section 1798.83 of the California Civil Code.",
+    doNotTrackHeading: "Do Not Track",
+    doNotTrackSectionOne:
+      "Some browsers have a 'Do Not Track' feature that lets you tell websites that you do not want to have your online activities tracked. At this time we do not respond to browser 'Do Not Track' signals.",
+    doNotTrackSectionTwo:
+      "We adhere to the standards outlined in this privacy policy ensuring we collect and process personal information lawfully, fairly, transparently and with legitimate, legal reasons for doing so.",
+    cookiesAndPixelsHeading: "Cookies and Pixels",
+    cookiesAndPixelsSectionOne:
+      "At all times you may decline cookies from our site if your browser permits. Most browsers allow you to activate settings on your browser to refuse the setting of all or some cookies. Accordingly, your ability to limit cookies is based only on your browser’s capabilities. Please refer to the Cookies section of this privacy policy for more information.",
+    ccpaHeading: "CCPA-permitted financial incentives",
+    ccpaSectionOne:
+      "In accordance with your right to non-discrimination, we may offer you certain financial incentives permitted by the CCPA that can result in different prices, rates, or quality levels for the goods or services we provide.",
+    ccpaSectionTwo:
+      "Any CCPA-permitted financial incentive we offer will reasonably relate to the value of your personal information and we will provide written terms that describe clearly the nature of such an offer. Participation in a financial incentive program requires your prior opt-in consent, which you may revoke at any time.",
+    caliNoticeHeading: "California Notice of Collection",
+    caliNoticeSectionOne:
+      "In the past 12 months, we have collected the following categories of personal information enumerated in the California Consumer Privacy Act:",
+    caliNoticeSectionTwo:
+      "For more information on information we collect, including the sources we receive information from, review the 'Information We Collect' section. We collect and use these categories of personal information for the business purposes described in the 'Collection and Use of Information' section, including to provide and manage our Service.",
+    rightToKnowHeading: "Right to Know and Delete",
+    rightToKnowSectionOne:
+      "If you are a California resident, you have rights to delete your personal information we collected and know certain information about our data practices in the preceding 12 months. In particular, you have the right to request the following from us:",
+    rightToKnowSectionTwo:
+      "The categories of personal information we have collected about you;",
+    rightToKnowSectionThree:
+      "The categories of sources from which the personal information was collected;",
+    rightToKnowSectionFour:
+      "The categories of personal information about you we disclosed for a business purpose or sold;",
+    rightToKnowSectionFive:
+      "The categories of third parties to whom the personal information was disclosed for a business purpose or sold;",
+    rightToKnowSectionSix:
+      "The business or commercial purpose for collecting or selling the personal information; and",
+    rightToKnowSectionSeven:
+      "The specific pieces of personal information we have collected about you.",
+    rightToKnowSectionEight:
+      "To exercise any of these rights, please contact us using the details provided in this privacy policy.",
+    shineTheLightHeading: "Shine the Light",
+    shineTheLightSectionOne:
+      "If you are a California resident, in addition to the rights discussed above, you have the right to request information from us regarding the manner in which we share certain personal information as defined by California's 'Shine the Light' with third parties and affiliates for their own direct marketing purposes.",
+    shineTheLightSectionTwo:
+      "To receive this information, send us a request using the contact details provided in this privacy policy. Requests must include 'California Privacy Rights Request' in the first line of the description and include your name, street address, city, state, and ZIP code.",
+    contactUsSectionOne:
+      "For any questions or concerns regarding your privacy, you may contact us using the following details:",
   },
   footer: {
     company: "Company",

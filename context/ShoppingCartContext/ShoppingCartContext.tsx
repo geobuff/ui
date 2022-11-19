@@ -1,10 +1,12 @@
-import React, { createContext, useState, FC, useEffect } from "react";
+import React, { FC, createContext, useEffect, useState } from "react";
+
+import { deleteFromStorage, useLocalStorage } from "@rehooks/local-storage";
+
 import axiosClient from "../../axios";
 import { toTwoDecimalPlaces } from "../../helpers/number";
 import { CartItem } from "../../types/cart-item";
 import { CheckoutItem } from "../../types/checkout-payload";
 import { Discount } from "../../types/discount";
-import { useLocalStorage, deleteFromStorage } from "@rehooks/local-storage";
 
 export const ShoppingCartContext = createContext({
   cart: [],

@@ -1,5 +1,7 @@
-import { Flex, Button, SimpleGrid, Alert, AlertIcon } from "@chakra-ui/react";
 import React, { FC } from "react";
+
+import { Alert, AlertIcon, Button, Flex, SimpleGrid } from "@chakra-ui/react";
+
 import { OrderItem } from "../../types/order";
 import Modal from "../Modal";
 import OrderTileItem from "../OrderTile/OrderTileItem";

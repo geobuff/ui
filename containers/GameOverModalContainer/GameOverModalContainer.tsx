@@ -1,24 +1,25 @@
-import React, { useEffect, useState, FC, useContext } from "react";
-import { useRouter } from "next/router";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/router";
+
+import { AppContext } from "../../context/AppContext";
+import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 
 import GameOverModal from "../../components/GameOverModal";
-import axiosClient from "../../axios/axiosClient";
-import { LeaderboardEntry } from "../../types/leaderboard-entry";
 
+import axiosClient from "../../axios/axiosClient";
 import {
   entrySubmitted,
   increaseXP as increaseXPToast,
 } from "../../helpers/toasts";
 import { GameOverRedirect } from "../../types/game-over-redirect";
-import { TempScore } from "../../types/temp-score";
+import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
+import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import { MappingEntry } from "../../types/mapping-entry";
 import { Result } from "../../types/result";
-import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
-import { AppContext } from "../../context/AppContext";
-import { useSession } from "next-auth/react";
-import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { TempScore } from "../../types/temp-score";
 
 interface Props {
   id?: number;

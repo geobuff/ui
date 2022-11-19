@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Flex, Skeleton, SkeletonCircle } from "@chakra-ui/react";
 
 import Card from "../../components/Card";

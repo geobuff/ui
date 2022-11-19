@@ -1,4 +1,5 @@
 import useSWR from "swr";
+
 import { fetcher } from "../helpers/fetcher";
 import { TriviaQuestionType } from "../types/trivia-question-type";
 

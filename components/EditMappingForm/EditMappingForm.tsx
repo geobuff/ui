@@ -1,5 +1,4 @@
 import React, { FC } from "react";
-import * as Yup from "yup";
 
 import {
   Box,
@@ -11,9 +10,10 @@ import {
   Input,
   VStack,
 } from "@chakra-ui/react";
+import { Field, FieldArray, Form, Formik } from "formik";
+import * as Yup from "yup";
 
 import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
-import { Field, FieldArray, Form, Formik } from "formik";
 import { FieldArrayErrorMessage } from "../FieldArrayErrorMessage/FieldArrayErrorMessage";
 
 const validationSchema = Yup.object().shape({

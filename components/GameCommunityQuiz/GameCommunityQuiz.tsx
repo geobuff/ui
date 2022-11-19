@@ -1,24 +1,24 @@
 import React, { FC, useContext, useState } from "react";
-import Head from "next/head";
-import { use100vh } from "react-div-100vh";
-import { Alert, AlertIcon, Box, Flex, useToast } from "@chakra-ui/react";
 
+import { Alert, AlertIcon, Box, Flex, useToast } from "@chakra-ui/react";
+import Head from "next/head";
+import { useRouter } from "next/router";
+import { use100vh } from "react-div-100vh";
+
+import { AppContext } from "../../context/AppContext";
+
+import { getCommunityQuizScoreMessage } from "../../helpers/clipboard";
+import { genericToast } from "../../helpers/toasts";
 import {
   GetCommunityQuiz,
   GetCommunityQuizAnswer,
 } from "../../types/get-community-quiz-dto";
-
 import MainView from "../MainView";
+import GameCommunityQuizAnswers from "./GameCommunityQuizAnswers";
+import GameCommunityQuizContent from "./GameCommunityQuizContent";
+import GameCommunityQuizGameOver from "./GameCommunityQuizGameOver";
 import GameCommunityQuizHeader from "./GameCommunityQuizHeader";
 import GameCommunityQuizStart from "./GameCommunityQuizStart";
-import GameCommunityQuizGameOver from "./GameCommunityQuizGameOver";
-import GameCommunityQuizContent from "./GameCommunityQuizContent";
-import GameCommunityQuizAnswers from "./GameCommunityQuizAnswers";
-
-import { AppContext } from "../../context/AppContext";
-import { getCommunityQuizScoreMessage } from "../../helpers/clipboard";
-import { useRouter } from "next/router";
-import { genericToast } from "../../helpers/toasts";
 
 export interface Props {
   quiz: GetCommunityQuiz;

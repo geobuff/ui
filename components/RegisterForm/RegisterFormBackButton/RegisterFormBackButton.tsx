@@ -1,5 +1,7 @@
 import React, { FC } from "react";
+
 import { Button, ButtonProps } from "@chakra-ui/react";
+
 import ArrowLeft from "../../../Icons/ArrowLeft";
 
 const RegisterFormBackButton: FC<ButtonProps> = ({ children, ...props }) => {

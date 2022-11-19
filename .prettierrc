@@ -1,0 +1,13 @@
+{
+  "importOrder": [
+    "^react$",
+    "<THIRD_PARTY_MODULES>",
+    "/context/",
+    "/containers/",
+    "/hooks/",
+    "/components/",
+    "^[./]"
+  ],
+  "importOrderSeparation": true,
+  "importOrderSortSpecifiers": true
+}

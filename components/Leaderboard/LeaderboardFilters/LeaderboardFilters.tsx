@@ -1,21 +1,22 @@
 import React, { ChangeEvent, FC, useContext, useState } from "react";
-import { debounce } from "throttle-debounce";
 
 import {
-  Select,
+  Fade,
   Flex,
+  IconButton,
   Input,
   InputGroup,
   InputLeftElement,
   InputRightElement,
-  Fade,
-  IconButton,
+  Select,
 } from "@chakra-ui/react";
+import { debounce } from "throttle-debounce";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import Search from "../../../Icons/Search";
-import { Quiz } from "../../../types/quiz";
 import SolidCloseCircle from "../../../Icons/SolidCloseCircle";
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { Quiz } from "../../../types/quiz";
 
 enum RangeFilters {
   All = "All Time",

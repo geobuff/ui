@@ -1,17 +1,17 @@
 import React, { ChangeEvent, FC } from "react";
-import { debounce } from "throttle-debounce";
 
 import {
-  Select,
   Flex,
   Input,
   InputGroup,
   InputLeftElement,
+  Select,
 } from "@chakra-ui/react";
+import { debounce } from "throttle-debounce";
 
 import Search from "../../../Icons/Search";
-import { TriviaQuestionType } from "../../../types/trivia-question-type";
 import { TriviaQuestionCategory } from "../../../types/trivia-question-category";
+import { TriviaQuestionType } from "../../../types/trivia-question-type";
 
 interface Props {
   typeId?: string;

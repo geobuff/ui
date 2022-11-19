@@ -1,25 +1,27 @@
-import React, { useState, FC, ChangeEvent, useEffect, useContext } from "react";
-import type { AppProps } from "next/app";
-import { debounce } from "throttle-debounce";
-import axios from "axios";
-import axiosClient from "../axios";
-import dynamic from "next/dynamic";
+import React, { ChangeEvent, FC, useContext, useEffect, useState } from "react";
 
 import { Box, useBreakpointValue } from "@chakra-ui/react";
+import axios from "axios";
 import { DateTime } from "luxon";
-
-import MainView from "../components/MainView";
-import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
 import { GetStaticProps } from "next";
-import { formatDate, isDateBefore } from "../helpers/date";
-import DelayedRender from "../components/DelayedRender";
-import { FilteredTrivia } from "../components/TriviaList/TriviaList";
-import { TriviaFilterDto } from "../types/trivia-filter-dto";
-import { CommunityQuizFilterDto } from "../types/community-quiz-filter-dto";
-import TriviaCardListSection from "../components/TriviaCardListSection";
-import HomeHeader from "../components/HomeHeader";
-import { QuizSearchResults } from "../types/quiz-search-results";
+import type { AppProps } from "next/app";
+import dynamic from "next/dynamic";
+import { debounce } from "throttle-debounce";
+
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+
+import DelayedRender from "../components/DelayedRender";
+import HomeHeader from "../components/HomeHeader";
+import MainView from "../components/MainView";
+import TriviaCardListSection from "../components/TriviaCardListSection";
+import { FilteredTrivia } from "../components/TriviaList/TriviaList";
+
+import axiosClient from "../axios";
+import { formatDate, isDateBefore } from "../helpers/date";
+import { CommunityQuizFilterDto } from "../types/community-quiz-filter-dto";
+import { QuizSearchResults } from "../types/quiz-search-results";
+import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
+import { TriviaFilterDto } from "../types/trivia-filter-dto";
 
 const QuizCardListSection = dynamic(
   () => import("../components/QuizCardListSection")

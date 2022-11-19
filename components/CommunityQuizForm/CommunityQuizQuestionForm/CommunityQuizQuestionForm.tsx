@@ -1,4 +1,5 @@
 import React, { FC, useState } from "react";
+
 import {
   Button,
   Divider,
@@ -13,27 +14,27 @@ import {
 } from "@chakra-ui/react";
 import { Field, Form, Formik } from "formik";
 import { debounce } from "throttle-debounce";
-
 import * as Yup from "yup";
 
-import RadioGroupFormField from "../../FormFields/RadioGroupFormField";
-import CommunityQuizFormField from "../CommunityQuizFormField";
-import SelectFormField from "../../FormFields/SelectFormField";
-import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
-import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
-import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
+import useFlagGroups from "../../../hooks/UseFlagGroups";
+
+import Search from "../../../Icons/Search";
+import axiosClient from "../../../axios";
+import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
+import { FormOption } from "../../../types/form";
+import { GetMapsDto } from "../../../types/get-maps-dto";
 import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
-import InlineErrorMessage from "../../InlineErrorMessage";
-import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
-import QuestionTypeValuePreview from "../../QuestionTypeValuePreview";
-import Search from "../../../Icons/Search";
-import UnsplashImageGrid from "../../UnsplashImageGrid";
 import { UnsplashImage } from "../../../types/unsplash-image";
-import useFlagGroups from "../../../hooks/UseFlagGroups";
-import { GetMapsDto } from "../../../types/get-maps-dto";
-import { FormOption } from "../../../types/form";
-import axiosClient from "../../../axios";
+import RadioGroupFormField from "../../FormFields/RadioGroupFormField";
+import SelectFormField from "../../FormFields/SelectFormField";
+import InlineErrorMessage from "../../InlineErrorMessage";
+import QuestionTypeValuePreview from "../../QuestionTypeValuePreview";
+import UnsplashImageGrid from "../../UnsplashImageGrid";
+import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
+import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
+import CommunityQuizFormField from "../CommunityQuizFormField";
+import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
 
 const answers = [
   "Answer One",

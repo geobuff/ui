@@ -1,5 +1,7 @@
-import { Alert, AlertIcon, Flex, VStack } from "@chakra-ui/react";
 import React, { FC } from "react";
+
+import { Alert, AlertIcon, Flex, VStack } from "@chakra-ui/react";
+
 import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
 import { EditMappingForm } from "../EditMappingForm/EditMappingForm";
 import Modal from "../Modal";

@@ -1,9 +1,13 @@
-import { Alert, AlertIcon, useDisclosure } from "@chakra-ui/react";
 import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
+
+import { Alert, AlertIcon, useDisclosure } from "@chakra-ui/react";
+
+import useMaps from "../../hooks/UseMaps";
+
 import AdminCreateMapModal from "../../components/AdminCreateMapModal";
 import AdminMapsTable from "../../components/AdminMapsTable";
-import useMaps from "../../hooks/UseMaps";
+
+import axiosClient from "../../axios";
 import { SVGBase } from "../../types/svg-base";
 
 const AdminMapsTableContainer: FC = () => {

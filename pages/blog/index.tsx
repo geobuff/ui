@@ -1,10 +1,13 @@
 import React, { FC } from "react";
+
 import { Alert, AlertIcon, Box } from "@chakra-ui/react";
-import MainView from "../../components/MainView";
 import Head from "next/head";
-import HeroHeader from "../../components/HeroHeader";
-import posts from "./posts";
+
 import BlogPostCard from "../../components/Blog/BlogPostCard";
+import HeroHeader from "../../components/HeroHeader";
+import MainView from "../../components/MainView";
+
+import posts from "./posts";
 
 const Blog: FC = () => {
   return (

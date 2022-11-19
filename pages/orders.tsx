@@ -1,9 +1,11 @@
 import React from "react";
+
 import Head from "next/head";
 
-import MainView from "../components/MainView";
-import HeroHeader from "../components/HeroHeader";
 import OrdersContainer from "../containers/OrdersContainer";
+
+import HeroHeader from "../components/HeroHeader";
+import MainView from "../components/MainView";
 
 export default function Orders(): JSX.Element {
   return (

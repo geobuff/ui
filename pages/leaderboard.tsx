@@ -1,15 +1,18 @@
 import React, { FC, useContext } from "react";
+
 import { GetStaticProps } from "next";
 import type { AppProps } from "next/app";
-
-import { useRouter } from "next/router";
 import Head from "next/head";
+import { useRouter } from "next/router";
+
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 import LeaderboardContainer from "../containers/LeaderboardContainer";
+
 import MainView from "../components/MainView";
-import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
+
 import axiosClient from "../axios";
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
 
 const Leaderboard: FC<AppProps> = ({ pageProps }) => {
   const router = useRouter();

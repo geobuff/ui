@@ -1,4 +1,5 @@
 import React, { FC, useContext } from "react";
+
 import {
   Alert,
   AlertIcon,
@@ -8,11 +9,14 @@ import {
   Flex,
   Heading,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
+
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import Card from "../Card";
-import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
-import { useRouter } from "next/router";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   quizzes?: CommunityQuiz[];

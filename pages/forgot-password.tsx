@@ -1,12 +1,15 @@
 import React, { FC, useContext } from "react";
-import Head from "next/head";
 
 import { useBreakpointValue } from "@chakra-ui/react";
+import Head from "next/head";
+
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+
+import ForgotPasswordContainer from "../containers/ForgotPasswordContainer";
 
 import MainView from "../components/MainView";
-import ForgotPasswordContainer from "../containers/ForgotPasswordContainer";
+
 import { FooterVariant } from "../types/footer-variant";
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 const ForgotPassword: FC = () => {
   const backgroundColor = useBreakpointValue({ base: "#FFF", md: "#F0F0F0" });

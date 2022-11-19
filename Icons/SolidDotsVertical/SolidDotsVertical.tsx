@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import { Icon, IconProps } from "@chakra-ui/react";
 
 const SolidDotsVertical: FC<IconProps> = ({ ...props }) => (

@@ -1,12 +1,17 @@
 import React, { FC, useContext } from "react";
+
 import { Button, Flex, Text } from "@chakra-ui/react";
-import MainView from "../../components/MainView";
 import Head from "next/head";
-import HeroHeader from "../../components/HeroHeader";
-import AdminFlagsTableContainer from "../../containers/AdminFlagsTableContainer";
-import ArrowLeft from "../../Icons/ArrowLeft";
 import { useRouter } from "next/router";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import AdminFlagsTableContainer from "../../containers/AdminFlagsTableContainer";
+
+import HeroHeader from "../../components/HeroHeader";
+import MainView from "../../components/MainView";
+
+import ArrowLeft from "../../Icons/ArrowLeft";
 
 const FlagResources: FC = () => {
   const router = useRouter();

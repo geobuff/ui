@@ -1,9 +1,10 @@
 import React, { FC } from "react";
-import Head from "next/head";
-import { Box, Text, Heading, Stack, Link } from "@chakra-ui/react";
 
-import MainView from "../components/MainView";
+import { Box, Heading, Link, Stack, Text } from "@chakra-ui/react";
+import Head from "next/head";
+
 import HeroHeader from "../components/HeroHeader";
+import MainView from "../components/MainView";
 
 const CookiePolicy: FC = () => (
   <MainView>

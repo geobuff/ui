@@ -1,9 +1,12 @@
 import React, { FC, useContext } from "react";
-import { Flex, Text, Skeleton } from "@chakra-ui/react";
+
+import { Flex, Skeleton, Text } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useAllPlays from "../../hooks/UseAllPlays";
+
 import { formatNumber } from "../../helpers/number";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 const FooterPlaysContainer: FC = () => {
   const { plays, isLoading } = useAllPlays();

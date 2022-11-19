@@ -1,8 +1,8 @@
 import { extendTheme } from "@chakra-ui/react";
-import Input from "./config/input";
-import Table from "./config/table";
 
 import colors from "./config/colors";
+import Input from "./config/input";
+import Table from "./config/table";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 

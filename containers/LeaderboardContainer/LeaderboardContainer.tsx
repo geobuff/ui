@@ -1,8 +1,8 @@
-import React, { useEffect, useState, FC } from "react";
-
-import axiosClient from "../../axios/axiosClient";
+import React, { FC, useEffect, useState } from "react";
 
 import Leaderboard from "../../components/Leaderboard";
+
+import axiosClient from "../../axios/axiosClient";
 import { LeaderboardFilterParams } from "../../types/leaderboard-filter-params";
 import { Quiz } from "../../types/quiz";
 

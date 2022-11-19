@@ -1,5 +1,7 @@
 import React, { FC } from "react";
+
 import { Button, ButtonProps, Flex } from "@chakra-ui/react";
+
 import CustomFlag from "../../CustomFlag";
 
 const getStylesByStatus = (status: TriviaButtonStatus) => {

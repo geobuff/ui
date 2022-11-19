@@ -1,5 +1,4 @@
 import React, { FC, useContext } from "react";
-import * as Yup from "yup";
 
 import {
   Alert,
@@ -17,16 +16,18 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import { Formik, Field, Form } from "formik";
-
-import ForgotPasswordSuccess from "./ForgotPasswordSuccess";
-import AuthView from "../AuthView";
-import AuthCard from "../AuthCard";
-import Logo from "../Logo";
-import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
-import ArrowLeft from "../../Icons/ArrowLeft";
+import { Field, Form, Formik } from "formik";
 import { useRouter } from "next/router";
+import * as Yup from "yup";
+
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import ArrowLeft from "../../Icons/ArrowLeft";
+import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
+import AuthCard from "../AuthCard";
+import AuthView from "../AuthView";
+import Logo from "../Logo";
+import ForgotPasswordSuccess from "./ForgotPasswordSuccess";
 
 interface Props {
   error?: string;

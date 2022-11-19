@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
-import { Field, Form, Formik, FormikHelpers } from "formik";
-import * as Yup from "yup";
-import { debounce } from "throttle-debounce";
 
+import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Alert,
   AlertIcon,
@@ -12,44 +10,46 @@ import {
   Flex,
   FormControl,
   FormErrorMessage,
-  FormLabel,
-  Heading,
-  HStack,
-  Input,
-  Text,
-  Radio,
-  useRadioGroup,
   FormHelperText,
-  Link,
-  Select,
-  VStack,
-  SimpleGrid,
+  FormLabel,
+  HStack,
+  Heading,
+  Input,
   InputGroup,
   InputLeftElement,
+  Link,
+  Radio,
+  Select,
+  SimpleGrid,
+  Text,
+  VStack,
+  useRadioGroup,
 } from "@chakra-ui/react";
-import { ChevronDownIcon } from "@chakra-ui/icons";
+import { Field, Form, Formik, FormikHelpers } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { debounce } from "throttle-debounce";
+import * as Yup from "yup";
 
-import CountrySelect from "../CountrySelect";
-import RadioButton from "../RadioButton";
-import Image from "../Image";
+import useFlagGroups from "../../hooks/UseFlagGroups";
 
+import CloseLine from "../../Icons/CloseLine";
+import Search from "../../Icons/Search";
+import axiosClient from "../../axios";
+import { GetMapsDto } from "../../types/get-maps-dto";
+import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
 import {
   ManualTriviaQuestionFormSubmit,
   QuestionType,
 } from "../../types/manual-trivia-question-form-submit";
 import { QuizType } from "../../types/quiz-type";
-import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";
-import CloseLine from "../../Icons/CloseLine";
-import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
-import Search from "../../Icons/Search";
-import UnsplashImageGrid from "../UnsplashImageGrid";
 import { UnsplashImage } from "../../types/unsplash-image";
-import useFlagGroups from "../../hooks/UseFlagGroups";
-import axiosClient from "../../axios";
-import { GetMapsDto } from "../../types/get-maps-dto";
+import CountrySelect from "../CountrySelect";
+import Image from "../Image";
+import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
+import RadioButton from "../RadioButton";
+import UnsplashImageGrid from "../UnsplashImageGrid";
 
 const initialValues: ManualTriviaQuestionFormSubmit = {
   typeId: "1",

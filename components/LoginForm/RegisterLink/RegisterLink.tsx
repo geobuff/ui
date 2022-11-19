@@ -1,6 +1,7 @@
 import React, { FC, useContext } from "react";
 
 import { Flex, Link, Text } from "@chakra-ui/react";
+
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 const RegisterLink: FC = () => {

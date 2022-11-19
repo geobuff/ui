@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   Alert,
   AlertIcon,
@@ -10,8 +11,8 @@ import {
   FormErrorMessage,
   FormHelperText,
   FormLabel,
-  Heading,
   HStack,
+  Heading,
   Input,
   NumberDecrementStepper,
   NumberIncrementStepper,
@@ -19,20 +20,21 @@ import {
   NumberInputField,
   NumberInputStepper,
   SimpleGrid,
-  useRadioGroup,
   Text,
   VStack,
+  useRadioGroup,
 } from "@chakra-ui/react";
 import { Field, Form, Formik, FormikHelpers } from "formik";
 import * as Yup from "yup";
+
+import { Badge } from "../../types/badge";
+import { Continent } from "../../types/continent";
+import { QuizEditValues } from "../../types/quiz-edit-values";
 import { QuizFormSubmit } from "../../types/quiz-form-submit";
 import { QuizType } from "../../types/quiz-type";
-import { Continent } from "../../types/continent";
-import { Badge } from "../../types/badge";
-import RadioButton from "../RadioButton";
 import { QuizTypes } from "../../types/quiz-types";
-import { QuizEditValues } from "../../types/quiz-edit-values";
 import TrueFalseFormField from "../FormFields/TrueFalseFormField";
+import RadioButton from "../RadioButton";
 
 const validationSchema = Yup.object().shape({
   typeId: Yup.string().required("Please select a quiz type."),

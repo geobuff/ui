@@ -1,6 +1,8 @@
-import React, { FC, useState, MouseEventHandler } from "react";
-import Image from "next/image";
+import React, { FC, MouseEventHandler, useState } from "react";
+
 import { Box, BoxProps } from "@chakra-ui/react";
+import Image from "next/image";
+
 import DelayedRender from "../DelayedRender";
 
 export interface Props extends BoxProps {

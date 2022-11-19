@@ -1,6 +1,8 @@
 import React, { FC } from "react";
+
 import { Button, Flex, Stack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+
 import { formatNumber } from "../../../helpers/number";
 
 export interface Props {

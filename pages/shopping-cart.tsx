@@ -1,9 +1,11 @@
 import React, { FC } from "react";
+
 import Head from "next/head";
 
-import MainView from "../components/MainView";
-import HeroHeader from "../components/HeroHeader";
 import ShoppingCartContainer from "../containers/ShoppingCartContainer";
+
+import HeroHeader from "../components/HeroHeader";
+import MainView from "../components/MainView";
 
 const ShoppingCart: FC = () => (
   <>

@@ -1,12 +1,13 @@
 import React, { FC, useContext, useEffect } from "react";
 
-import { DragSourceMonitor, useDrag } from "react-dnd";
 import { Box, BoxProps } from "@chakra-ui/react";
-
 import Image from "next/image";
+import { DragSourceMonitor, useDrag } from "react-dnd";
+
 import { FlagGameContext } from "../../context/FlagGameContext";
-import { ItemTypes } from "../../types/item-types";
+
 import { DragResult } from "../../types/drag-result";
+import { ItemTypes } from "../../types/item-types";
 
 interface CollectResult {
   isDragging: boolean;

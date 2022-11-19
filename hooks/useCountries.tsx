@@ -1,5 +1,7 @@
 import { useMemo } from "react";
+
 import useSWR from "swr";
+
 import { fetcher } from "../helpers/fetcher";
 import { SortedCountry } from "../types/sorted-country";
 

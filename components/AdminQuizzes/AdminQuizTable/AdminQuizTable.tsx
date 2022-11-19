@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+
 import {
   Alert,
   AlertIcon,
@@ -12,10 +13,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import TableCell from "../../Table/TableCell";
-import { QuizTypes } from "../../../types/quiz-types";
 import AdminQuizTablePlaceholder from "../../../placeholders/AdminQuizTablePlaceholder";
 import { Quiz } from "../../../types/quiz";
+import { QuizTypes } from "../../../types/quiz-types";
+import TableCell from "../../Table/TableCell";
 
 const getType = (typeId: number): string => {
   switch (typeId) {

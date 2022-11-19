@@ -1,7 +1,10 @@
-import { useSession } from "next-auth/react";
 import React, { FC, useEffect, useState } from "react";
-import axiosClient from "../../axios";
+
+import { useSession } from "next-auth/react";
+
 import AdminUserCount from "../../components/AdminUserCount";
+
+import axiosClient from "../../axios";
 import { getTotalUsersData } from "../../helpers/charts";
 import AdminUserCountPlaceholder from "../../placeholders/AdminUserCountPlaceholder";
 import { TotalUserDto } from "../../types/total-users-dto";

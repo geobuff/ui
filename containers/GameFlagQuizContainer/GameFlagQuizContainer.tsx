@@ -1,11 +1,14 @@
 import React, { FC } from "react";
 
-import GameFlagQuiz from "../../components/GameFlagQuiz";
-import { FlagGameContextProvider } from "../../context/FlagGameContext";
+import { isMobile } from "react-device-detect";
 import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
-import { isMobile } from "react-device-detect";
+
+import { FlagGameContextProvider } from "../../context/FlagGameContext";
+
+import GameFlagQuiz from "../../components/GameFlagQuiz";
+
 import { MappingEntry } from "../../types/mapping-entry";
 import { QuizDto } from "../../types/quiz-dto";
 
