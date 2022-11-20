@@ -530,6 +530,36 @@ export default {
     contactUsSectionOne:
       "For any questions or concerns regarding your privacy, you may contact us using the following details:",
   },
+  faq: {
+    itemOneQuestion: "How do I change my avatar, username, email or country?",
+    itemOneAnswerSectionOne: "Ensure you are logged in.",
+    itemOneAnswerSectionTwo:
+      "Navigate to your user profile by using the navigation drop down and selecting profile.",
+    itemOneAnswerSectionThree:
+      "Select the pencil icon at the top right of the first tile.",
+    itemOneAnswerSectionFour:
+      "Update your details in the form and click Submit.",
+    itemOneAnswerSectionFive:
+      "Your updated details should now correctly display in the first tile.",
+    itemTwoQuestion: "I forgot my password. What do I do now?",
+    itemTwoAnswerLink: "Click here",
+    itemTwoAnswerSectionOne:
+      "to navigate to the password reset form. Once you have submitted your email address you will receive an email with instructions on how to reset your password.",
+    itemThreeQuestion: "How do I report a player?",
+    itemThreeAnswerSectionOne:
+      "If you see a player in the leaderboard with a username that is offensive and/or breaks the rules of our",
+    itemThreeAnswerSectionTwo:
+      ", please create a support request above and include the username in the message so the team can begin an investigation.",
+    itemFourQuestion:
+      "Where do I suggest corrections to existing quiz results?",
+    itemFourAnswer:
+      "Please submit a support request above specifying the quiz name and the the amendment you believe we should make to the results.",
+    itemFiveQuestion: "What is GeoCoin?",
+    itemFiveAnswerSectionOne:
+      "GeoCoin is our in-game currency that you earn each time you score greater than zero on a quiz. The amount of coins you earn scales based on how well you perform.",
+    itemFiveAnswerSectionTwo:
+      "Currently, we haven't implemented any features to allow you to spend your well-earned GeoCoin. The team is hard at work making changes to allow you to purchase special avatar items, subscriptions and more using your piggybank. In the meantime, if you're interested in how we are progressing, keep an eye on our roadmap or social media for more details!",
+  },
   footer: {
     company: "Company",
     furtherInformation: "Further Information",

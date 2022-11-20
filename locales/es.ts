@@ -542,6 +542,37 @@ export default {
     contactUsSectionOne:
       "Para cualquier pregunta o inquietud con respecto a su privacidad, puede comunicarse con nosotros utilizando los siguientes detalles:",
   },
+  faq: {
+    itemOneQuestion:
+      "¿Cómo cambio mi avatar, nombre de usuario, correo electrónico o país?",
+    itemOneAnswerSectionOne: "Asegúrese de haber iniciado sesión.",
+    itemOneAnswerSectionTwo:
+      "Navegue a su perfil de usuario usando el menú desplegable de navegación y seleccionando perfil.",
+    itemOneAnswerSectionThree:
+      "Seleccione el ícono de lápiz en la parte superior derecha del primer mosaico.",
+    itemOneAnswerSectionFour:
+      "Actualice sus datos en el formulario y haga clic en Enviar.",
+    itemOneAnswerSectionFive:
+      "Sus detalles actualizados ahora deberían mostrarse correctamente en el primer mosaico.",
+    itemTwoQuestion: "Olvidé mi contraseña. ¿Qué hago ahora?",
+    itemTwoAnswerLink: "Haga clic aquí",
+    itemTwoAnswerSectionOne:
+      "para navegar al formulario de restablecimiento de contraseña. Una vez que haya enviado su dirección de correo electrónico, recibirá un correo electrónico con instrucciones sobre cómo restablecer su contraseña.",
+    itemThreeQuestion: "¿Cómo denuncio a un jugador?",
+    itemThreeAnswerSectionOne:
+      "Si ves a un jugador en la clasificación con un nombre de usuario que es ofensivo y/o infringe las reglas de nuestro",
+    itemThreeAnswerSectionTwo:
+      ", cree una solicitud de soporte arriba e incluya el nombre de usuario en el mensaje para que el equipo pueda comenzar una investigación.",
+    itemFourQuestion:
+      "¿Dónde sugiero correcciones a los resultados de cuestionarios existentes?",
+    itemFourAnswer:
+      "Envíe una solicitud de soporte arriba especificando el nombre del cuestionario y la modificación que cree que deberíamos hacer a los resultados.",
+    itemFiveQuestion: "¿Qué es GeoCoin?",
+    itemFiveAnswerSectionOne:
+      "GeoCoin es nuestra moneda en el juego que ganas cada vez que obtienes una puntuación superior a cero en una prueba. La cantidad de monedas que gana se escala en función de su desempeño.",
+    itemFiveAnswerSectionTwo:
+      "Actualmente, no hemos implementado ninguna función que le permita gastar su bien ganada GeoCoin. El equipo está trabajando arduamente para realizar cambios que le permitan comprar artículos especiales de avatar, suscripciones y más usando su alcancía. Mientras tanto, si está interesado en cómo estamos progresando, esté atento a nuestra hoja de ruta o redes sociales para obtener más detalles.",
+  },
   footer: {
     company: "Compañía",
     furtherInformation: "Más información",
