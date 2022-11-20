@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useRef } from "react";
+import React, { FC, useContext, useEffect, useRef } from "react";
 
 import {
   Accordion,
@@ -13,12 +13,16 @@ import {
   Text,
 } from "@chakra-ui/react";
 
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 interface Props {
   index?: string;
 }
 
 const FAQSection: FC<Props> = ({ index = "" }) => {
   const geocoinRef = useRef(null);
+
+  const { t } = useContext(LanguageContext);
 
   useEffect(() => {
     if (index === "4") {
@@ -32,27 +36,35 @@ const FAQSection: FC<Props> = ({ index = "" }) => {
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              {"How do I change my avatar, username, email or country?"}
+              {t.faq.itemOneQuestion}
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
           <OrderedList spacing={6} mb={6}>
-            <ListItem>Ensure you are logged in.</ListItem>
-            <ListItem>
-              Navigate to your user profile by using the navigation drop down
-              and selecting profile.
-            </ListItem>
-            <ListItem>
-              Select the pencil icon at the top right of the first tile.
-            </ListItem>
-            <ListItem>
-              Update your details in the form and click Submit.
-            </ListItem>
+            <ListItem>{t.faq.itemOneAnswerSectionOne}</ListItem>
+            <ListItem>{t.faq.itemOneAnswerSectionTwo}</ListItem>
+            <ListItem>{t.faq.itemOneAnswerSectionThree}</ListItem>
+            <ListItem>{t.faq.itemOneAnswerSectionFour}</ListItem>
           </OrderedList>
+          <Text>{t.faq.itemOneAnswerSectionFive}</Text>
+        </AccordionPanel>
+      </AccordionItem>
+
+      <AccordionItem>
+        <h2>
+          <AccordionButton>
+            <Box flex="1" textAlign="left">
+              {t.faq.itemTwoQuestion}
+            </Box>
+            <AccordionIcon />
+          </AccordionButton>
+        </h2>
+        <AccordionPanel pb={4}>
           <Text>
-            Your updated details should now correctly display in the first tile.
+            <Link href="/forgot-password">{t.faq.itemTwoAnswerLink}</Link>{" "}
+            {t.faq.itemTwoAnswerSectionOne}
           </Text>
         </AccordionPanel>
       </AccordionItem>
@@ -61,18 +73,15 @@ const FAQSection: FC<Props> = ({ index = "" }) => {
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              {"I forgot my password. What do I do now?"}
+              {t.faq.itemThreeQuestion}
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <Text>
-            <Link href="/forgot-password">Click here</Link> to navigate to the
-            password reset form. Once you have submitted your email address you
-            will receive an email with instructions on how to reset your
-            password.
-          </Text>
+          {t.faq.itemThreeAnswerSectionOne}{" "}
+          <Link href="/terms-of-service">{t.global.termsOfService}</Link>
+          {t.faq.itemThreeAnswerSectionTwo}
         </AccordionPanel>
       </AccordionItem>
 
@@ -80,57 +89,26 @@ const FAQSection: FC<Props> = ({ index = "" }) => {
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              {"How do I report a player?"}
+              {t.faq.itemFourQuestion}
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </h2>
-        <AccordionPanel pb={4}>
-          If you see a player in the leaderboard with a username that is
-          offensive and/or breaks the rules of our{" "}
-          <Link href="/terms-of-service">Terms of Service</Link>, please create
-          a support request above and include the username in the message so the
-          team can begin an investigation.
-        </AccordionPanel>
-      </AccordionItem>
-
-      <AccordionItem>
-        <h2>
-          <AccordionButton>
-            <Box flex="1" textAlign="left">
-              {"Where do I suggest corrections to existing quiz results?"}
-            </Box>
-            <AccordionIcon />
-          </AccordionButton>
-        </h2>
-        <AccordionPanel pb={4}>
-          Please submit a support request above specifying the quiz name and the
-          the amendment you believe we should make to the results.
-        </AccordionPanel>
+        <AccordionPanel pb={4}>{t.faq.itemFourAnswer}</AccordionPanel>
       </AccordionItem>
 
       <AccordionItem ref={geocoinRef}>
         <h2>
           <AccordionButton>
             <Box flex="1" textAlign="left">
-              {"What is GeoCoin?"}
+              {t.faq.itemFiveQuestion}
             </Box>
             <AccordionIcon />
           </AccordionButton>
         </h2>
         <AccordionPanel pb={4}>
-          <Text>
-            {`GeoCoin is our in-game currency that you earn each time you score
-            greater than zero on a quiz. The amount of coins you earn scales based
-            on how well you perform.`}
-          </Text>
-          <Text mt={3}>
-            {`Currently, we haven't implemented any features to allow you to spend
-            your well-earned GeoCoin. The team is hard at work making changes to allow
-            you to purchase special avatar items, subscriptions and more using your
-            piggybank. In the meantime, if you're interested in how we are progressing,
-            keep an eye on our roadmap or social media for more details!`}
-          </Text>
+          <Text>{t.faq.itemFiveAnswerSectionOne}</Text>
+          <Text mt={3}>{t.faq.itemFiveAnswerSectionTwo}</Text>
         </AccordionPanel>
       </AccordionItem>
     </Accordion>
