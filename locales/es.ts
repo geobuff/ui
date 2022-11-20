@@ -542,6 +542,87 @@ export default {
     contactUsSectionOne:
       "Para cualquier pregunta o inquietud con respecto a su privacidad, puede comunicarse con nosotros utilizando los siguientes detalles:",
   },
+  acceptableUsePolicy: {
+    sectionOne:
+      "Esta política de uso aceptable cubre los productos, servicios y tecnologías (denominados colectivamente como los 'Productos') provistos por GeoBuff bajo cualquier acuerdo en curso. Está diseñado para protegernos a nosotros, a nuestros clientes ya la comunidad de Internet en general de actividades no éticas, irresponsables e ilegales.",
+    sectionTwo:
+      "Los clientes de GeoBuff que participen en actividades prohibidas por esta política de uso aceptable pueden ser responsables de la suspensión del servicio y la cancelación de la cuenta. En casos extremos, podemos estar legalmente obligados a informar a dichos clientes a las autoridades pertinentes.",
+    sectionThree:
+      "Esta política fue revisada por última vez el 15 de julio de 2021.",
+    fairUseHeading: "Uso justo",
+    fairUseSectionOne:
+      "Brindamos nuestras instalaciones asumiendo que su uso será 'como de costumbre', según nuestro cronograma de ofertas. Si se considera que su uso es excesivo, es posible que se cobren tarifas adicionales o que se restrinja la capacidad.",
+    fairUseSectionTwo:
+      "Nos oponemos a todas las formas de abuso, discriminación, infracción de derechos y/o cualquier acción que dañe o perjudique a cualquier grupo, individuo o recurso. Esperamos que nuestros clientes y, cuando corresponda, sus usuarios ('usuarios finales') también interactúen con nuestros Productos con una intención similar.",
+    customerAccountabilityHeading: "Responsabilidad del cliente",
+    customerAccountabilitySectionOne:
+      "Consideramos que nuestros clientes son responsables de sus propias acciones, así como de las acciones de cualquier persona que use nuestros Productos con el permiso del cliente. Esta responsabilidad también se aplica a cualquier persona que utilice nuestros Productos de forma no autorizada como resultado de la falta de medidas de seguridad razonables por parte del cliente.",
+    customerAccountabilitySectionTwo:
+      "Al aceptar nuestros Productos, nuestros clientes aceptan garantizar el cumplimiento de esta política en nombre de cualquier persona que use los Productos como sus usuarios finales. Las quejas sobre las acciones de los clientes o sus usuarios finales se enviarán al contacto designado para la cuenta en cuestión.",
+    customerAccountabilitySectionThree:
+      "Si un cliente, o su usuario final o cualquiera que use nuestros Productos como resultado del cliente, viola nuestra política de uso aceptable, nos reservamos el derecho de cancelar cualquier Producto asociado con la cuenta infractora o la cuenta misma o tomar medidas correctivas o preventivas. acción que consideremos apropiada sin previo aviso. En la medida permitida por la ley, no habrá crédito disponible por interrupciones del servicio que resulten de cualquier violación de nuestra política de uso aceptable.",
+    prohibitedActivityHeading: "Actividad prohibida",
+    prohibitedActivityHeadingTwo:
+      "Infracción de derechos de autor y acceso a material no autorizado",
+    prohibitedActivitySectionOne:
+      "Nuestros Productos no deben usarse para transmitir, distribuir o almacenar ningún material en violación de cualquier ley aplicable. Esto incluye pero no se limita a:",
+    prohibitedActivitySectionTwo:
+      "cualquier material protegido por derechos de autor, marca comercial, secreto comercial u otro derecho de propiedad intelectual utilizado sin la debida autorización, y",
+    prohibitedActivitySectionThree:
+      "cualquier material que sea obsceno, difamatorio, constituya una amenaza ilegal o viole las leyes de control de exportación.",
+    prohibitedActivitySectionFour:
+      "El cliente es el único responsable de todo el material que ingrese, cargue, difunda, transmita, cree o publique a través de nuestros Productos, y de obtener el permiso legal para usar cualquier trabajo incluido en dicho material.",
+    prohibitedActivityHeadingThree:
+      "SPAM y actividad de mensajes no autorizados",
+    prohibitedActivitySectionFive:
+      "Nuestros Productos no deben utilizarse con el propósito de enviar mensajes masivos o comerciales no solicitados en violación de las leyes y regulaciones aplicables a su jurisdicción ('spam'). Esto incluye, entre otros, el envío de correo no deseado, solicitando a los clientes el correo no deseado enviado por otros proveedores de servicios y recopilando respuestas al correo no deseado enviado por otros proveedores de servicios.",
+    prohibitedActivitySectionSix:
+      "Nuestros Productos no deben utilizarse con el fin de ejecutar listas de correo no confirmadas o listas de números de teléfono ('listas de mensajes'). Esto incluye, entre otros, la suscripción de direcciones de correo electrónico o números de teléfono a cualquier lista de mensajes sin el permiso del propietario de la dirección de correo electrónico o del número de teléfono, y el almacenamiento de direcciones de correo electrónico o números de teléfono suscritos de esta manera. Todas las listas de mensajes que se ejecutan o alojan en nuestros Productos deben ser 'opt-in confirmadas'. La verificación del permiso expreso del propietario de la dirección o el número de teléfono debe estar disponible durante la vigencia de la lista de mensajes.",
+    prohibitedActivitySectionSeven:
+      "Prohibimos el uso de listas de correo electrónico, listas de números de teléfono o bases de datos compradas a terceros destinadas al spam o listas de mensajes no confirmados en nuestros Productos.",
+    prohibitedActivitySectionEight:
+      "Esta política de spam y actividad de mensajes no autorizados se aplica a los mensajes enviados utilizando nuestros Productos, o a los mensajes enviados desde cualquier red por el cliente o cualquier persona en nombre del cliente, que directa o indirectamente remitan al destinatario a un sitio alojado a través de nuestros Productos.",
+    prohibitedActivityHeadingFour:
+      "Actividad no ética, explotadora y maliciosa",
+    prohibitedActivitySectionNine:
+      "Nuestros Productos no deben utilizarse con el fin de publicitar, transmitir o poner a disposición ningún software, programa, producto o servicio diseñado para infringir esta política de uso aceptable o la política de uso aceptable de otros proveedores de servicios. Esto incluye, pero no se limita a, facilitar los medios para enviar spam y el inicio de la detección de redes, ping, falsificación de paquetes, inundación, bombardeo de correo y ataques de denegación de servicio.",
+    prohibitedActivitySectionTen:
+      "Nuestros Productos no deben utilizarse para acceder a ninguna cuenta o recurso electrónico en el que el grupo o la persona que intenta obtener acceso no sea propietario o no esté autorizado para acceder al recurso (por ejemplo, 'piratería', 'craqueo', 'phreaking', etc.) .",
+    prohibitedActivitySectionEleven:
+      "Nuestros Productos no deben utilizarse con el propósito de introducir virus o códigos maliciosos de manera intencional o imprudente en nuestros Productos y sistemas.",
+    prohibitedActivitySectionTwelve:
+      "Nuestros Productos no deben usarse para participar deliberadamente en actividades diseñadas para acosar a otro grupo o individuo. Nuestra definición de acoso incluye, entre otros, ataques de denegación de servicio, discurso de odio, defensa de la intolerancia racial o étnica y cualquier actividad destinada a amenazar, abusar, infringir los derechos o discriminar a cualquier grupo o persona.",
+    prohibitedActivitySectionThirteen:
+      "Otras actividades consideradas poco éticas, explotadoras y maliciosas incluyen:",
+    prohibitedActivitySectionFourteen:
+      "Obtener (o intentar obtener) nuestros servicios con la intención de evitar el pago;",
+    prohibitedActivitySectionFifteen:
+      "Usar nuestras instalaciones para obtener (o intentar obtener) servicios de otro proveedor con la intención de evitar el pago;",
+    prohibitedActivitySectionSixteen:
+      "El acceso, alteración o destrucción no autorizados (o cualquier intento de hacerlo) de cualquier información sobre nuestros clientes o usuarios finales, por cualquier medio o dispositivo;",
+    prohibitedActivitySectionSeventeen:
+      "Usar nuestras instalaciones para interferir con el uso de nuestras instalaciones y red por parte de otros clientes o personas autorizadas;",
+    prohibitedActivitySectionEighteen:
+      "Publicar o transmitir cualquier contenido de enlaces que inciten a la violencia, representen un acto violento, representen pornografía infantil o amenacen la salud y la seguridad de cualquier persona;",
+    prohibitedActivitySectionNineteen:
+      "Cualquier acto u omisión en violación de las leyes y reglamentos de protección al consumidor;",
+    prohibitedActivitySectionTwenty:
+      "Cualquier violación de la privacidad de una persona.",
+    prohibitedActivitySectionTwentyOne:
+      "Nuestros Productos no pueden ser utilizados por ninguna persona o entidad que esté involucrada o sospechosa de estar involucrada en actividades o causas relacionadas con el juego ilegal; terrorismo; narcotráfico; el tráfico de armas o la proliferación, desarrollo, diseño, fabricación, producción, almacenamiento o uso de armas nucleares, químicas o biológicas, armas de destrucción masiva o misiles; en cada caso incluyendo cualquier afiliación con otros que apoyen dichas actividades o causas.",
+    prohibitedActivityHeadingFive: "Uso no autorizado de la propiedad GeoBuff",
+    prohibitedActivitySectionTwentyTwo:
+      "Prohibimos la suplantación de GeoBuff, la representación de una relación comercial importante con GeoBuff o la propiedad de cualquier propiedad de GeoBuff (incluidos nuestros Productos y marca) con el fin de obtener servicios, clientes, patrocinio o confianza del usuario de manera fraudulenta.",
+    aboutHeading: "Acerca de esta política",
+    aboutSectionOne:
+      "Esta política describe una lista no exclusiva de actividades e intenciones que consideramos inaceptables e incompatibles con nuestra marca.",
+    aboutSectionTwo:
+      "Nos reservamos el derecho de modificar esta política en cualquier momento mediante la publicación de la versión revisada en nuestro sitio web. La versión revisada entrará en vigor a partir de lo que ocurra primero:",
+    aboutSectionThree:
+      "la fecha en que el cliente usa nuestros Productos después de que publiquemos la versión revisada en nuestro sitio web; o",
+    aboutSectionFour:
+      "30 días después de que publiquemos la versión revisada en nuestro sitio web.",
+  },
   faq: {
     itemOneQuestion:
       "¿Cómo cambio mi avatar, nombre de usuario, correo electrónico o país?",
