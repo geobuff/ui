@@ -542,6 +542,115 @@ export default {
     contactUsSectionOne:
       "Para cualquier pregunta o inquietud con respecto a su privacidad, puede comunicarse con nosotros utilizando los siguientes detalles:",
   },
+  termsOfService: {
+    sectionOnePartOne:
+      "Estos Términos de servicio rigen su uso del sitio web ubicado en ",
+    sectionOnePartTwo:
+      " y cualquier servicio relacionado proporcionado por GeoBuff.",
+    sectionTwoPartOne: "Al acceder ",
+    sectionTwoPartTwo:
+      ", usted acepta cumplir con estos Términos de servicio y cumplir con todas las leyes y regulaciones aplicables. Si no está de acuerdo con estos Términos de servicio, tiene prohibido usar o acceder a este sitio web o usar cualquier otro servicio proporcionado por GeoBuff.",
+    sectionThree:
+      "Nosotros, GeoBuff, nos reservamos el derecho de revisar y modificar cualquiera de estos Términos de servicio a nuestro exclusivo criterio. Al hacerlo, actualizaremos esta página. Cualquier cambio a estos Términos de servicio entrará en vigencia inmediatamente a partir de la fecha de publicación.",
+    sectionFour:
+      "Estos Términos de servicio se actualizaron por última vez el 15 de julio de 2021.",
+    limitationsOfUseHeading: "Limitaciones de uso",
+    limitationsOfUseSectionOne:
+      "Al utilizar este sitio web, usted garantiza en su nombre, el de sus usuarios y otras partes a las que representa que no:",
+    limitationsOfUseSectionTwo:
+      "modificar, copiar, preparar trabajos derivados, descompilar o realizar ingeniería inversa de cualquier material y software contenido en este sitio web;",
+    limitationsOfUseSectionThree:
+      "eliminar cualquier derecho de autor u otras anotaciones de propiedad de cualquier material y software en este sitio web;",
+    limitationsOfUseSectionFour:
+      "transferir los materiales a otra persona o 'duplicar' los materiales en cualquier otro servidor;",
+    limitationsOfUseSectionFive:
+      "a sabiendas o por negligencia usar este sitio web o cualquiera de sus servicios asociados de una manera que abusa o interrumpe nuestras redes o cualquier otro servicio que proporciona GeoBuff;",
+    limitationsOfUseSectionSix:
+      "usar este sitio web o sus servicios asociados para transmitir o publicar cualquier material acosador, indecente, obsceno, fraudulento o ilegal;",
+    limitationsOfUseSectionSeven:
+      "usar este sitio web o sus servicios asociados en violación de las leyes o regulaciones aplicables;",
+    limitationsOfUseSectionEight:
+      "usar este sitio web junto con el envío de publicidad no autorizada o spam;",
+    limitationsOfUseSectionNine:
+      "recolectar, recopilar o recopilar datos del usuario sin el consentimiento del usuario; o",
+    limitationsOfUseSectionTen:
+      "usar este sitio web o sus servicios asociados de tal manera que pueda infringir la privacidad, los derechos de propiedad intelectual u otros derechos de terceros.",
+    intellectualPropertyHeading: "Intellectual Property",
+    intellectualPropertySectionOne:
+      "La propiedad intelectual de los materiales contenidos en este sitio web son propiedad de GeoBuff o están autorizados para ello y están protegidos por las leyes de derechos de autor y marcas registradas aplicables. Otorgamos a nuestros usuarios permiso para descargar una copia de los materiales para uso transitorio personal, no comercial.",
+    intellectualPropertySectionTwo:
+      "Esto constituye la concesión de una licencia, no una transferencia de título. Esta licencia terminará automáticamente si viola cualquiera de estas restricciones o los Términos de servicio, y GeoBuff puede cancelarla en cualquier momento.",
+    userGeneratedContentHeading: "Contenido generado por el usuario",
+    userGeneratedContentSectionOne:
+      "Usted conserva sus derechos de propiedad intelectual sobre el contenido que nos envía para su publicación en nuestro sitio web. Nunca reclamaremos la propiedad de su contenido, pero requerimos una licencia de usted para usarlo.",
+    userGeneratedContentSectionTwo:
+      "Cuando utiliza nuestro sitio web o sus servicios asociados para publicar, cargar, compartir o transmitir contenido cubierto por derechos de propiedad intelectual, nos otorga una licencia mundial no exclusiva, libre de regalías, transferible, sublicenciable para usar, distribuir , modificar, ejecutar, copiar, mostrar públicamente, traducir o crear trabajos derivados de su contenido de una manera que sea consistente con sus preferencias de privacidad y nuestra Política de privacidad.",
+    userGeneratedContentSectionThree:
+      "La licencia que nos otorga puede rescindirse en cualquier momento eliminando su contenido o cuenta. Sin embargo, en la medida en que nosotros (o nuestros socios) hayamos utilizado su contenido en relación con contenido comercial o patrocinado, la licencia continuará hasta que descontinuemos el comercial o la publicación correspondiente.",
+    userGeneratedContentSectionFour:
+      "Usted nos da permiso para usar su nombre de usuario y otra información de identificación asociada con su cuenta de manera consistente con sus preferencias de privacidad y nuestra Política de privacidad.",
+    liabilityHeading: "Responsabilidad",
+    liabilitySectionOne:
+      "Nuestro sitio web y los materiales en nuestro sitio web se proporcionan 'tal cual'. En la medida permitida por la ley, GeoBuff no ofrece garantías, expresas o implícitas, y por la presente renuncia y niega todas las demás garantías, incluidas, entre otras, garantías implícitas o condiciones de comerciabilidad, idoneidad para un propósito particular o no infracción de la propiedad intelectual. u otra violación de los derechos.",
+    liabilitySectionTwo:
+      "En ningún caso GeoBuff o sus proveedores serán responsables de cualquier pérdida consecuente sufrida o incurrida por usted o cualquier tercero que surja del uso o la incapacidad de usar este sitio web o los materiales en este sitio web, incluso si GeoBuff o un representante autorizado ha sido notificado , oralmente o por escrito, de la posibilidad de tal daño.",
+    liabilitySectionThree:
+      "En el contexto de este acuerdo, 'pérdida consecuencial' incluye cualquier pérdida consecuencial, pérdida indirecta, pérdida real o anticipada de ganancias, pérdida de beneficios, pérdida de ingresos, pérdida de negocios, pérdida de buena voluntad, pérdida de oportunidad, pérdida de ahorros, pérdida de reputación, pérdida de uso y/o pérdida o corrupción de datos, ya sea bajo estatuto, contrato, equidad, agravio (incluyendo negligencia), indemnización o de otra manera.",
+    liabilitySectionFour:
+      "Debido a que algunas jurisdicciones no permiten limitaciones en garantías implícitas o limitaciones de responsabilidad por daños consecuentes o incidentales, es posible que estas limitaciones no se apliquen a usted.",
+    accuracyOfMaterialsHeading: "Precisión de los materiales",
+    accuracyOfMaterialsSectionOne:
+      "Los materiales que aparecen en nuestro sitio web no son completos y son solo para fines de información general. GeoBuff no garantiza ni hace ninguna representación con respecto a la precisión, los resultados probables o la confiabilidad del uso de los materiales en este sitio web, o en relación con dichos materiales o recursos vinculados a este sitio web.",
+    linksHeading: "Enlaces",
+    linksSectionOne:
+      "GeoBuff no ha revisado todos los sitios vinculados a su sitio web y no es responsable de los contenidos de dichos sitios vinculados. La inclusión de cualquier enlace no implica el respaldo, aprobación o control por parte de GeoBuff del sitio. El uso de cualquier sitio vinculado es bajo su propio riesgo y le recomendamos encarecidamente que realice sus propias investigaciones con respecto a la idoneidad de esos sitios.",
+    rightToTerminateHeading: "Derecho a rescindir",
+    rightToTerminateSectionOne:
+      "Podemos suspender o rescindir su derecho a usar nuestro sitio web y rescindir estos Términos de servicio inmediatamente después de notificarle por escrito cualquier incumplimiento de estos Términos de servicio.",
+    severanceHeading: "Ruptura",
+    severanceSectionOne:
+      "Cualquier término de estos Términos de servicio que sea total o parcialmente nulo o inaplicable se elimina en la medida en que sea nulo o inaplicable. La validez del resto de estos Términos de servicio no se ve afectada.",
+    governingLawHeading: "Ley que rige",
+    governingLawSectionOne:
+      "Estos Términos de servicio se rigen e interpretan de acuerdo con las leyes de Nueva Zelanda. Usted se somete irrevocablemente a la jurisdicción exclusiva de los tribunales de ese Estado o ubicación.",
+  },
+  cookiePolicy: {
+    sectionOnePartOne:
+      "Usamos cookies para ayudar a mejorar su experiencia en nuestro sitio web en",
+    sectionOnePartTwo:
+      ". Esta política de cookies forma parte de la política de privacidad de GeoBuff. Cubre el uso de cookies entre su dispositivo y nuestro sitio.",
+    sectionTwo:
+      "También brindamos información básica sobre los servicios de terceros que podemos usar, quienes también pueden usar cookies como parte de su servicio. Esta política no cubre sus cookies.",
+    sectionThreePartOne:
+      "Si no desea aceptar nuestras cookies, debe indicar a su navegador que rechace las cookies de",
+    sectionThreePartTwo:
+      ". En tal caso, es posible que no podamos proporcionarle algunos de los contenidos y servicios que desea.",
+    whatIsACookieHeading: "¿Qué es una galleta?",
+    whatIsACookieSectionOne:
+      "Una cookie es una pequeña porción de datos que un sitio web almacena en su dispositivo cuando lo visita. Por lo general, contiene información sobre el sitio web en sí, un identificador único que permite que el sitio reconozca su navegador web cuando regresa, datos adicionales que cumplen el propósito de la cookie y la vida útil de la cookie en sí.",
+    whatIsACookieSectionTwo:
+      "Las cookies se utilizan para habilitar ciertas funciones (p. ej., iniciar sesión), rastrear el uso del sitio (p. ej., análisis), almacenar su configuración de usuario (p. ej., zona horaria, preferencias de notificación) y personalizar su contenido (p. ej., publicidad, idioma).",
+    whatIsACookieSectionThree:
+      "Las cookies establecidas por el sitio web que está visitando generalmente se denominan cookies de origen. Por lo general, solo rastrean su actividad en ese sitio en particular.",
+    whatIsACookieSectionFour:
+      "Las cookies establecidas por otros sitios y empresas (es decir, terceros) se denominan cookies de terceros. Se pueden usar para rastrearlo en otros sitios web que usan el mismo servicio de terceros.",
+    typesHeading: "Tipos de cookies y cómo las usamos",
+    typesHeadingTwo: "Galletas esenciales",
+    typesSectionOne:
+      "Las cookies esenciales son cruciales para su experiencia en un sitio web, ya que permiten funciones básicas como inicios de sesión de usuarios, administración de cuentas, carritos de compras y procesamiento de pagos.",
+    typesSectionTwo:
+      " Usamos cookies esenciales para habilitar ciertas funciones en nuestro sitio web.",
+    typesHeadingThree: "Cookies de rendimiento",
+    typesSectionThree:
+      "Las cookies de rendimiento rastrean cómo usa un sitio web durante su visita. Por lo general, esta información es anónima y agregada, con información rastreada en todos los usuarios del sitio. Ayudan a las empresas a comprender los patrones de uso de los visitantes, identificar y diagnosticar problemas o errores que pueden encontrar sus usuarios y tomar mejores decisiones estratégicas para mejorar la experiencia general del sitio web de su audiencia. Estas cookies pueden ser establecidas por el sitio web que está visitando (primero) o por servicios de terceros. No recopilan información personal sobre usted.",
+    typesHeadingFour: "Cookies de funcionalidad",
+    typesSectionFive:
+      "Las cookies de funcionalidad se utilizan para recopilar información sobre su dispositivo y cualquier configuración que pueda configurar en el sitio web que está visitando (como la configuración de idioma y zona horaria). Con esta información, los sitios web pueden brindarle contenido y servicios personalizados, mejorados u optimizados. Estas cookies pueden ser establecidas por el sitio web que está visitando (primero) o por servicios de terceros.",
+    typesHeadingFive: "Cookies de segmentación/publicidad",
+    typesSectionSeven:
+      "Las cookies de orientación/publicidad ayudan a determinar qué contenido promocional es más relevante y apropiado para usted y sus intereses. Los sitios web pueden usarlos para ofrecer publicidad dirigida o limitar la cantidad de veces que ve un anuncio. Esto ayuda a las empresas a mejorar la eficacia de sus campañas y la calidad del contenido que se le presenta. Estas cookies pueden ser establecidas por el sitio web que está visitando (primero) o por servicios de terceros. Las cookies de orientación/publicidad establecidas por terceros pueden usarse para rastrearlo en otros sitios web que usan el mismo servicio de terceros.",
+    weDoNotUse: "No utilizamos este tipo de cookies en nuestro sitio.",
+  },
   acceptableUsePolicy: {
     sectionOne:
       "Esta política de uso aceptable cubre los productos, servicios y tecnologías (denominados colectivamente como los 'Productos') provistos por GeoBuff bajo cualquier acuerdo en curso. Está diseñado para protegernos a nosotros, a nuestros clientes ya la comunidad de Internet en general de actividades no éticas, irresponsables e ilegales.",
