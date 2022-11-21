@@ -542,6 +542,43 @@ export default {
     contactUsSectionOne:
       "Para cualquier pregunta o inquietud con respecto a su privacidad, puede comunicarse con nosotros utilizando los siguientes detalles:",
   },
+  cookiePolicy: {
+    sectionOnePartOne:
+      "Usamos cookies para ayudar a mejorar su experiencia en nuestro sitio web en",
+    sectionOnePartTwo:
+      ". Esta política de cookies forma parte de la política de privacidad de GeoBuff. Cubre el uso de cookies entre su dispositivo y nuestro sitio.",
+    sectionTwo:
+      "También brindamos información básica sobre los servicios de terceros que podemos usar, quienes también pueden usar cookies como parte de su servicio. Esta política no cubre sus cookies.",
+    sectionThreePartOne:
+      "Si no desea aceptar nuestras cookies, debe indicar a su navegador que rechace las cookies de",
+    sectionThreePartTwo:
+      ". En tal caso, es posible que no podamos proporcionarle algunos de los contenidos y servicios que desea.",
+    whatIsACookieHeading: "¿Qué es una galleta?",
+    whatIsACookieSectionOne:
+      "Una cookie es una pequeña porción de datos que un sitio web almacena en su dispositivo cuando lo visita. Por lo general, contiene información sobre el sitio web en sí, un identificador único que permite que el sitio reconozca su navegador web cuando regresa, datos adicionales que cumplen el propósito de la cookie y la vida útil de la cookie en sí.",
+    whatIsACookieSectionTwo:
+      "Las cookies se utilizan para habilitar ciertas funciones (p. ej., iniciar sesión), rastrear el uso del sitio (p. ej., análisis), almacenar su configuración de usuario (p. ej., zona horaria, preferencias de notificación) y personalizar su contenido (p. ej., publicidad, idioma).",
+    whatIsACookieSectionThree:
+      "Las cookies establecidas por el sitio web que está visitando generalmente se denominan cookies de origen. Por lo general, solo rastrean su actividad en ese sitio en particular.",
+    whatIsACookieSectionFour:
+      "Las cookies establecidas por otros sitios y empresas (es decir, terceros) se denominan cookies de terceros. Se pueden usar para rastrearlo en otros sitios web que usan el mismo servicio de terceros.",
+    typesHeading: "Tipos de cookies y cómo las usamos",
+    typesHeadingTwo: "Galletas esenciales",
+    typesSectionOne:
+      "Las cookies esenciales son cruciales para su experiencia en un sitio web, ya que permiten funciones básicas como inicios de sesión de usuarios, administración de cuentas, carritos de compras y procesamiento de pagos.",
+    typesSectionTwo:
+      " Usamos cookies esenciales para habilitar ciertas funciones en nuestro sitio web.",
+    typesHeadingThree: "Cookies de rendimiento",
+    typesSectionThree:
+      "Las cookies de rendimiento rastrean cómo usa un sitio web durante su visita. Por lo general, esta información es anónima y agregada, con información rastreada en todos los usuarios del sitio. Ayudan a las empresas a comprender los patrones de uso de los visitantes, identificar y diagnosticar problemas o errores que pueden encontrar sus usuarios y tomar mejores decisiones estratégicas para mejorar la experiencia general del sitio web de su audiencia. Estas cookies pueden ser establecidas por el sitio web que está visitando (primero) o por servicios de terceros. No recopilan información personal sobre usted.",
+    typesHeadingFour: "Cookies de funcionalidad",
+    typesSectionFive:
+      "Las cookies de funcionalidad se utilizan para recopilar información sobre su dispositivo y cualquier configuración que pueda configurar en el sitio web que está visitando (como la configuración de idioma y zona horaria). Con esta información, los sitios web pueden brindarle contenido y servicios personalizados, mejorados u optimizados. Estas cookies pueden ser establecidas por el sitio web que está visitando (primero) o por servicios de terceros.",
+    typesHeadingFive: "Cookies de segmentación/publicidad",
+    typesSectionSeven:
+      "Las cookies de orientación/publicidad ayudan a determinar qué contenido promocional es más relevante y apropiado para usted y sus intereses. Los sitios web pueden usarlos para ofrecer publicidad dirigida o limitar la cantidad de veces que ve un anuncio. Esto ayuda a las empresas a mejorar la eficacia de sus campañas y la calidad del contenido que se le presenta. Estas cookies pueden ser establecidas por el sitio web que está visitando (primero) o por servicios de terceros. Las cookies de orientación/publicidad establecidas por terceros pueden usarse para rastrearlo en otros sitios web que usan el mismo servicio de terceros.",
+    weDoNotUse: "No utilizamos este tipo de cookies en nuestro sitio.",
+  },
   acceptableUsePolicy: {
     sectionOne:
       "Esta política de uso aceptable cubre los productos, servicios y tecnologías (denominados colectivamente como los 'Productos') provistos por GeoBuff bajo cualquier acuerdo en curso. Está diseñado para protegernos a nosotros, a nuestros clientes ya la comunidad de Internet en general de actividades no éticas, irresponsables e ilegales.",
