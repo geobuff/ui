@@ -290,6 +290,77 @@ export default {
   userProfileLeaderboardEntries: {
     title: "Entradas de clasificación",
   },
+  playFlagGames: {
+    title: "Juega juegos de banderas",
+    description:
+      "¿Qué tan bien conoces las Banderas del Mundo? ¡Pon a prueba tus habilidades de Vexilología y Geografía con nuestra colección de juegos interactivos de arrastrar y soltar banderas!",
+    question: "¿Escuchaste lo suficiente?",
+    actionText: "¡Haz clic aquí para ver nuestra colección!",
+    imageAltOne: "Empezar juego",
+    explainerOne:
+      "¿Qué tan bien conoces las Banderas del Mundo? ¡Pon a prueba tus habilidades de Vexilología con nuestra colección de juegos interactivos de arrastrar y soltar banderas!",
+    imageAltTwo: "Ejemplo de arrastre de bandera",
+    explainerTwo:
+      "Arrastra tu camino hacia la victoria en esta carrera contrarreloj.",
+    imageAltThree: "Ejemplo de caída de bandera",
+    explainerThree:
+      "Nuestra interfaz de usuario receptiva le permite saber cuándo está en el camino correcto o cuándo accidentalmente confundió a Costa Rica con Croacia.",
+  },
+  playDailyTrivia: {
+    title: "Curiosidades diarias de geografía",
+    description:
+      "¿El perro se comió tu tarea de geografía? Nuestra trivia de geografía diaria autogenerada es perfecta para ponerte al día con todo lo relacionado con la geografía.",
+    question: "¿Escuchaste lo suficiente?",
+    actionText:
+      "¡Haz clic aquí para quedarte atrapado en el cuestionario de hoy!",
+    imageAltOne: "Pregunta sobre el mapa de escritorio",
+    explainerOne:
+      "¿El perro se comió tu tarea de geografía? Nuestras trivias diarias autogeneradas son perfectas para ponerte al día con todo lo relacionado con la geografía.",
+    imageAltTwo: "Pregunta de bandera móvil",
+    explainerTwo:
+      "Nuestra interfaz de usuario receptiva funciona a la perfección entre el escritorio y el dispositivo móvil para que pueda aprender sobre la marcha o en casa en la pantalla grande.",
+    imageAltThree: "Pregunta de imagen de escritorio",
+    explainerThree:
+      "Preguntas sobre mapas, banderas, hitos, monedas, ríos, montañas, fronteras, exportaciones, deportes nacionales y más...",
+    imageAltFour: "Ejemplo de fin de juego",
+    explainerFour:
+      "Copie su puntaje y compártalo con sus amigos para que sepan que está listo para abandonar esos países del mundo en un momento.",
+  },
+  playMapGames: {
+    title: "Juega juegos de mapas",
+    description:
+      "¿Qué tan bien conoces los países del mundo? ¡Pon a prueba tus conocimientos de Cartografía y Geografía con nuestra colección de juegos de mapas interactivos!",
+    question: "¿Escuchaste lo suficiente?",
+    actionText: "¡Haz clic aquí para ver nuestra colección!",
+    imageAltOne: "Ejemplo de lista de juegos",
+    explainerOne:
+      "¿Qué tan bien conoces los países del mundo? ¡Pon a prueba tus conocimientos de cartografía con nuestra amplia colección de juegos de mapas interactivos!",
+    imageAltTwo: "Ejemplo de inicio de juego",
+    explainerTwo:
+      "Nuestra interfaz de usuario receptiva funciona a la perfección entre el escritorio y el dispositivo móvil para que pueda aprender sobre la marcha o en casa en la pantalla grande.",
+    imageAltThree: "Ejemplo de medio juego",
+    explainerThree:
+      "Escriba su camino a la victoria en esta carrera contrarreloj. ¿Puedes superar el tiempo más rápido en la clasificación?",
+  },
+  createCommunityQuizzes: {
+    title: "Crear cuestionarios de la comunidad",
+    description:
+      "¿Busca crear cuestionarios personalizados con mapas, banderas e imágenes de alta calidad? ¡Use nuestro generador de cuestionarios para crear el rascador de cerebro perfecto para sus amigos, estudiantes o compañeros de trabajo!",
+    question: "¿Escuchaste lo suficiente?",
+    actionText: "¡Regístrese hoy para comenzar a crear el suyo propio!",
+    imageAltOne: "Ejemplo de creador de cuestionarios",
+    explainerOne:
+      "¿Busca crear cuestionarios personalizados con mapas, banderas e imágenes de alta calidad? ¡Use nuestro generador de cuestionarios para crear el rascador de cerebro perfecto para sus amigos, estudiantes o compañeros de trabajo!",
+    imageAltTwo: "Ejemplo de inicio de juego",
+    explainerTwo:
+      "Utilice nuestra amplia colección de recursos de mapas o banderas para afinar cada pregunta.",
+    imageAltThree: "Ejemplo de alternar público/privado",
+    explainerThree:
+      "Haga público su cuestionario para ver cómo le va a nuestra comunidad de GeoBuff o manténgalo privado para compartirlo con sus amigos.",
+    imageAltFour: "mi ejemplo de cuestionarios",
+    explainerFour:
+      "¡Vea, edite o elimine sus cuestionarios y verifique las reproducciones de cuestionarios en su perfil de usuario!",
+  },
   privacyPolicy: {
     sectionOnePartOne:
       "Su privacidad es importante para nosotros. Es política de GeoBuff respetar su privacidad y cumplir con cualquier ley y regulación aplicable con respecto a cualquier información personal que podamos recopilar sobre usted, incluso en nuestro sitio web,",

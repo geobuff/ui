@@ -281,6 +281,75 @@ export default {
   userProfileLeaderboardEntries: {
     title: "Leaderboard Entries",
   },
+  playFlagGames: {
+    title: "Play Flag Games",
+    description:
+      "How well do you know the Flags of the World? Test your Vexillology and Geography skills with our collection of interactive drag and drop flag games!",
+    question: "Heard enough?",
+    actionText: "Click here to check out our collection!",
+    imageAltOne: "Game start",
+    explainerOne:
+      "How well do you know the Flags of the World? Test your Vexillology skills with our collection of interactive drag and drop flag games!",
+    imageAltTwo: "Flag drag example",
+    explainerTwo: "Drag your way to victory in this race against the clock.",
+    imageAltThree: "Flag drop example",
+    explainerThree:
+      "Our responsive UI let's you know when you're on the right track or when you've accidently got Costa Rica mixed up with Croatia.",
+  },
+  playDailyTrivia: {
+    title: "Daily Geography Trivia",
+    description:
+      "Dog ate your Geography homework? Our auto-generating daily Geography trivia is perfect for getting you back up to speed on everything geo-related.",
+    question: "Heard enough?",
+    actionText: "Click here to get stuck into today's quiz!",
+    imageAltOne: "Desktop map question",
+    explainerOne:
+      "Dog ate your Geography homework? Our auto-generating daily trivia is perfect for getting you back up to speed on everything geo-related.",
+    imageAltTwo: "Mobile flag question",
+    explainerTwo:
+      "Our responsive UI works seamlessly between desktop and mobile so you can learn on the go or at home on the big screen.",
+    imageAltThree: "Desktop image question",
+    explainerThree:
+      "Questions on maps, flags, landmarks, currencies, rivers, mountains, borders, exports, national sports and more...",
+    imageAltFour: "Game over example",
+    explainerFour:
+      "Copy your score and share with friends so they know you're ready to drop those Countries of the World at a moments notice.",
+  },
+  playMapGames: {
+    title: "Play Map Games",
+    description:
+      "How well do you know the Countries of the World? Test your Cartography and Geography knowledge with our collection of interactive map games!",
+    question: "Heard enough?",
+    actionText: "Click here to check out our collection!",
+    imageAltOne: "Games list example",
+    explainerOne:
+      "How well do you know the Countries of the World? Test your Cartography knowledge with our extensive collection of interactive map games!",
+    imageAltTwo: "Game start example",
+    explainerTwo:
+      "Our responsive UI works seamlessly between desktop and mobile so you can learn on the go or at home on the big screen.",
+    imageAltThree: "Mid-game example",
+    explainerThree:
+      "Type your way to victory in this race against the clock. Can you beat the fastest time on the leaderboard?",
+  },
+  createCommunityQuizzes: {
+    title: "Create Community Quizzes",
+    description:
+      "Looking to create custom quizzes with high quality maps, flags and images? Use our quiz builder to create the perfect brain scratcher for your friends, students or workmates!",
+    question: "Heard enough?",
+    actionText: "Sign up today to start creating your own!",
+    imageAltOne: "Quiz builder example",
+    explainerOne:
+      "Looking to create custom quizzes with high quality maps, flags and images? Use our quiz builder to create the perfect brain scratcher for your friends, students or workmates!",
+    imageAltTwo: "Game start example",
+    explainerTwo:
+      "Utilise our extensive collection of map or flag resources to fine tune each question.",
+    imageAltThree: "Public/private toggle example",
+    explainerThree:
+      "Make your quiz public to see how our community of GeoBuff's fare or keep it private to share with your friends.",
+    imageAltFour: "My quizzes example",
+    explainerFour:
+      "View, edit or delete your quizzes and check the quiz plays in your user profile!",
+  },
   privacyPolicy: {
     sectionOnePartOne:
       "Your privacy is important to us. It is GeoBuff's policy to respect your privacy and comply with any applicable law and regulation regarding any personal information we may collect about you, including across our website,",

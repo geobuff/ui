@@ -1,45 +1,47 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import LandingPage from "../../components/LandingPage/LandingPage";
 
 import { LandingPageRow } from "../../types/landing-page-row";
 
-const rows: LandingPageRow[] = [
-  {
-    imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/quiz-builder.png`,
-    imageAlt: "Quiz builder example",
-    explainer:
-      "Looking to create custom quizzes with high quality maps, flags and images? Use our quiz builder to create the perfect brain scratcher for your friends, students or workmates!",
-  },
-  {
-    imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/resources.png`,
-    imageAlt: "Resources example",
-    explainer:
-      "Utilise our extensive collection of map or flag resources to fine tune each question.",
-  },
-  {
-    imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/visibility.png`,
-    imageAlt: "Public/private toggle example",
-    explainer:
-      "Make your quiz public to see how our community of GeoBuff's fare or keep it private to share with your friends.",
-  },
-  {
-    imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/my-quizzes.png`,
-    imageAlt: "My quizzes example",
-    explainer:
-      "View, edit or delete your quizzes and check the quiz plays in your user profile!",
-  },
-];
+const CreateCommunityQuizzes: FC = () => {
+  const { t } = useContext(LanguageContext);
 
-const CreateCommunityQuizzes: FC = () => (
-  <LandingPage
-    title="Create Community Quizzes"
-    description="Looking to create custom quizzes with high quality maps, flags and images? Use our quiz builder to create the perfect brain scratcher for your friends, students or workmates!"
-    rows={rows}
-    question="Heard enough?"
-    actionText="Sign up today to start creating your own!"
-    actionHref="/register"
-  />
-);
+  const rows: LandingPageRow[] = [
+    {
+      imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/quiz-builder.png`,
+      imageAlt: t.createCommunityQuizzes.imageAltOne,
+      explainer: t.createCommunityQuizzes.explainerOne,
+    },
+    {
+      imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/resources.png`,
+      imageAlt: t.createCommunityQuizzes.imageAltTwo,
+      explainer: t.createCommunityQuizzes.explainerTwo,
+    },
+    {
+      imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/visibility.png`,
+      imageAlt: t.createCommunityQuizzes.imageAltThree,
+      explainer: t.createCommunityQuizzes.explainerThree,
+    },
+    {
+      imageUrl: `${process.env.NEXT_PUBLIC_CDN_URL}/community-quiz/my-quizzes.png`,
+      imageAlt: t.createCommunityQuizzes.imageAltFour,
+      explainer: t.createCommunityQuizzes.explainerFour,
+    },
+  ];
+
+  return (
+    <LandingPage
+      title={t.createCommunityQuizzes.title}
+      description={t.createCommunityQuizzes.description}
+      rows={rows}
+      question={t.createCommunityQuizzes.question}
+      actionText={t.createCommunityQuizzes.actionText}
+      actionHref="/register"
+    />
+  );
+};
 
 export default CreateCommunityQuizzes;
