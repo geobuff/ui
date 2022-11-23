@@ -7,7 +7,10 @@ const axiosClient = axios.create({
 axiosClient.interceptors.request.use(async (config) => {
   config.headers = {
     ...config.headers,
-    "Content-Language": localStorage.getItem("geobuff.language") || "en",
+    "Content-Language":
+      (typeof window !== "undefined" &&
+        window.localStorage.getItem("geobuff.language")) ||
+      "en",
   };
 
   return config;
