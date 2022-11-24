@@ -103,6 +103,9 @@ export default {
     contactUs: "Contact Us",
     ashleyMidgley: "Ashley Midgley",
     companyEmail: "teamgeobuff@gmail.com",
+    cancel: "Cancel",
+    update: "Update",
+    data: "data",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",
@@ -280,6 +283,14 @@ export default {
   },
   userProfileLeaderboardEntries: {
     title: "Leaderboard Entries",
+  },
+  updateUserFormModal: {
+    title: "Update Profile",
+  },
+  deleteAccountModal: {
+    header: "Delete Account",
+    message:
+      "Are you sure you want to delete your account? You will not be able to recover any of the data once this action is complete.",
   },
   playFlagGames: {
     title: "Play Flag Games",

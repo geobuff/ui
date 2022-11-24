@@ -105,6 +105,9 @@ export default {
     contactUs: "Contacta con nosotros",
     ashleyMidgley: "Ashley Midgley",
     companyEmail: "teamgeobuff@gmail.com",
+    cancel: "Cancelar",
+    update: "Actualizar",
+    data: "datos",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
@@ -289,6 +292,14 @@ export default {
   },
   userProfileLeaderboardEntries: {
     title: "Entradas de clasificación",
+  },
+  updateUserFormModal: {
+    title: "Actualización del perfil",
+  },
+  deleteAccountModal: {
+    header: "Borrar cuenta",
+    message:
+      "¿Está seguro de que desea eliminar su cuenta? No podrá recuperar ninguno de los datos una vez que se complete esta acción.",
   },
   playFlagGames: {
     title: "Juega juegos de banderas",

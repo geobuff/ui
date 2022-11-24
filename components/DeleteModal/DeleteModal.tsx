@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Alert, AlertIcon, Box, Button, Text } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import Modal from "../Modal";
 
@@ -19,16 +21,18 @@ export const DeleteModal: FC<Props> = ({
   isOpen = false,
   header = "",
   message = "",
-  action = "Delete",
+  action = "",
   isSubmitting = false,
   error = "",
   onClose = (): void => {},
   onSubmit = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const footer = (
     <>
       <Button onClick={onClose} disabled={isSubmitting}>
-        Cancel
+        {t.global.cancel}
       </Button>
       <Button
         colorScheme="red"
@@ -36,7 +40,7 @@ export const DeleteModal: FC<Props> = ({
         disabled={isSubmitting}
         ml={3}
       >
-        {action}
+        {action ? action : t.global.delete}
       </Button>
     </>
   );

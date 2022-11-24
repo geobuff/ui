@@ -95,7 +95,7 @@ const UserProfileSummary: FC<Props> = ({
 
   const { countries } = useCountries();
 
-  const downloadData = isAppMobile ? [] : [["email"], [email]];
+  const downloadData = isAppMobile ? [] : [[t.global.email], [email]];
 
   const matchedCountry = countries?.find(
     ({ value }) => value === countryCode
@@ -204,8 +204,8 @@ const UserProfileSummary: FC<Props> = ({
         onClose={onUserModalClose}
       />
       <DeleteModal
-        header="Delete Account"
-        message="Are you sure you want to delete your account? You will not be able to recover any of the data once this action is complete."
+        header={t.deleteAccountModal.header}
+        message={t.deleteAccountModal.message}
         isOpen={isDeleteAccountModalOpen}
         onClose={onDeleteAccountModalClose}
         onSubmit={handleDeleteAccountSubmit}
