@@ -108,6 +108,8 @@ export default {
     cancel: "Cancelar",
     update: "Actualizar",
     data: "datos",
+    true: "Verdadero",
+    false: "Falso",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
@@ -301,6 +303,23 @@ export default {
     message:
       "¿Está seguro de que desea eliminar su cuenta? No podrá recuperar ninguno de los datos una vez que se complete esta acción.",
   },
+  createCommunityQuiz: {
+    title: "Crear cuestionario comunitario",
+  },
+  communityQuizForm: {
+    heading: "Agregar pregunta",
+    quizNameLabel: "Nombre del cuestionario",
+    quizNameHelper: "¡Manténgalo conciso y memorable!",
+    quizNamePlaceholder: "Introduce el nombre del cuestionario...",
+    descriptionLabel: "Descripción",
+    descriptionHelper:
+      "La descripción ayuda a que su cuestionario se destaque del resto.",
+    descriptionPlaceholder: "Introduce la descripción...",
+    isPublicLabel: "¿Es público?",
+    isPublicHelper:
+      "Los cuestionarios públicos son visibles para todos los usuarios. Los cuestionarios privados te dan la opción de compartir un enlace con otros.",
+    createQuiz: "Crear cuestionario",
+  },
   playFlagGames: {
     title: "Juega juegos de banderas",
     description:
@@ -371,6 +390,10 @@ export default {
     imageAltFour: "mi ejemplo de cuestionarios",
     explainerFour:
       "¡Vea, edite o elimine sus cuestionarios y verifique las reproducciones de cuestionarios en su perfil de usuario!",
+  },
+  communityQuizQuestionsField: {
+    noQuestionsAdded: "No se agregaron preguntas",
+    addQuestion: "Agregar pregunta",
   },
   privacyPolicy: {
     sectionOnePartOne:

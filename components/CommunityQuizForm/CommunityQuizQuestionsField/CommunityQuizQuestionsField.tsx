@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Button, Flex, Text } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
 import CommunityQuizQuestionsTable from "../CommunityQuizQuestionsTable";
@@ -18,12 +20,14 @@ const CommunityQuizQuestionsField: FC<Props> = ({
   onDeleteQuestion = () => {},
   onEditQuestion = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Flex direction="column" width="100%">
       {!questions.length ? (
         <Flex justifyContent="center">
           <Text color="gray.400" fontWeight="medium" marginBottom={4}>
-            {"No questions added"}
+            {t.communityQuizQuestionsField.noQuestionsAdded}
           </Text>
         </Flex>
       ) : (
@@ -42,7 +46,7 @@ const CommunityQuizQuestionsField: FC<Props> = ({
           maxWidth="200px"
           onClick={onAddQuestion}
         >
-          {"Add Question"}
+          {t.communityQuizQuestionsField.addQuestion}
         </Button>
       </Flex>
     </Flex>

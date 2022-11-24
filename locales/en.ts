@@ -106,6 +106,8 @@ export default {
     cancel: "Cancel",
     update: "Update",
     data: "data",
+    true: "True",
+    false: "False",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",
@@ -291,6 +293,27 @@ export default {
     header: "Delete Account",
     message:
       "Are you sure you want to delete your account? You will not be able to recover any of the data once this action is complete.",
+  },
+  createCommunityQuiz: {
+    title: "Create Community Quiz",
+  },
+  communityQuizForm: {
+    heading: "Add Question",
+    quizNameLabel: "Quiz Name",
+    quizNameHelper: "Keep it concise and memorable!",
+    quizNamePlaceholder: "Enter quiz name...",
+    descriptionLabel: "Description",
+    descriptionHelper:
+      "The description helps your quiz stand out from the rest.",
+    descriptionPlaceholder: "Enter description...",
+    isPublicLabel: "Is Public?",
+    isPublicHelper:
+      "Public quizzes are visible to all users. Private quizzes give you the option to share a link with others.",
+    createQuiz: "Create Quiz",
+  },
+  communityQuizQuestionsField: {
+    noQuestionsAdded: "No questions added",
+    addQuestion: "Add Question",
   },
   playFlagGames: {
     title: "Play Flag Games",
