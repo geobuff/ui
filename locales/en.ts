@@ -52,7 +52,7 @@ export default {
     username: "Username",
     usernamePlaceholder: "Enter username...",
     country: "Country",
-    selectCountry: "select a country...",
+    selectCountry: "Select a country...",
     loadingCountries: "Loading countries...",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
@@ -108,6 +108,12 @@ export default {
     data: "data",
     true: "True",
     false: "False",
+    yes: "Yes",
+    no: "No",
+    addQuestion: "Add Question",
+    question: "Question",
+    answers: "Answers",
+    type: "Type",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",
@@ -298,7 +304,6 @@ export default {
     title: "Create Community Quiz",
   },
   communityQuizForm: {
-    heading: "Add Question",
     quizNameLabel: "Quiz Name",
     quizNameHelper: "Keep it concise and memorable!",
     quizNamePlaceholder: "Enter quiz name...",
@@ -310,10 +315,55 @@ export default {
     isPublicHelper:
       "Public quizzes are visible to all users. Private quizzes give you the option to share a link with others.",
     createQuiz: "Create Quiz",
+    mustAddQuestionAlert: "You must add at least one question.",
   },
   communityQuizQuestionsField: {
     noQuestionsAdded: "No questions added",
-    addQuestion: "Add Question",
+  },
+  communityQuizQuestionForm: {
+    questionLabel: "Question",
+    questionPlaceholder: "Enter question...",
+    explainerLabel: "Explainer",
+    explainerPlaceholder: "Enter explainer...",
+    imageUrlLabel: "Image URL",
+    imageUrlPlaceholder: "Search image...",
+    flagCategoryLabel: "Flag Category",
+    flagCodeLabel: "Flag Code",
+    mapLabel: "Map",
+    highlightedLabel: "Highlighted",
+    flagAnswerCategoryLabel: "Flag Answer Category",
+    correctAnswerError: "Please select a correct answer.",
+    twoAnswersError: "Please add at least two answers.",
+    answerOne: "Answer One",
+    answerTwo: "Answer Two",
+    answerThree: "Answer Three (Optional)",
+    answerFour: "Answer Four (Optional)",
+  },
+  unsplashImageGrid: {
+    noImagesFound: "Image search returned zero items. Please try again.",
+  },
+  questionTypeValuePreview: {
+    photoBy: "Photo by ",
+    on: " on ",
+    unsplash: "Unsplash",
+  },
+  communityQuizHasAnswersField: {
+    label: "Do answers have flags?",
+    helper: "Enables answer buttons to contain flag images",
+  },
+  communityQuizAnswersField: {
+    placeholder: "Enter answer...",
+    flagCodeLabel: "Flag Code",
+  },
+  selectFormField: {
+    defaultLabel: "Select a value...",
+  },
+  communityQuizFlagSelectField: {
+    imageAlt: "Flag example",
+    placeholder: "Select a flag code...",
+  },
+  communityQuizQuestionsTable: {
+    editAriaLabel: "Edit question",
   },
   playFlagGames: {
     title: "Play Flag Games",

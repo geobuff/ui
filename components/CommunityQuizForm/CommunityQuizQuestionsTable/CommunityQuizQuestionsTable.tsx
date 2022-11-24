@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Button,
@@ -10,6 +10,8 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { getType } from "../../../helpers/trivia-types";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
@@ -26,15 +28,17 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
   onEdit = () => {},
   onDelete = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Table size="md" variant="striped" colorScheme="gray" overflowX="scroll">
       <Thead>
         <Tr>
-          <Th textAlign="left">{"NO"} </Th>
-          <Th textAlign="left">{"QUESTION"} </Th>
-          <Th textAlign="left">{"ANSWERS"}</Th>
-          <Th textAlign="left">{"TYPE"}</Th>
-          <Th textAlign="left">{"ACTIONS"}</Th>
+          <Th textAlign="left">{t.global.no} </Th>
+          <Th textAlign="left">{t.global.question} </Th>
+          <Th textAlign="left">{t.global.answers}</Th>
+          <Th textAlign="left">{t.global.type}</Th>
+          <Th textAlign="left">{t.global.actions}</Th>
         </Tr>
       </Thead>
 
@@ -68,18 +72,18 @@ const CommunityQuizQuestionsTable: FC<Props> = ({
                 <Button
                   colorScheme="black"
                   variant="link"
-                  aria-label="Edit question"
+                  aria-label={t.communityQuizQuestionsTable.editAriaLabel}
                   onClick={() => onEdit(question)}
                   marginRight={4}
                 >
-                  {"Edit"}
+                  {t.global.edit}
                 </Button>
                 <Button
                   colorScheme="red"
                   variant="link"
                   onClick={() => onDelete(question)}
                 >
-                  {"Delete"}
+                  {t.global.delete}
                 </Button>
               </Flex>
             </TableCell>

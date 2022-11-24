@@ -110,6 +110,12 @@ export default {
     data: "datos",
     true: "Verdadero",
     false: "Falso",
+    yes: "Si",
+    no: "No",
+    addQuestion: "Agregar pregunta",
+    question: "Pregunta",
+    answers: "Respuestas",
+    type: "Escribe",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
@@ -307,7 +313,6 @@ export default {
     title: "Crear cuestionario comunitario",
   },
   communityQuizForm: {
-    heading: "Agregar pregunta",
     quizNameLabel: "Nombre del cuestionario",
     quizNameHelper: "¡Manténgalo conciso y memorable!",
     quizNamePlaceholder: "Introduce el nombre del cuestionario...",
@@ -319,6 +324,57 @@ export default {
     isPublicHelper:
       "Los cuestionarios públicos son visibles para todos los usuarios. Los cuestionarios privados te dan la opción de compartir un enlace con otros.",
     createQuiz: "Crear cuestionario",
+    mustAddQuestionAlert: "Debe agregar al menos una pregunta.",
+  },
+  communityQuizQuestionsField: {
+    noQuestionsAdded: "No se agregaron preguntas",
+  },
+  communityQuizQuestionForm: {
+    questionLabel: "Pregunta",
+    questionPlaceholder: "Introduce la pregunta...",
+    explainerLabel: "Explicador",
+    explainerPlaceholder: "Introduce el explicador...",
+    imageUrlLabel: "URL de la imagen",
+    imageUrlPlaceholder: "Buscar imagen...",
+    flagCategoryLabel: "Categoría de bandera",
+    flagCodeLabel: "Código de bandera",
+    mapLabel: "Mapa",
+    highlightedLabel: "Destacado",
+    flagAnswerCategoryLabel: "Marcar la categoría de respuesta",
+    correctAnswerError: "Seleccione una respuesta correcta.",
+    twoAnswersError: "Agregue al menos dos respuestas.",
+    answerOne: "Respuesta uno",
+    answerTwo: "Respuesta dos",
+    answerThree: "Respuesta tres (opcional)",
+    answerFour: "Respuesta cuatro (opcional)",
+  },
+  unsplashImageGrid: {
+    noImagesFound:
+      "La búsqueda de imágenes no arrojó ningún elemento. Inténtalo de nuevo.",
+  },
+  questionTypeValuePreview: {
+    photoBy: "Foto por ",
+    on: " en ",
+    unsplash: "Unsplash",
+  },
+  communityQuizHasAnswersField: {
+    label: "¿Las respuestas tienen banderas?",
+    helper:
+      "Permite que los botones de respuesta contengan imágenes de bandera",
+  },
+  communityQuizAnswersField: {
+    placeholder: "Introduce la respuesta...",
+    flagCodeLabel: "Código de bandera",
+  },
+  selectFormField: {
+    defaultLabel: "Seleccione un valor...",
+  },
+  communityQuizFlagSelectField: {
+    imageAlt: "Ejemplo de bandera",
+    placeholder: "Seleccione un código de bandera...",
+  },
+  communityQuizQuestionsTable: {
+    editAriaLabel: "Editar pregunta",
   },
   playFlagGames: {
     title: "Juega juegos de banderas",
@@ -390,10 +446,6 @@ export default {
     imageAltFour: "mi ejemplo de cuestionarios",
     explainerFour:
       "¡Vea, edite o elimine sus cuestionarios y verifique las reproducciones de cuestionarios en su perfil de usuario!",
-  },
-  communityQuizQuestionsField: {
-    noQuestionsAdded: "No se agregaron preguntas",
-    addQuestion: "Agregar pregunta",
   },
   privacyPolicy: {
     sectionOnePartOne:

@@ -1,9 +1,11 @@
 /* eslint-disable no-case-declarations */
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
 import { SVGMap } from "@geobuff/svg-map";
 import Image from "next/image";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useMap from "../../hooks/UseMap";
 
@@ -33,6 +35,7 @@ const QuestionTypeValuePreview: FC<Props> = ({
   imageHeight = 0,
   imageAlt = "",
 }) => {
+  const { t } = useContext(LanguageContext);
   const { data: svgMap, isLoading: isMapLoading } = useMap(map);
 
   const getContentByType = (): JSX.Element => {
@@ -70,13 +73,13 @@ const QuestionTypeValuePreview: FC<Props> = ({
               priority
             />
             <Text fontSize="8px">
-              {`Photo by `}
+              {t.questionTypeValuePreview.photoBy}
               <Link href={imageAttributeUrl}>{imageAttributeName}</Link>
-              {` on `}
+              {t.questionTypeValuePreview.on}
               <Link
                 href={`https://unsplash.com?utm_source=GeoBuff&utm_medium=referral`}
               >
-                Unsplash
+                {t.questionTypeValuePreview.unsplash}
               </Link>
             </Text>
           </Flex>

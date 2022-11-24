@@ -1,7 +1,9 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Select, SelectProps } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useCountries from "../../hooks/useCountries";
 
@@ -21,6 +23,8 @@ const CountrySelect: FC<Props> = ({
   isFlagOnly = false,
   ...props
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const { countries, isLoading } = useCountries();
   const [flagUrl, setFlagUrl] = useState("");
 
@@ -73,7 +77,7 @@ const CountrySelect: FC<Props> = ({
       {...props}
     >
       <option value="" disabled>
-        {isLoading ? "Loading countries..." : "Select a country..."}
+        {isLoading ? t.global.loadingCountries : t.global.selectCountry}
       </option>
       {countries?.map(({ value, label }) => (
         <option key={value} value={value}>

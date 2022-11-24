@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
@@ -10,6 +10,8 @@ import {
   SelectProps,
 } from "@chakra-ui/react";
 import { Field } from "formik";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import axiosClient from "../../../axios";
 import CountrySelect from "../../CountrySelect";
@@ -29,6 +31,8 @@ const CommunityQuizFlagSelect: FC<Props> = ({
   flagCode,
   ...props
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const [flagUrl, setFlagUrl] = useState("");
   const [flagEntries, setFlagEntries] = useState([]);
   const [isFlagEntriesLoading, setIsFlagEntriesLoading] = useState(false);
@@ -91,7 +95,7 @@ const CommunityQuizFlagSelect: FC<Props> = ({
                   flagUrl ? (
                     <Image
                       src={flagUrl}
-                      alt="Flag example"
+                      alt={t.communityQuizFlagSelectField.imageAlt}
                       marginRight="16px"
                       minHeight="22px"
                       minWidth="32px"
@@ -103,7 +107,9 @@ const CommunityQuizFlagSelect: FC<Props> = ({
                   )
                 }
               >
-                <option value="">{"select a flag code..."}</option>
+                <option value="">
+                  {t.communityQuizFlagSelectField.placeholder}
+                </option>
                 {!isFlagEntriesLoading &&
                   flagEntries.map((entry, index) => (
                     <option key={index} value={entry.code}>

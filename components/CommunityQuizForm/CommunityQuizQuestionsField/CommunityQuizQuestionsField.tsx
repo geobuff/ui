@@ -46,7 +46,7 @@ const CommunityQuizQuestionsField: FC<Props> = ({
           maxWidth="200px"
           onClick={onAddQuestion}
         >
-          {t.communityQuizQuestionsField.addQuestion}
+          {t.global.addQuestion}
         </Button>
       </Flex>
     </Flex>

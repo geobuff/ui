@@ -139,7 +139,7 @@ const CommunityQuizForm: FC<Props> = ({
         <ArrowLeft height="28px" width="28px" />
       </IconButton>
       <Heading fontSize={26} marginLeft={0.5}>
-        {t.communityQuizForm.heading}
+        {t.global.addQuestion}
       </Heading>
     </Flex>
   );
@@ -208,7 +208,7 @@ const CommunityQuizForm: FC<Props> = ({
                 />
                 {errors.questions && (
                   <Text textAlign="center" color="red.500" fontSize="sm">
-                    {"You must add at least one question"}
+                    {t.communityQuizForm.mustAddQuestionAlert}
                   </Text>
                 )}
               </Flex>
