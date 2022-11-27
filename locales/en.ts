@@ -374,6 +374,10 @@ export default {
   communityQuizQuestionsTable: {
     editAriaLabel: "Edit question",
   },
+  myOrders: {
+    errorAlert: "Error fetching orders. Please refresh the page and try again.",
+    noOrdersAlert: "No orders to display.",
+  },
   playFlagGames: {
     title: "Play Flag Games",
     description:

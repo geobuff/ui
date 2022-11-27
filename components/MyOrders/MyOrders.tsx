@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Alert, AlertIcon, Flex } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { Order } from "../../types/order";
 import Card from "../Card";
@@ -12,12 +14,14 @@ export interface Props {
 }
 
 const MyOrders: FC<Props> = ({ orders = [], isError = false }) => {
+  const { t } = useContext(LanguageContext);
+
   const getContent = () => {
     if (isError) {
       return (
         <Alert status="error" borderRadius={6}>
           <AlertIcon />
-          Error fetching orders. Please refresh the page and try again.
+          {t.myOrders.errorAlert}
         </Alert>
       );
     }
@@ -26,7 +30,7 @@ const MyOrders: FC<Props> = ({ orders = [], isError = false }) => {
       return (
         <Alert status="info" borderRadius={6}>
           <AlertIcon />
-          No orders to display.
+          {t.myOrders.noOrdersAlert}
         </Alert>
       );
     }

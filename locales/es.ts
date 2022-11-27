@@ -385,6 +385,11 @@ export default {
   communityQuizQuestionsTable: {
     editAriaLabel: "Editar pregunta",
   },
+  myOrders: {
+    errorAlert:
+      "Error al obtener pedidos. Actualice la página y vuelva a intentarlo.",
+    noOrdersAlert: "No hay pedidos para mostrar.",
+  },
   playFlagGames: {
     title: "Juega juegos de banderas",
     description:
