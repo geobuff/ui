@@ -300,6 +300,11 @@ export default {
     message:
       "Are you sure you want to delete your account? You will not be able to recover any of the data once this action is complete.",
   },
+  deleteCommunityQuizModal: {
+    header: "Delete Community Quiz",
+    message:
+      "Are you sure you want to delete this quiz? All corresponding questions, answers and quiz plays will be deleted with it.",
+  },
   createCommunityQuiz: {
     title: "Create Community Quiz",
   },

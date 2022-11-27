@@ -309,6 +309,11 @@ export default {
     message:
       "¿Está seguro de que desea eliminar su cuenta? No podrá recuperar ninguno de los datos una vez que se complete esta acción.",
   },
+  deleteCommunityQuizModal: {
+    header: "Eliminar cuestionario de la comunidad",
+    message:
+      "¿Está seguro de que desea eliminar este cuestionario? Todas las preguntas, respuestas y cuestionarios correspondientes se eliminarán con él.",
+  },
   createCommunityQuiz: {
     title: "Crear cuestionario comunitario",
   },
