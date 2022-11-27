@@ -114,6 +114,12 @@ export default {
     question: "Question",
     answers: "Answers",
     type: "Type",
+    of: "of",
+    gameOver: "GAME OVER",
+    copyScore: "Copy Score",
+    playAgain: "Play Again",
+    finish: "Finish",
+    nextQuestion: "Next Question",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",

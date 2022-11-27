@@ -1,14 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
-import {
-  Button,
-  Fade,
-  Flex,
-  SimpleGrid,
-  Text,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Button, Fade, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import ArrowRight from "../../../Icons/ArrowRight";
 import { TriviaAnswer } from "../../../types/trivia-answer";
@@ -47,6 +42,8 @@ const GameTriviaAnswers: FC<Props> = ({
   onNextQuestion = () => {},
   onGameStop = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const height = use100vh();
   const isTinyMobile = height < 625;
 
@@ -100,7 +97,7 @@ const GameTriviaAnswers: FC<Props> = ({
               transform: "scale(1.05)",
             }}
           >
-            {isLastQuestion ? "Finish" : "Next Question"}
+            {isLastQuestion ? t.global.finish : t.global.nextQuestion}
           </Button>
         </Fade>
       </Flex>

@@ -116,6 +116,12 @@ export default {
     question: "Pregunta",
     answers: "Respuestas",
     type: "Escribe",
+    of: "de",
+    gameOver: "JUEGO TERMINADO",
+    copyScore: "Copiar puntuación",
+    playAgain: "Juega de nuevo",
+    finish: "Finalizar",
+    nextQuestion: "Próxima pregunta",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
