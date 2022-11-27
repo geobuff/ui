@@ -122,6 +122,7 @@ export default {
     playAgain: "Juega de nuevo",
     finish: "Finalizar",
     nextQuestion: "Próxima pregunta",
+    start: "Comienzo",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",

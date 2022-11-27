@@ -120,6 +120,7 @@ export default {
     playAgain: "Play Again",
     finish: "Finish",
     nextQuestion: "Next Question",
+    start: "Start",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",

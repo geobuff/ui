@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Divider,
@@ -8,6 +8,8 @@ import {
   TextProps,
   useBreakpointValue,
 } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props extends FlexProps {
   name?: string;
@@ -33,15 +35,16 @@ const GameCommunityQuizHeader: FC<Props> = ({
   ...props
 }) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
+  const { t } = useContext(LanguageContext);
 
   return (
     <Flex direction="column" {...props}>
       <Flex justifyContent="space-between">
         <HeaderText>{name}</HeaderText>
         <HeaderText>
-          {`${
-            !isMobile ? "Question" : ""
-          } ${questionNumber} of ${maxQuestionNumber}`}
+          {`${!isMobile ? t.global.question : ""} ${questionNumber} ${
+            t.global.of
+          } ${maxQuestionNumber}`}
         </HeaderText>
       </Flex>
 
