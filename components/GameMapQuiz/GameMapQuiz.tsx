@@ -2,6 +2,7 @@ import React, {
   ChangeEvent,
   FC,
   useCallback,
+  useContext,
   useEffect,
   useState,
 } from "react";
@@ -21,6 +22,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTimer } from "react-timer-hook";
 import { debounce } from "throttle-debounce";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 
@@ -89,6 +92,8 @@ const GameMapQuiz: FC<Props> = ({
   map = null,
   mapClassName = "",
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const router = useRouter();
   const { status } = useSession();
   const isUserAuthenticated = status === "authenticated";
@@ -249,7 +254,7 @@ const GameMapQuiz: FC<Props> = ({
     if (matchedSubmission && isChecked) {
       setHasError(true);
       setErrorMessage(
-        `${matchedSubmission.svgName} has already been answered!`
+        `${matchedSubmission.svgName} ${t.global.hasAlreadyBeenAnswered}`
       );
     }
 
@@ -457,7 +462,7 @@ const GameMapQuiz: FC<Props> = ({
           ) : (
             <Box position="fixed" bottom="20px" right="20px">
               <Button onClick={onOpen} opacity="0.85">
-                {"Game Details"}
+                {t.global.gameDetails}
                 <SolidChevronUp marginLeft={2} />
               </Button>
             </Box>

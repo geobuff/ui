@@ -1,8 +1,10 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 import { ChevronUpIcon } from "@chakra-ui/icons";
 import { Box, Divider, Fade, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
@@ -57,28 +59,18 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
   expiryTimestamp = { minutes: 0, seconds: 0 },
   onCheckSubmission = (submission: string): void => {},
 }) => {
-  const [showResultList, setShowResultsList] = useState(false);
+  const { t } = useContext(LanguageContext);
 
-  // const { isDragging } = useContext(FlagGameContext);
+  const [showResultList, setShowResultsList] = useState(false);
 
   const variants = {
     open: { top: "20%" },
     closed: {
       top: `calc(100% - ${isNotchedIphone ? 270 : 260}px)`,
     },
-    /**
-     * Pulls sheet down when dragging, may reintroduce later
-     * for smaller devices
-     */
-    // isDragging: { top: "calc(100% - 220px)" },
   };
 
   const getAnimationVariant = () => {
-    // See comment in variants above
-    // if (isDragging) {
-    //   return "isDragging";
-    // }
-
     return showResultList ? "open" : "closed";
   };
 
@@ -97,7 +89,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
           fontSize={showResultList ? "large" : "medium"}
           fontWeight="semibold"
         >
-          {"Results"}
+          {t.global.results}
         </Text>
         <ChevronUpIcon
           transform={showResultList && "rotate(180deg)"}

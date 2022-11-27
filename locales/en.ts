@@ -130,6 +130,8 @@ export default {
     toDisplay: "to display",
     results: "Results",
     timeRemaining: "Time Remaining",
+    gameDetails: "Game Details",
+    hasAlreadyBeenAnswered: "has already been answered!",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",

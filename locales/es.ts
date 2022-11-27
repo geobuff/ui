@@ -132,6 +132,8 @@ export default {
     toDisplay: "mostrar",
     results: "Resultados",
     timeRemaining: "Tiempo restante",
+    gameDetails: "Detalles del juego",
+    hasAlreadyBeenAnswered: "ya se ha respondido!",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
