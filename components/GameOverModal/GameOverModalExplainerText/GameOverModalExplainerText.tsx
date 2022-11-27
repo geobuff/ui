@@ -1,16 +1,11 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Box, Button, Text } from "@chakra-ui/react";
 
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
 import { LeaderboardEntry } from "../../../types/leaderboard-entry";
 import GameExistingEntry from "../../GameExistingEntry";
-
-const explainerScoreQuizLoggedIn =
-  "If this score is greater than your existing score, we will update it behind the scenes.";
-const explainerNoExistingEntry =
-  "No existing entry for this quiz. By clicking submit you will create a new leaderboard entry.";
-const explainerExistingEntry =
-  "You have an existing entry for this quiz. By clicking submit you will update your existing entry.";
 
 interface ExplainerTextProps {
   [x: string]: any;
@@ -46,6 +41,8 @@ const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
   onSubmit = (existingEntry: LeaderboardEntry): void => {},
   onRedirectWithScore = (path: string): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const scoreQuizNotLoggedIn = !onSubmit && !isLoggedIn;
   const scoreQuizLoggedIn = !onSubmit && isLoggedIn;
   const leaderboardQuizNotLoggedIn = onSubmit && !isLoggedIn;
@@ -103,22 +100,32 @@ const GameOverModalExplainerText: FC<GameOverModalExplainerTextProps> = ({
   }
 
   if (scoreQuizLoggedIn) {
-    return <ExplainerText> {explainerScoreQuizLoggedIn}</ExplainerText>;
+    return (
+      <ExplainerText>
+        {t.gameOverModalExplainerText.scoreQuizLoggedInExplainer}
+      </ExplainerText>
+    );
   }
 
   if (!isLoading && !existingEntry) {
-    return <ExplainerText> {explainerNoExistingEntry}</ExplainerText>;
+    return (
+      <ExplainerText>
+        {t.gameOverModalExplainerText.noExistingEntryExplainer}
+      </ExplainerText>
+    );
   }
 
   return (
     <Box>
       <ExplainerText textAlign="left" fontWeight="bold" color="black">
-        {"EXISTING ENTRY"}
+        {t.gameOverModalExplainerText.existingEntry}
       </ExplainerText>
       <Box marginY={3}>
         <GameExistingEntry isLoading={isLoading} {...existingEntry} />
       </Box>
-      <ExplainerText marginTop={2}>{explainerExistingEntry}</ExplainerText>
+      <ExplainerText marginTop={2}>
+        {t.gameOverModalExplainerText.existingEntryExplainer}
+      </ExplainerText>
     </Box>
   );
 };

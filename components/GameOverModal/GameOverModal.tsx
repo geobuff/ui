@@ -1,14 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
-import {
-  Box,
-  Button,
-  Divider,
-  Flex,
-  Text,
-  Tooltip,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Box, Button, Divider, Flex, Text, Tooltip } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
@@ -18,9 +12,6 @@ import Modal from "../Modal";
 import GameOverModalExplainerText from "./GameOverModalExplainerText";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={6} />;
-
-const explainerCloseModal =
-  "Feel free to close this modal to view the map and your results. Don’t worry, you’ll still be able to submit your score afterwards!";
 
 export interface Props {
   quizName?: string;
@@ -53,6 +44,8 @@ const GameOverModal: FC<Props> = ({
   onSubmit = (existingEntry: LeaderboardEntry): void => {},
   onRedirectWithScore = (path: string): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const footer = onSubmit ? (
     <Button
       colorScheme="green"
@@ -60,7 +53,7 @@ const GameOverModal: FC<Props> = ({
       isDisabled={!isLoggedIn || isSubmitting || isLoading}
       marginBottom={isNotchedIphone ? 4 : 0}
     >
-      {"Submit"}
+      {t.global.submit}
     </Button>
   ) : (
     <Box height="30px" />
@@ -81,9 +74,9 @@ const GameOverModal: FC<Props> = ({
       >
         <ArrowLeft height={5} width={5} marginRight={1} />
         <Text fontWeight="bold" fontSize="14px">
-          {"View map & results"}
+          {t.gameOverModal.backToMapText}
         </Text>
-        <Tooltip padding={2} label={explainerCloseModal}>
+        <Tooltip padding={2} label={t.gameOverModal.backToMapExplainer}>
           <Text>
             <SolidQuestionMarkCircle
               height={3}
@@ -99,7 +92,7 @@ const GameOverModal: FC<Props> = ({
       <Box padding={{ base: 4, md: 8 }}>
         <Box textAlign="center">
           <Text fontSize="46px" fontWeight="black">
-            {"GAME OVER"}
+            {t.global.gameOver}
           </Text>
 
           <Text color="#828282" fontSize="22px" fontWeight="bold">
@@ -112,7 +105,7 @@ const GameOverModal: FC<Props> = ({
         <Flex marginY={4} marginX={2} justifyContent="space-between">
           <Box>
             <Text fontSize="16px" fontWeight="bold">
-              {"SCORE"}
+              {t.global.score.toUpperCase()}
             </Text>
             <Flex alignItems="flex-end">
               <Text
@@ -137,7 +130,7 @@ const GameOverModal: FC<Props> = ({
           </Box>
           <Box>
             <Text fontSize="16px" fontWeight="bold">
-              {"TIME"}
+              {t.global.time.toUpperCase()}
             </Text>
             <Text
               fontSize="46px"
