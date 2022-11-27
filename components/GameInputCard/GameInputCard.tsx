@@ -1,4 +1,4 @@
-import React, { FC, createRef, useEffect } from "react";
+import React, { FC, createRef, useContext, useEffect } from "react";
 
 import {
   Box,
@@ -12,6 +12,8 @@ import {
   InputRightElement,
   Text,
 } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
@@ -64,6 +66,8 @@ const GameInputCard: FC<Props> = ({
   onGameStart = (): void => {},
   onGameStop = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const inputRef = createRef<HTMLInputElement>();
   const isFlagGame = typeId === QuizTypes.FLAG;
 
@@ -81,7 +85,7 @@ const GameInputCard: FC<Props> = ({
   return (
     <Flex backgroundColor="#F0F0F0" borderRadius={12} direction="column" p={5}>
       <Box mb={5}>
-        <Text fontWeight="bold">{"SCORE"}</Text>
+        <Text fontWeight="bold">{t.global.score.toUpperCase()}</Text>
         <GameInputCardScore score={score} maxScore={maxScore} />
       </Box>
       {divider}
@@ -94,7 +98,7 @@ const GameInputCard: FC<Props> = ({
               isDisabled={!hasGameStarted}
               onChange={onChange}
               my={5}
-              placeholder={`Enter ${plural}...`}
+              placeholder={`${t.global.enter} ${plural}...`}
               value={inputValue}
             />
             <Fade in={!!errorMessage} unmountOnExit>
@@ -114,7 +118,7 @@ const GameInputCard: FC<Props> = ({
               {inputValue && (
                 <Fade in={inputValue?.length > 0}>
                   <IconButton
-                    aria-label="close circle"
+                    aria-label={t.global.closeCircle}
                     position="absolute"
                     top="27px"
                     right={3}
@@ -157,13 +161,17 @@ const GameInputCard: FC<Props> = ({
           size="lg"
         >
           <Text fontWeight="700" fontSize="24px">
-            {hasGameStarted ? "GIVE UP" : hasGameRunOnce ? "RETRY" : "START"}
+            {hasGameStarted
+              ? t.global.giveUp.toUpperCase()
+              : hasGameRunOnce
+              ? t.global.retry.toUpperCase()
+              : t.global.start.toUpperCase()}
           </Text>
         </Button>
       </Box>
       {divider}
       <Box mt={4}>
-        <Text fontWeight="bold">{"RECENT"}</Text>
+        <Text fontWeight="bold">{t.global.recent.toUpperCase()}</Text>
         <ResultsList results={recents} plural={plural} hasFlags={hasFlags} />
       </Box>
     </Flex>

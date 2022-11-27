@@ -11,6 +11,7 @@ import {
 import Sheet from "react-modal-sheet";
 
 import { AppContext } from "../../../context/AppContext";
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { MappingEntry } from "../../../types/mapping-entry";
@@ -57,6 +58,8 @@ const GameMapQuizBottomSheet: FC<Props> = ({
   onGameStart = (): void => {},
   onGameStop = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const ref = createRef<any>();
   const isMobile = useBreakpointValue({ base: true, md: false });
   const { isNavSidebarOpen } = useContext(AppContext);
@@ -71,10 +74,10 @@ const GameMapQuizBottomSheet: FC<Props> = ({
   const snapTo = (snapIndex: number): void => ref?.current?.snapTo(snapIndex);
 
   const gameControlButtonText = hasGameStarted
-    ? "GIVE UP"
+    ? t.global.giveUp.toUpperCase()
     : hasGameRunOnce
-    ? "RETRY"
-    : "START";
+    ? t.global.retry.toUpperCase()
+    : t.global.start.toUpperCase();
 
   return (
     <Box
@@ -153,7 +156,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
 
             <Box mt={2} mb={4}>
               <Text fontWeight="bold" mb={1}>
-                {"RECENT"}
+                {t.global.recent.toUpperCase()}
               </Text>
               <ResultsList
                 results={recents}

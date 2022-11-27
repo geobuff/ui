@@ -1,4 +1,4 @@
-import React, { FC, createRef, useEffect } from "react";
+import React, { FC, createRef, useContext, useEffect } from "react";
 
 import {
   Box,
@@ -11,6 +11,8 @@ import {
   Text,
   Tooltip,
 } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
@@ -49,6 +51,8 @@ const GameInputBanner: FC<Props> = ({
   onChange = (event: React.ChangeEvent<HTMLInputElement>): void => {},
   onClearInput = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const isFlagGame = typeId === QuizTypes.FLAG;
   const inputRef = createRef<HTMLInputElement>();
 
@@ -63,7 +67,7 @@ const GameInputBanner: FC<Props> = ({
     inputRef.current.focus();
   };
 
-  const scoreLabel = `${score} of ${maxScore} ${plural}`;
+  const scoreLabel = `${score} ${t.global.of} ${maxScore} ${plural}`;
 
   const scoreNode = (
     <>
@@ -134,14 +138,14 @@ const GameInputBanner: FC<Props> = ({
               ref={inputRef}
               isDisabled={!hasGameStarted}
               isInvalid={hasError}
-              placeholder={`Enter ${plural}...`}
+              placeholder={`${t.global.enter} ${plural}...`}
               onChange={onChange}
               value={inputValue}
             />
             <InputRightElement>
               <Fade in={inputValue?.length > 0}>
                 <IconButton
-                  aria-label="close circle"
+                  aria-label={t.global.closeCircle}
                   right={3}
                   maxHeight="22px"
                   minWidth="22px"
