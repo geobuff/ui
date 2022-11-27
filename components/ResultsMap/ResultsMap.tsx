@@ -1,7 +1,9 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useContext, useMemo } from "react";
 
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { AutoSizer, List as VirtualizedList } from "react-virtualized";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { getResults } from "../../helpers/results-list";
 import { MappingEntry } from "../../types/mapping-entry";
@@ -29,6 +31,8 @@ const ResultsMap: FC<Props> = ({
   hasGroupings = false,
   hasFlags = false,
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const results = useMemo(
     () =>
       Object.entries(map).map(([key, mapping]) => ({
@@ -82,7 +86,7 @@ const ResultsMap: FC<Props> = ({
         <>
           <Divider my={3} />
           <Text fontSize="xl" fontWeight="bold">
-            {"Results"}
+            {t.global.results}
           </Text>
           <Divider my={3} />
         </>

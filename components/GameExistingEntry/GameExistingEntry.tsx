@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Box, Flex, Skeleton, Text } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { formatNumber } from "../../helpers/number";
 import { secondsToMinutesString } from "../../helpers/time";
@@ -19,69 +21,73 @@ const GameExistingEntry: FC<Props> = ({
   time = 900,
   username = "",
   isLoading = true,
-}) => (
-  <Flex
-    borderRadius={12}
-    backgroundColor="#F0F0F0"
-    justifyContent="space-between"
-    paddingY={3}
-    paddingX={4}
-  >
-    <Box>
-      <Text color="#768389" fontSize="10px" fontWeight="bold">
-        {"RANK"}
-      </Text>
-      {isLoading ? (
-        <Skeleton height="20px" width="100%" />
-      ) : (
-        <Text fontSize="14px" fontWeight="bold">
-          {formatNumber(rank)}
+}) => {
+  const { t } = useContext(LanguageContext);
+
+  return (
+    <Flex
+      borderRadius={12}
+      backgroundColor="#F0F0F0"
+      justifyContent="space-between"
+      paddingY={3}
+      paddingX={4}
+    >
+      <Box>
+        <Text color="#768389" fontSize="10px" fontWeight="bold">
+          {t.global.rank.toUpperCase()}
         </Text>
-      )}
-    </Box>
-    <Box>
-      <Text color="#768389" fontSize="10px" fontWeight="bold">
-        {"USERNAME"}
-      </Text>
-      {isLoading ? (
-        <Skeleton height="20px" width="100%" />
-      ) : (
-        <Text
-          fontSize="14px"
-          fontWeight="bold"
-          maxWidth="150px"
-          marginRight={1}
-          noOfLines={1}
-        >
-          {username}
+        {isLoading ? (
+          <Skeleton height="20px" width="100%" />
+        ) : (
+          <Text fontSize="14px" fontWeight="bold">
+            {formatNumber(rank)}
+          </Text>
+        )}
+      </Box>
+      <Box>
+        <Text color="#768389" fontSize="10px" fontWeight="bold">
+          {t.global.username.toUpperCase()}
         </Text>
-      )}
-    </Box>
-    <Box>
-      <Text color="#768389" fontSize="10px" fontWeight="bold">
-        {"TIME"}
-      </Text>
-      {isLoading ? (
-        <Skeleton height="20px" width="100%" />
-      ) : (
-        <Text fontSize="14px" fontWeight="bold">
-          {secondsToMinutesString(time)}
+        {isLoading ? (
+          <Skeleton height="20px" width="100%" />
+        ) : (
+          <Text
+            fontSize="14px"
+            fontWeight="bold"
+            maxWidth="150px"
+            marginRight={1}
+            noOfLines={1}
+          >
+            {username}
+          </Text>
+        )}
+      </Box>
+      <Box>
+        <Text color="#768389" fontSize="10px" fontWeight="bold">
+          {t.global.time.toUpperCase()}
         </Text>
-      )}
-    </Box>
-    <Box>
-      <Text color="#768389" fontSize="10px" fontWeight="bold">
-        {"SCORE"}
-      </Text>
-      {isLoading ? (
-        <Skeleton height="20px" width="100%" />
-      ) : (
-        <Text fontSize="14px" fontWeight="bold">
-          {score}
+        {isLoading ? (
+          <Skeleton height="20px" width="100%" />
+        ) : (
+          <Text fontSize="14px" fontWeight="bold">
+            {secondsToMinutesString(time)}
+          </Text>
+        )}
+      </Box>
+      <Box>
+        <Text color="#768389" fontSize="10px" fontWeight="bold">
+          {t.global.score.toUpperCase()}
         </Text>
-      )}
-    </Box>
-  </Flex>
-);
+        {isLoading ? (
+          <Skeleton height="20px" width="100%" />
+        ) : (
+          <Text fontSize="14px" fontWeight="bold">
+            {score}
+          </Text>
+        )}
+      </Box>
+    </Flex>
+  );
+};
 
 export default GameExistingEntry;

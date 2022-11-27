@@ -116,6 +116,24 @@ export default {
     question: "Pregunta",
     answers: "Respuestas",
     type: "Escribe",
+    of: "de",
+    gameOver: "JUEGO TERMINADO",
+    copyScore: "Copiar puntuación",
+    playAgain: "Juega de nuevo",
+    finish: "Finalizar",
+    nextQuestion: "Próxima pregunta",
+    start: "Comienzo",
+    submit: "Enviar",
+    enter: "Ingresar",
+    giveUp: "Abandonar",
+    recent: "Reciente",
+    retry: "Rever",
+    closeCircle: "circulo cerrado",
+    toDisplay: "mostrar",
+    results: "Resultados",
+    timeRemaining: "Tiempo restante",
+    gameDetails: "Detalles del juego",
+    hasAlreadyBeenAnswered: "ya se ha respondido!",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
@@ -389,6 +407,20 @@ export default {
     errorAlert:
       "Error al obtener pedidos. Actualice la página y vuelva a intentarlo.",
     noOrdersAlert: "No hay pedidos para mostrar.",
+  },
+  gameOverModal: {
+    backToMapText: "Ver mapa y resultados",
+    backToMapExplainer:
+      "Siéntase libre de cerrar este modal para ver el mapa y sus resultados. ¡No se preocupe, aún podrá enviar su puntaje después!",
+  },
+  gameOverModalExplainerText: {
+    existingEntry: "ENTRADA EXISTENTE",
+    scoreQuizLoggedInExplainer:
+      "Si este puntaje es mayor que su puntaje actual, lo actualizaremos en segundo plano.",
+    noExistingEntryExplainer:
+      "No existe ninguna entrada para este cuestionario. Al hacer clic en enviar, creará una nueva entrada en la tabla de clasificación.",
+    existingEntryExplainer:
+      "Tienes una entrada existente para este cuestionario. Al hacer clic en enviar, actualizará su entrada existente.",
   },
   playFlagGames: {
     title: "Juega juegos de banderas",

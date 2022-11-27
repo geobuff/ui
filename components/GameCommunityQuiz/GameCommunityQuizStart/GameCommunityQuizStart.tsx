@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   name?: string;
@@ -13,6 +15,8 @@ const GameCommunityQuizStart: FC<Props> = ({
   description = "",
   onGameStart = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Flex
       flex={1}
@@ -56,7 +60,7 @@ const GameCommunityQuizStart: FC<Props> = ({
           width="full"
           onClick={onGameStart}
         >
-          {"Start"}
+          {t.global.start}
         </Button>
       </Flex>
     </Flex>

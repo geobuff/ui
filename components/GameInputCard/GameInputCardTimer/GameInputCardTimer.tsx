@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Box, BoxProps, Text } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { toMinTwoDigits } from "../../../helpers/format-text";
 import { secondsToMinutesString } from "../../../helpers/time";
@@ -14,14 +16,20 @@ const Timer: FC<TimerProps> = ({
   children = null,
   shouldShowTitle = true,
   ...props
-}) => (
-  <Box {...props}>
-    {shouldShowTitle && <Text fontWeight="bold">{"TIME REMAINING"}</Text>}
-    <Text fontWeight={800} fontSize={props?.fontSize || "36px"}>
-      {children}
-    </Text>
-  </Box>
-);
+}) => {
+  const { t } = useContext(LanguageContext);
+
+  return (
+    <Box {...props}>
+      {shouldShowTitle && (
+        <Text fontWeight="bold">{t.global.timeRemaining.toUpperCase()}</Text>
+      )}
+      <Text fontWeight={800} fontSize={props?.fontSize || "36px"}>
+        {children}
+      </Text>
+    </Box>
+  );
+};
 
 export interface Props extends BoxProps {
   totalSeconds?: number;

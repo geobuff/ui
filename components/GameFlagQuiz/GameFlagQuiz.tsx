@@ -15,6 +15,7 @@ import { useRouter } from "next/router";
 import { useTimer } from "react-timer-hook";
 
 import { AppContext } from "../../context/AppContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 
@@ -86,6 +87,8 @@ const GameFlagQuiz: FC<Props> = ({
   hasGrouping = false,
   mapping = [],
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const isMobile = useBreakpointValue({ base: true, lg: false });
   const router = useRouter();
 
@@ -415,7 +418,7 @@ const GameFlagQuiz: FC<Props> = ({
                 >
                   <FlagDropZone
                     acceptedFlagName={acceptedFlag?.svgName}
-                    subtitle={`${score} of ${maxScore} ${plural}`}
+                    subtitle={`${score} ${t.global.of} ${maxScore} ${plural}`}
                     hasGameStarted={hasGameStarted}
                     submissionCorrect={submissionCorrect}
                     submissionIncorrect={submissionIncorrect}
@@ -462,14 +465,14 @@ const GameFlagQuiz: FC<Props> = ({
                 <Box position="fixed" top="130px" left="20px">
                   <Button onClick={onOpen}>
                     <SolidChevronUp marginRight={2} />
-                    {"Game Details"}
+                    {t.global.gameDetails}
                   </Button>
                 </Box>
               ) : (
                 <Box position="fixed" bottom="20px" right="20px">
                   <Button onClick={onOpen}>
                     <SolidChevronUp marginRight={2} />
-                    {"Game Details"}
+                    {t.global.gameDetails}
                   </Button>
                 </Box>
               )}

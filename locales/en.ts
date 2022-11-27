@@ -114,6 +114,24 @@ export default {
     question: "Question",
     answers: "Answers",
     type: "Type",
+    of: "of",
+    gameOver: "GAME OVER",
+    copyScore: "Copy Score",
+    playAgain: "Play Again",
+    finish: "Finish",
+    nextQuestion: "Next Question",
+    start: "Start",
+    submit: "Submit",
+    enter: "Enter",
+    giveUp: "Give Up",
+    recent: "Recent",
+    retry: "Retry",
+    closeCircle: "close circle",
+    toDisplay: "to display",
+    results: "Results",
+    timeRemaining: "Time Remaining",
+    gameDetails: "Game Details",
+    hasAlreadyBeenAnswered: "has already been answered!",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",
@@ -377,6 +395,20 @@ export default {
   myOrders: {
     errorAlert: "Error fetching orders. Please refresh the page and try again.",
     noOrdersAlert: "No orders to display.",
+  },
+  gameOverModal: {
+    backToMapText: "View map & results",
+    backToMapExplainer:
+      "Feel free to close this modal to view the map and your results. Don't worry, you'll still be able to submit your score afterwards!",
+  },
+  gameOverModalExplainerText: {
+    existingEntry: "EXISTING ENTRY",
+    scoreQuizLoggedInExplainer:
+      "If this score is greater than your existing score, we will update it behind the scenes.",
+    noExistingEntryExplainer:
+      "No existing entry for this quiz. By clicking submit you will create a new leaderboard entry.",
+    existingEntryExplainer:
+      "You have an existing entry for this quiz. By clicking submit you will update your existing entry.",
   },
   playFlagGames: {
     title: "Play Flag Games",

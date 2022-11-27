@@ -1,6 +1,8 @@
-import React, { FC, useMemo } from "react";
+import React, { FC, useContext, useMemo } from "react";
 
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { getRandomCollectionItem } from "../../../helpers/random";
 import { SCORE_RESPONSES } from "../../../helpers/responses";
@@ -33,6 +35,8 @@ const GameCommunityQuizGameOver: FC<Props> = ({
   onCopyScore = () => {},
   onPlayAgain = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   // useMemo prevents getScoreSubtitle from
   // getting different values on each render
   const scoreSubtitle = useMemo(
@@ -58,7 +62,7 @@ const GameCommunityQuizGameOver: FC<Props> = ({
           fontSize={{ base: "46px", md: "72px" }}
           fontWeight="extrabold"
         >
-          {"GAME OVER"}
+          {t.global.gameOver}
         </Heading>
 
         <Box marginY={16}>
@@ -92,7 +96,7 @@ const GameCommunityQuizGameOver: FC<Props> = ({
           width="full"
           onClick={onCopyScore}
         >
-          {"Copy Score"}
+          {t.global.copyScore}
         </Button>
 
         <Button
@@ -107,7 +111,7 @@ const GameCommunityQuizGameOver: FC<Props> = ({
           width="full"
           onClick={onPlayAgain}
         >
-          {"Play Again"}
+          {t.global.playAgain}
         </Button>
       </Flex>
     </Flex>

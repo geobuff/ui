@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Button, ButtonProps, Text } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 export interface Props extends ButtonProps {
   hasGameRunOnce: boolean;
@@ -16,6 +18,8 @@ const GameBannerButton: FC<Props> = ({
   onGameStop,
   ...props
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Button
       colorScheme={hasGameStarted ? "red" : "green"}
@@ -28,7 +32,11 @@ const GameBannerButton: FC<Props> = ({
       {...props}
     >
       <Text fontWeight="700" fontSize="22px">
-        {hasGameStarted ? "GIVE UP" : hasGameRunOnce ? "RETRY" : "START"}
+        {hasGameStarted
+          ? t.global.giveUp.toUpperCase()
+          : hasGameRunOnce
+          ? t.global.retry.toUpperCase()
+          : t.global.start.toUpperCase()}
       </Text>
     </Button>
   );
