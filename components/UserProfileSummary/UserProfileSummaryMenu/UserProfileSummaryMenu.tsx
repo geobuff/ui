@@ -69,7 +69,7 @@ const UserProfileSummaryMenu: FC<Props> = ({
         {!!downloadData.length && (
           <MenuItem>
             <Flex alignItems="center" maxWidth="200px">
-              <CSVLink data={downloadData} filename={"data.csv"}>
+              <CSVLink data={downloadData} filename={`${t.global.data}.csv`}>
                 <SaveAlt
                   color="gray.600"
                   fontWeight="bold"

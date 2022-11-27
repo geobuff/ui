@@ -1,6 +1,8 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Alert, AlertIcon, Flex, SimpleGrid, Spinner } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { UnsplashImage } from "../../types/unsplash-image";
 import RadioImage from "../RadioImage";
@@ -20,6 +22,8 @@ const UnsplashImageGrid: FC<Props> = ({
   imageUrlRadioGroup = null,
   getImageUrlRadioProps = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   if (isSearching) {
     return (
       <Flex justifyContent="center" mt={6}>
@@ -32,7 +36,7 @@ const UnsplashImageGrid: FC<Props> = ({
     return (
       <Alert status="info" borderRadius={6} marginBottom={3}>
         <AlertIcon />
-        {`Image search returned zero items. Please try again.`}
+        {t.unsplashImageGrid.noImagesFound}
       </Alert>
     );
   }

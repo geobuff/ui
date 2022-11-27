@@ -1,7 +1,9 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import UserProfileMyQuizzesTable from "../../components/UserProfileMyQuizzes/UserProfileMyQuizzesTable";
@@ -19,6 +21,8 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
   quizzes = [],
   isCurrentUser = false,
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const toast = useToast();
   const { data: session } = useSession();
 
@@ -82,8 +86,8 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
         onCopyLink={handleCopyLink}
       />
       <DeleteModal
-        header="Delete Community Quiz"
-        message="Are you sure you want to delete this quiz? All corresponding questions, answers and quiz plays will be deleted with it."
+        header={t.deleteCommunityQuizModal.header}
+        message={t.deleteCommunityQuizModal.message}
         isOpen={isDeleteQuizModalOpen}
         onClose={onDeleteQuizModalClose}
         onSubmit={handleSubmit}

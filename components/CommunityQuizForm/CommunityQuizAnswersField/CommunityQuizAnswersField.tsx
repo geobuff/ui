@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import {
   Flex,
@@ -9,6 +9,8 @@ import {
   Radio,
 } from "@chakra-ui/react";
 import { Field } from "formik";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import axiosClient from "../../../axios";
 import SelectFormField from "../../FormFields/SelectFormField";
@@ -28,7 +30,7 @@ export interface Props extends FlexProps {
 const CommunityQuizAnswersField: FC<Props> = ({
   name,
   label,
-  placeholder = "Enter answer...",
+  placeholder = "",
   value,
   isChecked = false,
   hasFlagAnswers = false,
@@ -37,6 +39,8 @@ const CommunityQuizAnswersField: FC<Props> = ({
   onChangeFlagCode = () => {},
   ...props
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const [flagEntries, setFlagEntries] = useState([]);
   const [isFlagEntriesLoading, setIsFlagEntriesLoading] = useState(false);
 
@@ -64,7 +68,7 @@ const CommunityQuizAnswersField: FC<Props> = ({
       {...props}
     >
       <FormLabel
-        htmlFor={"answerOne"}
+        htmlFor="answerOne"
         fontWeight="bold"
         color={isChecked && "green.500"}
       >
@@ -87,7 +91,10 @@ const CommunityQuizAnswersField: FC<Props> = ({
                 <FormControl>
                   <SelectFormField
                     name={`${name}.flagCode`}
-                    defaultValue={{ label: "Flag code", value: "" }}
+                    defaultValue={{
+                      label: t.communityQuizAnswersField.flagCodeLabel,
+                      value: "",
+                    }}
                     minWidth={{ base: "100%", md: "130px" }}
                     isInvalid={
                       (!isChecked &&
@@ -118,7 +125,11 @@ const CommunityQuizAnswersField: FC<Props> = ({
                 {...field}
                 id={name}
                 type="text"
-                placeholder={placeholder}
+                placeholder={
+                  placeholder
+                    ? placeholder
+                    : t.communityQuizAnswersField.placeholder
+                }
                 size="lg"
                 fontSize="16px"
                 fontWeight={400}

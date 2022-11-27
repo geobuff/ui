@@ -44,4 +44,12 @@
     ],
     "description": "Boilerplate for a hook."
   },
+  "Language Context": {
+    "prefix": ["lc"],
+    "scope": "typescriptreact",
+    "body": [
+      "const { t } = useContext(LanguageContext);",
+    ],
+    "description": "Initialise variable to access translations."
+  },
 }

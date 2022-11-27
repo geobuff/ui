@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useContext } from "react";
 
 import { Flex, Heading } from "@chakra-ui/react";
 import Head from "next/head";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import CommunityQuizFormContainer from "../../containers/CommunityQuizFormContainer";
 
@@ -10,10 +12,12 @@ import HeroHeader from "../../components/HeroHeader";
 import MainView from "../../components/MainView";
 
 export default function Create(): JSX.Element {
+  const { t } = useContext(LanguageContext);
+
   return (
     <>
       <Head>
-        <title>{"Create Community Quiz - GeoBuff"}</title>
+        <title>{`${t.createCommunityQuiz.title} - GeoBuff`}</title>
         <meta
           name="description"
           content="Create your own quiz with our Community Quiz builder! Perfect for teachers or those looking to spice up their next team meeting."
@@ -33,8 +37,7 @@ export default function Create(): JSX.Element {
           justifyContent="center"
         >
           <Card padding={{ base: 6, md: 8 }}>
-            <Heading>{"Create Community Quiz"}</Heading>
-
+            <Heading>{t.createCommunityQuiz.title}</Heading>
             <Flex width="100%" marginTop={10}>
               <CommunityQuizFormContainer />
             </Flex>

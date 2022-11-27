@@ -52,7 +52,7 @@ export default {
     username: "Username",
     usernamePlaceholder: "Enter username...",
     country: "Country",
-    selectCountry: "select a country...",
+    selectCountry: "Select a country...",
     loadingCountries: "Loading countries...",
     privacyPolicy: "Privacy Policy",
     termsOfService: "Terms of Service",
@@ -103,6 +103,17 @@ export default {
     contactUs: "Contact Us",
     ashleyMidgley: "Ashley Midgley",
     companyEmail: "teamgeobuff@gmail.com",
+    cancel: "Cancel",
+    update: "Update",
+    data: "data",
+    true: "True",
+    false: "False",
+    yes: "Yes",
+    no: "No",
+    addQuestion: "Add Question",
+    question: "Question",
+    answers: "Answers",
+    type: "Type",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",
@@ -280,6 +291,161 @@ export default {
   },
   userProfileLeaderboardEntries: {
     title: "Leaderboard Entries",
+  },
+  updateUserFormModal: {
+    title: "Update Profile",
+  },
+  deleteAccountModal: {
+    header: "Delete Account",
+    message:
+      "Are you sure you want to delete your account? You will not be able to recover any of the data once this action is complete.",
+  },
+  deleteCommunityQuizModal: {
+    header: "Delete Community Quiz",
+    message:
+      "Are you sure you want to delete this quiz? All corresponding questions, answers and quiz plays will be deleted with it.",
+  },
+  createCommunityQuiz: {
+    title: "Create Community Quiz",
+  },
+  editCommunityQuiz: {
+    title: "Edit Community Quiz",
+  },
+  communityQuizForm: {
+    quizNameLabel: "Quiz Name",
+    quizNameHelper: "Keep it concise and memorable!",
+    quizNamePlaceholder: "Enter quiz name...",
+    descriptionLabel: "Description",
+    descriptionHelper:
+      "The description helps your quiz stand out from the rest.",
+    descriptionPlaceholder: "Enter description...",
+    isPublicLabel: "Is Public?",
+    isPublicHelper:
+      "Public quizzes are visible to all users. Private quizzes give you the option to share a link with others.",
+    createQuiz: "Create Quiz",
+    editQuiz: "Edit Quiz",
+    mustAddQuestionAlert: "You must add at least one question.",
+  },
+  communityQuizQuestionsField: {
+    noQuestionsAdded: "No questions added",
+  },
+  communityQuizQuestionForm: {
+    questionLabel: "Question",
+    questionPlaceholder: "Enter question...",
+    explainerLabel: "Explainer",
+    explainerPlaceholder: "Enter explainer...",
+    imageUrlLabel: "Image URL",
+    imageUrlPlaceholder: "Search image...",
+    flagCategoryLabel: "Flag Category",
+    flagCodeLabel: "Flag Code",
+    mapLabel: "Map",
+    highlightedLabel: "Highlighted",
+    flagAnswerCategoryLabel: "Flag Answer Category",
+    correctAnswerError: "Please select a correct answer.",
+    twoAnswersError: "Please add at least two answers.",
+    answerOne: "Answer One",
+    answerTwo: "Answer Two",
+    answerThree: "Answer Three (Optional)",
+    answerFour: "Answer Four (Optional)",
+  },
+  unsplashImageGrid: {
+    noImagesFound: "Image search returned zero items. Please try again.",
+  },
+  questionTypeValuePreview: {
+    photoBy: "Photo by ",
+    on: " on ",
+    unsplash: "Unsplash",
+  },
+  communityQuizHasAnswersField: {
+    label: "Do answers have flags?",
+    helper: "Enables answer buttons to contain flag images",
+  },
+  communityQuizAnswersField: {
+    placeholder: "Enter answer...",
+    flagCodeLabel: "Flag Code",
+  },
+  selectFormField: {
+    defaultLabel: "Select a value...",
+  },
+  communityQuizFlagSelectField: {
+    imageAlt: "Flag example",
+    placeholder: "Select a flag code...",
+  },
+  communityQuizQuestionsTable: {
+    editAriaLabel: "Edit question",
+  },
+  myOrders: {
+    errorAlert: "Error fetching orders. Please refresh the page and try again.",
+    noOrdersAlert: "No orders to display.",
+  },
+  playFlagGames: {
+    title: "Play Flag Games",
+    description:
+      "How well do you know the Flags of the World? Test your Vexillology and Geography skills with our collection of interactive drag and drop flag games!",
+    question: "Heard enough?",
+    actionText: "Click here to check out our collection!",
+    imageAltOne: "Game start",
+    explainerOne:
+      "How well do you know the Flags of the World? Test your Vexillology skills with our collection of interactive drag and drop flag games!",
+    imageAltTwo: "Flag drag example",
+    explainerTwo: "Drag your way to victory in this race against the clock.",
+    imageAltThree: "Flag drop example",
+    explainerThree:
+      "Our responsive UI let's you know when you're on the right track or when you've accidently got Costa Rica mixed up with Croatia.",
+  },
+  playDailyTrivia: {
+    title: "Daily Geography Trivia",
+    description:
+      "Dog ate your Geography homework? Our auto-generating daily Geography trivia is perfect for getting you back up to speed on everything geo-related.",
+    question: "Heard enough?",
+    actionText: "Click here to get stuck into today's quiz!",
+    imageAltOne: "Desktop map question",
+    explainerOne:
+      "Dog ate your Geography homework? Our auto-generating daily trivia is perfect for getting you back up to speed on everything geo-related.",
+    imageAltTwo: "Mobile flag question",
+    explainerTwo:
+      "Our responsive UI works seamlessly between desktop and mobile so you can learn on the go or at home on the big screen.",
+    imageAltThree: "Desktop image question",
+    explainerThree:
+      "Questions on maps, flags, landmarks, currencies, rivers, mountains, borders, exports, national sports and more...",
+    imageAltFour: "Game over example",
+    explainerFour:
+      "Copy your score and share with friends so they know you're ready to drop those Countries of the World at a moments notice.",
+  },
+  playMapGames: {
+    title: "Play Map Games",
+    description:
+      "How well do you know the Countries of the World? Test your Cartography and Geography knowledge with our collection of interactive map games!",
+    question: "Heard enough?",
+    actionText: "Click here to check out our collection!",
+    imageAltOne: "Games list example",
+    explainerOne:
+      "How well do you know the Countries of the World? Test your Cartography knowledge with our extensive collection of interactive map games!",
+    imageAltTwo: "Game start example",
+    explainerTwo:
+      "Our responsive UI works seamlessly between desktop and mobile so you can learn on the go or at home on the big screen.",
+    imageAltThree: "Mid-game example",
+    explainerThree:
+      "Type your way to victory in this race against the clock. Can you beat the fastest time on the leaderboard?",
+  },
+  createCommunityQuizzes: {
+    title: "Create Community Quizzes",
+    description:
+      "Looking to create custom quizzes with high quality maps, flags and images? Use our quiz builder to create the perfect brain scratcher for your friends, students or workmates!",
+    question: "Heard enough?",
+    actionText: "Sign up today to start creating your own!",
+    imageAltOne: "Quiz builder example",
+    explainerOne:
+      "Looking to create custom quizzes with high quality maps, flags and images? Use our quiz builder to create the perfect brain scratcher for your friends, students or workmates!",
+    imageAltTwo: "Game start example",
+    explainerTwo:
+      "Utilise our extensive collection of map or flag resources to fine tune each question.",
+    imageAltThree: "Public/private toggle example",
+    explainerThree:
+      "Make your quiz public to see how our community of GeoBuff's fare or keep it private to share with your friends.",
+    imageAltFour: "My quizzes example",
+    explainerFour:
+      "View, edit or delete your quizzes and check the quiz plays in your user profile!",
   },
   privacyPolicy: {
     sectionOnePartOne:

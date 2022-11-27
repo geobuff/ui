@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 import {
   Button,
@@ -16,12 +16,13 @@ import { Field, Form, Formik } from "formik";
 import { debounce } from "throttle-debounce";
 import * as Yup from "yup";
 
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+
 import useFlagGroups from "../../../hooks/UseFlagGroups";
 
 import Search from "../../../Icons/Search";
 import axiosClient from "../../../axios";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
-import { FormOption } from "../../../types/form";
 import { GetMapsDto } from "../../../types/get-maps-dto";
 import { QuestionType } from "../../../types/manual-trivia-question-form-submit";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
@@ -35,13 +36,6 @@ import CommunityQuizAnswersField from "../CommunityQuizAnswersField";
 import CommunityQuizFlagSelectField from "../CommunityQuizFlagSelectField";
 import CommunityQuizFormField from "../CommunityQuizFormField";
 import CommunityQuizHasAnswersField from "../CommunityQuizHasAnswersField";
-
-const answers = [
-  "Answer One",
-  "Answer Two",
-  "Answer Three (Optional)",
-  "Answer Four (Optional)",
-];
 
 const initialValues: CommunityQuizFormQuestion = {
   typeId: "1",
@@ -106,6 +100,8 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   maps = [],
   ...props
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const [flagCategory, setFlagCategory] = useState("");
   const [flagAnswerCategory, setFlagAnswerCategory] = useState("");
   const [hasFlagAnswers, setHasFlagAnswers] = useState<boolean>(false);
@@ -113,6 +109,13 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   const [highlightedRegions, setHighlightedRegions] = useState([]);
 
   const { data: flagGroups } = useFlagGroups();
+
+  const answers = [
+    t.communityQuizQuestionForm.answerOne,
+    t.communityQuizQuestionForm.answerTwo,
+    t.communityQuizQuestionForm.answerThree,
+    t.communityQuizQuestionForm.answerFour,
+  ];
 
   const flagOptions = flagGroups.map((x) => {
     return {
@@ -170,7 +173,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
             <Form autoComplete="off" style={{ width: "100%" }}>
               <RadioGroupFormField
                 name="typeId"
-                label="Type"
+                label={t.global.type}
                 selectedValue={values.typeId}
                 options={options}
                 setFieldHelper={setFieldValue}
@@ -180,14 +183,14 @@ const CommunityQuizQuestionForm: FC<Props> = ({
 
               <CommunityQuizFormField
                 name="question"
-                label="Question"
-                placeholder="Enter question..."
+                label={t.communityQuizQuestionForm.questionLabel}
+                placeholder={t.communityQuizQuestionForm.questionPlaceholder}
               />
 
               <CommunityQuizFormField
                 name="explainer"
-                label="Explainer"
-                placeholder="Enter explainer..."
+                label={t.communityQuizQuestionForm.explainerLabel}
+                placeholder={t.communityQuizQuestionForm.explainerPlaceholder}
               />
 
               {values.typeId === QuestionType.Image && (
@@ -201,7 +204,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                           }
                         >
                           <FormLabel htmlFor="imageUrl" fontWeight="bold">
-                            {"Image URL"}
+                            {t.communityQuizQuestionForm.imageUrlLabel}
                           </FormLabel>
                           <InputGroup>
                             <InputLeftElement pointerEvents="none">
@@ -215,7 +218,9 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                             </InputLeftElement>
                             <Input
                               type="text"
-                              placeholder="Search image..."
+                              placeholder={
+                                t.communityQuizQuestionForm.imageUrlPlaceholder
+                              }
                               size="lg"
                               fontSize="16px"
                               fontWeight={400}
@@ -248,7 +253,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 <Flex>
                   <SelectFormField
                     name="flagCategory"
-                    label="Flag Category"
+                    label={t.communityQuizQuestionForm.flagCategoryLabel}
                     options={flagOptions}
                     onChange={({ target }) => {
                       setFlagCategory(target.value);
@@ -259,7 +264,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   />
                   <CommunityQuizFlagSelectField
                     name="flagCode"
-                    label="Flag Code"
+                    label={t.communityQuizQuestionForm.flagCodeLabel}
                     flagCategory={flagCategory}
                   />
                 </Flex>
@@ -269,7 +274,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 <Flex>
                   <SelectFormField
                     name="map"
-                    label="Map"
+                    label={t.communityQuizQuestionForm.mapLabel}
                     options={maps}
                     onChange={({ target }) => {
                       getHighlightRegionsByMap(target?.value);
@@ -280,7 +285,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                   />
                   <SelectFormField
                     name="highlighted"
-                    label="Highlighted"
+                    label={t.communityQuizQuestionForm.highlightedLabel}
                     options={highlightedRegions}
                     onChange={({ target }) =>
                       setFieldValue("highlighted", target?.value)
@@ -311,7 +316,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 <SelectFormField
                   name="hasFlagAnswers"
                   options={flagOptions}
-                  label="Flag Answer Category"
+                  label={t.communityQuizQuestionForm.flagAnswerCategoryLabel}
                   onChange={({ target }) => setFlagAnswerCategory(target.value)}
                   marginY={4}
                 />
@@ -338,14 +343,14 @@ const CommunityQuizQuestionForm: FC<Props> = ({
                 ))}
                 {errors.correctAnswer && (
                   <InlineErrorMessage
-                    message="Please select a correct answer"
+                    message={t.communityQuizQuestionForm.correctAnswerError}
                     marginY={2}
                   />
                 )}
 
                 {errors.answers && (
                   <InlineErrorMessage
-                    message="Please add at least two answers"
+                    message={t.communityQuizQuestionForm.twoAnswersError}
                     marginY={2}
                   />
                 )}
@@ -353,7 +358,7 @@ const CommunityQuizQuestionForm: FC<Props> = ({
 
               <Flex width="100%" justifyContent="flex-end">
                 <Button type="submit" colorScheme="green">
-                  {"Add Question"}
+                  {t.global.addQuestion}
                 </Button>
               </Flex>
             </Form>

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Box,
@@ -8,6 +8,8 @@ import {
   HStack,
   Text,
 } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import RadioButton from "../../RadioButton";
 
@@ -21,14 +23,16 @@ const CommunityQuizHasAnswersField: FC<Props> = ({
   onChange = () => {},
   ...props
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Flex width="100%" {...props}>
       <Box width="100%">
         <FormLabel htmlFor="answerOneText" fontWeight="bold">
-          {"Do answers have flags?"}
+          {t.communityQuizHasAnswersField.label}
         </FormLabel>
         <Text color="gray.500" fontSize="sm" mt={2} mr={6}>
-          {"Enables answer buttons to contain flag images"}
+          {t.communityQuizHasAnswersField.helper}
         </Text>
       </Box>
 
@@ -39,7 +43,7 @@ const CommunityQuizHasAnswersField: FC<Props> = ({
             onChange: () => onChange(false),
           }}
         >
-          {"No"}
+          {t.global.no}
         </RadioButton>
         <RadioButton
           radioProps={{
@@ -47,7 +51,7 @@ const CommunityQuizHasAnswersField: FC<Props> = ({
             onChange: () => onChange(true),
           }}
         >
-          {"Yes"}
+          {t.global.yes}
         </RadioButton>
       </HStack>
     </Flex>

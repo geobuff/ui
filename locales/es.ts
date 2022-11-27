@@ -105,6 +105,17 @@ export default {
     contactUs: "Contacta con nosotros",
     ashleyMidgley: "Ashley Midgley",
     companyEmail: "teamgeobuff@gmail.com",
+    cancel: "Cancelar",
+    update: "Actualizar",
+    data: "datos",
+    true: "Verdadero",
+    false: "Falso",
+    yes: "Si",
+    no: "No",
+    addQuestion: "Agregar pregunta",
+    question: "Pregunta",
+    answers: "Respuestas",
+    type: "Escribe",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
@@ -289,6 +300,166 @@ export default {
   },
   userProfileLeaderboardEntries: {
     title: "Entradas de clasificación",
+  },
+  updateUserFormModal: {
+    title: "Actualización del perfil",
+  },
+  deleteAccountModal: {
+    header: "Borrar cuenta",
+    message:
+      "¿Está seguro de que desea eliminar su cuenta? No podrá recuperar ninguno de los datos una vez que se complete esta acción.",
+  },
+  deleteCommunityQuizModal: {
+    header: "Eliminar cuestionario de la comunidad",
+    message:
+      "¿Está seguro de que desea eliminar este cuestionario? Todas las preguntas, respuestas y cuestionarios correspondientes se eliminarán con él.",
+  },
+  createCommunityQuiz: {
+    title: "Crear cuestionario comunitario",
+  },
+  editCommunityQuiz: {
+    title: "Editar cuestionario de la comunidad",
+  },
+  communityQuizForm: {
+    quizNameLabel: "Nombre del cuestionario",
+    quizNameHelper: "¡Manténgalo conciso y memorable!",
+    quizNamePlaceholder: "Introduce el nombre del cuestionario...",
+    descriptionLabel: "Descripción",
+    descriptionHelper:
+      "La descripción ayuda a que su cuestionario se destaque del resto.",
+    descriptionPlaceholder: "Introduce la descripción...",
+    isPublicLabel: "¿Es público?",
+    isPublicHelper:
+      "Los cuestionarios públicos son visibles para todos los usuarios. Los cuestionarios privados te dan la opción de compartir un enlace con otros.",
+    createQuiz: "Crear cuestionario",
+    editQuiz: "Editar cuestionario",
+    mustAddQuestionAlert: "Debe agregar al menos una pregunta.",
+  },
+  communityQuizQuestionsField: {
+    noQuestionsAdded: "No se agregaron preguntas",
+  },
+  communityQuizQuestionForm: {
+    questionLabel: "Pregunta",
+    questionPlaceholder: "Introduce la pregunta...",
+    explainerLabel: "Explicador",
+    explainerPlaceholder: "Introduce el explicador...",
+    imageUrlLabel: "URL de la imagen",
+    imageUrlPlaceholder: "Buscar imagen...",
+    flagCategoryLabel: "Categoría de bandera",
+    flagCodeLabel: "Código de bandera",
+    mapLabel: "Mapa",
+    highlightedLabel: "Destacado",
+    flagAnswerCategoryLabel: "Marcar la categoría de respuesta",
+    correctAnswerError: "Seleccione una respuesta correcta.",
+    twoAnswersError: "Agregue al menos dos respuestas.",
+    answerOne: "Respuesta uno",
+    answerTwo: "Respuesta dos",
+    answerThree: "Respuesta tres (opcional)",
+    answerFour: "Respuesta cuatro (opcional)",
+  },
+  unsplashImageGrid: {
+    noImagesFound:
+      "La búsqueda de imágenes no arrojó ningún elemento. Inténtalo de nuevo.",
+  },
+  questionTypeValuePreview: {
+    photoBy: "Foto por ",
+    on: " en ",
+    unsplash: "Unsplash",
+  },
+  communityQuizHasAnswersField: {
+    label: "¿Las respuestas tienen banderas?",
+    helper:
+      "Permite que los botones de respuesta contengan imágenes de bandera",
+  },
+  communityQuizAnswersField: {
+    placeholder: "Introduce la respuesta...",
+    flagCodeLabel: "Código de bandera",
+  },
+  selectFormField: {
+    defaultLabel: "Seleccione un valor...",
+  },
+  communityQuizFlagSelectField: {
+    imageAlt: "Ejemplo de bandera",
+    placeholder: "Seleccione un código de bandera...",
+  },
+  communityQuizQuestionsTable: {
+    editAriaLabel: "Editar pregunta",
+  },
+  myOrders: {
+    errorAlert:
+      "Error al obtener pedidos. Actualice la página y vuelva a intentarlo.",
+    noOrdersAlert: "No hay pedidos para mostrar.",
+  },
+  playFlagGames: {
+    title: "Juega juegos de banderas",
+    description:
+      "¿Qué tan bien conoces las Banderas del Mundo? ¡Pon a prueba tus habilidades de Vexilología y Geografía con nuestra colección de juegos interactivos de arrastrar y soltar banderas!",
+    question: "¿Escuchaste lo suficiente?",
+    actionText: "¡Haz clic aquí para ver nuestra colección!",
+    imageAltOne: "Empezar juego",
+    explainerOne:
+      "¿Qué tan bien conoces las Banderas del Mundo? ¡Pon a prueba tus habilidades de Vexilología con nuestra colección de juegos interactivos de arrastrar y soltar banderas!",
+    imageAltTwo: "Ejemplo de arrastre de bandera",
+    explainerTwo:
+      "Arrastra tu camino hacia la victoria en esta carrera contrarreloj.",
+    imageAltThree: "Ejemplo de caída de bandera",
+    explainerThree:
+      "Nuestra interfaz de usuario receptiva le permite saber cuándo está en el camino correcto o cuándo accidentalmente confundió a Costa Rica con Croacia.",
+  },
+  playDailyTrivia: {
+    title: "Curiosidades diarias de geografía",
+    description:
+      "¿El perro se comió tu tarea de geografía? Nuestra trivia de geografía diaria autogenerada es perfecta para ponerte al día con todo lo relacionado con la geografía.",
+    question: "¿Escuchaste lo suficiente?",
+    actionText:
+      "¡Haz clic aquí para quedarte atrapado en el cuestionario de hoy!",
+    imageAltOne: "Pregunta sobre el mapa de escritorio",
+    explainerOne:
+      "¿El perro se comió tu tarea de geografía? Nuestras trivias diarias autogeneradas son perfectas para ponerte al día con todo lo relacionado con la geografía.",
+    imageAltTwo: "Pregunta de bandera móvil",
+    explainerTwo:
+      "Nuestra interfaz de usuario receptiva funciona a la perfección entre el escritorio y el dispositivo móvil para que pueda aprender sobre la marcha o en casa en la pantalla grande.",
+    imageAltThree: "Pregunta de imagen de escritorio",
+    explainerThree:
+      "Preguntas sobre mapas, banderas, hitos, monedas, ríos, montañas, fronteras, exportaciones, deportes nacionales y más...",
+    imageAltFour: "Ejemplo de fin de juego",
+    explainerFour:
+      "Copie su puntaje y compártalo con sus amigos para que sepan que está listo para abandonar esos países del mundo en un momento.",
+  },
+  playMapGames: {
+    title: "Juega juegos de mapas",
+    description:
+      "¿Qué tan bien conoces los países del mundo? ¡Pon a prueba tus conocimientos de Cartografía y Geografía con nuestra colección de juegos de mapas interactivos!",
+    question: "¿Escuchaste lo suficiente?",
+    actionText: "¡Haz clic aquí para ver nuestra colección!",
+    imageAltOne: "Ejemplo de lista de juegos",
+    explainerOne:
+      "¿Qué tan bien conoces los países del mundo? ¡Pon a prueba tus conocimientos de cartografía con nuestra amplia colección de juegos de mapas interactivos!",
+    imageAltTwo: "Ejemplo de inicio de juego",
+    explainerTwo:
+      "Nuestra interfaz de usuario receptiva funciona a la perfección entre el escritorio y el dispositivo móvil para que pueda aprender sobre la marcha o en casa en la pantalla grande.",
+    imageAltThree: "Ejemplo de medio juego",
+    explainerThree:
+      "Escriba su camino a la victoria en esta carrera contrarreloj. ¿Puedes superar el tiempo más rápido en la clasificación?",
+  },
+  createCommunityQuizzes: {
+    title: "Crear cuestionarios de la comunidad",
+    description:
+      "¿Busca crear cuestionarios personalizados con mapas, banderas e imágenes de alta calidad? ¡Use nuestro generador de cuestionarios para crear el rascador de cerebro perfecto para sus amigos, estudiantes o compañeros de trabajo!",
+    question: "¿Escuchaste lo suficiente?",
+    actionText: "¡Regístrese hoy para comenzar a crear el suyo propio!",
+    imageAltOne: "Ejemplo de creador de cuestionarios",
+    explainerOne:
+      "¿Busca crear cuestionarios personalizados con mapas, banderas e imágenes de alta calidad? ¡Use nuestro generador de cuestionarios para crear el rascador de cerebro perfecto para sus amigos, estudiantes o compañeros de trabajo!",
+    imageAltTwo: "Ejemplo de inicio de juego",
+    explainerTwo:
+      "Utilice nuestra amplia colección de recursos de mapas o banderas para afinar cada pregunta.",
+    imageAltThree: "Ejemplo de alternar público/privado",
+    explainerThree:
+      "Haga público su cuestionario para ver cómo le va a nuestra comunidad de GeoBuff o manténgalo privado para compartirlo con sus amigos.",
+    imageAltFour: "mi ejemplo de cuestionarios",
+    explainerFour:
+      "¡Vea, edite o elimine sus cuestionarios y verifique las reproducciones de cuestionarios en su perfil de usuario!",
   },
   privacyPolicy: {
     sectionOnePartOne:

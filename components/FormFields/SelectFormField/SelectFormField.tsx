@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 import { ChangeEvent } from "react";
 
 import {
@@ -11,6 +11,8 @@ import {
   Select,
 } from "@chakra-ui/react";
 import { Field } from "formik";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { FormOption } from "../../../types/form";
 
@@ -30,10 +32,12 @@ const SelectFormField: FC<Props> = ({
   label,
   helper,
   isInvalid = false,
-  defaultValue = { label: "Select a value...", value: "" },
+  defaultValue = null,
   onChange = () => {},
   ...props
 }) => {
+  const { t } = useContext(LanguageContext);
+
   return (
     <Flex {...props}>
       <Field name={name}>
@@ -64,7 +68,11 @@ const SelectFormField: FC<Props> = ({
               }}
               onChange={onChange}
             >
-              <option value={defaultValue.value}>{defaultValue.label}</option>
+              <option value={defaultValue ? defaultValue.value : ""}>
+                {defaultValue
+                  ? defaultValue.label
+                  : t.selectFormField.defaultLabel}
+              </option>
               {options &&
                 options.map((option) => (
                   <option key={option.value} value={option.value}>

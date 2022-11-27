@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 import {
   Alert,
@@ -15,6 +15,8 @@ import {
 } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 import {
@@ -67,6 +69,8 @@ const EditCommunityQuizForm: FC<Props> = ({
   onChangeSearchImage = () => {},
   maps = [],
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
   const isMobile = useBreakpointValue({ base: true, md: false });
 
@@ -155,24 +159,24 @@ const EditCommunityQuizForm: FC<Props> = ({
             <Form autoComplete="off">
               <CommunityQuizFormField
                 name="name"
-                label="Quiz Name"
-                helper="Keep it concise and memorable!"
-                placeholder="Enter quiz name..."
+                label={t.communityQuizForm.quizNameLabel}
+                helper={t.communityQuizForm.quizNameHelper}
+                placeholder={t.communityQuizForm.quizNamePlaceholder}
                 direction={isMobile ? "column" : "row"}
               />
 
               <CommunityQuizTextAreaFormField
                 name="description"
-                label="Description"
-                helper="The description helps your quiz stand out from the rest."
-                placeholder="Enter description..."
+                label={t.communityQuizForm.descriptionLabel}
+                helper={t.communityQuizForm.descriptionHelper}
+                placeholder={t.communityQuizForm.descriptionPlaceholder}
                 direction={isMobile ? "column" : "row"}
               />
 
               <CommunityQuizRadioGroupFormField
                 name="isPublic"
-                label="Is Public?"
-                helper="Public quizzes are visible to all users. Private quizzes give you the option to share a link with others."
+                label={t.communityQuizForm.isPublicLabel}
+                helper={t.communityQuizForm.isPublicHelper}
                 selectedValue={values.isPublic}
                 setFieldHelper={setFieldValue}
                 direction={isMobile ? "column" : "row"}
@@ -200,7 +204,7 @@ const EditCommunityQuizForm: FC<Props> = ({
                 />
                 {errors.questions && (
                   <Text textAlign="center" color="red.500" fontSize="sm">
-                    {"You must add at least one question"}
+                    {t.communityQuizForm.mustAddQuestionAlert}
                   </Text>
                 )}
               </Flex>
@@ -214,7 +218,7 @@ const EditCommunityQuizForm: FC<Props> = ({
                   isLoading={isSubmitting}
                   disabled={isLoading}
                 >
-                  {"Edit Quiz"}
+                  {t.communityQuizForm.editQuiz}
                 </Button>
               </Flex>
             </Form>
