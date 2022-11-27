@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 import { Flex, Heading } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import EditCommunityQuizFormContainer from "../../../containers/EditCommunityQuizFormContainer";
 
@@ -15,6 +17,8 @@ export default function Edit(): JSX.Element {
   const [quizId, setQuizId] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
 
+  const { t } = useContext(LanguageContext);
+
   useEffect(() => {
     if (router.asPath !== router.route) {
       const quizId = router.query.id as string;
@@ -26,7 +30,7 @@ export default function Edit(): JSX.Element {
   return (
     <>
       <Head>
-        <title>{"Edit Community Quiz - GeoBuff"}</title>
+        <title>{`${t.editCommunityQuiz.title} - GeoBuff`}</title>
         <meta
           name="description"
           content="Edit your quiz with our Community Quiz builder! Perfect for teachers or those looking to spice up their next team meeting."
@@ -46,7 +50,7 @@ export default function Edit(): JSX.Element {
           justifyContent="center"
         >
           <Card padding={{ base: 6, md: 8 }}>
-            <Heading>{"Edit Community Quiz"}</Heading>
+            <Heading>{t.editCommunityQuiz.title}</Heading>
 
             <Flex width="100%" marginTop={10}>
               {isLoading ? null : (

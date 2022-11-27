@@ -317,6 +317,9 @@ export default {
   createCommunityQuiz: {
     title: "Crear cuestionario comunitario",
   },
+  editCommunityQuiz: {
+    title: "Editar cuestionario de la comunidad",
+  },
   communityQuizForm: {
     quizNameLabel: "Nombre del cuestionario",
     quizNameHelper: "¡Manténgalo conciso y memorable!",
@@ -329,6 +332,7 @@ export default {
     isPublicHelper:
       "Los cuestionarios públicos son visibles para todos los usuarios. Los cuestionarios privados te dan la opción de compartir un enlace con otros.",
     createQuiz: "Crear cuestionario",
+    editQuiz: "Editar cuestionario",
     mustAddQuestionAlert: "Debe agregar al menos una pregunta.",
   },
   communityQuizQuestionsField: {

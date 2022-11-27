@@ -308,6 +308,9 @@ export default {
   createCommunityQuiz: {
     title: "Create Community Quiz",
   },
+  editCommunityQuiz: {
+    title: "Edit Community Quiz",
+  },
   communityQuizForm: {
     quizNameLabel: "Quiz Name",
     quizNameHelper: "Keep it concise and memorable!",
@@ -320,6 +323,7 @@ export default {
     isPublicHelper:
       "Public quizzes are visible to all users. Private quizzes give you the option to share a link with others.",
     createQuiz: "Create Quiz",
+    editQuiz: "Edit Quiz",
     mustAddQuestionAlert: "You must add at least one question.",
   },
   communityQuizQuestionsField: {
