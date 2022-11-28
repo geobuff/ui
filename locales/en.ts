@@ -133,6 +133,26 @@ export default {
     gameDetails: "Game Details",
     hasAlreadyBeenAnswered: "has already been answered!",
   },
+  scoreResponses: {
+    perfect: [
+      "Perfect score! Well done!",
+      "Oh wow! Perfect score!",
+      "A true GeoBuff!",
+      "GeoWiz!",
+    ],
+    good: ["Great score, well done!", "Very nice work!", "Almost there!"],
+    okay: [
+      "Keep at it!",
+      "So so...",
+      "An okay score, keep trying!",
+      "At least you showed up today",
+    ],
+    poor: [
+      "Well at least you tried!",
+      "Oof... Try again?",
+      "Not good, not great either..",
+    ],
+  },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",
     subtitle: "Create an account and ",

@@ -135,6 +135,26 @@ export default {
     gameDetails: "Detalles del juego",
     hasAlreadyBeenAnswered: "ya se ha respondido!",
   },
+  scoreResponses: {
+    perfect: [
+      "¡Puntuación perfecta! ¡Bien hecho!",
+      "¡Oh, vaya! ¡Puntuación perfecta!",
+      "¡Un verdadero GeoBuff!",
+      "¡GeoWizz!",
+    ],
+    good: ["Gran puntuación, bien hecho!", "¡Muy buen trabajo!", "¡Casi ahí!"],
+    okay: [
+      "¡Síguelo!",
+      "Regular...",
+      "Una buena puntuación, ¡sigue intentándolo!",
+      "Al menos apareciste hoy.",
+    ],
+    poor: [
+      "¡Bueno, al menos lo intentaste!",
+      "Uf... ¿Intentar de nuevo?",
+      "No es bueno, tampoco genial ..",
+    ],
+  },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
     subtitle: "Crear una cuenta y ",
