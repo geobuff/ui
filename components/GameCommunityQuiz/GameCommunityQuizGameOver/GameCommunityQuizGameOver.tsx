@@ -4,23 +4,7 @@ import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
-import { getRandomCollectionItem } from "../../../helpers/random";
-import { SCORE_RESPONSES } from "../../../helpers/responses";
-
-const getScoreSubtitle = (score: number, max: number): string => {
-  const percent = (100 * score) / max;
-
-  switch (true) {
-    case percent >= 100:
-      return getRandomCollectionItem(SCORE_RESPONSES["PERFECT"]);
-    case percent < 100 && percent >= 80:
-      return getRandomCollectionItem(SCORE_RESPONSES["GOOD"]);
-    case percent < 80 && percent >= 60:
-      return getRandomCollectionItem(SCORE_RESPONSES["OKAY"]);
-    default:
-      return getRandomCollectionItem(SCORE_RESPONSES["POOR"]);
-  }
-};
+import { useScoreResponses } from "../../../hooks/UseScoreResponses";
 
 export interface Props {
   score: number;
@@ -37,11 +21,13 @@ const GameCommunityQuizGameOver: FC<Props> = ({
 }) => {
   const { t } = useContext(LanguageContext);
 
+  const { getScoreResponse } = useScoreResponses();
+
   // useMemo prevents getScoreSubtitle from
   // getting different values on each render
   const scoreSubtitle = useMemo(
-    () => getScoreSubtitle(score, maxQuestionNumber),
-    [score, maxQuestionNumber]
+    () => getScoreResponse(score, maxQuestionNumber),
+    [score, maxQuestionNumber, getScoreResponse]
   );
 
   return (
