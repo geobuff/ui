@@ -1,14 +1,16 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import { Divider, Flex, Heading, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";
 import useQuizTypes from "../../hooks/UseQuizTypes";
 
 import axiosClient from "../../axios";
-import { quizToast } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import { CreateMappingEntry } from "../../types/create-mapping-entry";
 import { CreateMappingsSubmit } from "../../types/create-mappings-submit";
 import { CreateSvgMapPayload } from "../../types/create-svg-map-payload";
@@ -36,6 +38,8 @@ const AdminCreateMapModal: FC<Props> = ({
 }) => {
   const { data: session } = useSession();
   const toast = useToast();
+
+  const { t } = useContext(LanguageContext);
 
   const [index, setIndex] = useState(0);
   const [mappings, setMappings] = useState<CreateMappingsSubmit>();
@@ -126,7 +130,15 @@ const AdminCreateMapModal: FC<Props> = ({
 
     axiosClient
       .post(`/maps`, payload, session?.authConfig)
-      .then(() => toast(quizToast()))
+      .then(() =>
+        toast(
+          genericToast(
+            t.toasts.createQuizTitle,
+            t.toasts.createQuizDescription,
+            9000
+          )
+        )
+      )
       .catch((error) => setError(error.response.data))
       .finally(() => {
         setIsSubmitting(false);

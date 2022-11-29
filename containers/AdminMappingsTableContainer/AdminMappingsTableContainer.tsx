@@ -1,7 +1,9 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useMappingGroups from "../../hooks/UseMappingGroups";
 
@@ -18,6 +20,7 @@ import { MappingGroup } from "../../types/mapping-group";
 import EditMappingModalContainer from "../EditMappingModalContainer/EditMappingModalContainer";
 
 const AdminMappingsTableContainer: FC = () => {
+  const { t } = useContext(LanguageContext);
   const toast = useToast();
 
   const { data: groups, isLoading: isGroupsLoading } = useMappingGroups();
@@ -53,8 +56,8 @@ const AdminMappingsTableContainer: FC = () => {
       .then(() => {
         toast(
           genericToast(
-            "Delete Mapping",
-            `Successfully deleted the ${group} mapping.`
+            t.toasts.deleteMappingTitle,
+            `${t.toasts.deleteMappingDescriptionOne} ${group} ${t.toasts.deleteMappingDescriptionTwo}`
           )
         );
         onDeleteMappingModalClose();
@@ -83,7 +86,10 @@ const AdminMappingsTableContainer: FC = () => {
       .put(`mappings/${group}`, payload, session?.authConfig)
       .then(() => {
         toast(
-          genericToast("Edit Mapping", `Successfully updated ${group} mapping.`)
+          genericToast(
+            t.toasts.editMappingTitle,
+            `${t.toasts.editMappingDescriptionOne} ${group} ${t.toasts.deleteMappingDescriptionTwo}`
+          )
         );
         onEditMappingModalClose();
       })

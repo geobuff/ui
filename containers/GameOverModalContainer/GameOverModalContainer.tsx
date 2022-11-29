@@ -6,14 +6,12 @@ import { useRouter } from "next/router";
 
 import { AppContext } from "../../context/AppContext";
 import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import GameOverModal from "../../components/GameOverModal";
 
 import axiosClient from "../../axios/axiosClient";
-import {
-  entrySubmitted,
-  increaseXP as increaseXPToast,
-} from "../../helpers/toasts";
+import { genericToast, increaseXPToast } from "../../helpers/toasts";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
@@ -54,6 +52,7 @@ const GameOverModalContainer: FC<Props> = ({
   setXPUpdated = (): void => {},
   setLeaderboardEntrySubmitted = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
   const toast = useToast();
   const router = useRouter();
 
@@ -174,7 +173,14 @@ const GameOverModalContainer: FC<Props> = ({
       .then(() => {
         setIsSubmitting(false);
         onClose();
-        toast(entrySubmitted(toastPosition));
+        toast(
+          genericToast(
+            t.toasts.leaderboardEntrySubmittedTitle,
+            toastPosition !== "bottom" &&
+              t.toasts.leaderboardEntrySubmittedDescription,
+            9000
+          )
+        );
       });
   };
 
@@ -193,7 +199,14 @@ const GameOverModalContainer: FC<Props> = ({
       .then(() => {
         setIsSubmitting(false);
         onClose();
-        toast(entrySubmitted(toastPosition));
+        toast(
+          genericToast(
+            t.toasts.leaderboardEntrySubmittedTitle,
+            toastPosition !== "bottom" &&
+              t.toasts.leaderboardEntrySubmittedDescription,
+            9000
+          )
+        );
       });
   };
 

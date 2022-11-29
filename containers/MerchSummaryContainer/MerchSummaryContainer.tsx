@@ -2,6 +2,7 @@ import React, { FC, useContext, useState } from "react";
 
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import { ShoppingCartContext } from "../../context/ShoppingCartContext";
 
 import useMerch from "../../hooks/UseMerch";
@@ -17,6 +18,8 @@ interface Props {
 }
 
 const MerchSummaryContainer: FC<Props> = ({ route = "" }) => {
+  const { t } = useContext(LanguageContext);
+
   const {
     getItemQuantity,
     addToCart,
@@ -60,8 +63,8 @@ const MerchSummaryContainer: FC<Props> = ({ route = "" }) => {
     setSubmitted(true);
     toast(
       genericToast(
-        "Item Added to Cart",
-        "Successfully added item to cart.",
+        t.toasts.itemAddedToCartTitle,
+        t.toasts.itemAddedToCartDescription,
         9000,
         toastPosition
       )

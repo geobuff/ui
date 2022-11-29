@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { use100vh } from "react-div-100vh";
 
 import { AppContext } from "../../context/AppContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { getTriviaScoreMessage } from "../../helpers/clipboard";
 import { genericToast } from "../../helpers/toasts";
@@ -30,6 +31,8 @@ const GameTrivia: FC<Props> = ({
   trivia,
   onIncrementPlays = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
   const toast = useToast();
   const { asPath } = useRouter();
 
@@ -72,9 +75,7 @@ const GameTrivia: FC<Props> = ({
       asPath
     );
     navigator.clipboard.writeText(message);
-    toast(
-      genericToast("Copy Score", "Successfully copied score to clipboard.")
-    );
+    toast(genericToast(t.toasts.copyScoreTitle, t.toasts.copyScoreDescription));
   };
 
   const handlePlayAgain = () => {

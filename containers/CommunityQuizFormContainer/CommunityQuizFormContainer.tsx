@@ -1,9 +1,11 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useMaps from "../../hooks/UseMaps";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
@@ -22,6 +24,8 @@ import { TriviaQuestionTypeValues } from "../../types/trivia-question-types";
 import { UnsplashImage } from "../../types/unsplash-image";
 
 const CommunityQuizFormContainer: FC = () => {
+  const { t } = useContext(LanguageContext);
+
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
   const { data: maps, isLoading: isMapsLoading } = useMaps();
 
@@ -96,8 +100,8 @@ const CommunityQuizFormContainer: FC = () => {
       .then(() => {
         toast(
           genericToast(
-            "Create Community Quiz",
-            "Successfully created community quiz.",
+            t.toasts.createCommunityQuizTitle,
+            t.toasts.createCommunityQuizDescription,
             9000
           )
         );

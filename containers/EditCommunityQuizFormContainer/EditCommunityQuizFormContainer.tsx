@@ -1,9 +1,11 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import { useToast } from "@chakra-ui/react";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useMaps from "../../hooks/UseMaps";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
@@ -27,6 +29,8 @@ interface Props {
 }
 
 const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
+  const { t } = useContext(LanguageContext);
+
   const { data: types, isLoading: isQuestionTypesLoading } =
     useTriviaQuestionTypes();
 
@@ -165,8 +169,8 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
       .then(() => {
         toast(
           genericToast(
-            "Edit Community Quiz",
-            "Successfully edited community quiz.",
+            t.toasts.editCommunityQuizTitle,
+            t.toasts.editCommunityQuizDescription,
             9000
           )
         );
