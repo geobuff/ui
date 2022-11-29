@@ -53,8 +53,8 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
         setMyQuizzes(myQuizzes.filter((x) => x.id !== quizId));
         toast(
           genericToast(
-            "Delete Community Quiz",
-            "Successfully deleted community quiz.",
+            t.toasts.deleteCommunityQuizTitle,
+            t.toasts.deleteCommunityQuizDescription,
             9000
           )
         );
@@ -71,8 +71,8 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
 
     toast(
       genericToast(
-        `Copy ${name} Link`,
-        "Successfully copied link to clipboard."
+        `${t.toasts.copyLinkTitleOne} ${name} ${t.toasts.copyLinkTitleTwo}`,
+        t.toasts.copyLinkDescription
       )
     );
   };

@@ -155,6 +155,68 @@ export default {
       "No es bueno, tampoco genial ..",
     ],
   },
+  toasts: {
+    createQuizTitle: "Crear cuestionario",
+    createQuizDescription: "Cuestionario creado con éxito.",
+    editQuizTitle: "Editar prueba",
+    editQuizDescription: "Cuestionario editado con éxito.",
+    createCommunityQuizTitle: "Crear cuestionario comunitario",
+    createCommunityQuizDescription:
+      "Cuestionario de la comunidad creado con éxito.",
+    editCommunityQuizTitle: "Editar cuestionario de la comunidad",
+    editCommunityQuizDescription:
+      "Cuestionario de la comunidad editado con éxito.",
+    deleteCommunityQuizTitle: "Eliminar cuestionario de la comunidad",
+    deleteCommunityQuizDescription:
+      "Cuestionario de la comunidad eliminado con éxito.",
+    copyLinkTitleOne: "Copiar",
+    copyLinkTitleTwo: "Enlace",
+    copyLinkDescription: "Enlace copiado con éxito al portapapeles.",
+    copyScoreTitle: "Copiar puntuación",
+    copyScoreDescription: "Partitura copiada con éxito al portapapeles.",
+    createFlagTitle: "Crear banderas",
+    createFlagDescription: "Nuevas banderas creadas con éxito.",
+    deployUITitle: "Implementar IU",
+    deployDevUIDescription:
+      "Interfaz de usuario de desarrollo web implementada con éxito.",
+    deployProdUIDescription:
+      "Interfaz de usuario de Web Prod implementada con éxito.",
+    deployMobileProdUIDescription:
+      "Interfaz de usuario de Mobile Prod implementada con éxito.",
+    createTriviaTitle: "Curiosidades creadas",
+    createTriviaDescription: "Trivia creada con éxito para",
+    regenerateTriviaTitle: "Regenerar Trivia",
+    regenerateTriviaDescription: "Trivia regenerada con éxito para",
+    clearOldTriviaTitle: "Borrar viejas trivia",
+    clearOldTriviaDescriptionOne:
+      "Se eliminaron con éxito todas las curiosidades anteriores a",
+    clearOldTriviaDescriptionTwo: "viejos días.",
+    bulkUploadTitle: "Carga masiva",
+    bulkUploadTriviaQuestionsDescription:
+      "Preguntas de trivia manuales analizadas y cargadas con éxito.",
+    bulkUploadCommunityQuizDescription:
+      "Prueba de la comunidad analizada y cargada con éxito.",
+    editManualTriviaQuestionTitle: "Editar pregunta de trivia manual",
+    editManualTriviaQuestionDescription:
+      "Pregunta de trivia manual editada con éxito.",
+    createManualTriviaQuestionTitle: "Crear pregunta de trivia manual",
+    createManualTriviaQuestionDescription:
+      "Pregunta de trivia manual creada con éxito.",
+    deleteMappingTitle: "Eliminar asignación",
+    deleteMappingDescriptionOne: "Eliminó con éxito el",
+    deleteMappingDescriptionTwo: "cartografía.",
+    editMappingTitle: "Editar asignación",
+    editMappingDescriptionOne: "Editado con éxito el",
+    leaderboardEntrySubmittedTitle: "Entrada de clasificación enviada",
+    leaderboardEntrySubmittedDescription:
+      "Su entrada en la tabla de clasificación se envió con éxito.",
+    itemAddedToCartTitle: "Artículo agregado al carrito",
+    itemAddedToCartDescription: "Artículo agregado con éxito al carrito.",
+    avatarUpdatedTitle: "Avatar actualizado",
+    avatarUpdatedDescription: "Avatar de usuario actualizado con éxito.",
+    userUpdatedTitle: "Usuario actualizado",
+    userUpdatedDescription: "Detalles de usuario actualizados con éxito.",
+  },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
     subtitle: "Crear una cuenta y ",

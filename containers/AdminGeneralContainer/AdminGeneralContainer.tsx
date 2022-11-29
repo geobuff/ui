@@ -1,14 +1,16 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { useSession } from "next-auth/react";
 
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import AdminGeneral from "../../components/AdminGeneral";
 import BulkUploadModal from "../../components/BulkUploadModal";
 
 import axiosClient from "../../axios";
-import { deployUIToast, genericToast } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import { AuthUser } from "../../types/auth-user";
 import { BackgroundTaskKey } from "../../types/background-task";
 import { BulkUploadType } from "../../types/bulk-upload-type";
@@ -26,34 +28,9 @@ const NEW_TRIVIA_COUNT = 30;
 
 const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 
-const getTaskSettings = (key: BackgroundTaskKey) => {
-  switch (key) {
-    case DeployDevWeb:
-      return {
-        endpoints: [deployDevUIWeb],
-        toasts: [deployUIToast("Web Dev")],
-      };
-    case DeployProdAll:
-      return {
-        endpoints: [deployProdUIWeb, deployProdUIMobile],
-        toasts: [deployUIToast("Web Prod"), deployUIToast("Mobile Prod")],
-      };
-    case DeployProdMobile:
-      return {
-        endpoints: [deployProdUIMobile],
-        toasts: [deployUIToast("Mobile Prod")],
-      };
-    case DeployProdWeb:
-      return {
-        endpoints: [deployProdUIWeb],
-        toasts: [deployUIToast("Web Prod")],
-      };
-    default:
-      return null;
-  }
-};
-
 const AdminGeneralContainer: FC = () => {
+  const { t } = useContext(LanguageContext);
+
   const { data: session } = useSession();
   const user = session?.user as AuthUser;
 
@@ -63,6 +40,50 @@ const AdminGeneralContainer: FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
   const [regenerateDate, setRegenerateDate] = useState("");
+
+  const getTaskSettings = (key: BackgroundTaskKey) => {
+    switch (key) {
+      case DeployDevWeb:
+        return {
+          endpoints: [deployDevUIWeb],
+          toasts: [
+            genericToast(t.deployUITitle, t.deployDevUIDescription, 9000),
+          ],
+        };
+      case DeployProdAll:
+        return {
+          endpoints: [deployProdUIWeb, deployProdUIMobile],
+          toasts: [
+            genericToast(t.deployUITitle, t.deployProdUIDescription, 9000),
+            genericToast(
+              t.deployUITitle,
+              t.deployMobileProdUIDescription,
+              9000
+            ),
+          ],
+        };
+      case DeployProdMobile:
+        return {
+          endpoints: [deployProdUIMobile],
+          toasts: [
+            genericToast(
+              t.deployUITitle,
+              t.deployMobileProdUIDescription,
+              9000
+            ),
+          ],
+        };
+      case DeployProdWeb:
+        return {
+          endpoints: [deployProdUIWeb],
+          toasts: [
+            genericToast(t.deployUITitle, t.deployProdUIDescription, 9000),
+          ],
+        };
+      default:
+        return null;
+    }
+  };
 
   const handleDeploy = (key: BackgroundTaskKey) => {
     const { endpoints, toasts } = getTaskSettings(key);
@@ -88,8 +109,8 @@ const AdminGeneralContainer: FC = () => {
       .then(() => {
         toast(
           genericToast(
-            "Created Trivia",
-            `Successfully created trivia for ${DateTime.now().toFormat(
+            t.toasts.createTriviaTitle,
+            `${t.toasts.createTriviaDescription} ${DateTime.now().toFormat(
               "yyyy-MM-dd"
             )}.`,
             9000
@@ -112,8 +133,8 @@ const AdminGeneralContainer: FC = () => {
       .then(() => {
         toast(
           genericToast(
-            "Regenerate Trivia",
-            `Successfully created new trivia for ${dateString}.`
+            t.toasts.regenerateTriviaTitle,
+            `${t.toasts.regenerateTriviaDescription} ${dateString}.`
           )
         );
         setRegenerateDate("");
@@ -132,7 +153,7 @@ const AdminGeneralContainer: FC = () => {
         toast(
           genericToast(
             "Clear Old Trivia",
-            `Successfully deleted all trivia older than ${NEW_TRIVIA_COUNT} days old.`,
+            `${t.toasts.clearOldTriviaDescriptionOne} ${NEW_TRIVIA_COUNT} ${t.toasts.clearOldTriviaDescriptionTwo}`,
             9000
           )
         );
@@ -156,8 +177,8 @@ const AdminGeneralContainer: FC = () => {
         }
         toast(
           genericToast(
-            "Bulk Upload",
-            "Successfully parsed and uploaded manual trivia questions."
+            t.toasts.bulkUploadTitle,
+            t.toasts.bulkUploadTriviaQuestionsDescription
           )
         );
       } catch (error) {
@@ -201,8 +222,8 @@ const AdminGeneralContainer: FC = () => {
         .then(() => {
           toast(
             genericToast(
-              "Bulk Upload",
-              "Successfully parsed and uploaded community quiz."
+              t.toasts.bulkUploadTitle,
+              t.toasts.bulkUploadCommunityQuizDescription
             )
           );
           onClose();

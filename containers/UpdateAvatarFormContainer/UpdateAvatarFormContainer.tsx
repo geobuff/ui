@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 
 import { AppContext } from "../../context/AppContext";
 import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
 
@@ -21,6 +22,7 @@ const UpdateAvatarFormContainer: FC<Props> = ({
   isOpen = false,
   onClose = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
   const toast = useToast();
   const { isNotchedIphone } = useContext(AppContext);
 
@@ -64,8 +66,8 @@ const UpdateAvatarFormContainer: FC<Props> = ({
         onClose();
         toast(
           genericToast(
-            "Avatar Updated",
-            "Successfully updated user avatar.",
+            t.toasts.avatarUpdatedTitle,
+            t.toasts.avatarUpdatedDescription,
             9000,
             toastPosition
           )

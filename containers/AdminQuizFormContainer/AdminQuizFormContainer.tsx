@@ -1,7 +1,9 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 import { useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";
@@ -10,7 +12,7 @@ import useQuizTypes from "../../hooks/UseQuizTypes";
 import AdminQuizForm from "../../components/AdminQuizForm";
 
 import axiosClient from "../../axios";
-import { quizToast } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import { CreateEditQuizPayload } from "../../types/create-edit-quiz-payload";
 import { NullInt } from "../../types/null-int";
 import { QuizEditValues } from "../../types/quiz-edit-values";
@@ -22,6 +24,7 @@ export interface Props {
 
 const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
   const toast = useToast();
+  const { t } = useContext(LanguageContext);
 
   const { data: session } = useSession();
 
@@ -70,7 +73,13 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
       axiosClient
         .put(`/quizzes/${values.id}`, payload, session?.authConfig)
         .then(() => {
-          toast(quizToast("Edit", "edited"));
+          toast(
+            genericToast(
+              t.toasts.editQuizTitle,
+              t.toasts.editQuizDescription,
+              9000
+            )
+          );
         })
         .catch((error) => setError(error.response.data))
         .finally(() => setIsSubmitting(false));
@@ -78,7 +87,13 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
       axiosClient
         .post(`/quizzes`, payload, session?.authConfig)
         .then(() => {
-          toast(quizToast());
+          toast(
+            genericToast(
+              t.toasts.createQuizTitle,
+              t.toasts.createQuizDescription,
+              9000
+            )
+          );
           resetForm();
         })
         .catch((error) => setError(error.response.data))

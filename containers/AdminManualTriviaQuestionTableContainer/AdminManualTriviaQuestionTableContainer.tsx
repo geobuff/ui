@@ -1,7 +1,9 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useMaps from "../../hooks/UseMaps";
 import useTriviaQuestionCategories from "../../hooks/UseTriviaQuestionCategories";
@@ -13,7 +15,7 @@ import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 
 import axios from "../../axios";
 import axiosClient from "../../axios";
-import { manualTriviaQuestionToast } from "../../helpers/toasts";
+import { genericToast } from "../../helpers/toasts";
 import { ManualTriviaAnswer } from "../../types/manual-trivia-answer";
 import { ManualTriviaQuestionPayload } from "../../types/manual-trivia-payload";
 import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
@@ -24,7 +26,10 @@ import { TriviaQuestionTypeValues } from "../../types/trivia-question-types";
 import { UnsplashImage } from "../../types/unsplash-image";
 
 const AdminManualTriviaQuestionTableContainer: FC = () => {
+  const { t } = useContext(LanguageContext);
+
   const toast = useToast();
+
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
   const { data: maps, isLoading: isMapsLoading } = useMaps();
   const { data: session, status } = useSession();
@@ -235,7 +240,13 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         )
         .then(() => {
           setSuccess(true);
-          toast(manualTriviaQuestionToast("Edit", "edited"));
+          toast(
+            genericToast(
+              t.toasts.editManualTriviaQuestionTitle,
+              t.toasts.editManualTriviaQuestionDescription,
+              9000
+            )
+          );
         })
         .catch((error) => setError(error.response.data))
         .finally(() => setIsSubmitting(false));
@@ -244,7 +255,13 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
         .post(`/manual-trivia-questions`, payload, session?.authConfig)
         .then(() => {
           setSuccess(true);
-          toast(manualTriviaQuestionToast());
+          toast(
+            genericToast(
+              t.toasts.createManualTriviaQuestionTitle,
+              t.toasts.createManualTriviaQuestionDescription,
+              9000
+            )
+          );
           resetForm();
         })
         .catch((error) => setError(error.response.data))

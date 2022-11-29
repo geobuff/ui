@@ -1,7 +1,9 @@
-import React, { FC, useState } from "react";
+import React, { FC, useContext, useState } from "react";
 
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useFlagGroups from "../../hooks/UseFlagGroups";
 
@@ -14,6 +16,7 @@ import { FlagsFormSubmit } from "../../types/flags-form-submit";
 
 const AdminFlagsTableContainer: FC = () => {
   const toast = useToast();
+  const { t } = useContext(LanguageContext);
 
   const { data: session } = useSession();
   const { data: groups, isLoading: isGroupsLoading } = useFlagGroups();
@@ -29,7 +32,12 @@ const AdminFlagsTableContainer: FC = () => {
     axiosClient
       .post("/flags", values, session?.authConfig)
       .then(() => {
-        toast(genericToast("Create Flags", "Successfully created new flags."));
+        toast(
+          genericToast(
+            t.toasts.createFlagsTitle,
+            t.toasts.createFlagsDescription
+          )
+        );
         onClose();
       })
       .catch((error) => setError(error.response.data))

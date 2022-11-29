@@ -5,6 +5,7 @@ import { useSession } from "next-auth/react";
 
 import { AppContext } from "../../context/AppContext";
 import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import UpdateUserFormModal from "../../components/UpdateUserFormModal";
 
@@ -21,6 +22,7 @@ const UpdateUserFormContainer: FC<Props> = ({
   isOpen = false,
   onClose = (): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
   const toast = useToast();
 
   const { user, updateUser } = useContext(CurrentUserContext);
@@ -63,8 +65,8 @@ const UpdateUserFormContainer: FC<Props> = ({
         onClose();
         toast(
           genericToast(
-            "User Updated",
-            "Successfully updated user details.",
+            t.toasts.userUpdatedTitle,
+            t.toasts.userUpdatedDescription,
             9000,
             toastPosition
           )
