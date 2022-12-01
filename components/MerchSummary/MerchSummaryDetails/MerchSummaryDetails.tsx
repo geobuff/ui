@@ -129,7 +129,7 @@ const MerchSummaryDetails: FC<Props> = ({
       {submitted && (
         <Link href="/shopping-cart">
           <Button colorScheme="teal" width="100%" mt={3}>
-            {" View Cart"}
+            {t.global.viewCart}
           </Button>
         </Link>
       )}

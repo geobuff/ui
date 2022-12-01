@@ -1,7 +1,9 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import { Button, Flex, Stack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { formatNumber } from "../../../helpers/number";
 
@@ -14,6 +16,7 @@ const PriceSummary: FC<Props> = ({
   discount = 0,
   onGetTotal = (): number => 0,
 }) => {
+  const { t } = useContext(LanguageContext);
   const router = useRouter();
 
   const rawTotal = onGetTotal() - discount + 5.99;
@@ -28,26 +31,26 @@ const PriceSummary: FC<Props> = ({
       <Flex direction="column" width={{ base: "100%", md: "25%" }}>
         <Stack mb={12}>
           <Flex justifyContent="space-between">
-            <Text>{"Subtotal:"}</Text>
+            <Text>{t.priceSummary.subtotal}</Text>
             <Text>{`$${onGetTotal()}`}</Text>
           </Flex>
           <Flex justifyContent="space-between">
-            <Text>{"NZ-Wide Shipping:"}</Text>
+            <Text>{t.priceSummary.nzWideShipping}</Text>
             <Text>{`$5.99`}</Text>
           </Flex>
           {discount > 0 && (
             <Flex justifyContent="space-between">
-              <Text>{"Discount:"}</Text>
+              <Text>{t.priceSummary.discount}</Text>
               <Text>{`-$${discount}`}</Text>
             </Flex>
           )}
           <Flex justifyContent="space-between" fontWeight="bold">
-            <Text>{"Total:"}</Text>
+            <Text>{t.priceSummary.total}</Text>
             <Text>{`$${formattedTotal}`}</Text>
           </Flex>
         </Stack>
         <Button colorScheme="teal" onClick={() => router.push("/checkout")}>
-          {"Proceed To Checkout"}
+          {t.priceSummary.proceed}
         </Button>
       </Flex>
     </Flex>

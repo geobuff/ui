@@ -1,4 +1,4 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import {
   Button,
@@ -9,6 +9,8 @@ import {
   Text,
   VisuallyHidden,
 } from "@chakra-ui/react";
+
+import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 export interface Props {
   merchIds?: number[];
@@ -27,6 +29,7 @@ const DiscountFooter: FC<Props> = ({
   applyDiscount = () => {},
   clearDiscount = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
   const [inputValue, setInputValue] = useState("");
 
   useEffect(() => {
@@ -39,17 +42,17 @@ const DiscountFooter: FC<Props> = ({
     <Flex justifyContent="flex-end" my={6}>
       <Flex direction="column" marginY={2}>
         <Text fontWeight="medium" marginBottom={2}>
-          {"Discount Code"}
+          {t.discountFooter.title}
         </Text>
         <FormControl mr={{ base: 0, md: 6 }}>
           <VisuallyHidden>
-            <FormLabel htmlFor="discount">{"Discount code"}</FormLabel>
+            <FormLabel htmlFor="discount">{t.discountFooter.title}</FormLabel>
           </VisuallyHidden>
           <Flex width="100%" direction="row">
             <Input
               value={inputValue}
               isDisabled={!!discountSuccess}
-              placeholder="Enter code..."
+              placeholder={t.discountFooter.placeholder}
               size="lg"
               fontSize="16px"
               background="#F6F6F6"
@@ -66,7 +69,7 @@ const DiscountFooter: FC<Props> = ({
               onClick={() => applyDiscount(inputValue, merchIds)}
               disabled={!!discountSuccess}
             >
-              {"Apply"}
+              {t.global.apply}
             </Button>
             <Button
               marginLeft={3}
@@ -76,7 +79,7 @@ const DiscountFooter: FC<Props> = ({
               onClick={clearDiscount}
               disabled={!discountSuccess}
             >
-              {"Clear"}
+              {t.global.clear}
             </Button>
           </Flex>
 

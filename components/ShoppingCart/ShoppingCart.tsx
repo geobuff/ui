@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Alert,
@@ -14,6 +14,8 @@ import {
   Tr,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 import { CartItem } from "../../types/cart-item";
@@ -50,6 +52,7 @@ const ShoppingCart: FC<Props> = ({
   clearDiscount = () => {},
 }) => {
   const router = useRouter();
+  const { t } = useContext(LanguageContext);
 
   return (
     <Flex
@@ -75,7 +78,7 @@ const ShoppingCart: FC<Props> = ({
         >
           <ArrowLeft height={5} width={5} marginRight={1} />
           <Text fontWeight="bold" fontSize="14px">
-            {"Continue Shopping"}
+            {t.shoppingCart.continueShopping}
           </Text>
         </Button>
       </Flex>
@@ -84,10 +87,10 @@ const ShoppingCart: FC<Props> = ({
           <Table size="md" variant="striped" colorScheme="gray">
             <Thead>
               <Tr>
-                <Th textAlign="left">{"ITEM DETAILS"} </Th>
-                <Th textAlign="right">{"PRICE"}</Th>
-                <Th textAlign="right">{"QUANTITY"}</Th>
-                <Th textAlign="right">{"TOTAL"}</Th>
+                <Th textAlign="left">{t.global.details.toUpperCase()} </Th>
+                <Th textAlign="right">{t.global.price.toUpperCase()}</Th>
+                <Th textAlign="right">{t.global.quantity.toUpperCase()}</Th>
+                <Th textAlign="right">{t.global.total.toUpperCase()}</Th>
                 <Th></Th>
               </Tr>
             </Thead>
@@ -115,7 +118,7 @@ const ShoppingCart: FC<Props> = ({
         {cart.length === 0 ? (
           <Alert status="info" borderRadius={6} mt={6}>
             <AlertIcon />
-            {"Your cart is empty."}
+            {t.shoppingCart.emptyAlert}
           </Alert>
         ) : (
           <DiscountFooter

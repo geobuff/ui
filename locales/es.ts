@@ -134,6 +134,17 @@ export default {
     timeRemaining: "Tiempo restante",
     gameDetails: "Detalles del juego",
     hasAlreadyBeenAnswered: "ya se ha respondido!",
+    shoppingCart: "Carrito de compras",
+    details: "Detalles",
+    price: "Precio",
+    quantity: "Cantidad",
+    total: "Total",
+    apply: "Aplicar",
+    clear: "Claro",
+    checkout: "Verificar",
+    loading: "Cargando...",
+    remove: "Retirar",
+    viewCart: "Ver carro",
   },
   scoreResponses: {
     perfect: [
@@ -503,6 +514,43 @@ export default {
       "No existe ninguna entrada para este cuestionario. Al hacer clic en enviar, creará una nueva entrada en la tabla de clasificación.",
     existingEntryExplainer:
       "Tienes una entrada existente para este cuestionario. Al hacer clic en enviar, actualizará su entrada existente.",
+  },
+  shoppingCart: {
+    continueShopping: "Seguir comprando",
+    emptyAlert: "Tu carrito esta vacío.",
+    invalidDiscountCodeAlert:
+      "Código de descuento no válido. Inténtalo de nuevo.",
+    invalidItemAlert:
+      "El código de descuento no se aplica a ninguno de los artículos de este carrito. Inténtalo de nuevo.",
+    successAlert: "Código de descuento aplicado con éxito",
+    errorAlert: "Error al aplicar el código de descuento. Inténtalo de nuevo.",
+  },
+  discountFooter: {
+    title: "Código de descuento",
+    placeholder: "Introduzca el código de descuento...",
+  },
+  priceSummary: {
+    subtotal: "Total parcial:",
+    nzWideShipping: "Envío a toda Nueva Zelanda:",
+    discount: "Descuento:",
+    total: "Total:",
+    proceed: "Pasar por la caja",
+  },
+  checkoutForm: {
+    addressPlaceholder: "Ingrese la dirección de su calle...",
+    backToCart: "Volver al carrito",
+    deliveryMethod: "Método de entrega",
+    contactDetails: "Detalles de contacto",
+    emailPlaceholder: "Introduzca su dirección de correo electrónico...",
+    deliveryDetails: "Detalles de la entrega",
+    firstNameLabel: "Primer nombre",
+    firstNamePlaceholder: "Ponga su primer nombre...",
+    lastNameLabel: "Apellido",
+    lastNamePlaceholder: "Ingresa tu apellido...",
+    addressLabel: "Dirección",
+    addressHelperText:
+      "NOTA: Actualmente solo realizamos envíos a direcciones de Nueva Zelanda.",
+    continueToPayment: "Continuar al pago",
   },
   playFlagGames: {
     title: "Juega juegos de banderas",

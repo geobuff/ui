@@ -132,6 +132,17 @@ export default {
     timeRemaining: "Time Remaining",
     gameDetails: "Game Details",
     hasAlreadyBeenAnswered: "has already been answered!",
+    shoppingCart: "Shopping Cart",
+    details: "Details",
+    price: "Price",
+    quantity: "Quantity",
+    total: "Total",
+    apply: "Apply",
+    clear: "Clear",
+    checkout: "Checkout",
+    loading: "Loading...",
+    remove: "Remove",
+    viewCart: "View Cart",
   },
   scoreResponses: {
     perfect: [
@@ -484,6 +495,42 @@ export default {
       "No existing entry for this quiz. By clicking submit you will create a new leaderboard entry.",
     existingEntryExplainer:
       "You have an existing entry for this quiz. By clicking submit you will update your existing entry.",
+  },
+  shoppingCart: {
+    continueShopping: "Continue Shopping",
+    emptyAlert: "Your cart is empty.",
+    invalidDiscountCodeAlert: "Invalid discount code. Please try again.",
+    invalidItemAlert:
+      "Discount code does not apply to any of the items in this cart. Please try again.",
+    successAlert: "Successfully applied discount code",
+    errorAlert: "Error applying discount code. Please try again.",
+  },
+  discountFooter: {
+    title: "Discount Code",
+    placeholder: "Enter discount code...",
+  },
+  priceSummary: {
+    subtotal: "Subtotal:",
+    nzWideShipping: "NZ-Wide Shipping:",
+    discount: "Discount:",
+    total: "Total:",
+    proceed: "Proceed To Checkout",
+  },
+  checkoutForm: {
+    addressPlaceholder: "Enter your street address...",
+    backToCart: "Back To Cart",
+    deliveryMethod: "Delivery Method",
+    contactDetails: "Contact Details",
+    emailPlaceholder: "Enter your email address...",
+    deliveryDetails: "Delivery Details",
+    firstNameLabel: "First Name",
+    firstNamePlaceholder: "Enter your first name...",
+    lastNameLabel: "Last Name",
+    lastNamePlaceholder: "Enter your last name...",
+    addressLabel: "Address",
+    addressHelperText:
+      "NOTE: We are currently only delivering to New Zealand addresses.",
+    continueToPayment: "Continue To Payment",
   },
   playFlagGames: {
     title: "Play Flag Games",
