@@ -43,31 +43,32 @@ const RegisterForm: FC<Props> = ({
   const validationSchema = [
     Yup.object().shape({
       email: Yup.string()
-        .required(t.global.emailRequiredValidation)
-        .email(t.global.emailValidValidation),
+        .required(t.validations.emailRequired)
+        .email(t.validations.emailValid),
       password: Yup.string()
-        .required(t.global.passwordRequiredValidation)
+        .required(t.validations.passwordRequired)
         .matches(
           /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-          t.global.passwordMatchValidation
+          t.validations.passwordMatch
         ),
     }),
     Yup.object().shape({
-      avatarId: Yup.number().required(t.global.avatarRequiredValidation),
+      avatarId: Yup.number().required(t.validations.avatarRequired),
     }),
     Yup.object().shape({
       username: Yup.string()
-        .required(t.global.usernameRequiredValidation)
-        .min(3, t.global.usernameMinValidation)
-        .max(20, t.global.usernameMaxValidation)
-        .matches(/^\S*$/, t.global.usernameMatchValidation),
-      countryCode: Yup.string().required(t.global.countryRequiredValidation),
+        .required(t.validations.usernameRequired)
+        .min(3, t.validations.usernameMin)
+        .max(20, t.validations.usernameMax)
+        .matches(/^\S*$/, t.validations.usernameMatch),
+      countryCode: Yup.string().required(t.validations.countryRequired),
     }),
   ];
 
   const handleNextStep = () => {
     setCurrentStep(currentStep + 1);
   };
+
   const handlePreviousStep = () => setCurrentStep(currentStep - 1);
 
   const getCurrentStepComponent = (props) => {

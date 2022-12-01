@@ -29,16 +29,6 @@ import { ShippingOption } from "../../types/shipping-option";
 import Card from "../Card";
 import RadioButton from "../RadioButton";
 
-const validationSchema = Yup.object().shape({
-  shippingId: Yup.string().required("Please select a shipping option."),
-  email: Yup.string()
-    .required("Please include your email address.")
-    .email("Must be a valid email address."),
-  firstName: Yup.string().required("Please include your first name."),
-  lastName: Yup.string().required("Please include your last name."),
-  address: Yup.string().required("Please include your street address."),
-});
-
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
 const searchOptions = {
@@ -62,6 +52,16 @@ const CheckoutForm: FC<Props> = ({
 }) => {
   const { t } = useContext(LanguageContext);
   const router = useRouter();
+
+  const validationSchema = Yup.object().shape({
+    shippingId: Yup.string().required(t.validations.shippingRequired),
+    email: Yup.string()
+      .required(t.validations.yourEmailValid)
+      .email(t.validations.emailValid),
+    firstName: Yup.string().required(t.validations.firstNameRequired),
+    lastName: Yup.string().required(t.validations.lastNameRequired),
+    address: Yup.string().required(t.validations.addressRequired),
+  });
 
   const renderAddressInput = ({
     getInputProps,

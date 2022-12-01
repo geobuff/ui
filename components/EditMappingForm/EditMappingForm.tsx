@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Box,
@@ -13,21 +13,10 @@ import {
 import { Field, FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
 
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
 import { FieldArrayErrorMessage } from "../FieldArrayErrorMessage/FieldArrayErrorMessage";
-
-const validationSchema = Yup.object().shape({
-  label: Yup.string().required("Please enter a group label."),
-  entries: Yup.array().of(
-    Yup.object().shape({
-      name: Yup.string().required("Please enter a name for mapping entry."),
-      code: Yup.string().required("Please enter a code for mapping entry."),
-      svgName: Yup.string().required(
-        "Please enter a svg name for mapping entry."
-      ),
-    })
-  ),
-});
 
 export interface Props {
   values: EditMappingGroupSubmit;
@@ -42,6 +31,21 @@ export const EditMappingForm: FC<Props> = ({
   onSubmit = () => {},
   onClose = () => {},
 }) => {
+  const { t } = useContext(LanguageContext);
+
+  const validationSchema = Yup.object().shape({
+    label: Yup.string().required(t.validations.mappingLabelRequired),
+    entries: Yup.array().of(
+      Yup.object().shape({
+        name: Yup.string().required(t.validations.mappingEntryNameRequired),
+        code: Yup.string().required(t.validations.mappingEntryCodeRequired),
+        svgName: Yup.string().required(
+          t.validations.mappingEntrySVGNameRequired
+        ),
+      })
+    ),
+  });
+
   return (
     <Formik
       initialValues={values}

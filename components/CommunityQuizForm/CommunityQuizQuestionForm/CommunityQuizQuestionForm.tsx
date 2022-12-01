@@ -55,29 +55,6 @@ const initialValues: CommunityQuizFormQuestion = {
   correctAnswer: "",
 };
 
-const validationSchema = Yup.object().shape({
-  typeId: Yup.string().required("Please select a quiz type."),
-  question: Yup.string().required("Please enter a value for question."),
-  answers: Yup.array().min(2).required("Must include at least two answers"),
-  correctAnswer: Yup.number()
-    .required("Please select a correct answer")
-    .typeError("Please select a correct answer"),
-  imageUrl: Yup.string().when("typeId", {
-    is: QuestionType.Image,
-    then: Yup.string().required(
-      "Must include imageUrl for image questions. Please search for an image and select one of the options below."
-    ),
-  }),
-  flagCode: Yup.string().when("typeId", {
-    is: QuestionType.Flag,
-    then: Yup.string().required("Must include flagCode for flag questions."),
-  }),
-  map: Yup.string().when("typeId", {
-    is: QuestionType.Map,
-    then: Yup.string().required("Must include map for map questions."),
-  }),
-});
-
 export interface Props {
   values?: CommunityQuizFormQuestion;
   types: TriviaQuestionType[];
@@ -109,6 +86,27 @@ const CommunityQuizQuestionForm: FC<Props> = ({
   const [highlightedRegions, setHighlightedRegions] = useState([]);
 
   const { data: flagGroups } = useFlagGroups();
+
+  const validationSchema = Yup.object().shape({
+    typeId: Yup.string().required(t.validations.quizTypeRequired),
+    question: Yup.string().required(t.validations.questionRequired),
+    answers: Yup.array().min(2).required(t.validations.answersMin),
+    correctAnswer: Yup.number()
+      .required(t.validations.correctAnswerRequired)
+      .typeError(t.validations.correctAnswerRequired),
+    imageUrl: Yup.string().when("typeId", {
+      is: QuestionType.Image,
+      then: Yup.string().required(t.validations.imageUrlRequired),
+    }),
+    flagCode: Yup.string().when("typeId", {
+      is: QuestionType.Flag,
+      then: Yup.string().required(t.validations.flagCodeRequired),
+    }),
+    map: Yup.string().when("typeId", {
+      is: QuestionType.Map,
+      then: Yup.string().required(t.validations.mapRequired),
+    }),
+  });
 
   const answers = [
     t.communityQuizQuestionForm.answerOne,

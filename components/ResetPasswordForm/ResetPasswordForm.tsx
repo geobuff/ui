@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Alert,
@@ -18,24 +18,14 @@ import {
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
 import AuthCard from "../AuthCard";
 import AuthView from "../AuthView";
 import Logo from "../Logo";
 import ResetPasswordError from "./ResetPasswordError";
 import ResetPasswordSuccess from "./ResetPasswordSuccess";
-
-const validationSchema = Yup.object().shape({
-  password: Yup.string()
-    .required("Please include a password.")
-    .matches(
-      /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-      "Must contain at least 8 characters, one uppercase letter, one lowercase letter and one number."
-    ),
-});
-
-const resetPasswordExplainer =
-  "Enter your new password. Make sure it's secure and different to your last one.";
 
 interface Props {
   error?: string;
@@ -52,16 +42,26 @@ const ResetPasswordForm: FC<Props> = ({
   isSubmitting = false,
   onSubmit = (values: ResetPasswordFormReset): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
   const shouldRenderOnMobile = useBreakpointValue({ base: false, md: true });
+
+  const validationSchema = Yup.object().shape({
+    password: Yup.string()
+      .required(t.validations.passwordRequired)
+      .matches(
+        /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
+        t.validations.passwordMatch
+      ),
+  });
 
   const form = (
     <>
       <Text fontSize="26px" marginY={2} fontWeight="800">
-        {"Reset Your Password"}
+        {t.resetPasswordForm.title}
       </Text>
 
       <Text marginTop={2} color="gray.600" fontSize="14px">
-        {resetPasswordExplainer}
+        {t.resetPasswordForm.explainer}
       </Text>
       <Formik
         initialValues={{ password: "" }}
@@ -80,13 +80,13 @@ const ResetPasswordForm: FC<Props> = ({
                   isInvalid={form.errors.password && form.touched.password}
                 >
                   <FormLabel htmlFor="password" hidden>
-                    {"Password"}
+                    {t.global.password}
                   </FormLabel>
                   <Input
                     {...field}
                     id="password"
                     type="password"
-                    placeholder="Enter new password..."
+                    placeholder={t.resetPasswordForm.passwordPlaceholder}
                     size="lg"
                     fontSize="16px"
                     background="#F6F6F6"
@@ -137,7 +137,7 @@ const ResetPasswordForm: FC<Props> = ({
                 isLoading={isSubmitting}
                 disabled={isLoading}
               >
-                {"Reset"}
+                {t.global.reset}
               </Button>
             </Flex>
           </Form>

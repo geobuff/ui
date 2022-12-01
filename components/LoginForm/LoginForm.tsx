@@ -48,13 +48,13 @@ const LoginForm: FC<Props> = ({
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .required(t.global.emailRequiredValidation)
-      .email(t.global.emailValidValidation),
+      .required(t.validations.emailRequired)
+      .email(t.validations.emailValid),
     password: Yup.string()
-      .required(t.global.passwordRequiredValidation)
+      .required(t.validations.passwordRequired)
       .matches(
         /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/,
-        t.global.passwordMatchValidation
+        t.validations.passwordMatch
       ),
   });
 

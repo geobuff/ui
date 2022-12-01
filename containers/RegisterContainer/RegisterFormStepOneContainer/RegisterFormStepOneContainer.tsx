@@ -37,7 +37,7 @@ const RegisterFormStepOneContainer: FC<Props> = ({
     } else {
       setFieldError(
         "email",
-        `${t.global.emailExistsValidationPartOne} ${email} ${t.global.emailExistsValidationPartTwo}`
+        `${t.validations.emailExistsPartOne} ${email} ${t.global.emailExistsPartTwo}`
       );
     }
 

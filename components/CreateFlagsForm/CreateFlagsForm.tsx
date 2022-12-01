@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Button,
@@ -12,19 +12,10 @@ import {
 import { Field, FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
 
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import { FlagsFormSubmit } from "../../types/flags-form-submit";
 import { MappingsWithoutFlagsDto } from "../../types/mappings-without-flags-dto";
-
-const validationSchema = Yup.object().shape({
-  label: Yup.string().required("Please enter a flag group label."),
-  key: Yup.string().required("Please select a mapping key."),
-  entries: Yup.array().of(
-    Yup.object().shape({
-      code: Yup.string().required("Please enter a code for flag entry."),
-      url: Yup.string().required("Please enter a url for flag entry."),
-    })
-  ),
-});
 
 export interface Props {
   availableMappings?: MappingsWithoutFlagsDto[];
@@ -41,6 +32,19 @@ const CreateFlagsForm: FC<Props> = ({
   onClose = () => {},
   isSubmitting = false,
 }) => {
+  const { t } = useContext(LanguageContext);
+
+  const validationSchema = Yup.object().shape({
+    label: Yup.string().required(t.validations.flagGroupLabelRequired),
+    key: Yup.string().required(t.validations.mappingKeyRequired),
+    entries: Yup.array().of(
+      Yup.object().shape({
+        code: Yup.string().required(t.validations.flagEntryCodeRequired),
+        url: Yup.string().required(t.validations.flagEntryUrlRequired),
+      })
+    ),
+  });
+
   return (
     <Formik
       initialValues={{
