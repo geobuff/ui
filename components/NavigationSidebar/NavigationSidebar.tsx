@@ -27,17 +27,6 @@ import NavigationSidebarQuicklink from "./NavigationSidebarQuicklink";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
-const buildCartLink = (itemCount: number) => ({
-  href: "/shopping-cart",
-  label: "View Cart",
-  node: (
-    <ShoppingCartLink
-      itemCount={itemCount}
-      twemojiProps={{ height: 22, width: 22 }}
-    />
-  ),
-});
-
 export interface Props {
   onClose: () => void;
   isOpen: boolean;
@@ -50,6 +39,17 @@ const NavigationSidebar: FC<Props> = ({
   shoppingCartItemCount = 0,
 }) => {
   const { t } = useContext(LanguageContext);
+
+  const buildCartLink = (itemCount: number) => ({
+    href: "/shopping-cart",
+    label: t.global.viewCart,
+    node: (
+      <ShoppingCartLink
+        itemCount={itemCount}
+        twemojiProps={{ height: 22, width: 22 }}
+      />
+    ),
+  });
 
   const quickLinks = [
     {

@@ -1,4 +1,10 @@
-import React, { FC, createContext, useEffect, useState } from "react";
+import React, {
+  FC,
+  createContext,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 
 import { deleteFromStorage, useLocalStorage } from "@rehooks/local-storage";
 
@@ -7,6 +13,7 @@ import { toTwoDecimalPlaces } from "../../helpers/number";
 import { CartItem } from "../../types/cart-item";
 import { CheckoutItem } from "../../types/checkout-payload";
 import { Discount } from "../../types/discount";
+import { LanguageContext } from "../LanguageContext/LanguageContext";
 
 export const ShoppingCartContext = createContext({
   cart: [],
@@ -36,6 +43,8 @@ interface Props {
 }
 
 export const ShoppingCartContextProvider: FC<Props> = ({ children = null }) => {
+  const { t } = useContext(LanguageContext);
+
   const [cart, setCart] = useLocalStorage<CartItem[]>("geobuff.cart", []);
   const [isLoading, setIsLoading] = useState(true);
 
@@ -143,7 +152,7 @@ export const ShoppingCartContextProvider: FC<Props> = ({ children = null }) => {
       .get(`/discounts/${code}`)
       .then((response) => {
         if (response.status === 204) {
-          setDiscountError("Invalid discount code. Please try again.");
+          setDiscountError(t.shoppingCart.invalidDiscountCodeAlert);
           deleteFromStorage("geobuff.discountCode");
         } else {
           const discount: Discount = response.data;
@@ -151,22 +160,20 @@ export const ShoppingCartContextProvider: FC<Props> = ({ children = null }) => {
             discount.merchId.Valid &&
             merchIds.find((x) => x === discount.merchId.Int64) === undefined
           ) {
-            setDiscountError(
-              "Discount code does not apply to any of the items in this cart. Please try again."
-            );
+            setDiscountError(t.shoppingCart.invalidItemAlert);
             deleteFromStorage("geobuff.discountCode");
           } else {
             setDiscountId(discount.id);
             setDiscountAmount(discount.amount);
             setDiscountCode(discount.code);
             setDiscountSuccess(
-              `Successfully applied discount code ${discount.code}.`
+              `${t.shoppingCart.successAlert} ${discount.code}.`
             );
           }
         }
       })
       .catch(() => {
-        setDiscountError("Error applying discount code. Please try again.");
+        setDiscountError(t.shoppingCart.error);
         deleteFromStorage("geobuff.discountCode");
       })
       .finally(() => setCheckingDiscount(false));

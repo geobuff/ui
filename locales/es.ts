@@ -31,25 +31,10 @@ export default {
     login: "Acceso",
     email: "Correo electrónico",
     emailPlaceholder: "Ingrese correo electrónico...",
-    emailRequiredValidation:
-      "Por favor introduzca una dirección de correo eléctronico.",
-    emailValidValidation:
-      "Debe ser una dirección de correo electrónico válida.",
-    emailExistsValidationPartOne: "Una cuenta con correo electrónico",
-    emailExistsValidationPartTwo: "ya existe.",
     password: "Clave",
     passwordPlaceholder: "Introducir la contraseña...",
-    passwordRequiredValidation: "Porfavor ingrese una contraseña.",
-    passwordMatchValidation:
-      "Debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.",
     register: "Registro",
     reset: "Reiniciar",
-    avatarRequiredValidation: "Seleccione un avatar.",
-    usernameRequiredValidation: "Por favor, ingrese un nombre de usuario.",
-    usernameMinValidaton: "Debe tener al menos 3 caracteres de longitud.",
-    usernameMaxValidaton: "Debe tener 20 caracteres o menos.",
-    usernameMatchValidaton: "No puede contener espacios.",
-    countryRequiredValidation: "Por favor seleccione un país.",
     avatar: "Avatar",
     username: "Nombre de usuario",
     usernamePlaceholder: "Introduzca su nombre de usuario...",
@@ -134,6 +119,60 @@ export default {
     timeRemaining: "Tiempo restante",
     gameDetails: "Detalles del juego",
     hasAlreadyBeenAnswered: "ya se ha respondido!",
+    shoppingCart: "Carrito de compras",
+    details: "Detalles",
+    price: "Precio",
+    quantity: "Cantidad",
+    total: "Total",
+    apply: "Aplicar",
+    clear: "Claro",
+    checkout: "Verificar",
+    loading: "Cargando...",
+    remove: "Retirar",
+    viewCart: "Ver carro",
+  },
+  validations: {
+    sizeRequired: "Por favor, elija un tamaño disponible.",
+    emailRequired: "Por favor introduzca una dirección de correo eléctronico.",
+    emailValid: "Debe ser una dirección de correo electrónico válida.",
+    emailExistsPartOne: "Una cuenta con correo electrónico",
+    emailExistsPartTwo: "ya existe.",
+    passwordRequired: "Porfavor ingrese una contraseña.",
+    passwordMatch:
+      "Debe contener al menos 8 caracteres, una letra mayúscula, una letra minúscula y un número.",
+    avatarRequired: "Seleccione un avatar.",
+    usernameRequired: "Incluya un nombre de usuario.",
+    usernameMin: "Debe tener al menos 3 caracteres de largo.",
+    usernameMax: "Debe tener 20 caracteres o menos.",
+    usernameMatch: "No puede contener espacios.",
+    countryRequired: "Por favor seleccione un país.",
+    shippingRequired: "Seleccione una opción de envío.",
+    yourEmailValid: "Incluya su dirección de correo electrónico.",
+    firstNameRequired: "Por favor incluye tu primer nombre.",
+    lastNameRequired: "Por favor, incluya su apellido.",
+    addressRequired: "Por favor incluya su dirección.",
+    quizNameRequired: "Por favor, introduzca un nombre para su prueba.",
+    quizIsPublicRequired: "Elija si su cuestionario será público o privado.",
+    quizQuestionsMin: "Debe incluir al menos una pregunta.",
+    quizTypeRequired: "Seleccione un tipo de prueba.",
+    questionRequired: "Introduzca un valor para la pregunta.",
+    answersMin: "Debe incluir al menos dos respuestas.",
+    correctAnswerRequired: "Seleccione una respuesta correcta.",
+    imageUrlRequired:
+      "Debe incluir imageUrl para preguntas sobre imágenes. Busque una imagen y seleccione una de las opciones a continuación.",
+    flagCodeRequired: "Debe incluir flagCode para preguntas de bandera.",
+    mapRequired: "Debe incluir mapa para preguntas de mapa.",
+    flagGroupLabelRequired: "Introduzca una etiqueta de grupo de banderas.",
+    mappingKeyRequired: "Seleccione una clave de asignación.",
+    flagEntryCodeRequired:
+      "Introduzca un código para la entrada de la bandera.",
+    flagEntryUrlRequired: "Ingrese una URL para la entrada de la bandera.",
+    mappingLabelRequired: "Introduzca una etiqueta de grupo.",
+    mappingEntryNameRequired:
+      "Introduzca un nombre para la entrada de asignación.",
+    mappingEntryCodeRequired: "Ingrese un código para la entrada de mapeo.",
+    mappingEntrySVGNameRequired:
+      "Ingrese un nombre svg para la entrada de mapeo.",
   },
   scoreResponses: {
     perfect: [
@@ -307,7 +346,6 @@ export default {
   merchSummaryDetails: {
     selectASize: "Seleccione una talla...",
     soldOut: "Vendido",
-    sizeValidationMessage: "Por favor, elija un tamaño disponible.",
   },
   loginForm: {
     forgotPassword: "¿Se te olvidó tu contraseña?",
@@ -503,6 +541,58 @@ export default {
       "No existe ninguna entrada para este cuestionario. Al hacer clic en enviar, creará una nueva entrada en la tabla de clasificación.",
     existingEntryExplainer:
       "Tienes una entrada existente para este cuestionario. Al hacer clic en enviar, actualizará su entrada existente.",
+  },
+  shoppingCart: {
+    continueShopping: "Seguir comprando",
+    emptyAlert: "Tu carrito esta vacío.",
+    invalidDiscountCodeAlert:
+      "Código de descuento no válido. Inténtalo de nuevo.",
+    invalidItemAlert:
+      "El código de descuento no se aplica a ninguno de los artículos de este carrito. Inténtalo de nuevo.",
+    successAlert: "Código de descuento aplicado con éxito",
+    errorAlert: "Error al aplicar el código de descuento. Inténtalo de nuevo.",
+  },
+  discountFooter: {
+    title: "Código de descuento",
+    placeholder: "Introduzca el código de descuento...",
+  },
+  priceSummary: {
+    subtotal: "Total parcial:",
+    nzWideShipping: "Envío a toda Nueva Zelanda:",
+    discount: "Descuento:",
+    total: "Total:",
+    proceed: "Pasar por la caja",
+  },
+  checkoutForm: {
+    addressPlaceholder: "Ingrese la dirección de su calle...",
+    backToCart: "Volver al carrito",
+    deliveryMethod: "Método de entrega",
+    contactDetails: "Detalles de contacto",
+    emailPlaceholder: "Introduzca su dirección de correo electrónico...",
+    deliveryDetails: "Detalles de la entrega",
+    firstNameLabel: "Primer nombre",
+    firstNamePlaceholder: "Ponga su primer nombre...",
+    lastNameLabel: "Apellido",
+    lastNamePlaceholder: "Ingresa tu apellido...",
+    addressLabel: "Dirección",
+    addressHelperText:
+      "NOTA: Actualmente solo realizamos envíos a direcciones de Nueva Zelanda.",
+    continueToPayment: "Continuar al pago",
+  },
+  resetPasswordForm: {
+    title: "Restablecer su contraseña",
+    explainer:
+      "Introduzca su nueva contraseña. Asegúrate de que sea seguro y diferente al anterior.",
+    passwordPlaceholder: "Ingrese nueva clave...",
+  },
+  resetPasswordError: {
+    requestNewToken: "Solicitar nuevo token",
+  },
+  resetPasswordSuccess: {
+    title: "¡Contraseña actualizada con éxito!",
+    descriptionOne: "Por favor ",
+    link: "acceso",
+    descriptionTwo: " continuar.",
   },
   playFlagGames: {
     title: "Juega juegos de banderas",

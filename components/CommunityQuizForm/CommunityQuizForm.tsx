@@ -34,14 +34,6 @@ import CommunityQuizQuestionsField from "./CommunityQuizQuestionsField";
 import CommunityQuizRadioGroupFormField from "./CommunityQuizRadioGroupFormField";
 import CommunityQuizTextAreaFormField from "./CommunityQuizTextAreaFormField";
 
-const validationSchema = Yup.object().shape({
-  name: Yup.string().required("Please enter a name for your quiz."),
-  isPublic: Yup.string().required(
-    "Please choose whether your quiz will be public or private."
-  ),
-  questions: Yup.array().min(1, "Must include at least one question."),
-});
-
 const initialValues: CommunityQuizFormSubmit = {
   name: "",
   description: "",
@@ -83,6 +75,12 @@ const CommunityQuizForm: FC<Props> = ({
 
   const [selectedQuestion, setSelectedQuestion] =
     useState<CommunityQuizFormQuestion>();
+
+  const validationSchema = Yup.object().shape({
+    name: Yup.string().required(t.validations.quizNameRequired),
+    isPublic: Yup.string().required(t.validations.quizIsPublicRequired),
+    questions: Yup.array().min(1, t.validations.quizQuestionsMin),
+  });
 
   const handleAddQuestion = (
     newQuestion: CommunityQuizFormQuestion,

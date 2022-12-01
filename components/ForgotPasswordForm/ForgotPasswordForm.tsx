@@ -50,8 +50,8 @@ const ForgotPasswordForm: FC<Props> = ({
 
   const validationSchema = Yup.object().shape({
     email: Yup.string()
-      .required(t.global.emailRequiredValidation)
-      .email(t.global.emailValidValidation),
+      .required(t.validations.emailRequired)
+      .email(t.validations.emailValid),
   });
 
   const success = (

@@ -1,4 +1,4 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Box,
@@ -21,21 +21,13 @@ import { useRouter } from "next/router";
 import PlacesAutocomplete from "react-places-autocomplete";
 import * as Yup from "yup";
 
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
 import ArrowLeft from "../../Icons/ArrowLeft";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { ShippingOption } from "../../types/shipping-option";
 import Card from "../Card";
 import RadioButton from "../RadioButton";
-
-const validationSchema = Yup.object().shape({
-  shippingId: Yup.string().required("Please select a shipping option."),
-  email: Yup.string()
-    .required("Please include your email address.")
-    .email("Must be a valid email address."),
-  firstName: Yup.string().required("Please include your first name."),
-  lastName: Yup.string().required("Please include your last name."),
-  address: Yup.string().required("Please include your street address."),
-});
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
@@ -58,7 +50,18 @@ const CheckoutForm: FC<Props> = ({
   isMapsApiLoading = true,
   onSubmit = (values: CheckoutFormSubmit): void => {},
 }) => {
+  const { t } = useContext(LanguageContext);
   const router = useRouter();
+
+  const validationSchema = Yup.object().shape({
+    shippingId: Yup.string().required(t.validations.shippingRequired),
+    email: Yup.string()
+      .required(t.validations.yourEmailValid)
+      .email(t.validations.emailValid),
+    firstName: Yup.string().required(t.validations.firstNameRequired),
+    lastName: Yup.string().required(t.validations.lastNameRequired),
+    address: Yup.string().required(t.validations.addressRequired),
+  });
 
   const renderAddressInput = ({
     getInputProps,
@@ -71,7 +74,7 @@ const CheckoutForm: FC<Props> = ({
         {...getInputProps()}
         id="address"
         type="text"
-        placeholder="Enter your street address..."
+        placeholder={t.checkoutForm.addressPlaceholder}
         size="lg"
         fontSize="16px"
         fontWeight={400}
@@ -83,7 +86,7 @@ const CheckoutForm: FC<Props> = ({
       <>
         {loading && (
           <Box>
-            <Text>Loading...</Text>
+            <Text>{t.global.loading}</Text>
           </Box>
         )}
         {suggestions.map((suggestion, index) => (
@@ -127,7 +130,7 @@ const CheckoutForm: FC<Props> = ({
         >
           <ArrowLeft height={5} width={5} marginRight={1} />
           <Text fontWeight="bold" fontSize="14px">
-            {"Back To Cart"}
+            {t.checkoutForm.backToCart}
           </Text>
         </Button>
       </Flex>
@@ -157,7 +160,7 @@ const CheckoutForm: FC<Props> = ({
               <Form>
                 <Flex direction="column" marginX={{ base: 1, md: 6 }}>
                   <Heading size="md" mt={{ base: 1, md: 6 }} mb={3}>
-                    {"Delivery Method"}
+                    {t.checkoutForm.deliveryMethod}
                   </Heading>
                   <Flex marginY={6}>
                     <Field name="shippingId">
@@ -192,7 +195,7 @@ const CheckoutForm: FC<Props> = ({
                   {divider}
 
                   <Heading size="md" mt={6} mb={3}>
-                    Contact Details
+                    {t.checkoutForm.contactDetails}
                   </Heading>
                   <Flex mt={3} mb={6}>
                     <Field name="email">
@@ -201,13 +204,13 @@ const CheckoutForm: FC<Props> = ({
                           isInvalid={form.errors.email && form.touched.email}
                         >
                           <FormLabel htmlFor="email" fontWeight="bold">
-                            {"Email"}
+                            {t.global.email}
                           </FormLabel>
                           <Input
                             {...field}
                             id="email"
                             type="email"
-                            placeholder="Enter your email address..."
+                            placeholder={t.checkoutForm.emailPlaceholder}
                             size="lg"
                             fontSize="16px"
                             fontWeight={400}
@@ -230,7 +233,7 @@ const CheckoutForm: FC<Props> = ({
                   {divider}
 
                   <Heading size="md" mt={6} mb={3}>
-                    Delivery Details
+                    {t.checkoutForm.deliveryDetails}
                   </Heading>
                   <Flex marginY={3}>
                     <Field name="firstName">
@@ -241,13 +244,13 @@ const CheckoutForm: FC<Props> = ({
                           }
                         >
                           <FormLabel htmlFor="firstName" fontWeight="bold">
-                            {"First Name"}
+                            {t.checkoutForm.firstNameLabel}
                           </FormLabel>
                           <Input
                             {...field}
                             id="firstName"
                             type="text"
-                            placeholder="Enter your first name..."
+                            placeholder={t.checkoutForm.firstNamePlaceholder}
                             size="lg"
                             fontSize="16px"
                             fontWeight={400}
@@ -275,13 +278,13 @@ const CheckoutForm: FC<Props> = ({
                           }
                         >
                           <FormLabel htmlFor="lastName" fontWeight="bold">
-                            {"Last Name"}
+                            {t.checkoutForm.lastNameLabel}
                           </FormLabel>
                           <Input
                             {...field}
                             id="lastName"
                             type="text"
-                            placeholder="Enter your last name..."
+                            placeholder={t.checkoutForm.lastNamePlaceholder}
                             size="lg"
                             fontSize="16px"
                             fontWeight={400}
@@ -309,10 +312,10 @@ const CheckoutForm: FC<Props> = ({
                           }
                         >
                           <FormLabel htmlFor="address" fontWeight="bold">
-                            {"Address"}
+                            {t.checkoutForm.addressLabel}
                           </FormLabel>
                           <FormHelperText lineHeight="1.50" mb={2}>
-                            {`NOTE: We are currently only delivering to New Zealand addresses.`}
+                            {t.checkoutForm.addressHelperText}
                           </FormHelperText>
                           {isMapsApiLoading ? (
                             <Spinner mt={3} />
@@ -351,7 +354,7 @@ const CheckoutForm: FC<Props> = ({
                         isLoading={isLoading}
                         disabled={isLoading}
                       >
-                        {"Continue To Payment"}
+                        {t.checkoutForm.continueToPayment}
                       </Button>
                     </Flex>
                   </Flex>

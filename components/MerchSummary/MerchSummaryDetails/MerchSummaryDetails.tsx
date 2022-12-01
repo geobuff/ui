@@ -47,7 +47,7 @@ const MerchSummaryDetails: FC<Props> = ({
   const { t } = useContext(LanguageContext);
 
   const validationSchema = Yup.object().shape({
-    size: Yup.string().required(t.merchSummaryDetails.sizeValidationMessage),
+    size: Yup.string().required(t.validations.sizeRequired),
   });
 
   return (
@@ -129,7 +129,7 @@ const MerchSummaryDetails: FC<Props> = ({
       {submitted && (
         <Link href="/shopping-cart">
           <Button colorScheme="teal" width="100%" mt={3}>
-            {" View Cart"}
+            {t.global.viewCart}
           </Button>
         </Link>
       )}

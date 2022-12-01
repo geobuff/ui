@@ -21,17 +21,6 @@ import CountrySelect from "../CountrySelect";
 import ErrorAlertBanner from "../ErrorAlertBanner";
 import Modal from "../Modal";
 
-const validationSchema = Yup.object().shape({
-  username: Yup.string()
-    .required("Please include a username.")
-    .min(3, "Must be at least 3 characters long.")
-    .max(20, "Must be 20 or less characters long.")
-    .matches(/^\S*$/, "Cannot contain spaces."),
-  email: Yup.string()
-    .required("Please include an email.")
-    .email("Must be a valid email address."),
-});
-
 interface Props {
   user?: UserDto;
   isOpen?: boolean;
@@ -52,6 +41,17 @@ const UpdateUserFormModal: FC<Props> = ({
   error = "",
 }) => {
   const { t } = useContext(LanguageContext);
+
+  const validationSchema = Yup.object().shape({
+    username: Yup.string()
+      .required(t.validations.usernameRequired)
+      .min(3, t.validations.usernameMin)
+      .max(20, t.validations.usernameMax)
+      .matches(/^\S*$/, t.validations.usernameMatch),
+    email: Yup.string()
+      .required(t.validations.emailRequired)
+      .email(t.validations.emailValid),
+  });
 
   return (
     <Modal isOpen={isOpen} onClose={onClose}>
