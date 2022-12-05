@@ -130,6 +130,7 @@ export default {
     loading: "Loading...",
     remove: "Remove",
     viewCart: "View Cart",
+    mins: "mins",
   },
   validations: {
     sizeRequired: "Please choose an available size.",

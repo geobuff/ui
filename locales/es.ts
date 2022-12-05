@@ -130,6 +130,7 @@ export default {
     loading: "Cargando...",
     remove: "Retirar",
     viewCart: "Ver carro",
+    mins: "minutos",
   },
   validations: {
     sizeRequired: "Por favor, elija un tamaño disponible.",

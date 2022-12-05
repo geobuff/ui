@@ -1,6 +1,6 @@
 import React, { FC, useContext, useEffect } from "react";
 
-import { Box, useBreakpointValue } from "@chakra-ui/react";
+import { Box, Flex, Spinner, useBreakpointValue } from "@chakra-ui/react";
 import axios from "axios";
 import { DateTime } from "luxon";
 import dynamic from "next/dynamic";
@@ -15,6 +15,9 @@ import TriviaCardListSection from "../../components/TriviaCardListSection";
 import { FilteredTrivia } from "../../components/TriviaList/TriviaList";
 
 import { formatDate, isDateBefore } from "../../helpers/date";
+import { CommunityQuiz } from "../../types/community-quiz-dto";
+import { Quiz } from "../../types/quiz";
+import { Trivia } from "../../types/trivia";
 
 const QuizCardListSection = dynamic(
   () => import("../../components/QuizCardListSection")
@@ -33,14 +36,24 @@ const HomeSearchResults = dynamic(
 );
 
 interface Props {
-  pageProps: any;
+  maps: Quiz[];
+  flags: Quiz[];
+  community: CommunityQuiz[];
+  trivia: Trivia[];
+  isLoading: boolean;
 }
 
-export const HomeContainer: FC<Props> = ({ pageProps }) => {
+export const HomeContainer: FC<Props> = ({
+  maps,
+  flags,
+  community,
+  trivia,
+  isLoading,
+}) => {
   const isMobile = useBreakpointValue({ base: true, md: false });
   const numberToSlice = isMobile ? 14 : 10;
 
-  const { t } = useContext(LanguageContext);
+  const { t, language } = useContext(LanguageContext);
 
   const {
     filter,
@@ -59,27 +72,23 @@ export const HomeContainer: FC<Props> = ({ pageProps }) => {
   } = useContext(HomeContext);
 
   useEffect(() => {
-    if (pageProps) {
-      onMapQuizzesChange(pageProps?.mapQuizzes?.slice(0, numberToSlice));
-      onFlagQuizzesChange(pageProps?.flagQuizzes?.slice(0, numberToSlice));
-      onCommunityQuizzesChange(
-        pageProps?.communityQuizzes?.slice(0, numberToSlice)
-      );
+    onMapQuizzesChange(maps?.slice(0, numberToSlice));
+    onFlagQuizzesChange(flags?.slice(0, numberToSlice));
+    onCommunityQuizzesChange(community?.slice(0, numberToSlice));
 
-      onFilteredTriviaChange(
-        pageProps?.trivia
-          .map((quiz: FilteredTrivia) => ({
-            ...quiz,
-            isActive: isDateBefore(
-              DateTime.fromISO(formatDate(quiz.date)),
-              DateTime.fromISO(new Date().toISOString())
-            ),
-          }))
-          .filter((t) => t.isActive)
-          .slice(0, isMobile ? 7 : 5)
-      );
-    }
-  }, [pageProps]);
+    onFilteredTriviaChange(
+      trivia
+        ?.map((quiz: FilteredTrivia) => ({
+          ...quiz,
+          isActive: isDateBefore(
+            DateTime.fromISO(formatDate(quiz.date)),
+            DateTime.fromISO(new Date().toISOString())
+          ),
+        }))
+        .filter((t) => t.isActive)
+        .slice(0, isMobile ? 7 : 5)
+    );
+  }, [maps, flags, community, trivia]);
 
   useEffect(() => {
     if (filter.trim().length < 3) {
@@ -87,9 +96,14 @@ export const HomeContainer: FC<Props> = ({ pageProps }) => {
       return;
     }
 
+    const headers = {
+      "Content-Language": language,
+    };
+
     const quizRequest = axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
+      headers,
       data: {
         filter: filter,
         page: 0,
@@ -188,18 +202,24 @@ export const HomeContainer: FC<Props> = ({ pageProps }) => {
   return (
     <MainView>
       <HomeHeader />
-      <Box
-        width="100%"
-        maxWidth={1300}
-        marginTop={2}
-        marginBottom={{ base: 5, md: 16 }}
-        marginLeft="auto"
-        marginRight="auto"
-        paddingX={{ base: 0, md: 10 }}
-        minHeight="400px"
-      >
-        {getContent()}
-      </Box>
+      {isLoading ? (
+        <Flex justifyContent="center" minHeight="400px">
+          <Spinner marginTop={2} />
+        </Flex>
+      ) : (
+        <Box
+          width="100%"
+          maxWidth={1300}
+          marginTop={2}
+          marginBottom={{ base: 5, md: 16 }}
+          marginLeft="auto"
+          marginRight="auto"
+          paddingX={{ base: 0, md: 10 }}
+          minHeight="400px"
+        >
+          {getContent()}
+        </Box>
+      )}
     </MainView>
   );
 };
