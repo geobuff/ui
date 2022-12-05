@@ -1,219 +1,113 @@
-import React, { ChangeEvent, FC, useContext, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
-import { Box, useBreakpointValue } from "@chakra-ui/react";
-import axios from "axios";
-import { DateTime } from "luxon";
+import axios, { AxiosPromise } from "axios";
 import { GetStaticProps } from "next";
 import type { AppProps } from "next/app";
-import dynamic from "next/dynamic";
-import { debounce } from "throttle-debounce";
 
+import { HomeContextProvider } from "../context/HomeContext/HomeContext";
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
-import DelayedRender from "../components/DelayedRender";
-import HomeHeader from "../components/HomeHeader";
-import MainView from "../components/MainView";
-import TriviaCardListSection from "../components/TriviaCardListSection";
-import { FilteredTrivia } from "../components/TriviaList/TriviaList";
+import { HomeContainer } from "../containers/HomeContainer/HomeContainer";
 
 import axiosClient from "../axios";
-import { formatDate, isDateBefore } from "../helpers/date";
+import { CommunityQuiz } from "../types/community-quiz-dto";
 import { CommunityQuizFilterDto } from "../types/community-quiz-filter-dto";
-import { QuizSearchResults } from "../types/quiz-search-results";
+import { Quiz } from "../types/quiz";
 import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
+import { Trivia } from "../types/trivia";
 import { TriviaFilterDto } from "../types/trivia-filter-dto";
 
-const QuizCardListSection = dynamic(
-  () => import("../components/QuizCardListSection")
-);
+const quizzesFilter: QuizzesFilterDto = {
+  filter: "",
+  page: 0,
+  limit: 15,
+  orderByPopularity: false,
+};
 
-const CommunityQuizCardListSection = dynamic(
-  () => import("../components/CommunityQuizCardListSection")
-);
+const getRequests = (language: string): AxiosPromise<any>[] => {
+  const headers = {
+    "Content-Language": language,
+  };
 
-const HomeNoSearchResults = dynamic(
-  () => import("../components/HomeNoSearchResults")
-);
-
-const HomeSearchResults = dynamic(
-  () => import("../components/HomeSearchResults")
-);
-
-const Home: FC<AppProps> = ({ pageProps }) => {
-  const { t } = useContext(LanguageContext);
-
-  const [filter, setFilter] = useState("");
-  const [searchResults, setSearchResults] = useState<QuizSearchResults>();
-  const [isSearching, setIsSearching] = useState(false);
-  const [inputValue, setInputValue] = useState("");
-
-  useEffect(() => {
-    if (filter.trim().length < 3) {
-      setSearchResults(null);
-      return;
-    }
-
-    const quizRequest = axios({
+  return [
+    axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
+      headers,
       data: {
-        filter: filter,
-        page: 0,
-        limit: 15,
-        orderByPopularity: false,
+        ...quizzesFilter,
+        filter: "map",
       },
-    });
-
-    const communityQuizRequest = axios({
+    }),
+    axios({
+      method: "post",
+      url: `${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`,
+      headers,
+      data: {
+        ...quizzesFilter,
+        filter: "flag",
+      },
+    }),
+    axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/community-quizzes/all`,
+      headers,
       data: {
-        filter: filter,
         page: 0,
         limit: 15,
       },
-    });
-
-    const triviaRequest = axios({
+    }),
+    axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
+      headers,
       data: {
-        filter: filter,
         page: 0,
-        limit: 15,
+        limit: 10,
       },
-    });
+    }),
+  ];
+};
 
-    const requests = [quizRequest, communityQuizRequest, triviaRequest];
+const Home: FC<AppProps> = ({ pageProps }) => {
+  const { language } = useContext(LanguageContext);
 
-    setIsSearching(true);
-    Promise.all(requests)
-      .then((responses) => {
-        const quizzes = responses[0].data.quizzes;
-        const communityQuizzes = responses[1].data.quizzes;
-        const trivia = responses[2].data.trivia;
+  const [mapQuizzes, setMapQuizzes] = useState<Quiz[]>();
+  const [flagQuizzes, setFlagQuizzes] = useState<Quiz[]>();
+  const [communityQuizzes, setCommunityQuizzes] = useState<CommunityQuiz[]>();
+  const [trivia, setTrivia] = useState<Trivia[]>();
+  const [isLoading, setIsLoading] = useState(true);
 
-        setSearchResults({
-          quizzes: quizzes,
-          communityQuizzes: communityQuizzes,
-          trivia: trivia,
-          length: quizzes.length + communityQuizzes.length + trivia.length,
-        });
-      })
-      .finally(() => setIsSearching(false));
-  }, [filter]);
-
-  const handleClearInput = (): void => {
-    setInputValue("");
-    setFilter("");
-    setSearchResults(null);
-  };
-
-  const onChange = (value: string): void => {
-    setFilter(value);
-  };
-
-  const handleDebounceChange = debounce(1000, (event) => {
-    onChange(event);
-  });
-
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setInputValue(event.target.value);
-    handleDebounceChange(event.target.value);
-
-    if (event.target.value?.length === 2) {
-      setIsSearching(true);
+  useEffect(() => {
+    if (language !== "en") {
+      const requests = getRequests(language);
+      Promise.all(requests)
+        .then((responses) => {
+          setMapQuizzes(responses[0].data.quizzes);
+          setFlagQuizzes(responses[1].data.quizzes);
+          setCommunityQuizzes(responses[2].data.quizzes);
+          setTrivia(responses[3].data.trivia);
+        })
+        .finally(() => setIsLoading(false));
+    } else {
+      setMapQuizzes(pageProps.mapQuizzes);
+      setFlagQuizzes(pageProps.flagQuizzes);
+      setCommunityQuizzes(pageProps.communityQuizzes);
+      setTrivia(pageProps.trivia);
+      setIsLoading(false);
     }
-  };
-
-  const isMobile = useBreakpointValue({ base: true, md: false });
-
-  const numberToSlice = isMobile ? 14 : 10;
-
-  const mapQuizzes = pageProps?.mapQuizzes?.slice(0, numberToSlice);
-  const flagQuizzes = pageProps?.flagQuizzes?.slice(0, numberToSlice);
-  const communityQuizzes = pageProps?.communityQuizzes?.slice(0, numberToSlice);
-
-  const filteredTrivia = pageProps?.trivia
-    .map((quiz: FilteredTrivia) => ({
-      ...quiz,
-      isActive: isDateBefore(
-        DateTime.fromISO(formatDate(quiz.date)),
-        DateTime.fromISO(new Date().toISOString())
-      ),
-    }))
-    .filter((t) => t.isActive)
-    .slice(0, isMobile ? 7 : 5);
-
-  const getContent = (): JSX.Element => {
-    if (!filter) {
-      return (
-        <Box minHeight="776px">
-          <DelayedRender shouldFadeIn waitBeforeShow={100}>
-            {filteredTrivia.length > 0 && (
-              <TriviaCardListSection trivia={filteredTrivia} />
-            )}
-
-            {communityQuizzes.length > 0 && (
-              <CommunityQuizCardListSection quizzes={communityQuizzes} />
-            )}
-
-            {mapQuizzes.length > 0 && (
-              <QuizCardListSection
-                title={t.global.mapGamesUpper}
-                linkHref="/map-games"
-                linkVerb={t.global.mapGamesLower}
-                quizzes={mapQuizzes}
-              />
-            )}
-
-            {flagQuizzes.length > 0 && (
-              <QuizCardListSection
-                title={t.global.flagGamesUpper}
-                linkHref="/flag-games"
-                linkVerb={t.global.flagGamesLower}
-                quizzes={flagQuizzes}
-              />
-            )}
-          </DelayedRender>
-        </Box>
-      );
-    }
-
-    if (searchResults?.length === 0 && !isSearching) {
-      return <HomeNoSearchResults filter={filter} />;
-    }
-
-    return (
-      <HomeSearchResults
-        isSearching={isSearching}
-        searchResults={searchResults}
-        filter={filter.trim()}
-      />
-    );
-  };
+  }, []);
 
   return (
-    <MainView>
-      <HomeHeader
-        inputValue={inputValue}
-        onChange={handleChange}
-        onClearInput={handleClearInput}
+    <HomeContextProvider>
+      <HomeContainer
+        maps={mapQuizzes}
+        flags={flagQuizzes}
+        community={communityQuizzes}
+        trivia={trivia}
+        isLoading={isLoading}
       />
-
-      <Box
-        width="100%"
-        maxWidth={1300}
-        marginTop={2}
-        marginBottom={{ base: 5, md: 16 }}
-        marginLeft="auto"
-        marginRight="auto"
-        paddingX={{ base: 0, md: 10 }}
-        minHeight="400px"
-      >
-        {getContent()}
-      </Box>
-    </MainView>
+    </HomeContextProvider>
   );
 };
 

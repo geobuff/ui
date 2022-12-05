@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useContext } from "react";
+import React, { FC, useContext } from "react";
 
 import {
   Box,
@@ -10,24 +10,17 @@ import {
   InputRightElement,
 } from "@chakra-ui/react";
 
+import { HomeContext } from "../../context/HomeContext/HomeContext";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import Search from "../../Icons/Search";
 import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 import HeroBanner from "../HeroBanner";
 
-export interface Props {
-  inputValue?: string;
-  onChange?: (event: ChangeEvent<HTMLInputElement>) => void;
-  onClearInput?: () => void;
-}
-
-const HomeHeader: FC<Props> = ({
-  inputValue = "",
-  onChange = (): void => {},
-  onClearInput = (): void => {},
-}) => {
+const HomeHeader: FC = () => {
   const { t } = useContext(LanguageContext);
+  const { onQuizSearch, searchInputValue, onClearSearchInput } =
+    useContext(HomeContext);
 
   return (
     <>
@@ -60,12 +53,12 @@ const HomeHeader: FC<Props> = ({
               paddingLeft="44px"
               width="100%"
               size="lg"
-              onChange={onChange}
+              onChange={onQuizSearch}
               placeholder={t.homeHeader.searchPlaceholder}
-              value={inputValue}
+              value={searchInputValue}
             />
             <InputRightElement>
-              <Fade in={inputValue?.length > 0}>
+              <Fade in={searchInputValue?.length > 0}>
                 <IconButton
                   aria-label="close circle"
                   position="absolute"
@@ -75,7 +68,7 @@ const HomeHeader: FC<Props> = ({
                   minWidth="22px"
                   backgroundColor="transparent"
                   borderRadius={25}
-                  onClick={onClearInput}
+                  onClick={onClearSearchInput}
                   color="#a6a6a6"
                   fontWeight="bold"
                   _hover={{

@@ -52,4 +52,19 @@
     ],
     "description": "Initialise variable to access translations."
   },
+  "Context": {
+      "prefix": ["context", "ctx"],
+      "scope": "typescriptreact",
+      "body": [
+        "import React, { FC, createContext } from 'react';\n",
+        "export const ${1:${TM_FILENAME_BASE}} = createContext({});\n",
+        "interface Props { children: React.ReactNode; }\n",
+        "export const ${1:${TM_FILENAME_BASE}}Provider: FC<Props> = ({ children = null }) => {",
+        "\treturn (",
+        "    <${1:${TM_FILENAME_BASE}}.Provider value={{}}>{children}</${1:${TM_FILENAME_BASE}}.Provider>",
+        "\t);",
+        "};",
+      ],
+      "description": "Boilerplate for a context."
+    }
 }
