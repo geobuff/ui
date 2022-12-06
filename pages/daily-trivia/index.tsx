@@ -7,6 +7,8 @@ import Head from "next/head";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
+import { TriviaListContainer } from "../../containers/TriviaListContainer/TriviaListContainer";
+
 import HeroHeader from "../../components/HeroHeader";
 import MainView from "../../components/MainView";
 import TriviaList from "../../components/TriviaList";
@@ -14,7 +16,7 @@ import TriviaList from "../../components/TriviaList";
 import axiosClient from "../../axios";
 
 const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
-  const { t } = useContext(LanguageContext);
+  const { t, language } = useContext(LanguageContext);
 
   return (
     <>
@@ -35,7 +37,11 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
             width="100%"
             marginX="auto"
           >
-            <TriviaList trivia={pageProps?.trivia} />
+            {language === "en" ? (
+              <TriviaList trivia={pageProps?.trivia} />
+            ) : (
+              <TriviaListContainer />
+            )}
           </Flex>
         </Flex>
       </MainView>

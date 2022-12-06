@@ -1,6 +1,6 @@
-import useSWR from "swr";
+import { useEffect, useState } from "react";
 
-import { fetcher } from "../helpers/fetcher";
+import axiosClient from "../axios";
 import { Trivia } from "../types/trivia";
 
 interface Result {
@@ -8,13 +8,24 @@ interface Result {
   isLoading: boolean;
 }
 
-const useAllTrivia = (): Result => {
-  const { data } = useSWR("/trivia", fetcher);
+export const useAllTrivia = (limit = 30): Result => {
+  const [data, setData] = useState<Trivia[]>();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    axiosClient
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/trivia/all`, {
+        page: 0,
+        limit: limit,
+      })
+      .then((response) => {
+        setData(response.data.trivia);
+        setIsLoading(false);
+      });
+  });
 
   return {
-    data: data ?? [],
-    isLoading: !data,
+    data: data,
+    isLoading: isLoading,
   };
 };
-
-export default useAllTrivia;
