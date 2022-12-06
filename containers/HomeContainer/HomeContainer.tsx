@@ -1,6 +1,6 @@
 import React, { FC, useContext, useEffect } from "react";
 
-import { Box, Flex, Spinner, useBreakpointValue } from "@chakra-ui/react";
+import { Box, useBreakpointValue } from "@chakra-ui/react";
 import axios from "axios";
 import { DateTime } from "luxon";
 import dynamic from "next/dynamic";
@@ -10,6 +10,7 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import DelayedRender from "../../components/DelayedRender";
 import HomeHeader from "../../components/HomeHeader";
+import { LoadingSpinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import MainView from "../../components/MainView";
 import TriviaCardListSection from "../../components/TriviaCardListSection";
 import { FilteredTrivia } from "../../components/TriviaList/TriviaList";
@@ -115,6 +116,7 @@ export const HomeContainer: FC<Props> = ({
     const communityQuizRequest = axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/community-quizzes/all`,
+      headers,
       data: {
         filter: filter,
         page: 0,
@@ -125,6 +127,7 @@ export const HomeContainer: FC<Props> = ({
     const triviaRequest = axios({
       method: "post",
       url: `${process.env.NEXT_PUBLIC_API_URL}/trivia/all`,
+      headers,
       data: {
         filter: filter,
         page: 0,
@@ -203,9 +206,7 @@ export const HomeContainer: FC<Props> = ({
     <MainView>
       <HomeHeader />
       {isLoading ? (
-        <Flex justifyContent="center" minHeight="400px">
-          <Spinner marginTop={2} />
-        </Flex>
+        <LoadingSpinner />
       ) : (
         <Box
           width="100%"

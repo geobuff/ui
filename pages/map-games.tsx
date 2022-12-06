@@ -7,14 +7,16 @@ import Head from "next/head";
 
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
+import { QuizListContainer } from "../containers/QuizListContainer/QuizListContainer";
+
 import HeroHeader from "../components/HeroHeader";
 import MainView from "../components/MainView";
 import QuizList from "../components/QuizList";
 
 import axiosClient from "../axios";
 
-const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
-  const { t } = useContext(LanguageContext);
+const MapGames: FC<AppProps> = ({ pageProps }) => {
+  const { t, language } = useContext(LanguageContext);
 
   return (
     <>
@@ -35,7 +37,11 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
             width="100%"
             marginX="auto"
           >
-            <QuizList quizzes={pageProps?.mapQuizzes} />
+            {language === "en" ? (
+              <QuizList quizzes={pageProps?.mapQuizzes} />
+            ) : (
+              <QuizListContainer type="map" />
+            )}
           </Flex>
         </Flex>
       </MainView>
@@ -64,4 +70,4 @@ export const getStaticProps: GetStaticProps = async () => {
   };
 };
 
-export default DailyTrivia;
+export default MapGames;
