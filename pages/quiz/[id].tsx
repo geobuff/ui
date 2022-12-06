@@ -69,15 +69,7 @@ const getQuizData = async (route: string) => {
 
     return {
       quiz,
-      mapping:
-        mapping?.map((mapping) => ({
-          ...mapping,
-          flagUrl: mapping.flagUrl.Valid ? mapping.flagUrl.String : "",
-          alternativeNames: mapping.alternativeNames.map((altName) =>
-            altName.toLowerCase()
-          ),
-          prefixes: mapping.prefixes.map((prefix) => prefix.toLowerCase()),
-        })) || [],
+      mapping,
     };
   }
 
