@@ -1,28 +1,29 @@
 import { useEffect, useState } from "react";
 
 import axiosClient from "../axios";
-import { Trivia } from "../types/trivia";
+import { Quiz } from "../types/quiz";
 
 interface Result {
-  data: Trivia[];
+  data: Quiz[];
   isLoading: boolean;
 }
 
-export const useAllTrivia = (limit = 30): Result => {
-  const [data, setData] = useState<Trivia[]>();
+export const useAllQuizzes = (type: "map" | "flag"): Result => {
+  const [data, setData] = useState<Quiz[]>();
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     axiosClient
-      .post(`${process.env.NEXT_PUBLIC_API_URL}/trivia/all`, {
+      .post(`${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`, {
         page: 0,
-        limit: limit,
+        limit: 150,
+        filter: type,
       })
       .then((response) => {
-        setData(response.data.trivia);
+        setData(response.data.quizzes);
         setIsLoading(false);
       });
-  }, [limit]);
+  }, [type]);
 
   return {
     data: data,

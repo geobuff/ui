@@ -4,7 +4,7 @@ import { Flex } from "@chakra-ui/react";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import useMappingEntries from "../../hooks/UseMappingEntries";
+import { useMappingEntries } from "../../hooks/UseMappingEntries";
 
 import { FlagGroup } from "../../types/flag-group";
 import Card from "../Card";

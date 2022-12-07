@@ -1,55 +1,26 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
 
-import GameFlagQuizContainer from "../../containers/GameFlagQuizContainer";
+import { AppProps } from "next/app";
 
-import GameMapQuiz from "../../components/GameMapQuiz";
-import MainView from "../../components/MainView";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+
+import { GameQuizContainer } from "../../containers/GameQuizContainer/GameQuizContainer";
+
+import { GameQuiz } from "../../components/GameQuiz/GameQuiz";
 
 import axiosClient from "../../axios";
-import { MappingEntry } from "../../types/mapping-entry";
-import { QuizDto } from "../../types/quiz-dto";
-import { QuizTypes } from "../../types/quiz-types";
 import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 
-interface Props {
-  [x: string]: any;
-}
+const Quiz: FC<AppProps> = ({ pageProps }) => {
+  const { language } = useContext(LanguageContext);
 
-const Quiz: FC<Props> = ({ ...pageProps }) => {
-  const quiz: QuizDto = pageProps.pageProps.quiz;
-  const mapping: MappingEntry[] = pageProps.pageProps.mapping;
-
-  const getQuizComponent = (): React.ReactNode => {
-    switch (quiz.typeId) {
-      case QuizTypes.MAP:
-        return (
-          <GameMapQuiz
-            time={quiz?.time}
-            name={quiz?.name}
-            typeId={quiz?.typeId}
-            maxScore={quiz?.maxScore}
-            plural={quiz?.plural}
-            route={quiz?.route}
-            id={quiz?.id}
-            mapping={mapping}
-            map={quiz?.map}
-            mapClassName={quiz?.mapName}
-            hasLeaderboard={quiz?.hasLeaderboard}
-            hasFlags={quiz?.hasFlags}
-            hasGrouping={quiz?.hasGrouping}
-          />
-        );
-      case QuizTypes.FLAG:
-        return <GameFlagQuizContainer quiz={quiz} mapping={mapping} />;
-      default:
-        return null;
-    }
-  };
-
-  return (
-    <MainView hasFooter={false} backgroundColor="#276F86">
-      {getQuizComponent()}
-    </MainView>
+  return language === "en" ? (
+    <GameQuiz quiz={pageProps.quiz} mapping={pageProps.mapping} />
+  ) : (
+    <GameQuizContainer
+      quizRoute={pageProps.quiz.route}
+      mappingKey={pageProps.quiz.apiPath}
+    />
   );
 };
 
@@ -69,15 +40,7 @@ const getQuizData = async (route: string) => {
 
     return {
       quiz,
-      mapping:
-        mapping?.map((mapping) => ({
-          ...mapping,
-          flagUrl: mapping.flagUrl.Valid ? mapping.flagUrl.String : "",
-          alternativeNames: mapping.alternativeNames.map((altName) =>
-            altName.toLowerCase()
-          ),
-          prefixes: mapping.prefixes.map((prefix) => prefix.toLowerCase()),
-        })) || [],
+      mapping,
     };
   }
 
