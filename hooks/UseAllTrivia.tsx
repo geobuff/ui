@@ -22,7 +22,7 @@ export const useAllTrivia = (limit = 30): Result => {
         setData(response.data.trivia);
         setIsLoading(false);
       });
-  });
+  }, [limit]);
 
   return {
     data: data,

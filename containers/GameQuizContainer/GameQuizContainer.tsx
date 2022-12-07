@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import useMappingEntries from "../../hooks/UseMappingEntries";
+import { useMappingEntries } from "../../hooks/UseMappingEntries";
 import { useQuiz } from "../../hooks/UseQuiz";
 
 import { GameQuiz } from "../../components/GameQuiz/GameQuiz";

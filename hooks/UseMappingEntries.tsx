@@ -1,6 +1,6 @@
-import useSWR from "swr";
+import { useEffect, useState } from "react";
 
-import { fetcher } from "../helpers/fetcher";
+import axiosClient from "../axios";
 import { MappingEntry } from "../types/mapping-entry";
 
 interface Result {
@@ -8,13 +8,21 @@ interface Result {
   isLoading: boolean;
 }
 
-const useMappingEntries = (key: string): Result => {
-  const { data } = useSWR(() => (key ? `/mappings/${key}` : null), fetcher);
+export const useMappingEntries = (key: string): Result => {
+  const [data, setData] = useState<MappingEntry[]>();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    axiosClient
+      .get(`${process.env.NEXT_PUBLIC_API_URL}/mappings/${key}`)
+      .then((response) => {
+        setData(response.data);
+        setIsLoading(false);
+      });
+  }, [key]);
 
   return {
     data: data,
-    isLoading: !data,
+    isLoading: isLoading,
   };
 };
-
-export default useMappingEntries;

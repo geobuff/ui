@@ -23,7 +23,7 @@ export const useAllQuizzes = (type: "map" | "flag"): Result => {
         setData(response.data.quizzes);
         setIsLoading(false);
       });
-  });
+  }, [type]);
 
   return {
     data: data,
