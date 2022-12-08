@@ -79,6 +79,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
+    setIsLoading(true);
     if (language !== "en") {
       const requests = getRequests(language);
       Promise.all(requests)
@@ -96,7 +97,7 @@ const Home: FC<AppProps> = ({ pageProps }) => {
       setTrivia(pageProps.trivia);
       setIsLoading(false);
     }
-  }, []);
+  }, [language, pageProps]);
 
   return (
     <HomeContextProvider>
