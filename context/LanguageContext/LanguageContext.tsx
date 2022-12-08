@@ -4,6 +4,8 @@ import { useRouter } from "next/router";
 
 import en from "../../locales/en";
 import es from "../../locales/es";
+import id from "../../locales/id";
+import mi from "../../locales/mi";
 
 export const LanguageContext = createContext({
   language: "en",
@@ -46,7 +48,16 @@ export const LanguageContextProvider: FC<Props> = ({ children = null }) => {
   }, []);
 
   const getT = (language: string): any => {
-    return language === "es" ? es : en;
+    switch (language) {
+      case "mi":
+        return mi;
+      case "es":
+        return es;
+      case "id":
+        return id;
+      default:
+        return en;
+    }
   };
 
   const updateLocalStorage = (language: string): void => {
