@@ -250,7 +250,7 @@ export default {
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",
-    subtitle: "Create an account and ",
+    subtitle: "Create an account and",
     actionOne: "compete with players from all over the globe!",
     actionTwo: "create a community quiz to share with your peers",
     actionThree: "cop an item from our winter collection",

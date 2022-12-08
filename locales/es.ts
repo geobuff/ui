@@ -259,7 +259,7 @@ export default {
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",
-    subtitle: "Crear una cuenta y ",
+    subtitle: "Crear una cuenta y",
     actionOne: "¡compite con jugadores de todo el mundo!",
     actionTwo:
       "crea un cuestionario comunitario para compartir con tus compañeros",

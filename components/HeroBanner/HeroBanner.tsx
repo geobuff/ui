@@ -150,7 +150,7 @@ const HeroBanner: FC<Props> = ({
             fontSize={["18px", "18px", "24px"]}
             fontWeight="medium"
           >
-            {t.heroBanner.subtitle}
+            {`${t.heroBanner.subtitle} `}
             <HeroBannerText
               isLoading={isSessionLoading}
               href={actions[index]?.link}
