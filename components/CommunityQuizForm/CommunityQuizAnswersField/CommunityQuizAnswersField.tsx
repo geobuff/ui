@@ -77,7 +77,7 @@ const CommunityQuizAnswersField: FC<Props> = ({
 
       <Flex alignItems="center">
         <Radio
-          value={1}
+          value={"1"}
           isChecked={isChecked}
           onChange={() => onChangeCorrectAnswer(value)}
           colorScheme="green"

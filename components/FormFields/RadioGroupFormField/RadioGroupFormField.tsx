@@ -33,7 +33,7 @@ const RadioGroupFormField: FC<Props> = ({
   setFieldHelper = () => {},
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
-    value: selectedValue,
+    value: selectedValue.toString(),
     name,
     onChange: (value: FormValue) => setFieldHelper(name, value),
   });

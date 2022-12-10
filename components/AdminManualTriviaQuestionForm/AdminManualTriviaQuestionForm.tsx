@@ -766,7 +766,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
 
                       <Flex marginTop={3} marginBottom={7}>
                         <Radio
-                          value={1}
+                          value={"1"}
                           isChecked={values.correctAnswer === 1}
                           onChange={() => {
                             setFieldValue("correctAnswer", 1);
@@ -860,7 +860,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
 
                       <Flex marginTop={3} marginBottom={7}>
                         <Radio
-                          value={2}
+                          value={"2"}
                           isChecked={values.correctAnswer === 2}
                           onChange={() => {
                             setFieldValue("correctAnswer", 2);
@@ -948,7 +948,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
 
                       <Flex marginTop={3} marginBottom={7}>
                         <Radio
-                          value={3}
+                          value={"3"}
                           isChecked={values.correctAnswer === 3}
                           onChange={() => setFieldValue("correctAnswer", 3)}
                           colorScheme="green"
@@ -1032,7 +1032,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
 
                       <Flex marginTop={3}>
                         <Radio
-                          value={4}
+                          value={"4"}
                           isChecked={values.correctAnswer === 4}
                           onChange={() => setFieldValue("correctAnswer", 4)}
                           colorScheme="green"
