@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Twemoji } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   BoxProps,
@@ -15,9 +17,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import User from "../../Icons/User";
 import { cardImageStyle } from "../../helpers/style";
-import Twemoji from "../Twemoji";
-
-const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
@@ -39,6 +38,11 @@ const CommunityQuizCard: FC<Props> = ({
 }) => {
   const isMobile = useBreakpointValue({ base: true, sm: false });
   const { t } = useContext(LanguageContext);
+
+  const twemojiDimensions = useBreakpointValue({
+    base: "10px",
+    md: "12px",
+  });
 
   return (
     <Box
@@ -95,10 +99,7 @@ const CommunityQuizCard: FC<Props> = ({
             marginX="12px"
           >
             <Flex alignItems="center">
-              <User
-                height={twemojiResponsiveStyles}
-                width={twemojiResponsiveStyles}
-              />
+              <User height={twemojiDimensions} width={twemojiDimensions} />
               <Link href={`/profile/${userId}`}>
                 <Text
                   fontSize={{ base: "9px", sm: "9px", md: "11px" }}
@@ -114,8 +115,8 @@ const CommunityQuizCard: FC<Props> = ({
             <Flex alignItems="center">
               <Twemoji
                 emoji="❓"
-                height={twemojiResponsiveStyles}
-                width={twemojiResponsiveStyles}
+                height={twemojiDimensions}
+                width={twemojiDimensions}
               />
               <Text
                 fontSize={{ base: "9px", sm: "9px", md: "11px" }}

@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 
+import { Twemoji } from "@geobuff/buff-ui/components";
+
 import { Fade, Flex, Text } from "@chakra-ui/react";
 
 import CustomFlag from "../CustomFlag";
-import Twemoji from "../Twemoji";
 import FlagFallback from "./FlagFallback/FlagFallback";
 
 export interface Props {

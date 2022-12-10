@@ -1,12 +1,11 @@
 import React, { FC } from "react";
 
+import { Twemoji } from "@geobuff/buff-ui/components";
+
 import { Box, Divider, Flex, Tag, Text } from "@chakra-ui/react";
 import Image from "next/image";
 
 import { cardImageStyle } from "../../helpers/style";
-import Twemoji from "../Twemoji";
-
-const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
@@ -26,118 +25,122 @@ const MerchCard: FC<Props> = ({
   sizes = [],
   soldOut = false,
   isExternal = false,
-}) => (
-  <Flex
-    aria-label={`merch card for ${name}`}
-    role="group"
-    direction="column"
-    backgroundColor="white"
-    borderRadius={12}
-    width="100%"
-    boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
-  >
-    <Box position="absolute" top={0} left={0} right={0} bottom={0}>
-      <Box position="relative">
-        {!isExternal && soldOut && (
-          <Tag position="absolute" top="2" left="2">
-            Sold Out
-          </Tag>
-        )}
-        <Image
-          src={imageUrl}
-          alt={name}
-          height={160}
-          width={260}
-          objectFit="cover"
-          style={cardImageStyle}
-          priority
-        />
-      </Box>
+}) => {
+  const twemojiDimensions = { base: "10px", md: "12px" };
 
-      <Box paddingTop="12px" paddingX="12px">
-        <Text
-          fontWeight="bold"
-          fontSize="18px"
-          marginBottom="16px"
-          noOfLines={3}
-          _groupHover={{ textDecoration: "underline" }}
-        >
-          {name}
-        </Text>
-      </Box>
+  return (
+    <Flex
+      aria-label={`merch card for ${name}`}
+      role="group"
+      direction="column"
+      backgroundColor="white"
+      borderRadius={12}
+      width="100%"
+      boxShadow="0px 4px 4px rgba(179, 187, 209, 0.25)"
+    >
+      <Box position="absolute" top={0} left={0} right={0} bottom={0}>
+        <Box position="relative">
+          {!isExternal && soldOut && (
+            <Tag position="absolute" top="2" left="2">
+              Sold Out
+            </Tag>
+          )}
+          <Image
+            src={imageUrl}
+            alt={name}
+            height={160}
+            width={260}
+            objectFit="cover"
+            style={cardImageStyle}
+            priority
+          />
+        </Box>
 
-      <Box position="absolute" bottom={0} left={0} right={0}>
-        {divider}
-
-        {isExternal ? (
-          <Flex
-            justifyContent="space-between"
-            alignItems="center"
-            marginTop="8px"
-            marginBottom="8px"
-            marginX="12px"
+        <Box paddingTop="12px" paddingX="12px">
+          <Text
+            fontWeight="bold"
+            fontSize="18px"
+            marginBottom="16px"
+            noOfLines={3}
+            _groupHover={{ textDecoration: "underline" }}
           >
-            <Flex alignItems="center">
-              <Twemoji
-                emoji="🔗"
-                height={twemojiResponsiveStyles}
-                width={twemojiResponsiveStyles}
-              />
-              <Text
-                fontSize={{ base: "9px", sm: "9px", md: "11px" }}
-                fontWeight="bold"
-                marginLeft={2}
-              >
-                Sold Externally
-              </Text>
+            {name}
+          </Text>
+        </Box>
+
+        <Box position="absolute" bottom={0} left={0} right={0}>
+          {divider}
+
+          {isExternal ? (
+            <Flex
+              justifyContent="space-between"
+              alignItems="center"
+              marginTop="8px"
+              marginBottom="8px"
+              marginX="12px"
+            >
+              <Flex alignItems="center">
+                <Twemoji
+                  emoji="🔗"
+                  height={twemojiDimensions}
+                  width={twemojiDimensions}
+                />
+                <Text
+                  fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+                  fontWeight="bold"
+                  marginLeft={2}
+                >
+                  Sold Externally
+                </Text>
+              </Flex>
             </Flex>
-          </Flex>
-        ) : (
-          <Flex
-            justifyContent="space-between"
-            alignItems="center"
-            marginTop="8px"
-            marginBottom="8px"
-            marginX="12px"
-          >
-            <Flex alignItems="center">
-              <Twemoji
-                emoji="📏"
-                height={twemojiResponsiveStyles}
-                width={twemojiResponsiveStyles}
-              />
-              <Text
-                fontSize={{ base: "9px", sm: "9px", md: "11px" }}
-                fontWeight="bold"
-                marginLeft={2}
-                noOfLines={1}
-                minWidth="50%"
-              >
-                {sizes.join(", ")}
-              </Text>
+          ) : (
+            <Flex
+              justifyContent="space-between"
+              alignItems="center"
+              marginTop="8px"
+              marginBottom="8px"
+              marginX="12px"
+            >
+              <Flex alignItems="center">
+                <Twemoji
+                  emoji="📏"
+                  height={twemojiDimensions}
+                  width={twemojiDimensions}
+                />
+                <Text
+                  fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+                  fontWeight="bold"
+                  marginLeft={2}
+                  noOfLines={1}
+                  minWidth="50%"
+                >
+                  {sizes.join(", ")}
+                </Text>
+              </Flex>
+              <Flex alignItems="center">
+                <Twemoji
+                  emoji="💲"
+                  height={twemojiDimensions}
+                  width={twemojiDimensions}
+                />
+                <Text
+                  fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+                  fontWeight="bold"
+                  marginLeft="2.5px"
+                  minWidth="50%"
+                  maxWidth={{ base: "65px", md: "85px" }}
+                  noOfLines={1}
+                >
+                  {price}
+                </Text>
+              </Flex>
             </Flex>
-            <Flex alignItems="center">
-              <Twemoji
-                emoji="💲"
-                height={twemojiResponsiveStyles}
-                width={twemojiResponsiveStyles}
-              />
-              <Text
-                fontSize={{ base: "9px", sm: "9px", md: "11px" }}
-                fontWeight="bold"
-                marginLeft="2.5px"
-                minWidth="50%"
-                maxWidth={{ base: "65px", md: "85px" }}
-                noOfLines={1}
-              >
-                {price}
-              </Text>
-            </Flex>
-          </Flex>
-        )}
+          )}
+        </Box>
       </Box>
-    </Box>
-  </Flex>
-);
+    </Flex>
+  );
+};
 
 export default React.memo(MerchCard);

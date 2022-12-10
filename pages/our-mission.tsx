@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Twemoji } from "@geobuff/buff-ui/components";
+
 import { Box, Link, Text } from "@chakra-ui/react";
 import Head from "next/head";
 
@@ -7,7 +9,6 @@ import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 import HeroHeader from "../components/HeroHeader";
 import MainView from "../components/MainView";
-import Twemoji from "../components/Twemoji";
 
 const OurMission: FC = () => {
   const { t } = useContext(LanguageContext);
