@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
-import { Flex, FlexProps, Link, Tag } from "@chakra-ui/react";
+import { Twemoji, TwemojiProps } from "@geobuff/buff-ui/components";
 
-import Twemoji, { Props as TwemojiProps } from "../Twemoji";
+import { Flex, FlexProps, Link, Tag } from "@chakra-ui/react";
 
 export interface Props extends FlexProps {
   itemCount?: number;

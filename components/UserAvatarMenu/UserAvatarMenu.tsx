@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Twemoji } from "@geobuff/buff-ui/components";
+
 import {
   Button,
   Fade,
@@ -21,7 +23,6 @@ import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUser
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import SolidChevronDown from "../../Icons/SolidChevronDown";
-import Twemoji from "../Twemoji";
 
 interface Props {
   isCondensed?: boolean;

@@ -1,5 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 
+import { Twemoji } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Flex,
@@ -26,7 +28,6 @@ import Card from "../Card";
 import { DeleteModal } from "../DeleteModal/DeleteModal";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import FlagFallback from "../ResultsListItem/FlagFallback";
-import Twemoji from "../Twemoji";
 import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";

@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
-import { BoxProps, Flex, Heading, Link } from "@chakra-ui/react";
+import { Twemoji } from "@geobuff/buff-ui/components";
 
-import Twemoji from "../Twemoji";
+import { BoxProps, Flex, Heading, Link } from "@chakra-ui/react";
 
 export interface Props extends BoxProps {
   hasLeaderboard?: boolean;

@@ -1,10 +1,17 @@
 import React, { FC, useContext } from "react";
 
-import { Box, Fade, Flex, Heading, Spinner } from "@chakra-ui/react";
+import { Twemoji } from "@geobuff/buff-ui/components";
+
+import {
+  Box,
+  Fade,
+  Flex,
+  Heading,
+  Spinner,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
-
-import Twemoji from "../../Twemoji";
 
 interface Props {
   isLoading?: boolean;
@@ -13,6 +20,12 @@ interface Props {
 
 const LeaderboardHeader: FC<Props> = ({ isLoading = false, ...props }) => {
   const { t } = useContext(LanguageContext);
+
+  const twemojiDimensions = useBreakpointValue({
+    base: "26px",
+    sm: "36px",
+    md: "46px",
+  });
 
   return (
     <Flex
@@ -24,8 +37,8 @@ const LeaderboardHeader: FC<Props> = ({ isLoading = false, ...props }) => {
       <Box as="span" marginRight={1} paddingTop={1}>
         <Twemoji
           emoji="🏆"
-          height={{ base: "26px", sm: "36px", md: "46px" }}
-          width={{ base: "26px", sm: "36px", md: "46px" }}
+          height={twemojiDimensions}
+          width={twemojiDimensions}
         />
       </Box>
       <Box>

@@ -1,15 +1,21 @@
 import React, { FC, useContext } from "react";
 
-import { Box, Divider, Flex, FlexProps, Text } from "@chakra-ui/react";
+import { Twemoji } from "@geobuff/buff-ui/components";
+
+import {
+  Box,
+  Divider,
+  Flex,
+  FlexProps,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import Image from "next/image";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { cardImageStyle } from "../../helpers/style";
 import { secondsToMinutesString } from "../../helpers/time";
-import Twemoji from "../Twemoji";
-
-const twemojiResponsiveStyles = { base: "10px", sm: "10px", md: "12px" };
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;
 
@@ -30,6 +36,11 @@ const QuizCard: FC<Props> = ({
   ...props
 }) => {
   const { t } = useContext(LanguageContext);
+
+  const twemojiDimensions = useBreakpointValue({
+    base: "10px",
+    md: "12px",
+  });
 
   return (
     <Flex
@@ -77,8 +88,8 @@ const QuizCard: FC<Props> = ({
             <Flex alignItems="center">
               <Twemoji
                 emoji="⏱"
-                height={twemojiResponsiveStyles}
-                width={twemojiResponsiveStyles}
+                height={twemojiDimensions}
+                width={twemojiDimensions}
               />
               <Text
                 fontSize={{ base: "9px", sm: "9px", md: "11px" }}
@@ -93,8 +104,8 @@ const QuizCard: FC<Props> = ({
             <Flex alignItems="center">
               <Twemoji
                 emoji="❓"
-                height={twemojiResponsiveStyles}
-                width={twemojiResponsiveStyles}
+                height={twemojiDimensions}
+                width={twemojiDimensions}
               />
               <Text
                 fontSize={{ base: "9px", sm: "9px", md: "11px" }}

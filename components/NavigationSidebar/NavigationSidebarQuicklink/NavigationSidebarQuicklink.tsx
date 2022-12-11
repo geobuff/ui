@@ -1,8 +1,8 @@
 import React, { FC, isValidElement } from "react";
 
-import { Flex, Link, Text } from "@chakra-ui/react";
+import { Twemoji } from "@geobuff/buff-ui/components";
 
-import Twemoji from "../../Twemoji";
+import { Flex, Link, Text } from "@chakra-ui/react";
 
 export interface Props {
   href: string;
