@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { GeoBuffLogo } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -22,7 +24,6 @@ import { LoginFormSubmit } from "../../types/login-form-submit";
 import AuthCard from "../AuthCard";
 import AuthView from "../AuthView";
 import ErrorAlertBanner from "../ErrorAlertBanner";
-import Logo from "../Logo";
 import RegisterLink from "./RegisterLink";
 
 const initialValues = {
@@ -67,7 +68,7 @@ const LoginForm: FC<Props> = ({
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Logo height="42px" width="200px" />
+          <GeoBuffLogo height={42} width={200} />
         </Link>
       </Flex>
 

@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { GeoBuffLogo } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -26,7 +28,6 @@ import ArrowLeft from "../../Icons/ArrowLeft";
 import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
 import AuthCard from "../AuthCard";
 import AuthView from "../AuthView";
-import Logo from "../Logo";
 import ForgotPasswordSuccess from "./ForgotPasswordSuccess";
 
 interface Props {
@@ -63,7 +64,7 @@ const ForgotPasswordForm: FC<Props> = ({
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Logo height="42px" width="200px" />
+          <GeoBuffLogo height={42} width={200} />
         </Link>
       </Flex>
       <Box marginY={2}>
@@ -97,7 +98,7 @@ const ForgotPasswordForm: FC<Props> = ({
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Logo height="42px" width="200px" />
+          <GeoBuffLogo height="42px" width="200px" />
         </Link>
       </Flex>
 

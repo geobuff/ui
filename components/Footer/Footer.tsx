@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { GeoBuffLogo } from "@geobuff/buff-ui/components";
+
 import {
   Flex,
   Link,
@@ -17,7 +19,6 @@ import Discord from "../Discord";
 import Facebook from "../Facebook";
 import GitHub from "../GitHub";
 import Instagram from "../Instagram/Instagram";
-import Logo from "../Logo";
 import Reddit from "../Reddit";
 import Twitch from "../Twitch";
 import Twitter from "../Twitter";
@@ -269,7 +270,7 @@ const Footer: FC<Props> = ({ variant = FooterVariant.EXTENDED }) => {
               width="100%"
               justifyContent={{ base: "center", md: "flex-end" }}
             >
-              <Logo isGrayScale />
+              <GeoBuffLogo isGrayScale />
             </Flex>
             <Flex justifyContent={{ base: "center", md: "center" }}>
               <Text

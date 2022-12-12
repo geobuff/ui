@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { GeoBuffLogo } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -18,7 +20,6 @@ import { Field } from "formik";
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
 import { RegisterFormSubmit } from "../../../types/register-form-submit";
-import Logo from "../../Logo";
 
 export interface Props {
   errors: Record<string, string>;
@@ -47,7 +48,7 @@ const RegisterFormStepOne: FC<Props> = ({
         _hover={{ cursor: "pointer" }}
       >
         <Link href="/">
-          <Logo height="42px" width="200px" />
+          <GeoBuffLogo height={42} width={200} />
         </Link>
       </Flex>
 

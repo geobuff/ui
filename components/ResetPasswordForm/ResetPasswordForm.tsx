@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { GeoBuffLogo } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -23,7 +25,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
 import AuthCard from "../AuthCard";
 import AuthView from "../AuthView";
-import Logo from "../Logo";
 import ResetPasswordError from "./ResetPasswordError";
 import ResetPasswordSuccess from "./ResetPasswordSuccess";
 
@@ -178,7 +179,7 @@ const ResetPasswordForm: FC<Props> = ({
               _hover={{ cursor: "pointer" }}
             >
               <Link href="/">
-                <Logo height="42px" width="200px" />
+                <GeoBuffLogo height={42} width={200} />
               </Link>
             </Flex>
 
@@ -188,7 +189,7 @@ const ResetPasswordForm: FC<Props> = ({
       ) : (
         <Flex direction="column" padding={5} marginBottom={4}>
           <Link href="/">
-            <Logo height="42px" width="200px" />
+            <GeoBuffLogo height={42} width={200} />
           </Link>
           {getViewComponent()}
         </Flex>
