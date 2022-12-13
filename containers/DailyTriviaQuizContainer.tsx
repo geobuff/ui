@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 
-import useTrivia from "../../hooks/UseTrivia";
+import useTrivia from "../hooks/UseTrivia";
 
-import GameSpinner from "../../components/GameSpinner";
-import GameTrivia from "../../components/GameTrivia";
+import GameSpinner from "../components/GameSpinner";
+import GameTrivia from "../components/GameTrivia";
 
 export interface Props {
   date: string;
