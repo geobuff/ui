@@ -14,13 +14,12 @@ import Head from "next/head";
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 import HeroHeader from "../components/HeroHeader";
-import MainView from "../components/MainView";
 
 const AcceptableUsePolicy: FC = () => {
   const { t } = useContext(LanguageContext);
 
   return (
-    <MainView>
+    <>
       <Head>
         <title>{`${t.global.acceptableUsePolicy} - GeoBuff`}</title>
         <meta
@@ -165,7 +164,7 @@ const AcceptableUsePolicy: FC = () => {
           </Box>
         </Box>
       </Box>
-    </MainView>
+    </>
   );
 };
 

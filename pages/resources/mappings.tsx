@@ -9,7 +9,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import AdminMappingsTableContainer from "../../containers/AdminMappingsTableContainer";
 
 import HeroHeader from "../../components/HeroHeader";
-import MainView from "../../components/MainView";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 
@@ -18,7 +17,7 @@ const MappingResources: FC = () => {
   const { t } = useContext(LanguageContext);
 
   return (
-    <MainView>
+    <>
       <Head>
         <title>{`${t.mappingResources.title} - GeoBuff`}</title>
         <meta
@@ -56,7 +55,7 @@ const MappingResources: FC = () => {
         </Flex>
         <AdminMappingsTableContainer />
       </Flex>
-    </MainView>
+    </>
   );
 };
 

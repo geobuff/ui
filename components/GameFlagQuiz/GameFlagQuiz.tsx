@@ -348,7 +348,7 @@ const GameFlagQuiz: FC<Props> = ({
           crossOrigin="anonymous"
         />
       </Head>
-      <Flex flex={1} direction="column">
+      <Flex flex={1} direction="column" backgroundColor="#276F86">
         <Flex height="100%" minHeight="100%" direction="column" flex={1}>
           {isMobile && (
             <GameBannerButton

@@ -1,20 +1,23 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
 import { signIn, useSession } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import RegisterForm from "../../components/RegisterForm";
 
 import axiosClient from "../../axios/axiosClient";
-import { AuthUser } from "../../types/auth-user";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 const RegisterContainer: FC = () => {
+  const { t } = useContext(LanguageContext);
+
   const router = useRouter();
-  const { data: session, status } = useSession();
+  const { status } = useSession();
   const { updateUser } = useContext(CurrentUserContext);
 
   const [error, setError] = useState(null);
@@ -86,11 +89,20 @@ const RegisterContainer: FC = () => {
   };
 
   return (
-    <RegisterForm
-      error={error}
-      onSubmit={handleSubmit}
-      isSubmitting={isSubmitting}
-    />
+    <>
+      <Head>
+        <title>{`${t.global.register} - GeoBuff`}</title>
+        <meta
+          name="description"
+          content="Sign up today to start using the world's leading competitive platform for geography-based trivia!"
+        />
+      </Head>
+      <RegisterForm
+        error={error}
+        onSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+      />
+    </>
   );
 };
 

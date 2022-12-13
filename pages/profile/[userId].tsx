@@ -7,8 +7,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import UserProfileContainer from "../../containers/UserProfileContainer";
 
-import MainView from "../../components/MainView";
-
 const Profile: FC = () => {
   const router = useRouter();
   const { t } = useContext(LanguageContext);
@@ -33,9 +31,7 @@ const Profile: FC = () => {
           content="The one-stop shop to check out your badges, leaderboard entries, created quizzes and more."
         />
       </Head>
-      <MainView>
-        {isLoading ? null : <UserProfileContainer routeId={userId} />}
-      </MainView>
+      {isLoading ? null : <UserProfileContainer routeId={userId} />}
     </>
   );
 };

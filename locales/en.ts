@@ -1108,6 +1108,9 @@ export default {
     itemFiveAnswerSectionTwo:
       "Currently, we haven't implemented any features to allow you to spend your well-earned GeoCoin. The team is hard at work making changes to allow you to purchase special avatar items, subscriptions and more using your piggybank. In the meantime, if you're interested in how we are progressing, keep an eye on our roadmap or social media for more details!",
   },
+  blog: {
+    noPostsAlert: "Nothing to see here.",
+  },
   footer: {
     company: "Company",
     furtherInformation: "Further Information",

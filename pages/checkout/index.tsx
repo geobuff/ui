@@ -11,14 +11,12 @@ import CheckoutFormContainer from "../../containers/CheckoutFormContainer";
 import useScript from "../../hooks/UseScript";
 
 import HeroHeader from "../../components/HeroHeader";
-import MainView from "../../components/MainView";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 
 const Checkout: FC = () => {
   const { t } = useContext(LanguageContext);
 
-  const ref = useRef(null);
   const status = useScript(
     `https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}&libraries=places`
   );
@@ -32,12 +30,10 @@ const Checkout: FC = () => {
           content="Add your details so we can ship you GeoBuff merch straight to your doorstep."
         />
       </Head>
-      <MainView innerRef={ref}>
-        <HeroHeader heading={t.global.checkout} />
-        <Elements stripe={stripePromise}>
-          <CheckoutFormContainer isMapsApiLoading={status !== "ready"} />
-        </Elements>
-      </MainView>
+      <HeroHeader heading={t.global.checkout} />
+      <Elements stripe={stripePromise}>
+        <CheckoutFormContainer isMapsApiLoading={status !== "ready"} />
+      </Elements>
     </>
   );
 };

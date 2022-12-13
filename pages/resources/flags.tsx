@@ -9,7 +9,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import AdminFlagsTableContainer from "../../containers/AdminFlagsTableContainer";
 
 import HeroHeader from "../../components/HeroHeader";
-import MainView from "../../components/MainView";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 
@@ -18,7 +17,7 @@ const FlagResources: FC = () => {
   const { t } = useContext(LanguageContext);
 
   return (
-    <MainView>
+    <>
       <Head>
         <title>{`${t.flagResources.title} - GeoBuff`}</title>
         <meta
@@ -56,7 +55,7 @@ const FlagResources: FC = () => {
         </Flex>
         <AdminFlagsTableContainer />
       </Flex>
-    </MainView>
+    </>
   );
 };
 

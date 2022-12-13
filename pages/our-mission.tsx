@@ -8,13 +8,12 @@ import Head from "next/head";
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 import HeroHeader from "../components/HeroHeader";
-import MainView from "../components/MainView";
 
 const OurMission: FC = () => {
   const { t } = useContext(LanguageContext);
 
   return (
-    <MainView>
+    <>
       <Head>
         <title>{`${t.global.ourMission} - GeoBuff`}</title>
         <meta
@@ -117,7 +116,7 @@ const OurMission: FC = () => {
           </Box>
         </Box>
       </Box>
-    </MainView>
+    </>
   );
 };
 

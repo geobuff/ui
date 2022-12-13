@@ -8,7 +8,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import Card from "../../components/Card";
 import HeroHeader from "../../components/HeroHeader";
-import MainView from "../../components/MainView";
 
 const Resources: FC = () => {
   const router = useRouter();
@@ -38,7 +37,7 @@ const Resources: FC = () => {
   ];
 
   return (
-    <MainView>
+    <>
       <Head>
         <title>{`${t.global.resources} - GeoBuff`}</title>
         <meta
@@ -103,7 +102,7 @@ const Resources: FC = () => {
           <Divider borderWidth={1} my={2} />
         </Card>
       </Flex>
-    </MainView>
+    </>
   );
 };
 

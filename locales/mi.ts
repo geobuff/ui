@@ -1124,6 +1124,9 @@ export default {
     itemFiveAnswerSectionTwo:
       "I tenei wa, kaore ano matou i whakatinana i etahi ahuatanga hei tuku i a koe ki te whakapau i to GeoCoin kua whiwhi pai. Kei te whakapau kaha te roopu ki te whakarereke kia taea ai e koe te hoko i nga taonga avatar motuhake, ohaurunga me etahi atu ma te whakamahi i to putea poaka. I tenei wa, mena kei te pirangi koe ki te ahu whakamua, mataki tonu ki ta maatau mahere huarahi, paapori paapori ranei mo etahi atu korero!",
   },
+  blog: {
+    noPostsAlert: "Kaore he mea hei kite i konei.",
+  },
   footer: {
     company: "Kamupene",
     furtherInformation: "Ētahi atu korero",

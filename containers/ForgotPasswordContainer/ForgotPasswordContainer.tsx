@@ -1,7 +1,10 @@
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import { useSession } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
+
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import ForgotPasswordForm from "../../components/ForgotPasswordForm";
 
@@ -9,6 +12,8 @@ import axiosClient from "../../axios/axiosClient";
 import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
 
 const ForgotPasswordContainer: FC = () => {
+  const { t } = useContext(LanguageContext);
+
   const router = useRouter();
   const { status } = useSession();
 
@@ -35,13 +40,22 @@ const ForgotPasswordContainer: FC = () => {
   };
 
   return (
-    <ForgotPasswordForm
-      error={error}
-      isSuccess={isSuccess}
-      isLoading={status === "loading"}
-      isSubmitting={isSubmitting}
-      onSubmit={handleSubmit}
-    />
+    <>
+      <Head>
+        <title>{`${t.forgotPassword.title}- GeoBuff`}</title>
+        <meta
+          name="description"
+          content="Forgot your password? Not to worry, we've got you covered. Get a reset link sent to your email and we'll have you back in action in no time."
+        />
+      </Head>
+      <ForgotPasswordForm
+        error={error}
+        isSuccess={isSuccess}
+        isLoading={status === "loading"}
+        isSubmitting={isSubmitting}
+        onSubmit={handleSubmit}
+      />
+    </>
   );
 };
 

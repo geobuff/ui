@@ -1119,6 +1119,9 @@ export default {
     itemFiveAnswerSectionTwo:
       "Saat ini, kami belum menerapkan fitur apa pun untuk memungkinkan Anda membelanjakan GeoCoin yang Anda peroleh dengan baik. Tim bekerja keras membuat perubahan untuk memungkinkan Anda membeli item avatar khusus, langganan, dan lainnya menggunakan celengan Anda. Sementara itu, jika Anda tertarik dengan kemajuan kami, pantau terus roadmap atau media sosial kami untuk detail lebih lanjut!",
   },
+  blog: {
+    noPostsAlert: "Tidak ada yang bisa dilihat di sini.",
+  },
   footer: {
     company: "Perusahaan",
     furtherInformation: "Informasi lebih lanjut",

@@ -14,7 +14,6 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 
 import GameSpinner from "../components/GameSpinner";
-import MainView from "../components/MainView";
 
 import { AuthUser } from "../types/auth-user";
 
@@ -119,138 +118,136 @@ export default function Admin(): JSX.Element {
       <Head>
         <title>{"Admin Dashboard - GeoBuff"}</title>
       </Head>
-      <MainView hasFooter>
-        <Tabs
-          isLazy
-          colorScheme="teal"
-          index={tabIndex}
-          onChange={handleTabsChange}
+      <Tabs
+        isLazy
+        colorScheme="teal"
+        index={tabIndex}
+        onChange={handleTabsChange}
+      >
+        <Flex
+          position="fixed"
+          left={0}
+          right={0}
+          backgroundColor="white"
+          zIndex={100}
+          borderTop={"1.5px solid #E2E8F0"}
         >
-          <Flex
-            position="fixed"
-            left={0}
-            right={0}
-            backgroundColor="white"
-            zIndex={100}
-            borderTop={"1.5px solid #E2E8F0"}
-          >
-            <TabList width="100%" paddingX={{ base: 3, md: 5 }}>
-              <Tab fontWeight="medium">General</Tab>
-              <Tab fontWeight="medium">Users</Tab>
-              <Tab fontWeight="medium">Quizzes</Tab>
-              <Tab fontWeight="medium">Trivia</Tab>
-              <Tab fontWeight="medium">Merch</Tab>
-              <Tab fontWeight="medium">Flags</Tab>
-              <Tab fontWeight="medium">Maps</Tab>
-              <Tab fontWeight="medium">Mappings</Tab>
-            </TabList>
-          </Flex>
+          <TabList width="100%" paddingX={{ base: 3, md: 5 }}>
+            <Tab fontWeight="medium">General</Tab>
+            <Tab fontWeight="medium">Users</Tab>
+            <Tab fontWeight="medium">Quizzes</Tab>
+            <Tab fontWeight="medium">Trivia</Tab>
+            <Tab fontWeight="medium">Merch</Tab>
+            <Tab fontWeight="medium">Flags</Tab>
+            <Tab fontWeight="medium">Maps</Tab>
+            <Tab fontWeight="medium">Mappings</Tab>
+          </TabList>
+        </Flex>
 
-          <TabPanels mt={10}>
-            <TabPanel>
-              <Flex justifyContent="center">
-                <Flex
-                  direction="column"
-                  height="100%"
-                  width="100%"
-                  maxWidth={1300}
-                >
-                  <AdminGeneralContainer />
-                </Flex>
+        <TabPanels mt={10}>
+          <TabPanel>
+            <Flex justifyContent="center">
+              <Flex
+                direction="column"
+                height="100%"
+                width="100%"
+                maxWidth={1300}
+              >
+                <AdminGeneralContainer />
               </Flex>
-            </TabPanel>
-            <TabPanel>
-              <Flex justifyContent="center">
-                <Flex
-                  direction="column"
-                  height="100%"
-                  width="100%"
-                  maxWidth={1300}
-                >
-                  <AdminTotalUserCountContainer />
-                  <AdminUsersContainer />
-                </Flex>
+            </Flex>
+          </TabPanel>
+          <TabPanel>
+            <Flex justifyContent="center">
+              <Flex
+                direction="column"
+                height="100%"
+                width="100%"
+                maxWidth={1300}
+              >
+                <AdminTotalUserCountContainer />
+                <AdminUsersContainer />
               </Flex>
-            </TabPanel>
-            <TabPanel>
-              <Flex justifyContent="center">
-                <Flex
-                  direction="column"
-                  height="100%"
-                  width="100%"
-                  maxWidth={1300}
-                >
-                  <AdminTopFiveQuizPlaysContainer />
-                  <AdminQuizTableContainer />
-                </Flex>
+            </Flex>
+          </TabPanel>
+          <TabPanel>
+            <Flex justifyContent="center">
+              <Flex
+                direction="column"
+                height="100%"
+                width="100%"
+                maxWidth={1300}
+              >
+                <AdminTopFiveQuizPlaysContainer />
+                <AdminQuizTableContainer />
               </Flex>
-            </TabPanel>
-            <TabPanel>
-              <Flex justifyContent="center">
-                <Flex
-                  direction="column"
-                  height="100%"
-                  width="100%"
-                  maxWidth={1300}
-                >
-                  <AdminLastWeekTriviaPlaysContainer />
-                  <AdminManualTriviaQuestionTableContainer />
-                </Flex>
+            </Flex>
+          </TabPanel>
+          <TabPanel>
+            <Flex justifyContent="center">
+              <Flex
+                direction="column"
+                height="100%"
+                width="100%"
+                maxWidth={1300}
+              >
+                <AdminLastWeekTriviaPlaysContainer />
+                <AdminManualTriviaQuestionTableContainer />
               </Flex>
-            </TabPanel>
-            <TabPanel>
-              <Flex justifyContent="center">
-                <Flex
-                  direction="column"
-                  height="100%"
-                  width="100%"
-                  maxWidth={1300}
-                >
-                  <AdminMerchTableContainer />
-                  <AdminDiscountsTableContainer />
-                  <AdminOrdersContainer />
-                </Flex>
+            </Flex>
+          </TabPanel>
+          <TabPanel>
+            <Flex justifyContent="center">
+              <Flex
+                direction="column"
+                height="100%"
+                width="100%"
+                maxWidth={1300}
+              >
+                <AdminMerchTableContainer />
+                <AdminDiscountsTableContainer />
+                <AdminOrdersContainer />
               </Flex>
-            </TabPanel>
-            <TabPanel>
-              <Flex justifyContent="center">
-                <Flex
-                  direction="column"
-                  height="100%"
-                  width="100%"
-                  maxWidth={1300}
-                >
-                  <AdminFlagsTableContainer />
-                </Flex>
+            </Flex>
+          </TabPanel>
+          <TabPanel>
+            <Flex justifyContent="center">
+              <Flex
+                direction="column"
+                height="100%"
+                width="100%"
+                maxWidth={1300}
+              >
+                <AdminFlagsTableContainer />
               </Flex>
-            </TabPanel>
-            <TabPanel>
-              <Flex justifyContent="center">
-                <Flex
-                  direction="column"
-                  height="100%"
-                  width="100%"
-                  maxWidth={1300}
-                >
-                  <AdminMapsTableContainer />
-                </Flex>
+            </Flex>
+          </TabPanel>
+          <TabPanel>
+            <Flex justifyContent="center">
+              <Flex
+                direction="column"
+                height="100%"
+                width="100%"
+                maxWidth={1300}
+              >
+                <AdminMapsTableContainer />
               </Flex>
-            </TabPanel>
-            <TabPanel>
-              <Flex justifyContent="center">
-                <Flex
-                  direction="column"
-                  height="100%"
-                  width="100%"
-                  maxWidth={1300}
-                >
-                  <AdminMappingsTableContainer />
-                </Flex>
+            </Flex>
+          </TabPanel>
+          <TabPanel>
+            <Flex justifyContent="center">
+              <Flex
+                direction="column"
+                height="100%"
+                width="100%"
+                maxWidth={1300}
+              >
+                <AdminMappingsTableContainer />
               </Flex>
-            </TabPanel>
-          </TabPanels>
-        </Tabs>
-      </MainView>
+            </Flex>
+          </TabPanel>
+        </TabPanels>
+      </Tabs>
     </>
   );
 }

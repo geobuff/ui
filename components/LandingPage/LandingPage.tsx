@@ -11,7 +11,6 @@ import {
 import Head from "next/head";
 
 import HeroHeader from "../../components/HeroHeader";
-import MainView from "../../components/MainView";
 
 import { LandingPageRow } from "../../types/landing-page-row";
 import LandingPageRowItem from "./LandingPageRowItem";
@@ -38,7 +37,7 @@ const LandingPage: FC<Props> = ({
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   return (
-    <MainView>
+    <>
       <Head>
         <title>{`${title} - GeoBuff`}</title>
         <meta name="description" content={description} />
@@ -75,7 +74,7 @@ const LandingPage: FC<Props> = ({
           </Flex>
         </Flex>
       </Box>
-    </MainView>
+    </>
   );
 };
 

@@ -13,13 +13,12 @@ import Head from "next/head";
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 import HeroHeader from "../components/HeroHeader";
-import MainView from "../components/MainView";
 
 const PrivacyPolicy: FC = () => {
   const { t } = useContext(LanguageContext);
 
   return (
-    <MainView>
+    <>
       <Head>
         <title>{`${t.global.privacyPolicy} - GeoBuff`}</title>
         <meta
@@ -411,7 +410,7 @@ const PrivacyPolicy: FC = () => {
           </Box>
         </Box>
       </Box>
-    </MainView>
+    </>
   );
 };
 

@@ -1,4 +1,4 @@
-import React, { FC, MutableRefObject, useContext, useEffect } from "react";
+import React, { FC, useContext } from "react";
 
 import { Box, BoxProps, Flex } from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
@@ -11,22 +11,18 @@ import { FooterVariant } from "../../types/footer-variant";
 
 interface Props extends BoxProps {
   children?: React.ReactNode;
-  footerVariant?: FooterVariant;
-  hasNavigationBar?: boolean;
+  isSimplePage?: boolean;
   hasFooter?: boolean;
-  innerRef?: MutableRefObject<any>;
 }
 
 const MainView: FC<Props> = ({
   children = null,
-  footerVariant = FooterVariant.EXTENDED,
-  hasNavigationBar = true,
+  isSimplePage = false,
   hasFooter = true,
-  innerRef = null,
   ...props
 }) => {
-  const { setIsNavSidebarOpen } = useContext(AppContext);
   const height = use100vh();
+  const { setIsNavSidebarOpen } = useContext(AppContext);
 
   const handlers = useSwipeable({
     onSwipedRight: () =>
@@ -37,23 +33,18 @@ const MainView: FC<Props> = ({
     rotationAngle: 0,
   });
 
-  useEffect(() => {
-    if (innerRef) {
-      innerRef.current.scrollIntoView();
-    }
-  }, [innerRef]);
-
   return (
     <>
       <Flex
-        ref={innerRef}
         as="main"
         direction="column"
         minHeight={height}
         width="100%"
         marginX="auto"
         flex={1}
-        backgroundColor={footerVariant === FooterVariant.EXTENDED && "#F0F0F0"}
+        backgroundColor={
+          isSimplePage ? { base: "#FFF", md: "#F0F0F0" } : "#F0F0F0"
+        }
         {...props}
       >
         <Box
@@ -65,11 +56,17 @@ const MainView: FC<Props> = ({
           zIndex={2}
           {...handlers}
         />
-        {hasNavigationBar && <NavigationBarContainer />}
-        <Flex flex={1} direction="column" marginTop={hasNavigationBar ? 14 : 0}>
+        {!isSimplePage && <NavigationBarContainer />}
+        <Flex flex={1} direction="column" marginTop={!isSimplePage ? 14 : 0}>
           {children}
         </Flex>
-        {hasFooter && height && <FooterContainer variant={footerVariant} />}
+        {hasFooter && height && (
+          <FooterContainer
+            variant={
+              isSimplePage ? FooterVariant.SIMPLE : FooterVariant.EXTENDED
+            }
+          />
+        )}
       </Flex>
     </>
   );

@@ -1,4 +1,4 @@
-import React, { FC, useContext } from "react";
+import React, { FC, useContext, useEffect, useRef } from "react";
 
 import {
   Box,
@@ -52,6 +52,7 @@ const CheckoutForm: FC<Props> = ({
 }) => {
   const { t } = useContext(LanguageContext);
   const router = useRouter();
+  const innerRef = useRef(null);
 
   const validationSchema = Yup.object().shape({
     shippingId: Yup.string().required(t.validations.shippingRequired),
@@ -62,6 +63,12 @@ const CheckoutForm: FC<Props> = ({
     lastName: Yup.string().required(t.validations.lastNameRequired),
     address: Yup.string().required(t.validations.addressRequired),
   });
+
+  useEffect(() => {
+    if (innerRef) {
+      innerRef.current.scrollIntoView();
+    }
+  }, [innerRef]);
 
   const renderAddressInput = ({
     getInputProps,
@@ -108,6 +115,7 @@ const CheckoutForm: FC<Props> = ({
 
   return (
     <Flex
+      ref={innerRef}
       direction="column"
       maxWidth={800}
       marginX="auto"

@@ -7,7 +7,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import MerchSummaryContainer from "../../containers/MerchSummaryContainer";
 
 import HeroHeader from "../../components/HeroHeader";
-import MainView from "../../components/MainView";
 
 const Summary: FC = () => {
   const router = useRouter();
@@ -25,10 +24,10 @@ const Summary: FC = () => {
   }, [router]);
 
   return (
-    <MainView>
+    <>
       <HeroHeader heading={t.global.merch} />
       {isLoading ? null : <MerchSummaryContainer route={route} />}
-    </MainView>
+    </>
   );
 };
 

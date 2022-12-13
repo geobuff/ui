@@ -1,9 +1,11 @@
 import React, { FC, useContext, useState } from "react";
 
 import { signIn } from "next-auth/react";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import LoginForm from "../../components/LoginForm";
 
@@ -12,6 +14,8 @@ import { GameOverRedirect } from "../../types/game-over-redirect";
 import { LoginFormSubmit } from "../../types/login-form-submit";
 
 const LoginContainer: FC = () => {
+  const { t } = useContext(LanguageContext);
+
   const router = useRouter();
   const { updateUser } = useContext(CurrentUserContext);
 
@@ -61,11 +65,20 @@ const LoginContainer: FC = () => {
   };
 
   return (
-    <LoginForm
-      error={error}
-      onSubmit={handleSubmit}
-      isSubmitting={isSubmitting}
-    />
+    <>
+      <Head>
+        <title>{`${t.global.login} - GeoBuff`}</title>
+        <meta
+          name="description"
+          content="Login to GeoBuff to start building your geography knowledge using our variety of interactive map or flag games!"
+        />
+      </Head>
+      <LoginForm
+        error={error}
+        onSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+      />
+    </>
   );
 };
 

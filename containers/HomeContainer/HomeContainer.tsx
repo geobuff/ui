@@ -11,7 +11,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import DelayedRender from "../../components/DelayedRender";
 import HomeHeader from "../../components/HomeHeader";
 import { LoadingSpinner } from "../../components/LoadingSpinner/LoadingSpinner";
-import MainView from "../../components/MainView";
 import TriviaCardListSection from "../../components/TriviaCardListSection";
 import { FilteredTrivia } from "../../components/TriviaList/TriviaList";
 
@@ -203,7 +202,7 @@ export const HomeContainer: FC<Props> = ({
   };
 
   return (
-    <MainView>
+    <>
       <HomeHeader />
       {isLoading ? (
         <LoadingSpinner />
@@ -221,6 +220,6 @@ export const HomeContainer: FC<Props> = ({
           {getContent()}
         </Box>
       )}
-    </MainView>
+    </>
   );
 };

@@ -6,14 +6,13 @@ import Head from "next/head";
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 import HeroHeader from "../components/HeroHeader";
-import MainView from "../components/MainView";
 import TeamMemberCard from "../components/TeamMemberCard/TeamMemberCard";
 
 const MeetTheTeam: FC = () => {
   const { t } = useContext(LanguageContext);
 
   return (
-    <MainView>
+    <>
       <Head>
         <title>{`${t.global.meetTheTeam} - GeoBuff`}</title>
         <meta
@@ -69,7 +68,7 @@ const MeetTheTeam: FC = () => {
           </Text>
         </Box>
       </Box>
-    </MainView>
+    </>
   );
 };
 

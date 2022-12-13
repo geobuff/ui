@@ -1139,6 +1139,9 @@ export default {
     itemFiveAnswerSectionTwo:
       "Actualmente, no hemos implementado ninguna función que le permita gastar su bien ganada GeoCoin. El equipo está trabajando arduamente para realizar cambios que le permitan comprar artículos especiales de avatar, suscripciones y más usando su alcancía. Mientras tanto, si está interesado en cómo estamos progresando, esté atento a nuestra hoja de ruta o redes sociales para obtener más detalles.",
   },
+  blog: {
+    noPostsAlert: "Nada que ver aqui.",
+  },
   footer: {
     company: "Compañía",
     furtherInformation: "Más información",
