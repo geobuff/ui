@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import ResetPasswordContainer from "../../../containers/ResetPasswordContainer";
+import { ResetPasswordContainer } from "../../../containers";
 
 const ResetPassword: FC = () => <ResetPasswordContainer />;
 

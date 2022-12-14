@@ -4,14 +4,13 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
-import ResetPasswordForm from "../../components/ResetPasswordForm";
+import axiosClient from "../axios/axiosClient";
+import { ResetPasswordFormReset } from "../types/reset-password-form-submit";
+import { ResetPasswordFormContainer } from "./ResetPasswordFormContainer";
 
-import axiosClient from "../../axios/axiosClient";
-import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
-
-const ResetPasswordContainer: FC = () => {
+export const ResetPasswordContainer: FC = () => {
   const { t } = useContext(LanguageContext);
 
   const router = useRouter();
@@ -73,7 +72,7 @@ const ResetPasswordContainer: FC = () => {
           content="Forgot your password? Not to worry, we've got you covered. Get a reset link sent to your email and we'll have you back in action in no time."
         />
       </Head>
-      <ResetPasswordForm
+      <ResetPasswordFormContainer
         error={error}
         isSuccess={isSuccess}
         isLoading={isLoading || status === "loading"}
@@ -83,5 +82,3 @@ const ResetPasswordContainer: FC = () => {
     </>
   );
 };
-
-export default ResetPasswordContainer;

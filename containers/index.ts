@@ -11,3 +11,5 @@ export * from "./RegisterFormStepOneContainer";
 export * from "./RegisterFormStepThreeContainer";
 export * from "./ForgotPasswordContainer";
 export * from "./ForgotPasswordFormContainer";
+export * from "./ResetPasswordFormContainer";
+export * from "./ResetPasswordContainer";
