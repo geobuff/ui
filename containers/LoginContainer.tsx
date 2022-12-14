@@ -4,16 +4,15 @@ import { signIn } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { CurrentUserContext } from "../context/CurrentUserContext/CurrentUserContext";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
-import LoginForm from "../../components/LoginForm";
+import axiosClient from "../axios";
+import { GameOverRedirect } from "../types/game-over-redirect";
+import { LoginFormSubmit } from "../types/login-form-submit";
+import { LoginFormContainer } from "./LoginFormContainer";
 
-import axiosClient from "../../axios";
-import { GameOverRedirect } from "../../types/game-over-redirect";
-import { LoginFormSubmit } from "../../types/login-form-submit";
-
-const LoginContainer: FC = () => {
+export const LoginContainer: FC = () => {
   const { t } = useContext(LanguageContext);
 
   const router = useRouter();
@@ -73,7 +72,7 @@ const LoginContainer: FC = () => {
           content="Login to GeoBuff to start building your geography knowledge using our variety of interactive map or flag games!"
         />
       </Head>
-      <LoginForm
+      <LoginFormContainer
         error={error}
         onSubmit={handleSubmit}
         isSubmitting={isSubmitting}
@@ -81,5 +80,3 @@ const LoginContainer: FC = () => {
     </>
   );
 };
-
-export default LoginContainer;

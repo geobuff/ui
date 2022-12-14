@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 
-import { GeoBuffLogo } from "@geobuff/buff-ui/components";
+import { AuthCard, AuthView, GeoBuffLogo } from "@geobuff/buff-ui/components";
 
 import {
   Alert,
@@ -23,8 +23,6 @@ import * as Yup from "yup";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { ResetPasswordFormReset } from "../../types/reset-password-form-submit";
-import AuthCard from "../AuthCard";
-import AuthView from "../AuthView";
 import ResetPasswordError from "./ResetPasswordError";
 import ResetPasswordSuccess from "./ResetPasswordSuccess";
 

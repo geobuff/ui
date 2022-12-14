@@ -1,6 +1,7 @@
 import React, { FC, useContext } from "react";
 
 import { GeoBuffLogo } from "@geobuff/buff-ui/components";
+import { AuthCard, AuthView } from "@geobuff/buff-ui/components";
 
 import {
   Alert,
@@ -26,8 +27,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import ArrowLeft from "../../Icons/ArrowLeft";
 import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
-import AuthCard from "../AuthCard";
-import AuthView from "../AuthView";
 import ForgotPasswordSuccess from "./ForgotPasswordSuccess";
 
 interface Props {

@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { ErrorAlertBanner } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -18,7 +20,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 import { UserDto } from "../../types/user-dto";
 import CountrySelect from "../CountrySelect";
-import ErrorAlertBanner from "../ErrorAlertBanner";
 import Modal from "../Modal";
 
 interface Props {

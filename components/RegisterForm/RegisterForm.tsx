@@ -1,5 +1,11 @@
 import React, { FC, useContext, useState } from "react";
 
+import {
+  AuthCard,
+  AuthView,
+  ErrorAlertBanner,
+} from "@geobuff/buff-ui/components";
+
 import { Box, useBreakpointValue } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
@@ -10,9 +16,6 @@ import RegisterFormStepOneContainer from "../../containers/RegisterContainer/Reg
 import RegisterFormStepThreeContainer from "../../containers/RegisterContainer/RegisterFormStepThreeContainer";
 
 import { RegisterFormSubmit } from "../../types/register-form-submit";
-import AuthCard from "../AuthCard";
-import AuthView from "../AuthView";
-import ErrorAlertBanner from "../ErrorAlertBanner";
 import LoginLink from "./LoginLink";
 import RegisterFormStepTwo from "./RegisterFormStepTwo";
 

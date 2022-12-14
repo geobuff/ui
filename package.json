@@ -15,7 +15,7 @@
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.9.0",
-    "@geobuff/buff-ui": "^0.1.6",
+    "@geobuff/buff-ui": "^0.1.7",
     "@geobuff/svg-map": "^0.10.0",
     "@mdx-js/loader": "^2.1.2",
     "@next/mdx": "^12.2.4",
