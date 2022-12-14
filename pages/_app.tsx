@@ -17,8 +17,8 @@ import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
 import { AuthErrorRedirect } from "../components/AuthErrorRedirect/AuthErrorRedirect";
 import AuthGuard from "../components/AuthGuard";
 import ClientOnly from "../components/ClientOnly";
-import MainView from "../components/MainView";
 
+import { MainViewContainer } from "../containers";
 import * as gtag from "../helpers/gtag";
 //styles of nprogress
 import "../styles/globals.css";
@@ -67,12 +67,12 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
   }, [events]);
 
   const content = (
-    <MainView
+    <MainViewContainer
       isSimplePage={SIMPLE_ROUTES.includes(pathname)}
       hasFooter={!NO_FOOTER_ROUTES.includes(pathname)}
     >
       <Component {...pageProps} />
-    </MainView>
+    </MainViewContainer>
   );
 
   return (

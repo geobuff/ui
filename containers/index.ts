@@ -4,3 +4,4 @@ export * from "./NavigationBarContainer";
 export * from "./FooterPlaysContainer";
 export * from "./LoginFormContainer";
 export * from "./LoginContainer";
+export * from "./MainViewContainer";
