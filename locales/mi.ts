@@ -356,6 +356,8 @@ export default {
     title: "Kupuhipa kua warewaretia",
     explainer:
       "Whakauruhia te wahitau imeera i whakamahia e koe i to whakaurunga ka tukuna atu e matou he hononga ki a koe hei tautuhi i to kupuhipa.",
+    successMessage:
+      "I momoho te tuku hononga tautuhi kupuhipa. Tena koa tirohia to imeera.",
   },
   loginLink: {
     message: "Kua hainatia?",

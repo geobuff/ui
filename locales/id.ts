@@ -352,6 +352,8 @@ export default {
     title: "password yang terlupakan",
     explainer:
       "Masukkan alamat email yang Anda gunakan saat bergabung dan kami akan mengirimkan tautan untuk mereset kata sandi Anda.",
+    successMessage:
+      "Berhasil mengirim tautan setel ulang kata sandi. Silakan periksa email Anda.",
   },
   loginLink: {
     message: "Sudah mendaftar?",

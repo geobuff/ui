@@ -9,3 +9,5 @@ export * from "./RegisterContainer";
 export * from "./RegisterFormContainer";
 export * from "./RegisterFormStepOneContainer";
 export * from "./RegisterFormStepThreeContainer";
+export * from "./ForgotPasswordContainer";
+export * from "./ForgotPasswordFormContainer";

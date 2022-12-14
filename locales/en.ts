@@ -348,6 +348,8 @@ export default {
     title: "Forgotten Password",
     explainer:
       "Enter the email address you used when you joined and we'll send you a link to reset your password.",
+    successMessage:
+      "Successfully sent password reset link. Please check your email.",
   },
   loginLink: {
     message: "Already signed up?",

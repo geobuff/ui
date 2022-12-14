@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import ForgotPasswordContainer from "../containers/ForgotPasswordContainer";
+import { ForgotPasswordContainer } from "../containers";
 
 const ForgotPassword: FC = () => <ForgotPasswordContainer />;
 

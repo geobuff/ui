@@ -4,14 +4,13 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
-import ForgotPasswordForm from "../../components/ForgotPasswordForm";
+import axiosClient from "../axios/axiosClient";
+import { ForgotPasswordFormSubmit } from "../types/forgot-password-form-submit";
+import { ForgotPasswordFormContainer } from "./ForgotPasswordFormContainer";
 
-import axiosClient from "../../axios/axiosClient";
-import { ForgotPasswordFormSubmit } from "../../types/forgot-password-form-submit";
-
-const ForgotPasswordContainer: FC = () => {
+export const ForgotPasswordContainer: FC = () => {
   const { t } = useContext(LanguageContext);
 
   const router = useRouter();
@@ -48,7 +47,7 @@ const ForgotPasswordContainer: FC = () => {
           content="Forgot your password? Not to worry, we've got you covered. Get a reset link sent to your email and we'll have you back in action in no time."
         />
       </Head>
-      <ForgotPasswordForm
+      <ForgotPasswordFormContainer
         error={error}
         isSuccess={isSuccess}
         isLoading={status === "loading"}
@@ -58,5 +57,3 @@ const ForgotPasswordContainer: FC = () => {
     </>
   );
 };
-
-export default ForgotPasswordContainer;

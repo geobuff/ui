@@ -363,6 +363,8 @@ export default {
     title: "Contraseña olvidada",
     explainer:
       "Ingrese la dirección de correo electrónico que utilizó cuando se unió y le enviaremos un enlace para restablecer su contraseña.",
+    successMessage:
+      "Enlace de restablecimiento de contraseña enviado con éxito. Por favor revise su correo electrónico.",
   },
   loginLink: {
     message: "¿Ya te registraste?",
