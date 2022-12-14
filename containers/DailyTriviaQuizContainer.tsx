@@ -5,12 +5,12 @@ import useTrivia from "../hooks/UseTrivia";
 import GameSpinner from "../components/GameSpinner";
 import GameTrivia from "../components/GameTrivia";
 
-export interface Props {
+export interface DailyTriviaQuizContainerProps {
   date: string;
   onIncrementPlays: (triviaId: number) => void;
 }
 
-export const DailyTriviaQuizContainer: FC<Props> = ({
+export const DailyTriviaQuizContainer: FC<DailyTriviaQuizContainerProps> = ({
   date,
   onIncrementPlays,
 }) => {

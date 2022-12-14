@@ -5,3 +5,7 @@ export * from "./FooterPlaysContainer";
 export * from "./LoginFormContainer";
 export * from "./LoginContainer";
 export * from "./MainViewContainer";
+export * from "./RegisterContainer";
+export * from "./RegisterFormContainer";
+export * from "./RegisterFormStepOneContainer";
+export * from "./RegisterFormStepThreeContainer";

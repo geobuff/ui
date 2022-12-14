@@ -11,11 +11,11 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import AvatarSelectContainer from "../../../containers/AvatarSelectContainer";
+import AvatarSelectContainer from "../../containers/AvatarSelectContainer";
 
-import RegisterFormBackButton from "../RegisterFormBackButton";
+import { RegisterFormBackButton } from "../RegisterFormBackButton/RegisterFormBackButton";
 
 export interface Props {
   onPreviousStep: () => void;
@@ -23,7 +23,7 @@ export interface Props {
   setFieldValue: (field: string, value: any, shouldValidate?: boolean) => void;
 }
 
-const RegisterFormStepTwo: FC<Props> = ({
+export const RegisterFormStepTwo: FC<Props> = ({
   setFieldValue = () => {},
   onPreviousStep = () => {},
   onNextStep = () => {},
@@ -69,5 +69,3 @@ const RegisterFormStepTwo: FC<Props> = ({
     </Fade>
   );
 };
-
-export default RegisterFormStepTwo;

@@ -1,19 +1,18 @@
 import React, { FC, useContext, useState } from "react";
 
-import { AuthCard, AuthView } from "@geobuff/buff-ui/components";
+import { RegisterForm } from "@geobuff/buff-ui/components";
 
 import { Box, useBreakpointValue } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
-import RegisterFormStepOneContainer from "../../containers/RegisterContainer/RegisterFormStepOneContainer";
-import RegisterFormStepThreeContainer from "../../containers/RegisterContainer/RegisterFormStepThreeContainer";
+import { RegisterFormStepTwo } from "../components/RegisterFormStepTwo/RegisterFormStepTwo";
 
-import { RegisterFormSubmit } from "../../types/register-form-submit";
-import LoginLink from "./LoginLink";
-import RegisterFormStepTwo from "./RegisterFormStepTwo";
+import { RegisterFormSubmit } from "../types/register-form-submit";
+import { RegisterFormStepOneContainer } from "./RegisterFormStepOneContainer";
+import { RegisterFormStepThreeContainer } from "./RegisterFormStepThreeContainer";
 
 const initialValues = {
   avatarId: "7",
@@ -28,7 +27,7 @@ interface Props {
   isSubmitting?: boolean;
 }
 
-const RegisterForm: FC<Props> = ({
+export const RegisterFormContainer: FC<Props> = ({
   onSubmit = () => {},
   isSubmitting = false,
 }) => {
@@ -76,7 +75,6 @@ const RegisterForm: FC<Props> = ({
         return <RegisterFormStepTwo {...props} />;
       case 2:
         return <RegisterFormStepThreeContainer {...props} />;
-
       default:
         break;
     }
@@ -85,60 +83,40 @@ const RegisterForm: FC<Props> = ({
   const currentValidationScheme = validationSchema[currentStep];
   const isFirstStep = currentStep === 0;
 
-  const formContent = (
-    <Box height="100%">
-      <Formik
-        enableReinitialize
-        initialValues={initialValues}
-        validationSchema={currentValidationScheme}
-        onSubmit={onSubmit}
-      >
-        {({
-          errors,
-          values,
-          setFieldValue,
-          setFieldError,
-        }): React.ReactNode => (
-          <Form>
-            <Box marginBottom={1}>
-              {getCurrentStepComponent({
-                errors,
-                values,
-                isSubmitting,
-                setFieldValue,
-                setFieldError,
-                onPreviousStep: handlePreviousStep,
-                onNextStep: handleNextStep,
-              })}
-            </Box>
-          </Form>
-        )}
-      </Formik>
-    </Box>
+  const form = (
+    <Formik
+      enableReinitialize
+      initialValues={initialValues}
+      validationSchema={currentValidationScheme}
+      onSubmit={onSubmit}
+    >
+      {({ errors, values, setFieldValue, setFieldError }): React.ReactNode => (
+        <Form>
+          <Box marginBottom={1}>
+            {getCurrentStepComponent({
+              errors,
+              values,
+              isSubmitting,
+              setFieldValue,
+              setFieldError,
+              onPreviousStep: handlePreviousStep,
+              onNextStep: handleNextStep,
+            })}
+          </Box>
+        </Form>
+      )}
+    </Formik>
   );
 
   return (
-    <>
-      {!isMobile && (
-        <Box position="absolute" top={0} right={0}>
-          <LoginLink />
-        </Box>
-      )}
-
-      <AuthView marginTop={{ base: 0, md: 16 }}>
-        <AuthCard
-          marginX="auto"
-          marginY={4}
-          maxWidth={{ base: "100%", md: 420 }}
-          width="100%"
-          zIndex={2}
-        >
-          {formContent}
-          {isMobile && isFirstStep && <LoginLink />}
-        </AuthCard>
-      </AuthView>
-    </>
+    <RegisterForm
+      isMobile={isMobile}
+      isFirstStep={isFirstStep}
+      linkMessage={t.loginLink.message}
+      linkAction={t.loginLink.action}
+      linkHref="/login"
+    >
+      {form}
+    </RegisterForm>
   );
 };
-
-export default RegisterForm;

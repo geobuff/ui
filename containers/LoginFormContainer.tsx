@@ -159,6 +159,7 @@ export const LoginFormContainer: FC<Props> = ({
       heading={t.global.login}
       linkMessage={t.registerLink.message}
       linkAction={t.registerLink.action}
+      linkHref="/register"
     >
       {form}
     </LoginForm>

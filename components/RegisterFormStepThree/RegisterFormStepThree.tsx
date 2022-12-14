@@ -16,13 +16,13 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import useAvatars from "../../../hooks/UseAvatars";
+import useAvatars from "../../hooks/UseAvatars";
 
-import CountrySelect from "../../CountrySelect";
-import ProfileUserAvatar from "../../ProfileUserAvatar";
-import RegisterFormBackButton from "../RegisterFormBackButton";
+import CountrySelect from "../CountrySelect";
+import ProfileUserAvatar from "../ProfileUserAvatar";
+import { RegisterFormBackButton } from "../RegisterFormBackButton/RegisterFormBackButton";
 
 export interface Props {
   values: any;
@@ -33,7 +33,7 @@ export interface Props {
   onPreviousStep: () => void;
 }
 
-const RegisterFormStepThree: FC<Props> = ({
+export const RegisterFormStepThree: FC<Props> = ({
   values,
   isSubmitting = false,
   isValidating = false,
@@ -182,5 +182,3 @@ const RegisterFormStepThree: FC<Props> = ({
     </Fade>
   );
 };
-
-export default RegisterFormStepThree;

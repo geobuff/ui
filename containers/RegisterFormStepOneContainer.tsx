@@ -1,25 +1,22 @@
 import React, { FC, useContext, useState } from "react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
-import RegisterFormStepOne from "../../../components/RegisterForm/RegisterFormStepOne";
+import { RegisterFormStepOne } from "../components/RegisterFormStepOne/RegisterFormStepOne";
 
-import axiosClient from "../../../axios";
-import { RegisterFormSubmit } from "../../../types/register-form-submit";
+import axiosClient from "../axios";
+import { RegisterFormSubmit } from "../types/register-form-submit";
 
-export interface Props {
+export interface RegisterFormStepOneContainerProps {
   errors: Record<string, string>;
   values: RegisterFormSubmit;
   setFieldError: (field: string, message: string) => void;
   onNextStep: () => void;
 }
 
-const RegisterFormStepOneContainer: FC<Props> = ({
-  errors,
-  values,
-  setFieldError = () => {},
-  onNextStep = () => {},
-}) => {
+export const RegisterFormStepOneContainer: FC<
+  RegisterFormStepOneContainerProps
+> = ({ errors, values, setFieldError = () => {}, onNextStep = () => {} }) => {
   const [isValidating, setIsValidating] = useState(false);
   const [hasSubmittedOnce, setHasSubmittedOnce] = useState(false);
 
@@ -55,5 +52,3 @@ const RegisterFormStepOneContainer: FC<Props> = ({
     />
   );
 };
-
-export default RegisterFormStepOneContainer;

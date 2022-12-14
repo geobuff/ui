@@ -2,19 +2,21 @@ import React, { FC, useState } from "react";
 
 import { useFormikContext } from "formik";
 
-import RegisterFormStepThree from "../../../components/RegisterForm/RegisterFormStepThree";
+import { RegisterFormStepThree } from "../components/RegisterFormStepThree/RegisterFormStepThree";
 
-import axiosClient from "../../../axios";
-import { RegisterFormSubmit } from "../../../types/register-form-submit";
+import axiosClient from "../axios";
+import { RegisterFormSubmit } from "../types/register-form-submit";
 
-export interface Props {
+export interface RegisterFormStepThreeContainerProps {
   values: RegisterFormSubmit;
   isSubmitting: boolean;
   setFieldError: (field: string, message: string) => void;
   onPreviousStep: () => void;
 }
 
-const RegisterFormStepThreeContainer: FC<Props> = ({
+export const RegisterFormStepThreeContainer: FC<
+  RegisterFormStepThreeContainerProps
+> = ({
   values,
   isSubmitting = false,
   setFieldError = () => {},
@@ -58,5 +60,3 @@ const RegisterFormStepThreeContainer: FC<Props> = ({
     />
   );
 };
-
-export default RegisterFormStepThreeContainer;

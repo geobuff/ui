@@ -2,9 +2,12 @@ import React, { FC } from "react";
 
 import { Button, ButtonProps } from "@chakra-ui/react";
 
-import ArrowLeft from "../../../Icons/ArrowLeft";
+import ArrowLeft from "../../Icons/ArrowLeft";
 
-const RegisterFormBackButton: FC<ButtonProps> = ({ children, ...props }) => {
+export const RegisterFormBackButton: FC<ButtonProps> = ({
+  children,
+  ...props
+}) => {
   return (
     <Button
       variant="ghost"
@@ -21,5 +24,3 @@ const RegisterFormBackButton: FC<ButtonProps> = ({ children, ...props }) => {
     </Button>
   );
 };
-
-export default RegisterFormBackButton;

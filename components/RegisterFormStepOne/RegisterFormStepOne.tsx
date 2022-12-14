@@ -17,9 +17,9 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import { RegisterFormSubmit } from "../../../types/register-form-submit";
+import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 export interface Props {
   errors: Record<string, string>;
@@ -29,7 +29,7 @@ export interface Props {
   onCheckEmailValidity: (email: string) => void;
 }
 
-const RegisterFormStepOne: FC<Props> = ({
+export const RegisterFormStepOne: FC<Props> = ({
   hasSubmittedOnce = false,
   errors = {},
   values = null,

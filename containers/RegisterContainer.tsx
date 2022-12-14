@@ -4,17 +4,16 @@ import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { AppContext } from "../../context/AppContext";
-import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { AppContext } from "../context/AppContext";
+import { CurrentUserContext } from "../context/CurrentUserContext/CurrentUserContext";
+import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
-import RegisterForm from "../../components/RegisterForm";
+import axiosClient from "../axios/axiosClient";
+import { GameOverRedirect } from "../types/game-over-redirect";
+import { RegisterFormSubmit } from "../types/register-form-submit";
+import { RegisterFormContainer } from "./RegisterFormContainer";
 
-import axiosClient from "../../axios/axiosClient";
-import { GameOverRedirect } from "../../types/game-over-redirect";
-import { RegisterFormSubmit } from "../../types/register-form-submit";
-
-const RegisterContainer: FC = () => {
+export const RegisterContainer: FC = () => {
   const router = useRouter();
   const { status } = useSession();
   const { updateUser } = useContext(CurrentUserContext);
@@ -86,9 +85,10 @@ const RegisterContainer: FC = () => {
           content="Sign up today to start using the world's leading competitive platform for geography-based trivia!"
         />
       </Head>
-      <RegisterForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
+      <RegisterFormContainer
+        onSubmit={handleSubmit}
+        isSubmitting={isSubmitting}
+      />
     </>
   );
 };
-
-export default RegisterContainer;
