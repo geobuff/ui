@@ -13,6 +13,8 @@ export const AppContext = createContext({
   hasNotch: false,
   operatingSystem: null as OperatingSystem,
   isNotchedIphone: false,
+  error: "",
+  setError: (error: string) => {},
 });
 
 interface Props {
@@ -23,6 +25,7 @@ export const AppContextProvider: FC<Props> = ({ children }) => {
   const [isNavSidebarOpen, setIsNavSidebarOpen] = useState(false);
   const [hasNotch, setHasNotch] = useState(false);
   const [operatingSystem, setOperatingSystem] = useState(null);
+  const [error, setError] = useState("");
 
   const [localHasNotch] = useLocalStorage("geobuff.device.hasNotch");
   const [localOS] = useLocalStorage("geobuff.device.os");
@@ -39,6 +42,17 @@ export const AppContextProvider: FC<Props> = ({ children }) => {
     setOperatingSystem((localOS?.toLowerCase() as OperatingSystem) || null);
   }, [localOS]);
 
+  // Clear error after 5 seconds to remove banner.
+  useEffect(() => {
+    if (error) {
+      setTimeout(() => {
+        if (error) {
+          setError("");
+        }
+      }, 5000);
+    }
+  }, [error]);
+
   const isNotchedIphone =
     isAppMobile && hasNotch && operatingSystem === OperatingSystem.iOS;
 
@@ -50,6 +64,8 @@ export const AppContextProvider: FC<Props> = ({ children }) => {
         hasNotch,
         operatingSystem,
         isNotchedIphone,
+        error,
+        setError,
       }}
     >
       {children}

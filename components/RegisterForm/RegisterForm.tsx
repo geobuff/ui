@@ -1,10 +1,6 @@
 import React, { FC, useContext, useState } from "react";
 
-import {
-  AuthCard,
-  AuthView,
-  ErrorAlertBanner,
-} from "@geobuff/buff-ui/components";
+import { AuthCard, AuthView } from "@geobuff/buff-ui/components";
 
 import { Box, useBreakpointValue } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
@@ -28,13 +24,11 @@ const initialValues = {
 };
 
 interface Props {
-  error?: string;
   onSubmit?: (values: RegisterFormSubmit) => void;
   isSubmitting?: boolean;
 }
 
 const RegisterForm: FC<Props> = ({
-  error = "",
   onSubmit = () => {},
   isSubmitting = false,
 }) => {
@@ -125,8 +119,6 @@ const RegisterForm: FC<Props> = ({
 
   return (
     <>
-      <ErrorAlertBanner error={error} />
-
       {!isMobile && (
         <Box position="absolute" top={0} right={0}>
           <LoginLink />

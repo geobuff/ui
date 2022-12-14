@@ -4,6 +4,7 @@ import { signIn, useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
+import { AppContext } from "../../context/AppContext";
 import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
@@ -14,13 +15,12 @@ import { GameOverRedirect } from "../../types/game-over-redirect";
 import { RegisterFormSubmit } from "../../types/register-form-submit";
 
 const RegisterContainer: FC = () => {
-  const { t } = useContext(LanguageContext);
-
   const router = useRouter();
   const { status } = useSession();
   const { updateUser } = useContext(CurrentUserContext);
+  const { t } = useContext(LanguageContext);
+  const { setError } = useContext(AppContext);
 
-  const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
@@ -29,19 +29,8 @@ const RegisterContainer: FC = () => {
     }
   }, [status, router]);
 
-  // Clear error after 5 seconds to clear banner
-  useEffect(() => {
-    setTimeout(() => {
-      if (error) {
-        setError(null);
-      }
-    }, 7500);
-  }, [error]);
-
   const handleSubmit = (values: RegisterFormSubmit): void => {
     setIsSubmitting(true);
-    setError(null);
-
     const payload = {
       avatarId: parseInt(values.avatarId),
       username: values.username,
@@ -97,11 +86,7 @@ const RegisterContainer: FC = () => {
           content="Sign up today to start using the world's leading competitive platform for geography-based trivia!"
         />
       </Head>
-      <RegisterForm
-        error={error}
-        onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
-      />
+      <RegisterForm onSubmit={handleSubmit} isSubmitting={isSubmitting} />
     </>
   );
 };

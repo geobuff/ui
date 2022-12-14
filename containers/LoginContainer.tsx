@@ -4,6 +4,7 @@ import { signIn } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
+import { AppContext } from "../context/AppContext";
 import { CurrentUserContext } from "../context/CurrentUserContext/CurrentUserContext";
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
@@ -13,18 +14,15 @@ import { LoginFormSubmit } from "../types/login-form-submit";
 import { LoginFormContainer } from "./LoginFormContainer";
 
 export const LoginContainer: FC = () => {
-  const { t } = useContext(LanguageContext);
-
   const router = useRouter();
   const { updateUser } = useContext(CurrentUserContext);
+  const { t } = useContext(LanguageContext);
+  const { setError } = useContext(AppContext);
 
-  const [error, setError] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async (values: LoginFormSubmit): Promise<void> => {
     setIsSubmitting(true);
-    setError(null);
-
     const response = await signIn("credentials", {
       redirect: false,
       email: values.email,
@@ -72,11 +70,7 @@ export const LoginContainer: FC = () => {
           content="Login to GeoBuff to start building your geography knowledge using our variety of interactive map or flag games!"
         />
       </Head>
-      <LoginFormContainer
-        error={error}
-        onSubmit={handleSubmit}
-        isSubmitting={isSubmitting}
-      />
+      <LoginFormContainer onSubmit={handleSubmit} isSubmitting={isSubmitting} />
     </>
   );
 };

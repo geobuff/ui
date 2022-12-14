@@ -24,7 +24,7 @@ const UpdateAvatarFormContainer: FC<Props> = ({
 }) => {
   const { t } = useContext(LanguageContext);
   const toast = useToast();
-  const { isNotchedIphone } = useContext(AppContext);
+  const { isNotchedIphone, setError } = useContext(AppContext);
 
   const { user, updateUser } = useContext(CurrentUserContext);
   const { data: session } = useSession();
@@ -35,12 +35,9 @@ const UpdateAvatarFormContainer: FC<Props> = ({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
 
   const handleSubmit = (values: UpdateAvatarFormSubmit): void => {
     setIsSubmitting(true);
-    setError("");
-
     axiosClient
       .put(
         `/users/${user.id}`,
@@ -85,7 +82,6 @@ const UpdateAvatarFormContainer: FC<Props> = ({
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
       isNotchedIphone={isNotchedIphone}
-      error={error}
     />
   );
 };

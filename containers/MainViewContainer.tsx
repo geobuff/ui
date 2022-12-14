@@ -21,7 +21,7 @@ export const MainViewContainer: FC<Props> = ({
   hasFooter = true,
   ...props
 }) => {
-  const { setIsNavSidebarOpen } = useContext(AppContext);
+  const { error, setIsNavSidebarOpen } = useContext(AppContext);
 
   const navigationContent = <NavigationBarContainer />;
 
@@ -36,6 +36,7 @@ export const MainViewContainer: FC<Props> = ({
       isAppMobile={process.env.NEXT_PUBLIC_APP_MODE === "mobile"}
       isSimplePage={isSimplePage}
       hasFooter={hasFooter}
+      error={error}
       navigationContent={navigationContent}
       footerContent={footerContent}
       onIsSidebarOpenChange={setIsNavSidebarOpen}

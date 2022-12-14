@@ -28,14 +28,12 @@ const initialValues = {
 
 interface Props {
   csrfToken?: string;
-  error?: string;
   onSubmit?: (values: LoginFormSubmit) => void;
   isSubmitting?: boolean;
 }
 
 export const LoginFormContainer: FC<Props> = ({
   csrfToken = "",
-  error = "",
   onSubmit = () => {},
   isSubmitting = false,
 }) => {
@@ -158,7 +156,6 @@ export const LoginFormContainer: FC<Props> = ({
   return (
     <LoginForm
       shouldRenderOnMobile={shouldRenderOnMobile}
-      error={error}
       heading={t.global.login}
       linkMessage={t.registerLink.message}
       linkAction={t.registerLink.action}

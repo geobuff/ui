@@ -28,7 +28,7 @@ const UpdateUserFormContainer: FC<Props> = ({
   const { user, updateUser } = useContext(CurrentUserContext);
   const { data: session } = useSession();
 
-  const { isNotchedIphone } = useContext(AppContext);
+  const { isNotchedIphone, setError } = useContext(AppContext);
 
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "bottom",
@@ -36,12 +36,9 @@ const UpdateUserFormContainer: FC<Props> = ({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
 
   const handleSubmit = (values: UpdateUserFormSubmit): void => {
     setIsSubmitting(true);
-    setError("");
-
     axiosClient
       .put(
         `/users/${user.id}`,
@@ -84,7 +81,6 @@ const UpdateUserFormContainer: FC<Props> = ({
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
       isNotchedIphone={isNotchedIphone}
-      error={error}
     />
   );
 };

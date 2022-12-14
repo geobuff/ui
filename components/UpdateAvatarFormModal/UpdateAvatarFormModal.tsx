@@ -1,7 +1,5 @@
 import React, { FC, useContext } from "react";
 
-import { ErrorAlertBanner } from "@geobuff/buff-ui/components";
-
 import {
   Box,
   Button,
@@ -27,7 +25,6 @@ interface Props {
   onSubmit?: (values: UpdateAvatarFormSubmit) => void;
   isSubmitting?: boolean;
   isNotchedIphone?: boolean;
-  error?: string;
 }
 
 const UpdateAvatarFormModal: FC<Props> = ({
@@ -37,7 +34,6 @@ const UpdateAvatarFormModal: FC<Props> = ({
   onSubmit = (): void => {},
   isSubmitting = false,
   isNotchedIphone = false,
-  error = "",
 }) => {
   const { t } = useContext(LanguageContext);
 
@@ -114,7 +110,6 @@ const UpdateAvatarFormModal: FC<Props> = ({
                     >
                       {"Update"}
                     </Button>
-                    <ErrorAlertBanner error={error} />
                   </Flex>
                 </Flex>
               </Flex>
