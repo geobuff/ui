@@ -13,3 +13,5 @@ export * from "./ForgotPasswordContainer";
 export * from "./ForgotPasswordFormContainer";
 export * from "./ResetPasswordFormContainer";
 export * from "./ResetPasswordContainer";
+export * from "./HeroBannerContainer";
+export * from "./HomeHeaderContainer";

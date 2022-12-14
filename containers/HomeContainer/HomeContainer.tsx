@@ -9,7 +9,6 @@ import { HomeContext } from "../../context/HomeContext/HomeContext";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import DelayedRender from "../../components/DelayedRender";
-import HomeHeader from "../../components/HomeHeader";
 import { LoadingSpinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import TriviaCardListSection from "../../components/TriviaCardListSection";
 import { FilteredTrivia } from "../../components/TriviaList/TriviaList";
@@ -18,6 +17,7 @@ import { formatDate, isDateBefore } from "../../helpers/date";
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import { Quiz } from "../../types/quiz";
 import { Trivia } from "../../types/trivia";
+import { HomeHeaderContainer } from "../HomeHeaderContainer";
 
 const QuizCardListSection = dynamic(
   () => import("../../components/QuizCardListSection")
@@ -203,7 +203,7 @@ export const HomeContainer: FC<Props> = ({
 
   return (
     <>
-      <HomeHeader />
+      <HomeHeaderContainer />
       {isLoading ? (
         <LoadingSpinner />
       ) : (

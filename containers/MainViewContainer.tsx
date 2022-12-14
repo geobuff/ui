@@ -6,6 +6,7 @@ import { BoxProps } from "@chakra-ui/react";
 
 import { AppContext } from "../context/AppContext";
 
+import theme from "../styles/theme";
 import { FooterContainer } from "./FooterContainer";
 import { NavigationBarContainer } from "./NavigationBarContainer";
 
@@ -33,6 +34,7 @@ export const MainViewContainer: FC<Props> = ({
 
   return (
     <MainView
+      theme={theme}
       isAppMobile={process.env.NEXT_PUBLIC_APP_MODE === "mobile"}
       isSimplePage={isSimplePage}
       hasFooter={hasFooter}
