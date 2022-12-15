@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Alert, AlertIcon, Divider, Flex } from "@chakra-ui/react";
 
 import UserProfileAchievementsContainer from "../../containers/UserProfileAchievementsContainer";
@@ -8,7 +10,6 @@ import UserProfileMyQuizzesContainer from "../../containers/UserProfileMyQuizzes
 import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
 
 import { UserDto } from "../../types/user-dto";
-import HeroHeader from "../HeroHeader";
 
 const divider = <Divider borderColor="transparent" my={3} />;
 

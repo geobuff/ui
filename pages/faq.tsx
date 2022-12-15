@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Box, Flex } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 import FAQSection from "../components/FAQSection";
-import HeroHeader from "../components/HeroHeader";
 
 const FAQ: FC = () => {
   const router = useRouter();

@@ -1,11 +1,12 @@
 import React, { FC, useContext } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Box, Heading, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import Head from "next/head";
 
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
-import HeroHeader from "../components/HeroHeader";
 import TeamMemberCard from "../components/TeamMemberCard/TeamMemberCard";
 
 const MeetTheTeam: FC = () => {

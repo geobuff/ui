@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Flex } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 import type { AppProps } from "next/app";
@@ -9,7 +11,6 @@ import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 import { QuizListContainer } from "../containers/QuizListContainer/QuizListContainer";
 
-import HeroHeader from "../components/HeroHeader";
 import QuizList from "../components/QuizList";
 
 import axiosClient from "../axios";

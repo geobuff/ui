@@ -1,12 +1,12 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { useRouter } from "next/router";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import MerchSummaryContainer from "../../containers/MerchSummaryContainer";
-
-import HeroHeader from "../../components/HeroHeader";
 
 const Summary: FC = () => {
   const router = useRouter();

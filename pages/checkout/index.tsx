@@ -1,4 +1,6 @@
-import React, { FC, useContext, useRef } from "react";
+import React, { FC, useContext } from "react";
+
+import { HeroHeader } from "@geobuff/buff-ui/components";
 
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js/pure";
@@ -9,8 +11,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import CheckoutFormContainer from "../../containers/CheckoutFormContainer";
 
 import useScript from "../../hooks/UseScript";
-
-import HeroHeader from "../../components/HeroHeader";
 
 const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLIC_KEY);
 

@@ -1,12 +1,13 @@
 import React, { FC, useContext } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Alert, AlertIcon, Box } from "@chakra-ui/react";
 import Head from "next/head";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import BlogPostCard from "../../components/Blog/BlogPostCard";
-import HeroHeader from "../../components/HeroHeader";
 
 import posts from "./posts";
 

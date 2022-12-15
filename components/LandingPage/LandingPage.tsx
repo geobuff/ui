@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Divider,
@@ -9,8 +11,6 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import Head from "next/head";
-
-import HeroHeader from "../../components/HeroHeader";
 
 import { LandingPageRow } from "../../types/landing-page-row";
 import LandingPageRowItem from "./LandingPageRowItem";

@@ -1,12 +1,12 @@
 import React, { useContext } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import Head from "next/head";
 
 import { LanguageContext } from "../context/LanguageContext/LanguageContext";
 
 import OrdersContainer from "../containers/OrdersContainer";
-
-import HeroHeader from "../components/HeroHeader";
 
 export default function Orders(): JSX.Element {
   const { t } = useContext(LanguageContext);

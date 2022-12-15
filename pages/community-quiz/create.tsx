@@ -1,5 +1,7 @@
 import React, { useContext } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Flex, Heading } from "@chakra-ui/react";
 import Head from "next/head";
 
@@ -8,7 +10,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 import CommunityQuizFormContainer from "../../containers/CommunityQuizFormContainer";
 
 import Card from "../../components/Card";
-import HeroHeader from "../../components/HeroHeader";
 
 export default function Create(): JSX.Element {
   const { t } = useContext(LanguageContext);

@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Flex } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
@@ -7,8 +9,6 @@ import Head from "next/head";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import CommunityQuizListContainer from "../../containers/CommunityQuizListContainer";
-
-import HeroHeader from "../../components/HeroHeader";
 
 const CommunityQuiz: FC<AppProps> = () => {
   const { t } = useContext(LanguageContext);

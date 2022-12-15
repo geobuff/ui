@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Flex } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 import type { AppProps } from "next/app";
@@ -9,7 +11,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { TriviaListContainer } from "../../containers/TriviaListContainer/TriviaListContainer";
 
-import HeroHeader from "../../components/HeroHeader";
 import TriviaList from "../../components/TriviaList";
 
 import axiosClient from "../../axios";
@@ -26,7 +27,6 @@ const DailyTrivia: FC<AppProps> = ({ pageProps }) => {
           content="Ten questions covering everything geography - from maps and flags, to rivers and mountains, our famous daily trivia will keep you coming back every single day."
         />
       </Head>
-      =
       <HeroHeader heading={t.global.dailyTriviaUpper} />
       <Flex flex={1} width="100%">
         <Flex

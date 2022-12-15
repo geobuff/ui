@@ -1,12 +1,12 @@
 import React, { FC, useContext } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import Head from "next/head";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import MerchListContainer from "../../containers/MerchListContainer";
-
-import HeroHeader from "../../components/HeroHeader";
 
 const Merch: FC = () => {
   const { t } = useContext(LanguageContext);
