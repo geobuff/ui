@@ -1113,6 +1113,9 @@ export default {
   blog: {
     noPostsAlert: "Nothing to see here.",
   },
+  gameFlags: {
+    noItemsMessage: "Perfect score, well done! 🥳",
+  },
   footer: {
     company: "Company",
     furtherInformation: "Further Information",

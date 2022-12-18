@@ -1144,6 +1144,9 @@ export default {
   blog: {
     noPostsAlert: "Nada que ver aqui.",
   },
+  gameFlags: {
+    noItemsMessage: "Puntuación perfecta, ¡bien hecho! 🥳",
+  },
   footer: {
     company: "Compañía",
     furtherInformation: "Más información",

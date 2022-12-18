@@ -1129,6 +1129,9 @@ export default {
   blog: {
     noPostsAlert: "Kaore he mea hei kite i konei.",
   },
+  gameFlags: {
+    noItemsMessage: "He piro tino pai, he pai te mahi! 🥳",
+  },
   footer: {
     company: "Kamupene",
     furtherInformation: "Ētahi atu korero",

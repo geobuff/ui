@@ -1,5 +1,7 @@
 import React, { FC, useContext, useEffect } from "react";
 
+import { DelayedRender } from "@geobuff/buff-ui/components";
+
 import { Box, useBreakpointValue } from "@chakra-ui/react";
 import axios from "axios";
 import { DateTime } from "luxon";
@@ -8,7 +10,6 @@ import dynamic from "next/dynamic";
 import { HomeContext } from "../../context/HomeContext/HomeContext";
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import DelayedRender from "../../components/DelayedRender";
 import { LoadingSpinner } from "../../components/LoadingSpinner/LoadingSpinner";
 import TriviaCardListSection from "../../components/TriviaCardListSection";
 import { FilteredTrivia } from "../../components/TriviaList/TriviaList";

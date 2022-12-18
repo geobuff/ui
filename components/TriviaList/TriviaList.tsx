@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { DelayedRender } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -14,7 +16,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import { formatDate, isDateBefore } from "../../helpers/date";
 import { Trivia } from "../../types/trivia";
-import DelayedRender from "../DelayedRender";
 import TriviaCard from "../TriviaCard";
 
 export interface FilteredTrivia extends Trivia {

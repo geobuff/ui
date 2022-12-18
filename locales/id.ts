@@ -1124,6 +1124,9 @@ export default {
   blog: {
     noPostsAlert: "Tidak ada yang bisa dilihat di sini.",
   },
+  gameFlags: {
+    noItemsMessage: "Skor sempurna, kerja bagus! 🥳",
+  },
   footer: {
     company: "Perusahaan",
     furtherInformation: "Informasi lebih lanjut",
