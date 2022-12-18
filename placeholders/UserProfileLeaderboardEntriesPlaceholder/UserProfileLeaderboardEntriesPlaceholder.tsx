@@ -12,7 +12,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import Card from "../../components/Card";
 

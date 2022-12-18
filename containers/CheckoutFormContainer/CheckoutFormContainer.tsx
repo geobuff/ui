@@ -3,7 +3,7 @@ import React, { FC, useContext, useState } from "react";
 import { useStripe } from "@stripe/react-stripe-js";
 import { useSession } from "next-auth/react";
 
-import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 
 import useShippingOptions from "../../hooks/UseShippingOptions";
 

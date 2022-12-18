@@ -16,7 +16,7 @@ import {
 
 import { Flex, Link, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import { FooterPlaysContainer } from "./FooterPlaysContainer";
 

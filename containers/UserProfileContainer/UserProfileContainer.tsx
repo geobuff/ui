@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { useSession } from "next-auth/react";
 
-import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 
 import UserProfile from "../../components/UserProfile";
 

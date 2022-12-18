@@ -3,7 +3,7 @@ import React, { FC, useContext } from "react";
 import { Button, Flex, Heading, useBreakpointValue } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { AuthUser } from "../../../types/auth-user";
 

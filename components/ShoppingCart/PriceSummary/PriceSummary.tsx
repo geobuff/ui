@@ -3,7 +3,7 @@ import React, { FC, useContext } from "react";
 import { Button, Flex, Stack, Text } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { formatNumber } from "../../../helpers/number";
 

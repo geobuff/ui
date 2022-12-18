@@ -23,7 +23,7 @@ import { useRouter } from "next/router";
 import PlacesAutocomplete from "react-places-autocomplete";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { ShippingOption } from "../../types/shipping-option";

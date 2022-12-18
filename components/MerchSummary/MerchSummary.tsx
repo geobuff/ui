@@ -7,7 +7,7 @@ import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { MerchItem } from "../../types/merch-item";
 import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";

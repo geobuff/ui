@@ -5,8 +5,8 @@ import axios from "axios";
 import { DateTime } from "luxon";
 import dynamic from "next/dynamic";
 
-import { HomeContext } from "../../context/HomeContext/HomeContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { HomeContext } from "../../contexts/HomeContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import DelayedRender from "../../components/DelayedRender";
 import { LoadingSpinner } from "../../components/LoadingSpinner/LoadingSpinner";

@@ -5,7 +5,7 @@ import { ArrowRight } from "@geobuff/buff-ui/components";
 import { Button, Fade, Flex, SimpleGrid, Text } from "@chakra-ui/react";
 import { use100vh } from "react-div-100vh";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { TriviaAnswer } from "../../../types/trivia-answer";
 import { TriviaQuestion } from "../../../types/trivia-question";

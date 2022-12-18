@@ -13,7 +13,7 @@ import {
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 import { UserDto } from "../../types/user-dto";

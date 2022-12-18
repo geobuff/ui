@@ -7,7 +7,7 @@ import {
 
 import { Box, Button, Divider, Flex, Text, Tooltip } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { secondsToMinutesString } from "../../helpers/time";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";

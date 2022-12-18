@@ -6,7 +6,7 @@ import { Flex } from "@chakra-ui/react";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import CommunityQuizListContainer from "../../containers/CommunityQuizListContainer";
 

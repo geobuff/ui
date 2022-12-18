@@ -13,7 +13,7 @@ import {
 import { Field, FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
 import { FieldArrayErrorMessage } from "../FieldArrayErrorMessage/FieldArrayErrorMessage";

@@ -14,7 +14,7 @@ import {
 } from "@chakra-ui/react";
 import { debounce } from "throttle-debounce";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { Quiz } from "../../../types/quiz";
 

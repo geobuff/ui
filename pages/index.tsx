@@ -4,8 +4,8 @@ import axios, { AxiosPromise } from "axios";
 import { GetStaticProps } from "next";
 import type { AppProps } from "next/app";
 
-import { HomeContextProvider } from "../context/HomeContext/HomeContext";
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { HomeContextProvider } from "../contexts/HomeContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import { HomeContainer } from "../containers/HomeContainer/HomeContainer";
 

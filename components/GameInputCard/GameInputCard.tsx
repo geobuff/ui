@@ -15,7 +15,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 import { QuizTypes } from "../../types/quiz-types";

@@ -4,7 +4,7 @@ import { ChevronUpIcon } from "@chakra-ui/icons";
 import { Box, Divider, Fade, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { ExpiryTimestamp } from "../../../types/expiry-timestamp";

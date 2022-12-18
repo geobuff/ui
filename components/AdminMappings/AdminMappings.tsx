@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { Flex } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { useMappingEntries } from "../../hooks/UseMappingEntries";
 

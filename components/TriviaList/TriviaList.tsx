@@ -10,7 +10,7 @@ import {
 import { DateTime } from "luxon";
 import Link from "next/link";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { formatDate, isDateBefore } from "../../helpers/date";
 import { Trivia } from "../../types/trivia";

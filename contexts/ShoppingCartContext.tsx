@@ -8,12 +8,12 @@ import React, {
 
 import { deleteFromStorage, useLocalStorage } from "@rehooks/local-storage";
 
-import axiosClient from "../../axios";
-import { toTwoDecimalPlaces } from "../../helpers/number";
-import { CartItem } from "../../types/cart-item";
-import { CheckoutItem } from "../../types/checkout-payload";
-import { Discount } from "../../types/discount";
-import { LanguageContext } from "../LanguageContext/LanguageContext";
+import axiosClient from "../axios";
+import { toTwoDecimalPlaces } from "../helpers/number";
+import { CartItem } from "../types/cart-item";
+import { CheckoutItem } from "../types/checkout-payload";
+import { Discount } from "../types/discount";
+import { LanguageContext } from "./LanguageContext";
 
 export const ShoppingCartContext = createContext({
   cart: [],

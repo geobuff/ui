@@ -9,7 +9,7 @@ import {
 } from "@chakra-ui/react";
 import Link from "next/link";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { Quiz } from "../../types/quiz";
 import QuizCard from "../QuizCard";

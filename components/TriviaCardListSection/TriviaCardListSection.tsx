@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { formatDate } from "../../helpers/date";
 import { Trivia } from "../../types/trivia";

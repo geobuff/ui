@@ -5,7 +5,7 @@ import { HeroHeader } from "@geobuff/buff-ui/components";
 import { Box, Heading, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import Head from "next/head";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import TeamMemberCard from "../components/TeamMemberCard/TeamMemberCard";
 

@@ -29,7 +29,7 @@ import { useRouter } from "next/router";
 import { useTimer } from "react-timer-hook";
 import { debounce } from "throttle-debounce";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 

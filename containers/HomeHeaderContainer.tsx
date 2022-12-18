@@ -2,8 +2,8 @@ import React, { FC, useContext } from "react";
 
 import { HomeHeader } from "@geobuff/buff-ui/components";
 
-import { HomeContext } from "../context/HomeContext/HomeContext";
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { HomeContext } from "../contexts/HomeContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import { HeroBannerContainer } from ".";
 

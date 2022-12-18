@@ -3,7 +3,7 @@ import React, { FC, createContext, useEffect, useState } from "react";
 import { useLocalStorage } from "@rehooks/local-storage";
 import { Router } from "next/router";
 
-import { OperatingSystem } from "../../types/operating-system";
+import { OperatingSystem } from "../types/operating-system";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 

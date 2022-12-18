@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { Flex, Select } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { FlagGroup } from "../../../types/flag-group";
 

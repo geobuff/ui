@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
 

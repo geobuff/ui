@@ -3,7 +3,7 @@ import React, { FC, useContext, useMemo } from "react";
 import { Box, Divider, Flex, Text } from "@chakra-ui/react";
 import { AutoSizer, List as VirtualizedList } from "react-virtualized";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { getResults } from "../../helpers/results-list";
 import { MappingEntry } from "../../types/mapping-entry";

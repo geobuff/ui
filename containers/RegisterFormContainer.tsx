@@ -6,7 +6,7 @@ import { Box, useBreakpointValue } from "@chakra-ui/react";
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import { RegisterFormStepTwo } from "../components/RegisterFormStepTwo/RegisterFormStepTwo";
 

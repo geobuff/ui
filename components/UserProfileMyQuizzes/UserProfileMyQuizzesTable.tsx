@@ -15,7 +15,7 @@ import {
 import { DateTime } from "luxon";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 

@@ -3,7 +3,7 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import UserProfileContainer from "../../containers/UserProfileContainer";
 

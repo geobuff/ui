@@ -2,10 +2,10 @@ import React, { ChangeEvent, FC, createContext, useState } from "react";
 
 import { debounce } from "throttle-debounce";
 
-import { CommunityQuiz } from "../../types/community-quiz-dto";
-import { Quiz } from "../../types/quiz";
-import { QuizSearchResults } from "../../types/quiz-search-results";
-import { Trivia } from "../../types/trivia";
+import { CommunityQuiz } from "../types/community-quiz-dto";
+import { Quiz } from "../types/quiz";
+import { QuizSearchResults } from "../types/quiz-search-results";
+import { Trivia } from "../types/trivia";
 
 export const HomeContext = createContext({
   filter: "",

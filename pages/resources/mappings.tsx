@@ -7,7 +7,7 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import AdminMappingsTableContainer from "../../containers/AdminMappingsTableContainer";
 

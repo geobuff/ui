@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import LandingPage from "../../components/LandingPage/LandingPage";
 

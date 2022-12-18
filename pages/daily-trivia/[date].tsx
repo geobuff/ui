@@ -4,12 +4,13 @@ import { DateTime } from "luxon";
 import { GetStaticPaths, GetStaticProps } from "next";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
+
+import { DailyTriviaQuizContainer } from "../../containers";
 
 import GameTrivia from "../../components/GameTrivia";
 
 import axiosClient from "../../axios";
-import { DailyTriviaQuizContainer } from "../../containers";
 import { Trivia } from "../../types/trivia";
 
 export interface Props {

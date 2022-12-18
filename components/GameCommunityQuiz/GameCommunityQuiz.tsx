@@ -5,8 +5,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { use100vh } from "react-div-100vh";
 
-import { AppContext } from "../../context/AppContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { AppContext } from "../../contexts/AppContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { getCommunityQuizScoreMessage } from "../../helpers/clipboard";
 import { genericToast } from "../../helpers/toasts";

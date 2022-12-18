@@ -1,6 +1,6 @@
 import React, { FC, useContext, useMemo } from "react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { QuizSearchResults } from "../../types/quiz-search-results";
 import CardListSection from "../CardListSection";

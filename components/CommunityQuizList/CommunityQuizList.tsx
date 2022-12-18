@@ -11,7 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 import CommunityQuizCard from "../CommunityQuizCard";

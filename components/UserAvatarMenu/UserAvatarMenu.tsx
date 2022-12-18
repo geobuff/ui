@@ -20,8 +20,8 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 interface Props {
   isCondensed?: boolean;

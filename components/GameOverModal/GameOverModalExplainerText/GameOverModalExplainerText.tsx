@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { Box, Button, Text } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { LeaderboardEntry } from "../../../types/leaderboard-entry";
 import GameExistingEntry from "../../GameExistingEntry";

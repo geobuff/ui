@@ -5,7 +5,7 @@ import { SVGBase } from "@geobuff/buff-ui/components";
 import { Divider, Flex, Heading, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts";
 
 import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";

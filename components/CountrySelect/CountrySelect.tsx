@@ -3,7 +3,7 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Select, SelectProps } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import useCountries from "../../hooks/useCountries";
 

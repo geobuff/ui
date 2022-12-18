@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { Box, BoxProps, Text } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { toMinTwoDigits } from "../../../helpers/format-text";
 import { secondsToMinutesString } from "../../../helpers/time";

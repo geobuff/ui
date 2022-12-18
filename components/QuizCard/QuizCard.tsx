@@ -12,7 +12,7 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { cardImageStyle } from "../../helpers/style";
 import { secondsToMinutesString } from "../../helpers/time";

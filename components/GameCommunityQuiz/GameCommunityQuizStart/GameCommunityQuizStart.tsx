@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { Box, Button, Flex, Heading, Text } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 export interface Props {
   name?: string;

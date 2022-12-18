@@ -14,7 +14,7 @@ import flag from "country-code-emoji";
 import { DateTime } from "luxon";
 import { signOut, useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContainer";
 import UpdateUserFormContainer from "../../containers/UpdaterUserFormContainer";

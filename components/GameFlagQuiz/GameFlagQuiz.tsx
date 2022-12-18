@@ -16,8 +16,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTimer } from "react-timer-hook";
 
-import { AppContext } from "../../context/AppContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { AppContext } from "../../contexts/AppContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 

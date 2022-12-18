@@ -4,7 +4,7 @@ import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 import Carousel, { ResponsiveType } from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
 
-import { FlagGameContext } from "../../context/FlagGameContext";
+import { FlagGameContext } from "../../contexts/FlagGameContext";
 
 import { FlagDetails } from "../../types/flag-details";
 import DelayedRender from "../DelayedRender";

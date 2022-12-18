@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { Box, Text } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { Result } from "../../types/result";
 import ResultsListItem from "../ResultsListItem";

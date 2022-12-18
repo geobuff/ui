@@ -14,7 +14,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import AdminFlagsTablePlaceholder from "../../placeholders/AdminFlagsTablePlaceholder";
 import { GetMapsDto } from "../../types/get-maps-dto";

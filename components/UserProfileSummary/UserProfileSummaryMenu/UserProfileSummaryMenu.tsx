@@ -19,7 +19,7 @@ import {
 } from "@chakra-ui/react";
 import { CSVLink } from "react-csv";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 export interface Props {
   downloadData?: string[][];

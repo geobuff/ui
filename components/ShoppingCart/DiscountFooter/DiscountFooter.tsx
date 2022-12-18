@@ -10,7 +10,7 @@ import {
   VisuallyHidden,
 } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 export interface Props {
   merchIds?: number[];

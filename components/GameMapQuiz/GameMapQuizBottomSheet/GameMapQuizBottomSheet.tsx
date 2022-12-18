@@ -10,8 +10,8 @@ import {
 } from "@chakra-ui/react";
 import Sheet from "react-modal-sheet";
 
-import { AppContext } from "../../../context/AppContext";
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { AppContext } from "../../../contexts/AppContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { MappingEntry } from "../../../types/mapping-entry";

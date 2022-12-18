@@ -18,7 +18,7 @@ import {
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { secondsToMinutesString } from "../../helpers/time";
 import { UserLeaderboardEntry } from "../../types/user-leaderboard-entry";

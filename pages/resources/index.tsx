@@ -6,7 +6,7 @@ import { Button, Divider, Flex, Heading, Link, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import Card from "../../components/Card";
 

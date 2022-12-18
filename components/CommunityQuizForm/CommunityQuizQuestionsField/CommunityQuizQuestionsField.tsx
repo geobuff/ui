@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { Button, Flex, Text } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
 import CommunityQuizQuestionsTable from "../CommunityQuizQuestionsTable";

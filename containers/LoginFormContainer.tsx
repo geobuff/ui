@@ -17,7 +17,7 @@ import { Field, Form, Formik } from "formik";
 import { getCsrfToken } from "next-auth/react";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import { LoginFormSubmit } from "../types/login-form-submit";
 

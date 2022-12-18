@@ -2,10 +2,10 @@ import React, { FC, createContext, useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
-import en from "../../locales/en";
-import es from "../../locales/es";
-import id from "../../locales/id";
-import mi from "../../locales/mi";
+import en from "../locales/en";
+import es from "../locales/es";
+import id from "../locales/id";
+import mi from "../locales/mi";
 
 export const LanguageContext = createContext({
   language: "en",

@@ -4,7 +4,7 @@ import { Box, BoxProps } from "@chakra-ui/react";
 import Image from "next/image";
 import { DragSourceMonitor, useDrag } from "react-dnd";
 
-import { FlagGameContext } from "../../context/FlagGameContext";
+import { FlagGameContext } from "../../contexts/FlagGameContext";
 
 import { DragResult } from "../../types/drag-result";
 import { ItemTypes } from "../../types/item-types";

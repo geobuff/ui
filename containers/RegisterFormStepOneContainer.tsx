@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from "react";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import { RegisterFormStepOne } from "../components/RegisterFormStepOne/RegisterFormStepOne";
 
