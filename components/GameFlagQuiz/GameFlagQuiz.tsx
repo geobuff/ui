@@ -1,5 +1,7 @@
 import React, { FC, useCallback, useContext, useEffect, useState } from "react";
 
+import { SolidChevronUp } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -19,7 +21,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 
-import SolidChevronUp from "../../Icons/SolidChevronUp";
 import axiosClient from "../../axios/axiosClient";
 import { findSubmissionByCode } from "../../helpers/game";
 import { groupMapping } from "../../helpers/mapping";

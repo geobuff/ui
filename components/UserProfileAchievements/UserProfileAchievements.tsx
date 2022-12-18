@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { SolidLock } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Flex,
@@ -12,7 +14,6 @@ import Image from "next/image";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import SolidLock from "../../Icons/SolidLock";
 import { Badge } from "../../types/badge";
 import Card from "../Card";
 

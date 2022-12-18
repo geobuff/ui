@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { ArrowLeft, ArrowRight } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -19,8 +21,6 @@ import {
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
-import ArrowRight from "../../Icons/ArrowRight";
 import AdminOrdersTablePlaceholder from "../../placeholders/AdminOrdersTablePlaceholder";
 import { Order } from "../../types/order";
 import { OrderPageDto } from "../../types/order-page-dto";

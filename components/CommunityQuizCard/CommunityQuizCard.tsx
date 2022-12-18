@@ -1,6 +1,7 @@
 import React, { FC, useContext } from "react";
 
 import { Twemoji } from "@geobuff/buff-ui/components";
+import { User } from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -15,7 +16,6 @@ import Image from "next/image";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import User from "../../Icons/User";
 import { cardImageStyle } from "../../helpers/style";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;

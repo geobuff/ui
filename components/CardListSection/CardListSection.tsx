@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { OutlinedChevronRight } from "@geobuff/buff-ui/components";
+
 import {
   Flex,
   FlexProps,
@@ -11,7 +13,6 @@ import {
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import OutlinedChevronRight from "../../Icons/OutlinedChevronRight";
 import CardList from "../CardList";
 
 export interface Props extends FlexProps {

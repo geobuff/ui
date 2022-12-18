@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { ArrowLeft } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -17,7 +19,6 @@ import { useRouter } from "next/router";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
 import { CartItem } from "../../types/cart-item";
 import Card from "../Card";
 import DiscountFooter from "./DiscountFooter";

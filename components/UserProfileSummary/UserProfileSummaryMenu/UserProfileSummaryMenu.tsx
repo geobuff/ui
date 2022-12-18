@@ -1,6 +1,14 @@
 import React, { FC, useContext } from "react";
 
 import {
+  DeleteBinLine,
+  SaveAlt,
+  SolidDotsVertical,
+  SolidPencil,
+  User,
+} from "@geobuff/buff-ui/components";
+
+import {
   Flex,
   IconButton,
   Menu,
@@ -12,12 +20,6 @@ import {
 import { CSVLink } from "react-csv";
 
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
-
-import DeleteBinLine from "../../../Icons/DeleteBinLine";
-import SaveAlt from "../../../Icons/SaveAlt";
-import SolidDotsVertical from "../../../Icons/SolidDotsVertical";
-import SolidPencil from "../../../Icons/SolidPencil";
-import User from "../../../Icons/User";
 
 export interface Props {
   downloadData?: string[][];

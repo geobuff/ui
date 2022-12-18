@@ -1,5 +1,7 @@
 import React, { ChangeEvent, FC } from "react";
 
+import { Search } from "@geobuff/buff-ui/components";
+
 import {
   Flex,
   Input,
@@ -9,7 +11,6 @@ import {
 } from "@chakra-ui/react";
 import { debounce } from "throttle-debounce";
 
-import Search from "../../../Icons/Search";
 import { TriviaQuestionCategory } from "../../../types/trivia-question-category";
 import { TriviaQuestionType } from "../../../types/trivia-question-type";
 

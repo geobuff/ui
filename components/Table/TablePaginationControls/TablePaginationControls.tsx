@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { ArrowLeft, ArrowRight } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -9,9 +11,6 @@ import {
 } from "@chakra-ui/react";
 
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
-
-import ArrowLeft from "../../../Icons/ArrowLeft";
-import ArrowRight from "../../../Icons/ArrowRight";
 
 interface Props {
   isLoading?: boolean;

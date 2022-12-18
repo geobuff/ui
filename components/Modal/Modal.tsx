@@ -1,5 +1,7 @@
 import React, { FC, ReactNode, useEffect, useState } from "react";
 
+import { ArrowLeft } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -15,8 +17,6 @@ import {
   ResponsiveValue,
   useBreakpointValue,
 } from "@chakra-ui/react";
-
-import ArrowLeft from "../../Icons/ArrowLeft";
 
 export interface ModalProps extends ChakraModalProps {
   header?: string | ReactNode;

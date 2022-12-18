@@ -7,7 +7,11 @@ import React, {
   useState,
 } from "react";
 
-import { SVGBase } from "@geobuff/buff-ui/components";
+import {
+  SVGBase,
+  SolidChevronDown,
+  SolidChevronUp,
+} from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -29,8 +33,6 @@ import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 
-import SolidChevronDown from "../../Icons/SolidChevronDown";
-import SolidChevronUp from "../../Icons/SolidChevronUp";
 import axiosClient from "../../axios/axiosClient";
 import {
   findSubmissionByNames,

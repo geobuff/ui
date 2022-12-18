@@ -1,5 +1,7 @@
 import React, { FC, useContext, useEffect, useRef } from "react";
 
+import { ArrowLeft } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -23,7 +25,6 @@ import * as Yup from "yup";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { ShippingOption } from "../../types/shipping-option";
 import Card from "../Card";

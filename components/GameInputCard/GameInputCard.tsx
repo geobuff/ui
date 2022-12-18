@@ -1,5 +1,7 @@
 import React, { FC, createRef, useContext, useEffect } from "react";
 
+import { SolidCloseCircle } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -15,7 +17,6 @@ import {
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import SolidCloseCircle from "../../Icons/SolidCloseCircle";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 import { QuizTypes } from "../../types/quiz-types";
 import { Result } from "../../types/result";

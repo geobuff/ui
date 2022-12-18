@@ -1,5 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 
+import { ArrowLeft } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -18,7 +20,6 @@ import * as Yup from "yup";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
 import {
   CommunityQuizFormQuestion,
   CommunityQuizFormSubmit,

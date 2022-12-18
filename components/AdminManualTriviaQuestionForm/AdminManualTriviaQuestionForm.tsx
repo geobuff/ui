@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 
+import { CloseLine, Search } from "@geobuff/buff-ui/components";
+
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Alert,
@@ -33,8 +35,6 @@ import * as Yup from "yup";
 
 import useFlagGroups from "../../hooks/UseFlagGroups";
 
-import CloseLine from "../../Icons/CloseLine";
-import Search from "../../Icons/Search";
 import axiosClient from "../../axios";
 import { GetMapsDto } from "../../types/get-maps-dto";
 import { ManualTriviaQuestionEditValues } from "../../types/manual-trivia-question-edit-values";

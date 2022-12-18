@@ -1,11 +1,14 @@
 import React, { FC, useContext } from "react";
 
+import {
+  ArrowLeft,
+  SolidQuestionMarkCircle,
+} from "@geobuff/buff-ui/components";
+
 import { Box, Button, Divider, Flex, Text, Tooltip } from "@chakra-ui/react";
 
 import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
-import SolidQuestionMarkCircle from "../../Icons/SolidQuestionMarkCircle";
 import { secondsToMinutesString } from "../../helpers/time";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import Modal from "../Modal";

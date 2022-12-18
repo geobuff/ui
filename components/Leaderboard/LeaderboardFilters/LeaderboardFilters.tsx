@@ -1,5 +1,7 @@
 import React, { ChangeEvent, FC, useContext, useState } from "react";
 
+import { Search, SolidCloseCircle } from "@geobuff/buff-ui/components";
+
 import {
   Fade,
   Flex,
@@ -14,8 +16,6 @@ import { debounce } from "throttle-debounce";
 
 import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
 
-import Search from "../../../Icons/Search";
-import SolidCloseCircle from "../../../Icons/SolidCloseCircle";
 import { Quiz } from "../../../types/quiz";
 
 enum RangeFilters {

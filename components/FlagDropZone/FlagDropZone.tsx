@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { SolidRefresh } from "@geobuff/buff-ui/components";
+
 import {
   AspectRatio,
   Fade,
@@ -11,7 +13,6 @@ import {
 import { use100vh } from "react-div-100vh";
 import { DropTargetMonitor, useDrop } from "react-dnd";
 
-import SolidRefresh from "../../Icons/SolidRefresh";
 import { DragResult } from "../../types/drag-result";
 import { ItemTypes } from "../../types/item-types";
 
