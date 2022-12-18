@@ -7,7 +7,7 @@ import type { AppProps } from "next/app";
 import { HomeContextProvider } from "../contexts/HomeContext";
 import { LanguageContext } from "../contexts/LanguageContext";
 
-import { HomeContainer } from "../containers/HomeContainer/HomeContainer";
+import { HomeContainer } from "../containers";
 
 import axiosClient from "../axios";
 import { CommunityQuiz } from "../types/community-quiz-dto";

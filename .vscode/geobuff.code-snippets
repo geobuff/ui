@@ -50,6 +50,12 @@
     "body": ["const { t } = useContext(LanguageContext);"],
     "description": "Initialise variable to access translations."
   },
+  "Is Mobile": {
+    "prefix": ["mobile"],
+    "scope": "typescriptreact",
+    "body": ["const isMobile = useBreakpointValue({ base: true, md: false });"],
+    "description": "Initialise isMobile variable."
+  },
   "Context": {
     "prefix": ["context", "ctx"],
     "scope": "typescriptreact",

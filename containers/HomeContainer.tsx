@@ -5,34 +5,35 @@ import axios from "axios";
 import { DateTime } from "luxon";
 import dynamic from "next/dynamic";
 
-import { HomeContext } from "../../contexts/HomeContext";
-import { LanguageContext } from "../../contexts/LanguageContext";
+import { HomeContext } from "../contexts/HomeContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
-import DelayedRender from "../../components/DelayedRender";
-import { LoadingSpinner } from "../../components/LoadingSpinner/LoadingSpinner";
-import TriviaCardListSection from "../../components/TriviaCardListSection";
-import { FilteredTrivia } from "../../components/TriviaList/TriviaList";
+import DelayedRender from "../components/DelayedRender";
+import TriviaCardListSection from "../components/TriviaCardListSection";
+import { FilteredTrivia } from "../components/TriviaList/TriviaList";
 
-import { formatDate, isDateBefore } from "../../helpers/date";
-import { CommunityQuiz } from "../../types/community-quiz-dto";
-import { Quiz } from "../../types/quiz";
-import { Trivia } from "../../types/trivia";
-import { HomeHeaderContainer } from "../HomeHeaderContainer";
+import { formatDate, isDateBefore } from "../helpers/date";
+import { CommunityQuiz } from "../types/community-quiz-dto";
+import { Quiz } from "../types/quiz";
+import { Trivia } from "../types/trivia";
+import { HomeHeaderContainer } from "./HomeHeaderContainer";
 
-const QuizCardListSection = dynamic(
-  () => import("../../components/QuizCardListSection")
+const CardListSectionContainer = dynamic(() =>
+  import("./CardListSectionContainer").then(
+    (mod) => mod.CardListSectionContainer
+  )
 );
 
 const CommunityQuizCardListSection = dynamic(
-  () => import("../../components/CommunityQuizCardListSection")
+  () => import("../components/CommunityQuizCardListSection")
 );
 
 const HomeNoSearchResults = dynamic(
-  () => import("../../components/HomeNoSearchResults")
+  () => import("../components/HomeNoSearchResults")
 );
 
 const HomeSearchResults = dynamic(
-  () => import("../../components/HomeSearchResults")
+  () => import("../components/HomeSearchResults")
 );
 
 interface Props {
@@ -159,15 +160,22 @@ export const HomeContainer: FC<Props> = ({
         <Box minHeight="776px">
           <DelayedRender shouldFadeIn waitBeforeShow={100}>
             {filteredTrivia?.length > 0 && (
-              <TriviaCardListSection trivia={filteredTrivia} />
+              <TriviaCardListSection
+                trivia={filteredTrivia}
+                isLoading={isLoading}
+              />
             )}
 
             {communityQuizzes?.length > 0 && (
-              <CommunityQuizCardListSection quizzes={communityQuizzes} />
+              <CommunityQuizCardListSection
+                quizzes={communityQuizzes}
+                isLoading={isLoading}
+              />
             )}
 
             {mapQuizzes?.length > 0 && (
-              <QuizCardListSection
+              <CardListSectionContainer
+                isLoading={isLoading}
                 title={t.global.mapGamesUpper}
                 linkHref="/map-games"
                 linkVerb={t.global.mapGamesLower}
@@ -176,7 +184,8 @@ export const HomeContainer: FC<Props> = ({
             )}
 
             {flagQuizzes?.length > 0 && (
-              <QuizCardListSection
+              <CardListSectionContainer
+                isLoading={isLoading}
                 title={t.global.flagGamesUpper}
                 linkHref="/flag-games"
                 linkVerb={t.global.flagGamesLower}
@@ -204,22 +213,18 @@ export const HomeContainer: FC<Props> = ({
   return (
     <>
       <HomeHeaderContainer />
-      {isLoading ? (
-        <LoadingSpinner />
-      ) : (
-        <Box
-          width="100%"
-          maxWidth={1300}
-          marginTop={2}
-          marginBottom={{ base: 5, md: 16 }}
-          marginLeft="auto"
-          marginRight="auto"
-          paddingX={{ base: 0, md: 10 }}
-          minHeight="400px"
-        >
-          {getContent()}
-        </Box>
-      )}
+      <Box
+        width="100%"
+        maxWidth={1300}
+        marginTop={2}
+        marginBottom={{ base: 5, md: 16 }}
+        marginLeft="auto"
+        marginRight="auto"
+        paddingX={{ base: 0, md: 10 }}
+        minHeight="400px"
+      >
+        {getContent()}
+      </Box>
     </>
   );
 };
