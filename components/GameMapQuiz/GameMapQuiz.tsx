@@ -7,6 +7,8 @@ import React, {
   useState,
 } from "react";
 
+import { SVGBase } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -45,7 +47,6 @@ import { groupMapping } from "../../helpers/mapping";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { MappingEntry } from "../../types/mapping-entry";
 import { Result } from "../../types/result";
-import { SVGBase } from "../../types/svg-base";
 import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import GameMap from "../GameMap";

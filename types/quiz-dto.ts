@@ -1,5 +1,6 @@
+import { SVGBase } from "@geobuff/buff-ui/components";
+
 import { NullInt } from "./null-int";
-import { SVGBase } from "./svg-base";
 
 export interface QuizDto {
   id: number;

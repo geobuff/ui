@@ -1,5 +1,6 @@
+import { SVGBase } from "@geobuff/buff-ui/components";
+
 import { NullString } from "./null-string";
-import { SVGBase } from "./svg-base";
 import { TriviaQuestionTypes } from "./trivia-question-types";
 
 export interface GetCommunityQuiz {

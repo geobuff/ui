@@ -1,6 +1,8 @@
 /* eslint-disable no-case-declarations */
 import React, { FC, useEffect, useState } from "react";
 
+import { SVGBase, SVGMap } from "@geobuff/buff-ui/components";
+
 import {
   AspectRatio,
   Box,
@@ -8,11 +10,8 @@ import {
   Heading,
   Link,
   ResponsiveValue,
-  Spinner,
   Text,
-  useBreakpointValue,
 } from "@chakra-ui/react";
-import { SVGMap } from "@geobuff/svg-map";
 import Image from "next/image";
 import { use100vh } from "react-div-100vh";
 
@@ -23,7 +22,6 @@ import {
   getMapStyles,
   highlightSection,
 } from "../../../helpers/map";
-import { SVGBase } from "../../../types/svg-base";
 import { TriviaQuestionTypes } from "../../../types/trivia-question-types";
 import CustomFlag from "../../CustomFlag";
 
@@ -70,7 +68,6 @@ const GameCommunityQuizContent: FC<Props> = ({
   imageHeight = 0,
   imageAlt = "",
 }) => {
-  const isMobile = useBreakpointValue({ base: false, md: true });
   const height = use100vh();
   const isTinyMobile = height < 625;
   const isSmallerMobile = height < 785;

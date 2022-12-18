@@ -1,7 +1,8 @@
+import { SVGBase } from "@geobuff/buff-ui/components";
+
 import useSWR from "swr";
 
 import { fetcher } from "../helpers/fetcher";
-import { SVGBase } from "../types/svg-base";
 
 interface Result {
   data: SVGBase;
