@@ -1,6 +1,6 @@
 import React, { FC, useContext, useEffect, useRef } from "react";
 
-import { ArrowLeft } from "@geobuff/buff-ui/components";
+import { ArrowLeft, Card } from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -27,7 +27,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { CheckoutFormSubmit } from "../../types/checkout-form-submit";
 import { ShippingOption } from "../../types/shipping-option";
-import Card from "../Card";
 import RadioButton from "../RadioButton";
 
 const divider = <Divider borderColor="#E3E1E1" borderWidth={1} my={2} />;

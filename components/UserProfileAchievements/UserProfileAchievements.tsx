@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 
-import { SolidLock } from "@geobuff/buff-ui/components";
+import { Card, SolidLock } from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -15,7 +15,6 @@ import Image from "next/image";
 import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { Badge } from "../../types/badge";
-import Card from "../Card";
 
 interface Props {
   badges?: Badge[];

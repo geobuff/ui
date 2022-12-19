@@ -1,10 +1,8 @@
 import React, { FC } from "react";
 
-import { ArrowLeft } from "@geobuff/buff-ui/components";
+import { ArrowLeft, Card } from "@geobuff/buff-ui/components";
 
 import { Button, Flex, Skeleton, Text } from "@chakra-ui/react";
-
-import Card from "../../components/Card";
 
 const CheckoutFormPlaceholder: FC = () => (
   <Flex

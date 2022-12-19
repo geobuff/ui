@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { DelayedRender } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -15,7 +17,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import { CommunityQuizCardContainer } from "../../containers";
 
 import { CommunityQuiz } from "../../types/community-quiz-dto";
-import DelayedRender from "../DelayedRender";
 
 export interface Props {
   quizzes?: CommunityQuiz[];

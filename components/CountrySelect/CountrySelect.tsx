@@ -1,5 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
+import { LoadingImage } from "@geobuff/buff-ui/components";
+
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import { Select, SelectProps } from "@chakra-ui/react";
 
@@ -9,7 +11,6 @@ import useCountries from "../../hooks/useCountries";
 
 import axiosClient from "../../axios";
 import { FieldProps } from "../../types/field-props";
-import Image from "../Image";
 
 export interface Props extends SelectProps {
   fieldProps?: FieldProps;
@@ -60,7 +61,7 @@ const CountrySelect: FC<Props> = ({
       }}
       icon={
         flagUrl ? (
-          <Image
+          <LoadingImage
             src={flagUrl}
             alt="Flag example"
             marginRight="16px"

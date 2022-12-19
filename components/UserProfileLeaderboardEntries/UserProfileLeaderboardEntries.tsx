@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Card, CustomFlag } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -22,8 +24,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { secondsToMinutesString } from "../../helpers/time";
 import { UserLeaderboardEntry } from "../../types/user-leaderboard-entry";
-import Card from "../Card";
-import CustomFlag from "../CustomFlag";
 
 interface Props {
   entries?: UserLeaderboardEntry[];

@@ -36,7 +36,7 @@ import FlagDropZone from "../FlagDropZone/FlagDropZone";
 import GameBannerButton from "../GameBannerButton";
 import GameFlags from "../GameFlags/GameFlags";
 import GameInputCard from "../GameInputCard";
-import Sidebar from "../Sidebar";
+import GameSidebar from "../GameSidebar";
 
 const GameOverModalContainer = dynamic(
   () => import("../../containers/GameOverModalContainer")
@@ -46,7 +46,9 @@ const GameFlagQuizBottomSheet = dynamic(
   () => import("./GameFlagQuizBottomSheet")
 );
 
-const ResultsMap = dynamic(() => import("../ResultsMap"));
+const ResultsMap = dynamic(() =>
+  import("@geobuff/buff-ui/components").then((mod) => mod.ResultsMap)
+);
 
 const INCORRECT_ANSWER_THRESHOLD = 1;
 const NUMBER_OF_FLAGS = 10;
@@ -363,7 +365,7 @@ const GameFlagQuiz: FC<Props> = ({
           <Flex grow={1} direction="column">
             {!isMobile && (
               <Box minHeight="100%">
-                <Sidebar
+                <GameSidebar
                   heading={name}
                   quizId={id}
                   hasLeaderboard={hasLeaderboard}
@@ -396,7 +398,7 @@ const GameFlagQuiz: FC<Props> = ({
                       hasFlags={hasFlags}
                     />
                   </Box>
-                </Sidebar>
+                </GameSidebar>
               </Box>
             )}
 

@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 
-import { HeroHeader } from "@geobuff/buff-ui/components";
+import { Card, HeroHeader } from "@geobuff/buff-ui/components";
 
 import { Flex, Heading } from "@chakra-ui/react";
 import Head from "next/head";
@@ -9,8 +9,6 @@ import { useRouter } from "next/router";
 import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import EditCommunityQuizFormContainer from "../../../containers/EditCommunityQuizFormContainer";
-
-import Card from "../../../components/Card";
 
 export default function Edit(): JSX.Element {
   const router = useRouter();

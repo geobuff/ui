@@ -52,7 +52,7 @@ import { Result } from "../../types/result";
 import GameInputBanner from "../GameInputBanner";
 import GameInputCard from "../GameInputCard";
 import GameMap from "../GameMap";
-import Sidebar from "../Sidebar";
+import Sidebar from "../GameSidebar";
 
 const GameMapQuizBottomSheet = dynamic(
   () => import("./GameMapQuizBottomSheet")
@@ -62,7 +62,9 @@ const GameOverModalContainer = dynamic(
   () => import("../../containers/GameOverModalContainer")
 );
 
-const ResultsMap = dynamic(() => import("../ResultsMap"));
+const ResultsMap = dynamic(() =>
+  import("@geobuff/buff-ui/components").then((mod) => mod.ResultsMap)
+);
 
 interface Props {
   time?: number;

@@ -1,5 +1,7 @@
 import React, { FC, createRef, useContext, useEffect } from "react";
 
+import { ResultsList, ResultsMap } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -17,8 +19,6 @@ import { groupMapping } from "../../../helpers/mapping";
 import { MappingEntry } from "../../../types/mapping-entry";
 import { Result } from "../../../types/result";
 import GameHeader from "../../GameHeader";
-import ResultsList from "../../ResultsList";
-import ResultsMap from "../../ResultsMap";
 
 const snapPoints = [600, 400, 300, 90];
 const initialSnap = snapPoints.length - 2;
@@ -160,7 +160,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
               </Text>
               <ResultsList
                 results={recents}
-                plural={plural}
+                noResultsMessage={`${t.global.no} ${plural} ${t.global.toDisplay}`}
                 hasFlags={hasFlags}
               />
             </Box>

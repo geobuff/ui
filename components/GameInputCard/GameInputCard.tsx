@@ -1,6 +1,7 @@
 import React, { FC, createRef, useContext, useEffect } from "react";
 
 import { SolidCloseCircle } from "@geobuff/buff-ui/components";
+import { ResultsList } from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -20,7 +21,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import { ExpiryTimestamp } from "../../types/expiry-timestamp";
 import { QuizTypes } from "../../types/quiz-types";
 import { Result } from "../../types/result";
-import ResultsList from "../ResultsList";
 import GameInputCardScore from "./GameInputCardScore/GameInputCardScore";
 import GameInputCardTimer from "./GameInputCardTimer/GameInputCardTimer";
 
@@ -173,7 +173,11 @@ const GameInputCard: FC<Props> = ({
       {divider}
       <Box mt={4}>
         <Text fontWeight="bold">{t.global.recent.toUpperCase()}</Text>
-        <ResultsList results={recents} plural={plural} hasFlags={hasFlags} />
+        <ResultsList
+          results={recents}
+          noResultsMessage={`${t.global.no} ${plural} ${t.global.toDisplay}`}
+          hasFlags={hasFlags}
+        />
       </Box>
     </Flex>
   );

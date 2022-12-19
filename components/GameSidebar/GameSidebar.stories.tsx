@@ -1,13 +1,13 @@
 import React from "react";
 
-import Sidebar, { Props } from "./Sidebar";
+import GameSidebar, { Props } from "./GameSidebar";
 
 export default {
-  title: "UI/Sidebar",
-  component: Sidebar,
+  title: "UI/GameSidebar",
+  component: GameSidebar,
 };
 
-const Template = (args: Props): React.ReactNode => <Sidebar {...args} />;
+const Template = (args: Props): React.ReactNode => <GameSidebar {...args} />;
 
 export const Default = Template.bind({});
 

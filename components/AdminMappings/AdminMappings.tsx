@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import { Flex } from "@chakra-ui/react";
 
 import { LanguageContext } from "../../contexts/LanguageContext";
@@ -7,7 +9,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import { useMappingEntries } from "../../hooks/UseMappingEntries";
 
 import { FlagGroup } from "../../types/flag-group";
-import Card from "../Card";
 import TableHeader from "../Table/TableHeader/TableHeader";
 import AdminMappingsFilters from "./AdminMappingsFilters";
 import AdminMappingsTable from "./AdminMappingsTable";

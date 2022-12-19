@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useState } from "react";
 
-import { CloseLine, Search } from "@geobuff/buff-ui/components";
+import { CloseLine, LoadingImage, Search } from "@geobuff/buff-ui/components";
 
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
@@ -46,7 +46,6 @@ import { QuizType } from "../../types/quiz-type";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
 import { UnsplashImage } from "../../types/unsplash-image";
 import CountrySelect from "../CountrySelect";
-import Image from "../Image";
 import QuestionTypeValuePreview from "../QuestionTypeValuePreview";
 import RadioButton from "../RadioButton";
 import UnsplashImageGrid from "../UnsplashImageGrid";
@@ -518,7 +517,7 @@ const AdminManualTriviaQuestionForm: FC<Props> = ({
                                       id="flagCode"
                                       icon={
                                         values.flagCode ? (
-                                          <Image
+                                          <LoadingImage
                                             src={flagUrl}
                                             alt="Flag example"
                                             marginRight="16px"

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { ArrowLeft } from "@geobuff/buff-ui/components";
+import { ArrowLeft, Card } from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -15,8 +15,6 @@ import {
   Thead,
   Tr,
 } from "@chakra-ui/react";
-
-import Card from "../../components/Card";
 
 export interface Props {
   noOfItems?: number;

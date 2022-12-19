@@ -11,7 +11,7 @@ export interface Props {
   children?: React.ReactNode;
 }
 
-const Sidebar: FC<Props> = ({
+const GameSidebar: FC<Props> = ({
   heading = "",
   quizId = 0,
   hasLeaderboard = false,
@@ -56,4 +56,4 @@ const Sidebar: FC<Props> = ({
   </Box>
 );
 
-export default Sidebar;
+export default GameSidebar;

@@ -1,5 +1,7 @@
 import React, { FC, useContext, useEffect } from "react";
 
+import { DelayedRender } from "@geobuff/buff-ui/components";
+
 import { Box, useBreakpointValue } from "@chakra-ui/react";
 import axios from "axios";
 import { DateTime } from "luxon";
@@ -7,8 +9,6 @@ import dynamic from "next/dynamic";
 
 import { HomeContext } from "../contexts/HomeContext";
 import { LanguageContext } from "../contexts/LanguageContext";
-
-import DelayedRender from "../components/DelayedRender";
 
 import { formatDate, isDateBefore } from "../helpers/date";
 import { CommunityQuiz } from "../types/community-quiz-dto";

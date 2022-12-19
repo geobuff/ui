@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 
-import { ArrowLeft } from "@geobuff/buff-ui/components";
+import { ArrowLeft, Card } from "@geobuff/buff-ui/components";
 
 import {
   Alert,
@@ -20,7 +20,6 @@ import { useRouter } from "next/router";
 import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { CartItem } from "../../types/cart-item";
-import Card from "../Card";
 import DiscountFooter from "./DiscountFooter";
 import PriceSummary from "./PriceSummary";
 import ShoppingCartItem from "./ShoppingCartItem";

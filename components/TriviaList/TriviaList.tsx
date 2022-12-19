@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { DelayedRender } from "@geobuff/buff-ui/components";
+
 import { Alert, AlertIcon, Box, SimpleGrid } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
@@ -10,7 +12,6 @@ import { TriviaCardContainer } from "../../containers";
 import { formatDate, isDateBefore } from "../../helpers/date";
 import { FilteredTrivia } from "../../types/filtered-trivia";
 import { Trivia } from "../../types/trivia";
-import DelayedRender from "../DelayedRender";
 
 interface Props {
   trivia?: Trivia[];

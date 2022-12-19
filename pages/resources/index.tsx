@@ -1,14 +1,12 @@
 import React, { FC, useContext } from "react";
 
-import { HeroHeader } from "@geobuff/buff-ui/components";
+import { Card, HeroHeader } from "@geobuff/buff-ui/components";
 
 import { Button, Divider, Flex, Heading, Link, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
 import { LanguageContext } from "../../contexts/LanguageContext";
-
-import Card from "../../components/Card";
 
 const Resources: FC = () => {
   const router = useRouter();

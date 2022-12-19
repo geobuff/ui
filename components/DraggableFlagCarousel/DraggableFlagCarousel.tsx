@@ -1,5 +1,7 @@
 import React, { FC, useContext, useEffect } from "react";
 
+import { DelayedRender } from "@geobuff/buff-ui/components";
+
 import { Box, Flex, Text, useMediaQuery } from "@chakra-ui/react";
 import Carousel, { ResponsiveType } from "react-multi-carousel";
 import "react-multi-carousel/lib/styles.css";
@@ -7,7 +9,6 @@ import "react-multi-carousel/lib/styles.css";
 import { FlagGameContext } from "../../contexts/FlagGameContext";
 
 import { FlagDetails } from "../../types/flag-details";
-import DelayedRender from "../DelayedRender";
 import DraggableFlag from "../DraggableFlag";
 import CarouselButton from "./CarouselButton";
 

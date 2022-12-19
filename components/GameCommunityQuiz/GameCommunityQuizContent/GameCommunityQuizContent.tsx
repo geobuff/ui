@@ -1,7 +1,7 @@
 /* eslint-disable no-case-declarations */
 import React, { FC, useEffect, useState } from "react";
 
-import { SVGBase, SVGMap } from "@geobuff/buff-ui/components";
+import { CustomFlag, SVGBase, SVGMap } from "@geobuff/buff-ui/components";
 
 import {
   AspectRatio,
@@ -23,7 +23,6 @@ import {
   highlightSection,
 } from "../../../helpers/map";
 import { TriviaQuestionTypes } from "../../../types/trivia-question-types";
-import CustomFlag from "../../CustomFlag";
 
 type HeaderFontSize = string | ResponsiveValue<string | any>;
 

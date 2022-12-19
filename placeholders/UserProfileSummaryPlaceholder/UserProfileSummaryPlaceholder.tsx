@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
-import { Flex, Skeleton, SkeletonCircle } from "@chakra-ui/react";
+import { Card } from "@geobuff/buff-ui/components";
 
-import Card from "../../components/Card";
+import { Flex, Skeleton, SkeletonCircle } from "@chakra-ui/react";
 
 const UserProfileSummaryPlaceholder: FC = () => (
   <Card padding={6}>

@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Divider,
@@ -14,7 +16,6 @@ import {
 
 import AdminDiscountsTablePlaceholder from "../../placeholders/AdminDiscountsTablePlaceholder";
 import { Discount } from "../../types/discount";
-import Card from "../Card";
 import TableCell from "../Table/TableCell";
 
 export interface Props {

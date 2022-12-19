@@ -1,5 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
+import { LoadingImage } from "@geobuff/buff-ui/components";
+
 import { ChevronDownIcon } from "@chakra-ui/icons";
 import {
   Flex,
@@ -15,7 +17,6 @@ import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import axiosClient from "../../../axios";
 import CountrySelect from "../../CountrySelect";
-import Image from "../../Image";
 
 export interface Props extends SelectProps {
   flagCategory?: string;
@@ -93,7 +94,7 @@ const CommunityQuizFlagSelect: FC<Props> = ({
                 _hover={{ background: "#e0e0e0" }}
                 icon={
                   flagUrl ? (
-                    <Image
+                    <LoadingImage
                       src={flagUrl}
                       alt={t.communityQuizFlagSelectField.imageAlt}
                       marginRight="16px"

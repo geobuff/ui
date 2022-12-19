@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -13,7 +15,6 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
 import { BackgroundTaskKey } from "../../types/background-task";
-import Card from "../Card";
 
 const { DeployDevWeb, DeployProdAll, DeployProdMobile, DeployProdWeb } =
   BackgroundTaskKey;
