@@ -24,8 +24,10 @@ const CardListSectionContainer = dynamic(() =>
   )
 );
 
-const CommunityQuizCardListSection = dynamic(
-  () => import("../components/CommunityQuizCardListSection")
+const CommunityQuizCardListSectionContainer = dynamic(() =>
+  import("./CommunityQuizCardListSectionContainer").then(
+    (mod) => mod.CommunityQuizCardListSectionContainer
+  )
 );
 
 const HomeNoSearchResults = dynamic(
@@ -167,7 +169,7 @@ export const HomeContainer: FC<Props> = ({
             )}
 
             {communityQuizzes?.length > 0 && (
-              <CommunityQuizCardListSection
+              <CommunityQuizCardListSectionContainer
                 quizzes={communityQuizzes}
                 isLoading={isLoading}
               />

@@ -4,11 +4,10 @@ import { CardListSection } from "@geobuff/buff-ui/components";
 
 import { useBreakpointValue } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../contexts/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
-import { CommunityQuiz } from "../../types/community-quiz-dto";
-import CardListItem from "../CardList/CardListItem";
-import CommunityQuizCard from "../CommunityQuizCard/CommunityQuizCard";
+import { CommunityQuizCardContainer } from ".";
+import { CommunityQuiz } from "../types/community-quiz-dto";
 
 const GRID_LENGTH = 5;
 
@@ -17,7 +16,7 @@ export interface Props {
   isLoading?: boolean;
 }
 
-const CommunityQuizCardListSection: FC<Props> = ({
+export const CommunityQuizCardListSectionContainer: FC<Props> = ({
   quizzes = [],
   isLoading = false,
 }) => {
@@ -37,27 +36,13 @@ const CommunityQuizCardListSection: FC<Props> = ({
       paddingX={{ base: 3, md: 0 }}
     >
       {quizzes.map((quiz, index) => (
-        <CardListItem
+        <CommunityQuizCardContainer
           key={quiz.id}
-          href={`/community-quiz/${quiz.id}`}
-          paddingRight={{
-            base: index === quizzes.length - 1 && "12px",
-            md: 0,
-          }}
-        >
-          <CommunityQuizCard
-            name={quiz.name}
-            userId={quiz.userId}
-            username={quiz.username}
-            maxScore={quiz.maxScore}
-            verified={quiz.verified}
-            position={{ base: "relative", md: "absolute" }}
-            marginLeft={{ base: 3, md: 0 }}
-          />
-        </CardListItem>
+          index={index}
+          quizCount={quizzes.length}
+          quiz={quiz}
+        />
       ))}
     </CardListSection>
   );
 };
-
-export default CommunityQuizCardListSection;

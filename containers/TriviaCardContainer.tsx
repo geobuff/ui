@@ -2,7 +2,14 @@ import React, { FC, useContext } from "react";
 
 import { QuizCard, Share, Twemoji } from "@geobuff/buff-ui/components";
 
-import { GridItem, Text, useBreakpointValue, useToast } from "@chakra-ui/react";
+import {
+  Button,
+  GridItem,
+  Link,
+  Text,
+  useBreakpointValue,
+  useToast,
+} from "@chakra-ui/react";
 import Image from "next/image";
 
 import { LanguageContext } from "../contexts";
@@ -44,33 +51,37 @@ export const TriviaCardContainer: FC<Props> = ({
     />
   );
 
-  // TODO: Implement copy link functionality.
-  const handleCopyLink = (quizId: number, name: string): void => {
+  const handleCopyLink = (e: any): void => {
+    e.preventDefault();
+
     navigator.clipboard.writeText(
-      `${process.env.NEXT_PUBLIC_SITE_URL}/community-quiz/${quizId}`
+      `${process.env.NEXT_PUBLIC_SITE_URL}/daily-trivia/${formatDate(
+        trivia.date
+      )}`
     );
 
     toast(
       genericToast(
-        `${t.toasts.copyLinkTitleOne} ${name} ${t.toasts.copyLinkTitleTwo}`,
+        `${t.toasts.copyLinkTitleOne} ${t.global.dailyTriviaUpper} ${t.toasts.copyLinkTitleTwo}`,
         t.toasts.copyLinkDescription
       )
     );
   };
 
-  // TODO: Readd to QuizCard once copy link implemented.
   const bottomLeftContent = (
     <>
-      <Share height={twemojiDimensions} width={twemojiDimensions} />
-      <Text
-        fontSize={{ base: "9px", sm: "9px", md: "11px" }}
-        fontWeight="bold"
-        marginLeft="3px"
-        noOfLines={1}
-        minWidth="50%"
-      >
-        {t.global.shareQuiz}
-      </Text>
+      <Button variant="link" onClick={handleCopyLink}>
+        <Share height={twemojiDimensions} width={twemojiDimensions} />
+        <Text
+          fontSize={{ base: "9px", sm: "9px", md: "11px" }}
+          fontWeight="bold"
+          marginLeft="3px"
+          noOfLines={1}
+          minWidth="50%"
+        >
+          {t.global.shareQuiz}
+        </Text>
+      </Button>
     </>
   );
 
@@ -101,15 +112,17 @@ export const TriviaCardContainer: FC<Props> = ({
         md: 0,
       }}
     >
-      <QuizCard
-        isMobile={isMobile}
-        href={`/daily-trivia/${formatDate(trivia?.date)}`}
-        heading={trivia.name}
-        image={image}
-        bottomRightContent={bottomRightContent}
-        position={{ base: "relative", md: "absolute" }}
-        marginLeft={{ base: 3, md: 0 }}
-      />
+      <Link href={`/daily-trivia/${formatDate(trivia?.date)}`}>
+        <QuizCard
+          isMobile={isMobile}
+          heading={trivia.name}
+          image={image}
+          bottomLeftContent={bottomLeftContent}
+          bottomRightContent={bottomRightContent}
+          position={{ base: "relative", md: "absolute" }}
+          marginLeft={{ base: 3, md: 0 }}
+        />
+      </Link>
     </GridItem>
   );
 };

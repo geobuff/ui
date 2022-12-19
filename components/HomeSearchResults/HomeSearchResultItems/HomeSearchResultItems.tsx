@@ -1,10 +1,12 @@
 import React, { FC } from "react";
 
-import { QuizCardContainer, TriviaCardContainer } from "../../../containers";
+import {
+  CommunityQuizCardContainer,
+  QuizCardContainer,
+  TriviaCardContainer,
+} from "../../../containers";
 
 import { QuizSearchResults } from "../../../types/quiz-search-results";
-import CardListItem from "../../CardList/CardListItem";
-import CommunityQuizCard from "../../CommunityQuizCard";
 
 export interface Props {
   searchResults?: QuizSearchResults;
@@ -20,18 +22,13 @@ const HomeSearchResultItems: FC<Props> = ({ searchResults = null }) => (
         triviaCount={searchResults?.trivia.length}
       />
     ))}
-    {searchResults?.communityQuizzes.map((quiz) => (
-      <CardListItem key={quiz.id} href={`/community-quiz/${quiz.id}`}>
-        <CommunityQuizCard
-          name={quiz.name}
-          userId={quiz.userId}
-          username={quiz.username}
-          maxScore={quiz.maxScore}
-          verified={quiz.verified}
-          position={{ base: "relative", md: "absolute" }}
-          marginLeft={{ base: 3, md: 0 }}
-        />
-      </CardListItem>
+    {searchResults?.communityQuizzes.map((quiz, index) => (
+      <CommunityQuizCardContainer
+        key={quiz.id}
+        index={index}
+        quizCount={searchResults?.communityQuizzes.length}
+        quiz={quiz}
+      />
     ))}
     {searchResults?.quizzes.map((quiz, index) => (
       <QuizCardContainer

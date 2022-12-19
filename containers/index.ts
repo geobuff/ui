@@ -20,3 +20,5 @@ export * from "./CardListSectionContainer";
 export * from "./HomeContainer";
 export * from "./TriviaCardContainer";
 export * from "./TriviaCardListSectionContainer";
+export * from "./CommunityQuizCardContainer";
+export * from "./CommunityQuizCardListSectionContainer";
