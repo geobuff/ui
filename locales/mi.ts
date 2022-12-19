@@ -131,6 +131,7 @@ export default {
     remove: "Tango",
     viewCart: "Tiro Kaata",
     mins: "min",
+    shareQuiz: "Tiri Patapatai",
   },
   validations: {
     sizeRequired: "Kōwhirihia he rahi e wātea ana.",

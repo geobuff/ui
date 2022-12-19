@@ -1,27 +1,18 @@
 import React, { FC, useContext } from "react";
 
-import {
-  Alert,
-  AlertIcon,
-  AspectRatio,
-  Box,
-  SimpleGrid,
-} from "@chakra-ui/react";
+import { Alert, AlertIcon, Box, SimpleGrid } from "@chakra-ui/react";
 import { DateTime } from "luxon";
-import Link from "next/link";
 
 import { LanguageContext } from "../../contexts/LanguageContext";
 
+import { TriviaCardContainer } from "../../containers";
+
 import { formatDate, isDateBefore } from "../../helpers/date";
+import { FilteredTrivia } from "../../types/filtered-trivia";
 import { Trivia } from "../../types/trivia";
 import DelayedRender from "../DelayedRender";
-import TriviaCard from "../TriviaCard";
 
-export interface FilteredTrivia extends Trivia {
-  isActive: boolean;
-}
-
-export interface Props {
+interface Props {
   trivia?: Trivia[];
 }
 
@@ -54,7 +45,6 @@ const TriviaList: FC<Props> = ({ trivia = [] }) => {
       marginBottom={10}
       marginLeft="auto"
       marginRight="auto"
-      // minHeight="1000px"
       paddingX={{ base: 3, md: 10 }}
       _hover={{
         cursor: "pointer",
@@ -67,26 +57,14 @@ const TriviaList: FC<Props> = ({ trivia = [] }) => {
           minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
           spacing={{ base: "12px", md: "24px" }}
         >
-          {filteredTrivia?.map(
-            (quiz) =>
-              !!quiz.isActive && (
-                <Link
-                  key={quiz.id}
-                  href={`/daily-trivia/${formatDate(quiz.date)}`}
-                >
-                  <AspectRatio
-                    maxWidth="260px"
-                    minHeight={{ base: "180px", sm: "206px", md: "216px" }}
-                    maxHeight="230px"
-                    ratio={3 / 2}
-                    transition="all 150ms ease-out"
-                    _hover={{ transform: "scale(1.030)" }}
-                  >
-                    <TriviaCard name={quiz.name} maxScore={quiz.maxScore} />
-                  </AspectRatio>
-                </Link>
-              )
-          )}
+          {filteredTrivia?.map((quiz, index) => (
+            <TriviaCardContainer
+              key={quiz.id}
+              index={index}
+              triviaCount={filteredTrivia.length}
+              trivia={quiz}
+            />
+          ))}
         </SimpleGrid>
       </DelayedRender>
     </Box>

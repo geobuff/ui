@@ -131,6 +131,7 @@ export default {
     remove: "Menghapus",
     viewCart: "Lihat Keranjang",
     mins: "menit",
+    shareQuiz: "Bagikan Kuis",
   },
   validations: {
     sizeRequired: "Silahkan pilih ukuran yang tersedia.",

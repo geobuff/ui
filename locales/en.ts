@@ -131,6 +131,7 @@ export default {
     remove: "Remove",
     viewCart: "View Cart",
     mins: "mins",
+    shareQuiz: "Share Quiz",
   },
   validations: {
     sizeRequired: "Please choose an available size.",

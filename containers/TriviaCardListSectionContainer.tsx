@@ -4,21 +4,19 @@ import { CardListSection } from "@geobuff/buff-ui/components";
 
 import { useBreakpointValue } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../contexts/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
-import { formatDate } from "../../helpers/date";
-import { Trivia } from "../../types/trivia";
-import CardListItem from "../CardList/CardListItem";
-import TriviaCard from "../TriviaCard/TriviaCard";
+import { TriviaCardContainer } from ".";
+import { Trivia } from "../types/trivia";
 
 const GRID_LENGTH = 5;
 
-export interface Props {
+interface Props {
   trivia?: Trivia[];
   isLoading?: boolean;
 }
 
-const TriviaCardListSection: FC<Props> = ({
+export const TriviaCardListSectionContainer: FC<Props> = ({
   trivia = [],
   isLoading = false,
 }) => {
@@ -39,24 +37,13 @@ const TriviaCardListSection: FC<Props> = ({
       paddingX={{ base: 3, md: 0 }}
     >
       {trivia.map((quiz, index) => (
-        <CardListItem
+        <TriviaCardContainer
           key={quiz.id}
-          href={`/daily-trivia/${formatDate(quiz.date)}`}
-          paddingRight={{
-            base: index === trivia.length - 1 && "12px",
-            md: 0,
-          }}
-        >
-          <TriviaCard
-            name={quiz.name}
-            maxScore={quiz.maxScore}
-            position={{ base: "relative", md: "absolute" }}
-            marginLeft={{ base: 3, md: 0 }}
-          />
-        </CardListItem>
+          index={index}
+          triviaCount={trivia.length}
+          trivia={quiz}
+        />
       ))}
     </CardListSection>
   );
 };
-
-export default TriviaCardListSection;

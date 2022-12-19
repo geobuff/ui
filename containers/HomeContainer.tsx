@@ -9,14 +9,14 @@ import { HomeContext } from "../contexts/HomeContext";
 import { LanguageContext } from "../contexts/LanguageContext";
 
 import DelayedRender from "../components/DelayedRender";
-import TriviaCardListSection from "../components/TriviaCardListSection";
-import { FilteredTrivia } from "../components/TriviaList/TriviaList";
 
 import { formatDate, isDateBefore } from "../helpers/date";
 import { CommunityQuiz } from "../types/community-quiz-dto";
+import { FilteredTrivia } from "../types/filtered-trivia";
 import { Quiz } from "../types/quiz";
 import { Trivia } from "../types/trivia";
 import { HomeHeaderContainer } from "./HomeHeaderContainer";
+import { TriviaCardListSectionContainer } from "./TriviaCardListSectionContainer";
 
 const CardListSectionContainer = dynamic(() =>
   import("./CardListSectionContainer").then(
@@ -160,7 +160,7 @@ export const HomeContainer: FC<Props> = ({
         <Box minHeight="776px">
           <DelayedRender shouldFadeIn waitBeforeShow={100}>
             {filteredTrivia?.length > 0 && (
-              <TriviaCardListSection
+              <TriviaCardListSectionContainer
                 trivia={filteredTrivia}
                 isLoading={isLoading}
               />

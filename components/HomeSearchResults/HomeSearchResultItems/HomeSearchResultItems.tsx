@@ -1,16 +1,10 @@
-import React, { FC, useContext } from "react";
+import React, { FC } from "react";
 
-import { useBreakpointValue } from "@chakra-ui/react";
+import { QuizCardContainer, TriviaCardContainer } from "../../../containers";
 
-import { LanguageContext } from "../../../contexts";
-
-import { QuizCardContainer } from "../../../containers";
-
-import { formatDate } from "../../../helpers/date";
 import { QuizSearchResults } from "../../../types/quiz-search-results";
 import CardListItem from "../../CardList/CardListItem";
 import CommunityQuizCard from "../../CommunityQuizCard";
-import TriviaCard from "../../TriviaCard";
 
 export interface Props {
   searchResults?: QuizSearchResults;
@@ -18,18 +12,13 @@ export interface Props {
 
 const HomeSearchResultItems: FC<Props> = ({ searchResults = null }) => (
   <>
-    {searchResults?.trivia.map((quiz) => (
-      <CardListItem
+    {searchResults?.trivia.map((quiz, index) => (
+      <TriviaCardContainer
         key={quiz.id}
-        href={`/daily-trivia/${formatDate(quiz.date)}`}
-      >
-        <TriviaCard
-          name={quiz.name}
-          maxScore={quiz.maxScore}
-          position={{ base: "relative", md: "absolute" }}
-          marginLeft={{ base: 3, md: 0 }}
-        />
-      </CardListItem>
+        index={index}
+        trivia={quiz}
+        triviaCount={searchResults?.trivia.length}
+      />
     ))}
     {searchResults?.communityQuizzes.map((quiz) => (
       <CardListItem key={quiz.id} href={`/community-quiz/${quiz.id}`}>

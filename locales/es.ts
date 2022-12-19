@@ -131,6 +131,7 @@ export default {
     remove: "Retirar",
     viewCart: "Ver carro",
     mins: "minutos",
+    shareQuiz: "Compartir prueba",
   },
   validations: {
     sizeRequired: "Por favor, elija un tamaño disponible.",
