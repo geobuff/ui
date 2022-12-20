@@ -1,23 +1,23 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
+import { GameOverModal } from "@geobuff/buff-ui/components";
+
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import { AppContext } from "../../contexts/AppContext";
-import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import { LanguageContext } from "../../contexts/LanguageContext";
+import { AppContext } from "../contexts/AppContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
-import GameOverModal from "../../components/GameOverModal";
-
-import axiosClient from "../../axios/axiosClient";
-import { genericToast, increaseXPToast } from "../../helpers/toasts";
-import { GameOverRedirect } from "../../types/game-over-redirect";
-import { IncreaseUserXPPayload } from "../../types/increase-user-xp-payload";
-import { LeaderboardEntry } from "../../types/leaderboard-entry";
-import { MappingEntry } from "../../types/mapping-entry";
-import { Result } from "../../types/result";
-import { TempScore } from "../../types/temp-score";
+import axiosClient from "../axios/axiosClient";
+import { genericToast, increaseXPToast } from "../helpers/toasts";
+import { GameOverRedirect } from "../types/game-over-redirect";
+import { IncreaseUserXPPayload } from "../types/increase-user-xp-payload";
+import { LeaderboardEntry } from "../types/leaderboard-entry";
+import { MappingEntry } from "../types/mapping-entry";
+import { Result } from "../types/result";
+import { TempScore } from "../types/temp-score";
 
 interface Props {
   id?: number;
@@ -36,7 +36,7 @@ interface Props {
   setLeaderboardEntrySubmitted?: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-const GameOverModalContainer: FC<Props> = ({
+export const GameOverModalContainer: FC<Props> = ({
   id = 0,
   hasLeaderboard = false,
   route = "",
@@ -212,6 +212,7 @@ const GameOverModalContainer: FC<Props> = ({
 
   return (
     <GameOverModal
+      quizScoreType={hasLeaderboard ? "leaderboard" : "score"}
       quizName={name}
       maxScore={maxScore}
       score={score}
@@ -221,12 +222,36 @@ const GameOverModalContainer: FC<Props> = ({
       isLoading={isLoading}
       isOpen={isOpen}
       isSubmitting={isSubmitting}
+      isNotchedIphone={isNotchedIphone}
+      submitText={t.global.submit}
+      gameOverText={t.global.gameOver}
+      backToMapText={t.gameOverModal.backToMapText}
+      backToMapExplainer={t.gameOverModal.backToMapExplainer}
+      explainerTextOne={t.gameOverModalExplainerText.explainerTextOne}
+      explainerActionOne={t.global.login}
+      explainerTextTwo={` ${t.global.or} `}
+      explainerActionTwo={t.global.register}
+      submitAScoreText={t.gameOverModalExplainerText.submitAScoreText}
+      submitALeaderboardEntryText={
+        t.gameOverModalExplainerText.submitALeaderboardEntryText
+      }
+      scoreQuizLoggedInExplainer={
+        t.gameOverModalExplainerText.scoreQuizLoggedInExplainer
+      }
+      noExistingEntryExplainer={
+        t.gameOverModalExplainerText.noExistingEntryExplainer
+      }
+      existingEntryText={t.gameOverModalExplainerText.existingEntry}
+      existingEntryExplainer={
+        t.gameOverModalExplainerText.existingEntryExplainer
+      }
+      rankText={t.global.rank}
+      scoreText={t.global.score}
+      timeText={t.global.time}
+      usernameText={t.global.username}
       onClose={onClose}
       onSubmit={hasLeaderboard ? handleSubmitEntry : null}
       onRedirectWithScore={handleRedirectWithScore}
-      isNotchedIphone={isNotchedIphone}
     />
   );
 };
-
-export default GameOverModalContainer;

@@ -1,11 +1,12 @@
 import React, { FC } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import { Alert, AlertIcon, Box } from "@chakra-ui/react";
 
 import CreateFlagsFormContainer from "../../containers/CreateFlagsFormContainer";
 
 import { FlagsFormSubmit } from "../../types/flags-form-submit";
-import Modal from "../Modal";
 
 export interface Props {
   isOpen?: boolean;

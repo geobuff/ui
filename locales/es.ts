@@ -538,6 +538,10 @@ export default {
       "Siéntase libre de cerrar este modal para ver el mapa y sus resultados. ¡No se preocupe, aún podrá enviar su puntaje después!",
   },
   gameOverModalExplainerText: {
+    explainerTextOne: "Debes ",
+    submitAScoreText: " para actualizar su puntuación más alta.",
+    submitALeaderboardEntryText:
+      " para enviar una entrada a la tabla de clasificación.",
     existingEntry: "ENTRADA EXISTENTE",
     scoreQuizLoggedInExplainer:
       "Si este puntaje es mayor que su puntaje actual, lo actualizaremos en segundo plano.",

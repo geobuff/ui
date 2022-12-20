@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import { Flex } from "@chakra-ui/react";
 
 import { BulkUploadValues } from "../../types/bulk-upload-values";
 import BulkUploadForm from "../BulkUploadForm";
-import Modal from "../Modal";
 
 export interface Props {
   isOpen?: boolean;

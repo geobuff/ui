@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 
-import { ArrowLeft } from "@geobuff/buff-ui/components";
+import { ArrowLeft, Modal } from "@geobuff/buff-ui/components";
 
 import { Button, Flex, Text, useDisclosure } from "@chakra-ui/react";
 import Head from "next/head";
@@ -11,7 +11,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { MerchItem } from "../../types/merch-item";
 import { MerchSummaryFormSubmit } from "../../types/merch-summary-form-submit";
-import Modal from "../Modal";
 import MerchSummaryDetails from "./MerchSummaryDetails";
 import MerchSummaryShowcase from "./MerchSummaryShowcase";
 

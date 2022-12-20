@@ -1,6 +1,6 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
-import { SVGBase } from "@geobuff/buff-ui/components";
+import { Modal, SVGBase } from "@geobuff/buff-ui/components";
 
 import { Divider, Flex, Heading, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
@@ -20,7 +20,6 @@ import { NullInt } from "../../types/null-int";
 import { QuizEditValues } from "../../types/quiz-edit-values";
 import { QuizFormSubmit } from "../../types/quiz-form-submit";
 import AdminQuizForm from "../AdminQuizForm";
-import Modal from "../Modal";
 import AdminCreateMapMappingsForm from "./AdminCreateMapMappingsForm";
 import AdminCreateMapPreview from "./AdminCreateMapPreview";
 

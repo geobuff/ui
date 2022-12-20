@@ -525,6 +525,9 @@ export default {
       "Jangan ragu untuk menutup modal ini untuk melihat peta dan hasil Anda. Jangan khawatir, Anda masih dapat mengirimkan skor setelahnya!",
   },
   gameOverModalExplainerText: {
+    explainerTextOne: "Kamu harus ",
+    submitAScoreText: " untuk memperbarui skor tinggi Anda.",
+    submitALeaderboardEntryText: " untuk mengirimkan entri papan peringkat.",
     existingEntry: "MASUK YANG ADA",
     scoreQuizLoggedInExplainer:
       "Jika skor ini lebih besar dari skor Anda saat ini, kami akan memperbaruinya di belakang layar.",

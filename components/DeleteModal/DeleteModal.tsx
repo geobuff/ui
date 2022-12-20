@@ -1,10 +1,10 @@
 import React, { FC, useContext } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import { Alert, AlertIcon, Box, Button, Text } from "@chakra-ui/react";
 
 import { LanguageContext } from "../../contexts/LanguageContext";
-
-import Modal from "../Modal";
 
 export interface Props {
   isOpen?: boolean;

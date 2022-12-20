@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -18,7 +20,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import { UpdateUserFormSubmit } from "../../types/update-user-form-submit";
 import { UserDto } from "../../types/user-dto";
 import CountrySelect from "../CountrySelect";
-import Modal from "../Modal";
 
 interface Props {
   user?: UserDto;

@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -16,7 +18,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import AvatarSelectContainer from "../../containers/AvatarSelectContainer";
 
 import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
-import Modal from "../Modal";
 
 interface Props {
   avatarId?: number;

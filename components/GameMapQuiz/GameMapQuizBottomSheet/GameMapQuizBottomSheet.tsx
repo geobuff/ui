@@ -1,6 +1,10 @@
 import React, { FC, createRef, useContext, useEffect } from "react";
 
-import { ResultsList, ResultsMap } from "@geobuff/buff-ui/components";
+import {
+  GameHeader,
+  ResultsList,
+  ResultsMap,
+} from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -18,7 +22,6 @@ import { LanguageContext } from "../../../contexts/LanguageContext";
 import { groupMapping } from "../../../helpers/mapping";
 import { MappingEntry } from "../../../types/mapping-entry";
 import { Result } from "../../../types/result";
-import GameHeader from "../../GameHeader";
 
 const snapPoints = [600, 400, 300, 90];
 const initialSnap = snapPoints.length - 2;

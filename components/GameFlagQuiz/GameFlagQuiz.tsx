@@ -1,6 +1,11 @@
 import React, { FC, useCallback, useContext, useEffect, useState } from "react";
 
-import { SolidChevronUp } from "@geobuff/buff-ui/components";
+import {
+  GameInputCard,
+  GameSidebar,
+  ResultsMap,
+  SolidChevronUp,
+} from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -35,19 +40,13 @@ import { Result } from "../../types/result";
 import FlagDropZone from "../FlagDropZone/FlagDropZone";
 import GameBannerButton from "../GameBannerButton";
 import GameFlags from "../GameFlags/GameFlags";
-import GameInputCard from "../GameInputCard";
-import GameSidebar from "../GameSidebar";
 
-const GameOverModalContainer = dynamic(
-  () => import("../../containers/GameOverModalContainer")
+const GameOverModalContainer = dynamic(() =>
+  import("../../containers").then((mod) => mod.GameOverModalContainer)
 );
 
 const GameFlagQuizBottomSheet = dynamic(
   () => import("./GameFlagQuizBottomSheet")
-);
-
-const ResultsMap = dynamic(() =>
-  import("@geobuff/buff-ui/components").then((mod) => mod.ResultsMap)
 );
 
 const INCORRECT_ANSWER_THRESHOLD = 1;
@@ -375,7 +374,6 @@ const GameFlagQuiz: FC<Props> = ({
                       typeId={typeId}
                       maxScore={maxScore}
                       time={time}
-                      plural={plural}
                       hasFlags={hasFlags}
                       recents={recentSubmissions}
                       score={score}
@@ -386,6 +384,14 @@ const GameFlagQuiz: FC<Props> = ({
                       hasGameStarted={hasGameStarted}
                       hasGameStopped={hasGameStopped}
                       inputValue={inputValue}
+                      inputPlaceholder={`${t.global.enter} ${plural}...`}
+                      giveUpText={t.global.giveUp.toUpperCase()}
+                      retryText={t.global.retry.toUpperCase()}
+                      startText={t.global.start.toUpperCase()}
+                      noResultsMessage={`${t.global.no} ${plural} ${t.global.toDisplay}`}
+                      recentHeading={t.global.recent.toUpperCase()}
+                      scoreHeading={t.global.score.toUpperCase()}
+                      closeCircleLabel={t.global.closeCircle}
                       onClearInput={onClearInput}
                       onGameStart={handleGameStart}
                       onGameStop={handleGameStop}

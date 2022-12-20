@@ -529,6 +529,9 @@ export default {
       "Tena koa ki te kati i tenei tikanga hei tiro i te mapi me o hua. Kaua e manukanuka, ka taea tonu e koe te tuku i to tatau i muri mai!",
   },
   gameOverModalExplainerText: {
+    explainerTextOne: "Me koe ",
+    submitAScoreText: " ki te whakahou i to kaute teitei.",
+    submitALeaderboardEntryText: " ki te tuku i tetahi urunga rangatira.",
     existingEntry: "TE TOHUTOHU TARI",
     scoreQuizLoggedInExplainer:
       "Mena he nui ake tenei kaute i to kaute o naianei, ka whakahouhia e matou i muri i nga tirohanga.",

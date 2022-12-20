@@ -1,6 +1,6 @@
 import React, { FC, useContext, useState } from "react";
 
-import { ArrowLeft } from "@geobuff/buff-ui/components";
+import { ArrowLeft, Modal } from "@geobuff/buff-ui/components";
 
 import {
   Alert,
@@ -33,7 +33,6 @@ import CommunityQuizQuestionForm from "../CommunityQuizForm/CommunityQuizQuestio
 import CommunityQuizQuestionsField from "../CommunityQuizForm/CommunityQuizQuestionsField";
 import CommunityQuizRadioGroupFormField from "../CommunityQuizForm/CommunityQuizRadioGroupFormField";
 import CommunityQuizTextAreaFormField from "../CommunityQuizForm/CommunityQuizTextAreaFormField";
-import Modal from "../Modal";
 
 export interface Props {
   values: CommunityQuizFormSubmit;

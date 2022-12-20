@@ -8,6 +8,10 @@ import React, {
 } from "react";
 
 import {
+  GameInputBanner,
+  GameInputCard,
+  GameSidebar,
+  ResultsMap,
   SVGBase,
   SolidChevronDown,
   SolidChevronUp,
@@ -49,21 +53,14 @@ import { groupMapping } from "../../helpers/mapping";
 import { GameOverRedirect } from "../../types/game-over-redirect";
 import { MappingEntry } from "../../types/mapping-entry";
 import { Result } from "../../types/result";
-import GameInputBanner from "../GameInputBanner";
-import GameInputCard from "../GameInputCard";
 import GameMap from "../GameMap";
-import Sidebar from "../GameSidebar";
 
 const GameMapQuizBottomSheet = dynamic(
   () => import("./GameMapQuizBottomSheet")
 );
 
-const GameOverModalContainer = dynamic(
-  () => import("../../containers/GameOverModalContainer")
-);
-
-const ResultsMap = dynamic(() =>
-  import("@geobuff/buff-ui/components").then((mod) => mod.ResultsMap)
+const GameOverModalContainer = dynamic(() =>
+  import("../../containers").then((mod) => mod.GameOverModalContainer)
 );
 
 interface Props {
@@ -342,16 +339,17 @@ const GameMapQuiz: FC<Props> = ({
         {shouldDisplayOnMobile && (
           <GameInputBanner
             typeId={typeId}
-            maxScore={maxScore}
             plural={plural}
             time={time}
-            score={score}
             errorMessage={errorMessage}
             expiryTimestamp={{ seconds, minutes }}
             hasError={hasError}
             hasGameStarted={hasGameStarted}
             hasGameStopped={hasGameStopped}
             inputValue={inputValue}
+            scoreLabel={`${score} ${t.global.of} ${maxScore} ${plural}`}
+            inputPlaceholder={`${t.global.enter} ${plural}...`}
+            closeCircleLabel={t.global.closeCircle}
             onChange={handleChange}
             onClearInput={onClearInput}
           />
@@ -361,7 +359,7 @@ const GameMapQuiz: FC<Props> = ({
           {!shouldDisplayOnMobile && (
             <Fade in>
               <Box minHeight="100%">
-                <Sidebar
+                <GameSidebar
                   heading={name}
                   quizId={id}
                   hasLeaderboard={hasLeaderboard}
@@ -371,17 +369,24 @@ const GameMapQuiz: FC<Props> = ({
                       typeId={typeId}
                       maxScore={maxScore}
                       time={time}
-                      plural={plural}
                       hasFlags={hasFlags}
                       recents={recentSubmissions}
                       score={score}
-                      expiryTimestamp={{ seconds, minutes }}
+                      expiryTimestamp={{ minutes, seconds }}
                       errorMessage={errorMessage}
                       hasError={hasError}
                       hasGameRunOnce={hasGameRunOnce}
                       hasGameStarted={hasGameStarted}
                       hasGameStopped={hasGameStopped}
                       inputValue={inputValue}
+                      inputPlaceholder={`${t.global.enter} ${plural}...`}
+                      giveUpText={t.global.giveUp.toUpperCase()}
+                      retryText={t.global.retry.toUpperCase()}
+                      startText={t.global.start.toUpperCase()}
+                      noResultsMessage={`${t.global.no} ${plural} ${t.global.toDisplay}`}
+                      recentHeading={t.global.recent.toUpperCase()}
+                      scoreHeading={t.global.score.toUpperCase()}
+                      closeCircleLabel={t.global.closeCircle}
                       onChange={handleChange}
                       onClearInput={onClearInput}
                       onGameStart={handleGameStart}
@@ -395,7 +400,7 @@ const GameMapQuiz: FC<Props> = ({
                       hasFlags={hasFlags}
                     />
                   </Flex>
-                </Sidebar>
+                </GameSidebar>
               </Box>
             </Fade>
           )}
