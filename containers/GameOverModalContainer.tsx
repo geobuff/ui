@@ -55,6 +55,7 @@ export const GameOverModalContainer: FC<Props> = ({
   const { t } = useContext(LanguageContext);
   const toast = useToast();
   const router = useRouter();
+  const isMobile = useBreakpointValue({ base: true, md: false });
 
   const { user, updateUser } = useContext(CurrentUserContext);
   const { data: session, status } = useSession();
@@ -212,6 +213,7 @@ export const GameOverModalContainer: FC<Props> = ({
 
   return (
     <GameOverModal
+      isMobile={isMobile}
       quizScoreType={hasLeaderboard ? "leaderboard" : "score"}
       quizName={name}
       maxScore={maxScore}
