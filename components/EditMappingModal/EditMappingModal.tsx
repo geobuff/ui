@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import { Alert, AlertIcon, Flex, VStack } from "@chakra-ui/react";
 
 import { EditMappingGroupSubmit } from "../../types/edit-mapping-group-submit";
 import { EditMappingForm } from "../EditMappingForm/EditMappingForm";
-import Modal from "../Modal";
 
 export interface Props {
   mapping: EditMappingGroupSubmit;

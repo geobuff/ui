@@ -10,7 +10,7 @@ import {
 } from "@chakra-ui/react";
 import { Field } from "formik";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import axiosClient from "../../../axios";
 import SelectFormField from "../../FormFields/SelectFormField";

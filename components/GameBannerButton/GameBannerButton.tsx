@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { Button, ButtonProps, Text } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 export interface Props extends ButtonProps {
   hasGameRunOnce: boolean;

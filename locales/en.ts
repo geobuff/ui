@@ -131,6 +131,7 @@ export default {
     remove: "Remove",
     viewCart: "View Cart",
     mins: "mins",
+    shareQuiz: "Share Quiz",
   },
   validations: {
     sizeRequired: "Please choose an available size.",
@@ -518,6 +519,9 @@ export default {
       "Feel free to close this modal to view the map and your results. Don't worry, you'll still be able to submit your score afterwards!",
   },
   gameOverModalExplainerText: {
+    explainerTextOne: "You must ",
+    submitAScoreText: " to update your high score.",
+    submitALeaderboardEntryText: " to submit a leaderboard entry.",
     existingEntry: "EXISTING ENTRY",
     scoreQuizLoggedInExplainer:
       "If this score is greater than your existing score, we will update it behind the scenes.",

@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 
-import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 
 import useMerch from "../../hooks/UseMerch";
 

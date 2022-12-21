@@ -13,7 +13,7 @@ import {
 } from "@chakra-ui/react";
 import Head from "next/head";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 const TermsOfService: FC = () => {
   const { t } = useContext(LanguageContext);

@@ -1,4 +1,5 @@
-import { SVGBase } from "../types/svg-base";
+import { SVGBase } from "@geobuff/buff-ui/components";
+
 import {
   GEOBUFF_BLUE,
   GEOBUFF_GREEN,

@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -16,7 +18,6 @@ import {
 
 import { FlattenedMerchSize } from "../../helpers/merch";
 import AdminMerchTablePlaceholder from "../../placeholders/AdminMerchTablePlaceholder";
-import Card from "../Card";
 import TableCell from "../Table/TableCell";
 
 export interface Props {

@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
-import { Button, ButtonProps, Flex } from "@chakra-ui/react";
+import { CustomFlag } from "@geobuff/buff-ui/components";
 
-import CustomFlag from "../../CustomFlag";
+import { Button, ButtonProps, Flex } from "@chakra-ui/react";
 
 const getStylesByStatus = (status: CommunityQuizButtonStatus) => {
   switch (status) {

@@ -9,8 +9,7 @@ import {
 import { Flex, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 import Image from "next/image";
 
-import { FlagGameContext } from "../../context/FlagGameContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { FlagGameContext, LanguageContext } from "../../contexts";
 
 import { FlagDetails } from "../../types/flag-details";
 import DraggableFlagPreview from "../DraggableFlagPreview";

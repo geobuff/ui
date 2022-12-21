@@ -4,9 +4,9 @@ import { signIn } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { AppContext } from "../context/AppContext";
-import { CurrentUserContext } from "../context/CurrentUserContext/CurrentUserContext";
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { AppContext } from "../contexts/AppContext";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import axiosClient from "../axios";
 import { GameOverRedirect } from "../types/game-over-redirect";

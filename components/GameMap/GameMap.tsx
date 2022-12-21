@@ -1,10 +1,10 @@
 import React, { FC, useMemo, useState } from "react";
 
+import { SVGBase, SVGMap } from "@geobuff/buff-ui/components";
+
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
-import { SVGMap } from "@geobuff/svg-map";
 
 import { getInitialMapFill } from "../../helpers/map";
-import { SVGBase } from "../../types/svg-base";
 import GameMapInteraction from "../GameMapInteraction";
 
 interface Props {

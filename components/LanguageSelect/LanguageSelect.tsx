@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { FlexProps, FormControl, Select } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { LANGUAGES } from "../../types/languages";
 

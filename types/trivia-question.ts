@@ -1,6 +1,7 @@
+import { SVGBase } from "@geobuff/buff-ui/components";
+
 import { NullString } from "./null-string";
 import { NullTime } from "./null-time";
-import { SVGBase } from "./svg-base";
 import { TriviaAnswer } from "./trivia-answer";
 import { TriviaQuestionTypes } from "./trivia-question-types";
 

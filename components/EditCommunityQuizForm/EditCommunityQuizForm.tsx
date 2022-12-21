@@ -1,5 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 
+import { ArrowLeft, Modal } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -16,9 +18,8 @@ import {
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
 import {
   CommunityQuizFormQuestion,
   CommunityQuizFormSubmit,
@@ -32,7 +33,6 @@ import CommunityQuizQuestionForm from "../CommunityQuizForm/CommunityQuizQuestio
 import CommunityQuizQuestionsField from "../CommunityQuizForm/CommunityQuizQuestionsField";
 import CommunityQuizRadioGroupFormField from "../CommunityQuizForm/CommunityQuizRadioGroupFormField";
 import CommunityQuizTextAreaFormField from "../CommunityQuizForm/CommunityQuizTextAreaFormField";
-import Modal from "../Modal";
 
 export interface Props {
   values: CommunityQuizFormSubmit;

@@ -21,9 +21,9 @@ import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import { useRouter } from "next/router";
 
-import { AppContext } from "../context/AppContext";
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
-import { ShoppingCartContext } from "../context/ShoppingCartContext";
+import { AppContext } from "../contexts/AppContext";
+import { LanguageContext } from "../contexts/LanguageContext";
+import { ShoppingCartContext } from "../contexts/ShoppingCartContext";
 
 import LanguageSelect from "../components/LanguageSelect/LanguageSelect";
 import ShoppingCartLink from "../components/ShoppingCartLink";

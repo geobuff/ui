@@ -4,7 +4,7 @@ import { FooterVariant, MainView } from "@geobuff/buff-ui/components";
 
 import { BoxProps } from "@chakra-ui/react";
 
-import { AppContext } from "../context/AppContext";
+import { AppContext } from "../contexts/AppContext";
 
 import theme from "../styles/theme";
 import { FooterContainer } from "./FooterContainer";

@@ -19,7 +19,7 @@ import {
 import flag from "country-code-emoji";
 import { useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { secondsToMinutesString } from "../../../helpers/time";
 import LeaderTablePlaceholder from "../../../placeholders/LeaderboardTablePlaceholder/LeaderboardTablePlaceholder";

@@ -1,6 +1,7 @@
 import React, { FC, useContext } from "react";
 
 import { Twemoji } from "@geobuff/buff-ui/components";
+import { SolidChevronDown } from "@geobuff/buff-ui/components";
 
 import {
   Button,
@@ -19,10 +20,8 @@ import { signOut, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 
-import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
-
-import SolidChevronDown from "../../Icons/SolidChevronDown";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 interface Props {
   isCondensed?: boolean;

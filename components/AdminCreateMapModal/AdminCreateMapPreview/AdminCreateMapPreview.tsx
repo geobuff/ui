@@ -1,10 +1,10 @@
 import React, { FC, useState } from "react";
 
+import { SVGBase, SVGMap } from "@geobuff/buff-ui/components";
+
 import { Button, Flex, Tooltip } from "@chakra-ui/react";
-import { SVGMap } from "@geobuff/svg-map";
 
 import { getMapStyles } from "../../../helpers/map";
-import { SVGBase } from "../../../types/svg-base";
 
 export interface Props {
   svgMap?: SVGBase;

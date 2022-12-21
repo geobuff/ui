@@ -5,7 +5,6 @@ import { DelayedRender } from "@geobuff/buff-ui/components";
 import {
   Alert,
   AlertIcon,
-  AspectRatio,
   Box,
   Link,
   SimpleGrid,
@@ -13,10 +12,11 @@ import {
 } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
+
+import { CommunityQuizCardContainer } from "../../containers";
 
 import { CommunityQuiz } from "../../types/community-quiz-dto";
-import CommunityQuizCard from "../CommunityQuizCard";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
@@ -77,25 +77,13 @@ const CommunityQuizList: FC<Props> = ({ quizzes = [] }) => {
           minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
           spacing={{ base: "12px", md: "24px" }}
         >
-          {quizzes.map((quiz) => (
-            <Link key={quiz.id} href={`/community-quiz/${quiz.id}`}>
-              <AspectRatio
-                maxWidth="260px"
-                minHeight={{ base: "180px", sm: "206px", md: "216px" }}
-                maxHeight="230px"
-                ratio={3 / 2}
-                transition="all 150ms ease-out"
-                _hover={{ transform: "scale(1.030)" }}
-              >
-                <CommunityQuizCard
-                  name={quiz.name}
-                  userId={quiz.userId}
-                  username={quiz.username}
-                  maxScore={quiz.maxScore}
-                  verified={quiz.verified}
-                />
-              </AspectRatio>
-            </Link>
+          {quizzes.map((quiz, index) => (
+            <CommunityQuizCardContainer
+              key={quiz.id}
+              index={index}
+              quizCount={quizzes.length}
+              quiz={quiz}
+            />
           ))}
         </SimpleGrid>
       </DelayedRender>

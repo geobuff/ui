@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { ArrowLeft, ArrowRight, Card } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -19,13 +21,10 @@ import {
 } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
-import ArrowRight from "../../Icons/ArrowRight";
 import AdminOrdersTablePlaceholder from "../../placeholders/AdminOrdersTablePlaceholder";
 import { Order } from "../../types/order";
 import { OrderPageDto } from "../../types/order-page-dto";
 import { OrderStatuses } from "../../types/order-statuses";
-import Card from "../Card";
 import TableCell from "../Table/TableCell";
 
 export interface Props {

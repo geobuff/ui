@@ -4,7 +4,7 @@ import { useDisclosure, useToast } from "@chakra-ui/react";
 import { DateTime } from "luxon";
 import { useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import AdminGeneral from "../../components/AdminGeneral";
 import BulkUploadModal from "../../components/BulkUploadModal";

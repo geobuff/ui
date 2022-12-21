@@ -1,5 +1,7 @@
 import React, { FC, useEffect, useState } from "react";
 
+import { SVGBase } from "@geobuff/buff-ui/components";
+
 import { Alert, AlertIcon, useDisclosure } from "@chakra-ui/react";
 
 import useMaps from "../../hooks/UseMaps";
@@ -8,7 +10,6 @@ import AdminCreateMapModal from "../../components/AdminCreateMapModal";
 import AdminMapsTable from "../../components/AdminMapsTable";
 
 import axiosClient from "../../axios";
-import { SVGBase } from "../../types/svg-base";
 
 const AdminMapsTableContainer: FC = () => {
   const { data: maps, isLoading } = useMaps();

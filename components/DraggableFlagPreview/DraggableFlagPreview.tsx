@@ -4,7 +4,7 @@ import Image from "next/image";
 import { isMobile } from "react-device-detect";
 import { usePreview } from "react-dnd-preview";
 
-import { FlagGameContext } from "../../context/FlagGameContext";
+import { FlagGameContext } from "../../contexts/FlagGameContext";
 
 interface Props {
   code: string;

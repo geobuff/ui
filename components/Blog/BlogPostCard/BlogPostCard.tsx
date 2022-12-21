@@ -1,9 +1,9 @@
 import React, { FC } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import { Flex, Heading, Tag, Text } from "@chakra-ui/react";
 import Link from "next/link";
-
-import Card from "../../Card";
 
 export interface Props {
   slug?: string;

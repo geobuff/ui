@@ -8,7 +8,7 @@ import {
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 export const HeroBannerContainer: FC = () => {
   const { data: session, status } = useSession();

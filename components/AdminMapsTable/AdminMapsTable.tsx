@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -14,11 +16,10 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import AdminFlagsTablePlaceholder from "../../placeholders/AdminFlagsTablePlaceholder";
 import { GetMapsDto } from "../../types/get-maps-dto";
-import Card from "../Card";
 import TableCell from "../Table/TableCell";
 import AdminMapsHeader from "./AdminMapsHeader/AdminMapsHeader";
 

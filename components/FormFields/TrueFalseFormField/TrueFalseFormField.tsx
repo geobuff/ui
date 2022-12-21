@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { FormSetFieldValue, FormValue } from "../../../types/form";
 import RadioGroupFormField from "../RadioGroupFormField";

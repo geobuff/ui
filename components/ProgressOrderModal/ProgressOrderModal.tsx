@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
-import { Alert, AlertIcon, Box, Button, Text } from "@chakra-ui/react";
+import { Modal } from "@geobuff/buff-ui/components";
 
-import Modal from "../Modal";
+import { Alert, AlertIcon, Box, Button, Text } from "@chakra-ui/react";
 
 export interface Props {
   isOpen?: boolean;

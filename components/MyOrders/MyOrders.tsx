@@ -1,11 +1,12 @@
 import React, { FC, useContext } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import { Alert, AlertIcon, Flex } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { Order } from "../../types/order";
-import Card from "../Card";
 import OrderTile from "../OrderTile";
 
 export interface Props {

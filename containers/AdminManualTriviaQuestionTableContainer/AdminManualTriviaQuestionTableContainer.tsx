@@ -3,7 +3,7 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import useMaps from "../../hooks/UseMaps";
 import useTriviaQuestionCategories from "../../hooks/UseTriviaQuestionCategories";

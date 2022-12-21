@@ -1,16 +1,14 @@
 import React, { FC, useContext } from "react";
 
-import { HeroHeader } from "@geobuff/buff-ui/components";
+import { ArrowLeft, HeroHeader } from "@geobuff/buff-ui/components";
 
 import { Button, Flex, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import AdminMapsTableContainer from "../../containers/AdminMapsTableContainer";
-
-import ArrowLeft from "../../Icons/ArrowLeft";
 
 const MapResources: FC = () => {
   const router = useRouter();

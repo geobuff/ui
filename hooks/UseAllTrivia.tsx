@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
+import { LanguageContext } from "../contexts";
 
 import axiosClient from "../axios";
 import { Trivia } from "../types/trivia";
@@ -12,6 +14,8 @@ export const useAllTrivia = (limit = 30): Result => {
   const [data, setData] = useState<Trivia[]>();
   const [isLoading, setIsLoading] = useState(true);
 
+  const { language } = useContext(LanguageContext);
+
   useEffect(() => {
     axiosClient
       .post(`${process.env.NEXT_PUBLIC_API_URL}/trivia/all`, {
@@ -22,7 +26,7 @@ export const useAllTrivia = (limit = 30): Result => {
         setData(response.data.trivia);
         setIsLoading(false);
       });
-  }, [limit]);
+  }, [limit, language]);
 
   return {
     data: data,

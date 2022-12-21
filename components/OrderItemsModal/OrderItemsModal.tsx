@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import { Alert, AlertIcon, Button, Flex, SimpleGrid } from "@chakra-ui/react";
 
 import { OrderItem } from "../../types/order";
-import Modal from "../Modal";
 import OrderTileItem from "../OrderTile/OrderTileItem";
 
 export interface Props {

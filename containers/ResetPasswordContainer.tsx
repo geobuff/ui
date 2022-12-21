@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import axiosClient from "../axios/axiosClient";
 import { ResetPasswordFormReset } from "../types/reset-password-form-submit";

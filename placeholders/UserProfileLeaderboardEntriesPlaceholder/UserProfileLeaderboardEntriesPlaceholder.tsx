@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Heading,
@@ -12,9 +14,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
-
-import Card from "../../components/Card";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 const UserProfileLeaderboardEntriesPlaceholder: FC = () => {
   const { t } = useContext(LanguageContext);

@@ -5,7 +5,7 @@ import { DndProvider } from "react-dnd";
 import { HTML5Backend } from "react-dnd-html5-backend";
 import { TouchBackend } from "react-dnd-touch-backend";
 
-import { FlagGameContextProvider } from "../../context/FlagGameContext";
+import { FlagGameContextProvider } from "../../contexts/FlagGameContext";
 
 import GameFlagQuiz from "../../components/GameFlagQuiz";
 

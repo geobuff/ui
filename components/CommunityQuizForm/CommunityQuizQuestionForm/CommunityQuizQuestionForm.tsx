@@ -1,5 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 
+import { Search } from "@geobuff/buff-ui/components";
+
 import {
   Button,
   Divider,
@@ -16,11 +18,10 @@ import { Field, Form, Formik } from "formik";
 import { debounce } from "throttle-debounce";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import useFlagGroups from "../../../hooks/UseFlagGroups";
 
-import Search from "../../../Icons/Search";
 import axiosClient from "../../../axios";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
 import { GetMapsDto } from "../../../types/get-maps-dto";

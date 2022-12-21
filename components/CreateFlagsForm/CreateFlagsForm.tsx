@@ -12,7 +12,7 @@ import {
 import { Field, FieldArray, Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { FlagsFormSubmit } from "../../types/flags-form-submit";
 import { MappingsWithoutFlagsDto } from "../../types/mappings-without-flags-dto";

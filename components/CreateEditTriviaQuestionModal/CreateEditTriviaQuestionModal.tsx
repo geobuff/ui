@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import { Flex } from "@chakra-ui/react";
 import { FormikHelpers } from "formik";
 
@@ -10,7 +12,6 @@ import { QuizType } from "../../types/quiz-type";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
 import { UnsplashImage } from "../../types/unsplash-image";
 import AdminManualTriviaQuestionForm from "../AdminManualTriviaQuestionForm";
-import Modal from "../Modal";
 
 export interface Props {
   editValues?: ManualTriviaQuestionEditValues;

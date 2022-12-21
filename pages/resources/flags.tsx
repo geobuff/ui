@@ -1,16 +1,15 @@
 import React, { FC, useContext } from "react";
 
 import { HeroHeader } from "@geobuff/buff-ui/components";
+import { ArrowLeft } from "@geobuff/buff-ui/components";
 
 import { Button, Flex, Text } from "@chakra-ui/react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import AdminFlagsTableContainer from "../../containers/AdminFlagsTableContainer";
-
-import ArrowLeft from "../../Icons/ArrowLeft";
 
 const FlagResources: FC = () => {
   const router = useRouter();

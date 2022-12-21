@@ -5,7 +5,7 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import useMaps from "../../hooks/UseMaps";
 import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";

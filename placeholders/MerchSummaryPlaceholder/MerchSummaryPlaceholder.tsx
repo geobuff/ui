@@ -9,7 +9,7 @@ import {
   SkeletonText,
 } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 interface Props {
   imageCount?: number;

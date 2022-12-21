@@ -1,9 +1,9 @@
 import React, { ChangeEvent, FC } from "react";
 
+import { Search } from "@geobuff/buff-ui/components";
+
 import { Flex, Input, InputGroup, InputLeftElement } from "@chakra-ui/react";
 import { debounce } from "throttle-debounce";
-
-import Search from "../../../Icons/Search";
 
 export interface Props {
   isLoading?: boolean;

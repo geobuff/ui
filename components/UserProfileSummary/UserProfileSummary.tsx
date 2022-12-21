@@ -1,6 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 
 import { Twemoji } from "@geobuff/buff-ui/components";
+import { Card, FlagFallback } from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -14,7 +15,7 @@ import flag from "country-code-emoji";
 import { DateTime } from "luxon";
 import { signOut, useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import UpdateAvatarFormContainer from "../../containers/UpdateAvatarFormContainer";
 import UpdateUserFormContainer from "../../containers/UpdaterUserFormContainer";
@@ -24,10 +25,8 @@ import useCountries from "../../hooks/useCountries";
 import axiosClient from "../../axios";
 import { AuthUser } from "../../types/auth-user";
 import AdminFlag from "../AdminFlag";
-import Card from "../Card";
 import { DeleteModal } from "../DeleteModal/DeleteModal";
 import ProfileUserAvatar from "../ProfileUserAvatar";
-import FlagFallback from "../ResultsListItem/FlagFallback";
 import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";

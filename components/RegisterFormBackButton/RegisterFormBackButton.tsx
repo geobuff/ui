@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
-import { Button, ButtonProps } from "@chakra-ui/react";
+import { ArrowLeft } from "@geobuff/buff-ui/components";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
+import { Button, ButtonProps } from "@chakra-ui/react";
 
 export const RegisterFormBackButton: FC<ButtonProps> = ({
   children,

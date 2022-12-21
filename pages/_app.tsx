@@ -9,16 +9,19 @@ import NProgress from "nprogress";
 //nprogress module
 import "nprogress/nprogress.css";
 
-import { AppContextProvider } from "../context/AppContext";
-import { CurrentUserContextProvider } from "../context/CurrentUserContext/CurrentUserContext";
-import { LanguageContextProvider } from "../context/LanguageContext/LanguageContext";
-import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
+import {
+  AppContextProvider,
+  CurrentUserContextProvider,
+  LanguageContextProvider,
+  ShoppingCartContextProvider,
+} from "../contexts";
+
+import { MainViewContainer } from "../containers";
 
 import { AuthErrorRedirect } from "../components/AuthErrorRedirect/AuthErrorRedirect";
 import AuthGuard from "../components/AuthGuard";
 import ClientOnly from "../components/ClientOnly";
 
-import { MainViewContainer } from "../containers";
 import * as gtag from "../helpers/gtag";
 //styles of nprogress
 import "../styles/globals.css";

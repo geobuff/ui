@@ -1,11 +1,12 @@
 /* eslint-disable no-case-declarations */
 import React, { FC, useContext } from "react";
 
+import { SVGMap } from "@geobuff/buff-ui/components";
+
 import { Box, Flex, Link, Text } from "@chakra-ui/react";
-import { SVGMap } from "@geobuff/svg-map";
 import Image from "next/image";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import useMap from "../../hooks/UseMap";
 

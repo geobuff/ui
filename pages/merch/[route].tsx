@@ -4,7 +4,7 @@ import { HeroHeader } from "@geobuff/buff-ui/components";
 
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import MerchSummaryContainer from "../../containers/MerchSummaryContainer";
 

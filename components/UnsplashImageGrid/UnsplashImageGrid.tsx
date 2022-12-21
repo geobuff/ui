@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { Alert, AlertIcon, Flex, SimpleGrid, Spinner } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { UnsplashImage } from "../../types/unsplash-image";
 import RadioImage from "../RadioImage";

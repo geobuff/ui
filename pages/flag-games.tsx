@@ -7,7 +7,7 @@ import { GetStaticProps } from "next";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import { QuizListContainer } from "../containers/QuizListContainer/QuizListContainer";
 

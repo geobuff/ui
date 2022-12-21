@@ -11,7 +11,7 @@ import {
   Tr,
 } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { getType } from "../../../helpers/trivia-types";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
