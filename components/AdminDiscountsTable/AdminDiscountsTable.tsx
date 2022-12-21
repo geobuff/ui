@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Card } from "@geobuff/buff-ui/components";
+import { Card, TableCell } from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -16,7 +16,6 @@ import {
 
 import AdminDiscountsTablePlaceholder from "../../placeholders/AdminDiscountsTablePlaceholder";
 import { Discount } from "../../types/discount";
-import TableCell from "../Table/TableCell";
 
 export interface Props {
   discounts?: Discount[];

@@ -1,11 +1,12 @@
 import React, { FC, useContext, useState } from "react";
 
+import { DeleteModal } from "@geobuff/buff-ui/components";
+
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
 import { LanguageContext } from "../../contexts/LanguageContext";
 
-import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 import UserProfileMyQuizzesTable from "../../components/UserProfileMyQuizzes/UserProfileMyQuizzesTable";
 
 import axiosClient from "../../axios";

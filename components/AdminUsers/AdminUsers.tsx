@@ -1,13 +1,15 @@
 import React, { FC } from "react";
 
-import { Card } from "@geobuff/buff-ui/components";
+import {
+  Card,
+  TableHeader,
+  TablePaginationControls,
+} from "@geobuff/buff-ui/components";
 
 import { Alert, AlertIcon } from "@chakra-ui/react";
 
 import { UserDto } from "../../types/user-dto";
 import { UsersFilterParams } from "../../types/users-filter-params";
-import TableHeader from "../Table/TableHeader/TableHeader";
-import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
 import AdminUsersFilters from "./AdminUsersFilters/AdminUsersFilters";
 import AdminUsersTable from "./AdminUsersTable/AdminUsersTable";
 

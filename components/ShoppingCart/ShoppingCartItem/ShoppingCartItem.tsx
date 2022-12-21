@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { TableCell } from "@geobuff/buff-ui/components";
+
 import {
   Button,
   Flex,
@@ -16,7 +18,6 @@ import Image from "next/image";
 import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { toTwoDecimalPlaces } from "../../../helpers/number";
-import TableCell from "../../Table/TableCell";
 
 export interface Props {
   id?: number;
