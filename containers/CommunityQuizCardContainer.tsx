@@ -4,8 +4,8 @@ import { QuizCard, Twemoji } from "@geobuff/buff-ui/components";
 import { User } from "@geobuff/buff-ui/components";
 
 import {
-  BoxProps,
   GridItem,
+  GridItemProps,
   Link,
   Text,
   useBreakpointValue,
@@ -17,7 +17,7 @@ import { LanguageContext } from "../contexts/LanguageContext";
 import { cardImageStyle } from "../helpers/style";
 import { CommunityQuiz } from "../types/community-quiz-dto";
 
-interface Props extends BoxProps {
+interface Props extends GridItemProps {
   index: number;
   quizCount: number;
   quiz: CommunityQuiz;

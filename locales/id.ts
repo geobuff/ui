@@ -298,7 +298,9 @@ export default {
     descriptionOne: "Hubungi tim di",
     descriptionTwo:
       "untuk mengetahui lebih lanjut tentang mengaitkan ke API kami dan memanfaatkan sumber daya kami dalam proyek Anda sendiri.",
-    mapDescription: "Komponen React digunakan untuk menampilkan peta kita.",
+    componentLibraryHeading: "Buff UI",
+    componentLibraryDescription:
+      "Komponen Bereaksi yang kami bangun untuk memberdayakan situs kami.",
     mapsDescription: "Koleksi peta SVG gratis kami.",
     flagsDescription: "Kumpulan url bendera gratis kami.",
     mappingsDescription: "Kumpulan pemetaan yang menggerakkan game kami.",

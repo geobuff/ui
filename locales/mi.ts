@@ -299,8 +299,9 @@ export default {
     descriptionOne: "Whakapa atu ki te kapa i",
     descriptionTwo:
       "ki te rapu korero mo te hono ki to maatau API me te whakamahi i a maatau rauemi ki taau ake kaupapa.",
-    mapDescription:
-      "Ko te waahanga React i whakamahia hei whakaatu i o maatau mapi.",
+    componentLibraryHeading: "Buff UI",
+    componentLibraryDescription:
+      "Ko nga Waahanga React i hangaia e matou hei whakakaha i to maatau papaanga.",
     mapsDescription:
       "Ko ta maatau kohinga o nga mapi SVG koreutu-ki-te whakamahi.",
     flagsDescription: "Ko ta matou kohinga o nga URL haki kore utu.",

@@ -294,7 +294,9 @@ export default {
     descriptionOne: "Get in touch with the team at ",
     descriptionTwo:
       " to find out more about hooking into our API and utilizing our resources in your own project.",
-    mapDescription: "The React component used to display our maps.",
+    componentLibraryHeading: "Buff UI",
+    componentLibraryDescription:
+      "The React Components we've built to power our site.",
     mapsDescription: "Our collection of free-to-use SVG maps.",
     flagsDescription: "Our collection of free-to-use flag urls.",
     mappingsDescription: "The collection of mappings that drive our games.",
