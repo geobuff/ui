@@ -131,6 +131,7 @@ export default {
     remove: "Tango",
     viewCart: "Tiro Kaata",
     mins: "min",
+    shareQuiz: "Tiri Patapatai",
   },
   validations: {
     sizeRequired: "Kōwhirihia he rahi e wātea ana.",
@@ -356,6 +357,8 @@ export default {
     title: "Kupuhipa kua warewaretia",
     explainer:
       "Whakauruhia te wahitau imeera i whakamahia e koe i to whakaurunga ka tukuna atu e matou he hononga ki a koe hei tautuhi i to kupuhipa.",
+    successMessage:
+      "I momoho te tuku hononga tautuhi kupuhipa. Tena koa tirohia to imeera.",
   },
   loginLink: {
     message: "Kua hainatia?",
@@ -526,6 +529,9 @@ export default {
       "Tena koa ki te kati i tenei tikanga hei tiro i te mapi me o hua. Kaua e manukanuka, ka taea tonu e koe te tuku i to tatau i muri mai!",
   },
   gameOverModalExplainerText: {
+    explainerTextOne: "Me koe ",
+    submitAScoreText: " ki te whakahou i to kaute teitei.",
+    submitALeaderboardEntryText: " ki te tuku i tetahi urunga rangatira.",
     existingEntry: "TE TOHUTOHU TARI",
     scoreQuizLoggedInExplainer:
       "Mena he nui ake tenei kaute i to kaute o naianei, ka whakahouhia e matou i muri i nga tirohanga.",
@@ -1123,6 +1129,9 @@ export default {
       "Ko GeoCoin ta matou moni keemu ka whiwhi koe ia wa ka whiwhi koe i te nui ake i te kore i runga i te patapatai. Ko te nui o nga moni ka whiwhi koe i nga pauna i runga i te pai o to mahi.",
     itemFiveAnswerSectionTwo:
       "I tenei wa, kaore ano matou i whakatinana i etahi ahuatanga hei tuku i a koe ki te whakapau i to GeoCoin kua whiwhi pai. Kei te whakapau kaha te roopu ki te whakarereke kia taea ai e koe te hoko i nga taonga avatar motuhake, ohaurunga me etahi atu ma te whakamahi i to putea poaka. I tenei wa, mena kei te pirangi koe ki te ahu whakamua, mataki tonu ki ta maatau mahere huarahi, paapori paapori ranei mo etahi atu korero!",
+  },
+  blog: {
+    noPostsAlert: "Kaore he mea hei kite i konei.",
   },
   footer: {
     company: "Kamupene",

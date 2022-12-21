@@ -14,7 +14,7 @@ import { Field, Form, Formik } from "formik";
 import Link from "next/link";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { MerchSize } from "../../../types/merch-item";
 import { MerchSummaryFormSubmit } from "../../../types/merch-summary-form-submit";

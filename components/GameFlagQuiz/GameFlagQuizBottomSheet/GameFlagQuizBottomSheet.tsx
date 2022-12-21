@@ -1,20 +1,23 @@
 import React, { FC, useContext, useState } from "react";
 
+import {
+  DelayedRender,
+  GameHeader,
+  GameInputCardTimer,
+  ResultsMap,
+} from "@geobuff/buff-ui/components";
+
 import { ChevronUpIcon } from "@chakra-ui/icons";
 import { Box, Divider, Fade, Flex, Text } from "@chakra-ui/react";
 import { motion } from "framer-motion";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { groupMapping } from "../../../helpers/mapping";
 import { ExpiryTimestamp } from "../../../types/expiry-timestamp";
 import { FlagDetails } from "../../../types/flag-details";
 import { MappingEntry } from "../../../types/mapping-entry";
-import DelayedRender from "../../DelayedRender";
 import GameFlags from "../../GameFlags";
-import GameHeader from "../../GameHeader";
-import GameInputCardTimer from "../../GameInputCard/GameInputCardTimer";
-import ResultsMap from "../../ResultsMap";
 
 const motionDivStyles: Record<string, any> = {
   backgroundColor: "white",

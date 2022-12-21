@@ -1,18 +1,12 @@
 import React, { FC, useContext } from "react";
 
-import {
-  Alert,
-  AlertIcon,
-  AspectRatio,
-  Box,
-  SimpleGrid,
-} from "@chakra-ui/react";
-import Link from "next/link";
+import { Alert, AlertIcon, Box, SimpleGrid } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
+
+import { QuizCardContainer } from "../../containers";
 
 import { Quiz } from "../../types/quiz";
-import QuizCard from "../QuizCard";
 
 interface Props {
   quizzes?: Quiz[];
@@ -46,29 +40,13 @@ const QuizList: FC<Props> = ({ quizzes = [] }) => {
             minChildWidth={{ base: "140px", sm: "185px", md: "206px" }}
             spacing={{ base: "16px", md: "24px" }}
           >
-            {quizzes?.map((quiz) => (
-              <Link
+            {quizzes?.map((quiz, index) => (
+              <QuizCardContainer
                 key={quiz.id}
-                href={quiz.enabled ? `/quiz/${quiz?.route}` : "/"}
-              >
-                <AspectRatio
-                  maxWidth="260px"
-                  minHeight={{ base: "180px", sm: "206px", md: "216px" }}
-                  maxHeight="230px"
-                  ratio={3 / 2}
-                  transition="all 150ms ease-out"
-                  _hover={quiz.enabled && { transform: "scale(1.030)" }}
-                  opacity={!quiz.enabled ? "0.25" : "1"}
-                >
-                  <QuizCard
-                    name={quiz.name}
-                    imageUrl={quiz.imageUrl}
-                    time={quiz.time}
-                    maxScore={quiz.maxScore}
-                    plural={quiz.plural}
-                  />
-                </AspectRatio>
-              </Link>
+                index={index}
+                quizCount={quizzes.length}
+                quiz={quiz}
+              />
             ))}
           </SimpleGrid>
         </>

@@ -1,19 +1,23 @@
-import React, { FC } from "react";
+import React, { FC, useContext } from "react";
+
+import { HeroHeader } from "@geobuff/buff-ui/components";
 
 import { Alert, AlertIcon, Box } from "@chakra-ui/react";
 import Head from "next/head";
 
+import { LanguageContext } from "../../contexts/LanguageContext";
+
 import BlogPostCard from "../../components/Blog/BlogPostCard";
-import HeroHeader from "../../components/HeroHeader";
-import MainView from "../../components/MainView";
 
 import posts from "./posts";
 
 const Blog: FC = () => {
+  const { t } = useContext(LanguageContext);
+
   return (
-    <MainView>
+    <>
       <Head>
-        <title>Blog - GeoBuff</title>
+        <title>{`${t.global.blog} - GeoBuff`}</title>
         <meta
           name="description"
           content="Latest ramblings from the GeoBuff team about Geography, current affairs, new features and more..."
@@ -24,7 +28,7 @@ const Blog: FC = () => {
         {posts.length === 0 ? (
           <Alert status="info" borderRadius={6} marginBottom={3}>
             <AlertIcon />
-            Nothing to see here.
+            {t.blog.noPostsAlert}
           </Alert>
         ) : (
           <>
@@ -40,7 +44,7 @@ const Blog: FC = () => {
           </>
         )}
       </Box>
-    </MainView>
+    </>
   );
 };
 

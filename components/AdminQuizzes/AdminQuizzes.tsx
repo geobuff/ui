@@ -1,9 +1,10 @@
 import React, { FC } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import { Quiz } from "../../types/quiz";
 import { QuizPageDto } from "../../types/quiz-page-dto";
 import { UsersFilterParams } from "../../types/users-filter-params";
-import Card from "../Card";
 import TableHeader from "../Table/TableHeader/TableHeader";
 import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
 import { AdminQuizFilters } from "./AdminQuizFilters/AdminQuizFilters";

@@ -1,16 +1,16 @@
 import React, { FC, useContext } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Flex } from "@chakra-ui/react";
 import { GetStaticProps } from "next";
 import type { AppProps } from "next/app";
 import Head from "next/head";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import { QuizListContainer } from "../containers/QuizListContainer/QuizListContainer";
 
-import HeroHeader from "../components/HeroHeader";
-import MainView from "../components/MainView";
 import QuizList from "../components/QuizList";
 
 import axiosClient from "../axios";
@@ -27,24 +27,22 @@ const FlagGames: FC<AppProps> = ({ pageProps }) => {
           content="Call yourself a flag enthusiast? Test your knowledge on our variety of interactive flag games!"
         />
       </Head>
-      <MainView>
-        <HeroHeader heading={t.global.flagGamesUpper} />
-        <Flex flex={1} width="100%">
-          <Flex
-            direction="column"
-            padding={{ base: 0, md: 9 }}
-            maxWidth={1400}
-            width="100%"
-            marginX="auto"
-          >
-            {language === "en" ? (
-              <QuizList quizzes={pageProps?.flagQuizzes} />
-            ) : (
-              <QuizListContainer type="flag" />
-            )}
-          </Flex>
+      <HeroHeader heading={t.global.flagGamesUpper} />
+      <Flex flex={1} width="100%">
+        <Flex
+          direction="column"
+          padding={{ base: 0, md: 9 }}
+          maxWidth={1400}
+          width="100%"
+          marginX="auto"
+        >
+          {language === "en" ? (
+            <QuizList quizzes={pageProps?.flagQuizzes} />
+          ) : (
+            <QuizListContainer type="flag" />
+          )}
         </Flex>
-      </MainView>
+      </Flex>
     </>
   );
 };

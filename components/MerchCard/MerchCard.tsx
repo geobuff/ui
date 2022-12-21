@@ -2,7 +2,14 @@ import React, { FC } from "react";
 
 import { Twemoji } from "@geobuff/buff-ui/components";
 
-import { Box, Divider, Flex, Tag, Text } from "@chakra-ui/react";
+import {
+  Box,
+  Divider,
+  Flex,
+  Tag,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import Image from "next/image";
 
 import { cardImageStyle } from "../../helpers/style";
@@ -26,7 +33,7 @@ const MerchCard: FC<Props> = ({
   soldOut = false,
   isExternal = false,
 }) => {
-  const twemojiDimensions = { base: "10px", md: "12px" };
+  const twemojiDimensions = useBreakpointValue({ base: "10px", md: "12px" });
 
   return (
     <Flex

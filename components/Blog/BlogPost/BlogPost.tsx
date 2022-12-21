@@ -1,10 +1,9 @@
 import React, { FC } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { Box } from "@chakra-ui/react";
 import Head from "next/head";
-
-import HeroHeader from "../../HeroHeader";
-import MainView from "../../MainView";
 
 interface Meta {
   date: string;
@@ -18,7 +17,7 @@ export interface Props {
 }
 
 const BlogPost: FC<Props> = ({ meta, children }) => (
-  <MainView>
+  <>
     <Head>
       <title>{`${meta.title} - GeoBuff`}</title>
       <meta name="description" content={meta.description} />
@@ -32,7 +31,7 @@ const BlogPost: FC<Props> = ({ meta, children }) => (
     >
       <article>{children}</article>
     </Box>
-  </MainView>
+  </>
 );
 
 export default BlogPost;

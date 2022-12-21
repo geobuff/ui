@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { CustomFlag } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -16,7 +18,6 @@ import { DateTime } from "luxon";
 
 import AdminUsersTablePlaceholder from "../../../placeholders/AdminUsersTablePlaceholder";
 import { UserDto } from "../../../types/user-dto";
-import CustomFlag from "../../CustomFlag";
 import TableCell from "../../Table/TableCell";
 
 export interface Props {

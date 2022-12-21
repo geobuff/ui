@@ -9,7 +9,7 @@ import {
   Text,
 } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import RadioButton from "../../RadioButton";
 

@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -11,12 +13,11 @@ import {
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
 
 import { CommunityQuiz } from "../../types/community-quiz-dto";
-import Card from "../Card";
 
 export interface Props {
   quizzes?: CommunityQuiz[];

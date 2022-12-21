@@ -1,5 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 
+import { ArrowLeft, Modal } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -16,9 +18,8 @@ import {
 import { Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
-import ArrowLeft from "../../Icons/ArrowLeft";
 import {
   CommunityQuizFormQuestion,
   CommunityQuizFormSubmit,
@@ -27,7 +28,6 @@ import { FormSetFieldValue } from "../../types/form";
 import { GetMapsDto } from "../../types/get-maps-dto";
 import { TriviaQuestionType } from "../../types/trivia-question-type";
 import { UnsplashImage } from "../../types/unsplash-image";
-import Modal from "../Modal";
 import CommunityQuizFormField from "./CommunityQuizFormField";
 import CommunityQuizQuestionForm from "./CommunityQuizQuestionForm";
 import CommunityQuizQuestionsField from "./CommunityQuizQuestionsField";

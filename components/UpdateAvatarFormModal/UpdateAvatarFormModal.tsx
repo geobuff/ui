@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Button,
@@ -11,13 +13,11 @@ import {
 import { Field, Form, Formik } from "formik";
 import * as Yup from "yup";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import AvatarSelectContainer from "../../containers/AvatarSelectContainer";
 
 import { UpdateAvatarFormSubmit } from "../../types/update-avatar-form-submit";
-import ErrorAlertBanner from "../ErrorAlertBanner";
-import Modal from "../Modal";
 
 interface Props {
   avatarId?: number;
@@ -26,7 +26,6 @@ interface Props {
   onSubmit?: (values: UpdateAvatarFormSubmit) => void;
   isSubmitting?: boolean;
   isNotchedIphone?: boolean;
-  error?: string;
 }
 
 const UpdateAvatarFormModal: FC<Props> = ({
@@ -36,7 +35,6 @@ const UpdateAvatarFormModal: FC<Props> = ({
   onSubmit = (): void => {},
   isSubmitting = false,
   isNotchedIphone = false,
-  error = "",
 }) => {
   const { t } = useContext(LanguageContext);
 
@@ -113,7 +111,6 @@ const UpdateAvatarFormModal: FC<Props> = ({
                     >
                       {"Update"}
                     </Button>
-                    <ErrorAlertBanner error={error} />
                   </Flex>
                 </Flex>
               </Flex>

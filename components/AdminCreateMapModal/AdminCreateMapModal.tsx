@@ -1,9 +1,11 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
+import { Modal, SVGBase } from "@geobuff/buff-ui/components";
+
 import { Divider, Flex, Heading, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts";
 
 import useBadges from "../../hooks/UseBadges";
 import useContinents from "../../hooks/UseContinents";
@@ -17,9 +19,7 @@ import { CreateSvgMapPayload } from "../../types/create-svg-map-payload";
 import { NullInt } from "../../types/null-int";
 import { QuizEditValues } from "../../types/quiz-edit-values";
 import { QuizFormSubmit } from "../../types/quiz-form-submit";
-import { SVGBase } from "../../types/svg-base";
 import AdminQuizForm from "../AdminQuizForm";
-import Modal from "../Modal";
 import AdminCreateMapMappingsForm from "./AdminCreateMapMappingsForm";
 import AdminCreateMapPreview from "./AdminCreateMapPreview";
 

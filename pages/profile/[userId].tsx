@@ -3,11 +3,9 @@ import React, { FC, useContext, useEffect, useState } from "react";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import UserProfileContainer from "../../containers/UserProfileContainer";
-
-import MainView from "../../components/MainView";
 
 const Profile: FC = () => {
   const router = useRouter();
@@ -33,9 +31,7 @@ const Profile: FC = () => {
           content="The one-stop shop to check out your badges, leaderboard entries, created quizzes and more."
         />
       </Head>
-      <MainView>
-        {isLoading ? null : <UserProfileContainer routeId={userId} />}
-      </MainView>
+      {isLoading ? null : <UserProfileContainer routeId={userId} />}
     </>
   );
 };

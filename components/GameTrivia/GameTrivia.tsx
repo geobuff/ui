@@ -7,15 +7,14 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { use100vh } from "react-div-100vh";
 
-import { AppContext } from "../../context/AppContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { AppContext } from "../../contexts/AppContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { getTriviaScoreMessage } from "../../helpers/clipboard";
 import { genericToast } from "../../helpers/toasts";
 import { Trivia } from "../../types/trivia";
 import { TriviaAnswer } from "../../types/trivia-answer";
 import { TriviaQuestion } from "../../types/trivia-question";
-import MainView from "../MainView";
 import GameTriviaAnswers from "./GameTriviaAnswers";
 import GameTriviaContent from "./GameTriviaContent";
 import GameTriviaHeader from "./GameTriviaHeader";
@@ -101,65 +100,68 @@ const GameTrivia: FC<Props> = ({
           crossOrigin="anonymous"
         />
       </Head>
-      <MainView hasFooter={false} backgroundColor="#276F86">
-        <Box position="fixed" top="56px" left={0} right={0} bottom={0}>
-          <Flex
-            flex={1}
-            direction="column"
-            height="100%"
-            width="100%"
-            maxWidth={1300}
-            padding={isTinyMobile ? 4 : 5}
-            marginLeft="auto"
-            marginRight="auto"
-          >
-            <GameTriviaHeader
-              name={trivia.name}
-              questionNumber={questionNumber}
-              maxQuestionNumber={trivia.questions?.length}
-            />
+      <Box
+        position="fixed"
+        top="56px"
+        left={0}
+        right={0}
+        bottom={0}
+        backgroundColor="#276F86"
+      >
+        <Flex
+          flex={1}
+          direction="column"
+          height="100%"
+          width="100%"
+          maxWidth={1300}
+          padding={isTinyMobile ? 4 : 5}
+          marginLeft="auto"
+          marginRight="auto"
+        >
+          <GameTriviaHeader
+            name={trivia.name}
+            questionNumber={questionNumber}
+            maxQuestionNumber={trivia.questions?.length}
+          />
 
-            {hasGameStopped ? (
-              <GameTriviaGameOver
-                score={score}
-                maxQuestionNumber={trivia.questions?.length}
-                onCopyScore={handleCopyScore}
-                onPlayAgain={handlePlayAgain}
+          {hasGameStopped ? (
+            <GameTriviaGameOver
+              score={score}
+              maxQuestionNumber={trivia.questions?.length}
+              onCopyScore={handleCopyScore}
+              onPlayAgain={handlePlayAgain}
+            />
+          ) : (
+            <>
+              <GameTriviaContent
+                text={question?.question}
+                type={question?.type}
+                map={question?.map}
+                mapName={question?.mapName}
+                highlighted={question?.highlighted}
+                flagCode={question?.flagCode}
+                flagUrl={question.flagUrl.Valid ? question.flagUrl.String : ""}
+                imageUrl={question?.imageUrl}
+                imageAttributeName={question?.imageAttributeName}
+                imageAttributeUrl={question?.imageAttributeUrl}
+                imageWidth={question?.imageWidth}
+                imageHeight={question?.imageHeight}
+                imageAlt={question?.imageAlt}
               />
-            ) : (
-              <>
-                <GameTriviaContent
-                  text={question?.question}
-                  type={question?.type}
-                  map={question?.map}
-                  mapName={question?.mapName}
-                  highlighted={question?.highlighted}
-                  flagCode={question?.flagCode}
-                  flagUrl={
-                    question.flagUrl.Valid ? question.flagUrl.String : ""
-                  }
-                  imageUrl={question?.imageUrl}
-                  imageAttributeName={question?.imageAttributeName}
-                  imageAttributeUrl={question?.imageAttributeUrl}
-                  imageWidth={question?.imageWidth}
-                  imageHeight={question?.imageHeight}
-                  imageAlt={question?.imageAlt}
-                />
-                <GameTriviaAnswers
-                  question={question}
-                  hasAnswered={hasAnswered}
-                  selectedAnswer={selectedAnswer}
-                  isLastQuestion={isLastQuestion}
-                  isNotchedIphone={isNotchedIphone}
-                  onAnswerQuestion={handleAnswerQuestion}
-                  onNextQuestion={handleNextQuestion}
-                  onGameStop={handleGameStop}
-                />
-              </>
-            )}
-          </Flex>
-        </Box>
-      </MainView>
+              <GameTriviaAnswers
+                question={question}
+                hasAnswered={hasAnswered}
+                selectedAnswer={selectedAnswer}
+                isLastQuestion={isLastQuestion}
+                isNotchedIphone={isNotchedIphone}
+                onAnswerQuestion={handleAnswerQuestion}
+                onNextQuestion={handleNextQuestion}
+                onGameStop={handleGameStop}
+              />
+            </>
+          )}
+        </Flex>
+      </Box>
     </>
   );
 };

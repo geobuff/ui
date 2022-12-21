@@ -1,8 +1,8 @@
 import React, { FC } from "react";
 
-import { Flex, Heading, SimpleGrid, Skeleton } from "@chakra-ui/react";
+import { Card } from "@geobuff/buff-ui/components";
 
-import Card from "../../components/Card";
+import { Flex, Heading, SimpleGrid, Skeleton } from "@chakra-ui/react";
 
 interface Props {
   noOfTiles?: number;

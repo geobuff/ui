@@ -2,8 +2,8 @@ import React, { FC, useContext, useState } from "react";
 
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
-import { ShoppingCartContext } from "../../context/ShoppingCartContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
+import { ShoppingCartContext } from "../../contexts/ShoppingCartContext";
 
 import useMerch from "../../hooks/UseMerch";
 

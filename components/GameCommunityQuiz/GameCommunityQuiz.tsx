@@ -5,8 +5,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { use100vh } from "react-div-100vh";
 
-import { AppContext } from "../../context/AppContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { AppContext } from "../../contexts/AppContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { getCommunityQuizScoreMessage } from "../../helpers/clipboard";
 import { genericToast } from "../../helpers/toasts";
@@ -14,7 +14,6 @@ import {
   GetCommunityQuiz,
   GetCommunityQuizAnswer,
 } from "../../types/get-community-quiz-dto";
-import MainView from "../MainView";
 import GameCommunityQuizAnswers from "./GameCommunityQuizAnswers";
 import GameCommunityQuizContent from "./GameCommunityQuizContent";
 import GameCommunityQuizGameOver from "./GameCommunityQuizGameOver";
@@ -170,27 +169,32 @@ const GameCommunityQuiz: FC<Props> = ({
           crossOrigin="anonymous"
         />
       </Head>
-      <MainView hasFooter={false} backgroundColor="#276F86">
-        <Box position="fixed" top="56px" left={0} right={0} bottom={0}>
-          <Flex
-            flex={1}
-            direction="column"
-            height="100%"
-            width="100%"
-            maxWidth={1300}
-            padding={isTinyMobile ? 4 : 5}
-            marginLeft="auto"
-            marginRight="auto"
-          >
-            <GameCommunityQuizHeader
-              name={quiz.name}
-              questionNumber={questionNumber}
-              maxQuestionNumber={quiz.questions?.length}
-            />
-            {getContent()}
-          </Flex>
-        </Box>
-      </MainView>
+      <Box
+        position="fixed"
+        top="56px"
+        left={0}
+        right={0}
+        bottom={0}
+        backgroundColor="#276F86"
+      >
+        <Flex
+          flex={1}
+          direction="column"
+          height="100%"
+          width="100%"
+          maxWidth={1300}
+          padding={isTinyMobile ? 4 : 5}
+          marginLeft="auto"
+          marginRight="auto"
+        >
+          <GameCommunityQuizHeader
+            name={quiz.name}
+            questionNumber={questionNumber}
+            maxQuestionNumber={quiz.questions?.length}
+          />
+          {getContent()}
+        </Flex>
+      </Box>
     </>
   );
 };

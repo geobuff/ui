@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { CustomFlag } from "@geobuff/buff-ui/components";
+
 import {
   Box,
   Flex,
@@ -11,7 +13,6 @@ import {
 
 import { Avatar } from "../../types/avatar";
 import { FieldProps } from "../../types/field-props";
-import CustomFlag from "../CustomFlag";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import RadioCard from "./RadioCard";
 

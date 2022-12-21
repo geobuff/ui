@@ -131,6 +131,7 @@ export default {
     remove: "Retirar",
     viewCart: "Ver carro",
     mins: "minutos",
+    shareQuiz: "Compartir prueba",
   },
   validations: {
     sizeRequired: "Por favor, elija un tamaño disponible.",
@@ -363,6 +364,8 @@ export default {
     title: "Contraseña olvidada",
     explainer:
       "Ingrese la dirección de correo electrónico que utilizó cuando se unió y le enviaremos un enlace para restablecer su contraseña.",
+    successMessage:
+      "Enlace de restablecimiento de contraseña enviado con éxito. Por favor revise su correo electrónico.",
   },
   loginLink: {
     message: "¿Ya te registraste?",
@@ -535,6 +538,10 @@ export default {
       "Siéntase libre de cerrar este modal para ver el mapa y sus resultados. ¡No se preocupe, aún podrá enviar su puntaje después!",
   },
   gameOverModalExplainerText: {
+    explainerTextOne: "Debes ",
+    submitAScoreText: " para actualizar su puntuación más alta.",
+    submitALeaderboardEntryText:
+      " para enviar una entrada a la tabla de clasificación.",
     existingEntry: "ENTRADA EXISTENTE",
     scoreQuizLoggedInExplainer:
       "Si este puntaje es mayor que su puntaje actual, lo actualizaremos en segundo plano.",
@@ -1138,6 +1145,9 @@ export default {
       "GeoCoin es nuestra moneda en el juego que ganas cada vez que obtienes una puntuación superior a cero en una prueba. La cantidad de monedas que gana se escala en función de su desempeño.",
     itemFiveAnswerSectionTwo:
       "Actualmente, no hemos implementado ninguna función que le permita gastar su bien ganada GeoCoin. El equipo está trabajando arduamente para realizar cambios que le permitan comprar artículos especiales de avatar, suscripciones y más usando su alcancía. Mientras tanto, si está interesado en cómo estamos progresando, esté atento a nuestra hoja de ruta o redes sociales para obtener más detalles.",
+  },
+  blog: {
+    noPostsAlert: "Nada que ver aqui.",
   },
   footer: {
     company: "Compañía",

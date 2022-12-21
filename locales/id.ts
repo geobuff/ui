@@ -131,6 +131,7 @@ export default {
     remove: "Menghapus",
     viewCart: "Lihat Keranjang",
     mins: "menit",
+    shareQuiz: "Bagikan Kuis",
   },
   validations: {
     sizeRequired: "Silahkan pilih ukuran yang tersedia.",
@@ -352,6 +353,8 @@ export default {
     title: "password yang terlupakan",
     explainer:
       "Masukkan alamat email yang Anda gunakan saat bergabung dan kami akan mengirimkan tautan untuk mereset kata sandi Anda.",
+    successMessage:
+      "Berhasil mengirim tautan setel ulang kata sandi. Silakan periksa email Anda.",
   },
   loginLink: {
     message: "Sudah mendaftar?",
@@ -522,6 +525,9 @@ export default {
       "Jangan ragu untuk menutup modal ini untuk melihat peta dan hasil Anda. Jangan khawatir, Anda masih dapat mengirimkan skor setelahnya!",
   },
   gameOverModalExplainerText: {
+    explainerTextOne: "Kamu harus ",
+    submitAScoreText: " untuk memperbarui skor tinggi Anda.",
+    submitALeaderboardEntryText: " untuk mengirimkan entri papan peringkat.",
     existingEntry: "MASUK YANG ADA",
     scoreQuizLoggedInExplainer:
       "Jika skor ini lebih besar dari skor Anda saat ini, kami akan memperbaruinya di belakang layar.",
@@ -1118,6 +1124,9 @@ export default {
       "GeoCoin adalah mata uang dalam game kami yang Anda peroleh setiap kali skor Anda lebih besar dari nol pada kuis. Jumlah koin yang Anda peroleh diskalakan berdasarkan seberapa baik kinerja Anda.",
     itemFiveAnswerSectionTwo:
       "Saat ini, kami belum menerapkan fitur apa pun untuk memungkinkan Anda membelanjakan GeoCoin yang Anda peroleh dengan baik. Tim bekerja keras membuat perubahan untuk memungkinkan Anda membeli item avatar khusus, langganan, dan lainnya menggunakan celengan Anda. Sementara itu, jika Anda tertarik dengan kemajuan kami, pantau terus roadmap atau media sosial kami untuk detail lebih lanjut!",
+  },
+  blog: {
+    noPostsAlert: "Tidak ada yang bisa dilihat di sini.",
   },
   footer: {
     company: "Perusahaan",

@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+
+import { LanguageContext } from "../contexts";
 
 import axiosClient from "../axios";
 import { Quiz } from "../types/quiz";
@@ -12,6 +14,8 @@ export const useAllQuizzes = (type: "map" | "flag"): Result => {
   const [data, setData] = useState<Quiz[]>();
   const [isLoading, setIsLoading] = useState(true);
 
+  const { language } = useContext(LanguageContext);
+
   useEffect(() => {
     axiosClient
       .post(`${process.env.NEXT_PUBLIC_API_URL}/quizzes/all`, {
@@ -23,7 +27,7 @@ export const useAllQuizzes = (type: "map" | "flag"): Result => {
         setData(response.data.quizzes);
         setIsLoading(false);
       });
-  }, [type]);
+  }, [type, language]);
 
   return {
     data: data,

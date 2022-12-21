@@ -1,11 +1,13 @@
 import React, { FC, useState } from "react";
 
+import {
+  OutlinedZoomIn,
+  OutlinedZoomOut,
+  SolidRefresh,
+} from "@geobuff/buff-ui/components";
+
 import { Box, BoxProps, Button, useBreakpointValue } from "@chakra-ui/react";
 import { MapInteraction } from "react-map-interaction";
-
-import OutlinedZoomIn from "../../Icons/OutlinedZoomIn";
-import OutlinedZoomOut from "../../Icons/OutlinedZoomOut";
-import SolidRefresh from "../../Icons/SolidRefresh";
 
 const defaultValue = { scale: 1, translation: { x: 0, y: 0 } };
 

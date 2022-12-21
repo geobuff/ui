@@ -2,7 +2,7 @@ import React, { FC, useContext } from "react";
 
 import { AppProps } from "next/app";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import { GameQuizContainer } from "../../containers/GameQuizContainer/GameQuizContainer";
 

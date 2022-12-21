@@ -1,11 +1,12 @@
 import React, { FC, useEffect, useState } from "react";
 
+import { Modal } from "@geobuff/buff-ui/components";
+
 import { Flex, useDisclosure } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
 import AdminQuizzes from "../../components/AdminQuizzes";
 import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
-import Modal from "../../components/Modal";
 
 import axiosClient from "../../axios";
 import { Quiz } from "../../types/quiz";

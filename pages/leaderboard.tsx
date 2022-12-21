@@ -5,11 +5,9 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
 import LeaderboardContainer from "../containers/LeaderboardContainer";
-
-import MainView from "../components/MainView";
 
 import axiosClient from "../axios";
 import { QuizzesFilterDto } from "../types/quizzes-filter-dto";
@@ -30,13 +28,11 @@ const Leaderboard: FC<AppProps> = ({ pageProps }) => {
           content="Earn your place on the GeoBuff leaderboard! Every game features a competitive leaderboard so you can compete with your friends and foes from all over the world."
         />
       </Head>
-      <MainView>
-        <LeaderboardContainer
-          quizIdParam={quizId && (quizId as string)}
-          rankParam={rank && (rank as string)}
-          quizzes={quizzes}
-        />
-      </MainView>
+      <LeaderboardContainer
+        quizIdParam={quizId && (quizId as string)}
+        rankParam={rank && (rank as string)}
+        quizzes={quizzes}
+      />
     </>
   );
 };

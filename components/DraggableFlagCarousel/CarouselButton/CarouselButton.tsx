@@ -1,9 +1,8 @@
 import React, { FC } from "react";
 
-import { IconButton } from "@chakra-ui/react";
+import { ArrowLeft, ArrowRight } from "@geobuff/buff-ui/components";
 
-import ArrowLeft from "../../../Icons/ArrowLeft";
-import ArrowRight from "../../../Icons/ArrowRight";
+import { IconButton } from "@chakra-ui/react";
 
 const iconProps = {
   color: "black",

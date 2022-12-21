@@ -1,6 +1,13 @@
 import React, { FC, useCallback, useContext, useEffect, useState } from "react";
 
 import {
+  GameInputCard,
+  GameSidebar,
+  ResultsMap,
+  SolidChevronUp,
+} from "@geobuff/buff-ui/components";
+
+import {
   Box,
   Button,
   Flex,
@@ -14,12 +21,11 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useTimer } from "react-timer-hook";
 
-import { AppContext } from "../../context/AppContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { AppContext } from "../../contexts/AppContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import useWarnIfActiveGame from "../../hooks/useWarnIfActiveGame";
 
-import SolidChevronUp from "../../Icons/SolidChevronUp";
 import axiosClient from "../../axios/axiosClient";
 import { findSubmissionByCode } from "../../helpers/game";
 import { groupMapping } from "../../helpers/mapping";
@@ -34,18 +40,14 @@ import { Result } from "../../types/result";
 import FlagDropZone from "../FlagDropZone/FlagDropZone";
 import GameBannerButton from "../GameBannerButton";
 import GameFlags from "../GameFlags/GameFlags";
-import GameInputCard from "../GameInputCard";
-import Sidebar from "../Sidebar";
 
-const GameOverModalContainer = dynamic(
-  () => import("../../containers/GameOverModalContainer")
+const GameOverModalContainer = dynamic(() =>
+  import("../../containers").then((mod) => mod.GameOverModalContainer)
 );
 
 const GameFlagQuizBottomSheet = dynamic(
   () => import("./GameFlagQuizBottomSheet")
 );
-
-const ResultsMap = dynamic(() => import("../ResultsMap"));
 
 const INCORRECT_ANSWER_THRESHOLD = 1;
 const NUMBER_OF_FLAGS = 10;
@@ -348,7 +350,7 @@ const GameFlagQuiz: FC<Props> = ({
           crossOrigin="anonymous"
         />
       </Head>
-      <Flex flex={1} direction="column">
+      <Flex flex={1} direction="column" backgroundColor="#276F86">
         <Flex height="100%" minHeight="100%" direction="column" flex={1}>
           {isMobile && (
             <GameBannerButton
@@ -362,7 +364,7 @@ const GameFlagQuiz: FC<Props> = ({
           <Flex grow={1} direction="column">
             {!isMobile && (
               <Box minHeight="100%">
-                <Sidebar
+                <GameSidebar
                   heading={name}
                   quizId={id}
                   hasLeaderboard={hasLeaderboard}
@@ -372,7 +374,6 @@ const GameFlagQuiz: FC<Props> = ({
                       typeId={typeId}
                       maxScore={maxScore}
                       time={time}
-                      plural={plural}
                       hasFlags={hasFlags}
                       recents={recentSubmissions}
                       score={score}
@@ -383,6 +384,14 @@ const GameFlagQuiz: FC<Props> = ({
                       hasGameStarted={hasGameStarted}
                       hasGameStopped={hasGameStopped}
                       inputValue={inputValue}
+                      inputPlaceholder={`${t.global.enter} ${plural}...`}
+                      giveUpText={t.global.giveUp.toUpperCase()}
+                      retryText={t.global.retry.toUpperCase()}
+                      startText={t.global.start.toUpperCase()}
+                      noResultsMessage={`${t.global.no} ${plural} ${t.global.toDisplay}`}
+                      recentHeading={t.global.recent.toUpperCase()}
+                      scoreHeading={t.global.score.toUpperCase()}
+                      closeCircleLabel={t.global.closeCircle}
                       onClearInput={onClearInput}
                       onGameStart={handleGameStart}
                       onGameStop={handleGameStop}
@@ -395,7 +404,7 @@ const GameFlagQuiz: FC<Props> = ({
                       hasFlags={hasFlags}
                     />
                   </Box>
-                </Sidebar>
+                </GameSidebar>
               </Box>
             )}
 

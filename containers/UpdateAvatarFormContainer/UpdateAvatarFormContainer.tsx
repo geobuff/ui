@@ -3,9 +3,9 @@ import React, { FC, useContext, useState } from "react";
 import { ToastPosition, useBreakpointValue, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
-import { AppContext } from "../../context/AppContext";
-import { CurrentUserContext } from "../../context/CurrentUserContext/CurrentUserContext";
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { AppContext } from "../../contexts/AppContext";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import UpdateAvatarFormModal from "../../components/UpdateAvatarFormModal";
 
@@ -24,7 +24,7 @@ const UpdateAvatarFormContainer: FC<Props> = ({
 }) => {
   const { t } = useContext(LanguageContext);
   const toast = useToast();
-  const { isNotchedIphone } = useContext(AppContext);
+  const { isNotchedIphone, setError } = useContext(AppContext);
 
   const { user, updateUser } = useContext(CurrentUserContext);
   const { data: session } = useSession();
@@ -35,12 +35,9 @@ const UpdateAvatarFormContainer: FC<Props> = ({
   });
 
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
 
   const handleSubmit = (values: UpdateAvatarFormSubmit): void => {
     setIsSubmitting(true);
-    setError("");
-
     axiosClient
       .put(
         `/users/${user.id}`,
@@ -85,7 +82,6 @@ const UpdateAvatarFormContainer: FC<Props> = ({
       onSubmit={handleSubmit}
       isSubmitting={isSubmitting}
       isNotchedIphone={isNotchedIphone}
-      error={error}
     />
   );
 };

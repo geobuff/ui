@@ -9,10 +9,14 @@ import NProgress from "nprogress";
 //nprogress module
 import "nprogress/nprogress.css";
 
-import { AppContextProvider } from "../context/AppContext";
-import { CurrentUserContextProvider } from "../context/CurrentUserContext/CurrentUserContext";
-import { LanguageContextProvider } from "../context/LanguageContext/LanguageContext";
-import { ShoppingCartContextProvider } from "../context/ShoppingCartContext";
+import {
+  AppContextProvider,
+  CurrentUserContextProvider,
+  LanguageContextProvider,
+  ShoppingCartContextProvider,
+} from "../contexts";
+
+import { MainViewContainer } from "../containers";
 
 import { AuthErrorRedirect } from "../components/AuthErrorRedirect/AuthErrorRedirect";
 import AuthGuard from "../components/AuthGuard";
@@ -24,6 +28,19 @@ import "../styles/globals.css";
 import theme from "../styles/theme";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
+
+const SIMPLE_ROUTES = [
+  "/login",
+  "/register",
+  "/forgot-password",
+  "/reset-password",
+];
+
+const NO_FOOTER_ROUTES = [
+  "/community-quiz/[id]",
+  "/quiz/[id]",
+  "/daily-trivia/[date]",
+];
 
 interface Props {
   session: Session;
@@ -38,7 +55,7 @@ Router.events.on("routeChangeError", () => NProgress.done());
 NProgress.configure({ showSpinner: false });
 
 const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
-  const router = useRouter();
+  const { events, pathname } = useRouter();
   const [canonicalHref, setCanonicalHref] = useState("");
 
   useEffect(() => {
@@ -46,11 +63,20 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
     const handleRouteChange = (url: URL) => {
       gtag.pageview(url);
     };
-    router.events.on("routeChangeComplete", handleRouteChange);
+    events.on("routeChangeComplete", handleRouteChange);
     return () => {
-      router.events.off("routeChangeComplete", handleRouteChange);
+      events.off("routeChangeComplete", handleRouteChange);
     };
-  }, [router.events]);
+  }, [events]);
+
+  const content = (
+    <MainViewContainer
+      isSimplePage={SIMPLE_ROUTES.includes(pathname)}
+      hasFooter={!NO_FOOTER_ROUTES.includes(pathname)}
+    >
+      <Component {...pageProps} />
+    </MainViewContainer>
+  );
 
   return (
     <>
@@ -132,11 +158,9 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
                   <ClientOnly>
                     <AuthErrorRedirect>
                       {Component.requireAuth ? (
-                        <AuthGuard>
-                          <Component {...pageProps} />
-                        </AuthGuard>
+                        <AuthGuard>{content}</AuthGuard>
                       ) : (
-                        <Component {...pageProps} />
+                        content
                       )}
                     </AuthErrorRedirect>
                   </ClientOnly>

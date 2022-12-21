@@ -131,6 +131,7 @@ export default {
     remove: "Remove",
     viewCart: "View Cart",
     mins: "mins",
+    shareQuiz: "Share Quiz",
   },
   validations: {
     sizeRequired: "Please choose an available size.",
@@ -348,6 +349,8 @@ export default {
     title: "Forgotten Password",
     explainer:
       "Enter the email address you used when you joined and we'll send you a link to reset your password.",
+    successMessage:
+      "Successfully sent password reset link. Please check your email.",
   },
   loginLink: {
     message: "Already signed up?",
@@ -516,6 +519,9 @@ export default {
       "Feel free to close this modal to view the map and your results. Don't worry, you'll still be able to submit your score afterwards!",
   },
   gameOverModalExplainerText: {
+    explainerTextOne: "You must ",
+    submitAScoreText: " to update your high score.",
+    submitALeaderboardEntryText: " to submit a leaderboard entry.",
     existingEntry: "EXISTING ENTRY",
     scoreQuizLoggedInExplainer:
       "If this score is greater than your existing score, we will update it behind the scenes.",
@@ -1107,6 +1113,9 @@ export default {
       "GeoCoin is our in-game currency that you earn each time you score greater than zero on a quiz. The amount of coins you earn scales based on how well you perform.",
     itemFiveAnswerSectionTwo:
       "Currently, we haven't implemented any features to allow you to spend your well-earned GeoCoin. The team is hard at work making changes to allow you to purchase special avatar items, subscriptions and more using your piggybank. In the meantime, if you're interested in how we are progressing, keep an eye on our roadmap or social media for more details!",
+  },
+  blog: {
+    noPostsAlert: "Nothing to see here.",
   },
   footer: {
     company: "Company",

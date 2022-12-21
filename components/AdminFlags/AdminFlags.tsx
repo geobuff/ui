@@ -1,11 +1,12 @@
 import React, { FC } from "react";
 
+import { Card } from "@geobuff/buff-ui/components";
+
 import { Divider, Flex } from "@chakra-ui/react";
 
 import useFlagGroup from "../../hooks/UseFlagEntries";
 
 import { FlagGroup } from "../../types/flag-group";
-import Card from "../Card";
 import AdminFlagsFilters from "./AdminFlagsFilters";
 import AdminFlagsHeader from "./AdminFlagsHeader";
 import AdminFlagsTable from "./AdminFlagsTable";

@@ -1,15 +1,6 @@
 import React, { FC } from "react";
 
-import {
-  Skeleton,
-  Table,
-  Tbody,
-  Td,
-  Th,
-  Thead,
-  Tr,
-  useBreakpointValue,
-} from "@chakra-ui/react";
+import { Skeleton, Table, Tbody, Td, Th, Thead, Tr } from "@chakra-ui/react";
 
 interface Props {
   rows?: number;

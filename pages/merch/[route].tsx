@@ -1,13 +1,12 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
+import { HeroHeader } from "@geobuff/buff-ui/components";
+
 import { useRouter } from "next/router";
 
-import { LanguageContext } from "../../context/LanguageContext/LanguageContext";
+import { LanguageContext } from "../../contexts/LanguageContext";
 
 import MerchSummaryContainer from "../../containers/MerchSummaryContainer";
-
-import HeroHeader from "../../components/HeroHeader";
-import MainView from "../../components/MainView";
 
 const Summary: FC = () => {
   const router = useRouter();
@@ -25,10 +24,10 @@ const Summary: FC = () => {
   }, [router]);
 
   return (
-    <MainView>
+    <>
       <HeroHeader heading={t.global.merch} />
       {isLoading ? null : <MerchSummaryContainer route={route} />}
-    </MainView>
+    </>
   );
 };
 
