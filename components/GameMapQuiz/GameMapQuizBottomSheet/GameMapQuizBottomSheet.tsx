@@ -1,6 +1,7 @@
-import React, { FC, createRef, useContext, useEffect } from "react";
+import React, { FC, useContext, useEffect, useState } from "react";
 
 import {
+  BottomSheet,
   GameHeader,
   ResultsList,
   ResultsMap,
@@ -14,7 +15,6 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import Sheet from "react-modal-sheet";
 
 import { AppContext } from "../../../contexts/AppContext";
 import { LanguageContext } from "../../../contexts/LanguageContext";
@@ -22,9 +22,6 @@ import { LanguageContext } from "../../../contexts/LanguageContext";
 import { groupMapping } from "../../../helpers/mapping";
 import { MappingEntry } from "../../../types/mapping-entry";
 import { Result } from "../../../types/result";
-
-const snapPoints = [600, 400, 300, 90];
-const initialSnap = snapPoints.length - 2;
 
 export interface Props {
   hasLeaderboard?: boolean;
@@ -62,19 +59,17 @@ const GameMapQuizBottomSheet: FC<Props> = ({
   onGameStop = (): void => {},
 }) => {
   const { t } = useContext(LanguageContext);
-
-  const ref = createRef<any>();
-  const isMobile = useBreakpointValue({ base: true, md: false });
   const { isNavSidebarOpen } = useContext(AppContext);
+  const isMobile = useBreakpointValue({ base: true, md: false });
+
+  const [isMinimised, setIsMinimised] = useState(false);
 
   // Push modal down on game start
   useEffect(() => {
     if (hasGameStarted && isMobile) {
-      snapTo(snapPoints.length - 1);
+      setIsMinimised(true);
     }
   }, [hasGameStarted, isMobile]);
-
-  const snapTo = (snapIndex: number): void => ref?.current?.snapTo(snapIndex);
 
   const gameControlButtonText = hasGameStarted
     ? t.global.giveUp.toUpperCase()
@@ -83,102 +78,71 @@ const GameMapQuizBottomSheet: FC<Props> = ({
     : t.global.start.toUpperCase();
 
   return (
-    <Box
-      ref={ref}
-      as={Sheet}
-      isOpen={isOpen && !isNavSidebarOpen}
-      snapPoints={snapPoints}
-      initialSnap={initialSnap}
-      mt="120px"
-      top="100% !important"
-      minHeight="92vh"
-      zIndex="1000 !important"
-      springConfig={{
-        stiffness: 600,
-        damping: 60,
-        mass: 0.2,
-      }}
-      onClose={(): void => {}}
-    >
-      <Sheet.Container style={{ position: "fixed" }}>
-        <Box as={Sheet.Header} />
-        <Box
-          margin="auto"
-          borderRadius={25}
-          height={"4.35px"}
-          width={8}
-          backgroundColor="#dddddd"
-          mb={3}
-          marginTop={-4}
+    <BottomSheet isOpen={isOpen && !isNavSidebarOpen} isMinimised={isMinimised}>
+      <Flex
+        direction="column"
+        height="100%"
+        overflowY="scroll"
+        mx={4}
+        my={0}
+        pb="100px"
+        css={{
+          "&::-webkit-scrollbar": {
+            width: "4px",
+            display: "none",
+          },
+          "&::-webkit-scrollbar-track": {
+            width: "6px",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            borderRadius: "24px",
+          },
+        }}
+      >
+        <GameHeader
+          hasLeaderboard={hasLeaderboard}
+          heading={name}
+          quizId={id}
         />
 
-        <Sheet.Content>
-          <Flex
-            direction="column"
-            height="100%"
-            overflowY="scroll"
-            mx={4}
-            my={0}
-            pb="100px"
-            css={{
-              "&::-webkit-scrollbar": {
-                width: "4px",
-                display: "none",
-              },
-              "&::-webkit-scrollbar-track": {
-                width: "6px",
-              },
-              "&::-webkit-scrollbar-thumb": {
-                borderRadius: "24px",
-              },
-            }}
+        <Divider my={4} />
+
+        <Box my={2}>
+          <Button
+            colorScheme={hasGameStarted ? "red" : "green"}
+            width="full"
+            onClick={hasGameStarted ? onGameStop : onGameStart}
+            p={8}
+            size="md"
           >
-            <GameHeader
-              hasLeaderboard={hasLeaderboard}
-              heading={name}
-              quizId={id}
-            />
+            <Text fontWeight="700" fontSize="22px">
+              {gameControlButtonText}
+            </Text>
+          </Button>
+        </Box>
 
-            <Divider my={4} />
+        <Divider my={4} />
 
-            <Box my={2}>
-              <Button
-                colorScheme={hasGameStarted ? "red" : "green"}
-                width="full"
-                onClick={hasGameStarted ? onGameStop : onGameStart}
-                p={8}
-                size="md"
-              >
-                <Text fontWeight="700" fontSize="22px">
-                  {gameControlButtonText}
-                </Text>
-              </Button>
-            </Box>
+        <Box mt={2} mb={4}>
+          <Text fontWeight="bold" mb={1}>
+            {t.global.recent.toUpperCase()}
+          </Text>
+          <ResultsList
+            results={recents}
+            noResultsMessage={`${t.global.no} ${plural} ${t.global.toDisplay}`}
+            hasFlags={hasFlags}
+          />
+        </Box>
 
-            <Divider my={4} />
-
-            <Box mt={2} mb={4}>
-              <Text fontWeight="bold" mb={1}>
-                {t.global.recent.toUpperCase()}
-              </Text>
-              <ResultsList
-                results={recents}
-                noResultsMessage={`${t.global.no} ${plural} ${t.global.toDisplay}`}
-                hasFlags={hasFlags}
-              />
-            </Box>
-
-            <ResultsMap
-              checked={checked}
-              map={groupMapping(mapping)}
-              hasGameStopped={hasGameStopped}
-              hasGroupings={hasGrouping}
-              hasFlags={hasFlags}
-            />
-          </Flex>
-        </Sheet.Content>
-      </Sheet.Container>
-    </Box>
+        <ResultsMap
+          checked={checked}
+          map={groupMapping(mapping)}
+          hasGameStopped={hasGameStopped}
+          hasGroupings={hasGrouping}
+          hasFlags={hasFlags}
+        />
+      </Flex>
+    </BottomSheet>
   );
 };
 
