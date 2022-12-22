@@ -1,10 +1,9 @@
 import React, { FC, useEffect, useState } from "react";
 
-import Leaderboard from "../../components/Leaderboard";
-
-import axiosClient from "../../axios/axiosClient";
-import { LeaderboardFilterParams } from "../../types/leaderboard-filter-params";
-import { Quiz } from "../../types/quiz";
+import axiosClient from "../axios/axiosClient";
+import { LeaderboardFilterParams } from "../types/leaderboard-filter-params";
+import { Quiz } from "../types/quiz";
+import { LeaderboardTableContainer } from "./LeaderboardTableContainer";
 
 interface Props {
   quizIdParam?: string;
@@ -12,7 +11,7 @@ interface Props {
   quizzes?: Quiz[];
 }
 
-const LeaderboardContainer: FC<Props> = ({
+export const LeaderboardContainer: FC<Props> = ({
   quizIdParam = "",
   rankParam = "",
   quizzes = [],
@@ -59,7 +58,7 @@ const LeaderboardContainer: FC<Props> = ({
   }, [quizId, filterParams]);
 
   return (
-    <Leaderboard
+    <LeaderboardTableContainer
       entries={entries}
       isLoading={isLoading}
       quizId={quizId}
@@ -73,5 +72,3 @@ const LeaderboardContainer: FC<Props> = ({
     />
   );
 };
-
-export default LeaderboardContainer;
