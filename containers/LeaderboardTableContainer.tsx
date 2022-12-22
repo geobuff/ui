@@ -266,7 +266,6 @@ export const LeaderboardTableContainer: FC<Props> = ({
 
   return (
     <TableContainer
-      isMobile={isMobile}
       header={header}
       filters={filters}
       paginationControls={paginationControls}

@@ -136,7 +136,7 @@ export const NavigationBarContainer: FC = () => {
     node: (
       <ShoppingCartLink
         itemCount={itemCount}
-        twemojiProps={{ height: 22, width: 22 }}
+        twemojiProps={{ height: "22px", width: "22px" }}
       />
     ),
   });
