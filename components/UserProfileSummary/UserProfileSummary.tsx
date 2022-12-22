@@ -1,7 +1,11 @@
 import React, { FC, useContext, useState } from "react";
 
-import { Twemoji } from "@geobuff/buff-ui/components";
-import { Card, FlagFallback } from "@geobuff/buff-ui/components";
+import {
+  Card,
+  DeleteModal,
+  FlagFallback,
+  Twemoji,
+} from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -25,7 +29,6 @@ import useCountries from "../../hooks/useCountries";
 import axiosClient from "../../axios";
 import { AuthUser } from "../../types/auth-user";
 import AdminFlag from "../AdminFlag";
-import { DeleteModal } from "../DeleteModal/DeleteModal";
 import ProfileUserAvatar from "../ProfileUserAvatar";
 import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 

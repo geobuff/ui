@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 
+import { GameSpinner } from "@geobuff/buff-ui/components";
+
 import {
   Flex,
   Tab,
@@ -12,8 +14,6 @@ import { useSession } from "next-auth/react";
 import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useRouter } from "next/router";
-
-import GameSpinner from "../components/GameSpinner";
 
 import { AuthUser } from "../types/auth-user";
 

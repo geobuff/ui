@@ -1,5 +1,7 @@
 import React, { FC, useContext, useState } from "react";
 
+import { DeleteModal } from "@geobuff/buff-ui/components";
+
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
@@ -8,7 +10,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import useMappingGroups from "../../hooks/UseMappingGroups";
 
 import AdminMappings from "../../components/AdminMappings";
-import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 
 import axiosClient from "../../axios";
 import { genericToast } from "../../helpers/toasts";

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Card } from "@geobuff/buff-ui/components";
+import { Card, TablePaginationControls } from "@geobuff/buff-ui/components";
 
 import { Flex } from "@chakra-ui/react";
 import router from "next/router";
@@ -8,7 +8,6 @@ import router from "next/router";
 import { LeaderboardEntry } from "../../types/leaderboard-entry";
 import { LeaderboardFilterParams } from "../../types/leaderboard-filter-params";
 import { Quiz } from "../../types/quiz";
-import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
 import LeaderboardFilters from "./LeaderboardFilters/LeaderboardFilters";
 import LeaderboardHeader from "./LeaderboardHeader/LeaderboardHeader";
 import LeaderboardTable from "./LeaderboardTable";

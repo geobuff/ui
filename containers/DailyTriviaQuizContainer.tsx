@@ -1,8 +1,9 @@
 import React, { FC } from "react";
 
+import { GameSpinner } from "@geobuff/buff-ui/components";
+
 import useTrivia from "../hooks/UseTrivia";
 
-import GameSpinner from "../components/GameSpinner";
 import GameTrivia from "../components/GameTrivia";
 
 export interface DailyTriviaQuizContainerProps {

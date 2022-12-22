@@ -1,10 +1,10 @@
 import React from "react";
 import { FC, useEffect, useState } from "react";
 
+import { GameSpinner } from "@geobuff/buff-ui/components";
+
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
-
-import GameSpinner from "../GameSpinner";
 
 interface Props {
   children: React.ReactNode;

@@ -1,6 +1,6 @@
 import React, { FC, useContext } from "react";
 
-import { Twemoji } from "@geobuff/buff-ui/components";
+import { Sparkles, TableCell, Twemoji } from "@geobuff/buff-ui/components";
 
 import {
   Alert,
@@ -26,8 +26,6 @@ import LeaderTablePlaceholder from "../../../placeholders/LeaderboardTablePlaceh
 import { AuthUser } from "../../../types/auth-user";
 import { LeaderboardEntry } from "../../../types/leaderboard-entry";
 import AdminFlag from "../../AdminFlag";
-import Sparkles from "../../Sparkles/Sparkles";
-import TableCell from "../../Table/TableCell";
 
 interface Props {
   entries?: LeaderboardEntry[];

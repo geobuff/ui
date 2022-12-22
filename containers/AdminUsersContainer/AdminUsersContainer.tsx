@@ -1,10 +1,11 @@
 import React, { FC, useEffect, useState } from "react";
 
+import { DeleteModal } from "@geobuff/buff-ui/components";
+
 import { useDisclosure } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
 import AdminUsersTable from "../../components/AdminUsers";
-import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 
 import axiosClient from "../../axios";
 import { AuthUser } from "../../types/auth-user";

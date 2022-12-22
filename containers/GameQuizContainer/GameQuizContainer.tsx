@@ -1,10 +1,11 @@
 import React, { FC } from "react";
 
+import { GameSpinner } from "@geobuff/buff-ui/components";
+
 import { useMappingEntries } from "../../hooks/UseMappingEntries";
 import { useQuiz } from "../../hooks/UseQuiz";
 
 import { GameQuiz } from "../../components/GameQuiz/GameQuiz";
-import GameSpinner from "../../components/GameSpinner";
 
 interface Props {
   quizRoute: string;

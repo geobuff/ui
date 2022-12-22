@@ -1,6 +1,10 @@
 import React, { FC } from "react";
 
-import { Card } from "@geobuff/buff-ui/components";
+import {
+  Card,
+  TableHeader,
+  TablePaginationControls,
+} from "@geobuff/buff-ui/components";
 
 import { Alert, AlertIcon, Flex } from "@chakra-ui/react";
 
@@ -8,8 +12,6 @@ import { ManualTriviaQuestion } from "../../types/manual-trivia-question";
 import { TriviaQuestionCategory } from "../../types/trivia-question-category";
 import { TriviaQuestionFilterParams } from "../../types/trivia-question-filter-param";
 import { TriviaQuestionType } from "../../types/trivia-question-type";
-import TableHeader from "../Table/TableHeader/TableHeader";
-import TablePaginationControls from "../Table/TablePaginationControls/TablePaginationControls";
 import AdminManualTriviaQuestionsFilters from "./AdminManualTriviaQuestionsFilters";
 import AdminManualTriviaQuestionsTable from "./AdminManualTriviaQuestionsTable";
 

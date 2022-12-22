@@ -1,6 +1,11 @@
 import React, { FC } from "react";
 
-import { ArrowLeft, ArrowRight, Card } from "@geobuff/buff-ui/components";
+import {
+  ArrowLeft,
+  ArrowRight,
+  Card,
+  TableCell,
+} from "@geobuff/buff-ui/components";
 
 import {
   Alert,
@@ -25,7 +30,6 @@ import AdminOrdersTablePlaceholder from "../../placeholders/AdminOrdersTablePlac
 import { Order } from "../../types/order";
 import { OrderPageDto } from "../../types/order-page-dto";
 import { OrderStatuses } from "../../types/order-statuses";
-import TableCell from "../Table/TableCell";
 
 export interface Props {
   orderPage?: OrderPageDto;

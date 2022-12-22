@@ -1,7 +1,8 @@
 import React, { FC, useEffect, useState } from "react";
 
+import { GameSpinner } from "@geobuff/buff-ui/components";
+
 import GameCommunityQuiz from "../../components/GameCommunityQuiz";
-import GameSpinner from "../../components/GameSpinner";
 
 import axiosClient from "../../axios";
 import { GetCommunityQuiz } from "../../types/get-community-quiz-dto";

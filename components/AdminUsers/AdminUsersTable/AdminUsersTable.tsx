@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { CustomFlag } from "@geobuff/buff-ui/components";
+import { CustomFlag, TableCell } from "@geobuff/buff-ui/components";
 
 import {
   Alert,
@@ -18,7 +18,6 @@ import { DateTime } from "luxon";
 
 import AdminUsersTablePlaceholder from "../../../placeholders/AdminUsersTablePlaceholder";
 import { UserDto } from "../../../types/user-dto";
-import TableCell from "../../Table/TableCell";
 
 export interface Props {
   currentUserId?: number;

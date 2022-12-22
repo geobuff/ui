@@ -307,8 +307,9 @@ export default {
     descriptionOne: "Póngase en contacto con el equipo en ",
     descriptionTwo:
       " para obtener más información sobre cómo conectarse a nuestra API y utilizar nuestros recursos en su propio proyecto.",
-    mapDescription:
-      "El componente React utilizado para mostrar nuestros mapas.",
+    componentLibraryHeading: "Buff UI",
+    componentLibraryDescription:
+      "Los componentes React que hemos creado para potenciar nuestro sitio.",
     mapsDescription: "Nuestra colección de mapas SVG de uso gratuito.",
     flagsDescription: "Nuestra colección de URL de marca de uso gratuito.",
     mappingsDescription:

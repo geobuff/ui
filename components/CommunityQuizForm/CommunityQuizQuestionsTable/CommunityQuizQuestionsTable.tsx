@@ -1,5 +1,7 @@
 import React, { FC, useContext } from "react";
 
+import { TableCell } from "@geobuff/buff-ui/components";
+
 import {
   Button,
   Flex,
@@ -15,7 +17,6 @@ import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import { getType } from "../../../helpers/trivia-types";
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
-import TableCell from "../../Table/TableCell";
 
 export interface Props {
   questions: CommunityQuizFormQuestion[];

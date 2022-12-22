@@ -14,9 +14,9 @@ const Resources: FC = () => {
 
   const resources = [
     {
-      title: t.global.map,
-      subtitle: t.resources.mapDescription,
-      href: "https://github.com/geobuff/svg-map",
+      title: t.resources.componentLibraryHeading,
+      subtitle: t.resources.componentLibraryDescription,
+      href: "https://github.com/geobuff/buff-ui",
     },
     {
       title: t.global.maps,

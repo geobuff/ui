@@ -2,7 +2,12 @@ import React, { FC, useContext } from "react";
 
 import { QuizCard, Twemoji } from "@geobuff/buff-ui/components";
 
-import { GridItem, Text, useBreakpointValue } from "@chakra-ui/react";
+import {
+  GridItem,
+  GridItemProps,
+  Text,
+  useBreakpointValue,
+} from "@chakra-ui/react";
 import Image from "next/image";
 
 import { LanguageContext } from "../contexts";
@@ -11,13 +16,19 @@ import { cardImageStyle } from "../helpers/style";
 import { secondsToMinutesString } from "../helpers/time";
 import { Quiz } from "../types/quiz";
 
-interface Props {
+interface Props extends GridItemProps {
   index: number;
   quizCount: number;
   quiz: Quiz;
 }
 
-export const QuizCardContainer: FC<Props> = ({ index, quizCount, quiz }) => {
+export const QuizCardContainer: FC<Props> = ({
+  index,
+  quizCount,
+  quiz,
+  ...props
+}) => {
+  const isMobile = useBreakpointValue({ base: true, sm: false });
   const { t } = useContext(LanguageContext);
 
   const twemojiDimensions = useBreakpointValue({
@@ -77,8 +88,10 @@ export const QuizCardContainer: FC<Props> = ({ index, quizCount, quiz }) => {
         base: index === quizCount - 1 && "12px",
         md: 0,
       }}
+      {...props}
     >
       <QuizCard
+        isMobile={isMobile}
         href={`/quiz/${quiz?.route}`}
         isEnabled={quiz.enabled}
         heading={quiz.name}

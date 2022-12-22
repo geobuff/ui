@@ -5,6 +5,7 @@ import { QuizCard, Share, Twemoji } from "@geobuff/buff-ui/components";
 import {
   Button,
   GridItem,
+  GridItemProps,
   Link,
   Text,
   useBreakpointValue,
@@ -19,7 +20,7 @@ import { cardImageStyle } from "../helpers/style";
 import { genericToast } from "../helpers/toasts";
 import { Trivia } from "../types/trivia";
 
-interface Props {
+interface Props extends GridItemProps {
   index: number;
   triviaCount: number;
   trivia: Trivia;
@@ -29,6 +30,7 @@ export const TriviaCardContainer: FC<Props> = ({
   index,
   triviaCount,
   trivia,
+  ...props
 }) => {
   const { t } = useContext(LanguageContext);
   const isMobile = useBreakpointValue({ base: true, md: false });
@@ -111,6 +113,7 @@ export const TriviaCardContainer: FC<Props> = ({
         base: index === triviaCount - 1 && "12px",
         md: 0,
       }}
+      {...props}
     >
       <Link href={`/daily-trivia/${formatDate(trivia?.date)}`}>
         <QuizCard

@@ -1,5 +1,7 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
+import { DeleteModal } from "@geobuff/buff-ui/components";
+
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
@@ -11,7 +13,6 @@ import useTriviaQuestionTypes from "../../hooks/UseTriviaQuestionTypes";
 
 import AdminManualTriviaQuestions from "../../components/AdminManualTriviaQuestions";
 import CreateEditTriviaQuestionModal from "../../components/CreateEditTriviaQuestionModal";
-import { DeleteModal } from "../../components/DeleteModal/DeleteModal";
 
 import axios from "../../axios";
 import axiosClient from "../../axios";

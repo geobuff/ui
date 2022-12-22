@@ -1,5 +1,7 @@
 import React, { FC } from "react";
 
+import { TableCell } from "@geobuff/buff-ui/components";
+
 import {
   Alert,
   AlertIcon,
@@ -16,7 +18,6 @@ import {
 
 import AdminManualTriviaQuestionsTablePlaceholder from "../../../placeholders/AdminManualTriviaQuestionsTablePlaceholder";
 import { ManualTriviaQuestion } from "../../../types/manual-trivia-question";
-import TableCell from "../../Table/TableCell";
 
 export interface Props {
   entries?: ManualTriviaQuestion[];
@@ -48,8 +49,6 @@ const AdminManualTriviaQuestionsTable: FC<Props> = ({
             <Th textAlign="left">{"QUESTION"} </Th>
             <Th textAlign="left">{"TYPE"}</Th>
             <Th textAlign="left">{"CATEGORY"}</Th>
-            {/* <Th textAlign="left">{"LAST USED"}</Th>
-            <Th textAlign="left">{"QUIZ DATE"}</Th> */}
             <Th textAlign="left">{"ANSWERS"}</Th>
             <Th>{""}</Th>
           </Tr>
