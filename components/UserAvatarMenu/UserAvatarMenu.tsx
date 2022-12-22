@@ -133,8 +133,8 @@ const UserAvatarMenu: FC<Props> = ({ isCondensed = false }) => {
           {user?.isAdmin && (
             <>
               <MenuItem onClick={(): Promise<boolean> => router.push(`/admin`)}>
-                <Twemoji emoji="👑" width={5} mr={2} />{" "}
-                {t.global.adminDashboard}
+                <Twemoji emoji="👑" width="5px" mr={2} />
+                {` ${t.global.adminDashboard}`}
               </MenuItem>
               <MenuDivider />
             </>
