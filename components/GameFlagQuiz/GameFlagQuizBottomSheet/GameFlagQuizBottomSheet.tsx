@@ -138,6 +138,7 @@ const GameFlagQuizBottomSheet: FC<Props> = ({
             hasLeaderboard={hasLeaderboard}
             quizId={id}
             heading={name}
+            href={`/leaderboard?quizId=${id}`}
             shouldTruncateText
           />
 

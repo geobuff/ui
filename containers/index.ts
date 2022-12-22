@@ -23,3 +23,6 @@ export * from "./TriviaCardListSectionContainer";
 export * from "./CommunityQuizCardContainer";
 export * from "./CommunityQuizCardListSectionContainer";
 export * from "./GameOverModalContainer";
+export * from "./LeaderboardContainer";
+export * from "./LeaderboardTableContainer";
+export * from "./LeaderboardFiltersContainer";

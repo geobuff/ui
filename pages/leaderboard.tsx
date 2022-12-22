@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 import { LanguageContext } from "../contexts/LanguageContext";
 
-import LeaderboardContainer from "../containers/LeaderboardContainer";
+import { LeaderboardContainer } from "../containers";
 
 import axiosClient from "../axios";
 import { QuizzesFilterDto } from "../types/quizzes-filter-dto";

@@ -103,6 +103,7 @@ const GameMapQuizBottomSheet: FC<Props> = ({
           hasLeaderboard={hasLeaderboard}
           heading={name}
           quizId={id}
+          href={`/leaderboard?quizId=${id}`}
         />
 
         <Divider my={4} />
