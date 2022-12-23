@@ -1,11 +1,10 @@
 import React, { FC, useMemo, useState } from "react";
 
-import { SVGBase, SVGMap } from "@geobuff/buff-ui/components";
+import { SVGBase, SVGMap, SVGMapContainer } from "@geobuff/buff-ui/components";
 
 import { Box, Tooltip, useBreakpointValue } from "@chakra-ui/react";
 
 import { getInitialMapFill } from "../../helpers/map";
-import GameMapInteraction from "../GameMapInteraction";
 
 interface Props {
   showTooltip?: boolean;
@@ -65,7 +64,7 @@ const GameMap: FC<Props> = ({
             left={tooltipLeft}
             isOpen={tooltipOpen}
           >
-            <GameMapInteraction>
+            <SVGMapContainer isMobile={isMobile}>
               <SVGMap
                 map={mapPaths}
                 mapStyle={mapStyle}
@@ -73,10 +72,10 @@ const GameMap: FC<Props> = ({
                 onPathMouseMove={mouseMove}
                 onPathMouseOut={mouseOut}
               />
-            </GameMapInteraction>
+            </SVGMapContainer>
           </Tooltip>
         ) : (
-          <GameMapInteraction>
+          <SVGMapContainer isMobile={isMobile}>
             <SVGMap
               map={mapPaths}
               mapStyle={mapStyle}
@@ -84,7 +83,7 @@ const GameMap: FC<Props> = ({
               onPathMouseMove={mouseMove}
               onPathMouseOut={mouseOut}
             />
-          </GameMapInteraction>
+          </SVGMapContainer>
         )}
       </Box>
     </Box>
