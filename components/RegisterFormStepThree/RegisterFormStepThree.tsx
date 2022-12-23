@@ -1,5 +1,7 @@
 import React, { ChangeEvent, FC, useContext, useState } from "react";
 
+import { ProfileUserAvatar } from "@geobuff/buff-ui/components";
+
 import {
   Button,
   Checkbox,
@@ -21,7 +23,6 @@ import { LanguageContext } from "../../contexts/LanguageContext";
 import useAvatars from "../../hooks/UseAvatars";
 
 import CountrySelect from "../CountrySelect";
-import ProfileUserAvatar from "../ProfileUserAvatar";
 import { RegisterFormBackButton } from "../RegisterFormBackButton/RegisterFormBackButton";
 
 export interface Props {

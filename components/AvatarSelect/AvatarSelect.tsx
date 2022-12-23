@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { CustomFlag } from "@geobuff/buff-ui/components";
+import { CustomFlag, ProfileUserAvatar } from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -13,7 +13,6 @@ import {
 
 import { Avatar } from "../../types/avatar";
 import { FieldProps } from "../../types/field-props";
-import ProfileUserAvatar from "../ProfileUserAvatar";
 import RadioCard from "./RadioCard";
 
 interface Props {
@@ -27,11 +26,7 @@ const AvatarSelect: FC<Props> = ({
   fieldProps = { value: "" },
   avatars = [],
   current = null,
-  setFieldValue = (
-    field: string,
-    value: any,
-    shouldValidate?: boolean
-  ): void => {},
+  setFieldValue = (): void => {},
 }) => {
   const { getRootProps, getRadioProps } = useRadioGroup({
     name: "avatarId",
