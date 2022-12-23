@@ -15,12 +15,13 @@ import { useRouter } from "next/router";
 
 import { LanguageContext } from "../../contexts/LanguageContext";
 
-import UserProfileMyQuizzesTableContainer from "../../containers/UserProfileMyQuizzesTableContainer";
+import { UserProfileMyQuizzesTableContainer } from "../../containers";
 
 import { CommunityQuiz } from "../../types/community-quiz-dto";
 
 export interface Props {
   quizzes?: CommunityQuiz[];
+  isLoading?: boolean;
   isCurrentUser?: boolean;
   username?: string;
   error?: boolean;
@@ -28,6 +29,7 @@ export interface Props {
 
 const UserProfileMyQuizzes: FC<Props> = ({
   quizzes = [],
+  isLoading = false,
   isCurrentUser = false,
   username,
   error = false,
@@ -57,6 +59,7 @@ const UserProfileMyQuizzes: FC<Props> = ({
     return (
       <UserProfileMyQuizzesTableContainer
         quizzes={quizzes}
+        isLoading={isLoading}
         isCurrentUser={isCurrentUser}
       />
     );

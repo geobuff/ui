@@ -5,21 +5,22 @@ import { DeleteModal } from "@geobuff/buff-ui/components";
 import { useDisclosure, useToast } from "@chakra-ui/react";
 import { useSession } from "next-auth/react";
 
-import { LanguageContext } from "../../contexts/LanguageContext";
+import { LanguageContext } from "../contexts/LanguageContext";
 
-import UserProfileMyQuizzesTable from "../../components/UserProfileMyQuizzes/UserProfileMyQuizzesTable";
+import axiosClient from "../axios";
+import { genericToast } from "../helpers/toasts";
+import { CommunityQuiz } from "../types/community-quiz-dto";
+import { UserProfileMyQuizzesTableContainer } from "./UserProfileMyQuizzesTableContainer";
 
-import axiosClient from "../../axios";
-import { genericToast } from "../../helpers/toasts";
-import { CommunityQuiz } from "../../types/community-quiz-dto";
-
-export interface Props {
+interface Props {
   quizzes?: CommunityQuiz[];
+  isLoading?: boolean;
   isCurrentUser?: boolean;
 }
 
-const UserProfileMyQuizzesTableContainer: FC<Props> = ({
+export const UserProfileMyQuizzesCardContainer: FC<Props> = ({
   quizzes = [],
+  isLoading = false,
   isCurrentUser = false,
 }) => {
   const { t } = useContext(LanguageContext);
@@ -80,8 +81,9 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
 
   return (
     <>
-      <UserProfileMyQuizzesTable
+      <UserProfileMyQuizzesTableContainer
         quizzes={myQuizzes}
+        isLoading={isLoading}
         isCurrentUser={isCurrentUser}
         onDeleteQuiz={handleDeleteQuiz}
         onCopyLink={handleCopyLink}
@@ -98,5 +100,3 @@ const UserProfileMyQuizzesTableContainer: FC<Props> = ({
     </>
   );
 };
-
-export default UserProfileMyQuizzesTableContainer;

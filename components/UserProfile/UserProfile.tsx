@@ -4,9 +4,11 @@ import { HeroHeader } from "@geobuff/buff-ui/components";
 
 import { Alert, AlertIcon, Divider, Flex } from "@chakra-ui/react";
 
+import {
+  UserProfileLeaderboardEntriesContainer,
+  UserProfileMyQuizzesContainer,
+} from "../../containers";
 import UserProfileAchievementsContainer from "../../containers/UserProfileAchievementsContainer";
-import UserProfileLeaderboardEntriesContainer from "../../containers/UserProfileLeaderboardEntriesContainer";
-import UserProfileMyQuizzesContainer from "../../containers/UserProfileMyQuizzesContainer";
 import UserProfileSummaryContainer from "../../containers/UserProfileSummaryContainer";
 
 import { UserDto } from "../../types/user-dto";
