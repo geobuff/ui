@@ -257,6 +257,7 @@ export default {
     avatarUpdatedDescription: "Avatar de usuario actualizado con éxito.",
     userUpdatedTitle: "Usuario actualizado",
     userUpdatedDescription: "Detalles de usuario actualizados con éxito.",
+    geoCoinDescription: " agregado a su billetera.",
   },
   heroBanner: {
     title: "Comer, Dormir, Cuestionario, Repetir",

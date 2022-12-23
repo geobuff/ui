@@ -250,6 +250,7 @@ export default {
     avatarUpdatedDescription: "Berhasil memperbarui avatar pengguna.",
     userUpdatedTitle: "Pengguna Diperbarui",
     userUpdatedDescription: "Berhasil memperbarui detail pengguna.",
+    geoCoinDescription: " ditambahkan ke dompet Anda.",
   },
   heroBanner: {
     title: "Makan, Tidur, Kuis, Ulangi",
