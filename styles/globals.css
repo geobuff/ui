@@ -26,15 +26,6 @@ svg * {
   transition: all 125ms ease-out;
 }
 
-.flex {
-  display: flex;
-}
-
-.center {
-  align-items: center;
-  justify-content: center;
-}
-
 .fade-in {
   animation: animation-fade-in 0.45s;
 }
@@ -59,15 +50,6 @@ svg * {
   to {
     opacity: 0;
   }
-}
-
-.quiz-map-controls {
-  margin-left: 8px;
-  margin-right: 8px;
-}
-
-.react-modal-sheet-drag-indicator {
-  background-color: transparent !important;
 }
 
 .react-multi-carousel-list::before {
