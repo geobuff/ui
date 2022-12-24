@@ -13,7 +13,7 @@
     "@chakra-ui/react": "^2.2.1",
     "@emotion/react": "^11.9.0",
     "@emotion/styled": "^11.9.0",
-    "@geobuff/buff-ui": "^0.1.35",
+    "@geobuff/buff-ui": "^0.1.36",
     "@mdx-js/loader": "^2.1.2",
     "@next/mdx": "^12.2.4",
     "@rehooks/local-storage": "^2.4.4",
