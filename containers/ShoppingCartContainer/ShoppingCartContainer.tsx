@@ -36,6 +36,7 @@ const ShoppingCartContainer: FC = () => {
 
   return (
     <ShoppingCart
+      isLoading={isCartLoading || isMerchLoading}
       cart={cart}
       getMax={getMax}
       onUpdateQuantity={updateQuantity}

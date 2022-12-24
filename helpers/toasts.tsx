@@ -1,8 +1,10 @@
 import React from "react";
 
+import { LottieToast } from "@geobuff/buff-ui/components";
+
 import { AlertStatus, ToastPosition, UseToastOptions } from "@chakra-ui/react";
 
-import GeoCoinToast from "../components/GeoCoinToast";
+import coinSpin from "../lotties/coin-spin.json";
 
 const defaultPosition: ToastPosition = "bottom-right";
 
@@ -22,11 +24,20 @@ export const genericToast = (
 });
 
 export const increaseXPToast = (
+  message: string,
+  ariaLabel: string,
   increase: number,
   position: ToastPosition = defaultPosition
 ): UseToastOptions => ({
   position: position,
   duration: 9000,
   render: ({ onClose }) =>
-    increase > 0 && <GeoCoinToast onClose={onClose} increase={increase} />,
+    increase > 0 && (
+      <LottieToast
+        animationData={coinSpin}
+        message={message}
+        ariaLabel={ariaLabel}
+        onClose={onClose}
+      />
+    ),
 });

@@ -4,6 +4,7 @@ import {
   Card,
   DeleteModal,
   FlagFallback,
+  ProfileUserAvatar,
   Twemoji,
 } from "@geobuff/buff-ui/components";
 
@@ -29,7 +30,6 @@ import useCountries from "../../hooks/useCountries";
 import axiosClient from "../../axios";
 import { AuthUser } from "../../types/auth-user";
 import AdminFlag from "../AdminFlag";
-import ProfileUserAvatar from "../ProfileUserAvatar";
 import UserProfileSummaryMenu from "./UserProfileSummaryMenu";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";

@@ -26,3 +26,8 @@ export * from "./GameOverModalContainer";
 export * from "./LeaderboardContainer";
 export * from "./LeaderboardTableContainer";
 export * from "./LeaderboardFiltersContainer";
+export * from "./CommunityQuizQuestionsTableContainer";
+export * from "./UserProfileLeaderboardEntriesContainer";
+export * from "./UserProfileMyQuizzesTableContainer";
+export * from "./UserProfileMyQuizzesCardContainer";
+export * from "./UserProfileMyQuizzesContainer";

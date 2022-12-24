@@ -252,6 +252,7 @@ export default {
     userUpdatedTitle: "Kua Whakahoutia te Kaiwhakamahi",
     userUpdatedDescription:
       "I angitu te whakahou i nga taipitopito kaiwhakamahi.",
+    geoCoinDescription: " kua taapiri atu ki to putea.",
   },
   heroBanner: {
     title: "Kai, Moe, Quiz, Repeat",

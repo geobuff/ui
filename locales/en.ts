@@ -248,6 +248,7 @@ export default {
     avatarUpdatedDescription: "Successfully updated user avatar.",
     userUpdatedTitle: "User Updated",
     userUpdatedDescription: "Successfully updated user details.",
+    geoCoinDescription: " added to your wallet.",
   },
   heroBanner: {
     title: "Eat, Sleep, Quiz, Repeat",

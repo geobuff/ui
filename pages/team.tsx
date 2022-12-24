@@ -1,13 +1,15 @@
 import React, { FC, useContext } from "react";
 
-import { HeroHeader } from "@geobuff/buff-ui/components";
+import {
+  HeroHeader,
+  ProfileUserAvatar,
+  TeamMemberCard,
+} from "@geobuff/buff-ui/components";
 
 import { Box, Heading, Link, SimpleGrid, Text } from "@chakra-ui/react";
 import Head from "next/head";
 
 import { LanguageContext } from "../contexts/LanguageContext";
-
-import TeamMemberCard from "../components/TeamMemberCard/TeamMemberCard";
 
 const MeetTheTeam: FC = () => {
   const { t } = useContext(LanguageContext);
@@ -40,19 +42,25 @@ const MeetTheTeam: FC = () => {
               position={t.team.founder}
               city="Wellington"
               country={t.team.nz}
-              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ash-primary.svg`}
-              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ash-secondary.svg`}
               link="https://www.linkedin.com/in/ashley-midgley-68586b244"
-            />
+            >
+              <ProfileUserAvatar
+                primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ash-primary.svg`}
+                secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/ash-secondary.svg`}
+              />
+            </TeamMemberCard>
             <TeamMemberCard
               title="Pearl Pan"
               position={t.team.marketing}
               city="Auckland"
               country={t.team.nz}
-              primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/pearl-primary.svg`}
-              secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/pearl-secondary.svg`}
               link="https://www.linkedin.com/in/pearl-pan/"
-            />
+            >
+              <ProfileUserAvatar
+                primaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/pearl-primary.svg`}
+                secondaryImageUrl={`${process.env.NEXT_PUBLIC_CDN_URL}/team/pearl-secondary.svg`}
+              />
+            </TeamMemberCard>
           </SimpleGrid>
         </Box>
         <Box width={{ base: "90%", md: 600 }} mx="auto" mb={12}>

@@ -4,8 +4,9 @@ import { Button, Flex, Text } from "@chakra-ui/react";
 
 import { LanguageContext } from "../../../contexts/LanguageContext";
 
+import { CommunityQuizQuestionsTableContainer } from "../../../containers";
+
 import { CommunityQuizFormQuestion } from "../../../types/community-quiz-form-submit";
-import CommunityQuizQuestionsTable from "../CommunityQuizQuestionsTable";
 
 export interface Props {
   questions: CommunityQuizFormQuestion[];
@@ -32,7 +33,7 @@ const CommunityQuizQuestionsField: FC<Props> = ({
         </Flex>
       ) : (
         <Flex overflowX="auto">
-          <CommunityQuizQuestionsTable
+          <CommunityQuizQuestionsTableContainer
             questions={questions}
             onDelete={onDeleteQuestion}
             onEdit={onEditQuestion}

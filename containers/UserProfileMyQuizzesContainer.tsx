@@ -1,18 +1,17 @@
 import React, { FC, useEffect, useState } from "react";
 
-import UserProfileMyQuizzes from "../../components/UserProfileMyQuizzes";
+import UserProfileMyQuizzes from "../components/UserProfileMyQuizzes";
 
-import axiosClient from "../../axios";
-import UserProfileLeaderboardEntriesPlaceholder from "../../placeholders/UserProfileLeaderboardEntriesPlaceholder";
-import { CommunityQuizStatus } from "../../types/community-quiz-status";
+import axiosClient from "../axios";
+import { CommunityQuizStatus } from "../types/community-quiz-status";
 
-export interface Props {
+interface Props {
   userId?: number;
   isCurrentUser?: boolean;
   username?: string;
 }
 
-const UserProfileMyQuizzesContainer: FC<Props> = ({
+export const UserProfileMyQuizzesContainer: FC<Props> = ({
   userId = 0,
   isCurrentUser = false,
   username,
@@ -31,10 +30,6 @@ const UserProfileMyQuizzesContainer: FC<Props> = ({
       .finally(() => setIsLoading(false));
   }, []);
 
-  if (isLoading) {
-    return <UserProfileLeaderboardEntriesPlaceholder />;
-  }
-
   return (
     <UserProfileMyQuizzes
       quizzes={
@@ -42,11 +37,10 @@ const UserProfileMyQuizzesContainer: FC<Props> = ({
           ? quizzes
           : quizzes.filter((x) => x.status !== CommunityQuizStatus.PENDING)
       }
+      isLoading={isLoading}
       isCurrentUser={isCurrentUser}
       username={username}
       error={error}
     />
   );
 };
-
-export default UserProfileMyQuizzesContainer;

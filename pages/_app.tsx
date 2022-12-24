@@ -1,12 +1,13 @@
 import React, { FC, useEffect, useState } from "react";
 
+import "@geobuff/buff-ui/styles/globals.css";
+
 import { ChakraProvider } from "@chakra-ui/react";
 import { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import Head from "next/head";
 import { Router, useRouter } from "next/router";
 import NProgress from "nprogress";
-//nprogress module
 import "nprogress/nprogress.css";
 
 import {
@@ -23,9 +24,7 @@ import AuthGuard from "../components/AuthGuard";
 import ClientOnly from "../components/ClientOnly";
 
 import * as gtag from "../helpers/gtag";
-//styles of nprogress
 import "../styles/globals.css";
-import theme from "../styles/theme";
 
 const isAppMobile = process.env.NEXT_PUBLIC_APP_MODE === "mobile";
 
@@ -150,7 +149,7 @@ const MyApp: FC<Props> = ({ session, Component, ...pageProps }) => {
         )}
       </Head>
       <SessionProvider session={session}>
-        <ChakraProvider theme={theme}>
+        <ChakraProvider>
           <AppContextProvider>
             <LanguageContextProvider>
               <CurrentUserContextProvider>

@@ -118,7 +118,16 @@ export const GameOverModalContainer: FC<Props> = ({
       .put(`/users/xp/${user.id}`, payload, session?.authConfig)
       .then((response) => {
         const increase = response.data;
-        toast(increaseXPToast(increase, toastPosition));
+        toast(
+          increaseXPToast(
+            `${increase} GeoCoin${increase > 1 ? "s" : ""} ${
+              t.toasts.geoCoinDescription
+            }`,
+            t.global.closeCircle,
+            increase,
+            toastPosition
+          )
+        );
 
         updateUser({
           ...user,

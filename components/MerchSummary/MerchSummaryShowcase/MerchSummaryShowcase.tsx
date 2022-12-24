@@ -1,10 +1,11 @@
 import React, { FC, useState } from "react";
 
-import { Box, SimpleGrid } from "@chakra-ui/react";
+import { ImageViewContainer } from "@geobuff/buff-ui/components";
+
+import { Box, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
 import Image from "next/image";
 
 import { MerchImage } from "../../../types/merch-item";
-import MapInteractionCSS from "../../MapInteractionCSS";
 
 export interface Props {
   name?: string;
@@ -15,9 +16,12 @@ const MerchSummaryShowcase: FC<Props> = ({ name = "", images = [] }) => {
   const current = images.find((x) => x.isPrimary);
   const [currentImage, setCurrentImage] = useState(current?.imageUrl ?? "");
 
+  const isMobile = useBreakpointValue({ base: true, lg: false });
+
   return (
     <>
-      <MapInteractionCSS
+      <ImageViewContainer
+        isMobile={isMobile}
         background="#F0F0F0"
         borderRadius="12px"
         maxHeight={{ base: "235px", sm: "333px" }}
@@ -30,7 +34,7 @@ const MerchSummaryShowcase: FC<Props> = ({ name = "", images = [] }) => {
           objectFit="cover"
           priority
         />
-      </MapInteractionCSS>
+      </ImageViewContainer>
       <SimpleGrid mt={6} columns={{ base: 3, md: 4 }} spacingY={6}>
         {images.map((image) => (
           <Box key={image.id} maxWidth="100px">
