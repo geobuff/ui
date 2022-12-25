@@ -2,10 +2,13 @@ import React, { FC, createContext, useEffect, useState } from "react";
 
 import { useRouter } from "next/router";
 
+import ar from "../locales/ar";
 import en from "../locales/en";
 import es from "../locales/es";
+import hi from "../locales/hi";
 import id from "../locales/id";
 import mi from "../locales/mi";
+import zh from "../locales/zh";
 
 export const LanguageContext = createContext({
   language: "en",
@@ -53,6 +56,12 @@ export const LanguageContextProvider: FC<Props> = ({ children = null }) => {
         return mi;
       case "es":
         return es;
+      case "zh":
+        return zh;
+      case "hi":
+        return hi;
+      case "ar":
+        return ar;
       case "id":
         return id;
       default:
