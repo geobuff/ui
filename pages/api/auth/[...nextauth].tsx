@@ -1,3 +1,4 @@
+// @ts-nocheck
 import jwt_decode from "jwt-decode";
 import NextAuth from "next-auth";
 import { JWT } from "next-auth/jwt";
@@ -113,18 +114,19 @@ export default NextAuth({
   },
   callbacks: {
     async session({ session, token }) {
-      session.user = token.user;
-      session.accessToken = token.accessToken;
-      session.accessTokenExpires = token.accessTokenExpires;
-      session.error = token.error;
-      session.errorMessage = token.errorMessage;
-      session.authConfig = {
-        headers: {
-          Authorization: `Bearer ${token.accessToken}`,
+      return {
+        ...session,
+        user: token.user,
+        accessToken: token.accessToken,
+        accessTokenExpires: token.accessTokenExpires,
+        error: token.error,
+        errorMessage: token.errorMessage,
+        authConfig: {
+          headers: {
+            Authorization: `Bearer ${token.accessToken}`,
+          },
         },
       };
-
-      return session;
     },
     async jwt({ token, user }) {
       // Initial sign in.

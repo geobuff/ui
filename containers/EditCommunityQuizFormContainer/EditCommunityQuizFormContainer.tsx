@@ -36,7 +36,8 @@ const EditCommunityQuizFormContainer: FC<Props> = ({ quizId }) => {
 
   const { data: maps, isLoading: isMapsLoading } = useMaps();
 
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
   const user = session?.user as AuthUser;
 
   const toast = useToast();

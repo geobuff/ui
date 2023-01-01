@@ -22,8 +22,7 @@ interface Props {
 }
 
 export const LanguageContextProvider: FC<Props> = ({ children = null }) => {
-  const router = useRouter();
-  const { locale } = router;
+  const { locale } = useRouter();
 
   const [language, setLanguage] = useState("en");
   const [t, setT] = useState(en);

@@ -18,7 +18,9 @@ const AdminFlagsTableContainer: FC = () => {
   const toast = useToast();
   const { t } = useContext(LanguageContext);
 
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
+
   const { data: groups, isLoading: isGroupsLoading } = useFlagGroups();
   const [group, setGroup] = useState("world-countries");
 

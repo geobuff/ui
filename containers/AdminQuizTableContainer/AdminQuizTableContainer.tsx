@@ -15,7 +15,8 @@ import { QuizzesFilterDto } from "../../types/quizzes-filter-dto";
 import AdminQuizFormContainer from "../AdminQuizFormContainer";
 
 const AdminQuizTableContainer: FC = () => {
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
 
   const [filterParams, setFilterParams] = useState<QuizzesFilterDto>({
     page: 0,

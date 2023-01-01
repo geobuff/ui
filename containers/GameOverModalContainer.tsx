@@ -58,7 +58,8 @@ export const GameOverModalContainer: FC<Props> = ({
   const isMobile = useBreakpointValue({ base: true, md: false });
 
   const { user, updateUser } = useContext(CurrentUserContext);
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
+  const session = data as any;
 
   const { isNotchedIphone } = useContext(AppContext);
 

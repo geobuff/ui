@@ -34,7 +34,8 @@ const AdminOrdersContainer: FC = () => {
     onClose: onOrderItemsModalClose,
   } = useDisclosure();
 
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
+  const session = data as any;
 
   const [orderPage, setOrderPage] = useState<OrderPageDto>();
   const [page, setPage] = useState(0);

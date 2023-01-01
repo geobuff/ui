@@ -26,7 +26,8 @@ const AdminQuizFormContainer: FC<Props> = ({ editValues, onClose }) => {
   const toast = useToast();
   const { t } = useContext(LanguageContext);
 
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
 
   const { data: types } = useQuizTypes();
   const { data: badges } = useBadges();

@@ -27,7 +27,8 @@ const UpdateAvatarFormContainer: FC<Props> = ({
   const { isNotchedIphone, setError } = useContext(AppContext);
 
   const { user, updateUser } = useContext(CurrentUserContext);
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
 
   const toastPosition: ToastPosition = useBreakpointValue({
     base: "bottom",
