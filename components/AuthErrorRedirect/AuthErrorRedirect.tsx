@@ -9,7 +9,8 @@ interface Props {
 
 export const AuthErrorRedirect: FC<Props> = ({ children }) => {
   const router = useRouter();
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
 
   useEffect(() => {
     if (session?.error === "RefreshAccessTokenError") {

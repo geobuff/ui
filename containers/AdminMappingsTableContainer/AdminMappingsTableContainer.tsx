@@ -25,7 +25,8 @@ const AdminMappingsTableContainer: FC = () => {
   const toast = useToast();
 
   const { data: groups, isLoading: isGroupsLoading } = useMappingGroups();
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
 
   const [group, setGroup] = useState("world-countries");
   const [isSubmitting, setIsSubmitting] = useState(false);

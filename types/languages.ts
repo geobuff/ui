@@ -12,6 +12,18 @@ export const LANGUAGES = [
     label: "Español",
   },
   {
+    code: "zh",
+    label: "Chinese (Simplified)",
+  },
+  {
+    code: "hi",
+    label: "Hindi",
+  },
+  {
+    code: "ar",
+    label: "Arabic",
+  },
+  {
     code: "id",
     label: "Indonesian",
   },

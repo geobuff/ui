@@ -9,7 +9,8 @@ import { getTriviaPlaysData } from "../../helpers/charts";
 import AdminLastWeekTriviaPlaysPlaceholder from "../../placeholders/AdminLastWeekTriviaPlaysPlaceholder";
 
 const AdminLastWeekTriviaPlaysContainer: FC = () => {
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
+  const session = data as any;
 
   const [triviaPlays, setTriviaPlays] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

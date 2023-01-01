@@ -26,7 +26,8 @@ export const UserProfileMyQuizzesCardContainer: FC<Props> = ({
   const { t } = useContext(LanguageContext);
 
   const toast = useToast();
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
 
   const [myQuizzes, setMyQuizzes] = useState(quizzes);
   const [isSubmitting, setIsSubmitting] = useState(false);

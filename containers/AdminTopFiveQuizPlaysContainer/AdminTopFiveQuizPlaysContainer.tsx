@@ -9,7 +9,8 @@ import { getQuizPlaysData } from "../../helpers/charts";
 import AdminTopFiveQuizPlaysPlaceholder from "../../placeholders/AdminTopFiveQuizPlaysPlaceholder";
 
 const AdminTopFiveQuizPlaysContainer: FC = () => {
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
+  const session = data as any;
 
   const [quizPlays, setQuizPlays] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

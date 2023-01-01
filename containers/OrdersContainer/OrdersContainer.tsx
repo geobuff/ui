@@ -10,7 +10,8 @@ import { AuthUser } from "../../types/auth-user";
 import { Order } from "../../types/order";
 
 const OrdersContainer: FC = () => {
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
+  const session = data as any;
   const user = session?.user as AuthUser;
 
   const [orders, setOrders] = useState<Order[]>([]);

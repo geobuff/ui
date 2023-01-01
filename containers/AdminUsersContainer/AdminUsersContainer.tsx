@@ -13,7 +13,8 @@ import { UserPageDto } from "../../types/user-page-dto";
 import { UsersFilterParams } from "../../types/users-filter-params";
 
 const AdminUsersContainer: FC = () => {
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
+  const session = data as any;
   const user = session?.user as AuthUser;
 
   const [userPage, setUserPage] = useState<UserPageDto>();

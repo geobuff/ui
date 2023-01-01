@@ -26,7 +26,8 @@ const UpdateUserFormContainer: FC<Props> = ({
   const toast = useToast();
 
   const { user, updateUser } = useContext(CurrentUserContext);
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
 
   const { isNotchedIphone, setError } = useContext(AppContext);
 

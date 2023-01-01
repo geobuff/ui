@@ -33,7 +33,8 @@ const AdminManualTriviaQuestionTableContainer: FC = () => {
 
   const { data: types, isLoading: isTypesLoading } = useTriviaQuestionTypes();
   const { data: maps, isLoading: isMapsLoading } = useMaps();
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
+  const session = data as any;
 
   const { data: categories, isLoading: isCategoriesLoading } =
     useTriviaQuestionCategories();

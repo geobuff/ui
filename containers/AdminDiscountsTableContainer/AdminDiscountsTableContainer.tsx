@@ -7,7 +7,8 @@ import AdminDiscountsTable from "../../components/AdminDiscountsTable";
 import axiosClient from "../../axios";
 
 const AdminDiscountsTableContainer: FC = () => {
-  const { data: session, status } = useSession();
+  const { data, status } = useSession();
+  const session = data as any;
 
   const [discounts, setDiscounts] = useState([]);
   const [isLoading, setIsLoading] = useState(true);

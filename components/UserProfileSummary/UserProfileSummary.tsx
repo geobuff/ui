@@ -55,7 +55,8 @@ const UserProfileSummary: FC<Props> = ({
   avatarPrimaryImageUrl = "",
   avatarSecondaryImageUrl = "",
 }) => {
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
   const user = session?.user as AuthUser;
 
   const { t } = useContext(LanguageContext);

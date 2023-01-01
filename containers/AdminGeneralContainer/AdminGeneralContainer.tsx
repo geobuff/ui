@@ -31,7 +31,8 @@ const delay = (ms) => new Promise((res) => setTimeout(res, ms));
 const AdminGeneralContainer: FC = () => {
   const { t } = useContext(LanguageContext);
 
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
   const user = session?.user as AuthUser;
 
   const toast = useToast();

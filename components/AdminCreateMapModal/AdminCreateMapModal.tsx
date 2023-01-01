@@ -36,7 +36,9 @@ const AdminCreateMapModal: FC<Props> = ({
   onClose = () => {},
   setError = () => {},
 }) => {
-  const { data: session } = useSession();
+  const { data } = useSession();
+  const session = data as any;
+
   const toast = useToast();
 
   const { t } = useContext(LanguageContext);
