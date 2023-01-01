@@ -5,10 +5,10 @@ import { QuizCard, Twemoji } from "@geobuff/buff-ui/components";
 import {
   GridItem,
   GridItemProps,
+  Image,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import Image from "next/image";
 
 import { LanguageContext } from "../contexts";
 
