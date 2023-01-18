@@ -28,3 +28,5 @@ export const LANGUAGES = [
     label: "Indonesian",
   },
 ];
+
+export const ALLOWED_LANGUAGES = LANGUAGES.map((l) => l.code);
