@@ -1,11 +1,10 @@
 import React, { FC, useContext } from "react";
 
-import { QuizCard, Twemoji } from "@geobuff/buff-ui/components";
+import { LoadingImage, QuizCard, Twemoji } from "@geobuff/buff-ui/components";
 
 import {
   GridItem,
   GridItemProps,
-  Image,
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
@@ -37,7 +36,7 @@ export const QuizCardContainer: FC<Props> = ({
   });
 
   const image = (
-    <Image
+    <LoadingImage
       src={quiz.imageUrl}
       alt={quiz.name}
       height={100}
