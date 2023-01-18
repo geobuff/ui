@@ -9,6 +9,7 @@ import hi from "../locales/hi";
 import id from "../locales/id";
 import mi from "../locales/mi";
 import zh from "../locales/zh";
+import { ALLOWED_LANGUAGES } from "../types/languages";
 
 export const LanguageContext = createContext({
   language: "en",
@@ -36,6 +37,23 @@ export const LanguageContextProvider: FC<Props> = ({ children = null }) => {
   };
 
   useEffect(() => {
+    if (
+      typeof window !== "undefined" &&
+      window.location.hostname &&
+      window.location.hostname.includes(".")
+    ) {
+      const locale = window.location.hostname.substring(
+        0,
+        window.location.hostname.indexOf(".")
+      );
+
+      if (ALLOWED_LANGUAGES.includes(locale)) {
+        setLanguage(locale);
+        setT(getT(locale));
+        return;
+      }
+    }
+
     const language = window.localStorage.getItem("geobuff.language");
 
     if (!language) {

@@ -14,6 +14,8 @@ import posts from "./posts";
 const Blog: FC = () => {
   const { t } = useContext(LanguageContext);
 
+  const p = posts.filter((x) => !x.isHidden);
+
   return (
     <>
       <Head>
@@ -25,14 +27,14 @@ const Blog: FC = () => {
       </Head>
       <HeroHeader heading="Blog" />
       <Box width={{ base: "90%", md: 800 }} mx="auto" py={9}>
-        {posts.length === 0 ? (
+        {p.length === 0 ? (
           <Alert status="info" borderRadius={6} marginBottom={3}>
             <AlertIcon />
             {t.blog.noPostsAlert}
           </Alert>
         ) : (
           <>
-            {posts.map((post, index) => (
+            {p.map((post, index) => (
               <BlogPostCard
                 key={index}
                 slug={post.slug}
