@@ -1,8 +1,9 @@
 import React, { FC, useState } from "react";
 
-import { ImageViewContainer, LoadingImage } from "@geobuff/buff-ui/components";
+import { ImageViewContainer } from "@geobuff/buff-ui/components";
 
 import { Box, SimpleGrid, useBreakpointValue } from "@chakra-ui/react";
+import Image from "next/image";
 
 import { MerchImage } from "../../../types/merch-item";
 
@@ -25,18 +26,19 @@ const MerchSummaryShowcase: FC<Props> = ({ name = "", images = [] }) => {
         borderRadius="12px"
         maxHeight={{ base: "235px", sm: "333px" }}
       >
-        <LoadingImage
+        <Image
           src={currentImage}
           alt={`Primary showcase for ${name}`}
           width={500}
           height={333}
           objectFit="cover"
+          priority
         />
       </ImageViewContainer>
       <SimpleGrid mt={6} columns={{ base: 3, md: 4 }} spacingY={6}>
         {images.map((image) => (
           <Box key={image.id} maxWidth="100px">
-            <LoadingImage
+            <Image
               src={image.imageUrl}
               alt={`Secondary option for ${name}`}
               width={100}
@@ -47,6 +49,7 @@ const MerchSummaryShowcase: FC<Props> = ({ name = "", images = [] }) => {
                 cursor: "pointer",
               }}
               onClick={(): void => setCurrentImage(image.imageUrl)}
+              priority
             />
           </Box>
         ))}

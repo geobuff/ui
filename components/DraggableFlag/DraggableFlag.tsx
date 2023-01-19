@@ -1,8 +1,7 @@
 import React, { FC, useContext, useEffect } from "react";
 
-import { LoadingImage } from "@geobuff/buff-ui/components";
-
 import { Box, BoxProps } from "@chakra-ui/react";
+import Image from "next/image";
 import { DragSourceMonitor, useDrag } from "react-dnd";
 
 import { FlagGameContext } from "../../contexts/FlagGameContext";
@@ -59,7 +58,7 @@ const DraggableFlag: FC<Props> = ({
       {...props}
     >
       {url && (
-        <LoadingImage
+        <Image
           src={url}
           alt={`Flag for ${code}`}
           draggable="false"
@@ -69,6 +68,7 @@ const DraggableFlag: FC<Props> = ({
           style={{
             borderRadius: 6,
           }}
+          priority
         />
       )}
     </Box>
