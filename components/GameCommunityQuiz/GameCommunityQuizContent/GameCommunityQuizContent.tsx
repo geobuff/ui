@@ -1,7 +1,12 @@
 /* eslint-disable no-case-declarations */
 import React, { FC, useEffect, useState } from "react";
 
-import { CustomFlag, SVGBase, SVGMap } from "@geobuff/buff-ui/components";
+import {
+  CustomFlag,
+  LoadingImage,
+  SVGBase,
+  SVGMap,
+} from "@geobuff/buff-ui/components";
 
 import {
   AspectRatio,
@@ -12,7 +17,7 @@ import {
   ResponsiveValue,
   Text,
 } from "@chakra-ui/react";
-import Image from "next/image";
+
 import { use100vh } from "react-div-100vh";
 
 import usePrevious from "../../../hooks/UsePrevious";
@@ -125,7 +130,7 @@ const GameCommunityQuizContent: FC<Props> = ({
               >
                 {currentImageUrl ? (
                   <Flex direction="column">
-                    <Image
+                    <LoadingImage
                       src={imageUrl}
                       alt={imageAlt ?? "Unsplash stock image"}
                       height={imageHeight !== 0 ? imageHeight : 320}
@@ -135,7 +140,6 @@ const GameCommunityQuizContent: FC<Props> = ({
                         marginLeft: "auto",
                         marginRight: "auto",
                       }}
-                      priority
                     />
                     {imageAttributeName && (
                       <Text fontSize="10px" mt={1} color="white">

@@ -1,6 +1,6 @@
 import React, { FC } from "react";
 
-import { Twemoji } from "@geobuff/buff-ui/components";
+import { LoadingImage, Twemoji } from "@geobuff/buff-ui/components";
 
 import {
   Box,
@@ -10,7 +10,6 @@ import {
   Text,
   useBreakpointValue,
 } from "@chakra-ui/react";
-import Image from "next/image";
 
 import { cardImageStyle } from "../../helpers/style";
 
@@ -52,14 +51,13 @@ const MerchCard: FC<Props> = ({
               Sold Out
             </Tag>
           )}
-          <Image
+          <LoadingImage
             src={imageUrl}
             alt={name}
             height={160}
             width={260}
             objectFit="cover"
             style={cardImageStyle}
-            priority
           />
         </Box>
 

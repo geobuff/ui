@@ -5,5 +5,6 @@ export default [
     title: "Russia: European or Asian nation?",
     description:
       "Russia is a transcontinental country located in Eastern Europe and Northern Asia. The Ural Mountains, which run through western Russia, are traditionally considered the dividing line between the two continents...",
-  },
+    isHidden: true,
+    },
 ];
