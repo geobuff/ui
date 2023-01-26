@@ -1,7 +1,5 @@
 import React, { FC } from "react";
 
-import { TableCell } from "@geobuff/buff-ui/components";
-
 import {
   Alert,
   AlertIcon,
@@ -15,6 +13,7 @@ import {
 
 import AdminMappingsTablePlaceholder from "../../../placeholders/AdminMappingsTablePlaceholder";
 import { MappingEntry } from "../../../types/mapping-entry";
+import { TableCell } from "../../TableCell/TableCell";
 
 export interface Props {
   entries?: MappingEntry[];

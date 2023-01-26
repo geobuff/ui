@@ -1,7 +1,5 @@
 import React, { FC } from "react";
 
-import { TableCell } from "@geobuff/buff-ui/components";
-
 import {
   Alert,
   AlertIcon,
@@ -18,6 +16,7 @@ import {
 
 import AdminManualTriviaQuestionsTablePlaceholder from "../../../placeholders/AdminManualTriviaQuestionsTablePlaceholder";
 import { ManualTriviaQuestion } from "../../../types/manual-trivia-question";
+import { TableCell } from "../../TableCell/TableCell";
 
 export interface Props {
   entries?: ManualTriviaQuestion[];

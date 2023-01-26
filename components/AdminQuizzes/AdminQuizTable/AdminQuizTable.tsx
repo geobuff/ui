@@ -1,7 +1,5 @@
 import React, { FC } from "react";
 
-import { TableCell } from "@geobuff/buff-ui/components";
-
 import {
   Alert,
   AlertIcon,
@@ -18,6 +16,7 @@ import {
 import AdminQuizTablePlaceholder from "../../../placeholders/AdminQuizTablePlaceholder";
 import { Quiz } from "../../../types/quiz";
 import { QuizTypes } from "../../../types/quiz-types";
+import { TableCell } from "../../TableCell/TableCell";
 
 const getType = (typeId: number): string => {
   switch (typeId) {
