@@ -161,39 +161,31 @@ export const HomeContainer: FC<Props> = ({
       return (
         <Box minHeight="776px">
           <DelayedRender shouldFadeIn waitBeforeShow={100}>
-            {filteredTrivia?.length > 0 && (
-              <TriviaCardListSectionContainer
-                trivia={filteredTrivia}
-                isLoading={isLoading}
-              />
-            )}
+            <TriviaCardListSectionContainer
+              trivia={filteredTrivia}
+              isLoading={isLoading}
+            />
 
-            {communityQuizzes?.length > 0 && (
-              <CommunityQuizCardListSectionContainer
-                quizzes={communityQuizzes}
-                isLoading={isLoading}
-              />
-            )}
+            <CommunityQuizCardListSectionContainer
+              quizzes={communityQuizzes}
+              isLoading={isLoading}
+            />
 
-            {mapQuizzes?.length > 0 && (
-              <CardListSectionContainer
-                isLoading={isLoading}
-                title={t.global.mapGamesUpper}
-                linkHref="/map-games"
-                linkVerb={t.global.mapGamesLower}
-                quizzes={mapQuizzes}
-              />
-            )}
+            <CardListSectionContainer
+              isLoading={isLoading}
+              title={t.global.mapGamesUpper}
+              linkHref="/map-games"
+              linkVerb={t.global.mapGamesLower}
+              quizzes={mapQuizzes}
+            />
 
-            {flagQuizzes?.length > 0 && (
-              <CardListSectionContainer
-                isLoading={isLoading}
-                title={t.global.flagGamesUpper}
-                linkHref="/flag-games"
-                linkVerb={t.global.flagGamesLower}
-                quizzes={flagQuizzes}
-              />
-            )}
+            <CardListSectionContainer
+              isLoading={isLoading}
+              title={t.global.flagGamesUpper}
+              linkHref="/flag-games"
+              linkVerb={t.global.flagGamesLower}
+              quizzes={flagQuizzes}
+            />
           </DelayedRender>
         </Box>
       );
