@@ -27,6 +27,18 @@ export const LANGUAGES = [
     code: "id",
     label: "Indonesian",
   },
+  {
+    code: "de",
+    label: "German",
+  },
+  {
+    code: "fr",
+    label: "French",
+  },
+  {
+    code: "ru",
+    label: "Russian",
+  },
 ];
 
 export const ALLOWED_LANGUAGES = LANGUAGES.map((l) => l.code);
