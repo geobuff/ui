@@ -1,7 +1,5 @@
 import React, { FC, useContext } from "react";
 
-import { TableCell } from "@geobuff/buff-ui/components";
-
 import {
   Alert,
   AlertIcon,
@@ -18,6 +16,7 @@ import { LanguageContext } from "../../../contexts/LanguageContext";
 
 import AdminFlagsTablePlaceholder from "../../../placeholders/AdminFlagsTablePlaceholder";
 import { FlagEntry } from "../../../types/flag-group";
+import { TableCell } from "../../TableCell/TableCell";
 
 export interface Props {
   entries?: FlagEntry[];

@@ -49,7 +49,7 @@ const EditMappingModalContainer: FC<Props> = ({
 
   return (
     <EditMappingModal
-      mapping={getMapping(group.label, entries)}
+      mapping={getMapping(group?.label, entries)}
       isOpen={isOpen}
       onClose={onClose}
       onSubmit={onSubmit}

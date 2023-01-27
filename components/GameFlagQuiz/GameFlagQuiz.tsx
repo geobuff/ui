@@ -368,6 +368,7 @@ const GameFlagQuiz: FC<Props> = ({
                   heading={name}
                   quizId={id}
                   hasLeaderboard={hasLeaderboard}
+                  href={`/leaderboard?quizId=${id}`}
                 >
                   <Box>
                     <GameInputCard

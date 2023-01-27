@@ -363,6 +363,7 @@ const GameMapQuiz: FC<Props> = ({
                   heading={name}
                   quizId={id}
                   hasLeaderboard={hasLeaderboard}
+                  href={`/leaderboard?quizId=${id}`}
                 >
                   <Flex direction="column" height="100%">
                     <GameInputCard

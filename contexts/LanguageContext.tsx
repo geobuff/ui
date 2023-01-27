@@ -3,11 +3,14 @@ import React, { FC, createContext, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 
 import ar from "../locales/ar";
+import de from "../locales/de";
 import en from "../locales/en";
 import es from "../locales/es";
+import fr from "../locales/fr";
 import hi from "../locales/hi";
 import id from "../locales/id";
 import mi from "../locales/mi";
+import ru from "../locales/ru";
 import zh from "../locales/zh";
 import { ALLOWED_LANGUAGES } from "../types/languages";
 
@@ -81,6 +84,12 @@ export const LanguageContextProvider: FC<Props> = ({ children = null }) => {
         return ar;
       case "id":
         return id;
+      case "de":
+        return de;
+      case "fr":
+        return fr;
+      case "ru":
+        return ru;
       default:
         return en;
     }
