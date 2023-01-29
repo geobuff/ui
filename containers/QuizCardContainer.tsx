@@ -40,7 +40,7 @@ export const QuizCardContainer: FC<Props> = ({
       src={quiz.imageUrl}
       alt={quiz.name}
       height={100}
-      width={260}
+      width={isMobile ? 180 : 225}
       objectFit="cover"
       style={cardImageStyle}
     />

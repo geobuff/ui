@@ -1,6 +1,11 @@
 import React, { FC, useContext } from "react";
 
-import { QuizCard, Share, Twemoji } from "@geobuff/buff-ui/components";
+import {
+  LoadingImage,
+  QuizCard,
+  Share,
+  Twemoji,
+} from "@geobuff/buff-ui/components";
 
 import {
   Button,
@@ -11,7 +16,6 @@ import {
   useBreakpointValue,
   useToast,
 } from "@chakra-ui/react";
-import Image from "next/image";
 
 import { LanguageContext } from "../contexts";
 
@@ -42,14 +46,13 @@ export const TriviaCardContainer: FC<Props> = ({
   });
 
   const image = (
-    <Image
+    <LoadingImage
       src={`${process.env.NEXT_PUBLIC_CDN_URL}/headers/daily-trivia-header.svg`}
       alt={trivia.name}
       height={100}
-      width={260}
+      width={isMobile ? 180 : 225}
       objectFit="cover"
       style={cardImageStyle}
-      priority
     />
   );
 
