@@ -1,7 +1,6 @@
 import React, { FC, useContext, useEffect, useState } from "react";
 
 import {
-  BottomSheet,
   GameHeader,
   ResultsList,
   ResultsMap,
@@ -22,6 +21,7 @@ import { LanguageContext } from "../../../contexts/LanguageContext";
 import { groupMapping } from "../../../helpers/mapping";
 import { MappingEntry } from "../../../types/mapping-entry";
 import { Result } from "../../../types/result";
+import { BottomSheet } from "../../BottomSheet/BottomSheet";
 
 export interface Props {
   hasLeaderboard?: boolean;
