@@ -101,12 +101,6 @@ export const NavigationBarContainer: FC = () => {
             isActive={route.includes("/merch")}
             marginLeft={6}
           />
-          <NavigationBarLink
-            href="/blog"
-            label={t.global.blog}
-            isActive={route.includes("/blog")}
-            marginLeft={6}
-          />
         </>
       )}
     </>
