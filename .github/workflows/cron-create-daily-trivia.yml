@@ -7,9 +7,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: create dev trivia questions
-        run: curl -X POST https://geobuff-dev.ts.r.appspot.com/api/trivia
+        run: curl -X POST https://generate-dot-geobuff-dev.ts.r.appspot.com/api/trivia
       - name: create prod trivia questions
-        run: curl -X POST https://geobuff-prod-317101.ts.r.appspot.com/api/trivia
+        run: curl -X POST https://generate-dot-geobuff-prod-317101.ts.r.appspot.com/api/trivia
       - name: deploy dev UI
         run: curl -X POST https://api.vercel.com/v1/integrations/deploy/prj_tXmBeayQ5RRnX5hOwAXP9ku7umj6/F7H8SzRacv
       - name: deploy prod UI
